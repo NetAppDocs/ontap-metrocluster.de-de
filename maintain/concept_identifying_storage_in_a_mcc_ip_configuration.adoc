@@ -1,0 +1,158 @@
+---
+permalink: maintain/concept_identifying_storage_in_a_mcc_ip_configuration.html 
+sidebar: sidebar 
+keywords: metrocluster, maintain, service, identifying, storage, ip, configuration 
+summary: Wenn Sie ein Laufwerk- oder Shelf-Modul ersetzen müssen, müssen Sie zunächst den Standort identifizieren. 
+---
+= Identifizierung des Storage in einer MetroCluster IP-Konfiguration
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie ein Laufwerk- oder Shelf-Modul ersetzen müssen, müssen Sie zunächst den Standort identifizieren.
+
+
+
+== Identifizierung lokaler und Remote-Shelfs
+
+Wenn Sie Shelf-Informationen von einem MetroCluster-Standort aus anzeigen, befinden sich alle Remote-Laufwerke auf 0 m, dem virtuellen iSCSI-Host-Adapter. Das bedeutet, dass über die MetroCluster IP Schnittstellen auf die Laufwerke zugegriffen wird. Alle anderen Laufwerke sind lokal.
+
+Nachdem Sie erkannt haben, ob ein Shelf Remote ist (auf 0m), können Sie das Laufwerk oder Shelf nach der Seriennummer oder, abhängig von den Shelf-ID-Zuordnungen in Ihrer Konfiguration, nach Shelf-ID identifizieren.
+
+
+NOTE: Bei MetroCluster IP-Konfigurationen mit ONTAP 9.4 muss die Shelf-ID nicht zwischen den MetroCluster Standorten eindeutig sein. Hierzu zählen sowohl interne als auch externe Shelfs. Die Seriennummer ist konsistent, wenn sie von einem beliebigen Node auf einem MetroCluster Standort aus angezeigt wird.
+
+Shelf-IDs sollten innerhalb der Disaster Recovery-Gruppe (DR) eindeutig sein, außer im internen Shelf.
+
+Wenn das Laufwerk- oder Shelf-Modul identifiziert wurde, können Sie die Komponente durch das entsprechende Verfahren ersetzen.
+
+https://docs.netapp.com/platstor/topic/com.netapp.doc.hw-ds-sas3-service/home.html["Aufrechterhaltung der Festplatten-Shelfs DS460C DS224C und DS212C"]
+
+
+
+== Beispiel einer Ausgabe von sysconfig -a
+
+Im folgenden Beispiel wird das verwendet `sysconfig -a` Befehl zum Anzeigen der Geräte auf einem Knoten in der MetroCluster IP-Konfiguration. Dieser Node ist mit den folgenden Shelfs und Geräten verbunden:
+
+* Steckplatz 0: Interne Laufwerke (lokale Laufwerke)
+* Steckplatz 3: Externe Shelf-ID 75 und 76 (lokale Laufwerke)
+* Steckplatz 0: Virtueller iSCSI-Host-Adapter 0 m (Remote-Laufwerke)
+
+
+[listing]
+----
+node_A_1> run local sysconfig -a
+
+NetApp Release R9.4:  Sun Mar 18 04:14:58 PDT 2018
+System ID: 1111111111 (node_A_1); partner ID: 2222222222 (node_A_2)
+System Serial Number: serial-number (node_A_1)
+.
+.
+.
+slot 0: NVMe Disks
+                0    : NETAPP   X4001S172A1T9NTE NA01 1831.1GB 4160B/sect (S3NBNX0J500528)
+                1    : NETAPP   X4001S172A1T9NTE NA01 1831.1GB 4160B/sect (S3NBNX0J500735)
+                2    : NETAPP   X4001S172A1T9NTE NA01 1831.1GB 4160B/sect (S3NBNX0J501165)
+.
+.
+.
+slot 3: SAS Host Adapter 3a (PMC-Sierra PM8072 rev. C, SAS, <UP>)
+MFG Part Number:    Microsemi Corp. 110-03801 rev. A0
+Part number:        111-03801+A0
+Serial number:      7A1063AF14B
+Date Code:          20170320
+Firmware rev:       03.08.09.00
+Base WWN:           5:0000d1:702e69e:80
+Phy State:          [12] Enabled, 12.0 Gb/s
+                    [13] Enabled, 12.0 Gb/s
+                    [14] Enabled, 12.0 Gb/s
+                    [15] Enabled, 12.0 Gb/s
+Mini-SAS HD Vendor:        Molex Inc.
+Mini-SAS HD Part Number:   112-00436+A0
+Mini-SAS HD Type:          Passive Copper (unequalized) 0.5m ID:00
+Mini-SAS HD Serial Number: 614130640
+                75.0 : NETAPP   X438_S1633400AMD NA04 381.3GB 520B/sect (S20KNYAG501805)
+                75.1 : NETAPP   X438_S1633400AMD NA04 381.3GB 520B/sect (S20KNYAG502050)
+                75.2 : NETAPP   X438_PHM2400MCTO NA04 381.3GB 520B/sect (25M0A03WT2KA)
+                75.3 : NETAPP   X438_S1633400AMD NA04 381.3GB 520B/sect (S20KNYAG501793)
+                75.4 : NETAPP   X438_S1633400AMD NA04 381.3GB 520B/sect (S20KNYAG502158)
+.
+.
+.
+
+Shelf 75: DS224-12  Firmware rev. IOM12 A: 0220  IOM12 B: 0220
+Shelf 76: DS224-12  Firmware rev. IOM12 A: 0220  IOM12 B: 0220
+
+slot 3: SAS Host Adapter 3c (PMC-Sierra PM8072 rev. C, SAS, <UP>)
+MFG Part Number:    Microsemi Corp. 110-03801 rev. A0
+Part number:        111-03801+A0
+Serial number:      7A1063AF14B
+Date Code:          20170320
+Firmware rev:       03.08.09.00
+Base WWN:           5:0000d1:702e69e:88
+Phy State:          [0] Enabled, 12.0 Gb/s
+                    [1] Enabled, 12.0 Gb/s
+                    [2] Enabled, 12.0 Gb/s
+                    [3] Enabled, 12.0 Gb/s
+Mini-SAS HD Vendor:        Molex Inc.
+Mini-SAS HD Part Number:   112-00436+A0
+Mini-SAS HD Type:          Passive Copper (unequalized) 0.5m ID:00
+Mini-SAS HD Serial Number: 614130691
+                75.0 : NETAPP   X438_S1633400AMD NA04 381.3GB 520B/sect (S20KNYAG501805)
+                75.1 : NETAPP   X438_S1633400AMD NA04 381.3GB 520B/sect (S20KNYAG502050)
+                75.2 : NETAPP   X438_PHM2400MCTO NA04 381.3GB 520B/sect (25M0A03WT2KA)
+                75.3 : NETAPP   X438_S1633400AMD NA04 381.3GB 520B/sect (S20KNYAG501793)
+.
+.
+.
+Shelf 75: DS224-12  Firmware rev. IOM12 A: 0220  IOM12 B: 0220
+Shelf 76: DS224-12  Firmware rev. IOM12 A: 0220  IOM12 B: 0220
+
+slot 3: SAS Host Adapter 3d (PMC-Sierra PM8072 rev. C, SAS, <UP>)
+MFG Part Number:    Microsemi Corp. 110-03801 rev. A0
+Part number:        111-03801+A0
+Serial number:      7A1063AF14B
+Date Code:          20170320
+Firmware rev:       03.08.09.00
+Base WWN:           5:0000d1:702e69e:8c
+Phy State:          [4] Enabled, 12.0 Gb/s
+                    [5] Enabled, 12.0 Gb/s
+                    [6] Enabled, 12.0 Gb/s
+                    [7] Enabled, 12.0 Gb/s
+Mini-SAS HD Vendor:        Molex Inc.
+Mini-SAS HD Part Number:   112-00436+A0
+Mini-SAS HD Type:          Passive Copper (unequalized) 0.5m ID:01
+Mini-SAS HD Serial Number: 614130690
+                75.0 : NETAPP   X438_S1633400AMD NA04 381.3GB 520B/sect (S20KNYAG501805)
+                75.1 : NETAPP   X438_S1633400AMD NA04 381.3GB 520B/sect (S20KNYAG502050)
+                75.2 : NETAPP   X438_PHM2400MCTO NA04 381.3GB 520B/sect (25M0A03WT2KA)
+.
+.
+.
+Shelf 75: DS224-12  Firmware rev. IOM12 A: 0220  IOM12 B: 0220
+Shelf 76: DS224-12  Firmware rev. IOM12 A: 0220  IOM12 B: 0220
+
+slot 4: Quad 10 Gigabit Ethernet Controller X710 SFP+
+.
+.
+.
+slot 0: Virtual iSCSI Host Adapter 0m
+                0.0  : NETAPP   X4001S172A1T9NTE NA01 1831.1GB 4160B/sect (S3NBNX0J500690)
+                0.1  : NETAPP   X4001S172A1T9NTE NA01 1831.1GB 4160B/sect (S3NBNX0J500571)
+                0.2  : NETAPP   X4001S172A1T9NTE NA01 1831.1GB 4160B/sect (S3NBNX0J500323)
+                0.3  : NETAPP   X4001S172A1T9NTE NA01 1831.1GB 4160B/sect (S3NBNX0J500724)
+                0.4  : NETAPP   X4001S172A1T9NTE NA01 1831.1GB 4160B/sect (S3NBNX0J500734)
+                0.5  : NETAPP   X4001S172A1T9NTE NA01 1831.1GB 4160B/sect (S3NBNX0J500598)
+                0.12 : NETAPP   X4001S172A1T9NTE NA01 1831.1GB 4160B/sect (S3NBNX0J501094)
+                0.13 : NETAPP   X4001S172A1T9NTE NA01 1831.1GB 4160B/sect (S3NBNX0J500519)
+.
+.
+.
+Shelf 0: FS4483PSM3E  Firmware rev. PSM3E A: 0103  PSM3E B: 0103
+Shelf 35: DS224-12  Firmware rev. IOM12 A: 0220  IOM12 B: 0220
+Shelf 36: DS224-12  Firmware rev. IOM12 A: 0220  IOM12 B: 0220
+
+node_A_1::>
+----

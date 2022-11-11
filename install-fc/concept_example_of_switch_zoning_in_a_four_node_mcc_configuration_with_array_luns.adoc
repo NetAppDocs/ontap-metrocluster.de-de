@@ -1,0 +1,328 @@
+---
+permalink: install-fc/concept_example_of_switch_zoning_in_a_four_node_mcc_configuration_with_array_luns.html 
+sidebar: sidebar 
+keywords: metrocluster, fabric, installation, switch, four, node, array, luns 
+summary: Das Switch-Zoning definiert Pfade zwischen verbundenen Nodes. Beim Konfigurieren des Zoning können Sie festlegen, welche Array LUNs von einem bestimmten ONTAP System angezeigt werden können. 
+---
+= Beispiel für das Switch Zoning in einer MetroCluster-Konfiguration mit vier Nodes und Array LUNs
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Das Switch-Zoning definiert Pfade zwischen verbundenen Nodes. Beim Konfigurieren des Zoning können Sie festlegen, welche Array LUNs von einem bestimmten ONTAP System angezeigt werden können.
+
+Sie können das folgende Beispiel als Referenz beim Bestimmen des Zoning für eine MetroCluster-Konfiguration mit vier Nodes mit Array-LUNs verwenden. Das Beispiel zeigt den Single-Initiator im Einzel-Target-Zoning für eine MetroCluster-Konfiguration. Die Linien im folgenden Beispiel stellen Zonen statt Verbindungen dar; jede Zeile ist mit ihrer Zonennummer beschriftet:
+
+image::../media/v_series_metrocluster_zoning_example.gif[Diese Abbildung zeigt die Switch-Zonen in einer Beispiel-MetroCluster-Konfiguration mit Array-LUNs. Die Grafik wird durch den umgebenden Text beschrieben.]
+
+In der Abbildung sind auf jedem Speicher-Array für die MetroCluster-Konfiguration Array-LUNs zugewiesen. LUNs gleicher Größe werden auf den Storage Arrays an beiden Standorten bereitgestellt. Dies ist eine Anforderung von SyncMirror. Jedes ONTAP System verfügt über zwei Pfade zu den Array-LUNs. Die Ports auf dem Speicher-Array sind redundant.
+
+In der Abbildung sind die redundanten Array-Port-Paare für beide Standorte wie folgt:
+
+* Storage-Array an Standort A:
++
+** Anschlüsse 1A und 2A
+** Die Anschlüsse 1B und 2B
+** Anschlüsse 1C und 2C
+** Die Ports 1D und 2D
+
+
+* Storage-Array an Standort B:
++
+** Anschlüsse 1A' und 2A'
+** Ports 1B' und 2B'
+** Ports 1C' und 2C'
+** Ports 1D' und 2D'
+
+
+
+
+Die redundanten Port-Paare auf jedem Storage-Array bilden alternative Pfade. Daher können beide Ports der Port-Paare auf die LUNs auf den jeweiligen Speicher-Arrays zugreifen.
+
+Für dieses Beispiel werden die Zonen angezeigt:
+
+
+
+== Zonen für FC_Switch_A_1
+
+|===
+
+
+| Zone | ONTAP Controller und Initiator-Port | Storage-Array-Port 
+
+
+ a| 
+z1
+ a| 
+Controller_A_1: Port 0a
+ a| 
+Port 1A
+
+
+
+ a| 
+z3
+ a| 
+Controller_A_1: Port 0c
+ a| 
+Port 1 A'
+
+
+
+ a| 
+z5
+ a| 
+Controller_A_2: Port 0a
+ a| 
+Port 1B
+
+
+
+ a| 
+z7
+ a| 
+Controller_A_2: Port 0c
+ a| 
+Port 1B'
+
+|===
+
+
+== Zonen für FC_Switch_A_2
+
+|===
+
+
+| Zone | ONTAP Controller und Initiator-Port | Storage-Array-Port 
+
+
+ a| 
+z2
+ a| 
+Controller_A_1: Port 0b
+ a| 
+Anschluss 2 A'
+
+
+
+ a| 
+z4
+ a| 
+Controller_A_1: Port 0d
+ a| 
+Anschluss 2 A
+
+
+
+ a| 
+z6
+ a| 
+Controller_A_2: Port 0b
+ a| 
+Port 2B'
+
+
+
+ a| 
+z8
+ a| 
+Controller_A_2: Port 0d
+ a| 
+Port 2B
+
+|===
+
+
+== Zonen für FC_Switch_B_1
+
+|===
+
+
+| Zone | ONTAP Controller und Initiator-Port | Storage-Array-Port 
+
+
+ a| 
+z9
+ a| 
+Controller_B_1: Port 0a
+ a| 
+Port 1C'
+
+
+
+ a| 
+z11
+ a| 
+Controller_B_1: Port 0c
+ a| 
+Port 1C
+
+
+
+ a| 
+z13
+ a| 
+Controller_B_2: Port 0a
+ a| 
+Port 1D'
+
+
+
+ a| 
+z15
+ a| 
+Controller_B_2: Port 0c
+ a| 
+Port 1D
+
+|===
+
+
+== Zonen für FC_Switch_B_2
+
+|===
+
+
+| Zone | ONTAP Controller und Initiator-Port | Storage-Array-Port 
+
+
+ a| 
+z10
+ a| 
+Controller_B_1: Port 0b
+ a| 
+Anschluss 2C
+
+
+
+ a| 
+z12
+ a| 
+Controller_B_1: Port 0d
+ a| 
+Port 2C'
+
+
+
+ a| 
+z14
+ a| 
+Controller_B_2: Port 0b
+ a| 
+Port 2D
+
+
+
+ a| 
+z16
+ a| 
+Controller_B_2: Port 0d
+ a| 
+Port 2D'
+
+|===
+
+
+== Zonen für die FC-VI-Verbindungen an Standort A
+
+|===
+
+
+| Zone | ONTAP Controller und FC Initiator-Port | Switch 
+
+
+ a| 
+ZX
+ a| 
+Controller_A_1: FC-VI A-Port
+ a| 
+FC_Switch_A_1
+
+
+
+ a| 
+ZY
+ a| 
+Controller_A_1: Port FC-VI b
+ a| 
+FC_Switch_A_2
+
+
+
+ a| 
+ZX
+ a| 
+Controller_A_2: FC-VI A-Port
+ a| 
+FC_Switch_A_1
+
+
+
+ a| 
+ZY
+ a| 
+Controller_A_2: Port FC-VI b
+ a| 
+FC_Switch_A_2
+
+|===
+
+
+== Zonen für FC-VI-Verbindungen an Standort B
+
+|===
+
+
+| Zone | ONTAP Controller und FC Initiator-Port | Switch 
+
+
+ a| 
+ZX
+ a| 
+Controller_B_1: FC-VI A-Port
+ a| 
+FC_Switch_B_1
+
+
+
+ a| 
+ZY
+ a| 
+Controller_B_1: Port FC-VI b
+ a| 
+FC_Switch_B_2
+
+
+
+ a| 
+ZX
+ a| 
+Controller_B_2: FC-VI A-Port
+ a| 
+FC_Switch_B_1
+
+
+
+ a| 
+ZY
+ a| 
+Controller_B_2: FC-VI-Port b
+ a| 
+FC_Switch_B_2
+
+|===
+.Verwandte Informationen
+* Das Switch-Zoning definiert Pfade zwischen verbundenen Nodes. Beim Konfigurieren des Zoning können Sie festlegen, welche Array LUNs von bestimmten ONTAP Systemen angezeigt werden können.
++
+link:concept_example_of_switch_zoning_in_a_two_node_mcc_configuration_with_array_luns.html["Beispiel für das Switch-Zoning in einer MetroCluster-Konfiguration mit zwei Nodes mit Array LUNs"]
+
++
+link:concept_example_of_switch_zoning_in_an_eight_node_mcc_configuration_with_array_luns.html["Beispiel für das Switch-Zoning in einer MetroCluster-Konfiguration mit acht Nodes und den Array-LUNs"]
+
+* Bei der Verwendung von Switch Zoning in einer MetroCluster Konfiguration mit Array LUNs müssen Sie sicherstellen, dass bestimmte grundlegende Anforderungen erfüllt werden.
++
+link:reference_requirements_for_switch_zoning_in_a_mcc_configuration_with_array_luns.html["Anforderungen für das Switch-Zoning in einer MetroCluster-Konfiguration mit Array LUNs"]
+
+

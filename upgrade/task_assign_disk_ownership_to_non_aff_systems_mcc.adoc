@@ -1,0 +1,163 @@
+---
+permalink: upgrade/task_assign_disk_ownership_to_non_aff_systems_mcc.html 
+sidebar: sidebar 
+keywords: metrocluster, upgrade, assign, disk, ownership, aff, systems 
+summary: Wenn auf den MetroCluster Nodes die Festplatten nicht korrekt zugewiesen sind oder wenn Sie in Ihrer Konfiguration DS460C Platten-Shelfs verwenden, müssen Sie jedem der Nodes der MetroCluster Konfiguration Shelf-einzeln Festplatten zuweisen. Sie erstellen eine Konfiguration, in der jeder Knoten die gleiche Anzahl von Festplatten in seinen lokalen und Remote-Laufwerk-Pools hat. 
+---
+= Zuweisung der Festplatteneigentümer in anderen Systemen außerhalb von All Flash FAS
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn auf den MetroCluster Nodes die Festplatten nicht korrekt zugewiesen sind oder wenn Sie in Ihrer Konfiguration DS460C Platten-Shelfs verwenden, müssen Sie jedem der Nodes der MetroCluster Konfiguration Shelf-einzeln Festplatten zuweisen. Sie erstellen eine Konfiguration, in der jeder Knoten die gleiche Anzahl von Festplatten in seinen lokalen und Remote-Laufwerk-Pools hat.
+
+Die Storage Controller müssen sich im Wartungsmodus befinden.
+
+Wenn Ihre Konfiguration DS460C Festplatten-Shelfs nicht umfasst, ist diese Aufgabe nicht erforderlich, wenn die Festplatten bereits im Werk korrekt zugewiesen wurden.
+
+[NOTE]
+====
+Pool 0 enthält immer die Laufwerke, die sich an demselben Standort wie das Speichersystem befinden, zu dem sie gehören.
+
+Pool 1 enthält immer die Festplatten, die sich dem Speichersystem, zu dem sie gehören, fernhalten.
+
+====
+Wenn Ihre Konfiguration DS460C Festplatten-Shelfs umfasst, sollten Sie die Festplatten anhand der folgenden Richtlinien für jedes Laufwerk mit 12 Festplatten manuell zuweisen:
+
+|===
+
+
+| Diese Festplatten in der Schublade zuweisen... | Zu diesem Knoten und Pool... 
+
+
+ a| 
+0-2
+ a| 
+Pool des lokalen Node 0
+
+
+
+ a| 
+3 - 5
+ a| 
+Pool 0 des HA-Partner-Node
+
+
+
+ a| 
+6 - 8
+ a| 
+DR-Partner des lokalen Knotens Pool 1
+
+
+
+ a| 
+9 - 11
+ a| 
+DR-Partner des HA-Partners Pool 1
+
+|===
+Mit diesem Zuweisungsmuster wird sichergestellt, dass ein Aggregat minimal beeinträchtigt wird, wenn ein Einschub offline geht.
+
+.Schritte
+. Wenn Sie dies noch nicht getan haben, starten Sie jedes System in den Wartungsmodus.
+. Weisen Sie die Platten-Shelfs den Nodes des ersten Standorts (Standort A) zu:
++
+Festplatten-Shelfs an demselben Standort wie der Node werden Pool 0 zugewiesen, und Festplatten-Shelfs, die sich am Standort des Partners befinden, werden Pool 1 zugewiesen.
+
++
+Sie sollten jedem Pool die gleiche Anzahl von Shelfs zuweisen.
+
++
+.. Weisen Sie beim ersten Knoten systematisch die lokalen Festplatten-Shelfs dem Pool 0 und den Remote-Festplatten-Shelfs zu, und Pool 1:
++
+`disk assign -shelf _local-switch-name:shelf-name.port_ -p _pool_`
+
++
+Wenn der Storage Controller Controller_A_1 vier Shelves hat, geben Sie die folgenden Befehle ein:
+
++
+[listing]
+----
+*> disk assign -shelf FC_switch_A_1:1-4.shelf1 -p 0
+*> disk assign -shelf FC_switch_A_1:1-4.shelf2 -p 0
+
+*> disk assign -shelf FC_switch_B_1:1-4.shelf1 -p 1
+*> disk assign -shelf FC_switch_B_1:1-4.shelf2 -p 1
+----
+.. Wiederholen Sie den Vorgang für den zweiten Node am lokalen Standort, indem Sie den Pool 0 und die Remote-Festplatten-Shelfs systematisch den Pool 1 zuweisen:
++
+`disk assign -shelf _local-switch-name:shelf-name.port_ -p _pool_`
+
++
+Wenn der Storage Controller Controller_A_2 vier Shelves hat, geben Sie die folgenden Befehle ein:
+
++
+[listing]
+----
+*> disk assign -shelf FC_switch_A_1:1-4.shelf3 -p 0
+*> disk assign -shelf FC_switch_B_1:1-4.shelf4 -p 1
+
+*> disk assign -shelf FC_switch_A_1:1-4.shelf3 -p 0
+*> disk assign -shelf FC_switch_B_1:1-4.shelf4 -p 1
+----
+
+
+. Weisen Sie die Platten-Shelfs den Nodes am zweiten Standort (Standort B) zu:
++
+Festplatten-Shelfs an demselben Standort wie der Node werden Pool 0 zugewiesen, und Festplatten-Shelfs, die sich am Standort des Partners befinden, werden Pool 1 zugewiesen.
+
++
+Sie sollten jedem Pool die gleiche Anzahl von Shelfs zuweisen.
+
++
+.. Weisen Sie beim ersten Knoten am Remote-Standort systematisch seine lokalen Festplatten-Shelfs dem Pool 0 und seinen Remote-Festplatten-Shelfs zu 1:
++
+`disk assign -shelf _local-switch-nameshelf-name_ -p _pool_`
+
++
+Wenn der Storage Controller_B_1 vier Shelves hat, geben Sie die folgenden Befehle ein:
+
++
+[listing]
+----
+*> disk assign -shelf FC_switch_B_1:1-5.shelf1 -p 0
+*> disk assign -shelf FC_switch_B_1:1-5.shelf2 -p 0
+
+*> disk assign -shelf FC_switch_A_1:1-5.shelf1 -p 1
+*> disk assign -shelf FC_switch_A_1:1-5.shelf2 -p 1
+----
+.. Wiederholen Sie den Vorgang für den zweiten Node am Remote-Standort, indem Sie seine lokalen Festplatten-Shelfs systematisch dem Pool 0 und den Remote-Festplatten-Shelfs Pool 1 zuordnen:
++
+`disk assign -shelf _shelf-name_ -p _pool_`
+
++
+Wenn der Storage Controller_B_2 vier Shelves hat, geben Sie die folgenden Befehle ein:
+
++
+[listing]
+----
+*> disk assign -shelf FC_switch_B_1:1-5.shelf3 -p 0
+*> disk assign -shelf FC_switch_B_1:1-5.shelf4 -p 0
+
+*> disk assign -shelf FC_switch_A_1:1-5.shelf3 -p 1
+*> disk assign -shelf FC_switch_A_1:1-5.shelf4 -p 1
+----
+
+
+. Bestätigen Sie die Shelf-Zuweisungen:
++
+`storage show shelf`
+
+. Beenden des Wartungsmodus:
++
+`halt`
+
+. Anzeigen des Startmenüs:
++
+`boot_ontap menu`
+
+. Wählen Sie auf jedem Knoten die Option *4*, um alle Festplatten zu initialisieren.
+

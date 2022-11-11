@@ -1,0 +1,59 @@
+---
+permalink: install-fc/task_rack_the_hardware_components_mcc_fabric_and_ip.html 
+sidebar: sidebar 
+keywords: metrocluster, fabric, installation, rack, hardware, components 
+summary: Wenn Sie noch nicht die bereits in den Schränken installierten Geräte erhalten haben, müssen Sie die Komponenten in einem Rack unterbringen. 
+---
+= Die Hardwarekomponenten in den Rack führen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie noch nicht die bereits in den Schränken installierten Geräte erhalten haben, müssen Sie die Komponenten in einem Rack unterbringen.
+
+Dieser Task muss auf beiden MetroCluster-Sites ausgeführt werden.
+
+.Schritte
+. Planen der Positionierung der MetroCluster Komponenten
++
+Die Rack-Fläche hängt vom Plattformmodell der Controller-Module, den Switch-Typen und der Anzahl der Festplatten-Shelf-Stacks in Ihrer Konfiguration ab.
+
+. Richtig gemahlen.
+. Installieren Sie die Controller-Module im Rack oder Schrank.
++
+https://docs.netapp.com/platstor/index.jsp["AFF and FAS Documentation Center"]
+
+. Installieren Sie die FC-Switches im Rack oder Schrank.
+. Installieren Sie die Festplatten-Shelfs, schalten Sie sie ein und legen Sie die Shelf-IDs fest.
++
+** Sie müssen jedes Festplatten-Shelf aus- und wieder einschalten.
+** Shelf-IDs müssen für jedes SAS-Festplatten-Shelf innerhalb jeder MetroCluster DR-Gruppe (einschließlich beider Standorte) eindeutig sein.
+
+
+. Installieren Sie jede FC-to-SAS Bridge:
++
+.. Befestigen Sie die „`L`“-Halterungen an der Vorderseite der Brücke an der Vorderseite des Racks (bündige Montage) mit den vier Schrauben.
++
+Die Öffnungen in den Brückenhalterungen „`L`“ sind mit dem Standard-Rack ETA-310-X für 19-Zoll (482.6 mm) Racks kompatibel.
+
++
+Das _ATTO FibreBridge Installations- und Bedienungshandbuch_ für Ihr Bridge-Modell enthält weitere Informationen und eine Abbildung der Installation.
+
++
+
+NOTE: Für einen ausreichenden Zugriff auf Port-Speicherplatz und FRU-Wartungsfreundlichkeit müssen Sie 1U-Platz unter dem Brückenpaar lassen und diesen Platz mit einem werkzeuglosen Blindpanel abdecken.
+
+.. Schließen Sie jede Brücke an eine Stromquelle an, die eine richtige Masse liefert.
+.. Schalten Sie die einzelnen Brücken ein.
++
+
+NOTE: Für eine maximale Ausfallsicherheit müssen Brücken, die mit demselben Stack an Platten-Shelfs verbunden sind, mit unterschiedlichen Stromquellen verbunden werden.
+
++
+Die LED „Bridge Ready“ kann bis zu 30 Sekunden in Anspruch nehmen, was darauf hinweist, dass die Bridge ihre Selbsttestsequenz beim Einschalten abgeschlossen hat.
+
+
+
+

@@ -1,0 +1,142 @@
+---
+permalink: install-fc/task_download_and_install_the_cisco_fc_switch_rcf_files.html 
+sidebar: sidebar 
+keywords: metrocluster, fabric, installation, download, install, cisco, fc, rcf, files 
+summary: Sie müssen die RCF-Datei auf jeden Switch der MetroCluster-Fabric-Konfiguration herunterladen. 
+---
+= Herunterladen und Installieren der Cisco FC RCF-Dateien
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen die RCF-Datei auf jeden Switch der MetroCluster-Fabric-Konfiguration herunterladen.
+
+Diese Aufgabe erfordert Dateiübertragungssoftware, wie FTP, Trivial File Transfer Protocol (TFTP), SFTP oder Secure Copy Protocol (SCP), um die Dateien auf die Switches zu kopieren.
+
+Diese Schritte müssen bei jedem der Cisco FC Switches in der MetroCluster Fabric Konfiguration wiederholt werden.
+
+Sie müssen die unterstützte Switch-Softwareversion verwenden.
+
+https://hwu.netapp.com["NetApp Hardware Universe"]
+
+Es gibt vier RCF-Dateien, eine für jeden der vier Switches in der MetroCluster-Fabric-Konfiguration. Sie müssen die richtigen RCF-Dateien für das Switch-Modell verwenden, das Sie verwenden.
+
+|===
+
+
+| Switch | RCF-Datei 
+
+
+ a| 
+FC_Switch_A_1
+ a| 
+`NX3232_v1.80_Switch-A1.txt`
+
+
+
+ a| 
+FC_Switch_A_2
+ a| 
+`NX3232_v1.80_Switch-A2.txt`
+
+
+
+ a| 
+FC_Switch_B_1
+ a| 
+`NX3232_v1.80_Switch-B1.txt`
+
+
+
+ a| 
+FC_Switch_B_2
+ a| 
+`NX3232_v1.80_Switch-B2.txt`
+
+|===
+
+NOTE: Die angezeigten Ausgaben beziehen sich auf Cisco IP-Switches. Diese Schritte gelten jedoch auch für Cisco FC-Switches.
+
+.Schritte
+. Laden Sie die Cisco FC RCF-Dateien von herunter https://mysupport.netapp.com/site/products/all/details/metrocluster-rcf/downloads-tab["MetroCluster RCF-Download-Seite"].
+. Kopieren Sie die RCF-Dateien auf die Switches.
++
+.. Kopieren Sie die RCF-Dateien auf den ersten Switch:
++
+`copy sftp://__root@FTP-server-IP-address/tftpboot/switch-specific-RCF__ bootflash: vrf management`
+
++
+In diesem Beispiel ist der `NX3232_v1.80_Switch-A1.txt` Die RCF-Datei wird vom SFTP-Server unter kopiert `10.10.99.99` Zum lokalen Bootflash. Sie müssen die IP-Adresse Ihres TFTP/SFTP-Servers und den Dateinamen der RCF-Datei verwenden, die Sie installieren müssen.
+
++
+[listing]
+----
+IP_switch_A_1# copy sftp://root@10.10.99.99/tftpboot/NX3232_v1.8T-X1_Switch-A1.txt bootflash: vrf management
+root@10.10.99.99's password: password
+sftp> progress
+Progress meter enabled
+sftp> get   /tftpboot/NX3232_v1.80_Switch-A1.txt /bootflash/NX3232_v1.80_Switch-A1.txt
+Fetching /tftpboot/NX3232_v1.80_Switch-A1.txt to /bootflash/NX3232_v1.80_Switch-A1.txt
+/tftpboot/NX3232_v1.80_Switch-A1.txt          100% 5141     5.0KB/s   00:00
+sftp> exit
+Copy complete, now saving to disk (please wait)...
+IP_switch_A_1#
+----
+.. Wiederholen Sie den vorherigen Unterschritt für jeden der anderen drei Schalter, wobei Sie sicherstellen müssen, dass die entsprechende RCF-Datei auf den entsprechenden Switch kopiert wird.
+
+
+. Überprüfen Sie auf jedem Switch, ob die RCF-Datei auf den einzelnen Switches vorhanden ist `bootflash` Verzeichnis:
++
+`dir bootflash:`
+
++
+Das folgende Beispiel zeigt, dass die Dateien auf IP_Switch_A_1 vorhanden sind:
+
++
+[listing]
+----
+IP_switch_A_1# dir bootflash:
+                  .
+                  .
+                  .
+       5514    Jun 13 22:09:05 2017  NX3232_v1.80_Switch-A1.txt
+                  .
+                  .
+                  .
+
+Usage for bootflash://sup-local
+ 1779363840 bytes used
+13238841344 bytes free
+15018205184 bytes total
+IP_switch_A_1#
+----
+. Kopieren Sie die passende RCF-Datei vom lokalen Bootflash auf jeden Switch in die laufende Konfiguration:
++
+`copy bootflash:__switch-specific-RCF__.txt running-config`
+
+. Kopieren Sie die RCF-Dateien von der ausgeführten Konfiguration auf die Startkonfiguration auf jedem Switch:
++
+`copy running-config startup-config`
+
++
+Sie sollten eine Ausgabe wie die folgende sehen:
+
++
+[listing]
+----
+IP_switch_A_1# copy bootflash:NX3232_v1.80_Switch-A1.txt running-config
+IP_switch_A_1# copy running-config startup-config
+----
+. Schalter neu laden:
++
+`reload`
+
++
+[listing]
+----
+IP_switch_A_1# reload
+----
+. Wiederholen Sie die vorherigen Schritte auf den anderen drei Switches in der MetroCluster IP-Konfiguration.
+

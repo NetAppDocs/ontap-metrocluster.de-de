@@ -1,0 +1,36 @@
+---
+permalink: install-fc/reference_example_of_cabling_array_luns_to_fc_switches_in_an_eight_node_mcc_configuration.html 
+sidebar: sidebar 
+keywords: metrocluster, fabric, installation, cabling, storage, array, ports, fc, switches, eight, node 
+summary: In einer MetroCluster-Konfiguration mit Array-LUNs müssen Sie die Speicher-Array-Ports verbinden, die ein redundantes Port-Paar bilden, mit alternativen FC-Switches. 
+---
+= Beispiel für die Verkabelung von Storage Array-Ports mit FC-Switches in einer MetroCluster-Konfiguration mit acht Nodes
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+In einer MetroCluster-Konfiguration mit Array-LUNs müssen Sie die Speicher-Array-Ports verbinden, die ein redundantes Port-Paar bilden, mit alternativen FC-Switches.
+
+Eine MetroCluster Konfiguration mit acht Nodes besteht aus zwei DR-Gruppen mit vier Nodes. Die erste DR-Gruppe besteht aus den folgenden Knoten:
+
+* Controller_A_1
+* Controller_A_2
+* Controller_B_1
+* Controller_B_2
+
+
+Die zweite DR-Gruppe besteht aus den folgenden Knoten:
+
+* Controller_A_3
+* Controller_A_4
+* Controller_B_3
+* Controller_B_4
+
+
+Um die Array-Ports für die erste DR-Gruppe zu verkabeln, können Sie die Verkabelungsbeispiele für eine MetroCluster-Konfiguration mit vier Knoten für die erste DR-Gruppe verwenden.
+
+link:reference_example_of_cabling_array_luns_to_fc_switches_in_a_four_node_mcc_configuration.html["Beispiel für die Verkabelung von Storage Array-Ports mit FC-Switches in einer MetroCluster-Konfiguration mit vier Nodes"]
+
+Folgen Sie zum Ververkabeln der Array-Ports für die zweite DR-Gruppe denselben Beispielen, und extrapolieren Sie für die FC-VI-Ports und FC-Initiator-Ports, die zu den Controllern in der zweiten DR-Gruppe gehören.

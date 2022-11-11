@@ -1,0 +1,24 @@
+---
+permalink: install-ip/concept-risks-limitations-automatic-switchover.html 
+sidebar: sidebar 
+keywords: ontap, mediator, service, assist, metrocluster, ip, configuration, perform, automatic, unplan, switchover, physical, repository, status, information, configuring, configure, install, configuring, configure, forced 
+summary:  
+---
+= Risiken und Einschränkungen bei der automatischen erzwungenen MetroCluster Umschaltung
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Ab ONTAP 9.12.1 kann die Funktion zur automatischen erzwungenen Umschaltung von MetroCluster in einer MetroCluster IP Konfiguration aktiviert werden. Bei dieser Funktion handelt es sich um eine Erweiterung der MAUSO-Funktion (Mediator-Assisted ungeplante Switchover).
+
+Umschaltung bei Erkennung eines Standortausfalls erfolgt automatisch, wenn die MetroCluster Funktion zur automatischen erzwungenen Umschaltung aktiviert wird. Diese Funktion ergänzt die MetroCluster IP Funktion zur automatischen Umschaltung.
+
+Wenn eine MetroCluster IP-Konfiguration in einem automatischen erzwungenen Switchover-Modus betrieben werden kann, können die folgenden bekannten Probleme zu Datenverlust führen:
+
+* Der nicht-flüchtige Speicher in den Storage Controllern wird nicht auf den Remote Disaster Recovery (DR)-Partner am Partnerstandort gespiegelt.
+
+
+
+CAUTION: Möglicherweise treten Szenarien auf, die nicht erwähnt werden. NetApp ist nicht verantwortlich für Datenkorruption, Datenverlust oder andere Schäden, die durch die Aktivierung der automatischen erzwungenen MetroCluster Switchover-Funktion entstehen können. Verwenden Sie die Funktion zur automatischen erzwungenen Umschaltung nicht von MetroCluster, wenn das Risiko und die Einschränkungen für Sie nicht akzeptabel sind.

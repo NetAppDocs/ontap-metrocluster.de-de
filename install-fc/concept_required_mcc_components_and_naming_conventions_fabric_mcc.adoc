@@ -1,0 +1,221 @@
+---
+permalink: install-fc/concept_required_mcc_components_and_naming_conventions_fabric_mcc.html 
+sidebar: sidebar 
+keywords: metrocluster, fabric, installation, required, fc, components, naming, conventions 
+summary: Wenn Sie Ihre MetroCluster FC-Konfiguration planen, müssen Sie die erforderlichen und unterstützten Hardware- und Softwarekomponenten kennen. Für Einfachheit und Klarheit sollten Sie auch die Namenskonventionen verstehen, die für Komponenten in Beispielen in der gesamten Dokumentation verwendet werden. Ein Standort wird beispielsweise als Standort A bezeichnet, der andere Standort wird als Standort B bezeichnet 
+---
+= Erforderliche MetroCluster FC-Komponenten und Namenskonventionen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie Ihre MetroCluster FC-Konfiguration planen, müssen Sie die erforderlichen und unterstützten Hardware- und Softwarekomponenten kennen. Für Einfachheit und Klarheit sollten Sie auch die Namenskonventionen verstehen, die für Komponenten in Beispielen in der gesamten Dokumentation verwendet werden. Ein Standort wird beispielsweise als Standort A bezeichnet, der andere Standort wird als Standort B bezeichnet
+
+
+
+== Unterstützte Software und Hardware
+
+Hardware und Software müssen für die MetroCluster FC-Konfiguration unterstützt werden.
+
+https://hwu.netapp.com["NetApp Hardware Universe"]
+
+Beim Einsatz von AFF Systemen müssen alle Controller-Module in der MetroCluster Konfiguration als AFF Systeme konfiguriert sein.
+
+
+NOTE: Langwierige SFPs werden von den MetroCluster Storage-Switches nicht unterstützt. Eine Tabelle der unterstützten SPFs finden Sie im technischen Bericht von MetroCluster.
+
+
+
+== Hardwareredundanz in der MetroCluster FC Konfiguration
+
+Aufgrund der Hardware-Redundanz in der MetroCluster FC-Konfiguration gibt es an jedem Standort zwei Komponenten. Den Standorten werden die Buchstaben A und B willkürlich zugeordnet und den einzelnen Komponenten werden die Zahlen 1 und 2 willkürlich zugeordnet.
+
+
+
+== Notwendigkeit für zwei ONTAP Cluster
+
+Die Fabric-Attached MetroCluster FC-Konfiguration erfordert zwei ONTAP Cluster, einen an jedem MetroCluster Standort.
+
+Die Benennung muss innerhalb der MetroCluster Konfiguration eindeutig sein.
+
+Beispielnamen:
+
+* Standort A: Cluster_A
+* Standort B: Cluster_B
+
+
+
+
+== Anforderung für vier FC Switches
+
+Für die Fabric-Attached MetroCluster FC-Konfiguration sind vier FC-Switches erforderlich (unterstützte Brocade oder Cisco Modelle).
+
+Die vier Switches bilden zwei Switch-Storage-Fabrics, die in der MetroCluster-FC-Konfiguration zwischen jedem der Cluster die ISL bereitstellen.
+
+Die Benennung muss innerhalb der MetroCluster Konfiguration eindeutig sein.
+
+
+
+== Anforderungen für zwei, vier oder acht Controller-Module
+
+Die Fabric-Attached MetroCluster FC Konfiguration erfordert zwei, vier oder acht Controller-Module.
+
+In einer MetroCluster Konfiguration mit vier oder acht Nodes bilden die Controller-Module an jedem Standort ein oder zwei HA-Paare. Jedes Controller-Modul besitzt einen DR-Partner am anderen Standort.
+
+Die Controller-Module müssen die folgenden Anforderungen erfüllen:
+
+* Die Benennung muss innerhalb der MetroCluster Konfiguration eindeutig sein.
+* Alle Controller-Module in der MetroCluster Konfiguration müssen dieselbe Version von ONTAP ausführen.
+* Alle Controller-Module in einer DR-Gruppe müssen aus dem gleichen Modell sein.
++
+Bei Konfigurationen mit zwei DR-Gruppen kann jede DR-Gruppe jedoch aus verschiedenen Controller-Modulmodellen bestehen.
+
+* Alle Controller-Module in einer DR-Gruppe müssen dieselbe FC-VI-Konfiguration verwenden.
++
+Einige Controller Module unterstützen zwei Optionen für FC-VI-Konnektivität:
+
++
+** Integrierte FC-VI-Ports
+** Eine FC-VI-Karte in Steckplatz 1 wird nicht unterstützt, Wobei ein Mix aus einem Controller-Modul mit integrierten FC-VI-Ports und einer weiteren Karte mit zusätzlicher FC-VI-Karte verwendet wird. Wenn beispielsweise ein Node integrierte FC-VI-Konfiguration verwendet, müssen alle anderen Nodes in der DR-Gruppe auch integrierte FC-VI-Konfigurationen verwenden.
+
+
+
+
+Beispielnamen:
+
+* Standort A: Controller_A_1
+* Standort B: Controller_B_1
+
+
+
+
+== Anforderung für vier Cluster Interconnect Switches
+
+Für die Fabric-Attached MetroCluster FC-Konfiguration sind vier Cluster Interconnect Switches erforderlich (wenn Sie keine 2-Node-Cluster ohne Switch verwenden).
+
+Diese Switches sorgen für eine Cluster-Kommunikation zwischen den Controller-Modulen in jedem Cluster. Die Switches sind nicht erforderlich, wenn die Controller-Module an jedem Standort als 2-Node-Cluster ohne Switches konfiguriert sind.
+
+
+
+== Notwendigkeit für FC-to-SAS-Bridges
+
+Bei der Fabric-Attached MetroCluster FC-Konfiguration sind für jede SAS-Stapelgruppe ein Paar FC-to-SAS-Bridges erforderlich.
+
+
+NOTE: FibreBridge 6500N-Brücken werden in Konfigurationen mit ONTAP 9.8 und höher nicht unterstützt.
+
+* FibreBridge 7600N oder 7500N-Brücken unterstützen bis zu vier SAS-Stacks.
+* FibreBridge 6500N Bridges unterstützen nur einen SAS-Stack.
+* Jeder Stack kann verschiedene IOM-Modelle verwenden.
++
+Eine Kombination aus IOM12-Modulen und IOM3-Modulen wird im selben Storage-Stack nicht unterstützt. Wenn auf dem System eine unterstützte Version von ONTAP ausgeführt wird, wird im selben Storage Stack eine Kombination aus IOM12-Modulen und IOM6-Modulen unterstützt.
+
++
+Unterstützte IOM-Module hängen von der Version der ONTAP ab, die Sie ausführen.
+
+* Die Benennung muss innerhalb der MetroCluster Konfiguration eindeutig sein.
+
+
+Die vorgeschlagenen Namen, die in diesem Handbuch als Beispiele verwendet werden, identifizieren das Controller-Modul und den Stapel, mit dem die Bridge verbunden wird, wie unten gezeigt.
+
+
+
+== Pool- und Festplattenanforderungen (mindestens unterstützt)
+
+Es werden acht SAS-Platten-Shelves empfohlen (vier Shelfs an jedem Standort), damit sich die Anschaffung von Festplatten pro Shelf zulässt.
+
+Die MetroCluster-Konfiguration erfordert die Minimalkonfiguration an jedem Standort:
+
+* Jeder Node hat mindestens einen lokalen Pool und einen Remote-Pool am Standort.
++
+Bei einer MetroCluster-Konfiguration mit vier Nodes und zwei Nodes an jedem Standort sind beispielsweise an jedem Standort vier Pools erforderlich.
+
+* Mindestens sieben Laufwerke pro Pool.
++
+In einer MetroCluster-Konfiguration mit vier Nodes und einem einzelnen gespiegelten Datenaggregat pro Node sind für die Minimalkonfiguration 24 Festplatten am Standort erforderlich.
+
+
+
+In einer minimal unterstützten Konfiguration verfügt jeder Pool über das folgende Laufwerkslayout:
+
+* Drei Root-Laufwerke
+* Drei Datenlaufwerke
+* Ein Ersatzlaufwerk
+
+
+Bei einer unterstützten Minimalkonfiguration ist pro Standort mindestens ein Shelf erforderlich.
+
+MetroCluster-Konfigurationen unterstützen RAID-DP und RAID4.
+
+
+
+== Überlegungen zum Speicherort von Laufwerken für teilweise bestückte Shelfs
+
+Die Laufwerke sollten sich in den Steckplätzen 0-5 und 18-23 befinden, um Laufwerke bei Verwendung von Shelfs, die halb bestückt sind (12 Laufwerke in einem Shelf mit 24 Laufwerken), automatisch zuweisen.
+
+Bei einer Konfiguration mit einem teilweise bestückten Shelf müssen die Laufwerke gleichmäßig in die vier Quadranten des Shelfs verteilt werden.
+
+
+
+== Mischen von IOM12 und IOM 6 Modulen in einem Stack
+
+Ihre Version von ONTAP muss Shelf-Mix unterstützen. Informieren Sie sich im Interoperabilitäts-Matrix-Tool (IMT), ob Ihre Version von ONTAP Shelf-Mischungen unterstützt. https://mysupport.netapp.com/NOW/products/interoperability["NetApp Interoperabilität"]
+
+Weitere Informationen zum Regalmischvorgang finden Sie unter: https://docs.netapp.com/platstor/topic/com.netapp.doc.hw-ds-mix-hotadd/home.html["Hot-Adding-Shelfs mit IOM12-Modulen werden in einem Shelf-Stack mit IOM6-Modulen ausgeführt"]
+
+
+
+== Namenskonventionen für Bridge
+
+Die Brücken verwenden das folgende Beispiel:
+
+`bridge_site_stack grouplocation in pair`
+
+|===
+
+
+| Dieser Teil des Namens... | Identifiziert... | Mögliche Werte... 
+
+
+ a| 
+Standort
+ a| 
+Standort, auf dem sich das Brückenpaar physisch befindet.
+ a| 
+A oder B
+
+
+
+ a| 
+Stapelgruppe
+ a| 
+Nummer der Stapelgruppe, mit der das Brückenpaar verbunden ist.
+
+* FibreBridge 7600N oder 7500N-Brücken unterstützen bis zu vier Stapel in der Stapelgruppe.
++
+Die Stack-Gruppe kann maximal 10 Storage Shelves enthalten.
+
+* FibreBridge 6500N Bridges unterstützen nur einen einzelnen Stack in der Stapelgruppe.
+
+ a| 
+1, 2, usw.
+
+
+
+ a| 
+Position in Paar
+ a| 
+Brücke innerhalb des Brückenpaares.Ein Paar Brücken verbinden sich mit einer bestimmten Stapelgruppe.
+ a| 
+A oder b
+
+|===
+Beispiel für Brückennamen für eine Stapelgruppe auf jedem Standort:
+
+* Bridge_A_1a
+* Bridge_A_1b
+* Bridge_B_1a
+* Bridge_B_1b
+

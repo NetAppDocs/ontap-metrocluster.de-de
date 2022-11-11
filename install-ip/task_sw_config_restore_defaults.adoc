@@ -1,0 +1,91 @@
+---
+permalink: install-ip/task_sw_config_restore_defaults.html 
+sidebar: sidebar 
+keywords: metrocluster, controller, restore defaults 
+summary: Sie müssen die Standardeinstellungen der Controller-Module zurücksetzen und wiederherstellen, um eine saubere Konfiguration zu gewährleisten. 
+---
+= Systemeinstellungen auf einem Controller-Modul werden wiederhergestellt
+:allow-uri-read: 
+
+
+[role="lead"]
+Setzen Sie die Standardeinstellungen der Controller-Module zurück und stellen Sie sie wieder her.
+
+. Geben Sie an der LOADER-Eingabeaufforderung Umgebungsvariablen auf ihre Standardeinstellung zurück: `set-defaults`
+. Starten Sie den Knoten im Startmenü: `boot_ontap menu`
++
+Warten Sie, bis das Startmenü angezeigt wird, nachdem Sie diesen Befehl ausgeführt haben.
+
+. Löschen Sie die Node-Konfiguration:
++
+--
+** Wenn Sie Systeme verwenden, die für ADP konfiguriert sind, wählen Sie Option `9a` Über das Startmenü und antworten `yes` Wenn Sie dazu aufgefordert werden.
++
+
+NOTE: Dieser Prozess ist störend.
+
++
+Auf dem folgenden Bildschirm wird die Eingabeaufforderung des Startmenüs angezeigt:
+
++
+[listing]
+----
+
+Please choose one of the following:
+
+    (1) Normal Boot.
+    (2) Boot without /etc/rc.
+    (3) Change password.
+    (4) Clean configuration and initialize all disks.
+    (5) Maintenance mode boot.
+    (6) Update flash from backup config.
+    (7) Install new software first.
+    (8) Reboot node.
+    (9) Configure Advanced Drive Partitioning.
+    Selection (1-9)?  9a
+########## WARNING ##########
+
+    This is a disruptive operation and will result in the
+    loss of all filesystem data. Before proceeding further,
+    make sure that:
+    1) This option (9a) has been executed or will be executed
+    on the HA partner node, prior to reinitializing either
+    system in the HA-pair.
+    2) The HA partner node is currently in a halted state or
+    at the LOADER prompt.
+
+
+    Do you still want to continue (yes/no)? yes
+----
+
+
+--
++
+** Wenn Ihr System nicht für ADP konfiguriert ist, geben Sie ein `wipeconfig` Drücken Sie an der Eingabeaufforderung des Startmenüs die Eingabetaste.
++
+Auf dem folgenden Bildschirm wird die Eingabeaufforderung des Startmenüs angezeigt:
+
++
+[listing]
+----
+
+Please choose one of the following:
+
+    (1) Normal Boot.
+    (2) Boot without /etc/rc.
+    (3) Change password.
+    (4) Clean configuration and initialize all disks.
+    (5) Maintenance mode boot.
+    (6) Update flash from backup config.
+    (7) Install new software first.
+    (8) Reboot node.
+    (9) Configure Advanced Drive Partitioning.
+    Selection (1-9)?  wipeconfig
+This option deletes critical system configuration, including cluster membership.
+Warning: do not run this option on a HA node that has been taken over.
+Are you sure you want to continue?: yes
+Rebooting to finish wipeconfig request.
+----
+
+
+

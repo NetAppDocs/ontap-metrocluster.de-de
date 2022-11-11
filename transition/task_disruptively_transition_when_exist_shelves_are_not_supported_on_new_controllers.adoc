@@ -1,0 +1,508 @@
+---
+permalink: transition/task_disruptively_transition_when_exist_shelves_are_not_supported_on_new_controllers.html 
+sidebar: sidebar 
+keywords: start, ontap, disruptive, transition, two-node, metrocluster, fc, configuration, data, exist, drive, shelves, shelf, ip, node, requirement, support, workflow, preparing, prepare, controller, module, controller, migrate 
+summary: Ab ONTAP 9.8 können Sie eine MetroCluster FC-Konfiguration mit zwei Nodes unterbrechungsfrei verschieben und Daten von den vorhandenen Laufwerk-Shelfs verschieben, selbst wenn die vorhandenen Storage-Shelfs nicht von den neuen MetroCluster IP Nodes unterstützt werden. 
+---
+= Unterbrechungsfreie Transition, wenn vorhandene Shelfs nicht auf neuen Controllern unterstützt werden (ONTAP 9.8 und höher)
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Ab ONTAP 9.8 können Sie eine MetroCluster FC-Konfiguration mit zwei Nodes unterbrechungsfrei verschieben und Daten von den vorhandenen Laufwerk-Shelfs verschieben, selbst wenn die vorhandenen Storage-Shelfs nicht von den neuen MetroCluster IP Nodes unterstützt werden.
+
+* Dieses Verfahren sollte nur angewandt werden, wenn die vorhandenen Storage Shelf-Modelle nicht von den neuen MetroCluster IP-Plattformmodellen unterstützt werden.
+* Dieses Verfahren wird auf Systemen mit ONTAP 9.8 und höher unterstützt.
+* Dieser Vorgang ist störend.
+* Dieses Verfahren gilt nur für eine MetroCluster FC-Konfiguration mit zwei Nodes.
++
+Wenn Sie über eine MetroCluster-FC-Konfiguration mit vier Nodes verfügen, finden Sie Informationen unter link:concept_choosing_your_transition_procedure_mcc_transition.html["Auswahl des Migrationsverfahrens"].
+
+* Sie müssen alle Anforderungen erfüllen und alle Schritte des Verfahrens befolgen.
+
+
+
+
+== Anforderungen für den Umstieg, wenn Shelfs auf den neuen Nodes nicht unterstützt werden
+
+Bevor Sie mit dem Umstieg beginnen, müssen Sie sicherstellen, dass die Konfiguration die Anforderungen erfüllt.
+
+.Bevor Sie beginnen
+* Die vorhandene Konfiguration muss eine Fabric-Attached- oder Stretch-MetroCluster Konfiguration mit zwei Nodes und auf allen Nodes ONTAP 9.8 oder höher ausgeführt werden.
++
+Die neuen MetroCluster IP Controller-Module sollten dieselbe Version von ONTAP 9.8 ausführen.
+
+* Die bestehenden und neuen Plattformen müssen eine unterstützte Kombination für den Umstieg sein.
++
+link:concept_supported_platforms_for_transition.html["Unterstützte Plattformen für unterbrechungsfreien Übergang"]
+
+* Es muss alle Anforderungen und Verkabelung erfüllen, wie in beschrieben link:../install-fc/index.html["Installation und Konfiguration von Fabric-Attached MetroCluster"].
+* Neue mit den neuen Controllern bereitgestellte Storage-Shelfs (Node_A_1-IP, Node_A_2-IP, Node_B_1-IP und Node_B_2-IP) müssen von den alten Controllern (Node_A_1-FC und Node_B_1-FC) unterstützt werden.
++
+https://hwu.netapp.com["NetApp Hardware Universe"^]
+
+* Die alten Storage Shelves werden von den neuen MetroCluster IP Plattformmodellen * nicht unterstützt.
++
+https://hwu.netapp.com["NetApp Hardware Universe"^]
+
+* Abhängig von den in den vorhandenen Shelves verfügbaren Spare-Festplatten müssen zusätzliche Festplatten hinzugefügt werden.
++
+Dafür könnten zusätzliche Festplatten-Shelfs erforderlich sein.
+
++
+Sie benötigen weitere 14 bis 18 Laufwerke für jeden Controller:
+
++
+** Drei Pool0-Laufwerke
+** Drei Pool1-Laufwerke
+** Zwei Ersatzlaufwerke
+** Sechs bis zehn Laufwerke für das System-Volume
+
+
+* Sie müssen sicherstellen, dass die Konfiguration, einschließlich der neuen Nodes, die Plattformlimits für die Konfiguration nicht überschreitet, einschließlich Laufwerksanzahl, Root-Aggregatgröße usw.
++
+Diese Informationen sind für jedes Plattformmodell bei _NetApp Hardware Universe_ verfügbar.
+
++
+https://hwu.netapp.com["NetApp Hardware Universe"]
+
+* Sie müssen über Remote-Konsolenzugriff für alle sechs Nodes von einem MetroCluster Standort aus verfügen oder Reisen zwischen den Standorten planen, wie im Verfahren erforderlich.
+
+
+
+
+== Workflow für Unterbrechungen beim Übergang, wenn Shelfs nicht von neuen Controllern unterstützt werden
+
+Wenn die vorhandenen Shelf-Modelle von den neuen Plattformmodellen nicht unterstützt werden, müssen Sie die neuen Shelfs an die alte Konfiguration anbinden, die Daten in die neuen Shelfs verschieben und schließlich in die neue Konfiguration übergehen.
+
+Planen Sie bei der Vorbereitung der Transition die Reise zwischen den Standorten ein. Beachten Sie, dass Sie nach dem Rack und verkabelt der Remote-Nodes seriellen Zugriff auf die Nodes benötigen. Der Service-Prozessor-Zugriff ist erst verfügbar, wenn die Nodes konfiguriert sind.
+
+image::../media/workflow_2n_transition_old_shelves_not_supported.png[Workflow 2n Wechsel alte Regale nicht unterstützt]
+
+
+
+== Vorbereiten der neuen Controller-Module
+
+Sie müssen die Konfiguration und die Festplatteneigentümer für die neuen Controller-Module und die neuen Storage-Shelves löschen.
+
+.Schritte
+. Führen Sie alle Schritte aus, die mit den neuen MetroCluster IP-Controller-Modulen verbunden sind link:../transition/concept_requirements_for_fc_to_ip_transition_2n_mcc_transition.html#preparing-the-metrocluster-ip-controllers["Vorbereiten der MetroCluster IP-Controller"].
+. Trennen Sie die neuen Storage-Shelves von den neuen MetroCluster IP Controller-Modulen.
+
+
+
+
+== Anschließen der neuen Platten-Shelfs an die vorhandenen MetroCluster FC-Controller
+
+Vor dem Wechsel zu einer MetroCluster IP-Konfiguration müssen Sie die neuen Festplatten-Shelfs an die vorhandenen Controller-Module anschließen.
+
+Die folgende Abbildung zeigt die neuen Shelves, die an die MetroCluster FC-Konfiguration angeschlossen sind.
+
+image::../media/transition_2n_unsupported_old_new_shelves_to_old_controllers.png[Wechsel 2n nicht unterstützte alte neue Shelves zu alten Controllern]
+
+.Schritte
+. Deaktivieren der automatischen Zuordnung der Festplatte bei Node_A_1-FC und Node_A_2-FC:
++
+`disk option modify -node _node-name_ -autoassign off`
+
++
+Dieser Befehl muss für jeden Node ausgestellt werden.
+
++
+Die automatische Zuweisung von Festplatten ist deaktiviert, um zu vermeiden, dass die Shelfs Node_A_1-FC und Node_B_1-FC hinzugefügt werden. Im Rahmen der Transition sind die Festplatten für die Knoten Node_A_1-IP und Node_B_2-IP erforderlich. Wenn die automatische Zuweisung zulässig ist, müssten die Festplattenbesitzer später entfernt werden, bevor Festplatten Node_A_1-IP und Node_B_2-IP zugewiesen werden konnten.
+
+. Verbinden Sie die neuen Shelfs ggf. mit den vorhandenen MetroCluster FC Nodes über FC-to-SAS-Bridges.
++
+Siehe Anforderungen und Verfahren in link:../maintain/task_hot_add_a_sas_disk_shelf_in_a_direct_attached_mcc_configuration_us_sas_optical_cables.html["Hot-adding von Speicher zu einer MetroCluster-FC-Konfiguration"]
+
+
+
+
+
+== Migrieren Sie Root-Aggregate und verschieben Sie Daten in die neuen Platten-Shelves
+
+Sie müssen die Root-Aggregate von den alten Laufwerk-Shelfs auf die neuen Festplatten-Shelfs verschieben, die von den MetroCluster IP-Nodes verwendet werden.
+
+Diese Aufgabe wird vor dem Übergang der vorhandenen Knoten durchgeführt (Node_A_1-FC und Node_B_1-FC).
+
+.Schritte
+. Durchführen einer ausgehandelten Umschaltung von Controller Node_B_1-FC:
++
+`metrocluster switchover`
+
+. Führen Sie die Heal-Aggregate aus und heilen Sie die Root-Schritte der Recovery von Node_B_1-FC:
++
+`metrocluster heal -phase aggregates`
+
++
+`metrocluster heal -phase root-aggregates`
+
+. Boot Controller Node_A_1-FC:
++
+`boot_ontap`
+
+. Weisen Sie die nicht im Besitz befindlichen Festplatten auf den neuen Shelfs den entsprechenden Pools für Controller Node_A_1-FC zu:
++
+.. Festplatten in den Shelfs identifizieren:
++
+`disk show -shelf pool_0_shelf -fields container-type,diskpathnames`
+
++
+`disk show -shelf pool_1_shelf -fields container-type,diskpathnames`
+
+.. Geben Sie den lokalen Modus ein, sodass die Befehle auf dem lokalen Knoten ausgeführt werden:
++
+`run local`
+
+.. Weisen Sie die Festplatten zu:
++
+`disk assign disk1disk2disk3disk… -p 0`
+
++
+`disk assign disk4disk5disk6disk… -p 1`
+
+.. Lokalen Modus beenden:
++
+`exit`
+
+
+
+. Erstellen Sie ein neues gespiegeltes Aggregat zum neuen Root-Aggregat für Controller Node_A_1-FC:
++
+.. Legen Sie den Berechtigungsmodus auf erweitert fest:
++
+`set priv advanced`
+
+.. Erstellen Sie das Aggregat:
++
+`aggregate create -aggregate new_aggr -disklist disk1, disk2, disk3,… -mirror-disklist disk4disk5, disk6,… -raidtypesame-as-existing-root -force-small-aggregate true aggr show -aggregate new_aggr -fields percent-snapshot-space`
+
++
+Wenn der Prozentwert für Snapshot-Speicherplatz weniger als 5 Prozent beträgt, müssen Sie ihn auf einen Wert über 5 Prozent erhöhen:
+
++
+`aggr modify new_aggr -percent-snapshot-space 5`
+
+.. Setzen Sie den Berechtigungsebene-Modus zurück auf admin:
++
+`set priv admin`
+
+
+
+. Vergewissern Sie sich, dass das neue Aggregat ordnungsgemäß erstellt wird:
++
+`node run -node local sysconfig -r`
+
+. Erstellung von Backups der Konfiguration auf Node- und Cluster-Ebene:
++
+
+NOTE: Wenn die Backups während des Switchover erstellt werden, erkennt das Cluster bei der Recovery den Switchover-Status. Sie müssen sicherstellen, dass die Sicherung und das Hochladen der Systemkonfiguration erfolgreich ist, da es ohne diese Sicherung nicht möglich ist, die MetroCluster-Konfiguration zwischen Clustern zu reformieren.
+
++
+.. Erstellen Sie das Cluster-Backup:
++
+`system configuration backup create -node local -backup-type cluster -backup-name _cluster-backup-name_`
+
+.. Überprüfen Sie die Erstellung von Cluster-Backups
++
+`job show -id job-idstatus`
+
+.. Erstellen Sie das Knoten-Backup:
++
+`system configuration backup create -node local -backup-type node -backup-name _node-backup-name_`
+
+.. Prüfen Sie sowohl Cluster- als auch Node-Backups:
++
+`system configuration backup show`
+
++
+Sie können den Befehl wiederholen, bis in der Ausgabe beide Backups angezeigt werden.
+
+
+
+. Erstellung von Kopien der Backups
++
+Die Backups müssen an einem separaten Speicherort gespeichert werden, da sie lokal beim Start des neuen Root-Volumes verloren gehen.
+
++
+Sie können die Backups auf einen FTP- oder HTTP-Server hochladen oder die Backups mit kopieren `scp` Befehle.
+
++
+[cols="1,3"]
+|===
+
+
+| Prozess | Schritte 
+
+
+ a| 
+*Hochladen der Sicherung auf den FTP- oder HTTP-Server*
+ a| 
+.. Laden Sie das Cluster-Backup hoch:
++
+`system configuration backup upload -node local -backup _cluster-backup-name_ -destination URL`
+
+.. Laden Sie das Knoten-Backup hoch:
++
+`system configuration backup upload -node local -backup _node-backup-name_ -destination URL`
+
+
+
+
+
+ a| 
+*Kopieren Sie die Backups auf einen Remote-Server mit sicherer Kopie*
+ a| 
+Verwenden Sie auf dem Remoteserver die folgenden Scp-Befehle:
+
+.. Cluster-Backup kopieren:
++
+`scp diagnode-mgmt-FC:/mroot/etc/backups/config/cluster-backup-name.7z .`
+
+.. Kopieren des Node-Backups:
++
+`scp diag@node-mgmt-FC:/mroot/etc/backups/config/node-backup-name.7z .`
+
+
+
+|===
+. Stop Node_A_1-FC:
++
+`halt -node local -ignore-quorum-warnings true`
+
+. Boot Node_A_1-FC in Wartungsmodus:
++
+`boot_ontap maint`
+
+. Nehmen Sie im Wartungsmodus erforderliche Änderungen vor, um das Aggregat als Root einzustellen:
++
+.. Legen Sie die HA-Richtlinie auf cfo fest:
++
+`aggr options new_aggr ha_policy cfo`
+
++
+Beantworten Sie „`ja`“, wenn Sie dazu aufgefordert werden, fortzufahren.
+
++
+[listing]
+----
+Are you sure you want to proceed (y/n)?
+----
+.. Legen Sie das neue Aggregat als Root fest:
++
+`aggr options new_aggr root`
+
+.. Anhalten der LOADER-Eingabeaufforderung:
++
+`halt`
+
+
+
+. Booten des Controllers und Sichern der Systemkonfiguration
++
+Der Node startet im Wiederherstellungsmodus, wenn das neue Root-Volume erkannt wird
+
++
+.. Booten des Controllers:
++
+`boot_ontap`
+
+.. Melden Sie sich an und sichern Sie die Konfiguration.
++
+Wenn Sie sich anmelden, wird die folgende Warnung angezeigt:
+
++
+[listing]
+----
+Warning: The correct cluster system configuration backup must be restored. If a backup
+from another cluster or another system state is used then the root volume will need to be
+recreated and NGS engaged for recovery assistance.
+----
+.. Wechseln Sie in den erweiterten Berechtigungsmodus:
++
+`set -privilege advanced`
+
+.. Sichern Sie die Clusterkonfiguration auf einem Server:
++
+`system configuration backup download -node local -source URL of server/cluster-backup-name.7z`
+
+.. Sichern Sie die Node-Konfiguration auf einem Server:
++
+`system configuration backup download -node local -source URL of server/node-backup-name.7z`
+
+.. Zurück zum Admin-Modus:
++
+`set -privilege admin`
+
+
+
+. Überprüfen Sie den Systemzustand des Clusters:
++
+.. Geben Sie den folgenden Befehl ein:
++
+`cluster show`
+
+.. Legen Sie den Berechtigungsmodus auf erweitert fest:
++
+`set -privilege advanced`
+
+.. Überprüfen Sie die Cluster-Konfigurationsdetails:
++
+`cluster ring show`
+
+.. Zurück zur Administratorberechtigungsebene:
++
+`set -privilege admin`
+
+
+
+. Überprüfen Sie den Betriebsmodus der MetroCluster Konfiguration, und führen Sie eine MetroCluster-Prüfung durch.
++
+.. Bestätigen Sie die MetroCluster-Konfiguration und den normalen Betriebsmodus:
++
+`metrocluster show`
+
+.. Vergewissern Sie sich, dass alle erwarteten Knoten angezeigt werden:
++
+`metrocluster node show`
+
+.. Geben Sie den folgenden Befehl ein:
++
+`metrocluster check run`
+
+.. Ergebnisse der MetroCluster-Prüfung anzeigen:
++
+`metrocluster check show`
+
+
+
+. Führen Sie einen Switchback vom Controller Node_B_1-FC aus:
++
+`metrocluster switchback`
+
+. Überprüfen Sie den Betrieb der MetroCluster Konfiguration:
++
+.. Bestätigen Sie die MetroCluster-Konfiguration und den normalen Betriebsmodus:
++
+`metrocluster show`
+
+.. Durchführen einer MetroCluster-Prüfung:
++
+`metrocluster check run`
+
+.. Ergebnisse der MetroCluster-Prüfung anzeigen:
++
+`metrocluster check show`
+
+
+
+. Fügen Sie das neue Root-Volume der Volume-Standortdatenbank hinzu.
++
+.. Legen Sie den Berechtigungsmodus auf erweitert fest:
++
+`set -privilege advanced`
+
+.. Fügen Sie das Volume dem Node hinzu:
++
+`volume add-other-volumes –node node_A_1-FC`
+
+.. Zurück zur Administratorberechtigungsebene:
++
+`set -privilege admin`
+
+
+
+. Überprüfen Sie, ob das Volumen nun sichtbar ist und mroot hat.
++
+.. Anzeigen der Aggregate:
++
+`storage aggregate show`
+
+.. Überprüfen Sie, ob das Root-Volumen mroot hat:
++
+`storage aggregate show -fields has-mroot`
+
+.. Anzeigen der Volumes:
++
+`volume show`
+
+
+
+. Erstellen Sie ein neues Sicherheitszertifikat, um den Zugriff auf System Manager erneut zu aktivieren:
++
+`security certificate create -common-name _name_ -type server -size 2048`
+
+. Wiederholen Sie die vorherigen Schritte, um die Aggregate auf Shelfs zu migrieren, die sich im Besitz von Node_A_1-FC befinden.
+. Führen Sie eine Bereinigung durch.
++
+Um das alte Root-Volume und das Root-Aggregat zu entfernen, müssen Sie sowohl auf Node_A_1-FC als auch auf Node_B_1-FC die folgenden Schritte durchführen.
+
++
+.. Löschen Sie das alte Root-Volumen:
++
+`run local`
+
++
+`vol offline old_vol0`
+
++
+`vol destroy old_vol0`
+
++
+`exit`
+
++
+`volume remove-other-volume -vserver node_name -volume old_vol0`
+
+.. Löschen Sie das ursprüngliche Root-Aggregat:
++
+`aggr offline -aggregate old_aggr0_site`
+
++
+`aggr delete -aggregate old_aggr0_site`
+
+
+
+. Migrieren Sie die Daten-Volumes zu Aggregaten auf den neuen Controllern, jeweils ein Volume.
++
+Siehe http://docs.netapp.com/platstor/topic/com.netapp.doc.hw-upgrade-controller/GUID-AFE432F6-60AD-4A79-86C0-C7D12957FA63.html["Erstellung eines Aggregats und Verschiebung von Volumes zu den neuen Nodes"^]
+
+. Mustern Sie die alten Shelves aus, indem Sie alle erforderlichen Schritte ausführen link:task_disruptively_transition_while_move_volumes_from_old_shelves_to_new_shelves.html["Ausmustern von Shelfs, die von Node_A_1-FC und Node_A_2-FC verschoben wurden"].
+
+
+
+
+== Umstellung der Konfiguration
+
+Sie müssen das detaillierte Übergangsverfahren befolgen.
+
+In den folgenden Schritten werden Sie zu anderen Themen weitergeleitet. Sie müssen die Schritte in jedem Thema in der angegebenen Reihenfolge durchführen.
+
+.Schritte
+. Planen Sie die Port-Zuordnung.
++
+Führen Sie alle Schritte in aus link:../transition/concept_requirements_for_fc_to_ip_transition_2n_mcc_transition.html#mapping-ports-from-the-metrocluster-fc-nodes-to-the-metrocluster-ip-nodes["Zuordnen von Ports von den MetroCluster FC-Nodes zu den MetroCluster IP-Nodes"].
+
+. Bereiten Sie die MetroCluster IP-Controller vor.
++
+Führen Sie alle Schritte in aus link:../transition/concept_requirements_for_fc_to_ip_transition_2n_mcc_transition.html#preparing-the-metrocluster-ip-controllers["Vorbereiten der MetroCluster IP-Controller"].
+
+. Überprüfen Sie den Systemzustand der MetroCluster-Konfiguration.
++
+Führen Sie alle Schritte in aus link:../transition/concept_requirements_for_fc_to_ip_transition_2n_mcc_transition.html#verifying-the-health-of-the-metrocluster-fc-configuration["Überprüfen des Systemzustands der MetroCluster FC-Konfiguration"].
+
+. Bereiten Sie die vorhandenen MetroCluster FC-Nodes vor und entfernen Sie sie.
++
+Führen Sie alle Schritte in aus link:../transition/task_transition_the_mcc_fc_nodes_2n_mcc_transition_supertask.html["Umstellung der MetroCluster FC Nodes"].
+
+. Fügen Sie die neuen MetroCluster IP-Knoten hinzu.
++
+Führen Sie alle Schritte in aus link:task_connect_the_mcc_ip_controller_modules_2n_mcc_transition_supertask.html["Anschließen der MetroCluster IP-Controller-Module"].
+
+. Abschluss der Transition und Erstkonfiguration der neuen MetroCluster IP Nodes.
++
+Führen Sie alle Schritte in aus link:task_configure_the_new_nodes_and_complete_transition.html["Konfiguration der neuen Nodes und Abschluss des Übergangs"].
+
+

@@ -1,0 +1,95 @@
+---
+permalink: manage/task_perform_a_negotiated_switchover.html 
+sidebar: sidebar 
+keywords: negotiate, switchover, clean, shut, down, partner, site, operation, metrocluster, perform 
+summary: Bei einer ausgehandelten Umschaltung werden die Prozesse am Partnerstandort ordnungsgemäß heruntergefahren und dann die Betriebsvorgänge vom Kundenstandort umgestellt. Sie können eine ausgehandelte Umschaltung verwenden, um Wartungsarbeiten an einem MetroCluster Standort durchzuführen oder die Switchover-Funktionalität zu testen. 
+---
+= Durchführen einer ausgehandelten Umschaltung
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Bei einer ausgehandelten Umschaltung werden die Prozesse am Partnerstandort ordnungsgemäß heruntergefahren und dann die Betriebsvorgänge vom Kundenstandort umgestellt. Sie können eine ausgehandelte Umschaltung verwenden, um Wartungsarbeiten an einem MetroCluster Standort durchzuführen oder die Switchover-Funktionalität zu testen.
+
+* Alle früheren Konfigurationsänderungen müssen abgeschlossen sein, bevor Sie einen Switchback-Vorgang durchführen.
++
+Damit wird der Wettbewerb mit dem ausgehandelten Switchover- oder Switchback-Betrieb vermieden.
+
+* Alle zuvor heruntergekommen Nodes müssen gestartet werden und sich in einem Cluster-Quorum befinden.
++
+Weitere Informationen zum Clusterquorum finden Sie im Abschnitt „`Verständnis von Quorum und epsilon`“.
+
++
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sag/home.html["Systemadministration"]
+
+* Das Cluster-Peering-Netzwerk muss von beiden Standorten aus verfügbar sein.
+* Auf allen Nodes in der MetroCluster Konfiguration muss dieselbe Version der ONTAP Software ausgeführt werden.
+* Die Option Replication.create_Data_Protection_rels.enable muss auf BEIDE Standorte in einer MetroCluster-Konfiguration auf ON gesetzt werden, bevor eine neue SnapMirror-Beziehung erstellt wird.
+* Bei einer MetroCluster-Konfiguration mit zwei Nodes sollte während eines Upgrades keine neue SnapMirror Beziehung erstellt werden, wenn zwischen den Standorten unterschiedliche Versionen von ONTAP vorhanden sind.
+* Bei einer MetroCluster-Konfiguration mit vier Nodes werden die nicht übereinstimmenden Versionen von ONTAP zwischen den Standorten nicht unterstützt.
+
+
+Der Recovery-Standort kann ein paar Stunden dauern, bis der Wechsel wieder in Betrieb ist.
+
+Der MetroCluster Switchover-Befehl wechselt über die Nodes in allen DR-Gruppen in der MetroCluster Konfiguration. In einer MetroCluster Konfiguration mit acht Nodes wechselt sie beispielsweise über die Nodes in beiden DR-Gruppen.
+
+Während der Vorbereitung und der Ausführung einer ausgehandelten Umschaltung müssen keine Konfigurationsänderungen an einem Cluster vorgenommen oder Takeover- oder Giveback-Vorgänge durchgeführt werden.
+
+Für MetroCluster FC-Konfigurationen:
+
+* Gespiegelte Aggregate bleiben im normalen Status, wenn auf den Remote-Storage zugegriffen werden kann.
+* Gespiegelte Aggregate werden nach der ausgehandelten Umschaltung herabgesetzt, wenn der Zugriff auf den Remote-Storage verloren geht.
+* Nicht gespiegelte Aggregate, die sich am Disaster-Standort befinden, sind bei einem Ausfall des Remote-Storage nicht verfügbar. Dies kann zu einem Controller-Ausfall führen.
+
+
+Für MetroCluster IP-Konfigurationen:
+
+
+NOTE: Bevor Sie Wartungsarbeiten durchführen, müssen Sie die Überwachung entfernen, wenn die MetroCluster-Konfiguration mit dem Tiebreaker oder Mediator Utility überwacht wird.link:../maintain/concept_remove_mediator_or_tiebreaker_when_performing_maintenance_tasks.html["Vor der Durchführung von Wartungsarbeiten müssen Sie den ONTAP Mediator oder den Tiebreaker Monitoring entfernen"]
+
+* Für ONTAP 9.4 und früher:
++
+** Gespiegelte Aggregate werden nach der ausgehandelten Umschaltung herabgestuft.
+
+
+* Für ONTAP 9.5 und höher:
++
+** Gespiegelte Aggregate bleiben im normalen Status, wenn auf den Remote-Storage zugegriffen werden kann.
+** Gespiegelte Aggregate werden nach der ausgehandelten Umschaltung herabgesetzt, wenn der Zugriff auf den Remote-Storage verloren geht.
+
+
+* Für ONTAP 9.8 und höher:
++
+** Nicht gespiegelte Aggregate, die sich am Disaster-Standort befinden, sind bei einem Ausfall des Remote-Storage nicht verfügbar. Dies kann zu einem Controller-Ausfall führen.
++
+... Verwenden Sie den befehl MetroCluster Check run, MetroCluster Check show und MetroCluster Check config-Replication show, um sicherzustellen, dass keine Konfigurationsaktualisierungen ausgeführt werden oder ausstehen. Geben Sie diese Befehle von der Site aus ein, die in Betrieb bleibt.
+... Implementieren Sie die Umschaltung vom Standort, der weiterhin betriebsbereit ist: `metrocluster switchover`
++
+Der Vorgang kann einige Minuten dauern.
+
+... Überwachen Sie den Abschluss der Umschaltung: `metrocluster operation show`
++
+[listing]
+----
+cluster_A::*> metrocluster operation show
+  Operation: Switchover
+ Start time: 10/4/2012 19:04:13
+      State: in-progress
+   End time: -
+     Errors:
+
+cluster_A::*> metrocluster operation show
+  Operation: Switchover
+ Start time: 10/4/2012 19:04:13
+      State: successful
+   End time: 10/4/2012 19:04:22
+     Errors: -
+----
+... Wiederherstellung beliebiger SnapMirror oder SnapVault Konfigurationen
+
+
+
+
+

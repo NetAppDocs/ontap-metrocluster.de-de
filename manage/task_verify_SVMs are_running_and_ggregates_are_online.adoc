@@ -1,0 +1,55 @@
+---
+permalink: manage/task_verify_SVMs are_running_and_aggregates_are_online.html 
+sidebar: sidebar 
+keywords: switchover, dr, partner, ownership, disk, svm, online, confirm 
+summary: Nach Abschluss der Umschaltung sollten Sie sicherstellen, dass die DR-Partner Eigentum an den Festplatten haben und die Partner-SVMs online sind. 
+---
+= Vergewissern Sie sich, dass die SVMs ausgeführt werden und die Aggregate online sind
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Nach Abschluss der Umschaltung sollten Sie sicherstellen, dass die DR-Partner Eigentum an den Festplatten haben und die Partner-SVMs online sind.
+
+Wenn Sie den Befehl Storage Aggregate Plex show nach einer MetroCluster-Umschaltung ausführen, ist der Status von Plex0 des über das Root-Aggregat umgeschaltet unbestimmt und wird als fehlgeschlagen angezeigt. Während dieser Zeit wird die umschaltete Root nicht aktualisiert. Der tatsächliche Status dieses Plex kann nur nach der MetroCluster-Heilungsphase ermittelt werden.
+
+.Schritte
+. Überprüfen Sie, ob die Aggregate mithilfe des Storage Aggregate show-Befehls umgeschaltet wurden.
++
+In diesem Beispiel wurden die Aggregate umgeschaltet. Das Root-Aggregat (aggr0_b2) befindet sich in einem verschlechterten Zustand. Das Datenaggregat (b2_aggr2) befindet sich in einem gespiegelten, normalen Zustand:
+
++
+[listing]
+----
+cluster_A::*> storage aggregate show
+
+.
+.
+.
+mcc1-b Switched Over Aggregates:
+Aggregate     Size Available Used% State   #Vols  Nodes            RAID Status
+--------- -------- --------- ----- ------- ------ ---------------- ------------
+aggr0_b2    227.1GB   45.1GB    80% online       0 node_A_1        raid_dp,
+                                                                   mirror
+                                                                   degraded
+b2_aggr1    227.1GB   200.3GB    20% online       0 node_A_1       raid_dp,
+                                                                   mirrored
+                                                                   normal
+----
+. Bestätigen Sie, dass die sekundären SVMs mit dem vserver show-Befehl online geschaltet wurden.
++
+In diesem Beispiel wurden die zuvor inaktiv gewesen aktiven synchronen ZielSVMs am sekundären Standort aktiviert und verfügen über einen Administratorstatus:
+
++
+[listing]
+----
+cluster_A::*> vserver show
+                                          Admin      Operational  Root                 Name    Name
+Vserver           Type  Subtype           State      State        Volume    Aggregate  Service Mapping
+-----------       ----- ----------        ---------- -----------  --------- ---------- ------- -------
+...
+cluster_B-vs1b-mc data   sync-destination  running   running      vs1b_vol   aggr_b1   file    file
+----
+

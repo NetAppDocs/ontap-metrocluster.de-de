@@ -1,0 +1,44 @@
+---
+permalink: transition/task_prepare_ip_controllers_4n_transition.html 
+sidebar: sidebar 
+keywords: Transitioning from MetroCluster FC to MetroCluster IP configurations, review, requirement, preparing, prepare, transition, perform, procedure, order, completing, complete, step, task, moving, move, controller, storage, shelves, shelf, exist, configuration, direct, metrocluster, fc, ip, verify, health, removing, remove, tiebreaker, monitor, software, generating, generate, apply, rcf, switch, controller, configure, prepare, preparing 
+summary: Sie müssen die vier neuen MetroCluster IP-Knoten vorbereiten und die korrekte ONTAP-Version installieren. 
+---
+= Vorbereiten der MetroCluster IP-Controller
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen die vier neuen MetroCluster IP-Knoten vorbereiten und die korrekte ONTAP-Version installieren.
+
+Diese Aufgabe muss auf jedem der neuen Knoten ausgeführt werden:
+
+* Node_A_1-IP
+* Node_A_2-IP
+* Node_B_1-IP
+* Node_B_2-IP
+
+
+Löschen Sie in diesen Schritten die Konfiguration auf den Knoten und löschen Sie den Mailbox-Bereich auf neuen Laufwerken.
+
+. Rack für die neuen Controller für die MetroCluster IP-Konfiguration
++
+Die MetroCluster-FC-Nodes (Node_A_x-FC und Node_B_x-FC) bleiben derzeit verkabelt.
+
+. Verkabeln Sie die MetroCluster IP-Knoten wie im gezeigt mit den IP-Switches link:../install-ip/using_rcf_generator.html["Verkabeln der IP-Switches"].
+. Konfigurieren Sie die MetroCluster IP-Knoten unter Verwendung der folgenden Abschnitte:
++
+.. link:../install-ip/task_sw_config_gather_info.html["Sammeln der erforderlichen Informationen"]
+.. link:../install-ip/task_sw_config_restore_defaults.html["Löschen der Konfiguration auf einem Controller-Modul"]
+.. link:../install-ip/task_sw_config_verify_haconfig.html["Überprüfen des HA-Konfigurationsstatus von Komponenten"]
+.. link:../install-ip/task_sw_config_assign_pool0.html["Manuelles Zuweisen von Laufwerken für Pool 0 (ONTAP 9.4 und höher)"]
+
+
+. Geben Sie im Wartungsmodus den Befehl stop ein, um den Wartungsmodus zu beenden, und geben Sie dann den Boot_ontap-Befehl aus, um das System zu booten und zum Cluster-Setup zu gelangen.
++
+Schließen Sie derzeit den Cluster-Assistenten oder den Node-Assistenten nicht ab.
+
+. Wiederholen Sie diese Schritte auf den anderen MetroCluster IP-Knoten.
+

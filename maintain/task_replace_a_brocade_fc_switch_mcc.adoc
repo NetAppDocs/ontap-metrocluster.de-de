@@ -1,0 +1,266 @@
+---
+permalink: maintain/task_replace_a_brocade_fc_switch_mcc.html 
+sidebar: sidebar 
+keywords: metrocluster, maintain, service, replace, brocade, fc, switch 
+summary: Sie müssen dieses Brocade-spezifische Verfahren zum Austausch eines fehlerhaften Switches verwenden. 
+---
+= Austausch eines Brocade FC-Switches
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen dieses Brocade-spezifische Verfahren zum Austausch eines fehlerhaften Switches verwenden.
+
+Sie benötigen das Admin-Passwort und den Zugriff auf einen FTP- oder SCP-Server.
+
+In den folgenden Beispielen ist FC_Switch_A_1 der gesunde Schalter und FC_Switch_B_1 der beeinträchtigte Schalter. Die Verwendung des Switch-Ports in den Beispielen wird in der folgenden Tabelle dargestellt:
+
+|===
+
+
+| Port-Verbindungen | Ports 
+
+
+ a| 
+FC-VI-Verbindungen
+ a| 
+0, 3
+
+
+
+ a| 
+HBA-Verbindungen
+ a| 
+1, 2, 4, 5
+
+
+
+ a| 
+FC-to-SAS-Bridge-Verbindungen
+ a| 
+6, 7
+
+
+
+ a| 
+ISL-Verbindungen
+ a| 
+10, 11
+
+|===
+Die Beispiele zeigen zwei FC-to-SAS-Bridges. Wenn mehr vorhanden ist, müssen Sie die zusätzlichen Ports deaktivieren und anschließend aktivieren.
+
+
+NOTE: Dieser Vorgang läuft unterbrechungsfrei ab und dauert ungefähr zwei Stunden.
+
+Die Verwendung des Switch-Ports sollte den empfohlenen Zuweisungen folgen.
+
+* link:concept_port_assignments_for_fc_switches_when_using_ontap_9_0.html["Port-Zuweisungen für FC-Switches bei Verwendung von ONTAP 9.0"]
+* link:concept_port_assignments_for_fc_switches_when_using_ontap_9_1_and_later.html["Port-Zuweisungen für FC-Switches bei Verwendung von ONTAP 9.1 und höher"]
+
+
+.Schritte
+. Abschalten des Switch, der ausgetauscht wird, durch Deaktivieren der ISL-Ports am gesunden Switch im Fabric sowie der FC-VI- und HBA-Ports am beeinträchtigten Switch (wenn der beeinträchtigte Schalter noch in Betrieb ist):
++
+.. Deaktivieren Sie die ISL-Ports auf dem gesunden Switch für jeden Port:
++
+`portcfgpersistentdisable _port-number_`
+
++
+[listing]
+----
+FC_switch_A_1:admin> portcfgpersistentdisable 10
+FC_switch_A_1:admin> portcfgpersistentdisable 11
+----
+.. Wenn der beeinträchtigte Switch noch funktionsfähig ist, deaktivieren Sie die FC-VI- und HBA-Ports auf diesem Switch für jeden Port:
++
+`portcfgpersistentdisable _port-number_`
+
++
+[listing]
+----
+FC_switch_B_1:admin> portcfgpersistentdisable 0
+FC_switch_B_1:admin> portcfgpersistentdisable 1
+FC_switch_B_1:admin> portcfgpersistentdisable 2
+FC_switch_B_1:admin> portcfgpersistentdisable 3
+FC_switch_B_1:admin> portcfgpersistentdisable 4
+FC_switch_B_1:admin> portcfgpersistentdisable 5
+----
+
+
+. Wenn der Schalter ohne Störungen noch in Betrieb ist, erfassen Sie den Ausgang vom `switchshow` Befehl.
++
+[listing]
+----
+FC_switch_B_1:admin> switchshow
+    switchName: FC_switch_B_1
+    switchType: 71.2
+    switchState:Online
+    switchMode: Native
+    switchRole: Subordinate
+    switchDomain:       2
+    switchId:   fffc01
+    switchWwn:  10:00:00:05:33:86:89:cb
+    zoning:             OFF
+    switchBeacon:       OFF
+----
+. Starten und Vorkonfigurieren des neuen Switches vor der physischen Installation:
++
+.. Schalten Sie den neuen Schalter ein, und lassen Sie ihn starten.
+.. Überprüfen Sie die Firmware-Version auf dem Switch, um sicherzustellen, dass sie mit der Version der anderen FC-Switches übereinstimmt:
++
+`firmwareShow`
+
+.. Konfigurieren Sie den neuen Switch, wie in _MetroCluster Installation und Konfiguration beschrieben, überspringen Sie jedoch das Verfahren „`Zoning auf Brocade FC Switches`“.
++
+https://docs.netapp.com/us-en/ontap-metrocluster/install-fc/index.html["Installation und Konfiguration von Fabric-Attached MetroCluster"]
+
++
+Später konfigurieren Sie das Zoning in diesem Verfahren.
+
++
+
+NOTE: An diesem Punkt ist der neue Switch nicht mit der MetroCluster-Konfiguration verbunden.
+
+.. Deaktivieren Sie die FC-VI-, HBA- und Storage-Ports auf dem neuen Switch sowie die mit den FC-SAS-Bridges verbundenen Ports.
++
+[listing]
+----
+FC_switch_B_1:admin> portcfgpersistentdisable 0
+FC_switch_B_1:admin> portcfgpersistentdisable 1
+FC_switch_B_1:admin> portcfgpersistentdisable 2
+FC_switch_B_1:admin> portcfgpersistentdisable 3
+FC_switch_B_1:admin> portcfgpersistentdisable 4
+FC_switch_B_1:admin> portcfgpersistentdisable 5
+
+FC_switch_B_1:admin> portcfgpersistentdisable 6
+FC_switch_B_1:admin> portcfgpersistentdisable 7
+----
+
+
+. Ersetzen Sie den Schalter physisch:
++
+.. Schalten Sie den FC-Schalter für beeinträchtigte Personen aus.
+.. Schalten Sie den Ersatz-FC-Switch aus.
+.. Trennen Sie den Schalter für beeinträchtigte Kabel, und entfernen Sie ihn. Beachten Sie dabei sorgfältig, welche Kabel mit welchen Anschlüssen verbunden sind.
+.. Setzen Sie den Ersatzschalter in das Rack ein.
+.. Verkabeln Sie den Ersatzschalter genau so, wie der alte Schalter verkabelt war.
+.. Schalten Sie den neuen FC Switch ein.
+
+
+. Wenn Sie die ISL-Verschlüsselung aktivieren möchten, führen Sie die entsprechenden Aufgaben in aus link:https://docs.netapp.com/us-en/ontap-metrocluster/install-fc/index.html["Installation und Konfiguration von Fabric-Attached MetroCluster"].
++
+Wenn Sie die ISL-Verschlüsselung aktivieren, müssen Sie die folgenden Aufgaben erfüllen:
+
++
+** Deaktivieren Sie die virtuelle Fabric
+** Legen Sie die Nutzlast fest
+** Legen Sie die Authentifizierungsrichtlinie fest
+** Aktivierung der ISL-Verschlüsselung bei Brocade Switches
+
+
+. Die Konfiguration des neuen Switch abschließen:
++
+.. ISLs aktivieren:
++
+`portcfgpersistentenable _port-number_`
+
++
+[listing]
+----
+FC_switch_B_1:admin> portcfgpersistentenable 10
+FC_switch_B_1:admin> portcfgpersistentenable 11
+----
+.. Vergewissern Sie sich am Ersatzschalter (im Beispiel FC_Switch_B_1), dass die ISLs online sind:
++
+`switchshow`
+
++
+[listing]
+----
+FC_switch_B_1:admin> switchshow
+switchName: FC_switch_B_1
+switchType: 71.2
+switchState:Online
+switchMode: Native
+switchRole: Principal
+switchDomain:       4
+switchId:   fffc03
+switchWwn:  10:00:00:05:33:8c:2e:9a
+zoning:             OFF
+switchBeacon:       OFF
+
+Index Port Address Media Speed State  Proto
+==============================================
+...
+10   10    030A00 id   16G     Online  FC E-Port 10:00:00:05:33:86:89:cb "FC_switch_A_1"
+11   11    030B00 id   16G     Online  FC E-Port 10:00:00:05:33:86:89:cb "FC_switch_A_1" (downstream)
+...
+----
+.. Aktivieren Sie die Storage-Ports, die mit den FC-Bridges verbunden sind.
++
+[listing]
+----
+FC_switch_B_1:admin> portcfgpersistentenable 6
+FC_switch_B_1:admin> portcfgpersistentenable 7
+----
+.. Aktivieren Sie Storage-, HBA- und FC-VI-Ports.
++
+Im folgenden Beispiel werden Befehle angezeigt, die zum Aktivieren der Ports zum Verbinden von HBA-Adaptern verwendet werden:
+
++
+[listing]
+----
+FC_switch_B_1:admin> portcfgpersistentenable 1
+FC_switch_B_1:admin> portcfgpersistentenable 2
+FC_switch_B_1:admin> portcfgpersistentenable 4
+FC_switch_B_1:admin> portcfgpersistentenable 5
+----
++
+Im folgenden Beispiel werden die Befehle angezeigt, die zum Aktivieren der Ports, die die FC-VI-Adapter verbinden, verwendet werden:
+
++
+[listing]
+----
+FC_switch_B_1:admin> portcfgpersistentenable 0
+FC_switch_B_1:admin> portcfgpersistentenable 3
+----
+
+
+. Vergewissern Sie sich, dass die Ports online sind:
++
+`switchshow`
+
+. Überprüfen Sie den Betrieb der MetroCluster-Konfiguration in ONTAP:
++
+.. Prüfen Sie, ob das System multipathed ist:
++
+`node run -node _node-name_ sysconfig -a`
+
+.. Überprüfen Sie auf beiden Clustern auf Zustandswarnmeldungen:
++
+`system health alert show`
+
+.. Bestätigen Sie die MetroCluster-Konfiguration und den normalen Betriebsmodus:
++
+`metrocluster show`
+
+.. Durchführen einer MetroCluster-Prüfung:
++
+`metrocluster check run`
+
+.. Ergebnisse der MetroCluster-Prüfung anzeigen:
++
+`metrocluster check show`
+
+.. Prüfen Sie, ob auf den Switches Zustandswarnmeldungen vorliegen (falls vorhanden):
++
+`storage switch show`
+
+.. Laufen https://mysupport.netapp.com/site/tools/tool-eula/activeiq-configadvisor["Config Advisor"].
+.. Überprüfen Sie nach dem Ausführen von Config Advisor die Ausgabe des Tools und befolgen Sie die Empfehlungen in der Ausgabe, um die erkannten Probleme zu beheben.
+
+
+

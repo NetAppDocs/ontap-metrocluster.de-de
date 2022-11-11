@@ -1,0 +1,97 @@
+---
+permalink: install-fc/concept_considerations_isls_mcfc.html 
+sidebar: sidebar 
+keywords: preparing, prepare, metrocluster, mcc, installation, install, differences, configurations, between, considerations, all, san, array, asa, cluster, peering, prerequisites, dedicated, ports, sharing, data, ports, native, disk, shelves, array, luns, transitions, 7-mode, isls, tdm/wdm, fabric-attached, iod, ood, encryption, devices, unmirrored, aggregates, maintenance, requiring, power, shutdown, firewall, hardware, racking, cabling, setup, checklist, all san array, asa, san 
+summary: Sie müssen ermitteln, wie viele ISLs in der MetroCluster Konfiguration für jedes FC Switch Fabric benötigt werden. 
+---
+= Überlegungen für ISLs
+:allow-uri-read: 
+
+
+[role="lead"]
+Sie müssen ermitteln, wie viele ISLs in der MetroCluster Konfiguration für jedes FC Switch Fabric benötigt werden. Ab ONTAP 9.2 können Sie in einigen Fällen nicht mehr FC Switches und ISLs für jede MetroCluster Konfiguration einteilen, sondern dieselben vier Switches teilen.
+
+
+
+== Überlegungen zur ISL-Freigabe (ONTAP 9.2)
+
+Ab ONTAP 9.2 ist ISL-Freigabe in den folgenden Fällen möglich:
+
+* Ein MetroCluster-Konfigurationen mit zwei und einem Node und vier Nodes
+* Zwei separate MetroCluster Konfigurationen mit vier Nodes
+* Zwei separate MetroCluster-Konfigurationen mit zwei Nodes
+* Zwei DR-Gruppen innerhalb einer MetroCluster Konfiguration mit acht Nodes
+
+
+Die Anzahl der erforderlichen ISLs zwischen den Shared Switches hängt von der Bandbreite der mit den Shared Switches verbundenen Plattformmodelle ab.
+
+Berücksichtigen Sie die folgenden Aspekte Ihrer Konfiguration, wenn Sie bestimmen, wie viele ISLs Sie benötigen.
+
+* Geräte anderer Anbieter sollten nicht mit einem der FC-Switches verbunden werden, die die Back-End-MetroCluster-Konnektivität bieten.
+* ISL-Freigabe wird bei allen Switches unterstützt, mit Ausnahme der Switches Cisco 9250i und Cisco 9148.
+* Alle Nodes müssen ONTAP 9.2 oder höher ausführen.
+* Die FC-Switch-Verkabelung für ISL-Freigabe entspricht der für die MetroCluster-Verkabelung mit acht Nodes.
+* Die RCF-Dateien für ISL-Freigabe entsprechen denen für die MetroCluster-Verkabelung mit acht Nodes.
+* Sie sollten überprüfen, ob alle Hardware- und Softwareversionen unterstützt werden.
++
+https://hwu.netapp.com["NetApp Hardware Universe"]
+
+* Die Geschwindigkeit und die Anzahl der ISLs müssen Größe aufweisen, um die Client-Auslastung auf beiden MetroCluster Systemen zu unterstützen.
+* Die Back-End-ISLs und die Back-End-Komponenten müssen ausschließlich der MetroCluster Konfiguration zugewiesen sein.
+* Die ISL muss eine der unterstützten Geschwindigkeiten nutzen: 4 Gbit/s, 8 Gbit/s, 16 Gbit/s oder 32 Gbit/s.
+* Die ISLs in einem Fabric sollten alle dieselbe Geschwindigkeit und Länge aufweisen.
+* Die ISLs in einem Fabric sollten alle dieselbe Topologie haben. Sie sollten beispielsweise alle direkte Links sein, oder wenn Ihr System WDM verwendet, sollten sie alle WDM verwenden.
+
+
+
+
+== Plattformspezifische ISL-Überlegungen
+
+Die Anzahl der empfohlenen ISLs ist plattformspezifisch. Die folgende Tabelle zeigt die ISL-Anforderungen für jedes Fabric nach Plattformmodell. Dabei wird davon ausgegangen, dass jede ISL eine Kapazität von 16 Gbit/s hat.
+
+|===
+
+
+| Modell der Plattform | Empfohlene Anzahl von ISLs pro DR-Gruppe mit vier Nodes (pro Switch Fabric) 
+
+
+ a| 
+AFF A900 UND FAS9500
+ a| 
+Acht
+
+
+
+ a| 
+AFF A700
+ a| 
+Sechs
+
+
+
+ a| 
+FAS9000
+ a| 
+Sechs
+
+
+
+ a| 
+8080
+ a| 
+Vier
+
+
+
+ a| 
+Alle anderen
+ a| 
+Zwei
+
+|===
+Wenn das Switch-Fabric acht Nodes unterstützt (eines Teils einer MetroCluster-Konfiguration mit acht Nodes oder zwei Konfigurationen mit vier Nodes, die ISLs teilen), wird die empfohlene Gesamtzahl an ISLs für das Fabric die Summe der erforderlichen ISLs für jede DR-Gruppe mit vier Nodes angegeben. Beispiel:
+
+* Enthält die DR-Gruppe 1 vier AFF A700 Systeme, sind sechs ISLs erforderlich.
+* Wenn DR-Gruppe 2 vier FAS8200 Systeme enthält, sind zwei ISLs erforderlich.
+* Die Gesamtzahl der empfohlenen ISLs für das Switch Fabric beträgt acht.
+

@@ -1,0 +1,172 @@
+---
+permalink: maintain/task_upgrade_or_downgrad_the_firmware_on_a_brocade_fc_switch_mcc.html 
+sidebar: sidebar 
+keywords: metrocluster, maintain, service, upgrade, downgrade, firmware, brocade, fc, switch 
+summary: Zum Upgrade oder Downgrade der Firmware auf einem Brocade FC-Switch müssen Sie den Switch mit den spezifischen Brocade Befehlen deaktivieren, die Firmware-Änderung durchführen und überprüfen sowie den Switch neu starten und wieder aktivieren. 
+---
+= Aktualisieren oder Downgrade der Firmware auf einem Brocade FC Switch
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Zum Upgrade oder Downgrade der Firmware auf einem Brocade FC-Switch müssen Sie den Switch mit den spezifischen Brocade Befehlen deaktivieren, die Firmware-Änderung durchführen und überprüfen sowie den Switch neu starten und wieder aktivieren.
+
+* Sie müssen über die Firmware-Dateien verfügen.
+* Das System muss ordnungsgemäß verkabelt sein.
+* Alle Pfade zu den Storage Shelves müssen verfügbar sein.
+* Die Platten-Shelf-Stacks müssen stabil sein.
+* Die FC-Switch-Fabric muss sich in einem ordnungsgemäßen Zustand befinden.
+* Im System können keine fehlerhaften Komponenten vorhanden sein.
+* Das System muss ordnungsgemäß ausgeführt werden.
+* Sie müssen über das Admin-Passwort und den Zugriff auf einen FTP- oder SCP-Server verfügen.
+
+
+Die Switch-Fabric wird während eines Firmware-Upgrades oder Downgrades deaktiviert, wobei die MetroCluster-Konfiguration den Betrieb über die zweite Fabric fortsetzt.
+
+Diese Aufgabe muss nacheinander an jeder Switch-Fabric ausgeführt werden, damit alle Switches dieselbe Firmware-Version ausführen.
+
+
+NOTE: Dieser Vorgang läuft unterbrechungsfrei ab und dauert etwa eine Stunde.
+
+.Schritte
+. Melden Sie sich bei jedem der Switches in der Fabric an.
++
+Die Beispiele in den folgenden Schritten verwenden den Schalter `FC_switch_A_1`.
+
+. Deaktivieren Sie jeden der Switches in der Fabric:
++
+`*switchCfgPersistentDisable*`
+
++
+Wenn dieser Befehl nicht verfügbar ist, führen Sie den aus `switchDisable` Befehl.
+
++
+[listing]
+----
+FC_switch_A_1:admin> switchCfgPersistentDisable
+----
+. Laden Sie die gewünschte Firmware-Version herunter:
++
+`*firmwareDownload*`
+
++
+Wenn Sie zur Eingabe des Dateinamens aufgefordert werden, müssen Sie das Unterverzeichnis oder den relativen Pfad zur Firmware-Datei angeben.
+
++
+Sie können die ausführen `firmwareDownload` Befehl gleichzeitig auf beiden Switches, aber Sie müssen der Firmware das Herunterladen und Commit ermöglichen, bevor Sie mit dem nächsten Schritt fortfahren.
+
++
+[listing]
+----
+FC_switch_A_1:admin> firmwaredownload
+Server Name or IP Address: 10.64.203.188
+User Name: test
+File Name: v7.3.1b
+Network Protocol(1-auto-select, 2-FTP, 3-SCP, 4-SFTP) [1]: 2
+Password:
+Server IP: 10.64.203.188, Protocol IPv4
+Checking system settings for firmwaredownload...
+System settings check passed.
+----
+. Vergewissern Sie sich, dass die Firmware heruntergeladen und auf beiden Partitionen gesetzt wurde:
++
+`*firmwareShow*`
+
++
+Das folgende Beispiel zeigt, dass der Firmware-Download abgeschlossen ist, wenn beide Bilder aktualisiert werden:
+
++
+[listing]
+----
+FC_switch_A_1:admin> firmwareShow
+Appl     Primary/Secondary Versions
+
+------------------------------------------
+
+FOS      v7.3.1b
+
+         v7.3.1b
+----
+. Starten Sie die Switches neu:
++
+`*reboot*`
+
++
+Nach Abschluss des Firmware-Downloads führen einige Firmware-Versionen automatisch einen haReboot-Vorgang durch. Der Neustart in diesem Schritt ist auch dann erforderlich, wenn der haReboot durchgeführt wurde.
+
++
+[listing]
+----
+FC_switch_A_1:admin> reboot
+----
+. Prüfen Sie, ob die neue Firmware auf eine mittlere Firmware-Ebene oder auf eine endgültige angegebene Version gehört.
++
+Wenn der Download auf die mittlere Firmware-Ebene erfolgt, führen Sie die beiden vorherigen Schritte aus, bis das angegebene Release installiert ist.
+
+. Aktivieren Sie die Switches:
++
+`*switchCfgPersistentEnable*`
+
++
+Wenn dieser Befehl nicht verfügbar ist, sollte sich der Schalter im befinden `enabled` Status nach dem `reboot` Befehl wird ausgeführt.
+
++
+[listing]
+----
+FC_switch_A_1:admin> switchCfgPersistentEnable
+----
+. Vergewissern Sie sich, dass die Switches online sind und alle Geräte ordnungsgemäß angemeldet sind:
++
+`*switchShow*`
+
++
+[listing]
+----
+FC_switch_A_1:admin> switchShow
+----
+. Stellen Sie sicher, dass die Informationen zur Puffernutzung für eine Portgruppe oder alle Portgruppen im Switch ordnungsgemäß angezeigt werden:
++
+`*portbuffershow*`
+
++
+[listing]
+----
+FC_switch_A_1:admin> portbuffershow
+----
+. Überprüfen Sie, ob die aktuelle Konfiguration eines Ports ordnungsgemäß angezeigt wird:
++
+`*portcfgshow*`
+
++
+[listing]
+----
+FC_switch_A_1:admin> portcfgshow
+----
++
+Überprüfen Sie die Porteinstellungen, z. B. Geschwindigkeit, Modus, Trunking, Verschlüsselung, Und Komprimierung in der Inter-Switch Link-Ausgabe (ISL). Vergewissern Sie sich, dass die Porteinstellungen vom Firmware-Download nicht betroffen waren.
+
+. Überprüfen Sie den Betrieb der MetroCluster-Konfiguration in ONTAP:
++
+.. Überprüfen Sie, ob das System multipathed ist: +
+`*node run -node _node-name_ sysconfig -a*`
+.. Überprüfen Sie auf beiden Clustern auf alle Zustandswarnmeldungen: +
+`*system health alert show*`
+.. Bestätigen Sie die MetroCluster-Konfiguration und den normalen Betriebsmodus: +
+`*metrocluster show*`
+.. Führen Sie eine MetroCluster-Prüfung durch: +
+`*metrocluster check run*`
+.. Zeigen Sie die Ergebnisse der MetroCluster-Prüfung an: +
+`*metrocluster check show*`
+.. Überprüfen Sie, ob auf den Switches Zustandswarnmeldungen angezeigt werden (falls vorhanden): +
+`*storage switch show*`
+.. Nutzen Sie Config Advisor.
++
+https://mysupport.netapp.com/site/tools/tool-eula/activeiq-configadvisor["NetApp Downloads: Config Advisor"]
+
+.. Überprüfen Sie nach dem Ausführen von Config Advisor die Ausgabe des Tools und befolgen Sie die Empfehlungen in der Ausgabe, um die erkannten Probleme zu beheben.
+
+
+. Warten Sie 15 Minuten, bevor Sie diesen Vorgang für das zweite Switch-Fabric wiederholen.
+

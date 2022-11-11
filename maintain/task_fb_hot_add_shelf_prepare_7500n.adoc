@@ -1,0 +1,60 @@
+---
+permalink: maintain/task_fb_hot_add_shelf_prepare_7500n.html 
+sidebar: sidebar 
+keywords: metrocluster, maintain, service, prepare, hot, add, sas, disk, shelves 
+summary: Zum Vorbereiten des Hinzufügungs-Shelfs für SAS-Festplatten werden Dokumente sowie die Festplatten- und Festplatten-Shelf-Firmware heruntergeladen. 
+---
+= Vorbereitung auf Hot-Add-Platten-Shelves
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Zum Vorbereiten des Hinzufügungs-Shelfs für SAS-Festplatten werden Dokumente sowie die Festplatten- und Festplatten-Shelf-Firmware heruntergeladen.
+
+* Ihr System muss eine unterstützte Konfiguration sein und eine unterstützte Version von ONTAP ausführen.
+* Auf allen Festplatten und Festplatten-Shelfs im System muss die neueste Firmware-Version ausgeführt werden.
++
+Möglicherweise möchten Sie die Festplatten- und Shelf-Firmware während der MetroCluster-Konfiguration aktualisieren, bevor Sie Shelfs hinzufügen.
+
++
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-ug-rdg/home.html["Upgrade, Zurücksetzen oder Downgrade"]
+
+
+
+
+NOTE: Wenn auf dem System eine unterstützte Version von ONTAP ausgeführt wird, wird eine Kombination aus IOM12-Modulen und IOM6-Modulen im selben Stack unterstützt. Um festzustellen, ob Ihre Version von ONTAP Shelf-Mischungen unterstützt, Informationen hierzu finden Sie im Interoperabilitäts-Matrix-Tool (IMT).https://mysupport.netapp.com/NOW/products/interoperability[NetApp Interoperabilität] Wenn Ihre ONTAP Version nicht unterstützt wird und Sie die IOM-Module auf dem vorhandenen Stack oder dem neuen Shelf, das zu einer unterstützten Kombination von IOM-Modulen hinzugefügt werden soll, nicht upgraden oder herunterstufen können. Sie müssen eine der folgenden Aktionen ausführen:
+
+* Starten eines neuen Stacks auf einem neuen SAS-Port (sofern vom Bridge-Paar unterstützt)
+* Starten Sie einen neuen Stack auf einem weiteren Brückenpaar.
+
+
+.Schritte
+. Laden Sie folgende Dokumente von der NetApp Support-Website herunter oder lesen Sie sie:
++
+** https://mysupport.netapp.com/matrix["NetApp Interoperabilitäts-Matrix-Tool"]
+** Das _Installation Guide_ für Ihr Festplatten-Shelf-Modell.
+
+
+. Überprüfen Sie, ob das Festplatten-Shelf, das Sie hinzufügen, unterstützt wird.
++
+https://mysupport.netapp.com/matrix["NetApp Interoperabilitäts-Matrix-Tool"]
+
+. Laden Sie die neueste Festplatten- und Festplatten-Shelf-Firmware herunter:
++
+
+NOTE: In diesem Schritt führen Sie nur den Download-Teil der Anweisungen aus, die in den Links angegeben sind. Sie müssen die Schritte im befolgen link:task_fb_hot_add_a_disk_shelf_install_7500n.html["Hot-Adding eines Festplatten-Shelfs"] Abschnitt zur Installation des Festplatten-Shelf.
+
++
+.. Laden Sie die Festplatten-Firmware herunter, und erstellen Sie eine Kopie der Firmware-Anleitungen für die Festplatte, um sie später zu verwenden.
++
+https://mysupport.netapp.com/site/downloads/firmware/disk-drive-firmware["NetApp Downloads: Festplatten-Firmware"]
+
+.. Laden Sie die Festplatten-Shelf-Firmware herunter und erstellen Sie eine Kopie der Anleitungen für die Festplatten-Shelf-Firmware, um sie später zu verwenden.
++
+https://mysupport.netapp.com/site/downloads/firmware/disk-shelf-firmware["NetApp Downloads: Festplatten-Shelf Firmware"]
+
+
+
+

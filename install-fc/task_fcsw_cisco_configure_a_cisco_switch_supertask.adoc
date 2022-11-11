@@ -1,0 +1,2689 @@
+---
+permalink: install-fc/task_fcsw_cisco_configure_a_cisco_switch_supertask.html 
+sidebar: sidebar 
+keywords:  
+summary: Jeder Cisco Switch in der MetroCluster-Konfiguration muss entsprechend für ISL- und Storage-Verbindungen konfiguriert sein. 
+---
+= Konfigurieren Sie Cisco FC-Switches manuell
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Jeder Cisco Switch in der MetroCluster-Konfiguration muss entsprechend für ISL- und Storage-Verbindungen konfiguriert sein.
+
+Für die Cisco FC Switches gelten die folgenden Anforderungen:
+
+* Sie müssen vier unterstützte Cisco Switches desselben Modells mit derselben NX-OS-Version und derselben Lizenzierung verwenden.
+* Die MetroCluster Konfiguration erfordert vier Switches.
++
+Die vier Switches müssen mit zwei Fabrics von jeweils zwei Switches verbunden sein, wobei jede Fabric beide Standorte umfasst.
+
+* Der Switch muss die Konnektivität zum ATTO FibreBridge-Modell unterstützen.
+* Sie können die Verschlüsselung oder Komprimierung nicht in der Cisco FC Storage Fabric verwenden. Es wird in der MetroCluster-Konfiguration nicht unterstützt.
+
+
+Im https://mysupport.netapp.com/matrix["NetApp Interoperabilitäts-Matrix-Tool (IMT)"], Sie können im Feld Storage-Lösung die MetroCluster-Lösung auswählen. Sie verwenden den *Komponenten-Explorer*, um die Komponenten und die ONTAP-Version auszuwählen, um Ihre Suche zu verfeinern. Klicken Sie auf *Ergebnisse anzeigen*, um die Liste der unterstützten Konfigurationen anzuzeigen, die den Kriterien entsprechen.
+
+Für die Inter-Switch Link-Verbindungen (ISL) gelten folgende Anforderungen:
+
+* Alle ISLs müssen in einem Fabric dieselbe Länge und dieselbe Geschwindigkeit aufweisen.
++
+In den verschiedenen Fabrics können verschiedene Längen von ISLs verwendet werden. Die gleiche Geschwindigkeit muss in allen Stoffen verwendet werden.
+
+
+
+Folgende Anforderungen gelten für die Storage-Verbindungen:
+
+* Jeder Storage-Controller muss vier Initiator-Ports besitzen, um mit den Switch-Fabrics verbunden zu werden.
++
+Von jedem Storage Controller müssen zwei Initiator-Ports mit jeder Fabric verbunden sein.
+
++
+[NOTE]
+====
+Sie können FAS8020, AFF8020, FAS8200 und AFF A300 Systeme mit zwei Initiatoren-Ports pro Controller (ein einzelner Initiator-Port zu jedem Fabric) konfigurieren, wenn alle folgenden Kriterien erfüllt sind:
+
+** Es sind weniger als vier FC-Initiator-Ports zum Verbinden des Festplatten-Storage verfügbar, und keine zusätzlichen Ports können als FC-Initiatoren konfiguriert werden.
+** Alle Steckplätze werden verwendet und es kann keine FC-Initiatorgruppe hinzugefügt werden.
+
+
+====
+
+
+https://mysupport.netapp.com/matrix["NetApp Interoperabilitäts-Matrix-Tool"]
+
+
+
+== Lizenzanforderungen für Cisco Switch
+
+Bestimmte funktionsbasierte Lizenzen sind möglicherweise für die Cisco Switches in einer Fabric-Attached MetroCluster Konfiguration erforderlich. Mit diesen Lizenzen können Funktionen wie QoS oder Gutschriften im Fernmodus auf den Switches verwendet werden. Sie müssen die erforderlichen funktionsbasierten Lizenzen auf allen vier Switches einer MetroCluster-Konfiguration installieren.
+
+Die folgenden funktionsbasierten Lizenzen sind möglicherweise in einer MetroCluster Konfiguration erforderlich:
+
+* ENTERPRISE_PKG
++
+Diese Lizenz ermöglicht die Verwendung der QoS-Funktion auf Cisco Switches.
+
+* PORT_ACTIVATION_PKG
++
+Sie können diese Lizenz für Cisco 9148-Switches verwenden. Mit dieser Lizenz können Sie Ports an den Switches aktivieren oder deaktivieren, solange jeweils nur 16 Ports aktiv sind. Standardmäßig sind 16 Ports in Cisco MDS 9148 Switches aktiviert.
+
+* FM_SERVER_PKG
++
+Mit dieser Lizenz können Sie Fabrics gleichzeitig verwalten und Switches über einen Webbrowser verwalten.
+
++
+Die FM_SERVER_PKG-Lizenz ermöglicht außerdem Leistungsmanagementfunktionen wie Leistungsschwellenwerte und Schwellenwertüberwachung. Weitere Informationen zu dieser Lizenz finden Sie im Cisco Fabric Manager Server Package.
+
+
+
+Sie können mithilfe des Befehls show license Usage überprüfen, ob die Lizenzen installiert wurden. Wenn Sie diese Lizenzen nicht besitzen, wenden Sie sich an Ihren Vertriebsmitarbeiter, bevor Sie mit der Installation fortfahren.
+
+
+NOTE: Die Cisco MDS 9250i Switches verfügen über zwei feste 1/10 GbE IP-Storage-Service-Ports. Für diese Ports sind keine zusätzlichen Lizenzen erforderlich. Das Cisco SAN Extension over IP Application-Paket ist eine Standardlizenz für diese Switches, die Funktionen wie FCIP und Komprimierung unterstützt.
+
+
+
+== Setzen des Cisco FC-Switches auf die Werkseinstellungen
+
+Um eine erfolgreiche Konfiguration zu gewährleisten, müssen Sie den Switch auf die Werkseinstellungen zurücksetzen. Dadurch wird sichergestellt, dass der Switch von einer sauberen Konfiguration gestartet wird.
+
+Diese Aufgabe muss an allen Switches der MetroCluster-Konfiguration ausgeführt werden.
+
+.Schritte
+. Verbinden Sie die Konsole, und melden Sie sich bei beiden Switches in derselben Fabric an.
+. Setzen Sie den Schalter auf die Standardeinstellungen zurück:
++
+`write erase`
+
++
+Sie können „`y`“ antworten, wenn Sie dazu aufgefordert werden, den Befehl zu bestätigen. Dadurch werden alle Lizenzen und Konfigurationsinformationen auf dem Switch gelöscht.
+
+. Starten Sie den Switch neu:
++
+`reload`
+
++
+Sie können „`y`“ antworten, wenn Sie dazu aufgefordert werden, den Befehl zu bestätigen.
+
+. Wiederholen Sie den `write erase` Und `reload` Befehle auf dem anderen Switch.
++
+Nach Ausstellung des `reload` Befehl, der Switch wird neu gebootet und anschließend werden mit Setup-Fragen aufgefordert. Dann fahren Sie mit dem nächsten Abschnitt fort.
+
+
+
+Das folgende Beispiel zeigt den Prozess für eine Fabric, die aus FC_Switch_A_1 und FC_Switch_B_1 besteht.
+
+[listing]
+----
+FC_Switch_A_1# write erase
+    Warning: This command will erase the startup-configuration.
+    Do you wish to proceed anyway? (y/n)  [n] y
+    FC_Switch_A_1# reload
+    This command will reboot the system. (y/n)?  [n] y
+
+FC_Switch_B_1# write erase
+    Warning: This command will erase the startup-configuration.
+    Do you wish to proceed anyway? (y/n)  [n] y
+    FC_Switch_B_1# reload
+    This command will reboot the system. (y/n)?  [n] y
+----
+
+
+== Konfigurieren Sie die Grundeinstellungen des Cisco FC-Switches und den Community String
+
+Sie müssen die Grundeinstellungen mit dem angeben `setup` Befehl oder nach Ausgabe des `reload` Befehl.
+
+.Schritte
+. Wenn der Switch die Setup-Fragen nicht anzeigt, konfigurieren Sie die grundlegenden Switch-Einstellungen:
++
+`setup`
+
+. Akzeptieren Sie die Standardantworten auf die Setup-Fragen, bis Sie zur SNMP-Community-Zeichenfolge aufgefordert werden.
+. Setzen Sie die Community-Zeichenfolge auf „`public`“ (alle Kleinbuchstaben), um den Zugriff von den ONTAP Health-Monitoren zu ermöglichen.
++
+Sie können die Community-Zeichenfolge auf einen anderen Wert als „`public`“ setzen. Sie müssen jedoch die ONTAP-Integritätsmonitore mithilfe der von Ihnen angegebenen Community-Zeichenfolge konfigurieren.
+
++
+Im folgenden Beispiel werden die Befehle an FC_Switch_A_1 angezeigt:
+
++
+[listing]
+----
+FC_switch_A_1# setup
+    Configure read-only SNMP community string (yes/no) [n]: y
+    SNMP community string : public
+    Note:  Please set the SNMP community string to "Public" or another value of your choosing.
+    Configure default switchport interface state (shut/noshut) [shut]: noshut
+    Configure default switchport port mode F (yes/no) [n]: n
+    Configure default zone policy (permit/deny) [deny]: deny
+    Enable full zoneset distribution? (yes/no) [n]: yes
+----
++
+Im folgenden Beispiel werden die Befehle an FC_Switch_B_1 angezeigt:
+
++
+[listing]
+----
+FC_switch_B_1# setup
+    Configure read-only SNMP community string (yes/no) [n]: y
+    SNMP community string : public
+    Note:  Please set the SNMP community string to "Public" or another value of your choosing.
+    Configure default switchport interface state (shut/noshut) [shut]: noshut
+    Configure default switchport port mode F (yes/no) [n]: n
+    Configure default zone policy (permit/deny) [deny]: deny
+    Enable full zoneset distribution? (yes/no) [n]: yes
+----
+
+
+
+
+== Erwerben von Lizenzen für Ports
+
+Sie müssen keine Cisco Switch-Lizenzen auf einer kontinuierlichen Reihe von Ports verwenden. Stattdessen können Sie Lizenzen für bestimmte Ports erwerben, die verwendet werden, und Lizenzen von nicht verwendeten Ports entfernen.
+
+Sie sollten die Anzahl der lizenzierten Ports in der Switch-Konfiguration überprüfen und bei Bedarf Lizenzen von einem Port in einen anderen verschieben.
+
+.Schritte
+. Anzeigen der Lizenzverwendung für eine Switch-Fabric:
++
+`show port-resources module 1`
+
++
+Ermitteln Sie, welche Ports Lizenzen benötigen. Wenn einige dieser Ports nicht lizenziert sind, ermitteln Sie, ob Sie über zusätzliche lizenzierte Ports verfügen, und ziehen Sie in Betracht, die Lizenzen von ihnen zu entfernen.
+
+. Konfigurationsmodus aufrufen:
++
+`config t`
+
+. Entfernen Sie die Lizenz vom ausgewählten Port:
++
+.. Wählen Sie den Port aus, der nicht lizenziert werden soll:
++
+`interface _interface-name_`
+
+.. Entfernen Sie die Lizenz vom Port:
++
+`no port-license acquire`
+
+.. Beenden Sie die Schnittstelle für die Portkonfiguration:
++
+`exit`
+
+
+
+. Erwerben Sie die Lizenz für den ausgewählten Port:
++
+.. Wählen Sie den Port aus, der nicht lizenziert werden soll:
++
+`interface _interface-name_`
+
+.. Stellen Sie den Port für den Erwerb einer Lizenz zur Verfügung:
++
+`port-license`
+
+.. Erwerben Sie die Lizenz auf dem Port:
++
+`port-license acquire`
+
+.. Beenden Sie die Schnittstelle für die Portkonfiguration:
++
+`exit`
+
+
+
+. Wiederholen Sie diesen Vorgang für alle weiteren Ports.
+. Konfigurationsmodus beenden:
++
+`exit`
+
+
+
+
+
+=== Entfernen und Erwerb einer Lizenz auf einem Port
+
+Dieses Beispiel zeigt, dass eine Lizenz von Port fc1/2 entfernt wird, Port fc1/1 für den Erwerb einer Lizenz zugelassen ist und die Lizenz an Port fc1/1 erworben wird:
+
+[listing]
+----
+Switch_A_1# conf t
+    Switch_A_1(config)# interface fc1/2
+    Switch_A_1(config)# shut
+    Switch_A_1(config-if)# no port-license acquire
+    Switch_A_1(config-if)# exit
+    Switch_A_1(config)# interface fc1/1
+    Switch_A_1(config-if)# port-license
+    Switch_A_1(config-if)# port-license acquire
+    Switch_A_1(config-if)# no shut
+    Switch_A_1(config-if)# end
+    Switch_A_1# copy running-config startup-config
+
+    Switch_B_1# conf t
+    Switch_B_1(config)# interface fc1/2
+    Switch_B_1(config)# shut
+    Switch_B_1(config-if)# no port-license acquire
+    Switch_B_1(config-if)# exit
+    Switch_B_1(config)# interface fc1/1
+    Switch_B_1(config-if)# port-license
+    Switch_B_1(config-if)# port-license acquire
+    Switch_B_1(config-if)# no shut
+    Switch_B_1(config-if)# end
+    Switch_B_1# copy running-config startup-config
+----
+Im folgenden Beispiel wird die Verwendung der Portlizenz überprüft:
+
+[listing]
+----
+Switch_A_1# show port-resources module 1
+    Switch_B_1# show port-resources module 1
+----
+
+
+== Ermöglicht Ports in einem Cisco MDS 9148 oder 9148S Switch
+
+Bei Cisco MDS 9148 oder 9148S Switches müssen die in einer MetroCluster-Konfiguration erforderlichen Ports manuell aktiviert werden.
+
+.Über diese Aufgabe
+* Sie können 16 Ports in einem Cisco MDS 9148 oder 9148S Switch manuell aktivieren.
+* Mithilfe der Cisco Switches können Sie die POD-Lizenz auf zufälligen Ports anwenden, anstatt sie nacheinander anzuwenden.
+* Für Cisco Switches ist erforderlich, dass Sie einen Port pro Portgruppe verwenden, es sei denn, Sie benötigen mehr als 12 Ports.
+
+
+.Schritte
+. Zeigen Sie die Portgruppen an, die in einem Cisco-Switch verfügbar sind:
++
+`show port-resources module _blade_number_`
+
+. Lizenz und erwerben Sie den erforderlichen Port in einer Portgruppe:
++
+`config t`
+
++
+`interface _port_number_`
+
++
+`shut`
+
++
+`port-license acquire`
+
++
+`no shut`
+
++
+Beispiel: Die folgende Befehlssequenz lizenziert und erwirbt Port fc 1/45:
+
++
+[listing]
+----
+switch# config t
+switch(config)#
+switch(config)# interface fc 1/45
+switch(config-if)#
+switch(config-if)# shut
+switch(config-if)# port-license acquire
+switch(config-if)# no shut
+switch(config-if)# end
+----
+. Konfiguration speichern:
++
+`copy running-config startup-config`
+
+
+
+
+
+== Konfiguration der F-Ports an einem Cisco FC-Switch
+
+Sie müssen die F-Ports auf dem FC-Switch konfigurieren.
+
+In einer MetroCluster-Konfiguration sind die F-Ports die Ports, die den Switch mit den HBA-Initiatoren, FC-VI-Interconnects und FC-to-SAS-Bridges verbinden.
+
+Jeder Port muss individuell konfiguriert werden.
+
+In den folgenden Abschnitten werden die F-Ports (Switch-to-Node) für Ihre Konfiguration identifiziert:
+
+* link:concept_port_assignments_for_fc_switches_when_using_ontap_9_1_and_later.html["Port-Zuweisungen für FC-Switches bei Verwendung von ONTAP 9.1 und höher"]
+* link:concept_port_assignments_for_fc_switches_when_using_ontap_9_0.html["Port-Zuweisungen für FC-Switches bei Verwendung von ONTAP 9.0"]
+
+
+Diese Aufgabe muss an jedem Switch in der MetroCluster Konfiguration ausgeführt werden.
+
+.Schritte
+. Konfigurationsmodus aufrufen:
++
+`config t`
+
+. Wechseln Sie in den Schnittstellenkonfigurationsmodus für den Port:
++
+`interface _port-ID_`
+
+. Fahren Sie den Port herunter:
++
+`shutdown`
+
+. Legen Sie die Ports auf F-Modus fest:
++
+`switchport mode F`
+
+. Legen Sie die Ports auf feste Geschwindigkeit fest:
++
+`switchport speed _speed-value_`
+
++
+`_speed-value_` Ist auch so `8000` Oder `16000`
+
+. Stellen Sie den Rate-Modus des Switch-Ports auf Dedicated ein:
++
+`switchport rate-mode dedicated`
+
+. Starten Sie den Port neu:
++
+`no shutdown`
+
+. Konfigurationsmodus beenden:
++
+`end`
+
+
+
+Im folgenden Beispiel werden die Befehle an den beiden Switches angezeigt:
+
+[listing]
+----
+Switch_A_1# config  t
+FC_switch_A_1(config)# interface fc 1/1
+FC_switch_A_1(config-if)# shutdown
+FC_switch_A_1(config-if)# switchport mode F
+FC_switch_A_1(config-if)# switchport speed 8000
+FC_switch_A_1(config-if)# switchport rate-mode dedicated
+FC_switch_A_1(config-if)# no shutdown
+FC_switch_A_1(config-if)# end
+FC_switch_A_1# copy running-config startup-config
+
+FC_switch_B_1# config  t
+FC_switch_B_1(config)# interface fc 1/1
+FC_switch_B_1(config-if)# switchport mode F
+FC_switch_B_1(config-if)# switchport speed 8000
+FC_switch_B_1(config-if)# switchport rate-mode dedicated
+FC_switch_B_1(config-if)# no shutdown
+FC_switch_B_1(config-if)# end
+FC_switch_B_1# copy running-config startup-config
+----
+
+
+== Zuweisen von Buffer-to-Buffer Credits zu F-Ports in derselben Portgruppe wie die ISL
+
+Sie müssen den F-Ports die Buffer-to-Buffer Credits zuweisen, wenn sie sich in derselben Portgruppe wie ISL befinden. Wenn die Ports nicht über die erforderlichen Buffer-to-Buffer Credits verfügen, könnte ISL funktionsunfähig sein.
+
+Dieser Task ist nicht erforderlich, wenn sich die F-Ports nicht in derselben Portgruppe wie der ISL-Port befinden.
+
+Wenn sich die F-Ports in einer Portgruppe befinden, die ISL enthält, muss diese Aufgabe auf jedem FC-Switch in der MetroCluster-Konfiguration ausgeführt werden.
+
+.Schritte
+. Konfigurationsmodus aufrufen:
++
+`config t`
+
+. Legen Sie den Schnittstellenkonfigurationsmodus für den Port fest:
++
+`interface _port-ID_`
+
+. Deaktivieren des Ports:
++
+`shut`
+
+. Wenn sich der Port nicht bereits im F-Modus befindet, setzen Sie den Port auf F-Modus:
++
+`switchport mode F`
+
+. Setzen Sie den Buffer-to-Buffer-Kredit der nicht-E-Ports auf 1:
++
+`switchport fcrxbbcredit 1`
+
+. Port erneut aktivieren:
++
+`no shut`
+
+. Konfigurationsmodus beenden:
++
+`exit`
+
+. Kopieren Sie die aktualisierte Konfiguration in die Startkonfiguration:
++
+`copy running-config startup-config`
+
+. Überprüfen Sie die Puffer-zu-Puffer-Gutschrift, die einem Port zugewiesen wurde:
++
+`show port-resources module 1`
+
+. Konfigurationsmodus beenden:
++
+`exit`
+
+. Wiederholen Sie diese Schritte auf dem anderen Schalter in der Struktur.
+. Überprüfen Sie die Einstellungen:
++
+`show port-resource module 1`
+
+
+
+In diesem Beispiel ist Port fc1/40 ISL. Die Ports fc1/37, fc1/38 und fc1/39 befinden sich in derselben Portgruppe und müssen konfiguriert sein.
+
+Mit den folgenden Befehlen wird der Portbereich angezeigt, der für fc1/37 bis fc1/39 konfiguriert ist:
+
+[listing]
+----
+FC_switch_A_1# conf t
+FC_switch_A_1(config)# interface fc1/37-39
+FC_switch_A_1(config-if)# shut
+FC_switch_A_1(config-if)# switchport mode F
+FC_switch_A_1(config-if)# switchport fcrxbbcredit 1
+FC_switch_A_1(config-if)# no shut
+FC_switch_A_1(config-if)# exit
+FC_switch_A_1# copy running-config startup-config
+
+FC_switch_B_1# conf t
+FC_switch_B_1(config)# interface fc1/37-39
+FC_switch_B_1(config-if)# shut
+FC_switch_B_1(config-if)# switchport mode F
+FC_switch_B_1(config-if)# switchport fcrxbbcredit 1
+FC_switch_A_1(config-if)# no shut
+FC_switch_A_1(config-if)# exit
+FC_switch_B_1# copy running-config startup-config
+----
+Mit den folgenden Befehlen und der Systemausgabe werden die Einstellungen ordnungsgemäß angewendet:
+
+[listing]
+----
+FC_switch_A_1# show port-resource module 1
+...
+Port-Group 11
+ Available dedicated buffers are 93
+
+--------------------------------------------------------------------
+Interfaces in the Port-Group       B2B Credit  Bandwidth  Rate Mode
+                                      Buffers     (Gbps)
+
+--------------------------------------------------------------------
+fc1/37                                     32        8.0  dedicated
+fc1/38                                      1        8.0  dedicated
+fc1/39                                      1        8.0  dedicated
+...
+
+FC_switch_B_1# port-resource module
+...
+Port-Group 11
+ Available dedicated buffers are 93
+
+--------------------------------------------------------------------
+Interfaces in the Port-Group       B2B Credit  Bandwidth  Rate Mode
+                                     Buffers     (Gbps)
+
+--------------------------------------------------------------------
+fc1/37                                     32        8.0  dedicated
+fc1/38                                      1        8.0  dedicated
+fc1/39                                      1        8.0 dedicated
+...
+----
+
+
+== Erstellen und Konfigurieren von VSANs auf Cisco FC-Switches
+
+Sie müssen ein VSAN für die FC-VI-Ports und ein VSAN für die Storage-Ports an jedem FC-Switch in der MetroCluster Konfiguration erstellen.
+
+Die VSANs sollten eine eindeutige Nummer und einen eindeutigen Namen haben. Sie müssen zusätzliche Konfigurationen vornehmen, wenn Sie zwei ISLs in der Reihenfolge der Frames verwenden.
+
+Die Beispiele für diese Aufgabe verwenden die folgenden Namenskonventionen:
+
+[cols="1,2,1"]
+|===
+
+
+| Switch-Fabric | VSAN-Name | ID-Nummer 
+
+
+ a| 
+1
+ a| 
+FCVI_1_10
+ a| 
+10
+
+
+
+ a| 
+STOR_1_20
+ a| 
+20
+
+
+
+ a| 
+2
+ a| 
+FCVI_2_30
+ a| 
+30
+
+
+
+ a| 
+STOR_2_20
+ a| 
+40
+
+|===
+Diese Aufgabe muss an jeder FC-Switch-Fabric durchgeführt werden.
+
+.Schritte
+. Konfiguration des FC-VI VSAN:
++
+.. Konfigurationsmodus aufrufen, falls dies noch nicht geschehen ist:
++
+`config t`
+
+.. Bearbeiten der VSAN-Datenbank:
++
+`vsan database`
+
+.. VSAN-ID festlegen:
++
+`vsan _vsan-ID_`
+
+.. VSAN-Name festlegen:
++
+`vsan _vsan-ID_ name _vsan_name_`
+
+
+
+. Hinzufügen von Ports zum FC-VI VSAN:
++
+.. Fügen Sie die Schnittstellen für jeden Port im VSAN hinzu:
++
+`vsan _vsan-ID_ interface _interface_name_`
+
++
+Bei dem FC-VI VSAN werden die Ports hinzugefügt, die die lokalen FC-VI-Ports verbinden.
+
+.. Konfigurationsmodus beenden:
++
+`end`
+
+.. Kopieren Sie die Running-config auf die Startup-config:
++
+`copy running-config startup-config`
+
++
+Im folgenden Beispiel sind die Ports fc1/1 und fc1/13:
+
++
+[listing]
+----
+FC_switch_A_1# conf t
+FC_switch_A_1(config)# vsan database
+FC_switch_A_1(config)# vsan 10 interface fc1/1
+FC_switch_A_1(config)# vsan 10 interface fc1/13
+FC_switch_A_1(config)# end
+FC_switch_A_1# copy running-config startup-config
+FC_switch_B_1# conf t
+FC_switch_B_1(config)# vsan database
+FC_switch_B_1(config)# vsan 10 interface fc1/1
+FC_switch_B_1(config)# vsan 10 interface fc1/13
+FC_switch_B_1(config)# end
+FC_switch_B_1# copy running-config startup-config
+----
+
+
+. Überprüfen Sie die Portmitgliedschaft des VSAN:
++
+`show vsan member`
+
++
+[listing]
+----
+FC_switch_A_1# show vsan member
+FC_switch_B_1# show vsan member
+----
+. VSAN so konfigurieren, dass Frames in der Bestellung oder bei Lieferung nicht bestellter Frames geliefert werden:
++
+
+NOTE: Die Standard-IOD-Einstellungen werden empfohlen. Sie sollten OOD nur bei Bedarf konfigurieren.
+
++
+link:concept_prepare_for_the_mcc_installation.html["Überlegungen bei der Verwendung von TDM/WDM-Geräten mit Fabric-Attached MetroCluster-Konfigurationen"]
+
++
+** Zur Konfiguration der in der Reihenfolge der Bereitstellung von Frames müssen folgende Schritte durchgeführt werden:
++
+... Konfigurationsmodus aufrufen:
++
+`conf t`
+
+... Ermöglichung der in-Order-Garantie für den Austausch des VSAN:
++
+`in-order-guarantee vsan _vsan-ID_`
+
++
+
+IMPORTANT: Für FC-VI VSANs (FCVI_1_10 und FCVI_2_30) müssen Sie die in-Order-Garantie für Frames und Umtausche nur auf VSAN 10 aktivieren.
+
+... Lastausgleich für das VSAN aktivieren:
++
+`vsan _vsan-ID_ loadbalancing src-dst-id`
+
+... Konfigurationsmodus beenden:
++
+`end`
+
+... Kopieren Sie die Running-config auf die Startup-config:
++
+`copy running-config startup-config`
+
++
+Die Befehle zur Konfiguration der in-order-Bereitstellung von Frames auf FC_Switch_A_1:
+
++
+[listing]
+----
+FC_switch_A_1# config t
+FC_switch_A_1(config)# in-order-guarantee vsan 10
+FC_switch_A_1(config)# vsan database
+FC_switch_A_1(config-vsan-db)# vsan 10 loadbalancing src-dst-id
+FC_switch_A_1(config-vsan-db)# end
+FC_switch_A_1# copy running-config startup-config
+----
++
+Die Befehle zur Konfiguration der in-order-Bereitstellung von Frames auf FC_Switch_B_1:
+
++
+[listing]
+----
+FC_switch_B_1# config t
+FC_switch_B_1(config)# in-order-guarantee vsan 10
+FC_switch_B_1(config)# vsan database
+FC_switch_B_1(config-vsan-db)# vsan 10 loadbalancing src-dst-id
+FC_switch_B_1(config-vsan-db)# end
+FC_switch_B_1# copy running-config startup-config
+----
+
+
+** Die folgenden Schritte müssen ausgeführt werden, um die Lieferung von Frames außerhalb der Reihenfolge zu konfigurieren:
++
+... Konfigurationsmodus aufrufen:
++
+`conf t`
+
+... Deaktivieren der „in-order“-Garantie für den Austausch des VSAN:
++
+`no in-order-guarantee vsan _vsan-ID_`
+
+... Lastausgleich für das VSAN aktivieren:
++
+`vsan _vsan-ID_ loadbalancing src-dst-id`
+
+... Konfigurationsmodus beenden:
++
+`end`
+
+... Kopieren Sie die Running-config auf die Startup-config:
++
+`copy running-config startup-config`
+
++
+Die Befehle zur Konfiguration der nicht bestellenden Bereitstellung von Frames auf FC_Switch_A_1:
+
++
+[listing]
+----
+FC_switch_A_1# config t
+FC_switch_A_1(config)# no in-order-guarantee vsan 10
+FC_switch_A_1(config)# vsan database
+FC_switch_A_1(config-vsan-db)# vsan 10 loadbalancing src-dst-id
+FC_switch_A_1(config-vsan-db)# end
+FC_switch_A_1# copy running-config startup-config
+----
++
+Die Befehle zur Konfiguration der nicht bestellenden Bereitstellung von Frames auf FC_Switch_B_1:
+
++
+[listing]
+----
+FC_switch_B_1# config t
+FC_switch_B_1(config)# no in-order-guarantee vsan 10
+FC_switch_B_1(config)# vsan database
+FC_switch_B_1(config-vsan-db)# vsan 10 loadbalancing src-dst-id
+FC_switch_B_1(config-vsan-db)# end
+FC_switch_B_1# copy running-config startup-config
+----
++
+
+NOTE: Bei der Konfiguration von ONTAP auf den Controller-Modulen muss OOD explizit auf jedem Controller-Modul in der MetroCluster-Konfiguration konfiguriert sein.
+
++
+link:concept_configure_the_mcc_software_in_ontap.html#configuring-in-order-delivery-or-out-of-order-delivery-of-frames-on-ontap-software["Konfigurieren von in-Order-Lieferung oder Lieferung von Frames auf ONTAP Software außerhalb der Reihenfolge"]
+
+
+
+
+
+. QoS-Richtlinien für FC-VI VSAN festlegen:
++
+--
+.. Konfigurationsmodus aufrufen:
++
+`conf t`
+
+.. Aktivieren Sie die QoS und erstellen Sie eine Klassenzuordnung, indem Sie die folgenden Befehle nacheinander eingeben:
++
+`qos enable`
+
++
+`qos class-map _class_name_ match-any`
+
+.. Fügen Sie die in einem vorherigen Schritt erstellte Klassenzuordnung der Richtlinienzuordnung hinzu:
++
+`class _class_name_`
+
+.. Legen Sie die Priorität fest:
++
+`priority high`
+
+.. Fügen Sie das VSAN der zuvor in diesem Verfahren erstellten Richtlinienzuordnung hinzu:
++
+`qos service policy _policy_name_ vsan _vsan-id_`
+
+.. Kopieren Sie die aktualisierte Konfiguration in die Startkonfiguration:
++
+`copy running-config startup-config`
+
+
+
+--
++
+Die Befehle zum Festlegen der QoS-Richtlinien auf FC_Switch_A_1:
+
++
+[listing]
+----
+FC_switch_A_1# conf t
+FC_switch_A_1(config)# qos enable
+FC_switch_A_1(config)# qos class-map FCVI_1_10_Class match-any
+FC_switch_A_1(config)# qos policy-map FCVI_1_10_Policy
+FC_switch_A_1(config-pmap)# class FCVI_1_10_Class
+FC_switch_A_1(config-pmap-c)# priority high
+FC_switch_A_1(config-pmap-c)# exit
+FC_switch_A_1(config)# exit
+FC_switch_A_1(config)# qos service policy FCVI_1_10_Policy vsan 10
+FC_switch_A_1(config)# end
+FC_switch_A_1# copy running-config startup-config
+----
++
+Die Befehle zum Festlegen der QoS-Richtlinien auf FC_Switch_B_1:
+
++
+[listing]
+----
+FC_switch_B_1# conf t
+FC_switch_B_1(config)# qos enable
+FC_switch_B_1(config)# qos class-map FCVI_1_10_Class match-any
+FC_switch_B_1(config)# qos policy-map FCVI_1_10_Policy
+FC_switch_B_1(config-pmap)# class FCVI_1_10_Class
+FC_switch_B_1(config-pmap-c)# priority high
+FC_switch_B_1(config-pmap-c)# exit
+FC_switch_B_1(config)# exit
+FC_switch_B_1(config)# qos service policy FCVI_1_10_Policy vsan 10
+FC_switch_B_1(config)# end
+FC_switch_B_1# copy running-config startup-config
+----
+. Konfiguration des Storage VSAN:
++
+--
+.. VSAN-ID festlegen:
++
+`vsan _vsan-ID_`
+
+.. VSAN-Name festlegen:
++
+`vsan _vsan-ID_ name _vsan_name_`
+
+
+
+--
++
+Die Befehle zur Konfiguration des Speicher-VSAN auf FC_Switch_A_1:
+
++
+[listing]
+----
+FC_switch_A_1# conf t
+FC_switch_A_1(config)# vsan database
+FC_switch_A_1(config-vsan-db)# vsan 20
+FC_switch_A_1(config-vsan-db)# vsan 20 name STOR_1_20
+FC_switch_A_1(config-vsan-db)# end
+FC_switch_A_1# copy running-config startup-config
+----
++
+Die Befehle zur Konfiguration des Speicher-VSAN auf FC_Switch_B_1:
+
++
+[listing]
+----
+FC_switch_B_1# conf t
+FC_switch_B_1(config)# vsan database
+FC_switch_B_1(config-vsan-db)# vsan 20
+FC_switch_B_1(config-vsan-db)# vsan 20 name STOR_1_20
+FC_switch_B_1(config-vsan-db)# end
+FC_switch_B_1# copy running-config startup-config
+----
+. Ports zum Storage VSAN hinzufügen
++
+Bei dem Storage VSAN müssen alle Ports, die HBA- oder FC-to-SAS-Bridges verbinden, hinzugefügt werden. In diesem Beispiel fc1/5, fc1/9, fc1/17, fc1/21. fc1/25, fc1/29, fc1/33 und fc1/37 werden hinzugefügt.
+
++
+Die Befehle zum Hinzufügen von Ports zum Speicher VSAN zu FC_Switch_A_1:
+
++
+[listing]
+----
+FC_switch_A_1# conf t
+FC_switch_A_1(config)# vsan database
+FC_switch_A_1(config)# vsan 20 interface fc1/5
+FC_switch_A_1(config)# vsan 20 interface fc1/9
+FC_switch_A_1(config)# vsan 20 interface fc1/17
+FC_switch_A_1(config)# vsan 20 interface fc1/21
+FC_switch_A_1(config)# vsan 20 interface fc1/25
+FC_switch_A_1(config)# vsan 20 interface fc1/29
+FC_switch_A_1(config)# vsan 20 interface fc1/33
+FC_switch_A_1(config)# vsan 20 interface fc1/37
+FC_switch_A_1(config)# end
+FC_switch_A_1# copy running-config startup-config
+----
++
+Die Befehle zum Hinzufügen von Ports zum Speicher VSAN zu FC_Switch_B_1:
+
++
+[listing]
+----
+FC_switch_B_1# conf t
+FC_switch_B_1(config)# vsan database
+FC_switch_B_1(config)# vsan 20 interface fc1/5
+FC_switch_B_1(config)# vsan 20 interface fc1/9
+FC_switch_B_1(config)# vsan 20 interface fc1/17
+FC_switch_B_1(config)# vsan 20 interface fc1/21
+FC_switch_B_1(config)# vsan 20 interface fc1/25
+FC_switch_B_1(config)# vsan 20 interface fc1/29
+FC_switch_B_1(config)# vsan 20 interface fc1/33
+FC_switch_B_1(config)# vsan 20 interface fc1/37
+FC_switch_B_1(config)# end
+FC_switch_B_1# copy running-config startup-config
+----
+
+
+
+
+== E-Ports werden konfiguriert
+
+Die Switch-Ports mit ISL müssen konfiguriert werden (dies sind die E-Ports).
+
+Die von Ihnen verwendete Vorgehensweise hängt davon ab, welchen Schalter Sie verwenden:
+
+* ,Konfiguration der E-Ports am Cisco FC-Switch
+* ,Konfiguration von FCIP-Ports für ein einzelnes ISL auf Cisco 9250i FC-Switches
+* ,Konfiguration von FCIP-Ports für Dual ISL auf Cisco 9250i FC-Switches
+
+
+
+
+=== Konfiguration der E-Ports am Cisco FC-Switch
+
+Sie müssen die FC-Switch-Ports konfigurieren, die den Inter-Switch-Link (ISL) verbinden.
+
+Dies sind die E-Ports, und die Konfiguration muss für jeden Port erfolgen. Dazu müssen Sie die korrekte Anzahl von Buffer-to-Buffer Credits (BPCs) berechnen.
+
+Alle ISLs in der Fabric müssen mit den gleichen Einstellungen für Geschwindigkeit und Entfernung konfiguriert sein.
+
+Diese Aufgabe muss an jedem ISL-Port ausgeführt werden.
+
+.Schritte
+. Anhand der folgenden Tabelle können Sie die angepassten benötigten BBCs pro Kilometer für mögliche Portgeschwindigkeiten bestimmen.
++
+Um die korrekte Anzahl der BBCs zu ermitteln, multiplizieren Sie die benötigten angepassten BBCs (ermittelt aus der folgenden Tabelle) mit dem Abstand in Kilometern zwischen den Schaltern. Zur Berücksichtigung des FC-VI-Framing-Verhaltens ist ein Anpassungsfaktor von 1.5 erforderlich.
+
++
+|===
+
+
+| Geschwindigkeit in GB/s | BBCS pro Kilometer erforderlich | Angepasste BBCs erforderlich (BBU pro km x 1.5) 
+
+
+ a| 
+1
+ a| 
+0.5
+ a| 
+0.75
+
+
+
+ a| 
+2
+ a| 
+1
+ a| 
+1.5
+
+
+
+ a| 
+4
+ a| 
+2
+ a| 
+3
+
+
+
+ a| 
+8
+ a| 
+4
+ a| 
+6
+
+
+
+ a| 
+16
+ a| 
+8
+ a| 
+12
+
+|===
+
+
+Um beispielsweise die erforderliche Anzahl an Credits für eine Entfernung von 30 km auf einem 4-Gbit/s-Link zu berechnen, gehen Sie wie folgt vor:
+
+* `Speed in Gbps` Ist 4
+* `Adjusted BBCs required` Ist 3
+* `Distance in kilometers between switches` Ist 30 km
+* 3 x 30 = 90
++
+.. Konfigurationsmodus aufrufen:
++
+`config t`
+
+.. Geben Sie den Port an, den Sie konfigurieren:
++
+`interface _port-name_`
+
+.. Fahren Sie den Port herunter:
++
+`shutdown`
+
+.. Stellen Sie den Rate-Modus des Ports auf „Dedicated“ ein:
++
+`switchport rate-mode dedicated`
+
+.. Stellen Sie die Geschwindigkeit für den Port ein:
++
+`switchport speed _speed-value_`
+
+.. Legen Sie die Buffer-to-Buffer Credits für den Port fest:
++
+`switchport fcrxbbcredit _number_of_buffers_`
+
+.. Stellen Sie den Port auf E-Modus:
++
+`switchport mode E`
+
+.. Aktivieren Sie den Trunk-Modus für den Port:
++
+`switchport trunk mode on`
+
+.. Fügen Sie das ISL Virtual Storage Area Networks (VSANs) zum Trunk hinzu:
++
+`switchport trunk allowed vsan 10`
+
++
+`switchport trunk allowed vsan add 20`
+
+.. Fügen Sie den Port zu Port Kanal 1 hinzu:
++
+`channel-group 1`
+
+.. Wiederholen Sie die vorherigen Schritte für den passenden ISL-Port am Partner-Switch in der Fabric.
++
+Das folgende Beispiel zeigt den Port fc1/41, der für eine Entfernung von 30 km und 8 Gbit/s konfiguriert ist:
+
++
+[listing]
+----
+FC_switch_A_1# conf t
+FC_switch_A_1# shutdown
+FC_switch_A_1# switchport rate-mode dedicated
+FC_switch_A_1# switchport speed 8000
+FC_switch_A_1# switchport fcrxbbcredit 60
+FC_switch_A_1# switchport mode E
+FC_switch_A_1# switchport trunk mode on
+FC_switch_A_1# switchport trunk allowed vsan 10
+FC_switch_A_1# switchport trunk allowed vsan add 20
+FC_switch_A_1# channel-group 1
+fc1/36 added to port-channel 1 and disabled
+
+FC_switch_B_1# conf t
+FC_switch_B_1# shutdown
+FC_switch_B_1# switchport rate-mode dedicated
+FC_switch_B_1# switchport speed 8000
+FC_switch_B_1# switchport fcrxbbcredit 60
+FC_switch_B_1# switchport mode E
+FC_switch_B_1# switchport trunk mode on
+FC_switch_B_1# switchport trunk allowed vsan 10
+FC_switch_B_1# switchport trunk allowed vsan add 20
+FC_switch_B_1# channel-group 1
+fc1/36 added to port-channel 1 and disabled
+----
+.. Geben Sie bei beiden Switches den folgenden Befehl ein, um die Ports neu zu starten:
++
+`no shutdown`
+
+.. Wiederholen Sie die vorherigen Schritte für die anderen ISL-Ports in der Fabric.
+.. Fügen Sie das native VSAN an die Port-Channel-Schnittstelle bei beiden Switches im selben Fabric hinzu:
++
+`interface port-channel _number_`
+
++
+`switchport trunk allowed vsan add _native_san_id_`
+
+.. Überprüfen Sie die Konfiguration des Port-Kanals:
++
+`show interface port-channel _number_`
+
++
+Der Port-Kanal sollte die folgenden Attribute aufweisen:
+
+
+
+* Der Port-Channel lautet „Trunking“.
+* Der Admin-Port-Modus ist E, der Trunk-Modus ist eingeschaltet.
+* Die Geschwindigkeit gibt den kumulativen Wert aller ISL-Verbindungsgeschwindigkeiten an.
++
+Zwei ISL-Ports mit 4 Gbit/s sollten beispielsweise eine Geschwindigkeit von 8 Gbit/s aufweisen.
+
+* `Trunk vsans (admin allowed and active)` Zeigt alle zulässigen VSANs an.
+* `Trunk vsans (up)` Zeigt alle zulässigen VSANs an.
+* Die Mitgliedsliste zeigt alle ISL-Ports an, die dem Port-Channel hinzugefügt wurden.
+* Die Port-Nummer von VSAN sollte mit dem VSAN übereinstimmen, das die ISLs enthält (in der Regel natives vsan 1).
++
+[listing]
+----
+FC_switch_A_1(config-if)# show int port-channel 1
+port-channel 1 is trunking
+    Hardware is Fibre Channel
+    Port WWN is 24:01:54:7f:ee:e2:8d:a0
+    Admin port mode is E, trunk mode is on
+    snmp link state traps are enabled
+    Port mode is TE
+    Port vsan is 1
+    Speed is 8 Gbps
+    Trunk vsans (admin allowed and active) (1,10,20)
+    Trunk vsans (up)                       (1,10,20)
+    Trunk vsans (isolated)                 ()
+    Trunk vsans (initializing)             ()
+    5 minutes input rate 1154832 bits/sec,144354 bytes/sec, 170 frames/sec
+    5 minutes output rate 1299152 bits/sec,162394 bytes/sec, 183 frames/sec
+      535724861 frames input,1069616011292 bytes
+        0 discards,0 errors
+        0 invalid CRC/FCS,0 unknown class
+        0 too long,0 too short
+      572290295 frames output,1144869385204 bytes
+        0 discards,0 errors
+      5 input OLS,11  LRR,2 NOS,0 loop inits
+      14 output OLS,5 LRR, 0 NOS, 0 loop inits
+    Member[1] : fc1/36
+    Member[2] : fc1/40
+    Interface last changed at Thu Oct 16 11:48:00 2014
+----
++
+.. Konfiguration der beenden-Schnittstelle auf beiden Switches:
++
+`end`
+
+.. Kopieren Sie die aktualisierte Konfiguration in die Startkonfiguration auf beiden Fabrics:
++
+`copy running-config startup-config`
+
++
+[listing]
+----
+FC_switch_A_1(config-if)# end
+FC_switch_A_1# copy running-config startup-config
+
+FC_switch_B_1(config-if)# end
+FC_switch_B_1# copy running-config startup-config
+----
+.. Wiederholen Sie die vorherigen Schritte auf der zweiten Switch Fabric.
+
+
+
+
+Sie müssen überprüfen, ob Sie die angegebenen Portzuweisungen verwenden, wenn Sie die FC-Switches mit ONTAP 9.1 und höher verkabeln. Siehe link:concept_port_assignments_for_fc_switches_when_using_ontap_9_1_and_later.html["Port-Zuweisungen für FC-Switches bei Verwendung von ONTAP 9.1 und höher"]
+
+
+
+=== Konfiguration von FCIP-Ports für ein einzelnes ISL auf Cisco 9250i FC-Switches
+
+Sie müssen die FCIP-Switch-Ports konfigurieren, die ISL (E-Ports) verbinden, indem Sie FCIP-Profile und Schnittstellen erstellen und sie dann der IPStorage1/1-GbE-Schnittstelle zuweisen.
+
+Diese Aufgabe richtet sich nur an Konfigurationen, die ein einzelnes ISL pro Switch-Fabric verwenden und auf denen die IPStorage1/1-Schnittstelle auf jedem Switch verwendet wird.
+
+Diese Aufgabe muss an jedem FC-Switch ausgeführt werden.
+
+An jedem Switch werden zwei FCIP-Profile erstellt:
+
+* Fabric 1
++
+** FC_Switch_A_1 ist mit FCIP-Profilen 11 und 111 konfiguriert.
+** FC_Switch_B_1 ist mit FCIP-Profilen 12 und 121 konfiguriert.
+
+
+* Fabric 2
++
+** FC_Switch_A_2 ist mit FCIP-Profilen 13 und 131 konfiguriert.
+** FC_Switch_B_2 ist mit FCIP-Profilen 14 und 141 konfiguriert.
+
+
+
+
+.Schritte
+. Konfigurationsmodus aufrufen:
++
+`config t`
+
+. FCIP aktivieren:
++
+`feature fcip`
+
+. Konfigurieren Sie die IPStorage1/1 GbE-Schnittstelle:
++
+--
+.. Konfigurationsmodus aufrufen:
++
+`conf t`
+
+.. Geben Sie die IPStorage1/1-Schnittstelle an:
++
+`interface IPStorage1/1`
+
+.. Geben Sie die IP-Adresse und die Subnetzmaske an:
++
+`interface _ip-address_ _subnet-mask_`
+
+.. Geben Sie die MTU-Größe von 2500 an:
++
+`switchport mtu 2500`
+
+.. Aktivieren Sie den Port:
++
+`no shutdown`
+
+.. Konfigurationsmodus beenden:
++
+`exit`
+
+
+
+--
++
+Das folgende Beispiel zeigt die Konfiguration eines IPStorage1/1-Ports:
+
++
+[listing]
+----
+conf t
+interface IPStorage1/1
+  ip address 192.168.1.201 255.255.255.0
+  switchport mtu 2500
+  no shutdown
+exit
+----
+. Konfigurieren Sie das FCIP-Profil für den FC-VI-Datenverkehr:
++
+--
+.. Konfigurieren Sie ein FCIP-Profil, und wechseln Sie in den Konfigurationsmodus für FCIP-Profile:
++
+`fcip profile _FCIP-profile-name_`
+
++
+Der Profilname hängt davon ab, welcher Switch konfiguriert wird.
+
+.. Weisen Sie die IP-Adresse der IPStorage1/1-Schnittstelle dem FCIP-Profil zu:
++
+`ip address _ip-address_`
+
+.. Weisen Sie das FCIP-Profil dem TCP-Port 3227 zu:
++
+`port 3227`
+
+.. Legen Sie die TCP-Einstellungen fest:
++
+`tcp keepalive-timeout 1`
+
++
+`tcp max-retransmissions 3`
+
++
+`max-bandwidth-mbps 5000 min-available-bandwidth-mbps 4500 round-trip-time-ms 3`
+
++
+`tcp min-retransmit-time 200`
+
++
+`tcp keepalive-timeout 1`
+
++
+`tcp pmtu-enable reset-timeout 3600`
+
++
+`tcp sack-enable``no tcp cwm`
+
+
+
+--
++
+Im folgenden Beispiel wird die Konfiguration des FCIP-Profils angezeigt:
+
++
+[listing]
+----
+conf t
+fcip profile 11
+  ip address 192.168.1.333
+  port 3227
+  tcp keepalive-timeout 1
+tcp max-retransmissions 3
+max-bandwidth-mbps 5000 min-available-bandwidth-mbps 4500 round-trip-time-ms 3
+  tcp min-retransmit-time 200
+  tcp keepalive-timeout 1
+  tcp pmtu-enable reset-timeout 3600
+  tcp sack-enable
+  no tcp cwm
+----
+. Konfigurieren Sie das FCIP-Profil für den Speicherdatenverkehr:
++
+--
+.. Konfigurieren Sie ein FCIP-Profil mit dem Namen 111, und wechseln Sie in den Konfigurationsmodus für das FCIP-Profil:
++
+`fcip profile 111`
+
+.. Weisen Sie die IP-Adresse der IPStorage1/1-Schnittstelle dem FCIP-Profil zu:
++
+`ip address _ip-address_`
+
+.. Weisen Sie das FCIP-Profil dem TCP-Port 3229 zu:
++
+`port 3229`
+
+.. Legen Sie die TCP-Einstellungen fest:
++
+`tcp keepalive-timeout 1`
+
++
+`tcp max-retransmissions 3`
+
++
+`max-bandwidth-mbps 5000 min-available-bandwidth-mbps 4500 round-trip-time-ms 3`
+
++
+`tcp min-retransmit-time 200`
+
++
+`tcp keepalive-timeout 1`
+
++
+`tcp pmtu-enable reset-timeout 3600`
+
++
+`tcp sack-enable``no tcp cwm`
+
+
+
+--
++
+Im folgenden Beispiel wird die Konfiguration des FCIP-Profils angezeigt:
+
++
+[listing]
+----
+conf t
+fcip profile 111
+  ip address 192.168.1.334
+  port 3229
+  tcp keepalive-timeout 1
+tcp max-retransmissions 3
+max-bandwidth-mbps 5000 min-available-bandwidth-mbps 4500 round-trip-time-ms 3
+  tcp min-retransmit-time 200
+  tcp keepalive-timeout 1
+  tcp pmtu-enable reset-timeout 3600
+  tcp sack-enable
+  no tcp cwm
+----
+. Erstellen Sie das erste von zwei FCIP-Schnittstellen:
++
+`interface fcip 1`
+
++
+Diese Schnittstelle wird für den FC-IV-Datenverkehr verwendet.
+
++
+--
+.. Wählen Sie das zuvor erstellte Profil 11 aus:
++
+`use-profile 11`
+
+.. Legen Sie die IP-Adresse und den Port des IPStorage1/1-Ports auf dem Partner-Switch fest:
++
+`peer-info ipaddr _partner-switch-port-ip_ port 3227`
+
+.. TCP-Verbindung 2 auswählen:
++
+`tcp-connection 2`
+
+.. Komprimierung deaktivieren:
++
+`no ip-compression`
+
+.. Aktivieren der Schnittstelle:
++
+`no shutdown`
+
+.. Konfigurieren Sie die TCP-Steuerverbindung zu 48 und die Datenverbindung zu 26, um alle Pakete auf diesem differenzierten Service Code Point (DSCP)-Wert zu markieren:
++
+`qos control 48 data 26`
+
+.. Beenden Sie den Konfigurationsmodus der Schnittstelle:
++
+`exit`
+
+
+
+--
++
+Im folgenden Beispiel wird die Konfiguration der FCIP-Schnittstelle angezeigt:
+
++
+[listing]
+----
+interface fcip  1
+  use-profile 11
+# the port # listed in this command is the port that the remote switch is listening on
+ peer-info ipaddr 192.168.32.334   port 3227
+  tcp-connection 2
+  no ip-compression
+  no shutdown
+  qos control 48 data 26
+exit
+----
+. Erstellen Sie das zweite von zwei FCIP-Schnittstellen:
++
+`interface fcip 2`
+
++
+Diese Schnittstelle wird für Storage-Traffic verwendet.
+
++
+--
+.. Wählen Sie das zuvor erstellte Profil 111 aus:
++
+`use-profile 111`
+
+.. Legen Sie die IP-Adresse und den Port des IPStorage1/1-Ports auf dem Partner-Switch fest:
++
+`peer-info ipaddr _partner-switch-port-ip_ port 3229`
+
+.. TCP-Verbindung 2 auswählen:
++
+`tcp-connection 5`
+
+.. Komprimierung deaktivieren:
++
+`no ip-compression`
+
+.. Aktivieren der Schnittstelle:
++
+`no shutdown`
+
+.. Konfigurieren Sie die TCP-Steuerverbindung zu 48 und die Datenverbindung zu 26, um alle Pakete auf diesem differenzierten Service Code Point (DSCP)-Wert zu markieren:
++
+`qos control 48 data 26`
+
+.. Beenden Sie den Konfigurationsmodus der Schnittstelle:
++
+`exit`
+
+
+
+--
++
+Im folgenden Beispiel wird die Konfiguration der FCIP-Schnittstelle angezeigt:
+
++
+[listing]
+----
+interface fcip  2
+  use-profile 11
+# the port # listed in this command is the port that the remote switch is listening on
+ peer-info ipaddr 192.168.32.33e  port 3229
+  tcp-connection 5
+  no ip-compression
+  no shutdown
+  qos control 48 data 26
+exit
+----
+. Konfigurieren Sie die Einstellungen für den Switchport auf der fcip 1-Schnittstelle:
++
+.. Konfigurationsmodus aufrufen:
++
+`config t`
+
+.. Geben Sie den Port an, den Sie konfigurieren:
++
+`interface fcip 1`
+
+.. Fahren Sie den Port herunter:
++
+`shutdown`
+
+.. Stellen Sie den Port auf E-Modus:
++
+`switchport mode E`
+
+.. Aktivieren Sie den Trunk-Modus für den Port:
++
+`switchport trunk mode on`
+
+.. Legen Sie den Trunk für das vsan auf 10 fest:
++
+`switchport trunk allowed vsan 10`
+
+.. Stellen Sie die Geschwindigkeit für den Port ein:
++
+`switchport speed _speed-value_`
+
+
+
+. Konfigurieren Sie die Einstellungen für den Switchport auf der fcip 2-Schnittstelle:
++
+.. Konfigurationsmodus aufrufen:
++
+`config t`
+
+.. Geben Sie den Port an, den Sie konfigurieren:
++
+`interface fcip 2`
+
+.. Fahren Sie den Port herunter:
++
+`shutdown`
+
+.. Stellen Sie den Port auf E-Modus:
++
+`switchport mode E`
+
+.. Aktivieren Sie den Trunk-Modus für den Port:
++
+`switchport trunk mode on`
+
+.. Legen Sie den Trunk für das vsan auf 20 fest:
++
+`switchport trunk allowed vsan 20`
+
+.. Stellen Sie die Geschwindigkeit für den Port ein:
++
+`switchport speed _speed-value_`
+
+
+
+. Wiederholen Sie die vorherigen Schritte auf dem zweiten Schalter.
++
+Die einzigen Unterschiede sind die entsprechenden IP-Adressen und eindeutige FCIP-Profilnamen.
+
++
+** Bei der Konfiguration der ersten Switch Fabric wird FC_Switch_B_1 mit FCIP-Profilen 12 und 121 konfiguriert.
+** Bei der Konfiguration der ersten Switch Fabric wird FC_Switch_A_2 mit FCIP-Profilen 13 und 131 konfiguriert und FC_Switch_B_2 mit FCIP-Profilen 14 und 141 konfiguriert.
+
+
+. Starten Sie die Ports auf beiden Switches neu:
++
+`no shutdown`
+
+. Beenden Sie die Schnittstellenkonfiguration bei beiden Switches:
++
+`end`
+
+. Kopieren Sie die aktualisierte Konfiguration auf die Startkonfiguration auf beiden Switches:
++
+`copy running-config startup-config`
+
++
+[listing]
+----
+FC_switch_A_1(config-if)# end
+FC_switch_A_1# copy running-config startup-config
+
+FC_switch_B_1(config-if)# end
+FC_switch_B_1# copy running-config startup-config
+----
+. Wiederholen Sie die vorherigen Schritte auf der zweiten Switch Fabric.
+
+
+
+
+=== Konfiguration von FCIP-Ports für Dual ISL auf Cisco 9250i FC-Switches
+
+Sie müssen die FCIP-Switch-Ports konfigurieren, die die ISL (E-Ports) verbinden, indem Sie FCIP-Profile und Schnittstellen erstellen und sie dann den IPStorage1/1- und IPStorage1/2-GbE-Schnittstellen zuweisen.
+
+Diese Aufgabe gilt nur für Konfigurationen, die ein duales ISL pro Switch-Fabric verwenden und auf jedem Switch die Schnittstellen IPStorage1/1 und IPStorage1/2 GbE verwenden.
+
+Diese Aufgabe muss an jedem FC-Switch ausgeführt werden.
+
+image::../media/fcip_ports_dual_isl.gif[fcip-Ports Dual isl]
+
+Die Aufgabe und Beispiele verwenden die folgenden Profilkonfigurationstabellen:
+
+* 
+* 
+
+
+*Tabelle zur Konfiguration des Fabric 1-Profils*
+
+|===
+
+
+| Switch-Fabric | IPStorage-Schnittstelle | IP-Adresse | Porttyp | FCIP-Schnittstelle | FCIP-Profil | Port | Peer-IP/Port | VSAN-ID 
+
+
+ a| 
+FC_Switch_A_1
+ a| 
+IPStorage1/1
+ a| 
+A.a.a.a.a
+ a| 
+FC-VI
+ a| 
+fcip 1
+ a| 
+15
+ a| 
+3220
+ a| 
+c.c.c/3230
+ a| 
+10
+
+
+
+ a| 
+Storage
+ a| 
+fcip 2
+ a| 
+20
+ a| 
+3221
+ a| 
+c.c.c/3231
+ a| 
+20
+
+
+
+ a| 
+IPStorage1/2
+ a| 
+B.b.b.b
+ a| 
+FC-VI
+ a| 
+fcip 3
+ a| 
+25
+ a| 
+3222
+ a| 
+d. d. d.d.d/3232
+ a| 
+10
+
+
+
+ a| 
+Storage
+ a| 
+fcip 4
+ a| 
+30
+ a| 
+3223
+ a| 
+d. d. d.d.d/3233
+ a| 
+20
+
+
+
+ a| 
+FC_Switch_B_1
+ a| 
+IPStorage1/1
+ a| 
+C.c.c.c
+ a| 
+FC-VI
+ a| 
+fcip 1
+ a| 
+15
+ a| 
+3230
+ a| 
+a. a. a. A. A. A. A. A. A./3220
+ a| 
+10
+
+
+
+ a| 
+Storage
+ a| 
+fcip 2
+ a| 
+20
+ a| 
+3231
+ a| 
+a. a. a. A. A. A. A. A. A./3221
+ a| 
+20
+
+
+
+ a| 
+IPStorage1/2
+ a| 
+D.d.
+ a| 
+FC-VI
+ a| 
+fcip 3
+ a| 
+25
+ a| 
+3232
+ a| 
+b. b.b.b.b.b/3222
+ a| 
+10
+
+
+
+ a| 
+Storage
+ a| 
+fcip 4
+ a| 
+30
+ a| 
+3233
+ a| 
+b. b.b.b.b.b/3223
+ a| 
+20
+
+|===
+*Tabelle zur Konfiguration des Fabric 2-Profils*
+
+|===
+
+
+| Switch-Fabric | IPStorage-Schnittstelle | IP-Adresse | Porttyp | FCIP-Schnittstelle | FCIP-Profil | Port | Peer-IP/Port | VSAN-ID 
+
+
+ a| 
+FC_Switch_A_2
+ a| 
+IPStorage1/1
+ a| 
+Z. B.
+ a| 
+FC-VI
+ a| 
+fcip 1
+ a| 
+15
+ a| 
+3220
+ a| 
+g.g.g./3230
+ a| 
+10
+
+
+
+ a| 
+Storage
+ a| 
+fcip 2
+ a| 
+20
+ a| 
+3221
+ a| 
+g.g.g./3231
+ a| 
+20
+
+
+
+ a| 
+IPStorage1/2
+ a| 
+Fw
+ a| 
+FC-VI
+ a| 
+fcip 3
+ a| 
+25
+ a| 
+3222
+ a| 
+h.H.H.H.h./h/3232
+ a| 
+10
+
+
+
+ a| 
+Storage
+ a| 
+fcip 4
+ a| 
+30
+ a| 
+3223
+ a| 
+h.H.H.H.h./h/3233
+ a| 
+20
+
+
+
+ a| 
+FC_Switch_B_2
+ a| 
+IPStorage1/1
+ a| 
+G.g.g
+ a| 
+FC-VI
+ a| 
+fcip 1
+ a| 
+15
+ a| 
+3230
+ a| 
+z. B. e/3220
+ a| 
+10
+
+
+
+ a| 
+Storage
+ a| 
+fcip 2
+ a| 
+20
+ a| 
+3231
+ a| 
+z. B. e/3221
+ a| 
+20
+
+
+
+ a| 
+IPStorage1/2
+ a| 
+h.h.h.h
+ a| 
+FC-VI
+ a| 
+fcip 3
+ a| 
+25
+ a| 
+3232
+ a| 
+f. qm: F/3222
+ a| 
+10
+
+
+
+ a| 
+Storage
+ a| 
+fcip 4
+ a| 
+30
+ a| 
+3233
+ a| 
+f. qm: F/3223
+ a| 
+20
+
+|===
+.Schritte
+. Konfigurationsmodus aufrufen:
++
+`config t`
+
+. FCIP aktivieren:
++
+`feature fcip`
+
+. Konfigurieren Sie auf jedem Switch die beiden IPStorage-Schnittstellen („`IPStorage1/1`" und „`IPStorage1/2`“):
++
+.. [[substep_a,substep „`a`“]]Konfigurationsmodus eingeben:
++
+`conf t`
+
+.. Geben Sie die zu erstellenden IPStorage-Schnittstelle an:
++
+`interface _ipstorage_`
+
++
+Der `_ipstorage_` Der Parameterwert lautet „`IPStorage1/1`“ oder „`IPStorage1/2`“.
+
+.. Geben Sie die IP-Adresse und die Subnetzmaske der zuvor angegebenen IPStorage-Schnittstelle an:
++
+`interface _ip-address_ _subnet-mask_`
+
++
+
+NOTE: Auf jedem Switch müssen die IPStorage-Schnittstellen „`IPStorage1/1`“ und „`IPStorage1/2`“ unterschiedliche IP-Adressen haben.
+
+.. Geben Sie die MTU-Größe als 2500 an:
++
+`switchport mtu 2500`
+
+.. Aktivieren Sie den Port:
++
+`no shutdown`
+
+.. [[substep_f,substep „`f`“]] Konfigurationsmodus beenden:
++
+`exit`
+
+.. Wiederholen  Bis  So konfigurieren Sie die IPStorage1/2 GbE-Schnittstelle mit einer anderen IP-Adresse.
+
+
+. Konfigurieren Sie die FCIP-Profile für FC-VI und Storage Traffic mit den Profilnamen, die in der Tabelle der Profilkonfiguration angegeben sind:
++
+.. Konfigurationsmodus aufrufen:
++
+`conf t`
+
+.. Konfigurieren Sie die FCIP-Profile mit den folgenden Profilnamen:
++
+`fcip profile _FCIP-profile-name_`
+
++
+In der folgenden Liste werden die Werte für das aufgeführt `_FCIP-profile-name_` Parameter:
+
++
+*** 15 für FC-VI auf IPStorage1/1
+*** 20 für Storage auf IPStorage1/1
+*** 25 für FC-VI auf IPStorage1/2
+*** 30 für Speicherung auf IPStorage1/2
+
+
+.. Weisen Sie die FCIP-Profilports gemäß der Profilkonfigurationstabelle zu:
++
+`port _port_number_`
+
+.. Legen Sie die TCP-Einstellungen fest:
++
+`tcp keepalive-timeout 1`
+
++
+`tcp max-retransmissions 3`
+
++
+`max-bandwidth-mbps 5000 min-available-bandwidth-mbps 4500 round-trip-time-ms 3`
+
++
+`tcp min-retransmit-time 200`
+
++
+`tcp keepalive-timeout 1`
+
++
+`tcp pmtu-enable reset-timeout 3600`
+
++
+`tcp sack-enable`
+
++
+`no tcp cwm`
+
+
+
+. FCIP-Schnittstellen erstellen:
++
+`interface fcip _FCIP_interface_`
+
++
+Der `_FCIP_interface_` Parameterwert ist „`1`“, „`2`“, „`3`“ oder „`4`“, wie in der Profilkonfigurationstabelle dargestellt.
+
++
+.. Schnittstellen zu den zuvor erstellten Profilen zuordnen:
++
+`use-profile _profile_`
+
+.. Legen Sie die Peer-IP-Adresse und die Port-Nummer des Peer-Profils fest:
++
+`peer-info _peer_ IPstorage _ipaddr_ port _peer_profile_port_number_`
+
+.. Wählen Sie die TCP-Verbindungen aus:
++
+`tcp-connection _connection-#_`
+
++
+Der `_connection-#_` Der Parameterwert ist „`2`“ für FC-VI-Profile und „`5`“ für Storage-Profile.
+
+.. Komprimierung deaktivieren:
++
+`no ip-compression`
+
+.. Aktivieren der Schnittstelle:
++
+`no shutdown`
+
+.. Konfigurieren Sie die TCP-Steuerverbindung zu „`48`“ und die Datenverbindung zu „`26`“, um alle Pakete zu markieren, die einen differenzierten Service Code Point (DSCP)-Wert haben:
++
+`qos control 48 data 26`
+
+.. Konfigurationsmodus beenden:
++
+`exit`
+
+
+
+. Konfigurieren Sie die Einstellungen für den Switchport auf jeder FCIP-Schnittstelle:
++
+.. Konfigurationsmodus aufrufen:
++
+`config t`
+
+.. Geben Sie den Port an, den Sie konfigurieren:
++
+`interface fcip 1`
+
+.. Fahren Sie den Port herunter:
++
+`shutdown`
+
+.. Stellen Sie den Port auf E-Modus:
++
+`switchport mode E`
+
+.. Aktivieren Sie den Trunk-Modus für den Port:
++
+`switchport trunk mode on`
+
+.. Geben Sie den Trunk an, der auf einem bestimmten VSAN zulässig ist:
++
+`switchport trunk allowed vsan _vsan_id_`
+
++
+Der Parameterwert _vsan_id_ lautet „`VSAN 10`“ für FC-VI-Profile und „`VSAN 20`“ für Storage-Profile.
+
+.. Stellen Sie die Geschwindigkeit für den Port ein:
++
+`switchport speed _speed-value_`
+
+.. Konfigurationsmodus beenden:
++
+`exit`
+
+
+
+. Kopieren Sie die aktualisierte Konfiguration auf die Startkonfiguration auf beiden Switches:
++
+`copy running-config startup-config`
+
+
+
+Die folgenden Beispiele zeigen die Konfiguration von FCIP-Ports für eine Dual-ISL in Fabric 1-Switches FC_Switch_A_1 und FC_Switch_B_1.
+
+*Für FC_Switch_A_1*:
+
+[listing]
+----
+FC_switch_A_1# config t
+FC_switch_A_1(config)# no in-order-guarantee vsan 10
+FC_switch_A_1(config-vsan-db)# end
+FC_switch_A_1# copy running-config startup-config
+
+# fcip settings
+
+feature  fcip
+
+conf t
+interface IPStorage1/1
+#  IP address:  a.a.a.a
+#  Mask:  y.y.y.y
+  ip address <a.a.a.a   y.y.y.y>
+  switchport mtu 2500
+  no shutdown
+exit
+conf t
+fcip profile 15
+  ip address <a.a.a.a>
+  port 3220
+  tcp keepalive-timeout 1
+tcp max-retransmissions 3
+max-bandwidth-mbps 5000 min-available-bandwidth-mbps 4500 round-trip-time-ms 3
+  tcp min-retransmit-time 200
+  tcp keepalive-timeout 1
+  tcp pmtu-enable reset-timeout 3600
+  tcp sack-enable
+  no tcp cwm
+
+conf t
+fcip profile 20
+  ip address <a.a.a.a>
+  port 3221
+  tcp keepalive-timeout 1
+tcp max-retransmissions 3
+max-bandwidth-mbps 5000 min-available-bandwidth-mbps 4500 round-trip-time-ms 3
+  tcp min-retransmit-time 200
+  tcp keepalive-timeout 1
+  tcp pmtu-enable reset-timeout 3600
+  tcp sack-enable
+  no tcp cwm
+
+conf t
+interface IPStorage1/2
+#  IP address:  b.b.b.b
+#  Mask:  y.y.y.y
+  ip address <b.b.b.b   y.y.y.y>
+  switchport mtu 2500
+  no shutdown
+exit
+
+conf t
+fcip profile 25
+  ip address <b.b.b.b>
+  port 3222
+tcp keepalive-timeout 1
+tcp max-retransmissions 3
+max-bandwidth-mbps 5000 min-available-bandwidth-mbps 4500 round-trip-time-ms 3
+  tcp min-retransmit-time 200
+  tcp keepalive-timeout 1
+  tcp pmtu-enable reset-timeout 3600
+  tcp sack-enable
+  no tcp cwm
+
+conf t
+fcip profile 30
+  ip address <b.b.b.b>
+  port 3223
+tcp keepalive-timeout 1
+tcp max-retransmissions 3
+max-bandwidth-mbps 5000 min-available-bandwidth-mbps 4500 round-trip-time-ms 3
+  tcp min-retransmit-time 200
+  tcp keepalive-timeout 1
+  tcp pmtu-enable reset-timeout 3600
+  tcp sack-enable
+  no tcp cwm
+interface fcip  1
+  use-profile 15
+# the port # listed in this command is the port that the remote switch is listening on
+ peer-info ipaddr <c.c.c.c>  port 3230
+  tcp-connection 2
+  no ip-compression
+  no shutdown
+  qos control 48 data 26
+exit
+
+interface fcip  2
+  use-profile 20
+# the port # listed in this command is the port that the remote switch is listening on
+ peer-info ipaddr <c.c.c.c>  port 3231
+  tcp-connection 5
+  no ip-compression
+  no shutdown
+  qos control 48 data 26
+exit
+
+interface fcip  3
+  use-profile 25
+# the port # listed in this command is the port that the remote switch is listening on
+ peer-info ipaddr < d.d.d.d >  port 3232
+  tcp-connection 2
+  no ip-compression
+  no shutdown
+  qos control 48 data 26
+exit
+
+interface fcip  4
+  use-profile 30
+# the port # listed in this command is the port that the remote switch is listening on
+ peer-info ipaddr < d.d.d.d >  port 3233
+  tcp-connection 5
+  no ip-compression
+  no shutdown
+  qos control 48 data 26
+exit
+
+conf t
+interface fcip  1
+shutdown
+switchport mode E
+switchport trunk mode on
+switchport trunk allowed vsan 10
+no shutdown
+exit
+
+conf t
+interface fcip  2
+shutdown
+switchport mode E
+switchport trunk mode on
+switchport trunk allowed vsan 20
+no shutdown
+exit
+
+conf t
+interface fcip  3
+shutdown
+switchport mode E
+switchport trunk mode on
+switchport trunk allowed vsan 10
+no shutdown
+exit
+
+conf t
+interface fcip  4
+shutdown
+switchport mode E
+switchport trunk mode on
+switchport trunk allowed vsan 20
+no shutdown
+exit
+----
+*Für FC_Switch_B_1*:
+
+[listing]
+----
+
+FC_switch_A_1# config t
+FC_switch_A_1(config)# in-order-guarantee vsan 10
+FC_switch_A_1(config-vsan-db)# end
+FC_switch_A_1# copy running-config startup-config
+
+# fcip settings
+
+feature  fcip
+
+conf t
+interface IPStorage1/1
+#  IP address:  c.c.c.c
+#  Mask:  y.y.y.y
+  ip address <c.c.c.c   y.y.y.y>
+  switchport mtu 2500
+  no shutdown
+exit
+
+conf t
+fcip profile 15
+  ip address <c.c.c.c>
+  port 3230
+  tcp keepalive-timeout 1
+tcp max-retransmissions 3
+max-bandwidth-mbps 5000 min-available-bandwidth-mbps 4500 round-trip-time-ms 3
+  tcp min-retransmit-time 200
+  tcp keepalive-timeout 1
+  tcp pmtu-enable reset-timeout 3600
+  tcp sack-enable
+  no tcp cwm
+
+conf t
+fcip profile 20
+  ip address <c.c.c.c>
+  port 3231
+  tcp keepalive-timeout 1
+tcp max-retransmissions 3
+max-bandwidth-mbps 5000 min-available-bandwidth-mbps 4500 round-trip-time-ms 3
+  tcp min-retransmit-time 200
+  tcp keepalive-timeout 1
+  tcp pmtu-enable reset-timeout 3600
+  tcp sack-enable
+  no tcp cwm
+
+conf t
+interface IPStorage1/2
+#  IP address:  d.d.d.d
+#  Mask:  y.y.y.y
+  ip address <b.b.b.b   y.y.y.y>
+  switchport mtu 2500
+  no shutdown
+exit
+
+conf t
+fcip profile 25
+  ip address <d.d.d.d>
+  port 3232
+tcp keepalive-timeout 1
+tcp max-retransmissions 3
+max-bandwidth-mbps 5000 min-available-bandwidth-mbps 4500 round-trip-time-ms 3
+  tcp min-retransmit-time 200
+  tcp keepalive-timeout 1
+  tcp pmtu-enable reset-timeout 3600
+  tcp sack-enable
+  no tcp cwm
+
+conf t
+fcip profile 30
+  ip address <d.d.d.d>
+  port 3233
+tcp keepalive-timeout 1
+tcp max-retransmissions 3
+max-bandwidth-mbps 5000 min-available-bandwidth-mbps 4500 round-trip-time-ms 3
+  tcp min-retransmit-time 200
+  tcp keepalive-timeout 1
+  tcp pmtu-enable reset-timeout 3600
+  tcp sack-enable
+  no tcp cwm
+
+interface fcip  1
+  use-profile 15
+# the port # listed in this command is the port that the remote switch is listening on
+ peer-info ipaddr <a.a.a.a>  port 3220
+  tcp-connection 2
+  no ip-compression
+  no shutdown
+  qos control 48 data 26
+exit
+
+interface fcip  2
+  use-profile 20
+# the port # listed in this command is the port that the remote switch is listening on
+ peer-info ipaddr <a.a.a.a>  port 3221
+  tcp-connection 5
+  no ip-compression
+  no shutdown
+  qos control 48 data 26
+exit
+
+interface fcip  3
+  use-profile 25
+# the port # listed in this command is the port that the remote switch is listening on
+ peer-info ipaddr < b.b.b.b >  port 3222
+  tcp-connection 2
+  no ip-compression
+  no shutdown
+  qos control 48 data 26
+exit
+
+interface fcip  4
+  use-profile 30
+# the port # listed in this command is the port that the remote switch is listening on
+ peer-info ipaddr < b.b.b.b >  port 3223
+  tcp-connection 5
+  no ip-compression
+  no shutdown
+  qos control 48 data 26
+exit
+
+conf t
+interface fcip  1
+shutdown
+switchport mode E
+switchport trunk mode on
+switchport trunk allowed vsan 10
+no shutdown
+exit
+
+conf t
+interface fcip  2
+shutdown
+switchport mode E
+switchport trunk mode on
+switchport trunk allowed vsan 20
+no shutdown
+exit
+
+conf t
+interface fcip  3
+shutdown
+switchport mode E
+switchport trunk mode on
+switchport trunk allowed vsan 10
+no shutdown
+exit
+
+conf t
+interface fcip  4
+shutdown
+switchport mode E
+switchport trunk mode on
+switchport trunk allowed vsan 20
+no shutdown
+exit
+----
+
+
+== Konfigurieren des Zoning auf einem Cisco FC Switch
+
+Sie müssen die Switch-Ports separaten Zonen zuweisen, um den Storage- (HBA) und Controller-Datenverkehr (FC-VI) zu isolieren.
+
+Diese Schritte müssen auf beiden FC Switch Fabrics ausgeführt werden.
+
+Verwenden Sie die folgenden Schritte das im Abschnitt Zoning für eine FibreBridge 7500N in einer MetroCluster-Konfiguration mit vier Knoten beschriebene Zoning. Siehe link:task_fcsw_cisco_configure_a_cisco_switch_supertask.html#configuring-fcip-ports-for-a-dual-isl-on-cisco-9250i-fc-switches["Zoning für FC-VI-Ports"].
+
+.Schritte
+. Löschen Sie gegebenenfalls die vorhandenen Zonen und den Zonensatz.
++
+.. Bestimmen Sie, welche Zonen und welche Zonensätze aktiv sind:
++
+`show zoneset active`
+
++
+[listing]
+----
+FC_switch_A_1# show zoneset active
+
+FC_switch_B_1# show zoneset active
+----
+.. Deaktivieren Sie die im vorherigen Schritt identifizierten aktiven Zonensätze:
++
+`no zoneset activate name _zoneset_name_ vsan _vsan_id_`
+
++
+Im folgenden Beispiel werden zwei Zonensätze angezeigt, die deaktiviert werden:
+
++
+*** ZoneSet_A on FC_Switch_A_1 in VSAN 10
+*** ZoneSet_B on FC_Switch_B_1 in VSAN 20
+
+
++
+[listing]
+----
+FC_switch_A_1# no zoneset activate name ZoneSet_A vsan 10
+
+FC_switch_B_1# no zoneset activate name ZoneSet_B vsan 20
+----
+.. Nachdem alle Zonensätze deaktiviert wurden, löschen Sie die Zonendatenbank:
++
+`clear zone database _zone-name_`
+
++
+[listing]
+----
+FC_switch_A_1# clear zone database 10
+FC_switch_A_1# copy running-config startup-config
+
+FC_switch_B_1# clear zone database 20
+FC_switch_B_1# copy running-config startup-config
+----
+
+
+. Beziehen Sie den Switch Worldwide Name (WWN) ein:
++
+`show wwn switch`
+
+. Konfigurieren Sie die grundlegenden Zoneneinstellungen:
++
+--
+.. Legen Sie die standardmäßige Zoning-Richtlinie auf „`permit`“ fest:
++
+`no system default zone default-zone permit`
+
+.. Aktivieren Sie die vollständige Zonenverteilung:
++
+`system default zone distribute full`
+
+.. Legen Sie die Standard-Zoning-Richtlinie für jedes VSAN fest:
++
+`no zone default-zone permit _vsanid_`
+
+.. Legen Sie die standardmäßige Vollzonenverteilung für jedes VSAN fest:
++
+`zoneset distribute full _vsanid_`
+
+
+
+--
++
+[listing]
+----
+FC_switch_A_1# conf t
+FC_switch_A_1(config)# no system default zone default-zone permit
+FC_switch_A_1(config)# system default zone distribute full
+FC_switch_A_1(config)# no zone default-zone permit 10
+FC_switch_A_1(config)# no zone default-zone permit 20
+FC_switch_A_1(config)# zoneset distribute full vsan 10
+FC_switch_A_1(config)# zoneset distribute full vsan 20
+FC_switch_A_1(config)# end
+FC_switch_A_1# copy running-config startup-config
+
+FC_switch_B_1# conf t
+FC_switch_B_1(config)# no system default zone default-zone permit
+FC_switch_B_1(config)# system default zone distribute full
+FC_switch_B_1(config)# no zone default-zone permit 10
+FC_switch_B_1(config)# no zone default-zone permit 20
+FC_switch_B_1(config)# zoneset distribute full vsan 10
+FC_switch_B_1(config)# zoneset distribute full vsan 20
+FC_switch_B_1(config)# end
+FC_switch_B_1# copy running-config startup-config
+----
+. Erstellen Sie Storage-Zonen und fügen Sie diesen die Storage-Ports hinzu.
++
+
+NOTE: Führen Sie diese Schritte nur bei einem Switch in jedem Fabric durch.
+
++
+Das Zoning hängt von der FC-to-SAS-Brücke ab, die Sie verwenden. Weitere Informationen finden Sie im Abschnitt zu Ihrer Modellbrücke. Die Beispiele zeigen Brocade Switch Ports, passen Sie Ihre Ports also entsprechend an.
+
++
+--
+** link:task_fcsw_brocade_configure_the_brocade_fc_switches_supertask.html["Zoning für FibreBridge 6500N-Brücken oder FibreBridge 7500N oder 7600N-Brücken über einen FC-Port"]
+** link:task_fcsw_brocade_configure_the_brocade_fc_switches_supertask.html["Zoning für FibreBridge 7500N-Bridges unter Verwendung beider FC-Ports"]
+
+
+--
++
+Jede Storage-Zone enthält die HBA-Initiator-Ports von allen Controllern und einen einzelnen Port, der eine FC-to-SAS-Bridge verbindet.
+
++
+.. Erstellung der Speicherzonen:
++
+`zone name _STOR-zone-name_ vsan _vsanid_`
+
+.. Fügen Sie der Zone Speicherports hinzu:
++
+`member portswitch WWN`
+
+.. Aktivieren Sie den Zonensatz:
++
+`zoneset activate name _STOR-zone-name-setname_ vsan  _vsan-id_`
+
+
+
++
+[listing]
+----
+FC_switch_A_1# conf t
+FC_switch_A_1(config)# zone name STOR_Zone_1_20_25 vsan 20
+FC_switch_A_1(config-zone)# member interface fc1/5 swwn 20:00:00:05:9b:24:cb:78
+FC_switch_A_1(config-zone)# member interface fc1/9 swwn 20:00:00:05:9b:24:cb:78
+FC_switch_A_1(config-zone)# member interface fc1/17 swwn 20:00:00:05:9b:24:cb:78
+FC_switch_A_1(config-zone)# member interface fc1/21 swwn 20:00:00:05:9b:24:cb:78
+FC_switch_A_1(config-zone)# member interface fc1/5 swwn 20:00:00:05:9b:24:12:99
+FC_switch_A_1(config-zone)# member interface fc1/9 swwn 20:00:00:05:9b:24:12:99
+FC_switch_A_1(config-zone)# member interface fc1/17 swwn 20:00:00:05:9b:24:12:99
+FC_switch_A_1(config-zone)# member interface fc1/21 swwn 20:00:00:05:9b:24:12:99
+FC_switch_A_1(config-zone)# member interface fc1/25 swwn 20:00:00:05:9b:24:cb:78
+FC_switch_A_1(config-zone)# end
+FC_switch_A_1# copy running-config startup-config
+----
+. Erstellen Sie einen Storage Zone-Satz, und fügen Sie dem neuen Satz die Speicherzonen hinzu.
++
+
+NOTE: Führen Sie diese Schritte nur bei einem Switch in der Fabric aus.
+
++
+.. Speicherzonensatz erstellen:
++
+`zoneset name _STOR-zone-set-name_ vsan _vsan-id_`
+
+.. Speicherzonen zum Zonensatz hinzufügen:
++
+`member _STOR-zone-name_`
+
+.. Aktivieren Sie den Zonensatz:
++
+`zoneset activate name _STOR-zone-set-name_ vsan _vsanid_`
+
++
+[listing]
+----
+FC_switch_A_1# conf t
+FC_switch_A_1(config)# zoneset name STORI_Zoneset_1_20 vsan 20
+FC_switch_A_1(config-zoneset)# member STOR_Zone_1_20_25
+...
+FC_switch_A_1(config-zoneset)# exit
+FC_switch_A_1(config)# zoneset activate name STOR_ZoneSet_1_20 vsan 20
+FC_switch_A_1(config)# exit
+FC_switch_A_1# copy running-config startup-config
+----
+
+
+. Erstellen Sie FCVI-Zonen, und fügen Sie diesen die FCVI-Ports hinzu.
++
+Jede FCVI-Zone enthält die FCVI-Ports aus allen Controllern einer DR-Gruppe.
+
++
+
+NOTE: Führen Sie diese Schritte nur bei einem Switch in der Fabric aus.
+
++
+Das Zoning hängt von der FC-to-SAS-Brücke ab, die Sie verwenden. Weitere Informationen finden Sie im Abschnitt zu Ihrer Modellbrücke. Die Beispiele zeigen Brocade Switch Ports, passen Sie Ihre Ports also entsprechend an.
+
++
+--
+** link:task_fcsw_brocade_configure_the_brocade_fc_switches_supertask.html["Zoning für FibreBridge 6500N-Brücken oder FibreBridge 7500N oder 7600N-Brücken über einen FC-Port"]
+** link:task_fcsw_brocade_configure_the_brocade_fc_switches_supertask.html["Zoning für FibreBridge 7500N-Bridges unter Verwendung beider FC-Ports"]
+
+
+--
++
+Jede Storage-Zone enthält die HBA-Initiator-Ports von allen Controllern und einen einzelnen Port, der eine FC-to-SAS-Bridge verbindet.
+
++
+.. Erstellen der FCVI-Zonen:
++
+`zone name _FCVI-zone-name_ vsan _vsanid_`
+
+.. Fügen Sie der Zone FCVI-Ports hinzu:
++
+`member _FCVI-zone-name_`
+
+.. Aktivieren Sie den Zonensatz:
++
+`zoneset activate name _FCVI-zone-name-set-name_ vsan _vsanid_`
+
+
+
++
+[listing]
+----
+FC_switch_A_1# conf t
+FC_switch_A_1(config)# zone name FCVI_Zone_1_10_25 vsan 10
+FC_switch_A_1(config-zone)# member interface fc1/1 swwn20:00:00:05:9b:24:cb:78
+FC_switch_A_1(config-zone)# member interface fc1/2 swwn20:00:00:05:9b:24:cb:78
+FC_switch_A_1(config-zone)# member interface fc1/1 swwn20:00:00:05:9b:24:12:99
+FC_switch_A_1(config-zone)# member interface fc1/2 swwn20:00:00:05:9b:24:12:99
+FC_switch_A_1(config-zone)# end
+FC_switch_A_1# copy running-config startup-config
+----
+. Erstellen Sie einen FCVI-Zonensatz, und fügen Sie ihm die FCVI-Zonen hinzu:
++
+
+NOTE: Führen Sie diese Schritte nur bei einem Switch in der Fabric aus.
+
++
+.. Erstellen Sie den FCVI-Zonensatz:
++
+`zoneset name _FCVI_zone_set_name_ vsan _vsan-id_`
+
+.. Fügen Sie dem Zonensatz FCVI-Zonen hinzu:
++
+`member _FCVI_zonename_`
+
+.. Aktivieren Sie den Zonensatz:
++
+`zoneset activate name _FCVI_zone_set_name_ vsan _vsan-id_`
+
+
+
++
+[listing]
+----
+FC_switch_A_1# conf t
+FC_switch_A_1(config)# zoneset name FCVI_Zoneset_1_10 vsan 10
+FC_switch_A_1(config-zoneset)# member FCVI_Zone_1_10_25
+FC_switch_A_1(config-zoneset)# member FCVI_Zone_1_10_29
+    ...
+FC_switch_A_1(config-zoneset)# exit
+FC_switch_A_1(config)# zoneset activate name FCVI_ZoneSet_1_10 vsan 10
+FC_switch_A_1(config)# exit
+FC_switch_A_1# copy running-config startup-config
+----
+. Überprüfen Sie das Zoning:
++
+`show zone`
+
+. Wiederholen Sie die vorherigen Schritte auf der zweiten FC Switch Fabric.
+
+
+
+
+== Sicherstellen, dass die FC-Switch-Konfiguration gespeichert ist
+
+Sie müssen sicherstellen, dass die FC-Switch-Konfiguration auf allen Switches in der Startkonfiguration gespeichert ist.
+
+Geben Sie den folgenden Befehl an beiden FC Switch Fabrics ein:
+
+`copy running-config startup-config`
+
+[listing]
+----
+FC_switch_A_1# copy running-config startup-config
+
+FC_switch_B_1# copy running-config startup-config
+----

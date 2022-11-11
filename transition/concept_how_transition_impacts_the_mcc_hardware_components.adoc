@@ -1,0 +1,41 @@
+---
+permalink: transition/concept_how_transition_impacts_the_mcc_hardware_components.html 
+sidebar: sidebar 
+keywords: complete, completing, transition, procedure, key, component, exist, metrocluster, configuration, replace, reconfigure, impact, hardware, component 
+summary: Nach Abschluss des Umstiegverfahrens wurden wichtige Komponenten der bestehenden MetroCluster Konfiguration ersetzt oder neu konfiguriert. 
+---
+= Auswirkungen der Transition auf die Hardwarekomponenten von MetroCluster
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Nach Abschluss des Umstiegverfahrens wurden wichtige Komponenten der bestehenden MetroCluster Konfiguration ersetzt oder neu konfiguriert.
+
+* *Controller-Module*
++
+Die vorhandenen Controller-Module werden durch neue Controller-Module ersetzt. Die vorhandenen Controller-Module werden am Ende des Umstiegsprozesse deaktiviert.
+
+* *Lagerregale*
++
+Die Daten werden von den alten Shelfs in die neuen Shelfs verschoben. Die alten Shelfs werden am Ende des Umstiegs deaktiviert.
+
+* *MetroCluster (Back-End) und Cluster-Switches*
++
+Die Back-End-Switch-Funktion wird durch das IP Switch Fabric ersetzt. Wenn zur MetroCluster FC-Konfiguration FC-Switches und FC-to-SAS-Bridges verwendet wurden, werden sie am Ende dieses Verfahrens deaktiviert.
+
++
+Wenn die MetroCluster FC-Konfiguration Cluster Switches für den Cluster Interconnect verwendet hat, können sie in einigen Fällen wiederverwendet werden, um für das Back-End IP Switch Fabric zu sorgen. Zudem müssen wiederverwendet werden Cluster Switches mit Plattform- und Switch-spezifischen RCFs neu konfiguriert werden. Verfahren.
+
++
+Wenn die MetroCluster FC-Konfiguration keine Cluster Switches verwendet, werden neue IP-Switches hinzugefügt, um die Back-End Switch Fabric zu schaffen.
+
++
+link:concept_considerations_for_using_existing_ip_switches.html["Überlegungen zu IP-Switches"]
+
+* *Cluster Peering Netzwerk*
++
+Das vom Kunden bereitgestellte Cluster-Peering-Netzwerk kann für die neue MetroCluster IP-Konfiguration verwendet werden. Cluster-Peering wird auf den MetroCluster IP Nodes im Rahmen des Übergangverfahrens konfiguriert.
+
+

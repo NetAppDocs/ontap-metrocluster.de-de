@@ -1,0 +1,51 @@
+---
+permalink: install-fc/reference_supported_mcc_configuration_with_array_luns.html 
+sidebar: sidebar 
+keywords: metrocluster, fabric, installation, supported, array, luns 
+summary: Sie können eine MetroCluster-Konfiguration mit Array-LUNs einrichten. Es werden sowohl Stretch- als auch Fabric-Attached-Konfigurationen unterstützt. AFF Systeme werden mit Array-LUNs nicht unterstützt. 
+---
+= Unterstützte MetroCluster-Konfiguration mit Array-LUNs
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können eine MetroCluster-Konfiguration mit Array-LUNs einrichten. Es werden sowohl Stretch- als auch Fabric-Attached-Konfigurationen unterstützt. AFF Systeme werden mit Array-LUNs nicht unterstützt.
+
+Die in den MetroCluster Konfigurationen unterstützten Funktionen variieren je nach Konfigurationstypen. In der folgenden Tabelle sind die Funktionen aufgeführt, die von den verschiedenen Typen von MetroCluster-Konfigurationen mit Array-LUNs unterstützt werden:
+
+|===
+
+
+.2+| Merkmal 3+| Fabric-Attached-Konfigurationen | Stretch-Konfigurationen 
+
+
+| Acht Nodes | Vier Nodes | Zwei Nodes | Zwei Nodes 
+
+
+ a| 
+Anzahl an Controllern
+ a| 
+Acht
+ a| 
+Vier
+ a| 
+Zwei
+ a| 
+Zwei
+
+
+
+| Storage Fabric mit FC-Switch | Ja. | Ja. | Ja. | Ja. 
+
+
+| Verwendung von FC-to-SAS-Bridges | Ja. | Ja. | Ja. | Ja. 
+
+
+| Unterstützt lokale HA | Ja. | Ja. | Nein | Nein 
+
+
+| Unterstützt automatische Umschaltung | Ja. | Ja. | Ja. | Ja. 
+|===
+link:concept_considerations_differences.html["Unterschiede zwischen den ONTAP MetroCluster Konfigurationen"]

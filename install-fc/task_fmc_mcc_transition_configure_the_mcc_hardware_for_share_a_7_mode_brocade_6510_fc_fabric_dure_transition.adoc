@@ -1,0 +1,40 @@
+---
+permalink: install-fc/task_fmc_mcc_transition_configure_the_mcc_hardware_for_share_a_7_mode_brocade_6510_fc_fabric_dure_transition.html 
+sidebar: sidebar 
+keywords: metrocluster, fabric, installation, hardware, brocade, fc, transition 
+summary: Wenn Ihre 7-Mode Fabric MetroCluster Konfiguration Brocade 6510 Switches verwendet, können Sie die vorhandene Switch-Fabric-Architektur mit der neuen Clustered MetroCluster Konfiguration gemeinsam nutzen. Dank Shared Switch Fabric ist für die neue MetroCluster Konfiguration keine neue separate Switch Fabric erforderlich. Diese temporäre Konfiguration wird nur vom Brocade 6510 Switch zu Migrationszwecken unterstützt. 
+---
+= Konfiguration von Hardware zur gemeinsamen Nutzung einer Brocade 6510 FC-Fabric während der Umstellung
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Ihre 7-Mode Fabric MetroCluster Konfiguration Brocade 6510 Switches verwendet, können Sie die vorhandene Switch-Fabric-Architektur mit der neuen Clustered MetroCluster Konfiguration gemeinsam nutzen. Dank Shared Switch Fabric ist für die neue MetroCluster Konfiguration keine neue separate Switch Fabric erforderlich. Diese temporäre Konfiguration wird nur vom Brocade 6510 Switch zu Migrationszwecken unterstützt.
+
+.Bevor Sie beginnen
+* Das 7-Mode Fabric MetroCluster muss Brocade 6510 Switches verwenden.
++
+Wenn die MetroCluster Konfiguration derzeit keine Brocade 6510 Switches verwendet, müssen die Switches vor Nutzung dieses Verfahrens auf Brocade 6510 aktualisiert werden.
+
+* Die MetroCluster-Konfiguration für die 7-Mode Fabric muss nur SAS Storage Shelves verwenden.
++
+Wenn die vorhandene Konfiguration FC Storage Shelfs umfasst (wie DS14mk4 FC), wird die FC Switch Fabric-Freigabe nicht unterstützt.
+
+* Die SFPs auf den Switch-Ports, die von der neuen Clustered MetroCluster Konfiguration verwendet werden, müssen 16 Gbit/s unterstützen.
++
+Die vorhandenen 7-Mode Fabric MetroCluster können mit 8-Gbit/s- oder 16-Gbit/s-SFPs an Ports angeschlossen bleiben.
+
+* An jedem der vier Brocade 6510-Switches müssen die Ports 24 bis 45 zur Verbindung der neuen MetroCluster-Komponenten verfügbar sein.
+* Sie sollten überprüfen, ob sich die vorhandenen Inter-Switch Links (ISLs) auf den Ports 46 und 47 befinden.
+* Auf den Brocade 6510 Switches muss eine FOS-Firmwareversion ausgeführt werden, die sowohl auf der 7-Mode Fabric MetroCluster als auch auf der Clustered ONTAP MetroCluster Konfiguration unterstützt wird.
+
+
+Nach Freigabe der Fabric und Abschluss der MetroCluster Konfiguration können Sie die Daten aus der 7-Mode Fabric MetroCluster Konfiguration umstellen.
+
+Nach der Transition der Daten können Sie die 7-Mode Fabric MetroCluster-Verkabelung entfernen und auf Wunsch die Clustered ONTAP MetroCluster-Verkabelung auf die Ports mit geringerer Anzahl verschieben, die zuvor für die 7-Mode MetroCluster-Verkabelung verwendet wurden. Die Ports werden im Abschnitt „Überprüfen der FC-Switch-Port-Zuweisungen für eine MetroCluster mit vier Nodes“ angezeigt. Sie müssen das Zoning für die neu angeordneten Ports anpassen.
+
+link:concept_port_assignments_for_fc_switches_when_using_ontap_9_1_and_later.html["Port-Zuweisungen für FC-Switches bei Verwendung von ONTAP 9.1 und höher"]
+
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-7mtt-dctg/home.html["Kopienbasierte Transition"]

@@ -1,0 +1,115 @@
+---
+permalink: disaster-recovery/task_perform_a_forced_switchover_after_a_disaster.html 
+sidebar: sidebar 
+keywords: disaster, occur, perform, surviving, cluster, survive, switchover, ensure, safe, data, service, force, fence, fencing, off, site, access, volume, nvfail, state, output, storage, aggregate, plex, show, command, indeterminate, metroxluster 
+summary: Bei einem Ausfall müssen nach dem Switchover beide Schritte in Bezug auf das Disaster-Cluster und das noch funktionsfähige Cluster ausgeführt werden, um einen sicheren und kontinuierlichen Datenservice zu gewährleisten. 
+---
+= Durchführen einer erzwungenen Umschaltung nach einem Ausfall
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Bei einem Ausfall müssen nach dem Switchover beide Schritte in Bezug auf das Disaster-Cluster und das noch funktionsfähige Cluster ausgeführt werden, um einen sicheren und kontinuierlichen Datenservice zu gewährleisten.
+
+Ermitteln, ob ein Notfall aufgetreten ist, erfolgt durch:
+
+* Einem Administrator
+* Die MetroCluster Tiebreaker Software, wenn sie konfiguriert ist
+* Die ONTAP Mediator-Software, sofern sie konfiguriert ist
+
+
+
+
+== Fechten vor dem Disaster-Standort
+
+Falls die Disaster-Site-Nodes nach dem Ausfall ausgetauscht werden müssen, müssen diese unterbrochen werden, um einen Wiederaufnahme des Service am Standort zu verhindern. Andernfalls riskieren Sie die Gefahr einer Beschädigung von Daten, wenn Clients vor dem Abschluss des Austauschvorgangs auf die Nodes zugreifen.
+
+.Schritt
+. Beenden Sie die Nodes am Disaster Site, und halten Sie sie herunterfahren oder an der LOADER-Eingabeaufforderung, bis das Boot ONTAP geleitet wird:
++
+`system node halt -node disaster-site-node-name`
+
++
+Wenn die Disaster-Site-Nodes zerstört wurden oder nicht angehalten werden können, schalten Sie den Strom an die Nodes aus, und starten Sie die Ersatz-Nodes erst, wenn Sie im Wiederherstellungsvorgang weitergeleitet werden.
+
+
+
+
+
+== Erzwungene Umschaltung durchführen
+
+Neben dem unterbrechungsfreien Betrieb bei Test und Wartung ermöglicht die Umschaltung mit einem einzigen Befehl ein Recovery nach einem Standortausfall.
+
+.Bevor Sie beginnen
+* Vor der Umschaltung müssen mindestens ein der noch intakten Standort-Nodes betriebsbereit sein.
+* Alle früheren Konfigurationsänderungen müssen abgeschlossen sein, bevor Sie einen Switchback-Vorgang durchführen.
++
+Damit wird der Wettbewerb mit dem ausgehandelten Switchover- oder Switchback-Betrieb vermieden.
+
+
+
+
+NOTE: SnapMirror und SnapVault Konfigurationen werden automatisch gelöscht.
+
+Der `metrocluster switchover` Command Switches über die Nodes in allen DR-Gruppen in der MetroCluster Konfiguration. In einer MetroCluster Konfiguration mit acht Nodes wechselt sie beispielsweise über die Nodes in beiden DR-Gruppen.
+
+.Schritte
+. Implementierung der Umschaltung:
++
+`metrocluster switchover -forced-on-disaster true`
+
++
+Der Vorgang kann einige Minuten dauern.
+
+. Antwort `y` Wenn Sie dazu aufgefordert werden, mit der Umschaltung fortzufahren.
+. Überprüfen Sie, ob die Umschaltung erfolgreich abgeschlossen wurde, indem Sie den befehl „operation show“ von MetroCluster ausführen.
++
+....
+mcc1A::> metrocluster operation show
+  Operation: switchover
+ Start time: 10/4/2012 19:04:13
+      State: in-progress
+   End time: -
+     Errors:
+
+mcc1A::> metrocluster operation show
+  Operation: switchover
+ Start time: 10/4/2012 19:04:13
+      State: successful
+   End time: 10/4/2012 19:04:22
+     Errors: -
+....
++
+Wenn die Umschaltung vetoed ist, haben Sie die Möglichkeit, die neu zu stellen `metrocluster switchover-forced-on-disaster true` Befehl mit dem `--override-vetoes` Option. Wenn Sie diesen optionalen Parameter verwenden, überschreibt das System alle weichen Vetos, die die Umschaltung verhinderten.
+
+
+
+SnapMirror Beziehungen müssen nach der Umschaltung neu hergestellt werden.
+
+
+
+== Die Ausgabe des Befehls „Plex show“ für das Storage-Aggregat ist nach einer MetroCluster-Umschaltung nicht bestimmt
+
+Wenn Sie den ausführen `storage aggregate plex show` Befehl nach einer MetroCluster-Umschaltung ist der Status von Plex0 des über das Root-Aggregat umgeschalteten Zustands unbestimmt und wird als fehlgeschlagen angezeigt. Während dieser Zeit wird die umschaltete Root nicht aktualisiert. Der tatsächliche Status dieses Plex kann nur nach der MetroCluster-Heilungsphase ermittelt werden.
+
+
+
+== Zugriff auf Volumes im Status „NV-Fehler“ nach einer Umschaltung
+
+Nach einer Umschaltung müssen Sie den NV-Fehler-Status löschen, indem Sie den zurücksetzen `-in-nvfailed-state` Parameter von `volume modify` Befehl, um die Einschränkung von Clients für den Zugriff auf Daten zu entfernen.
+
+Die Datenbank oder das Dateisystem dürfen nicht ausgeführt werden oder es darf versucht werden, auf das betroffene Volume zuzugreifen.
+
+Einstellen des `-in-nvfailed-state` Für Parameter ist die Berechtigung auf erweiterter Ebene erforderlich.
+
+.Schritt
+. Stellen Sie das Volume mithilfe von wieder her `volume modify` Befehl mit dem `-in-nvfailed-state` Parameter auf false gesetzt.
+
+
+Anweisungen zur Überprüfung der Gültigkeit von Datenbankdateien finden Sie in der Dokumentation für Ihre spezifische Datenbanksoftware.
+
+Wenn Ihre Datenbank LUNs verwendet, überprüfen Sie die Schritte, um nach einem NVRAM-Fehler den Host Zugriff auf die LUNs zu ermöglichen.
+
+link:../manage/concept_monitoring_and_protecting_database_validity_by_using_nvfail.html["Überwachung und Schutz der Datenbankgültigkeit mithilfe von NVFAIL"]

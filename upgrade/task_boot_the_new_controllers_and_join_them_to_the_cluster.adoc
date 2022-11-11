@@ -1,0 +1,158 @@
+---
+permalink: upgrade/task_boot_the_new_controllers_and_join_them_to_the_cluster.html 
+sidebar: sidebar 
+keywords: metrocluster, upgrade, boot, new, controller, join, cluster 
+summary: Damit Sie die neuen Controller dem Cluster beitreten können, müssen Sie jedes neue Controller-Modul booten und den ONTAP Cluster Setup-Assistenten verwenden, um zu ermitteln, dass der Cluster Beitritt. 
+---
+= Booten der neuen Controller und Verbinden der Controller mit dem Cluster
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Damit Sie die neuen Controller dem Cluster beitreten können, müssen Sie jedes neue Controller-Modul booten und den ONTAP Cluster Setup-Assistenten verwenden, um zu ermitteln, dass der Cluster Beitritt.
+
+Sie müssen die MetroCluster-Konfiguration verkabelt haben.
+
+Sie müssen den Service-Prozessor nicht konfiguriert haben, bevor Sie diese Aufgabe ausführen.
+
+Diese Aufgabe muss für jeden der neuen Controller bei beiden Clustern in der MetroCluster Konfiguration ausgeführt werden.
+
+.Schritte
+. Falls noch nicht geschehen, schalten Sie jeden Knoten ein und lassen Sie ihn vollständig booten.
++
+Wenn sich das System im Wartungsmodus befindet, geben Sie den aus `halt` Befehl zum Beenden des Wartungsmodus und geben Sie dann den folgenden Befehl von der LOADER-Eingabeaufforderung aus:
+
++
+`boot_ontap`
+
++
+Das Controller-Modul wechselt in den Node-Setup-Assistenten.
+
++
+Die Ausgabe sollte wie folgt aussehen:
+
++
+[listing]
+----
+Welcome to node setup
+
+You can enter the following commands at any time:
+  "help" or "?" - if you want to have a question clarified,
+  "back" - if you want to change previously answered questions, and
+  "exit" or "quit" - if you want to quit the setup wizard.
+				Any changes you made before quitting will be saved.
+
+To accept a default or omit a question, do not enter a value.
+.
+.
+.
+----
+. Aktivieren Sie das AutoSupport-Tool, indem Sie den vom System bereitgestellten Anweisungen folgen.
+. Befolgen Sie die Aufforderungen zur Konfiguration der Node-Managementoberfläche.
++
+Die Eingabeaufforderungen sind ähnlich wie folgende:
+
++
+[listing]
+----
+Enter the node management interface port: [e0M]:
+Enter the node management interface IP address: 10.228.160.229
+Enter the node management interface netmask: 225.225.252.0
+Enter the node management interface default gateway: 10.228.160.1
+----
+. Sicherstellen, dass die Nodes im Hochverfügbarkeits-Modus konfiguriert sind:
++
+`storage failover show -fields mode`
+
++
+Wenn dies nicht der Fall ist, müssen Sie für jeden Node den folgenden Befehl eingeben und dann den Node neu booten:
+
++
+`storage failover modify -mode ha -node localhost`
+
++
+Dieser Befehl konfiguriert den Hochverfügbarkeits-Modus, ermöglicht jedoch kein Storage Failover. Storage-Failover wird automatisch aktiviert, wenn Sie das ausgeben `metrocluster configure` Befehl später im Konfigurationsprozess.
+
+. Sicherstellen, dass vier Ports als Cluster Interconnects konfiguriert sind:
++
+`network port show`
+
++
+Im folgenden Beispiel wird die Ausgabe für zwei Controller in „Cluster_A“ angezeigt Wenn es sich um eine MetroCluster-Konfiguration mit zwei Nodes handelt, wird in der Ausgabe nur ein Node angezeigt.
+
++
+[listing]
+----
+cluster_A::> network port show
+                                                             Speed (Mbps)
+Node   Port      IPspace      Broadcast Domain Link   MTU    Admin/Oper
+------ --------- ------------ ---------------- ----- ------- ------------
+node_A_1
+       **e0a       Cluster      Cluster          up       1500  auto/1000
+       e0b       Cluster      Cluster          up       1500  auto/1000**
+       e0c       Default      Default          up       1500  auto/1000
+       e0d       Default      Default          up       1500  auto/1000
+       e0e       Default      Default          up       1500  auto/1000
+       e0f       Default      Default          up       1500  auto/1000
+       e0g       Default      Default          up       1500  auto/1000
+node_A_2
+       **e0a       Cluster      Cluster          up       1500  auto/1000
+       e0b       Cluster      Cluster          up       1500  auto/1000**
+       e0c       Default      Default          up       1500  auto/1000
+       e0d       Default      Default          up       1500  auto/1000
+       e0e       Default      Default          up       1500  auto/1000
+       e0f       Default      Default          up       1500  auto/1000
+       e0g       Default      Default          up       1500  auto/1000
+14 entries were displayed.
+----
+. Da Sie das Cluster mit der CLI einrichten, beenden Sie den Node Setup-Assistenten:
++
+`exit`
+
+. Loggen Sie sich mit dem beim Administratorkonto ein `admin` Benutzername:
+. Starten Sie den Cluster Setup-Assistenten und fügen Sie ihn dem vorhandenen Cluster hinzu:
++
+`cluster setup`
+
++
+[listing]
+----
+::> cluster setup
+
+Welcome to the cluster setup wizard.
+
+You can enter the following commands at any time:
+  "help" or "?" - if you want to have a question clarified,
+  "back" - if you want to change previously answered questions, and
+  "exit" or "quit" - if you want to quit the cluster setup wizard.
+     Any changes you made before quitting will be saved.
+
+You can return to cluster setup at any time by typing "cluster setup".
+To accept a default or omit a question, do not enter a value.
+
+
+Do you want to create a new cluster or join an existing cluster? {create, join}:`join`
+----
+. Nachdem Sie den *Cluster Setup*-Assistenten abgeschlossen und beendet haben, überprüfen Sie, ob der Cluster aktiv ist und der Knoten ordnungsgemäß ist:
++
+`cluster show`
+
++
+Das folgende Beispiel zeigt ein Cluster, in dem der erste Node (cluster1-01) sich in einem ordnungsgemäßen Zustand befindet und zur Teilnahme berechtigt ist:
+
++
+[listing]
+----
+cluster_A::> cluster show
+Node               Health  Eligibility
+------------------ ------- ------------
+node_A_1           true    true
+node_A_2           true    true
+node_A_3           true    true
+----
++
+Wenn eine der Einstellungen, die Sie für die Admin-SVM oder Node-SVM eingegeben haben, geändert werden muss, können Sie über den auf den Assistenten * Cluster Setup* zugreifen `cluster setup command`.
+
+

@@ -1,0 +1,36 @@
+---
+permalink: disaster-recovery/task_recover_from_a_multi_controller_and_or_storage_failure.html 
+sidebar: sidebar 
+keywords: controller, failure, extend, module, side, dr, group, metrocluster, configuration, single, controller, two-node, replace, equipment, reassign, equipment, ownership, drive, disaster, recover, multi-controller, storage 
+summary: 'Wenn sich der Controller-Ausfall auf alle Controller-Module auf einer Seite einer DR-Gruppe in einer MetroCluster Konfiguration erstreckt \ (einschließlich eines einzelnen Controllers in einer MetroCluster Konfiguration mit zwei Nodes\) oder der Storage ausgetauscht wurde, müssen die Geräte ausgetauscht werden und die Laufwerke neu zugewiesen werden, um bei Ausfällen wiederherstellbar zu sein.' 
+---
+= Wiederherstellung nach einem Multi-Controller- oder Storage-Ausfall
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn der Controller-Ausfall alle Controller-Module auf einer Seite einer DR-Gruppe in einer MetroCluster Konfiguration umfasst (einschließlich eines einzelnen Controllers in einer MetroCluster Konfiguration mit zwei Nodes), oder wenn der Storage ausgetauscht wurde, müssen die Geräte ersetzt und die Eigentumsrechte an Laufwerken neu zugewiesen werden, um bei einem Ausfall die Wiederherstellung zu ermöglichen.
+
+* Sie sollten die verfügbaren Wiederherstellungsverfahren überprüfen, bevor Sie sich für dieses Verfahren entscheiden.
++
+link:concept_choosing_the_correct_recovery_procedure_parent_concept.html["Auswahl des richtigen Wiederherstellungsverfahrens"]
+
+* Der Disaster-Standort muss abgetrennt werden.
++
+link:task_perform_a_forced_switchover_after_a_disaster.html#fencing-off-the-disaster-site["Fechten vor dem Disaster-Standort"].
+
+* Umschaltung muss durchgeführt worden sein.
++
+link:task_perform_a_forced_switchover_after_a_disaster.html#performing-a-forced-switchover["Erzwungene Umschaltung durchführen"].
+
+* Ersatzlaufwerke und Controller-Module müssen neu sein und dürfen zuvor nicht Eigentümer zugewiesen worden sein.
+* Die Beispiele in diesem Verfahren zeigen Konfigurationen mit zwei oder vier Nodes. Wenn eine Konfiguration mit acht Nodes vorhanden ist (zwei DR-Gruppen), müssen Fehler berücksichtigt und die erforderliche Recovery-Aufgabe auf den zusätzlichen Controller-Modulen ausgeführt werden.
+
+
+Bei diesem Verfahren wird folgender Workflow verwendet:
+
+image::../media/workflow_smoking_crater_recovery.png[Workflow Rauchen Krater Erholung]
+
+Dieses Verfahren kann bei der Wiederherstellung auf einem System verwendet werden, das sich während des Ausfalls in der Mitte des Übergangs befand. In diesem Fall müssen Sie die entsprechenden Schritte durchführen, wenn Sie sich für den Wechsel vorbereiten, wie in der Prozedur angegeben.

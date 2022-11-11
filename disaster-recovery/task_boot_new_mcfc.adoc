@@ -1,0 +1,124 @@
+---
+permalink: disaster-recovery/task_boot_new_mcfc.html 
+sidebar: sidebar 
+keywords: boot, controller, modules, fc 
+summary: Nachdem die Aggregatreparatur sowohl für die Daten als auch die Root-Aggregate abgeschlossen wurde, müssen Sie den Node oder die Nodes am Disaster-Standort booten. 
+---
+= Booten der neuen Controller-Module (MetroCluster FC-Konfigurationen)
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Nachdem die Aggregatreparatur sowohl für die Daten als auch die Root-Aggregate abgeschlossen wurde, müssen Sie den Node oder die Nodes am Disaster-Standort booten.
+
+Diese Aufgabe beginnt mit den Nodes, in denen die LOADER-Eingabeaufforderung angezeigt wird.
+
+.Schritte
+. Anzeigen des Startmenüs:
++
+`boot_ontap menu`
+
+. [[Step 2,Schritt 2]] im Startmenü Option 6 auswählen *Flash von Backup config aktualisieren*.
+. Antworten `y` An die folgende Eingabeaufforderung:
++
+`This will replace all flash-based configuration with the last backup to disks. Are you sure you want to continue?: y`
+
++
+Das System startet zweimal, das zweite Mal, um die neue Konfiguration zu laden.
+
++
+
+NOTE: Wenn Sie den NVRAM-Inhalt eines verwendeten Ersatz-Controllers nicht gelöscht haben, wird möglicherweise ein Panikzustand mit der folgenden Meldung angezeigt:
+`PANIC: NVRAM contents are invalid...`Wenn dies der Fall ist, wiederholen ,Wählen Sie im Startmenü Option 6, *Flash aus Backup config aktualisieren*. Um das System an der ONTAP-Eingabeaufforderung zu booten. Dann müssen Sie es ,Setzen Sie die Boot Recovery und rdb_Corrupt Bootargs zurück
+
+. Root-Aggregat auf Plex 0 spiegeln:
++
+.. Weisen Sie dem neuen Controller-Modul drei Pool0 Disks zu.
+.. Root-Aggregat-Pool1 Plex spiegeln:
++
+`aggr mirror root-aggr-name`
+
+.. Weisen Sie Pool0 auf dem lokalen Knoten nicht eigene Festplatten zu
+
+
+. Wenn Sie eine Konfiguration mit vier Nodes haben, wiederholen Sie die vorherigen Schritte auf dem anderen Node am Disaster-Standort.
+. Aktualisieren Sie die MetroCluster-Konfiguration:
++
+.. Wechseln Sie in den erweiterten Berechtigungsmodus:
++
+`set -privilege advanced`
+
+.. Aktualisieren Sie die Konfiguration:
++
+`metrocluster configure -refresh true`
+
+.. Zurück zum Admin-Berechtigungsmodus:
++
+`set -privilege admin`
+
+
+
+. Bestätigen Sie, dass die Ersatz-Nodes am Disaster-Standort für den Wechsel bereit sind:
++
+`metrocluster node show`
+
++
+Die Ersatz-Nodes sollten sich im Modus „`Warten auf Wiederherstellung beim Wechsel`“ befinden. Wenn sich diese im Modus „`Normal`“ befinden, können Sie die Ersatz-Nodes neu booten. Nach diesem Booten sollten sich die Nodes im Modus „`Warten auf zurückwechseln Recovery`“ befinden.
+
++
+Das folgende Beispiel zeigt, dass die Ersatz-Nodes für den Wechsel zum Rückseite bereit sind:
+
++
+....
+
+cluster_B::> metrocluster node show
+DR                    Configuration  DR
+Grp Cluster Node      State          Mirroring Mode
+--- ------- --------- -------------- --------- --------------------
+1   cluster_B
+            node_B_1  configured     enabled   switchover completed
+            node_B_2  configured     enabled   switchover completed
+    cluster_A
+            node_A_1  configured     enabled   waiting for switchback recovery
+            node_A_2  configured     enabled   waiting for switchback recovery
+4 entries were displayed.
+
+cluster_B::>
+....
+
+
+Fahren Sie mit fort link:../disaster-recovery/task_complete_recovery.html["Den Disaster Recovery-Prozess abschließen"].
+
+
+
+=== Setzen Sie die Boot_Recovery und rdb_Corrupt Bootargs zurück
+
+[role="lead"]
+Falls erforderlich, können Sie die Boot_Recovery und rdb_Corrupt_bootargs zurücksetzen
+
+.Schritte
+. Halten Sie den Node wieder an die LOADER-Eingabeaufforderung an:
++
+[listing]
+----
+node_A_1::*> halt -node _node-name_
+----
+. Überprüfen Sie, ob die folgenden Bootargs eingestellt sind:
++
+[listing]
+----
+LOADER> printenv bootarg.init.boot_recovery
+LOADER> printenv bootarg.rdb_corrupt
+----
+. Wenn eine der Bootarg auf einen Wert gesetzt wurde, heben Sie die Einstellung auf und starten Sie die ONTAP:
++
+[listing]
+----
+LOADER> unsetenv bootarg.init.boot_recovery
+LOADER> unsetenv bootarg.rdb_corrupt
+LOADER> saveenv
+LOADER> bye
+----
+

@@ -1,0 +1,153 @@
+---
+permalink: manage/concept_monitoring_and_protecting_database_validity_by_using_nvfail.html 
+sidebar: sidebar 
+keywords: monitor, protect, file, system, consistency, nvfail, parameter, volume, modify, enable, detect, nonvolatile, nvram, switchover, recover, impact, access, nfs, volume, lun, command, monitor, data, loss, event, access 
+summary: 'Mit dem Parameter -nvfail (NV-Fehler) des Befehls Volume modify kann ONTAP Inkonsistenzen im nicht-flüchtigen RAM (NVRAM) erkennen, wenn das System gebootet oder nach einem Switchover-Vorgang gestartet wird. Sie werden außerdem gewarnt und schützt das System vor Datenzugriff und -Änderungen, bis das Volume manuell wiederhergestellt werden kann.' 
+---
+= Überwachen und Schützen der Konsistenz des Filesystems mithilfe von NVFAIL
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Der `-nvfail` Parameter von `volume modify` Mit dem Befehl kann ONTAP Inkonsistenzen im nichtflüchtigen RAM (NVRAM) erkennen, wenn das System gebootet oder nach einem Switchover-Vorgang gestartet wird. Sie werden außerdem gewarnt und schützt das System vor Datenzugriff und -Änderungen, bis das Volume manuell wiederhergestellt werden kann.
+
+Wenn ONTAP Probleme erkennt, werden Datenbank- oder Filesysteminstanzen nicht mehr reagiert oder heruntergefahren. ONTAP sendet dann Fehlermeldungen an die Konsole, um Sie zu benachrichtigen, den Status der Datenbank oder des Dateisystems zu überprüfen. Sie können NVFAIL aktivieren, um Datenbankadministratoren zu warnen, dass NVRAM-Inkonsistenzen zwischen geclusterten Nodes auftreten, die die Gültigkeit von Datenbanken beeinträchtigen können.
+
+Nach dem Verlust von NVRAM-Daten während des Failover oder der Boot-Recovery können NFS-Clients erst dann auf Daten von einem der Nodes zugreifen, wenn der Status „NV-Fehler“ beseitigt wurde. CIFS-Clients sind nicht betroffen.
+
+
+
+== Auswirkungen von NV-Fehler auf den Zugriff auf NFS-Volumes oder LUNs
+
+Der NV-Fehler-Status wird festgelegt, wenn ONTAP beim Booten, bei einem MetroCluster-Switchover oder während eines HA-Takeover-Vorgangs NVRAM-Fehler erkennt, wenn die Option NVFAIL auf dem Volume festgelegt ist. Wenn beim Start keine Fehler erkannt werden, wird der Dateidienst normal gestartet. Wenn jedoch NVRAM-Fehler erkannt oder die NVFAIL-Verarbeitung bei einem Disaster Switchover durchgesetzt wird, verhindert ONTAP, dass Datenbankinstanzen auf diese reagieren.
+
+Wenn Sie die Option NVFAIL aktivieren, findet während des Bootup eines der in der folgenden Tabelle beschriebenen Prozesse statt:
+
+|===
+
+
+| Wenn... | Dann... 
+
+
+ a| 
+ONTAP erkennt keine NVRAM-Fehler
+ a| 
+Der Fileservice wird ordnungsgemäß gestartet.
+
+
+
+ a| 
+ONTAP erkennt NVRAM-Fehler
+ a| 
+* ONTAP gibt einen veralteten Fehler beim Dateihandle (ESTALE) an NFS-Clients zurück, die versuchen, auf die Datenbank zuzugreifen, da die Applikation nicht mehr reagiert, abstürzt oder heruntergefahren werden kann.
++
+ONTAP sendet dann eine Fehlermeldung an die Systemkonsole und die Log-Datei.
+
+* Beim Neustart der Anwendung stehen CIFS-Clients Dateien zur Verfügung, selbst wenn Sie nicht überprüft haben, ob sie gültig sind.
++
+Bei NFS-Clients können Dateien erst nach dem Zurücksetzen des nicht mehr zugänglich sein `in-nvfailed-state` Option auf dem betroffenen Volumen.
+
+
+
+
+
+ a| 
+Wenn einer der folgenden Parameter verwendet wird:
+
+* `dr-force-nvfail` Die Volume-Option ist festgelegt
+* `force-nvfail-all` Die Option Switchover ist festgelegt.
+
+ a| 
+Sie können die Einstellung aufheben `dr-force-nvfail` Option nach der Umschaltung, falls der Administrator nicht damit rechnet, die NVFAIL-Verarbeitung für mögliche zukünftige Disaster-Switchover-Operationen zu erzwingen. Bei NFS-Clients können Dateien erst nach dem Zurücksetzen des nicht mehr zugänglich sein `in-nvfailed-state` Option auf dem betroffenen Volumen.
+
+
+NOTE: Verwenden der `force-nvfail-all` Option verursacht das `dr-force-nvfail` Option für alle DR-Volumes, die während der Disaster Switchover verarbeitet werden, ist aktiviert.
+
+
+
+ a| 
+ONTAP erkennt NVRAM-Fehler auf einem Volume, das LUNs enthält
+ a| 
+LUNs in diesem Volume werden in den Offline-Modus versetzt. Der `in-nvfailed-state` Option auf dem Volume muss gelöscht werden, und das NV-Fehler-Attribut auf den LUNs muss gelöscht werden, indem jede LUN im betroffenen Volume online geschaltet wird. Sie können die Schritte durchführen, um die Integrität der LUNs zu überprüfen und die LUN nach Bedarf aus einer Snapshot Kopie oder einem Backup wiederherzustellen. Nachdem alle LUNs im Volume wiederhergestellt sind, der `in-nvfailed-state` Die Option auf dem betroffenen Volume wird gelöscht.
+
+|===
+
+
+== Befehle für das Monitoring von Datenverlusten
+
+Wenn Sie die Option NVFAIL aktivieren, erhalten Sie eine Benachrichtigung, wenn ein Systemabsturz aufgrund von NVRAM-Inkonsistenzen oder einer MetroCluster-Umschaltung auftritt.
+
+Standardmäßig ist der NVFAIL-Parameter nicht aktiviert.
+
+[cols="1,2"]
+|===
+
+
+| Ihr Ziel ist | Befehl 
+
+
+ a| 
+Erstellen Sie ein neues Volume mit aktiviertem NVFAIL
+ a| 
+`volume create -nvfail on`
+
+
+
+ a| 
+Aktivieren Sie NVFAIL auf einem vorhandenen Volume
+ a| 
+`volume modify`
+
+*Hinweis:* Sie stellen das ein `-nvfail` Option „ein“, um NVFAIL auf dem erstellten Volume zu aktivieren.
+
+
+
+ a| 
+Zeigt an, ob NVFAIL derzeit für ein angegebenes Volume aktiviert ist
+ a| 
+`volume show`
+
+*Hinweis:* Sie stellen das ein `-fields` Parameter in „nvfail“ zum Anzeigen des NV-Fehler-Attributs für ein angegebenes Volume.
+
+|===
+Weitere Informationen finden Sie auf der man-Page für jeden Befehl.
+
+
+
+== Zugriff auf Volumes im Status „NV-Fehler“ nach einer Umschaltung
+
+Nach einer Umschaltung müssen Sie den NV-Fehler-Status löschen, indem Sie den zurücksetzen `-in-nvfailed-state` Parameter von `volume modify` Befehl, um die Einschränkung von Clients für den Zugriff auf Daten zu entfernen.
+
+Die Datenbank oder das Dateisystem dürfen nicht ausgeführt werden oder es darf versucht werden, auf das betroffene Volume zuzugreifen.
+
+Einstellung `-in-nvfailed-state` Für Parameter ist die Berechtigung auf erweiterter Ebene erforderlich.
+
+.Schritt
+. Stellen Sie das Volume mithilfe des Befehls Volume modify wieder her, mit dem Parameter -in-nvfailed-State auf false gesetzt.
+
+
+Anweisungen zur Überprüfung der Gültigkeit von Datenbankdateien finden Sie in der Dokumentation für Ihre spezifische Datenbanksoftware.
+
+Wenn Ihre Datenbank LUNs verwendet, überprüfen Sie die Schritte, um nach einem NVRAM-Fehler den Host Zugriff auf die LUNs zu ermöglichen.
+
+link:../manage/concept_monitoring_and_protecting_database_validity_by_using_nvfail.html["Überwachen und Schützen der Systemkonsistenz der Dateien mit NVFAIL"]
+
+
+
+== Die Wiederherstellung von LUNs in NV-Fehler-Status nach dem Switchover erfolgt
+
+Nach einer Umschaltung hat der Host nicht mehr Zugriff auf Daten auf den LUNs, die sich im Status „NV-Fehler“ befinden. Sie müssen eine Reihe von Aktionen durchführen, bevor die Datenbank Zugriff auf die LUNs hat.
+
+Die Datenbank darf nicht ausgeführt werden.
+
+.Schritte
+. Löschen Sie den NV-Fehler-Status auf dem Volume „Auswirkungen“, das die LUNs hostet, indem Sie das zurücksetzen `-in-nvfailed-state` Parameter von `volume modify` Befehl.
+. Versetzen Sie die betroffenen LUNs in den Online-Modus.
+. Untersuchen Sie die LUNs auf Dateninkonsistenzen und beheben Sie sie.
++
+Dies könnte Host-basierte Wiederherstellung oder Recovery umfassen, die auf dem Storage Controller mit SnapRestore durchgeführt wird.
+
+. Versetzen Sie die Datenbankapplikation online, nachdem Sie die LUNs wiederhergestellt haben.
+

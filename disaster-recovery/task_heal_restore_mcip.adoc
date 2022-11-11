@@ -1,0 +1,330 @@
+---
+permalink: disaster-recovery/task_heal_restore_mcip.html 
+sidebar: sidebar 
+keywords: aggregate, heal, mirror, restore 
+summary: Nach dem Ersetzen der Hardware und dem Zuweisen von Festplatten können Sie die MetroCluster-Heilvorgänge durchführen. 
+---
+= Durchführen der Aggregatheilung und Wiederherstellung von Spiegelungen (MetroCluster IP Konfigurationen)
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Nach dem Austausch der Hardware und der Zuweisung von Festplatten können Sie in Systemen mit ONTAP 9.5 oder einer älteren Version die MetroCluster-Heilvorgänge durchführen. In allen Versionen von ONTAP müssen Sie überprüfen, ob die Aggregate gespiegelt wurden und, falls erforderlich, die Spiegelung neu starten.
+
+Ab ONTAP 9.6 werden die Heilungsvorgänge automatisch ausgeführt, wenn die Disaster-Site-Nodes gestartet werden. Die Heilbefehle sind nicht erforderlich.
+
+Diese Schritte werden auf dem noch intakten Cluster durchgeführt.
+
+.Schritte
+. Wenn Sie ONTAP 9.6 oder höher verwenden, müssen Sie überprüfen, ob die automatische Heilung erfolgreich abgeschlossen wurde:
++
+.. Bestätigen Sie, dass die Vorgänge „Heal-aggr-Auto“ und „Heal-root-aggr-Auto“ abgeschlossen sind:
++
+`metrocluster operation history show`
+
++
+In der folgenden Ausgabe wird gezeigt, dass die Vorgänge auf „Cluster_A“ erfolgreich abgeschlossen wurden
+
++
+[listing]
+----
+cluster_B::*> metrocluster operation history show
+Operation                     State          Start Time       End Time
+----------------------------- -------------- ---------------- ----------------
+heal-root-aggr-auto           successful      2/25/2019 06:45:58
+                                                              2/25/2019 06:46:02
+heal-aggr-auto                successful     2/25/2019 06:45:48
+                                                              2/25/2019 06:45:52
+.
+.
+.
+----
+.. Bestätigen Sie, dass der Notfallstandort für den Wechsel bereit ist:
++
+`metrocluster node show`
+
++
+In der folgenden Ausgabe wird gezeigt, dass die Vorgänge auf „Cluster_A“ erfolgreich abgeschlossen wurden
+
++
+[listing]
+----
+cluster_B::*> metrocluster node show
+DR                          Configuration  DR
+Group Cluster Node          State          Mirroring Mode
+----- ------- ------------- -------------- --------- --------------------
+1     cluster_A
+              node_A_1      configured     enabled   heal roots completed
+              node_A_2      configured     enabled   heal roots completed
+      cluster_B
+              node_B_1      configured     enabled   waiting for switchback recovery
+              node_B_2      configured     enabled   waiting for switchback recovery
+4 entries were displayed.
+----
+
+
+. Wenn Sie ONTAP 9.5 oder früher verwenden, müssen Sie die Aggregatheilung durchführen:
++
+.. Überprüfen Sie den Status der Nodes:
++
+`metrocluster node show`
+
++
+Die folgende Ausgabe zeigt, dass die Umschaltung abgeschlossen wurde, sodass eine Heilung durchgeführt werden kann.
+
++
+[listing]
+----
+cluster_B::> metrocluster node show
+DR                               Configuration  DR
+Group Cluster Node               State          Mirroring Mode
+----- ------- ------------------ -------------- --------- --------------------
+1     cluster_B
+              node_B_1           configured     enabled   switchover completed
+              node_B_2           configured     enabled   switchover completed
+      cluster_A
+              node_A_1           configured     enabled   waiting for switchback recovery
+              node_A_2           configured     enabled   waiting for switchback recovery
+4 entries were displayed.
+
+cluster_B::>
+----
+.. Durchführen der Aggregationskorrektur:
++
+`metrocluster heal -phase aggregates`
+
++
+Die folgende Ausgabe zeigt einen typischen Heilungsvorgang für Aggregate.
+
++
+[listing]
+----
+cluster_B::*> metrocluster heal -phase aggregates
+[Job 647] Job succeeded: Heal Aggregates is successful.
+
+cluster_B::*> metrocluster operation show
+  Operation: heal-aggregates
+      State: successful
+ Start Time: 10/26/2017 12:01:15
+   End Time: 10/26/2017 12:01:17
+     Errors: -
+
+cluster_B::*>
+----
+.. Vergewissern Sie sich, dass die Aggregatheilung abgeschlossen und der Notfallstandort bereit für den Wechsel ist:
++
+`metrocluster node show`
+
++
+Die folgende Ausgabe zeigt, dass die Phase „Heal Aggregates“ auf „Cluster_A“ abgeschlossen ist
+
++
+[listing]
+----
+cluster_B::> metrocluster node show
+DR                               Configuration  DR
+Group Cluster Node               State          Mirroring Mode
+----- ------- ------------------ -------------- --------- --------------------
+1     cluster_A
+              node_A_1           configured     enabled   heal aggregates completed
+              node_A_2           configured     enabled   heal aggregates completed
+      cluster_B
+              node_B_1           configured     enabled   waiting for switchback recovery
+              node_B_2           configured     enabled   waiting for switchback recovery
+4 entries were displayed.
+
+cluster_B::>
+----
+
+
+. Wenn Festplatten ausgetauscht wurden, müssen die lokalen und Switched-over-Aggregate gespiegelt werden:
++
+.. Anzeigen der Aggregate:
++
+`storage aggregate show`
+
++
+[listing]
+----
+cluster_B::> storage aggregate show
+cluster_B Aggregates:
+Aggregate     Size Available Used% State   #Vols  Nodes            RAID Status
+--------- -------- --------- ----- ------- ------ ---------------- ------------
+node_B_1_aggr0 1.49TB  74.12GB   95% online     1 node_B_1         raid4,
+                                                                   normal
+node_B_2_aggr0 1.49TB  74.12GB   95% online     1 node_B_2         raid4,
+                                                                   normal
+node_B_1_aggr1 3.14TB  3.04TB    3% online     15 node_B_1         raid_dp,
+                                                                   normal
+node_B_1_aggr2 3.14TB  3.06TB    3% online     14 node_B_1         raid_tec,
+                                                                   normal
+node_B_1_aggr1 3.14TB  2.99TB    5% online     37 node_B_2         raid_dp,
+                                                                   normal
+node_B_1_aggr2 3.14TB  3.02TB    4% online     35 node_B_2         raid_tec,
+                                                                   normal
+
+cluster_A Switched Over Aggregates:
+Aggregate     Size Available Used% State   #Vols  Nodes            RAID Status
+--------- -------- --------- ----- ------- ------ ---------------- ------------
+node_A_1_aggr1 2.36TB  2.12TB   10% online     91 node_B_1         raid_dp,
+                                                                   normal
+node_A_1_aggr2 3.14TB  2.90TB    8% online     90 node_B_1         raid_tec,
+                                                                   normal
+node_A_2_aggr1 2.36TB  2.10TB   11% online     91 node_B_2         raid_dp,
+                                                                   normal
+node_A_2_aggr2 3.14TB  2.89TB    8% online     90 node_B_2         raid_tec,
+                                                                   normal
+12 entries were displayed.
+
+cluster_B::>
+----
+.. Spiegelung des Aggregats:
++
+`storage aggregate mirror -aggregate aggregate-name`
+
++
+Die folgende Ausgabe zeigt einen typischen Spiegelungsvorgang.
+
++
+[listing]
+----
+cluster_B::> storage aggregate mirror -aggregate node_B_1_aggr1
+
+Info: Disks would be added to aggregate "node_B_1_aggr1" on node "node_B_1" in
+      the following manner:
+
+      Second Plex
+
+        RAID Group rg0, 6 disks (block checksum, raid_dp)
+          Position   Disk                      Type                  Size
+          ---------- ------------------------- ---------- ---------------
+          dparity    5.20.6                    SSD                      -
+          parity     5.20.14                   SSD                      -
+          data       5.21.1                    SSD                894.0GB
+          data       5.21.3                    SSD                894.0GB
+          data       5.22.3                    SSD                894.0GB
+          data       5.21.13                   SSD                894.0GB
+
+      Aggregate capacity available for volume use would be 2.99TB.
+
+Do you want to continue? {y|n}: y
+----
+.. Wiederholen Sie den vorherigen Schritt für jedes Aggregat vom verbleibenden Standort.
+.. Warten Sie, bis die Aggregate sich neu synchronisiert haben, Sie können den Status mit dem überprüfen `storage aggregate show` Befehl.
++
+Die folgende Ausgabe zeigt, dass sich mehrere Aggregate neu synchronisieren.
+
++
+[listing]
+----
+cluster_B::> storage aggregate show
+
+cluster_B Aggregates:
+Aggregate     Size Available Used% State   #Vols  Nodes            RAID Status
+--------- -------- --------- ----- ------- ------ ---------------- ------------
+node_B_1_aggr0 1.49TB  74.12GB   95% online     1 node_B_1         raid4,
+                                                                   mirrored,
+                                                                   normal
+node_B_2_aggr0 1.49TB  74.12GB   95% online     1 node_B_2         raid4,
+                                                                   mirrored,
+                                                                   normal
+node_B_1_aggr1 2.86TB  2.76TB    4% online     15 node_B_1         raid_dp,
+                                                                   resyncing
+node_B_1_aggr2 2.89TB  2.81TB    3% online     14 node_B_1         raid_tec,
+                                                                   resyncing
+node_B_2_aggr1 2.73TB  2.58TB    6% online     37 node_B_2         raid_dp,
+                                                                   resyncing
+node_B-2_aggr2 2.83TB  2.71TB    4% online     35 node_B_2         raid_tec,
+                                                                   resyncing
+
+cluster_A Switched Over Aggregates:
+Aggregate     Size Available Used% State   #Vols  Nodes            RAID Status
+--------- -------- --------- ----- ------- ------ ---------------- ------------
+node_A_1_aggr1 1.86TB  1.62TB   13% online     91 node_B_1         raid_dp,
+                                                                   resyncing
+node_A_1_aggr2 2.58TB  2.33TB   10% online     90 node_B_1         raid_tec,
+                                                                   resyncing
+node_A_2_aggr1 1.79TB  1.53TB   14% online     91 node_B_2         raid_dp,
+                                                                   resyncing
+node_A_2_aggr2 2.64TB  2.39TB    9% online     90 node_B_2         raid_tec,
+                                                                   resyncing
+12 entries were displayed.
+----
+.. Vergewissern Sie sich, dass alle Aggregate online sind und erneut synchronisiert wurden:
++
+`storage aggregate plex show`
+
++
+Die folgende Ausgabe zeigt, dass alle Aggregate erneut synchronisiert wurden.
+
++
+[listing]
+----
+cluster_A::> storage aggregate plex show
+  ()
+                    Is      Is         Resyncing
+Aggregate Plex      Online  Resyncing    Percent Status
+--------- --------- ------- ---------- --------- ---------------
+node_B_1_aggr0 plex0 true    false              - normal,active
+node_B_1_aggr0 plex8 true    false              - normal,active
+node_B_2_aggr0 plex0 true    false              - normal,active
+node_B_2_aggr0 plex8 true    false              - normal,active
+node_B_1_aggr1 plex0 true    false              - normal,active
+node_B_1_aggr1 plex9 true    false              - normal,active
+node_B_1_aggr2 plex0 true    false              - normal,active
+node_B_1_aggr2 plex5 true    false              - normal,active
+node_B_2_aggr1 plex0 true    false              - normal,active
+node_B_2_aggr1 plex9 true    false              - normal,active
+node_B_2_aggr2 plex0 true    false              - normal,active
+node_B_2_aggr2 plex5 true    false              - normal,active
+node_A_1_aggr1 plex4 true    false              - normal,active
+node_A_1_aggr1 plex8 true    false              - normal,active
+node_A_1_aggr2 plex1 true    false              - normal,active
+node_A_1_aggr2 plex5 true    false              - normal,active
+node_A_2_aggr1 plex4 true    false              - normal,active
+node_A_2_aggr1 plex8 true    false              - normal,active
+node_A_2_aggr2 plex1 true    false              - normal,active
+node_A_2_aggr2 plex5 true    false              - normal,active
+20 entries were displayed.
+----
+
+
+. Führen Sie auf Systemen mit ONTAP 9.5 und früheren Versionen die Phase der Heilung von Root-Aggregaten durch:
++
+`metrocluster heal -phase root-aggregates`
+
++
+[listing]
+----
+cluster_B::> metrocluster heal -phase root-aggregates
+[Job 651] Job is queued: MetroCluster Heal Root Aggregates Job.Oct 26 13:05:00
+[Job 651] Job succeeded: Heal Root Aggregates is successful.
+----
+. Vergewissern Sie sich, dass die Phase „Wurzeln heilen“ abgeschlossen ist und der Notfallstandort für den Wechsel bereit ist:
++
+Die folgende Ausgabe zeigt, dass die Phase „Heal Roots“ auf Cluster_A abgeschlossen ist
+
++
+[listing]
+----
+cluster_B::> metrocluster node show
+DR                               Configuration  DR
+Group Cluster Node               State          Mirroring Mode
+----- ------- ------------------ -------------- --------- --------------------
+1     cluster_A
+              node_A_1           configured     enabled   heal roots completed
+              node_A_2           configured     enabled   heal roots completed
+      cluster_B
+              node_B_1           configured     enabled   waiting for switchback recovery
+              node_B_2           configured     enabled   waiting for switchback recovery
+4 entries were displayed.
+
+cluster_B::>
+----
+
+
+Fahren Sie fort, um die Lizenzen auf den ersetzten Nodes zu überprüfen.
+
+link:task_complete_recovery.html#verifying-licenses-on-the-replaced-nodes["Überprüfung der Lizenzen auf den ersetzten Nodes"]

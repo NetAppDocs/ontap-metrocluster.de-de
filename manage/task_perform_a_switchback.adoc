@@ -1,0 +1,122 @@
+---
+permalink: manage/task_perform_a_switchback.html 
+sidebar: sidebar 
+keywords: metrocluster, configuration, switchback, operation, return, operating, operate, state, sync-source, storage, virtual, machine, svm, disaster, site, active, serving, local, disk, pool, perform 
+summary: 'Nachdem Sie die MetroCluster-Konfiguration repariert haben, können Sie den MetroCluster-Switchback-Vorgang ausführen. Der MetroCluster Switchback-Vorgang gibt die Konfiguration wieder in den normalen Betriebszustand zurück, wobei die Synchronisationsspeicher Virtual Machines \(SVMs\) am Notfallstandort aktiv sind und Daten von den lokalen Festplattenpools bereitstellen.' 
+---
+= Zurückwechseln
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Nachdem Sie die MetroCluster-Konfiguration repariert haben, können Sie den MetroCluster-Switchback-Vorgang ausführen. Der MetroCluster Switchback-Vorgang gibt die Konfiguration wieder in den normalen Betriebsstatus zurück, wobei die Virtual Machines (SVMs) am Disaster-Standort aktiv sind und die Daten aus den lokalen Festplattenpools bereitstellen.
+
+* Der Disaster Cluster muss erfolgreich auf den verbleibenden Cluster umgeschaltet sein.
+* Mit den Daten und den Root-Aggregaten muss eine Reparatur durchgeführt worden sein.
+* Die verbleibenden Cluster-Nodes dürfen sich nicht im HA-Failover-Status befinden (alle Nodes müssen für jedes HA-Paar in Betrieb sein).
+* Die Controller-Module des Disaster-Site-Standorts müssen vollständig gebootet werden und nicht im HA-Übernahmemodus.
+* Das Root-Aggregat muss gespiegelt werden.
+* Die Inter-Switch Links (ISLs) müssen online sein.
+* Alle erforderlichen Lizenzen müssen auf dem System installiert sein.
++
+.. Vergewissern Sie sich, dass sich alle Nodes im Status aktiviert befinden: `metrocluster node show`
++
+Im folgenden Beispiel werden die Nodes angezeigt, die den Status aktiviert haben:
+
++
+[listing]
+----
+cluster_B::>  metrocluster node show
+
+DR                        Configuration  DR
+Group Cluster Node        State          Mirroring Mode
+----- ------- ----------- -------------- --------- --------------------
+1     cluster_A
+              node_A_1    configured     enabled   heal roots completed
+              node_A_2    configured     enabled   heal roots completed
+      cluster_B
+              node_B_1    configured     enabled   waiting for switchback recovery
+              node_B_2    configured     enabled   waiting for switchback recovery
+4 entries were displayed.
+----
+.. Bestätigen Sie, dass die Neusynchronisierung auf allen SVMs abgeschlossen ist: `metrocluster vserver show`
+.. Überprüfen Sie, ob alle automatischen LIF-Migrationen, die durch die heilenden Vorgänge durchgeführt werden, erfolgreich abgeschlossen sind: `metrocluster check lif show`
+.. Führen Sie einen simulierten Umschalter durch, um zu überprüfen, ob das System bereit ist: `metrocluster switchback -simulate`
+.. Überprüfen Sie die Konfiguration:
++
+`metrocluster check run`
+
++
+Der Befehl wird als Hintergrundjob ausgeführt und wird möglicherweise nicht sofort ausgeführt.
+
++
+[listing]
+----
+cluster_A::> metrocluster check run
+The operation has been started and is running in the background. Wait for
+it to complete and run "metrocluster check show" to view the results. To
+check the status of the running metrocluster check operation, use the command,
+"metrocluster operation history show -job-id 2245"
+----
++
+[listing]
+----
+cluster_A::> metrocluster check show
+Last Checked On: 9/13/2018 20:41:37
+
+Component           Result
+------------------- ---------
+nodes               ok
+lifs                ok
+config-replication  ok
+aggregates          ok
+clusters            ok
+connections         ok
+6 entries were displayed.
+----
+.. Führen Sie den Switchback durch, indem Sie den Befehl MetroCluster Switchback von einem beliebigen Node im verbleibenden Cluster aus ausführen: `metrocluster switchback`
+.. Überprüfen Sie den Fortschritt des Umschalttaschens: `metrocluster show`
++
+Der Umkehrvorgang läuft noch, wenn die Ausgabe wartet auf „Zurück“ anzeigt:
+
++
+[listing]
+----
+cluster_B::> metrocluster show
+Cluster                   Entry Name          State
+------------------------- ------------------- -----------
+ Local: cluster_B         Configuration state configured
+                          Mode                switchover
+                          AUSO Failure Domain -
+Remote: cluster_A         Configuration state configured
+                          Mode                waiting-for-switchback
+                          AUSO Failure Domain -
+----
++
+Der Umschalttavorgang ist abgeschlossen, wenn der Ausgang normal angezeigt wird:
+
++
+[listing]
+----
+cluster_B::> metrocluster show
+Cluster                   Entry Name          State
+------------------------- ------------------- -----------
+ Local: cluster_B         Configuration state configured
+                          Mode                normal
+                          AUSO Failure Domain -
+Remote: cluster_A         Configuration state configured
+                          Mode                normal
+                          AUSO Failure Domain -
+----
++
+Wenn ein Wechsel eine lange Zeit in Anspruch nimmt, können Sie den Status der in-progress-Basispläne über die überprüfen `metrocluster config-replication resync-status show` Befehl. Dieser Befehl befindet sich auf der erweiterten Berechtigungsebene.
+
+.. Wiederherstellung beliebiger SnapMirror oder SnapVault Konfigurationen
++
+In ONTAP 8.3 müssen Sie nach dem Wechsel zum MetroCluster eine verlorene SnapMirror Konfiguration manuell wiederherstellen. In ONTAP 9.0 und höher wird die Beziehung automatisch wiederhergestellt.
+
+
+
+

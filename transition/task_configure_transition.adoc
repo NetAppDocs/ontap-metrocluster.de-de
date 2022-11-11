@@ -1,0 +1,758 @@
+---
+permalink: transition/task_configure_transition.html 
+sidebar: sidebar 
+keywords: Generating and applying RCFs to the new IP switches, review, requirement, preparing, prepare, transition, perform, procedure, order, completing, complete, step, task, moving, move, controller, storage, shelves, shelf, exist, configuration, direct, metrocluster, fc, ip, verify, health, removing, remove, tiebreaker, monitor, software, generating, generate, apply, rcf, switch, controller, configure, prepare, preparing 
+summary: Um die Konfiguration für den Umstieg vorzubereiten, fügen Sie die neuen Nodes zur bestehenden MetroCluster Konfiguration hinzu und verschieben Sie dann Daten zu den neuen Nodes. 
+---
+= MetroCluster für Transition konfigurieren
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Um die Konfiguration für den Umstieg vorzubereiten, fügen Sie die neuen Nodes zur bestehenden MetroCluster Konfiguration hinzu und verschieben Sie dann Daten zu den neuen Nodes.
+
+
+
+== Senden einer benutzerdefinierten AutoSupport Meldung vor der Wartung
+
+Bevor Sie die Wartung durchführen, sollten Sie eine AutoSupport Meldung ausgeben, um den technischen Support von NetApp über die laufende Wartung zu informieren. Die Mitteilung des technischen Supports über laufende Wartungsarbeiten verhindert, dass ein Fall eröffnet wird, wenn eine Störung aufgetreten ist.
+
+Diese Aufgabe muss auf jedem MetroCluster-Standort ausgeführt werden.
+
+.Schritte
+. Um eine automatische Erstellung von Support-Cases zu verhindern, senden Sie eine AutoSupport Meldung, um anzugeben, dass die Wartung durchgeführt wird:
++
+`system node autosupport invoke -node * -type all -message MAINT=maintenance-window-in-hours`
+
++
+"`maintual-window-in-hours`" gibt die Länge des Wartungsfensters an, mit maximal 72 Stunden. Wenn die Wartung vor dem Vergehen der Zeit abgeschlossen ist, können Sie eine AutoSupport-Meldung mit dem Ende des Wartungszeitraums aufrufen:
+
++
+`system node autosupport invoke -node * -type all -message MAINT=end`
+
+. Wiederholen Sie den Befehl im Partner-Cluster.
+
+
+
+
+== Aktivieren des Übergangsmodus und Deaktivieren von Cluster HA
+
+Sie müssen den MetroCluster Transition-Modus aktivieren, damit die alten und neuen Nodes in der MetroCluster Konfiguration gemeinsam arbeiten und die Cluster HA deaktivieren können.
+
+. Übergang ermöglichen:
++
+.. Ändern Sie die erweiterte Berechtigungsebene:
++
+`set -privilege advanced`
+
+.. Übergangsmodus aktivieren:
++
+`metrocluster transition enable -transition-mode non-disruptive`
+
++
+
+NOTE: Führen Sie diesen Befehl nur auf einem Cluster aus.
+
++
+....
+cluster_A::*> metrocluster transition enable -transition-mode non-disruptive
+
+Warning: This command enables the start of a "non-disruptive" MetroCluster
+         FC-to-IP transition. It allows the addition of hardware for another DR
+         group that uses IP fabrics, and the removal of a DR group that uses FC
+         fabrics. Clients will continue to access their data during a
+         non-disruptive transition.
+
+         Automatic unplanned switchover will also be disabled by this command.
+Do you want to continue? {y|n}: y
+
+cluster_A::*>
+
+....
+.. Zurück zur Administratorberechtigungsebene:
++
+`set -privilege admin`
+
+
+
+. Vergewissern Sie sich, dass die Transition auf beiden Clustern aktiviert ist.
++
+....
+
+cluster_A::> metrocluster transition show-mode
+Transition Mode
+
+non-disruptive
+
+cluster_A::*>
+
+
+cluster_B::*> metrocluster transition show-mode
+Transition Mode
+
+non-disruptive
+
+Cluster_B::>
+
+....
+. Deaktivieren Sie Cluster HA.
++
+
+NOTE: Sie müssen diesen Befehl auf beiden Clustern ausführen.
+
++
+....
+cluster_A::*> cluster ha modify -configured false
+
+Warning: This operation will unconfigure cluster HA. Cluster HA must be
+configured on a two-node cluster to ensure data access availability in
+the event of storage failover.
+Do you want to continue? {y|n}: y
+Notice: HA is disabled.
+
+cluster_A::*>
+
+
+cluster_B::*> cluster ha modify -configured false
+
+Warning: This operation will unconfigure cluster HA. Cluster HA must be
+configured on a two-node cluster to ensure data access availability in
+the event of storage failover.
+Do you want to continue? {y|n}: y
+Notice: HA is disabled.
+
+cluster_B::*>
+....
+. Vergewissern Sie sich, dass Cluster HA deaktiviert ist.
++
+
+NOTE: Sie müssen diesen Befehl auf beiden Clustern ausführen.
+
++
+....
+cluster_A::> cluster ha show
+
+High Availability Configured: false
+Warning: Cluster HA has not been configured. Cluster HA must be configured
+on a two-node cluster to ensure data access availability in the
+event of storage failover. Use the "cluster ha modify -configured
+true" command to configure cluster HA.
+
+cluster_A::>
+
+cluster_B::> cluster ha show
+
+High Availability Configured: false
+Warning: Cluster HA has not been configured. Cluster HA must be configured
+on a two-node cluster to ensure data access availability in the
+event of storage failover. Use the "cluster ha modify -configured
+true" command to configure cluster HA.
+
+cluster_B::>
+....
+
+
+
+
+== Verbinden der MetroCluster IP-Nodes mit den Clustern
+
+Sie müssen die vier neuen MetroCluster IP-Nodes der bestehenden MetroCluster-Konfiguration hinzufügen.
+
+Sie müssen diese Aufgabe für beide Cluster ausführen.
+
+.Schritte
+. Fügen Sie die MetroCluster IP-Knoten zur bestehenden MetroCluster-Konfiguration hinzu.
++
+.. Schließen Sie den ersten MetroCluster-IP-Knoten (Node_A_1-IP) an die vorhandene MetroCluster-FC-Konfiguration an.
++
+....
+
+Welcome to the cluster setup wizard.
+
+You can enter the following commands at any time:
+  "help" or "?" - if you want to have a question clarified,
+  "back" - if you want to change previously answered questions, and
+  "exit" or "quit" - if you want to quit the cluster setup wizard.
+     Any changes you made before quitting will be saved.
+
+You can return to cluster setup at any time by typing "cluster setup".
+To accept a default or omit a question, do not enter a value.
+
+This system will send event messages and periodic reports to NetApp Technical
+Support. To disable this feature, enter autosupport modify -support disable
+within 24 hours.
+
+Enabling AutoSupport can significantly speed problem determination and
+resolution, should a problem occur on your system.
+For further information on AutoSupport, see:
+http://support.netapp.com/autosupport/
+
+Type yes to confirm and continue {yes}: yes
+
+Enter the node management interface port [e0M]:
+Enter the node management interface IP address: 172.17.8.93
+Enter the node management interface netmask: 255.255.254.0
+Enter the node management interface default gateway: 172.17.8.1
+A node management interface on port e0M with IP address 172.17.8.93 has been created.
+
+Use your web browser to complete cluster setup by accessing https://172.17.8.93
+
+Otherwise, press Enter to complete cluster setup using the command line
+interface:
+
+Do you want to create a new cluster or join an existing cluster? {create, join}:
+join
+
+
+Existing cluster interface configuration found:
+
+Port    MTU     IP              Netmask
+e0c     9000    169.254.148.217 255.255.0.0
+e0d     9000    169.254.144.238 255.255.0.0
+
+Do you want to use this configuration? {yes, no} [yes]: yes
+.
+.
+.
+....
+.. Fügen Sie den zweiten MetroCluster IP-Knoten (Node_A_2-IP) der bestehenden MetroCluster FC-Konfiguration hinzu.
+
+
+. Wiederholen Sie diese Schritte, um Node_B_1-IP und Node_B_2-IP zu Cluster_B. zu verbinden
+
+
+
+
+== Konfigurieren von Intercluster-LIFs, Erstellen der MetroCluster-Schnittstellen und Spiegeln von Root-Aggregaten
+
+Sie müssen Cluster-Peering-LIFs erstellen, die MetroCluster-Schnittstellen auf den neuen MetroCluster IP-Nodes erstellen.
+
+Der in den Beispielen verwendete Home-Port ist plattformspezifisch. Sie sollten den entsprechenden Home Port für die MetroCluster IP-Node-Plattform verwenden.
+
+.Schritte
+. Auf den neuen MetroCluster IP-Knoten link:../install-ip/task_sw_config_configure_clusters.html#configuring-intercluster-lifs-for-cluster-peering["Konfigurieren Sie die Intercluster LIFs"].
+. Vergewissern Sie sich an jedem Standort, dass Cluster-Peering konfiguriert ist:
++
+`cluster peer show`
+
++
+Das folgende Beispiel zeigt die Cluster-Peering-Konfiguration auf Cluster_A:
+
++
+....
+cluster_A:> cluster peer show
+Peer Cluster Name         Cluster Serial Number Availability   Authentication
+------------------------- --------------------- -------------- --------------
+cluster_B                 1-80-000011           Available      ok
+....
++
+Das folgende Beispiel zeigt die Cluster-Peering-Konfiguration auf Cluster_B:
+
++
+....
+cluster_B:> cluster peer show
+Peer Cluster Name         Cluster Serial Number Availability   Authentication
+------------------------- --------------------- -------------- --------------
+cluster_A 1-80-000011 Available ok
+....
+. Konfigurieren Sie die DR-Gruppe für die MetroCluster IP-Knoten:
++
+`metrocluster configuration-settings dr-group create -partner-cluster`
+
++
+....
+cluster_A::> metrocluster configuration-settings dr-group create -partner-cluster
+cluster_B -local-node node_A_3-IP -remote-node node_B_3-IP
+[Job 259] Job succeeded: DR Group Create is successful.
+cluster_A::>
+....
+. Vergewissern Sie sich, dass die DR-Gruppe erstellt wird.
++
+`metrocluster configuration-settings dr-group show`
+
++
+....
+cluster_A::> metrocluster configuration-settings dr-group show
+
+DR Group ID Cluster                    Node               DR Partner Node
+----------- -------------------------- ------------------ ------------------
+2           cluster_A
+                                       node_A_3-IP        node_B_3-IP
+                                       node_A_4-IP        node_B_4-IP
+            cluster_B
+                                       node_B_3-IP        node_A_3-IP
+                                       node_B_4-IP        node_A_4-IP
+
+4 entries were displayed.
+
+cluster_A::>
+....
++
+Sie werden feststellen, dass die DR-Gruppe für die alten MetroCluster FC-Knoten (DR-Gruppe 1) nicht aufgeführt ist, wenn Sie die ausführen `metrocluster configuration-settings dr-group show` Befehl.
+
++
+Verwenden Sie können `metrocluster node show` Führen Sie einen Befehl auf beiden Seiten aus, um alle Nodes aufzulisten.
+
++
+....
+cluster_A::> metrocluster node show
+
+DR                               Configuration  DR
+Group Cluster Node               State          Mirroring Mode
+----- ------- ------------------ -------------- --------- --------------------
+1     cluster_A
+              node_A_1-FC         configured     enabled   normal
+              node_A_2-FC         configured     enabled   normal
+      cluster_B
+              node_B_1-FC         configured     enabled   normal
+              node_B_2-FC         configured     enabled   normal
+2     cluster_A
+              node_A_1-IP      ready to configure
+                                                -         -
+              node_A_2-IP      ready to configure
+                                                -         -
+
+cluster_B::> metrocluster node show
+
+DR                               Configuration  DR
+Group Cluster Node               State          Mirroring Mode
+----- ------- ------------------ -------------- --------- --------------------
+1     cluster_B
+              node_B_1-FC         configured     enabled   normal
+              node_B_2-FC         configured     enabled   normal
+      cluster_A
+              node_A_1-FC         configured     enabled   normal
+              node_A_2-FC         configured     enabled   normal
+2     cluster_B
+              node_B_1-IP      ready to configure
+                                                -         -
+              node_B_2-IP      ready to configure
+                                                -         -
+....
+. Konfigurieren Sie die MetroCluster IP-Schnittstellen für die neu verbundenen MetroCluster IP-Knoten:
++
+`metrocluster configuration-settings interface create -cluster-name`
+
++
+Siehe link:../install-ip/task_sw_config_configure_clusters.html#configuring-and-connecting-the-metrocluster-ip-interfaces["Konfigurieren und Anschließen der MetroCluster IP-Schnittstellen"] Überlegungen bei der Konfiguration der IP-Schnittstellen.
+
++
+
+NOTE: Sie können die MetroCluster-IP-Schnittstellen von beiden Clustern konfigurieren. Außerdem müssen Sie ab ONTAP 9.9 auch die angeben, wenn Sie eine Layer 3-Konfiguration verwenden `-gateway` Parameter beim Erstellen von MetroCluster-IP-Schnittstellen. Siehe Link:../install-ip/concept_concept_Layer_3.HTML.
+
++
+....
+cluster_A::> metrocluster configuration-settings interface create -cluster-name cluster_A -home-node node_A_3-IP -home-port e1a -address 172.17.26.10 -netmask 255.255.255.0
+[Job 260] Job succeeded: Interface Create is successful.
+
+cluster_A::> metrocluster configuration-settings interface create -cluster-name cluster_A -home-node node_A_3-IP -home-port e1b -address 172.17.27.10 -netmask 255.255.255.0
+[Job 261] Job succeeded: Interface Create is successful.
+
+cluster_A::> metrocluster configuration-settings interface create -cluster-name cluster_A -home-node node_A_4-IP -home-port e1a -address 172.17.26.11 -netmask 255.255.255.0
+[Job 262] Job succeeded: Interface Create is successful.
+
+cluster_A::> :metrocluster configuration-settings interface create -cluster-name cluster_A -home-node node_A_4-IP -home-port e1b -address 172.17.27.11 -netmask 255.255.255.0
+[Job 263] Job succeeded: Interface Create is successful.
+
+cluster_A::> metrocluster configuration-settings interface create -cluster-name cluster_B -home-node node_B_3-IP -home-port e1a -address 172.17.26.12 -netmask 255.255.255.0
+[Job 264] Job succeeded: Interface Create is successful.
+
+cluster_A::> metrocluster configuration-settings interface create -cluster-name cluster_B -home-node node_B_3-IP -home-port e1b -address 172.17.27.12 -netmask 255.255.255.0
+[Job 265] Job succeeded: Interface Create is successful.
+
+cluster_A::> metrocluster configuration-settings interface create -cluster-name cluster_B -home-node node_B_4-IP -home-port e1a -address 172.17.26.13 -netmask 255.255.255.0
+[Job 266] Job succeeded: Interface Create is successful.
+
+cluster_A::> metrocluster configuration-settings interface create -cluster-name cluster_B -home-node node_B_4-IP -home-port e1b -address 172.17.27.13 -netmask 255.255.255.0
+[Job 267] Job succeeded: Interface Create is successful.
+....
+. Überprüfen Sie, ob die MetroCluster-IP-Schnittstellen erstellt wurden:
++
+`metrocluster configuration-settings interface show`
+
++
+....
+cluster_A::>metrocluster configuration-settings interface show
+
+DR                                                                    Config
+Group Cluster Node    Network Address Netmask         Gateway         State
+----- ------- ------- --------------- --------------- --------------- ---------
+2     cluster_A
+             node_A_3-IP
+                 Home Port: e1a
+                      172.17.26.10    255.255.255.0   -               completed
+                 Home Port: e1b
+                      172.17.27.10    255.255.255.0   -               completed
+              node_A_4-IP
+                 Home Port: e1a
+                      172.17.26.11    255.255.255.0   -               completed
+                 Home Port: e1b
+                      172.17.27.11    255.255.255.0   -               completed
+      cluster_B
+             node_B_3-IP
+                 Home Port: e1a
+                      172.17.26.13    255.255.255.0   -               completed
+                 Home Port: e1b
+                      172.17.27.13    255.255.255.0   -               completed
+              node_B_3-IP
+                 Home Port: e1a
+                      172.17.26.12    255.255.255.0   -               completed
+                 Home Port: e1b
+                      172.17.27.12    255.255.255.0   -               completed
+8 entries were displayed.
+
+cluster_A>
+....
+. Verbinden Sie die MetroCluster IP-Schnittstellen:
++
+`metrocluster configuration-settings connection connect`
+
++
+
+NOTE: Dieser Befehl kann einige Minuten dauern.
+
++
+....
+cluster_A::> metrocluster configuration-settings connection connect
+
+cluster_A::>
+....
+. Überprüfen Sie, ob die Verbindungen ordnungsgemäß aufgebaut sind:
++
+`metrocluster configuration-settings connection show`
+
++
+....
+cluster_A::> metrocluster configuration-settings connection show
+
+DR                    Source          Destination
+Group Cluster Node    Network Address Network Address Partner Type Config State
+----- ------- ------- --------------- --------------- ------------ ------------
+2     cluster_A
+              node_A_3-IP**
+                 Home Port: e1a
+                      172.17.26.10    172.17.26.11    HA Partner   completed
+                 Home Port: e1a
+                      172.17.26.10    172.17.26.12    DR Partner   completed
+                 Home Port: e1a
+                      172.17.26.10    172.17.26.13    DR Auxiliary completed
+                 Home Port: e1b
+                      172.17.27.10    172.17.27.11    HA Partner   completed
+                 Home Port: e1b
+                      172.17.27.10    172.17.27.12    DR Partner   completed
+                 Home Port: e1b
+                      172.17.27.10    172.17.27.13    DR Auxiliary completed
+              node_A_4-IP
+                 Home Port: e1a
+                      172.17.26.11    172.17.26.10    HA Partner   completed
+                 Home Port: e1a
+                      172.17.26.11    172.17.26.13    DR Partner   completed
+                 Home Port: e1a
+                      172.17.26.11    172.17.26.12    DR Auxiliary completed
+                 Home Port: e1b
+                      172.17.27.11    172.17.27.10    HA Partner   completed
+                 Home Port: e1b
+                      172.17.27.11    172.17.27.13    DR Partner   completed
+                 Home Port: e1b
+                      172.17.27.11    172.17.27.12    DR Auxiliary completed
+
+DR                    Source          Destination
+Group Cluster Node    Network Address Network Address Partner Type Config State
+----- ------- ------- --------------- --------------- ------------ ------------
+2     cluster_B
+              node_B_4-IP
+                 Home Port: e1a
+                      172.17.26.13    172.17.26.12    HA Partner   completed
+                 Home Port: e1a
+                      172.17.26.13    172.17.26.11    DR Partner   completed
+                 Home Port: e1a
+                      172.17.26.13    172.17.26.10    DR Auxiliary completed
+                 Home Port: e1b
+                      172.17.27.13    172.17.27.12    HA Partner   completed
+                 Home Port: e1b
+                      172.17.27.13    172.17.27.11    DR Partner   completed
+                 Home Port: e1b
+                      172.17.27.13    172.17.27.10    DR Auxiliary completed
+              node_B_3-IP
+                 Home Port: e1a
+                      172.17.26.12    172.17.26.13    HA Partner   completed
+                 Home Port: e1a
+                      172.17.26.12    172.17.26.10    DR Partner   completed
+                 Home Port: e1a
+                      172.17.26.12    172.17.26.11    DR Auxiliary completed
+                 Home Port: e1b
+                      172.17.27.12    172.17.27.13    HA Partner   completed
+                 Home Port: e1b
+                      172.17.27.12    172.17.27.10    DR Partner   completed
+                 Home Port: e1b
+                      172.17.27.12    172.17.27.11    DR Auxiliary completed
+24 entries were displayed.
+
+cluster_A::>
+....
+. Überprüfen der automatischen Zuweisung und Partitionierung der Festplatte:
++
+`disk show -pool Pool1`
+
++
+....
+cluster_A::> disk show -pool Pool1
+                     Usable           Disk    Container   Container
+Disk                   Size Shelf Bay Type    Type        Name      Owner
+---------------- ---------- ----- --- ------- ----------- --------- --------
+1.10.4                    -    10   4 SAS     remote      -         node_B_2
+1.10.13                   -    10  13 SAS     remote      -         node_B_2
+1.10.14                   -    10  14 SAS     remote      -         node_B_1
+1.10.15                   -    10  15 SAS     remote      -         node_B_1
+1.10.16                   -    10  16 SAS     remote      -         node_B_1
+1.10.18                   -    10  18 SAS     remote      -         node_B_2
+...
+2.20.0              546.9GB    20   0 SAS     aggregate   aggr0_rha1_a1 node_a_1
+2.20.3              546.9GB    20   3 SAS     aggregate   aggr0_rha1_a2 node_a_2
+2.20.5              546.9GB    20   5 SAS     aggregate   rha1_a1_aggr1 node_a_1
+2.20.6              546.9GB    20   6 SAS     aggregate   rha1_a1_aggr1 node_a_1
+2.20.7              546.9GB    20   7 SAS     aggregate   rha1_a2_aggr1 node_a_2
+2.20.10             546.9GB    20  10 SAS     aggregate   rha1_a1_aggr1 node_a_1
+...
+43 entries were displayed.
+
+cluster_A::>
+....
+. Root-Aggregate spiegeln:
++
+`storage aggregate mirror -aggregate aggr0_node_A_3-IP`
+
++
+
+NOTE: Diesen Schritt müssen Sie bei jedem MetroCluster IP Node abschließen.
+
++
+....
+cluster_A::> aggr mirror -aggregate aggr0_node_A_3-IP
+
+Info: Disks would be added to aggregate "aggr0_node_A_3-IP"on node "node_A_3-IP"
+      in the following manner:
+
+      Second Plex
+
+        RAID Group rg0, 3 disks (block checksum, raid_dp)
+                                                            Usable Physical
+          Position   Disk                      Type           Size     Size
+          ---------- ------------------------- ---------- -------- --------
+          dparity    4.20.0                    SAS               -        -
+          parity     4.20.3                    SAS               -        -
+          data       4.20.1                    SAS         546.9GB  558.9GB
+
+      Aggregate capacity available forvolume use would be 467.6GB.
+
+Do you want to continue? {y|n}: y
+
+cluster_A::>
+....
+. Überprüfen Sie, ob die Root-Aggregate gespiegelt wurden:
++
+`storage aggregate show`
+
++
+....
+cluster_A::> aggr show
+
+Aggregate     Size Available Used% State   #Vols  Nodes            RAID Status
+--------- -------- --------- ----- ------- ------ ---------------- ------------
+aggr0_node_A_1-FC
+           349.0GB   16.84GB   95% online       1 node_A_1-FC      raid_dp,
+                                                                   mirrored,
+                                                                   normal
+aggr0_node_A_2-FC
+           349.0GB   16.84GB   95% online       1 node_A_2-FC      raid_dp,
+                                                                   mirrored,
+                                                                   normal
+aggr0_node_A_3-IP
+           467.6GB   22.63GB   95% online       1 node_A_3-IP      raid_dp,
+                                                                   mirrored,
+                                                                   normal
+aggr0_node_A_4-IP
+           467.6GB   22.62GB   95% online       1 node_A_4-IP      raid_dp,
+                                                                   mirrored,
+                                                                   normal
+aggr_data_a1
+            1.02TB    1.01TB    1% online       1 node_A_1-FC      raid_dp,
+                                                                   mirrored,
+                                                                   normal
+aggr_data_a2
+            1.02TB    1.01TB    1% online       1 node_A_2-FC      raid_dp,
+                                                                   mirrored,
+....
+
+
+
+
+== Abschließen des Hinzufügung der MetroCluster IP-Nodes
+
+Sie müssen die neue DR-Gruppe in die MetroCluster Konfiguration einbinden und gespiegelte Datenaggregate auf den neuen Nodes erstellen.
+
+.Schritte
+. Konfigurieren Sie das MetroCluster, um die Änderungen zu implementieren:
++
+`metrocluster configure`
+
++
+
+NOTE: Sie müssen ausführen `metrocluster configure` Und *nicht* `metrocluster configure -refresh true`
+
++
+....
+cluster_A::> metrocluster configure
+
+[Job 439] Job succeeded: Configure is successful.
+
+cluster_A::>
+....
+. Vergewissern Sie sich, dass die Nodes zu ihrer DR-Gruppe hinzugefügt werden:
++
+`metrocluster node show`
+
++
+....
+cluster_A::> metrocluster node show
+
+DR                               Configuration  DR
+Group Cluster Node               State          Mirroring Mode
+----- ------- ------------------ -------------- --------- --------------------
+1     cluster_A
+              node-A-1-FC        configured     enabled   normal
+              node-A-2-FC        configured     enabled   normal
+      Cluster-B
+              node-B-1-FC        configured     enabled   normal
+              node-B-2-FC        configured     enabled   normal
+2     cluster_A
+              node-A-3-IP        configured     enabled   normal
+              node-A-4-IP        configured     enabled   normal
+      Cluster-B
+              node-B-3-IP        configured     enabled   normal
+              node-B-4-IP        configured     enabled   normal
+8 entries were displayed.
+
+cluster_A::>
+....
+. Erstellen von gespiegelten Datenaggregaten auf jedem der neuen MetroCluster Nodes:
++
+`storage aggregate create -aggregate aggregate-name -node node-name -diskcount no-of-disks -mirror true`
+
++
+
+NOTE: Sie müssen mindestens ein gespiegeltes Datenaggregat pro Standort erstellen. Es wird empfohlen, zwei gespiegelte Datenaggregate pro Standort auf MetroCluster IP-Knoten zu haben, um die MDV-Volumes zu hosten. Allerdings wird ein einzelnes Aggregat pro Standort unterstützt (jedoch nicht empfohlen). Es wird unterstützt, dass ein Standort der MetroCluster ein einziges gespiegeltes Datenaggregat hat und der andere Standort mehr als ein gespiegeltes Datenaggregat hat.
+
++
+Das folgende Beispiel zeigt die Erstellung eines Aggregats auf Node_A_1-New.
+
++
+....
+cluster_A::> storage aggregate create -aggregate data_a3 -node node_A_1-new -diskcount 10 -mirror t
+
+Info: The layout for aggregate "data_a3" on node "node_A_1-new" would be:
+
+      First Plex
+
+        RAID Group rg0, 5 disks (block checksum, raid_dp)
+                                                            Usable Physical
+          Position   Disk                      Type           Size     Size
+          ---------- ------------------------- ---------- -------- --------
+          dparity    5.10.15                   SAS               -        -
+          parity     5.10.16                   SAS               -        -
+          data       5.10.17                   SAS         546.9GB  547.1GB
+          data       5.10.18                   SAS         546.9GB  558.9GB
+          data       5.10.19                   SAS         546.9GB  558.9GB
+
+      Second Plex
+
+        RAID Group rg0, 5 disks (block checksum, raid_dp)
+                                                            Usable Physical
+          Position   Disk                      Type           Size     Size
+          ---------- ------------------------- ---------- -------- --------
+          dparity    4.20.17                   SAS               -        -
+          parity     4.20.14                   SAS               -        -
+          data       4.20.18                   SAS         546.9GB  547.1GB
+          data       4.20.19                   SAS         546.9GB  547.1GB
+          data       4.20.16                   SAS         546.9GB  547.1GB
+
+      Aggregate capacity available for volume use would be 1.37TB.
+
+Do you want to continue? {y|n}: y
+[Job 440] Job succeeded: DONE
+
+cluster_A::>
+....
+. Verschieben Sie die MDV_CRS-Volumes von den alten Knoten auf die neuen Knoten in der erweiterten Berechtigung.
++
+.. Anzeigen der Volumes zur Identifizierung der MDV-Volumes:
++
+
+NOTE: Wenn Sie ein einzelnes gespiegeltes Datenaggregat pro Standort haben, dann verschieben Sie beide MDV-Volumen zu diesem einzigen Aggregat. Wenn Sie zwei oder mehr gespiegelte Datenaggregate haben, dann verschieben Sie jedes MDV-Volume zu einem anderen Aggregat.
+
++
+Das folgende Beispiel zeigt die MDV-Volumes in der Ausgabe der Volume show:
+
++
+....
+cluster_A::> volume show
+Vserver   Volume       Aggregate    State      Type       Size  Available Used%
+--------- ------------ ------------ ---------- ---- ---------- ---------- -----
+...
+
+cluster_A   MDV_CRS_2c78e009ff5611e9b0f300a0985ef8c4_A
+                       aggr_b1      -          RW            -          -     -
+cluster_A   MDV_CRS_2c78e009ff5611e9b0f300a0985ef8c4_B
+                       aggr_b2      -          RW            -          -     -
+cluster_A   MDV_CRS_d6b0b313ff5611e9837100a098544e51_A
+                       aggr_a1      online     RW         10GB     9.50GB    0%
+cluster_A   MDV_CRS_d6b0b313ff5611e9837100a098544e51_B
+                       aggr_a2      online     RW         10GB     9.50GB    0%
+...
+11 entries were displayed.mple
+....
+.. Legen Sie die erweiterte Berechtigungsebene fest:
++
+`set -privilege advanced`
+
+.. Verschieben Sie die MDV-Volumes nacheinander:
++
+`volume move start -volume mdv-volume -destination-aggregate aggr-on-new-node -vserver vserver-name`
+
++
+Das folgende Beispiel zeigt den Befehl und die Ausgabe für das Verschieben von MDV_CRS_d6b313ff5611e9837100a098544e51_A, um Daten_a3 auf Node_A_3 zu aggregieren.
+
++
+....
+cluster_A::*> vol move start -volume MDV_CRS_d6b0b313ff5611e9837100a098544e51_A -destination-aggregate data_a3 -vserver cluster_A
+
+Warning: You are about to modify the system volume
+         "MDV_CRS_d6b0b313ff5611e9837100a098544e51_A". This might cause severe
+         performance or stability problems. Do not proceed unless directed to
+         do so by support. Do you want to proceed? {y|n}: y
+[Job 494] Job is queued: Move "MDV_CRS_d6b0b313ff5611e9837100a098544e51_A" in Vserver "cluster_A" to aggregate "data_a3". Use the "volume move show -vserver cluster_A -volume MDV_CRS_d6b0b313ff5611e9837100a098544e51_A" command to view the status of this operation.
+....
+.. Überprüfen Sie mit dem Befehl Volume show, ob das MDV-Volume erfolgreich verschoben wurde:
++
+`volume show mdv-name`
+
++
+Die folgende Ausgabe zeigt, dass das MDV-Volume erfolgreich verschoben wurde.
+
++
+....
+cluster_A::*> vol show MDV_CRS_d6b0b313ff5611e9837100a098544e51_B
+Vserver     Volume       Aggregate    State      Type       Size  Available Used%
+---------   ------------ ------------ ---------- ---- ---------- ---------- -----
+cluster_A   MDV_CRS_d6b0b313ff5611e9837100a098544e51_B
+                       aggr_a2      online     RW         10GB     9.50GB    0%
+....
+.. Zurück zum Admin-Modus:
++
+`set -privilege admin`
+
+
+
+

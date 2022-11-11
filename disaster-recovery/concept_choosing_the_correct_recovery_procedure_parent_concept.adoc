@@ -1,0 +1,178 @@
+---
+permalink: disaster-recovery/concept_choosing_the_correct_recovery_procedure_parent_concept.html 
+sidebar: sidebar 
+keywords: failure, metrocluster, configuration, correct, recovery, procedure, choosing, choose, controller, module, scenarios, two-node 
+summary: Nach einem Fehler in einer MetroCluster-Konfiguration müssen Sie abhängig vom Umfang des Fehlers das richtige Wiederherstellungsverfahren auswählen. 
+---
+= Auswahl des richtigen Wiederherstellungsverfahrens
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Nach einem Fehler in einer MetroCluster-Konfiguration müssen Sie das richtige Wiederherstellungsverfahren auswählen. Verwenden Sie die folgende Tabelle und Beispiele, um das entsprechende Wiederherstellungsverfahren auszuwählen.
+
+|===
+
+
+| Umfang der Ausfälle am Disaster-Standort | Verfahren 
+
+
+ a| 
+* Kein Controller-Modul-Fehler
+* Andere Hardware ist ausgefallen
+
+ a| 
+link:task_recover_from_a_non_controller_failure_mcc_dr.html["Wiederherstellung nach einem Ausfall eines Controllers"]
+
+
+
+ a| 
+* Ausfall eines einzelnen Controller-Moduls oder Ausfall von FRU-Komponenten innerhalb des Controller-Moduls
+* Laufwerke sind nicht ausgefallen
+
+ a| 
+Wenn ein Fehler auf ein einzelnes Controller-Modul beschränkt ist, müssen Sie das FRU-Ersatzverfahren für das Controller-Modul für das Plattformmodell verwenden. In einer MetroCluster Konfiguration mit vier oder acht Nodes ist ein solcher Ausfall für das lokale HA-Paar isoliert.
+
+*Hinweis:* das FRU-Ersatzverfahren für das Controller-Modul kann in einer MetroCluster-Konfiguration mit zwei Knoten verwendet werden, wenn kein Laufwerk oder andere Hardware-Ausfälle auftreten.
+
+https://docs.netapp.com/platstor/index.jsp["AFF and FAS Documentation Center"]
+
+
+
+ a| 
+* Ausfall eines einzelnen Controller-Moduls oder Ausfall von FRU-Komponenten innerhalb des Controller-Moduls
+* Laufwerke ausgefallen
+
+ a| 
+link:task_recover_from_a_multi_controller_and_or_storage_failure.html["Wiederherstellung nach einem Multi-Controller- oder Storage-Ausfall"]
+
+
+
+ a| 
+* Ausfall eines einzelnen Controller-Moduls oder Ausfall von FRU-Komponenten innerhalb des Controller-Moduls
+* Laufwerke sind nicht ausgefallen
+* Zusätzliche Hardware außerhalb des Controller-Moduls ist ausgefallen
+
+ a| 
+link:task_recover_from_a_multi_controller_and_or_storage_failure.html["Wiederherstellung nach einem Multi-Controller- oder Storage-Ausfall"]
+
+Sie sollten alle Schritte für die Antriebszuweisung überspringen.
+
+
+
+ a| 
+* Ausfall mehrerer Controller-Module (mit oder ohne zusätzlichen Ausfall) innerhalb einer DR-Gruppe
+
+ a| 
+link:task_recover_from_a_multi_controller_and_or_storage_failure.html["Wiederherstellung nach einem Multi-Controller- oder Storage-Ausfall"]
+
+|===
+
+
+== Fehlerszenarien für Controller-Module bei MetroCluster FC-zu-IP Transition
+
+Das Recovery-Verfahren kann angewendet werden, wenn während der Umstellung ein Standortausfall auftritt. Sie kann jedoch nur verwendet werden, wenn die Konfiguration eine stabile gemischte Konfiguration ist, bei der FC DR-Gruppe und der IP DR-Gruppe beide vollständig konfiguriert sind. Die Ausgabe des `metrocluster node show` Der Befehl sollte beide DR-Gruppen mit allen acht Nodes anzeigen.
+
+
+IMPORTANT: Wenn während der Transition der Fehler aufgetreten ist, während die Nodes hinzugefügt oder entfernt werden, müssen Sie sich an den technischen Support wenden.
+
+
+
+== Szenarien für Controller-Module in MetroCluster Konfigurationen mit acht Nodes
+
+Ausfallszenarien:
+
+*  controller module failures in a single DR group
+*  controller module failures in a single DR group
+*  controller module failures in separate DR groups
+*  controller module failures spread across the DR groups
+
+
+
+
+=== Ausfall eines einzelnen Controller-Moduls in einer einzelnen DR-Gruppe
+
+In diesem Fall ist der Fehler auf ein HA-Paar beschränkt.
+
+* Wenn kein Storage ausgetauscht werden muss, können Sie das FRU-Ersatzverfahren für das Plattformmodell verwenden.
++
+https://docs.netapp.com/platstor/index.jsp["AFF and FAS Documentation Center"^]
+
+* Wenn Speicher ausgetauscht werden muss, können Sie das Verfahren zur Wiederherstellung von Multi-Controller-Modulen verwenden.
++
+link:task_recover_from_a_multi_controller_and_or_storage_failure.html["Wiederherstellung nach einem Multi-Controller- oder Storage-Ausfall"]
+
++
+Dieses Szenario gilt auch für MetroCluster-Konfigurationen mit vier Nodes.
+
++
+image::../media/mcc_dr_groups_8_node_with_a_single_controller_failure.gif[mcc dr gruppiert einen 8 Node bei einem Single Controller-Ausfall]
+
+
+
+
+
+=== Zwei Controller-Modulfehler in einer einzelnen DR-Gruppe
+
+In diesem Fall erfordert der Ausfall eine Umschaltung. Sie können das Wiederherstellungsverfahren für Fehler mit mehreren Controllern verwenden.
+
+link:task_recover_from_a_multi_controller_and_or_storage_failure.html["Wiederherstellung nach einem Multi-Controller- oder Storage-Ausfall"]
+
+Dieses Szenario gilt auch für MetroCluster-Konfigurationen mit vier Nodes.
+
+image::../media/mcc_dr_groups_8_node_with_a_multi_controller_failure.gif[mcc dr gruppiert einen 8 Node bei einem Ausfall mehrerer Controller]
+
+
+
+=== Ausfall eines einzelnen Controller-Moduls in separaten DR-Gruppen
+
+In diesem Fall ist der Fehler auf separate HA-Paare beschränkt.
+
+* Wenn kein Storage ausgetauscht werden muss, können Sie das FRU-Ersatzverfahren für das Plattformmodell verwenden.
++
+Der FRU-Austausch wird zweimal pro ausgefallenem Controller-Modul durchgeführt.
+
++
+https://docs.netapp.com/platstor/index.jsp["AFF and FAS Documentation Center"^]
+
+* Wenn Speicher ausgetauscht werden muss, können Sie das Verfahren zur Wiederherstellung von Multi-Controller-Modulen verwenden.
++
+link:task_recover_from_a_multi_controller_and_or_storage_failure.html["Wiederherstellung nach einem Multi-Controller- oder Storage-Ausfall"]
+
+
+
+image::../media/mcc_dr_groups_8_node_with_two_single_controller_failures.gif[mcc dr gruppiert einen 8 Node bei zwei Single Controller-Ausfällen]
+
+
+
+=== Drei Controller-Ausfälle verteilen sich auf die DR-Gruppen
+
+In diesem Fall erfordert der Ausfall eine Umschaltung. Sie können das Wiederherstellungsverfahren für die Wiederherstellung von Multicontrollermodulen für DR-Gruppe 1 verwenden.
+
+link:task_recover_from_a_multi_controller_and_or_storage_failure.html["Wiederherstellung nach einem Multi-Controller- oder Storage-Ausfall"]
+
+Sie können das plattformspezifische FRU-Ersatzverfahren für das Controller-Modul für DR-Gruppe 2 verwenden.
+
+https://docs.netapp.com/platstor/index.jsp["AFF and FAS Documentation Center"^]
+
+image::../media/mcc_dr_groups_8_node_with_a_3_controller_failure.gif[mcc dr gruppiert einen 8-Knoten bei einem 3-Controller-Ausfall]
+
+
+
+== Szenarien für Fehler im Controller-Modul in MetroCluster-Konfigurationen mit zwei Nodes
+
+Das Verfahren, das Sie verwenden, hängt vom Umfang des Fehlers ab.
+
+* Wenn kein Storage ausgetauscht werden muss, können Sie das FRU-Ersatzverfahren für das Plattformmodell verwenden.
++
+https://docs.netapp.com/platstor/index.jsp["AFF and FAS Documentation Center"^]
+
+* Wenn Speicher ausgetauscht werden muss, können Sie das Verfahren zur Wiederherstellung von Multi-Controller-Modulen verwenden.
++
+link:task_recover_from_a_multi_controller_and_or_storage_failure.html["Wiederherstellung nach einem Multi-Controller- oder Storage-Ausfall"]
+
+
+
+image::../media/mcc_dr_groups_2_node_with_a_single_controller_failure.gif[mcc dr gruppiert 2 Node bei einem Single Controller-Ausfall]

@@ -1,0 +1,83 @@
+---
+permalink: install-fc/task_cable_the_fc_vi_and_hba_ports_to_switches_in_a_two_node_fabric_attached_mcc_configuration_with_array_luns.html 
+sidebar: sidebar 
+keywords: metrocluster, fabric, installation, cable, fc, vi, hba, ports, two, node, array, luns 
+summary: Wenn Sie eine Fabric-Attached MetroCluster-Konfiguration mit zwei Nodes für Array-LUNs einrichten, müssen Sie die FC-VI-Ports und die HBA-Ports mit den Switch-Ports verkabeln. 
+---
+= Verkabelung der FC-VI- und HBA-Ports in einer Fabric-Attached MetroCluster-Konfiguration mit zwei Nodes und Array-LUNs
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie eine Fabric-Attached MetroCluster-Konfiguration mit zwei Nodes für Array-LUNs einrichten, müssen Sie die FC-VI-Ports und die HBA-Ports mit den Switch-Ports verkabeln.
+
+.Über diese Aufgabe
+* Sie müssen diese Aufgabe für jeden Controller an beiden MetroCluster-Standorten wiederholen.
+* Wenn Sie in Ihrer MetroCluster-Konfiguration Festplatten zusätzlich zu Array-LUNs verwenden möchten, müssen Sie die HBA-Ports und Switch-Ports verwenden, die für die Konfiguration mit Festplatten angegeben sind.
++
+** link:concept_port_assignments_for_fc_switches_when_using_ontap_9_1_and_later.html["Port-Zuweisungen für FC-Switches bei Verwendung von ONTAP 9.1 und höher"]
+** link:concept_port_assignments_for_fc_switches_when_using_ontap_9_0.html["Port-Zuweisungen für FC-Switches bei Verwendung von ONTAP 9.0"]
+
+
+
+
+.Schritte
+. Verkabeln Sie die FC-VI-Ports des Controllers mit alternativen Switch-Ports.
+. Führen Sie an beiden MetroCluster Standorten die Controller/Switch-Verkabelung durch.
++
+Sie müssen Redundanz bei Verbindungen vom Controller zu den Switches gewährleisten. Daher müssen Sie für jeden Controller an einem Standort sicherstellen, dass beide der HBA-Ports im selben Port-Paar mit alternativen FC-Switches verbunden sind.
+
++
+Im folgenden Beispiel werden die Verbindungen zwischen den HBA-Ports an Controller A und den Ports an FC_Switch_A_1 und FC_Switch_A_2 angezeigt:
+
++
+image::../media/two_node_mcc_hba_connections.gif[mcc-hba-Verbindungen mit zwei Knoten]
+
++
+In der folgenden Tabelle werden die Verbindungen zwischen den HBA-Ports und den FC-Switch-Ports in der Abbildung aufgeführt:
+
++
+|===
+
+
+| HBA-Ports | Switch-Ports 
+
+
+2+| * Portpaar* 
+
+
+ a| 
+Port A
+ a| 
+FC_Switch_A_1, Port 2
+
+
+
+ a| 
+Port d
+ a| 
+FC_Switch_A_2, Port 3
+
+
+
+2+| * Portpaar* 
+
+
+ a| 
+Port b
+ a| 
+FC_Switch_A_2, Port 2
+
+
+
+ a| 
+Port c
+ a| 
+FC_Switch_A_1, Port 3
+
+|===
+
+
+Sie sollten die ISLs zwischen den FC Switches über die MetroCluster Standorte hinweg verkabeln.

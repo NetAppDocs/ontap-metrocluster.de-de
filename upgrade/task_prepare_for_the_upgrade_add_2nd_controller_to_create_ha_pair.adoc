@@ -1,0 +1,55 @@
+---
+permalink: upgrade/task_prepare_for_the_upgrade_add_2nd_controller_to_create_ha_pair.html 
+sidebar: sidebar 
+keywords: metrocluster, upgrade, prepare, upgrade 
+summary: Vor dem Upgrade auf ein HA-Paar müssen Sie sicherstellen, dass das System alle Anforderungen erfüllt und alle erforderlichen Informationen enthält. 
+---
+= Vorbereitung auf das Upgrade
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Vor dem Upgrade auf ein HA-Paar müssen Sie sicherstellen, dass das System alle Anforderungen erfüllt und alle erforderlichen Informationen enthält.
+
+.Schritte
+. Identifizieren Sie nicht zugewiesene Festplatten oder Ersatzfestplatten, die Sie dem neuen Controller-Modul mithilfe folgender Befehle zuweisen können:
++
+** `storage disk show -container-type spare`
+** `storage disk show -container-type unassigned`
+
+
+. Führen Sie die folgenden Teilschritte durch:
++
+.. Ermitteln Sie, wo sich die Aggregate für den vorhandenen Node befinden:
++
+`storage aggregate show`
+
+.. Wenn die automatische Zuweisung für die Festplatteneigentümer aktiviert ist, deaktivieren Sie sie:
++
+`storage disk option modify -node _node_name_ -autoassign off`
+
+.. Entfernen Sie sich auf Festplatten, die über keine Aggregate verfügen:
++
+`storage disk removeowner _disk_name_`
+
+.. Wiederholen Sie den vorherigen Schritt für so viele Festplatten wie für den neuen Node.
+
+
+. Stellen Sie sicher, dass die Kabel für die folgenden Anschlüsse bereit sind:
++
+** Cluster-Verbindungen
++
+Wenn Sie einen 2-Node-Cluster ohne Switches erstellen, müssen Sie die Controller-Module mit zwei Kabeln verbinden. Andernfalls sind mindestens vier Kabel erforderlich, zwei für jede Controller-Modulverbindung zum Cluster-Netzwerk-Switch. Andere Systeme (wie die 80xx Serie) verfügen standardmäßig über vier oder sechs Cluster-Verbindungen.
+
+** HA Interconnect-Verbindungen, wenn sich das System in einem HA-Paar mit Dual-Chassis befindet
+
+
+. Überprüfen Sie, ob eine serielle Port-Konsole für die Controller-Module verfügbar ist.
+. Vergewissern Sie sich, dass die Umgebung den Standort- und Systemanforderungen entspricht.
++
+https://hwu.netapp.com["NetApp Hardware Universe"^]
+
+. Sammeln Sie alle IP-Adressen und anderen Netzwerkparameter für das neue Controller-Modul.
+

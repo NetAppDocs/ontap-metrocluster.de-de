@@ -1,0 +1,58 @@
+---
+permalink: upgrade/task_expand_a_two_node_mcc_fc_configuration_to_a_four_node_fc_configuration_supertask.html 
+sidebar: sidebar 
+keywords: metrocluster, upgrade, expand, two, node, fc, configuration, four 
+summary: Wenn Sie eine MetroCluster FC-Konfiguration mit zwei Nodes auf eine MetroCluster FC-Konfiguration mit vier Nodes erweitern, muss jedem Cluster ein Controller hinzugefügt werden, um an jedem MetroCluster Standort ein HA-Paar zu bilden, und anschließend die MetroCluster FC-Konfiguration aktualisiert werden. 
+---
+= Erweitern einer MetroCluster FC-Konfiguration mit zwei Nodes auf eine Konfiguration mit vier Nodes
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie eine MetroCluster FC-Konfiguration mit zwei Nodes auf eine MetroCluster FC-Konfiguration mit vier Nodes erweitern, muss jedem Cluster ein Controller hinzugefügt werden, um an jedem MetroCluster Standort ein HA-Paar zu bilden, und anschließend die MetroCluster FC-Konfiguration aktualisiert werden.
+
+.Bevor Sie beginnen
+* Auf den Nodes muss ONTAP 9 oder höher in einer MetroCluster FC-Konfiguration ausgeführt werden.
++
+Frühere Versionen von ONTAP oder MetroCluster IP-Konfigurationen unterstützen dieses Verfahren nicht.
+
+* Wenn die Plattformen in Ihrer Konfiguration mit zwei Nodes in ONTAP 9.2 nicht unterstützt werden und Sie ein Upgrade auf Plattformen planen, die in ONTAP 9.2 _und_ zu einem Cluster mit vier Nodes unterstützt werden, müssen Sie die Plattformen in der Konfiguration mit zwei Nodes _aktualisieren, bevor Sie die MetroCluster FC-Konfiguration erweitern.
+* Die vorhandene MetroCluster FC-Konfiguration muss sich in einem ordnungsgemäßen Zustand befindet.
+* Die Ausrüstung, die Sie hinzufügen, muss unterstützt werden und alle Anforderungen erfüllen, die in den folgenden Verfahren beschrieben sind:
++
+link:../install-fc/index.html["Installation und Konfiguration von Fabric-Attached MetroCluster"]
+
++
+link:../install-stretch/concept_considerations_differences.html["Installation und Konfiguration von Stretch MetroCluster"]
+
+* Sie benötigen verfügbare FC-Switch-Ports, um die neuen Controller und neue Bridges aufnehmen zu können.
+* Sie benötigen das Admin-Passwort und den Zugriff auf einen FTP- oder SCP-Server.
+
+
+.Über diese Aufgabe
+* Dieses Verfahren gilt nur für MetroCluster FC-Konfigurationen.
+* Dieser Vorgang ist mit Unterbrechungen verbunden und dauert etwa vier Stunden.
+* Bevor Sie dieses Verfahren durchführen, besteht die MetroCluster FC-Konfiguration aus zwei Single-Node-Clustern:
++
+image::../media/mcc_dr_groups_2_node.gif[mcc dr Gruppen 2 Knoten]
+
++
+Nach Abschluss dieses Verfahrens besteht die MetroCluster FC-Konfiguration aus zwei HA-Paaren an jedem Standort:
+
++
+image::../media/mcc_dr_groups_4_node.gif[mcc dr Gruppen 4 Knoten]
+
+* Beide Standorte müssen gleichermaßen erweitert werden.
++
+Eine MetroCluster-Konfiguration darf nicht aus einer ungleichmäßigen Anzahl von Nodes bestehen.
+
+* Dieses Verfahren kann pro Standort eine Stunde dauern, wobei zusätzliche Zeit für Aufgaben wie das Initialisieren der Festplatten und das Booten der neuen Nodes ansteht.
++
+Die Zeit zum Initialisieren der Festplatten hängt von der Größe der Festplatten ab.
+
+* Bei diesem Verfahren wird folgender Workflow verwendet:
+
+
+image::../media/workflow_mcc_2_to_4_node_expansion_high_level.gif[Workflow mcc 2 bis 4 Knoten Erweiterung auf hohem Niveau]

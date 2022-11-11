@@ -1,0 +1,102 @@
+---
+permalink: maintain/task_power_off_an_entire_mcc_ip_configuration.html 
+sidebar: sidebar 
+keywords: metrocluster, maintain, service, power, off, entire, metrocluster, ip, configuration 
+summary: Bevor die Wartung oder Umsiedlung beginnen kann, müssen Sie die gesamte MetroCluster IP-Konfiguration und alle Geräte ausschalten. 
+---
+= Ausschalten einer gesamten MetroCluster IP-Konfiguration
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Bevor die Wartung oder Umsiedlung beginnen kann, müssen Sie die gesamte MetroCluster IP-Konfiguration und alle Geräte ausschalten.
+
+
+NOTE: Ab ONTAP 9.8 beginnt der `*storage switch*` Befehl wird durch ersetzt `*system switch*`. Die folgenden Schritte zeigen das `*storage switch*` Befehl, aber wenn Sie ONTAP 9.8 oder höher ausführen, der `*system switch*` Befehl ist bevorzugt.
+
+. Überprüfen Sie die MetroCluster Konfiguration von beiden Standorten in der MetroCluster Konfiguration.
++
+.. Vergewissern Sie sich, dass die MetroCluster-Konfiguration und der Betriebsmodus normal sind. +
+`*metrocluster show*`
+.. Führen Sie den folgenden Befehl aus: +
+`*metrocluster interconnect show*`
+.. Überprüfen Sie die Verbindung zu den Festplatten, indem Sie auf einem der MetroCluster-Knoten den folgenden Befehl eingeben: +
+`*run local sysconfig -v*`
+.. Führen Sie den folgenden Befehl aus: +
+`*storage port show*`
+.. Führen Sie den folgenden Befehl aus: +
+`*storage switch show*`
+.. Führen Sie den folgenden Befehl aus: +
+`*network interface show*`
+.. Führen Sie den folgenden Befehl aus: +
+`*network port show*`
+.. Führen Sie den folgenden Befehl aus: +
+`*network device-discovery show*`
+.. Führen Sie eine MetroCluster-Prüfung durch: +
+`*metrocluster check run*`
+.. Zeigen Sie die Ergebnisse der MetroCluster-Prüfung an: +
+`*metrocluster check show*`
+.. Führen Sie den folgenden Befehl aus: +
+`*metrocluster configuration-settings interface show*`
+
+
+. Deaktivieren Sie gegebenenfalls AUSO, indem Sie die AUSO-Fehlerdomäne in ändern
++
+`*auso-disabled*`
+
++
+[listing]
+----
+cluster_A_site_A::*>metrocluster modify -auto-switchover-failure-domain auso-disabled
+----
++
+
+NOTE: In einer MetroCluster-IP-Konfiguration ist die AUSO-Fehlerdomäne bereits auf „deaktiviert“ gesetzt, es sei denn, die Konfiguration ist mit dem ONTAP-Mediator konfiguriert.
+
+. Die Änderung wird mit dem Befehl überprüft
++
+`*metrocluster operation show*`
+
++
+[listing]
+----
+
+	cluster_A_site_A::*> metrocluster operation show
+       Operation: modify
+           State: successful
+      Start Time: 4/25/2020 20:20:36
+        End Time: 4/25/2020 20:20:36
+          Errors: -
+----
+. Anhalten der Knoten:
++
+`*halt*`
+
++
+[listing]
+----
+system node halt -node node1_SiteA -inhibit-takeover true -ignore-quorum-warnings true
+----
+. Schalten Sie die folgenden Geräte am Standort aus:
++
+** Storage Controller
+** MetroCluster IP-Switches
+** Storage Shelfs
+
+
+. Warten Sie dreißig Minuten, und schalten Sie dann alle Controller ein.
+. Nachdem die Controller eingeschaltet sind, überprüfen Sie die MetroCluster-Konfiguration von beiden Standorten aus.
++
+Um die Konfiguration zu überprüfen, wiederholen Sie Schritt 1.
+
+. Führen Sie Prüfungen der Einschaltzyklus durch.
++
+.. Vergewissern Sie sich, dass alle Sync-Source-SVMs online sind: +
+`*vserver show*`
+.. Starten Sie alle Sync-Source-SVMs, die nicht online sind: +
+`*vserver start*`
+
+
+

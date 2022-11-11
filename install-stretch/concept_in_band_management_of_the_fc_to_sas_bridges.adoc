@@ -1,0 +1,31 @@
+---
+permalink: install-stretch/concept_in_band_management_of_the_fc_to_sas_bridges.html 
+sidebar: sidebar 
+keywords: metrocluster, stretch, installation, in, band, management, fc, sas, bridges 
+summary: Ab ONTAP 9.5 mit FibreBridge 7500N oder 7600N Bridges wird das in-Band-Management der Brücken als Alternative zum IP-Management der Brücken unterstützt. Ab ONTAP 9.8 ist das Out-of-Band-Management veraltet. 
+---
+= In-Band-Management der FC-to-SAS-Bridges
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Ab ONTAP 9.5 mit FibreBridge 7500N oder 7600N Bridges wird _in-Band-Management_ der Brücken als Alternative zum IP-Management der Brücken unterstützt. Ab ONTAP 9.8 ist das Out-of-Band-Management veraltet.
+
+
+NOTE: Ab ONTAP 9.8 beginnt der `*storage bridge*` Befehl wird durch den ersetzt `*system bridge*` Befehl. Die folgenden Schritte zeigen das `*storage bridge*` Befehl, aber wenn Sie ONTAP 9.8 oder höher ausführen, der `*system bridge*` Befehl ist bevorzugt.
+
+Bei Verwendung der in-Band-Verwaltung können die Brücken über die FC-Verbindung zur Bridge von der ONTAP-CLI verwaltet und überwacht werden. Der physische Zugriff auf die Bridge über die Bridge-Ethernet-Ports ist nicht erforderlich, wodurch die Sicherheitslücke der Bridge verringert wird.
+
+Die Verfügbarkeit der in-Band-Verwaltung der Brücken hängt von der Version von ONTAP ab:
+
+* Ab ONTAP 9.8 werden Brücken standardmäßig über in-Band-Verbindungen verwaltet und die Out-of-Band-Verwaltung der Brücken über SNMP ist veraltet.
+* ONTAP 9.5 bis 9.7: Entweder in-Band-Management oder Out-of-Band-SNMP-Management wird unterstützt.
+* Vor ONTAP 9.5 wird nur bandexterne SNMP-Verwaltung unterstützt.
+
+
+Bridge-CLI-Befehle können über die ONTAP-Schnittstelle ausgegeben werden `storage bridge run-cli -name _bridge-name_ -command _bridge-command-name_` Befehl über die ONTAP-Schnittstelle.
+
+
+NOTE: Die Verwendung von in-Band-Management mit deaktiviertem IP-Zugriff wird empfohlen, um die Sicherheit durch Beschränkung der physischen Konnektivität der Bridge zu verbessern.

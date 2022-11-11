@@ -1,0 +1,122 @@
+---
+permalink: upgrade/task_implement_the_mcc_configuration_mcc_refresh_mcc_expansion.html 
+sidebar: sidebar 
+keywords: metrocluster, upgrade, implement, configuration 
+summary: Sie müssen den MetroCluster configure -refresh true-Befehl ausführen, um die Datensicherung auf den Nodes zu starten, die Sie einer MetroCluster-Konfiguration hinzugefügt haben. 
+---
+= Implementieren der MetroCluster-Konfiguration
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen den ausführen `metrocluster configure -refresh true` Befehl zum Starten der Datensicherung auf den Nodes, die Sie einer MetroCluster-Konfiguration hinzugefügt haben.
+
+Sie stellen das aus `metrocluster configure -refresh true` Befehl einmal auf einem der neu hinzugefügten Nodes, um die MetroCluster-Konfiguration zu aktualisieren. Sie müssen den Befehl nicht an jedem Standort bzw. jeder Node ausgeben.
+
+Der `metrocluster configure -refresh true` Befehl koppelt die beiden Nodes automatisch mit den niedrigsten System-IDs in jedem der beiden Cluster als Disaster Recovery (DR) Partner. In einer MetroCluster Konfiguration mit vier Nodes gibt es zwei DR-Partnerpaare. Das zweite DR-Paar wird aus den beiden Knoten mit höheren System-IDs erstellt.
+
+.Schritte
+. Aktualisieren Sie die MetroCluster-Konfiguration:
++
+.. Wechseln Sie in den erweiterten Berechtigungsmodus:
++
+`set -privilege advanced`
+
+.. Aktualisieren Sie die MetroCluster Konfiguration auf einem der neuen Nodes: +
+`metrocluster configure -refresh true`
++
+Im folgenden Beispiel wird die auf beiden DR-Gruppen aktualisierte MetroCluster Konfiguration angezeigt:
+
++
+[listing]
+----
+controller_A_2::*> metrocluster configure -refresh true
+
+[Job 726] Job succeeded: Configure is successful.
+----
++
+[listing]
+----
+controller_A_4::*> metrocluster configure -refresh true
+
+[Job 740] Job succeeded: Configure is successful.
+----
+.. Zurück zum Admin-Berechtigungsmodus:
++
+`set -privilege admin`
+
+
+
+. Überprüfen Sie den Netzwerkstatus auf Standort A:
++
+`network port show`
+
++
+Im folgenden Beispiel wird die Verwendung von Netzwerkports in einer MetroCluster Konfiguration mit vier Nodes angezeigt:
+
++
+[listing]
+----
+cluster_A::> network port show
+                                                          Speed (Mbps)
+Node   Port      IPspace   Broadcast Domain Link   MTU    Admin/Oper
+------ --------- --------- ---------------- ----- ------- ------------
+controller_A_1
+       e0a       Cluster   Cluster          up     9000  auto/1000
+       e0b       Cluster   Cluster          up     9000  auto/1000
+       e0c       Default   Default          up     1500  auto/1000
+       e0d       Default   Default          up     1500  auto/1000
+       e0e       Default   Default          up     1500  auto/1000
+       e0f       Default   Default          up     1500  auto/1000
+       e0g       Default   Default          up     1500  auto/1000
+controller_A_2
+       e0a       Cluster   Cluster          up     9000  auto/1000
+       e0b       Cluster   Cluster          up     9000  auto/1000
+       e0c       Default   Default          up     1500  auto/1000
+       e0d       Default   Default          up     1500  auto/1000
+       e0e       Default   Default          up     1500  auto/1000
+       e0f       Default   Default          up     1500  auto/1000
+       e0g       Default   Default          up     1500  auto/1000
+14 entries were displayed.
+----
+. Überprüfen Sie die MetroCluster Konfiguration von beiden Standorten in der MetroCluster Konfiguration:
++
+.. Überprüfen Sie die Konfiguration von Standort A:
++
+`metrocluster show`
+
++
+[listing]
+----
+cluster_A::> metrocluster show
+
+Configuration: IP fabric
+
+Cluster                   Entry Name          State
+------------------------- ------------------- -----------
+ Local: cluster_A         Configuration state configured
+                          Mode                normal
+Remote: cluster_B         Configuration state configured
+                          Mode                normal
+----
+.. Überprüfen Sie die Konfiguration von Standort B: +
+`metrocluster show`
++
+[listing]
+----
+cluster_B::> metrocluster show
+
+Configuration: IP fabric
+
+Cluster                   Entry Name          State
+------------------------- ------------------- -----------
+ Local: cluster_B         Configuration state configured
+                          Mode                normal
+Remote: cluster_A         Configuration state configured
+                          Mode                normal
+----
+
+
+

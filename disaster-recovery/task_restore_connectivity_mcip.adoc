@@ -1,0 +1,42 @@
+---
+permalink: disaster-recovery/task_restore_connectivity_mcip.html 
+sidebar: sidebar 
+keywords: metrocluster, iscsi, connections, disaster, site, surviving, connectivity, restore 
+summary: Sie müssen die MetroCluster-iSCSI-Initiator-Verbindungen von den noch intakten Nodes wiederherstellen. 
+---
+= Wiederherstellen der Konnektivität von den noch intakten Nodes zum Disaster-Standort (MetroCluster IP-Konfigurationen)
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+Sie müssen die MetroCluster-iSCSI-Initiator-Verbindungen von den noch intakten Nodes wiederherstellen.
+
+Dieses Verfahren ist nur bei MetroCluster IP-Konfigurationen erforderlich.
+
+.Schritte
+. Ändern Sie von der Eingabeaufforderung eines verbleibenden Node auf die erweiterte Berechtigungsebene:
++
+`set -privilege advanced`
+
++
+Sie müssen mit reagieren `y` Wenn Sie dazu aufgefordert werden, den erweiterten Modus fortzusetzen und die Eingabeaufforderung für den erweiterten Modus (*) anzuzeigen.
+
+. Verbinden Sie die iSCSI-Initiatoren auf beiden noch intakten Nodes in der DR-Gruppe:
++
+`storage iscsi-initiator connect -node surviving-node -label *`
+
++
+Im folgenden Beispiel werden die Befehle zum Verbinden der Initiatoren auf Standort B angezeigt:
+
++
+[listing]
+----
+site_B::*> storage iscsi-initiator connect -node node_B_1 -label *
+site_B::*> storage iscsi-initiator connect -node node_B_2 -label *
+----
+. Zurück zur Administratorberechtigungsebene:
++
+`set -privilege admin`
+
+

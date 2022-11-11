@@ -1,0 +1,110 @@
+---
+permalink: maintain/task_rename_the_cluster_for_mcc_configuration.html 
+sidebar: sidebar 
+keywords: metrocluster, maintain, service, rename, cluster, configuration 
+summary: Wenn Sie einen Cluster in einer MetroCluster-Konfiguration umbenennen, müssen die Änderungen vorgenommen und dann sowohl auf den lokalen als auch auf den Remote-Clustern überprüft werden, ob die Änderung ordnungsgemäß wirksam wurde. 
+---
+= Umbenennen eines Clusters in MetroCluster-Konfigurationen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie einen Cluster in einer MetroCluster-Konfiguration umbenennen, müssen die Änderungen vorgenommen und dann sowohl auf den lokalen als auch auf den Remote-Clustern überprüft werden, ob die Änderung ordnungsgemäß wirksam wurde.
+
+.Schritte
+. Zeigen Sie die Cluster-Namen mit an
++
+`*metrocluster node show*`
+
++
+Befehl:
+
++
+[listing]
+----
+cluster_1::*> metrocluster node show
+DR                               Configuration  DR
+Group Cluster Node               State          Mirroring Mode
+----- ------- ------------------ -------------- --------- --------------------
+1     cluster_1
+              node_A_1           configured     enabled   normal
+              node_A_2           configured     enabled   normal
+      cluster_2
+              node_B_1           configured     enabled   normal
+              node_B_2           configured     enabled   normal
+4 entries were displayed.
+----
+. Umbenennen des Clusters:
++
+`*cluster identity modify -name _new_name_*`
+
++
+Im folgenden Beispiel wird der verwendet `cluster_1` Das Cluster wird umbenannt `cluster_A`:
+
++
+[listing]
+----
+cluster_1::*> cluster identity modify -name cluster_A
+----
+. Überprüfen Sie auf dem lokalen Cluster, ob das umbenannte Cluster ordnungsgemäß ausgeführt wird:
++
+`*metrocluster node show*`
+
++
+Im folgenden Beispiel wurde der neu umbenannt `cluster_A` Läuft normal:
+
++
+[listing]
+----
+cluster_A::*> metrocluster node show
+DR                               Configuration  DR
+Group Cluster Node               State          Mirroring Mode
+----- ------- ------------------ -------------- --------- --------------------
+1     cluster_A
+              node_A_1           configured     enabled   normal
+              node_A_2           configured     enabled   normal
+      cluster_2
+              node_B_1           configured     enabled   normal
+              node_B_2           configured     enabled   normal
+4 entries were displayed.
+----
+. Benennen Sie den Remote-Cluster um:
++
+`*cluster peer modify-local-name -name _cluster_2_ -new-name _cluster_B_*`
+
++
+Im folgenden Beispiel: `cluster_2` Wird umbenannt `cluster_B`:
+
++
+[listing]
+----
+cluster_A::> cluster peer modify-local-name -name cluster_2 -new-name
+cluster_B
+----
+. Überprüfen Sie auf dem Remote-Cluster, ob der lokale Cluster umbenannt wurde und ordnungsgemäß ausgeführt wird:
++
+`_metrocluster node show_`
+
++
+Im folgenden Beispiel wurde der neu umbenannt `cluster_B` Läuft normal:
+
++
+[listing]
+----
+
+cluster_B::*> metrocluster node show
+DR                               Configuration  DR
+Group Cluster Node               State          Mirroring Mode
+----- ------- ------------------ -------------- --------- --------------------
+1     cluster_B
+              node_B_1           configured     enabled   normal
+              node_B_2           configured     enabled   normal
+      cluster_A
+              node_A_1           configured     enabled   normal
+              node_A_2           configured     enabled   normal
+4 entries were displayed.
+----
+. Wiederholen Sie diese Schritte für jedes Cluster, das Sie umbenennen möchten.
+

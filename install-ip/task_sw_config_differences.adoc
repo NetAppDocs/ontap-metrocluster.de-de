@@ -1,0 +1,67 @@
+---
+permalink: install-ip/task_sw_config_differences.html 
+sidebar: sidebar 
+keywords: metrocluster, configuration, ontap, node-level, configuration, node, site, relationship, configuring, configure, similarities, difference, 
+summary: Die Konfiguration der Nodes in jedem Cluster in einer MetroCluster-Konfiguration ist ähnlich wie bei den Nodes in einem Standard-Cluster. 
+---
+= Ähnlichkeiten und Unterschiede zwischen Standard-Cluster und MetroCluster Konfigurationen
+:allow-uri-read: 
+
+
+[role="lead"]
+Die Konfiguration der Nodes in jedem Cluster in einer MetroCluster-Konfiguration ist ähnlich wie bei den Nodes in einem Standard-Cluster.
+
+Die MetroCluster-Konfiguration basiert auf zwei Standard-Clustern. Physisch muss die Konfiguration symmetrisch sein, wobei jeder Node über dieselbe Hardware-Konfiguration verfügt. Außerdem müssen alle MetroCluster Komponenten verkabelt und konfiguriert werden. Die grundlegende Softwarekonfiguration für Nodes in einer MetroCluster-Konfiguration ist jedoch dieselbe wie für Nodes in einem Standard-Cluster.
+
+|===
+
+
+| Konfigurationsschritt | Standardmäßige Cluster-Konfiguration | MetroCluster-Konfiguration 
+
+
+ a| 
+Konfiguration von Management-, Cluster- und Daten-LIFs auf jedem Node
+2+| Gleiches gilt für beide Cluster-Typen 
+
+
+ a| 
+Konfigurieren Sie das Root-Aggregat.
+2+| Gleiches gilt für beide Cluster-Typen 
+
+
+ a| 
+Richten Sie das Cluster auf einem Node im Cluster ein.
+2+| Gleiches gilt für beide Cluster-Typen 
+
+
+ a| 
+Fügen Sie den anderen Node zum Cluster hinzu.
+2+| Gleiches gilt für beide Cluster-Typen 
+
+
+ a| 
+Erstellen Sie ein gespiegeltes Root-Aggregat.
+ a| 
+Optional
+ a| 
+Erforderlich
+
+
+
+ a| 
+Peer-to-Peer-Cluster
+ a| 
+Optional
+ a| 
+Erforderlich
+
+
+
+ a| 
+Aktivieren der MetroCluster-Konfiguration
+ a| 
+Nicht zutreffend
+ a| 
+Erforderlich
+
+|===

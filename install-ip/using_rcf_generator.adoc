@@ -1,0 +1,42 @@
+---
+permalink: install-ip/using_rcf_generator.html 
+sidebar: sidebar 
+keywords: cabling, cable, component, link, site, management, network, hardware, component, switch, cluster, connection, management, data, configuring, configure, rcf, file, generator, RcfFileGenerator 
+summary: Sie müssen verstehen, wie die Informationen in den Porttabellen verwendet werden, um Ihre RCF-Dateien korrekt zu generieren. 
+---
+= Verwenden der Porttabellen mit dem RcfFileGenerator-Tool oder mehreren MetroCluster-Konfigurationen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen verstehen, wie die Informationen in den Porttabellen verwendet werden, um Ihre RCF-Dateien korrekt zu generieren.
+
+Lesen Sie vor der Verwendung der Tabellen diese Überlegungen durch:
+
+* In den folgenden Tabellen wird die Portnutzung für Standort A angezeigt Für Standort B wird dieselbe Verkabelung verwendet
+* Die Switches können nicht mit Ports unterschiedlicher Geschwindigkeit konfiguriert werden (beispielsweise mit einer Mischung aus 100-Gbit/s-Ports und 40-Gbit/s-Ports).
+* Verfolgen Sie die MetroCluster-Portgruppe (MetroCluster 1, MetroCluster 2 usw.). Diese Informationen benötigen Sie, wenn Sie das RcfFileGenerator-Tool verwenden, wie später in diesem Konfigurationsvorgang beschrieben.
+* Der https://mysupport.netapp.com/site/tools/tool-eula/rcffilegenerator["RCfFileGenerator für MetroCluster-IP"] Bietet außerdem eine Übersicht über die Verkabelung pro Port für jeden Switch. Verwenden Sie diese Verkabelungsübersicht, um Ihre Verkabelung zu überprüfen.
+
+
+
+
+== Verkabelung von MetroCluster Konfigurationen mit acht Nodes
+
+Bei MetroCluster Konfiguration mit ONTAP 9.8 und früher müssen bei einigen Verfahren für die Transition eines Upgrades eine zweite DR-Gruppe mit vier Nodes zur Konfiguration hinzugefügt werden, um eine temporäre Konfiguration mit acht Nodes zu erstellen. Ab ONTAP 9.9 werden dauerhafte 8-Node MetroCluster Konfigurationen unterstützt.
+
+Für solche Konfigurationen verwenden Sie die gleiche Methode wie oben beschrieben. Anstelle einer zweiten MetroCluster ist eine weitere DR-Gruppe mit vier Nodes verkabelt.
+
+Ihre Konfiguration umfasst beispielsweise Folgendes:
+
+* Cisco Switches 3132Q-V
+* MetroCluster 1: FAS2750 Plattformen
+* MetroCluster 2: AFF A700 Plattformen (Hinzufügen dieser Plattformen als zweite DR-Gruppe mit vier Nodes)
+
+
+.Schritte
+. Verkabeln Sie bei MetroCluster 1 die Cisco 3132Q-V Switches mithilfe der Tabelle für die FAS2750-Plattform und der Zeilen für MetroCluster 1-Schnittstellen.
+. Verkabeln Sie bei MetroCluster 2 (der zweiten DR-Gruppe) die Cisco 3132Q-V-Switches mithilfe der Tabelle für die AFF A700 Plattform und der Zeilen für MetroCluster 2-Schnittstellen.
+

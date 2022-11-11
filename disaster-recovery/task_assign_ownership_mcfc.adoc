@@ -1,0 +1,217 @@
+---
+permalink: disaster-recovery/task_assign_ownership_mcfc.html 
+sidebar: sidebar 
+keywords: assign, ownership, drives, replaced 
+summary: Wenn Sie beim Wiederherstellen von Hardware am Disaster-Standort Laufwerke ausgetauscht haben, müssen Sie den betroffenen Laufwerken die Eigentumsrechte zuweisen. 
+---
+= Eigentümerschaft für ausgetauschte Laufwerke zuweisen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Laufwerke beim Wiederherstellen von Hardware am Disaster-Standort ausgetauscht oder Laufwerke gar nicht benötigt werden, müssen die betroffenen Laufwerke Eigentum zugewiesen werden.
+
+Der Disaster-Standort muss über mindestens so viele Laufwerke verfügen wie vor der Katastrophe.
+
+Die Anordnung der Platten-Shelves und Laufwerke muss die Anforderungen in erfüllen link:../install-ip/concept_required_mcc_ip_components_and_naming_guidelines_mcc_ip.html["Erforderliche MetroCluster IP-Komponente und Namenskonventionen"] Des Abschnitts link:../install-ip/concept_considerations_differences.html["Installation und Konfiguration von MetroCluster IP"].
+
+Diese Schritte werden für das Cluster am Disaster-Standort durchgeführt.
+
+Dieses Verfahren zeigt die Neuzuweisung aller Laufwerke und die Erstellung neuer Plexe am Disaster-Standort. Die neuen Plexe sind Remote-Plexe des verbleibenden Standorts und der lokalen Plexe eines Notfallstandorts.
+
+Dieser Abschnitt enthält Beispiele für Konfigurationen mit zwei und vier Nodes. Bei Konfigurationen mit zwei Nodes können Sie Verweise auf den zweiten Node an jedem Standort ignorieren. Bei Konfigurationen mit acht Nodes müssen die zusätzlichen Nodes in der zweiten DR-Gruppe berücksichtigt werden. Die Beispiele machen folgende Annahmen:
+
+* Standort A ist der Notfallstandort.
++
+** Node_A_1 wurde ersetzt.
+** Node_A_2 wurde ersetzt.
++
+Nur in MetroCluster Konfigurationen mit vier Nodes vorhanden.
+
+
+
+* Standort B ist der überlebende Standort.
++
+** Node_B_1 ist in einem ordnungsgemäßen Zustand.
+** Node_B_2 ist in einem ordnungsgemäßen Zustand.
++
+Nur in MetroCluster Konfigurationen mit vier Nodes vorhanden.
+
+
+
+
+
+Die Controller-Module verfügen über die folgenden ursprünglichen System-IDs:
+
+|===
+
+
+| Anzahl der Knoten in der MetroCluster-Konfiguration | Knoten | Ursprüngliche System-ID 
+
+
+ a| 
+Vier
+ a| 
+Node_A_1
+ a| 
+4068741258
+
+
+
+ a| 
+Node_A_2
+ a| 
+4068741260
+ a| 
+Knoten_B_1
+
+
+
+ a| 
+4068741254
+ a| 
+Knoten_B_2
+ a| 
+4068741256
+
+
+
+ a| 
+Zwei
+ a| 
+Node_A_1
+ a| 
+4068741258
+
+|===
+Beim Zuweisen der Laufwerke sollten Sie folgende Punkte beachten:
+
+* Die Anzahl der alten Festplatten muss für jeden Node mindestens die gleiche Anzahl an Festplatten aufweisen, die vor dem Ausfall vorhanden waren.
++
+Wenn eine niedrigere Anzahl von Festplatten angegeben oder vorhanden ist, werden die Heilungsvorgänge aufgrund des unzureichenden Speicherplatzes möglicherweise nicht abgeschlossen.
+
+* Die zu erstellenden neuen Plexe sind Remote-Plexe, die zum verbleibenden Standort (Node_B_x Pool1) und lokale Plexe gehören, die zum Notfallstandort (Node_B_x Pool0) gehören.
+* Die Gesamtzahl der benötigten Laufwerke sollte nicht die Root-Aggr-Festplatten enthalten.
++
+Wenn n Disketten Pool1 der überlebenden Seite zugewiesen werden, dann sollten n-3 Disketten der Disaster Site zugewiesen werden mit der Annahme, dass das Root-Aggregat drei Festplatten verwendet.
+
+* Keine der Festplatten kann einem Pool zugewiesen werden, der sich von dem der unterscheidet, dem alle anderen Festplatten im selben Stapel zugewiesen sind.
+* Festplatten, die zum verbleibenden Standort gehören, werden Pool 1 zugewiesen, Festplatten, die zum Disaster-Standort gehören, werden Pool 0 zugewiesen.
+
+
+.Schritte
+. Weisen Sie die neuen Laufwerke ohne Besitzer zu, unabhängig davon, ob Sie über eine MetroCluster Konfiguration mit vier oder zwei Nodes verfügen:
++
+** Weisen Sie bei MetroCluster-Konfigurationen mit vier Nodes den entsprechenden Festplatten-Pools die neuen, nicht im Besitz befindlichen Festplatten zu, indem Sie die folgenden Befehle auf den Ersatz-Nodes verwenden:
++
+... Weisen Sie die ersetzten Festplatten für jeden Knoten systematisch ihren jeweiligen Disk-Pools zu:
++
+`disk assign -s sysid -n old-count-of-disks -p pool`
+
++
+Sie geben am verbleibenden Standort einen Befehl zur Festplattenzuordnung für jeden Node aus:
+
++
+[listing]
+----
+cluster_B::> disk assign -s node_B_1-sysid -n old-count-of-disks -p 1 **\(remote pool of surviving site\)**
+cluster_B::> disk assign -s node_B_2-sysid -n old-count-of-disks -p 1 **\(remote pool of surviving site\)**
+cluster_B::> disk assign -s node_A_1-old-sysid -n old-count-of-disks -p 0 **\(local pool of disaster site\)**
+cluster_B::> disk assign -s node_A_2-old-sysid -n old-count-of-disks -p 0 **\(local pool of disaster site\)**
+----
++
+Im folgenden Beispiel werden die Befehle mit den System-IDs angezeigt:
+
++
+[listing]
+----
+cluster_B::> disk assign -s 4068741254 -n 21 -p 1
+cluster_B::> disk assign -s 4068741256 -n 21 -p 1
+cluster_B::> disk assign -s 4068741258 -n 21 -p 0
+cluster_B::> disk assign -s 4068741260 -n 21 -p 0
+----
+... Bestätigen Sie den Besitz der Festplatten:
++
+`storage disk show -fields owner, pool`
+
++
+[listing]
+----
+storage disk show -fields owner, pool
+cluster_A::> storage disk show -fields owner, pool
+disk     owner          pool
+-------- ------------- -----
+0c.00.1  node_A_1      Pool0
+0c.00.2  node_A_1      Pool0
+.
+.
+.
+0c.00.8  node_A_1      Pool1
+0c.00.9  node_A_1      Pool1
+.
+.
+.
+0c.00.15 node_A_2      Pool0
+0c.00.16 node_A_2      Pool0
+.
+.
+.
+0c.00.22 node_A_2      Pool1
+0c.00.23 node_A_2      Pool1
+.
+.
+.
+----
+
+
+** Weisen Sie bei MetroCluster-Konfigurationen mit zwei Nodes den entsprechenden Festplatten-Pools die neuen, nicht im Besitz befindlichen Festplatten zu. Verwenden Sie dazu die folgenden Befehle auf dem Ersatzknoten:
++
+... Zeigen Sie die lokalen Shelf-IDs an:
++
+`run local storage show shelf`
+
+... Weisen Sie die ersetzten Festplatten für den gesunden Node Pool 1 zu:
++
+`run local disk assign -shelf shelf-id -n old-count-of-disks -p 1 -s node_B_1-sysid -f`
+
+... Weisen Sie die ersetzten Festplatten für den Ersatzknoten Pool 0 zu:
++
+`run local disk assign -shelf shelf-id -n old-count-of-disks -p 0 -s node_A_1-sysid -f`
+
+
+
+
+
+. Schalten Sie am verbleibenden Standort die automatische Festplattenzuordnung erneut ein:
++
+`storage disk option modify -autoassign on *`
+
++
+[listing]
+----
+cluster_B::> storage disk option modify -autoassign on *
+2 entries were modified.
+----
+. Bestätigen Sie am verbleibenden Standort, dass die automatische Festplattenzuordnung auf ist:
++
+`storage disk option show`
+
++
+[listing]
+----
+ cluster_B::> storage disk option show
+ Node     BKg. FW. Upd.  Auto Copy   Auto Assign  Auto Assign Policy
+--------  -------------  -----------  -----------  ------------------
+node_B_1       on            on          on             default
+node_B_2       on            on          on             default
+2 entries were displayed.
+
+ cluster_B::>
+----
+
+
+link:https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-psmg/home.html["Festplatten- und Aggregatmanagement"^]
+
+link:../manage/concept_understanding_mcc_data_protection_and_disaster_recovery.html#how-metrocluster-configurations-use-syncmirror-to-provide-data-redundancy["MetroCluster-Konfigurationen nutzen SyncMirror zur Bereitstellung von Datenredundanz"]

@@ -1,0 +1,31 @@
+---
+permalink: upgrade/task_install_licenses_on_the_new_controller_module_cluster_mode.html 
+sidebar: sidebar 
+keywords: metrocluster, upgrade, install, license, new, controller, module 
+summary: 'Für alle ONTAP-Services, für die standardmäßige \(Node-locked\)-Lizenzen erforderlich sind, müssen Sie Lizenzen für das neue Controller-Modul hinzufügen. Bei Standardlizenzen muss jeder Node im Cluster über seinen eigenen Schlüssel für die Funktion verfügen.' 
+---
+= Installieren von Lizenzen für das neue Controller-Modul
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Lizenzen für das neue Controller-Modul müssen für alle ONTAP Services hinzugefügt werden, die Standard-Lizenzen (mit Nodes gesperrt) erfordern. Bei Standardlizenzen muss jeder Node im Cluster über seinen eigenen Schlüssel für die Funktion verfügen.
+
+Ausführliche Informationen zur Lizenzierung finden Sie in der Knowledge Base-Artikel 3013749: Übersicht über die Data ONTAP 8.2 Lizenzierung und Referenzen auf der NetApp Support Site und _System Administration Reference_.
+
+.Schritte
+. Falls erforderlich, beziehen Sie Lizenzschlüssel für den neuen Node auf der NetApp Support Site im Abschnitt „My Support“ unter „Software-Lizenzen“.
++
+Weitere Informationen zum Austausch von Lizenzen finden Sie im Knowledge Base-Artikel link:https://kb.netapp.com/Advice_and_Troubleshooting/Flash_Storage/AFF_Series/Post_Motherboard_Replacement_Process_to_update_Licensing_on_a_AFF_FAS_system["Verfahren zum Austausch der Hauptplatine zur Aktualisierung der Lizenzierung auf einem All Flash FAS/FAS System"^]
+
+. Geben Sie den folgenden Befehl ein, um jeden Lizenzschlüssel zu installieren:
++
+`system license add -license-code _license_key_`
+
++
+Der `_license_key_` Ist 28 Ziffern lang.
+
+. Wiederholen Sie diesen Schritt für jede erforderliche Standard-Lizenz (Node-locked).
+

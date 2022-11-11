@@ -1,0 +1,26 @@
+---
+permalink: manage/task_heal_the_configuration_in_a_mcc_fc_configuration_supertask.html 
+sidebar: sidebar 
+keywords: switchover, perform, heal, operation, restore, metrocluster, functionality, fc, configuration 
+summary: Nach einer Umschaltung müssen Sie die MetroCluster Funktionen speziell mit den Heilungsoperationen wiederherstellen. 
+---
+= Reparieren der Konfiguration in einer MetroCluster FC-Konfiguration
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Nach einer Umschaltung müssen Sie die MetroCluster Funktionen speziell mit den Heilungsoperationen wiederherstellen.
+
+* Eine Umschaltung muss durchgeführt worden sein und der überlebende Standort muss Daten bereitstellen.
+* Nodes am Disaster-Standort müssen angehalten oder deaktiviert werden.
++
+Sie dürfen während des Heilungsprozesses nicht vollständig gestartet werden.
+
+* Storage am Disaster-Standort muss zugänglich sein (Shelfs werden hochgefahren, funktionieren und sind zugänglich).
+* In Fabric-Attached MetroCluster-Konfigurationen müssen Inter-Switch-Links (ISLs) in Betrieb sein.
+* In MetroCluster-Konfigurationen mit vier Nodes dürfen sich Nodes im verbleibenden Standort nicht im HA-Failover-Zustand befinden (alle Nodes müssen für jedes HA-Paar in Betrieb sein).
+
+
+Die Reparatur muss zunächst auf den Datenaggregaten und anschließend auf den Root-Aggregaten durchgeführt werden.

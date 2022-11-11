@@ -1,0 +1,53 @@
+---
+permalink: tiebreaker/task_configure_snmp_setts_for_tiebreaker_software.html 
+sidebar: sidebar 
+keywords: snmp, tiebreaker, software, configure, setting 
+summary: Um SNMP mit der Tiebreaker Software zu verwenden, müssen Sie SNMP-Einstellungen konfigurieren. 
+---
+= Konfigurieren von SNMP-Einstellungen für Tiebreaker Software
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Um SNMP mit der Tiebreaker Software zu verwenden, müssen Sie SNMP-Einstellungen konfigurieren.
+
+. Verwenden Sie den Tiebreaker CLI snmp config Wizard, um MetroCluster-Konfigurationen hinzuzufügen.
++
+
+NOTE: Derzeit wird nur ein SNMP-Trap-Host unterstützt.
+
++
+Das folgende Beispiel zeigt die Konfiguration eines SNMP-Empfängers, der SNMP V1 mit einer IP-Adresse von 10.222.210.234 unterstützt, die Portnummer 162 für Trap-Nachrichten und die auf öffentlich eingestellte Community-Zeichenfolge:
+
++
+....
+
+NetApp MetroCluster Tiebreaker :> snmp config wizard
+Enter SNMP Version [V1/V3]: V1
+Enter SNMP Host: 10.222.210.234
+Enter SNMP Port: 162
+Enter SNMP V1 Community: public
+Successfully added SNMP properties to NetApp MetroCluster Tiebreaker software.
+NetApp MetroCluster Tiebreaker :>
+....
++
+Die Tiebreaker Software ist bereit, Traps an den von Ihnen angegebenen SNMP-Empfänger zu senden.
+
+. Vergewissern Sie sich, dass die SNMP-Einstellungen konfiguriert sind:
++
+`snmp config test`
+
++
+Das folgende Beispiel zeigt, dass die Tiebreaker Software einen SNMP Trap für den Event TEST_SNMP_CONFIG senden kann:
+
++
+....
+
+NetApp MetroCluster Tiebreaker :> snmp config test
+Sending SNMP trap to localhost. Version : V1.
+Successfully sent SNMP trap for event TEST_SNMP_CONFIG
+NetApp MetroCluster Tiebreaker :>
+....
+

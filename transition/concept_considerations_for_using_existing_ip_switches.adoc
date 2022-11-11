@@ -1,0 +1,36 @@
+---
+permalink: transition/concept_considerations_for_using_existing_ip_switches.html 
+sidebar: sidebar 
+keywords: ensure, ip, switch, support, exist, model, metrocluster, fc, configuration, ip, consideration, support 
+summary: Sie müssen sicherstellen, dass die IP-Switches unterstützt werden. Wenn das vorhandene Switch-Modell sowohl von der ursprünglichen MetroCluster FC-Konfiguration als auch von der neuen MetroCluster IP-Konfiguration unterstützt wird, können die vorhandenen Switches wiederverwendet werden. 
+---
+= Überlegungen zu IP-Switches
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen sicherstellen, dass die IP-Switches unterstützt werden. Wenn das vorhandene Switch-Modell sowohl von der ursprünglichen MetroCluster FC-Konfiguration als auch von der neuen MetroCluster IP-Konfiguration unterstützt wird, können die vorhandenen Switches wiederverwendet werden.
+
+
+
+== Unterstützte Switches
+
+Sie müssen von NetApp bereitgestellte Switches verwenden.
+
+* Die Verwendung von MetroCluster-konformen Switches (Switches, die nicht von NetApp validiert und bereitgestellt werden) wird für die Transition nicht unterstützt.
+* Die IP-Switches müssen von der MetroCluster FC-Konfiguration und der MetroCluster IP-Konfiguration als Cluster-Switch unterstützt werden.
+* Die IP-Switches können in der neuen MetroCluster IP-Konfiguration wiederverwendet werden, wenn MetroCluster FC ein Switch-Cluster ist und die IP-Cluster-Switches von der MetroCluster IP-Konfiguration unterstützt werden.
+* Neue IP-Schalter werden in der Regel in folgenden Fällen verwendet:
++
+** Die MetroCluster FC-Plattform ist ein Cluster ohne Switches, sodass neue Switches erforderlich sind.
+** Die MetroCluster FC ist ein Switch-basiertes Cluster, die bestehenden IP-Switches werden jedoch in der MetroCluster IP-Konfiguration nicht unterstützt.
+** Sie möchten verschiedene Switches für die MetroCluster IP-Konfiguration verwenden.
+
+
+
+
+Informationen zum Plattformmodell und zur Switch-Unterstützung finden Sie im _NetApp Hardware Universe_.
+
+https://hwu.netapp.com["NetApp Hardware Universe"]

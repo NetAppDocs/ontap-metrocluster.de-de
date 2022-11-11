@@ -1,0 +1,111 @@
+---
+permalink: install-ip/concept_considerations_peering.html 
+sidebar: sidebar 
+keywords: considertaions, cluster peering, shared peering ports, dedicated peering ports 
+summary: Jede MetroCluster Website ist als Peer-to-dessen Partner-Website konfiguriert. 
+---
+= Cluster-Peering
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Jede MetroCluster Website ist als Peer-to-dessen Partner-Website konfiguriert. Sie müssen die Voraussetzungen und Richtlinien für die Konfiguration der Peering-Beziehungen kennen. Dies ist wichtig, wenn Sie entscheiden, ob Sie freigegebene oder dedizierte Ports für diese Beziehungen verwenden möchten.
+
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-clus-peer/home.html["Express-Konfiguration für Cluster und SVM-Peering"]
+
+
+
+== Voraussetzungen für Cluster-Peering
+
+Bevor Sie Cluster-Peering einrichten, sollten Sie bestätigen, dass die Verbindungsanforderungen zwischen Port, IP-Adresse, Subnetz, Firewall und Cluster-Benennungsanforderungen erfüllt sind.
+
+
+
+=== Konnektivitätsanforderungen erfüllen
+
+Jede Intercluster LIF auf dem lokalen Cluster muss in der Lage sein, mit jeder Intercluster LIF auf dem Remote-Cluster zu kommunizieren.
+
+Es ist zwar nicht erforderlich, aber in der Regel ist es einfacher, die IP-Adressen zu konfigurieren, die für Intercluster LIFs im selben Subnetz verwendet werden. Die IP-Adressen können sich im gleichen Subnetz wie Daten-LIFs oder in einem anderen Subnetz befinden. Das in jedem Cluster verwendete Subnetz muss die folgenden Anforderungen erfüllen:
+
+* Das Subnetz muss über genügend IP-Adressen verfügen, um einer Intercluster LIF pro Node zuzuweisen.
++
+Beispielsweise muss in einem Cluster mit vier Nodes das für die Kommunikation zwischen Clustern verwendete Subnetz vier verfügbare IP-Adressen haben.
+
+
+
+Jeder Node muss über eine Intercluster-LIF mit einer IP-Adresse im Intercluster-Netzwerk verfügen.
+
+Intercluster-LIFs können eine IPv4-Adresse oder eine IPv6-Adresse besitzen.
+
+
+NOTE: ONTAP 9 ermöglicht Ihnen die Migration Ihrer Peering-Netzwerke von IPv4 zu IPv6, indem Sie optional zulassen, dass beide Protokolle gleichzeitig auf den Intercluster LIFs vorhanden sind. In früheren Versionen waren alle Cluster-Beziehungen für einen gesamten Cluster entweder IPv4 oder IPv6. Somit war eine Änderung der Protokolle ein potenziell störendes Ereignis.
+
+
+
+=== Port-Anforderungen
+
+Sie können dedizierte Ports für die Cluster-übergreifende Kommunikation verwenden oder vom Datennetzwerk verwendete Ports freigeben. Ports müssen folgende Anforderungen erfüllen:
+
+* Alle Ports, die für die Kommunikation mit einem bestimmten Remote-Cluster verwendet werden, müssen sich im gleichen IPspace befinden.
++
+Sie können mehrere IPspaces verwenden, um mit mehreren Clustern zu Punkten. Paarweise ist Vollmaschenverbindung nur innerhalb eines IPspaces erforderlich.
+
+* Die für die Cluster-übergreifende Kommunikation verwendete Broadcast-Domäne muss mindestens zwei Ports pro Node enthalten, sodass eine Cluster-übergreifende Kommunikation von einem Port zu einem anderen Port ausfallen kann.
++
+Ports, die einer Broadcast-Domäne hinzugefügt werden, können physische Netzwerk-Ports, VLANs oder Interface Groups (iffrps) sein.
+
+* Alle Ports müssen verkabelt sein.
+* Alle Ports müssen sich in einem ordnungsgemäßen Zustand befinden.
+* Die MTU-Einstellungen der Ports müssen konsistent sein.
+
+
+
+
+=== Anforderungen an die Firewall
+
+Firewalls und die Cluster-übergreifende Firewall-Richtlinie müssen folgende Protokolle zulassen:
+
+* ICMP-Dienst
+* TCP auf die IP-Adressen aller Cluster-LIFs über die Ports 10000, 11104 und 11105
+* Bidirektionales HTTPS zwischen den Intercluster-LIFs
+
+
+Die standardmäßige Cluster-Firewallrichtlinie ermöglicht den Zugriff über das HTTPS-Protokoll und über alle IP-Adressen (0.0.0.0/0). Sie können die Richtlinie bei Bedarf ändern oder ersetzen.
+
+
+
+== Überlegungen bei der Verwendung von dedizierten Ports
+
+Wenn Sie feststellen, ob die Verwendung eines dedizierten Ports für die Intercluster-Replikation die richtige Intercluster-Netzwerklösung ist, sollten Sie Konfigurationen und Anforderungen wie LAN-Typ, verfügbare WAN-Bandbreite, Replikationsintervall, Änderungsrate und Anzahl der Ports berücksichtigen.
+
+Berücksichtigen Sie die folgenden Aspekte Ihres Netzwerks, um zu ermitteln, ob die Verwendung eines dedizierten Ports die beste Intercluster-Netzwerklösung ist:
+
+* Wenn die verfügbare WAN-Bandbreite der der LAN-Ports ähnelt und das Replizierungsintervall so ist, dass eine Replizierung auftritt, während die normale Client-Aktivität besteht, sollten Sie Ethernet-Ports für die Cluster-übergreifende Replizierung zuweisen, um Konflikte zwischen der Replizierung und den Datenprotokollen zu vermeiden.
+* Wenn die durch die Datenprotokolle (CIFS, NFS und iSCSI) generierte Netzwerkauslastung eine über 50%ige Netzwerkauslastung bedeutet, dann dedizierte Ports für die Replizierung, die bei einem Node-Failover die Performance nicht beeinträchtigen.
+* Wenn physische 10-GbE- oder schnellere Ports für Daten und Replikation verwendet werden, können Sie VLAN-Ports für die Replikation erstellen und die logischen Ports für die Cluster-übergreifende Replikation zuweisen.
++
+Die Bandbreite des Ports wird von allen VLANs und dem Basis-Port gemeinsam genutzt.
+
+* Berücksichtigen Sie die Datenänderungsrate und das Replizierungsintervall und ob die Datenmenge, die in jedem Intervall repliziert werden muss, genug Bandbreite erfordert. Dies kann zu Konflikten mit Datenprotokollen führen, wenn Daten-Ports gemeinsam genutzt werden.
+
+
+
+
+== Überlegungen bei der Freigabe von Datenports
+
+Wenn Sie feststellen, ob die gemeinsame Nutzung eines Datenports für die Intercluster-Replikation die richtige Intercluster-Netzwerklösung ist, sollten Sie Konfigurationen und Anforderungen wie LAN-Typ, verfügbare WAN-Bandbreite, Replikationsintervall, Änderungsrate und Anzahl der Ports berücksichtigen.
+
+Berücksichtigen Sie die folgenden Aspekte Ihres Netzwerks, um zu ermitteln, ob die gemeinsame Nutzung von Datenports die beste Intercluster-Konnektivitätslösung ist:
+
+* In einem High-Speed-Netzwerk, wie etwa einem 40-Gigabit-Ethernet-Netzwerk (40-GbE), steht möglicherweise ausreichend lokale LAN-Bandbreite zur Verfügung, um eine Replizierung auf denselben 40-GbE-Ports durchzuführen, die für den Datenzugriff verwendet werden.
++
+In vielen Fällen ist die verfügbare WAN-Bandbreite weit kleiner als die 10 GbE-LAN-Bandbreite.
+
+* Unter Umständen müssen alle Nodes im Cluster Daten replizieren und die verfügbare WAN-Bandbreite gemeinsam nutzen, sodass die gemeinsame Nutzung von Daten-Ports akzeptabel ist.
+* Durch die gemeinsame Nutzung von Ports für Daten und Replizierung werden keine zusätzlichen Ports mehr benötigt, die für die Bereitstellung dedizierter Ports für die Replikation benötigt werden.
+* Die MTU-Größe (Maximum Transmission Unit) des Replikationsnetzwerks entspricht der Größe des Netzwerks.
+* Berücksichtigen Sie die Datenänderungsrate und das Replizierungsintervall und ob die Datenmenge, die in jedem Intervall repliziert werden muss, genug Bandbreite erfordert. Dies kann zu Konflikten mit Datenprotokollen führen, wenn Daten-Ports gemeinsam genutzt werden.
+* Wenn Daten-Ports für die Cluster-übergreifende Replizierung gemeinsam genutzt werden, können die Intercluster LIFs zu jedem anderen Cluster-fähigen Port desselben Nodes migriert werden, um den spezifischen Datenport zu steuern, der zur Replizierung verwendet wird.
+

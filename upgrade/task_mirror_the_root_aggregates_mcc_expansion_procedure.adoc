@@ -1,0 +1,33 @@
+---
+permalink: upgrade/task_mirror_the_root_aggregates_mcc_expansion_procedure.html 
+sidebar: sidebar 
+keywords: metrocluster, upgrade, mirror, root, aggregate, new, controller 
+summary: Sie müssen das Root-Aggregat spiegeln, um Datensicherung zu ermöglichen, wenn Sie einer MetroCluster-Konfiguration einen Controller hinzufügen. 
+---
+= Spiegelung des Root-Aggregats auf dem neuen Controller
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen das Root-Aggregat spiegeln, um Datensicherung zu ermöglichen, wenn Sie einer MetroCluster-Konfiguration einen Controller hinzufügen.
+
+Diese Aufgabe muss am neuen Controller-Modul ausgeführt werden.
+
+. Root-Aggregat spiegeln:
++
+`storage aggregate mirror _aggr_name_`
+
++
+Der folgende Befehl spiegelt das Root-Aggregat für Controller_A_1:
+
++
+[listing]
+----
+controller_A_1::> storage aggregate mirror aggr0_controller_A_1
+----
++
+Dies spiegelt das Aggregat, also besteht es aus einem lokalen Plex und einem Remote Plex am Remote MetroCluster Standort.
+
+

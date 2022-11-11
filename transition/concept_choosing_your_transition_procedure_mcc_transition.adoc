@@ -1,0 +1,69 @@
+---
+permalink: transition/concept_choosing_your_transition_procedure_mcc_transition.html 
+sidebar: sidebar 
+keywords: select, transition, procedure, depend, exist, metrocluster, fc, configuration, choosing, choose 
+summary: Sie müssen ein Migrationsverfahren je nach Ihrer bestehenden MetroCluster FC-Konfiguration auswählen. 
+---
+= Auswahl des Migrationsverfahrens
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen ein Migrationsverfahren je nach Ihrer bestehenden MetroCluster FC-Konfiguration auswählen.
+
+Ein Migrationsverfahren ersetzt das Back-End FC Switch Fabric oder die FC-VI-Verbindung durch ein IP Switch-Netzwerk. Die genaue Vorgehensweise hängt von Ihrer Startkonfiguration ab.
+
+Die ursprünglichen Plattformen und FC Switches (falls vorhanden) werden am Ende des Umstiegsverfahrens außer Betrieb genommen.
+
+[cols="20,20,20,40"]
+|===
+
+
+| Konfiguration wird gestartet | Unterbrechungsfrei oder unterbrechungsfrei | Anforderungen | Verfahren 
+
+
+ a| 
+Vier Nodes
+ a| 
+Unterbrechungsfrei
+ a| 
+Unterstützung neuer Storage Shelfs auf neuen Plattformen
+ a| 
+link:concept_requirements_for_fc_to_ip_transition_mcc.html["Unterbrechungsfreier Übergang von einer MetroCluster FC- zu einer MetroCluster IP-Konfiguration (ONTAP 9.8 und höher)"]
+
+
+
+ a| 
+Zwei Nodes
+ a| 
+Unterbrechungen
+ a| 
+Neue Storage Shelves werden sowohl auf ursprünglichen als auch auf neuen Plattformen unterstützt.
+ a| 
+link:task_disruptively_transition_from_a_two_node_mcc_fc_to_a_four_node_mcc_ip_configuration.html["Unterbrechungsfreie Umstellung von einer MetroCluster FC-Konfiguration mit zwei Nodes auf eine MetroCluster IP-Konfiguration mit vier Nodes (ONTAP 9.8 und höher)"]
+
+
+
+ a| 
+Zwei Nodes
+ a| 
+Unterbrechungen
+ a| 
+Neue Storage Shelves werden sowohl auf ursprünglichen als auch auf neuen Plattformen unterstützt. Alte Storage-Shelves müssen außer Betrieb genommen werden.
+ a| 
+link:task_disruptively_transition_while_move_volumes_from_old_shelves_to_new_shelves.html["Unterbrechungsfreier Übergang von MetroCluster FC auf MetroCluster IP beim Ausmustern von Storage Shelves (ONTAP 9.8 und höher)"]
+
+
+
+ a| 
+Zwei Nodes
+ a| 
+Unterbrechungen
+ a| 
+Alte Storage-Shelves werden auf neuen Plattformen nicht unterstützt. Alte Storage-Shelves müssen außer Betrieb genommen werden.
+ a| 
+link:task_disruptively_transition_when_exist_shelves_are_not_supported_on_new_controllers.html["Unterbrechungsfreie Transition, wenn vorhandene Shelfs nicht auf neuen Controllern unterstützt werden (ONTAP 9.8 und höher)"]
+
+|===

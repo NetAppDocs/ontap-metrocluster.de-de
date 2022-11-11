@@ -1,0 +1,96 @@
+---
+permalink: upgrade/task_install_and_cable_the_new_controller.html 
+sidebar: sidebar 
+keywords: metrocluster, upgrade, install, cable, new, controller, module 
+summary: Sie müssen das neue Controller-Modul physisch im Chassis installieren und anschließend verkabeln. 
+---
+= Installieren und Verkabeln des neuen Controller-Moduls
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen das neue Controller-Modul physisch im Chassis installieren und anschließend verkabeln.
+
+.Schritte
+. Wenn Sie ein I/O-Erweiterungsmodul (IOXM) in Ihrem System haben und ein HA-Paar mit einem Chassis erstellen, müssen Sie das IOXM aufheben und entfernen.
++
+Anschließend können Sie den leeren Schacht für das neue Controller-Modul verwenden. Allerdings bietet die neue Konfiguration nicht die zusätzliche I/O-Leistung des IOXM.
+
+. Installieren Sie das neue Controller-Modul physisch und installieren Sie bei Bedarf weitere Lüfter:
++
+|===
+
+
+| Wenn Sie ein Controller-Modul hinzufügen... | Führen Sie dann folgende Schritte aus... 
+
+
+ a| 
+Bei einem leeren Schacht für das Erstellen eines HA-Paars mit einem Chassis gehört das System zu einer der folgenden Plattformen:
+ a| 
+.. Entfernen Sie die leere Platte auf der Rückseite des Gehäuses, die den leeren Schacht, der das neue Controller-Modul enthält, abdeckt.
+.. Schieben Sie das Controller-Modul vorsichtig zur Hälfte in das Gehäuse.
++
+Um zu verhindern, dass das Controller-Modul automatisch gebootet werden kann, setzen Sie es erst später in diesem Verfahren vollständig im Chassis ein.
+
+
+
+
+
+ a| 
+In einem separaten Chassis vom HA-Partner zur Erstellung eines HA-Paares mit Dual-Chassis, wenn sich die vorhandene Konfiguration in einer Controller-IOX-Modul-Konfiguration befindet.
+
+** FAS8200
+** 80xx
+
+ a| 
+Installieren Sie das neue System im Rack oder Systemschrank.
+
+|===
+. Netzwerkkabel des Clusters nach Bedarf verkabeln:
++
+.. Identifizieren Sie die Ports auf dem Controller-Modul für die Cluster-Verbindungen.
++
+https://docs.netapp.com/platstor/topic/com.netapp.doc.hw-a320-install-setup/home.html["AFF A320-Systeme: Installation und Einrichtung"^]
+
++
+https://library.netapp.com/ecm/ecm_download_file/ECMLP2842666["Installations- und Setup-Anleitung für AFF A220/FAS2700 Systeme"^]
+
++
+https://library.netapp.com/ecm/ecm_download_file/ECMLP2842668["Installations- und Setup-Anleitung für AFF A800 Systeme"^]
+
++
+https://library.netapp.com/ecm/ecm_download_file/ECMLP2469722["Installations- und Setup-Anleitung für AFF A300 Systeme"^]
+
++
+https://library.netapp.com/ecm/ecm_download_file/ECMLP2316769["FAS8200 Systems Installation and Setup instructions"^]
+
+.. Wenn Sie ein Switch-Cluster konfigurieren, geben Sie die Ports an, die Sie auf den Cluster-Netzwerk-Switches verwenden möchten.
++
+Je nach den verwendeten Switches finden Sie das Installationsleitfaden für Cisco Switches _Clustered Data ONTAP Switch Setup-Leitfaden für Cisco Switches_, _NetApp 10G Cluster-Mode Switch_ oder _NetApp 1G Cluster-Mode Switch Installationsanleitung_.
+
+.. Verbinden Sie die Kabel mit den Cluster-Ports:
+
+
++
+|===
+
+
+| Falls das Cluster... | Dann... 
+
+
+ a| 
+Zwei-Node-Cluster ohne Switches
+ a| 
+Verbinden Sie die Cluster-Ports des vorhandenen Controller-Moduls direkt mit den entsprechenden Cluster-Ports des neuen Controller-Moduls.
+
+
+
+ a| 
+Cluster mit Switches
+ a| 
+Verbinden Sie die Cluster-Ports an jedem Controller mit den Ports auf den in Unterschritt B angegebenen Cluster-Netzwerk-Switches
+
+|===
+

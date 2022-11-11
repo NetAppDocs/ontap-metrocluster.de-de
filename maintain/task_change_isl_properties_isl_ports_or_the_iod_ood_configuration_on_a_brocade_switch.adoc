@@ -1,0 +1,339 @@
+---
+permalink: maintain/task_change_isl_properties_isl_ports_or_the_iod_ood_configuration_on_a_brocade_switch.html 
+sidebar: sidebar 
+keywords: metrocluster, maintain, service, change, isl, properties, isl, ports, iod, configuration, brocade, switch 
+summary: Möglicherweise müssen Sie ISLs zu einem Switch hinzufügen, wenn Hardware wie zusätzliche oder schnellere Controller oder Switches hinzugefügt bzw. aktualisiert wird. 
+---
+= Ändern der ISL-Eigenschaften, ISL-Ports oder der IOD/OOD-Konfiguration auf einem Brocade Switch
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Möglicherweise müssen Sie ISLs zu einem Switch hinzufügen, wenn Hardware wie zusätzliche oder schnellere Controller oder Switches hinzugefügt bzw. aktualisiert wird.
+
+Stellen Sie sicher, dass das System ordnungsgemäß konfiguriert ist, dass alle Fabric Switches funktionsfähig sind und keine Fehler auftreten.
+
+Wenn sich die Ausrüstung auf der ISL-Verbindung ändert und die neue Link-Konfiguration die aktuelle Konfiguration-----Trunking und bestellte Anlieferung nicht mehr unterstützt, muss das Fabric neu konfiguriert werden, um die korrekte Routing-Richtlinie zu erhalten: Entweder in-order-Delivery (IOD) oder Out-of-Order-Delivery (OOD).
+
+
+NOTE: Um Änderungen an OOD von der ONTAP-Software vorzunehmen, gehen Sie wie folgt vor: link:../install-fc/concept_configure_the_mcc_software_in_ontap.html#configuring-in-order-delivery-or-out-of-order-delivery-of-frames-on-ontap-software#configuring-in-order-delivery-or-out-of-order-delivery-of-frames-on-ontap-software["Konfigurieren von in-Order-Lieferung oder Lieferung von Frames auf ONTAP Software außerhalb der Reihenfolge"]
+
+.Schritte
+. Deaktivieren von FCVI- und Storage HBA-Ports:
++
+`portcfgpersistentdisable _port number_`
+
++
+Standardmäßig werden die ersten 8 Ports (Ports 0 bis 7) für FCVI und Storage HBA verwendet. Die Ports müssen dauerhaft deaktiviert werden, damit die Ports im Falle eines Switch-Neustarts deaktiviert bleiben.
+
++
+Im folgenden Beispiel wird gezeigt, dass die ISL-Ports 0--7 auf beiden Switches deaktiviert sind:
+
++
+[listing]
+----
+
+    Switch_A_1:admin> portcfgpersistentdisable 0-7
+    Switch_B_1:admin> portcfgpersistentdisable 0-7
+----
+. Ändern Sie die ISL-Ports nach Bedarf.
++
+[cols="30,70"]
+|===
+
+
+| Option | Schritt 
+
+
+ a| 
+So ändern Sie die Geschwindigkeit eines ISL-Ports:
+ a| 
+Verwenden Sie die `portcfgspeed _port number port speed_` Befehl an beiden Switches auf der Fabric.
+
+Im folgenden Beispiel wird die Port-Geschwindigkeit von ISL von 40 Gbit/s auf 16 Gbit/s geändert:
+
+`brocade_switch_A_1:admin> portcfgspeed 40 16`
+
+Sie können überprüfen, ob sich die Geschwindigkeit mit dem geändert hat `switchshow` Befehl:
+
+`brocade_switch_A_1:admin> switchshow`
+
+Die folgende Ausgabe sollte angezeigt werden:
+
+....
+  . . .
+   40 40  062800  id 16G  No_Sync FC Disabled
+  . . .
+....
+
+
+ a| 
+So ändern Sie die Entfernung eines ISL-Ports:
+ a| 
+Verwenden Sie die `portcfglongdistance _port number port distance_` Befehl an beiden Switches in der Fabric.
+
+
+
+ a| 
+So entfernen Sie eine ISL:
+ a| 
+Trennen Sie die Verbindung \(Kabel\).
+
+
+
+ a| 
+ISL hinzufügen...
+ a| 
+Fügen Sie SFPs in die Ports ein, die Sie als ISL-Ports hinzufügen. Stellen Sie sicher, dass diese Ports in der *Fabric-Attached MetroCluster Installation und Konfiguration* für den Switch aufgelistet sind, dem Sie sie hinzufügen, und verkabeln Sie diese gemäß diesem Handbuch.
+
+
+
+ a| 
+So verschieben Sie eine ISL...
+ a| 
+Der Standortwechsel eines ISL entspricht dem Entfernen und anschließenden Hinzufügen einer ISL. Entfernen Sie zunächst die ISL, indem Sie die Verbindung trennen und dann SFPs in die Ports einfügen, die Sie als ISL-Ports hinzufügen.
+
+|===
+. Rekonfigurieren für Lieferung außerhalb des Auftrags (OOD) oder in-Order-Lieferung (IOD).
++
+
+NOTE: Wenn die Routing-Richtlinien unverändert bleiben, müssen Sie die Routingrichtlinien nicht neu konfigurieren, und dieser Schritt kann ignoriert werden. Die ONTAP-Konfiguration muss an die Fabric-Konfiguration angepasst werden. Wenn das Fabric für OOD konfiguriert ist, muss auch ONTAP für OOD konfiguriert sein. Gleiches gilt für IOD.
+
++
+Dieser Schritt sollte in folgenden Szenarien ausgeführt werden:
+
++
+** Vor dem Wechsel hatte mehr als eine ISL einen Trunk gebildet, doch nach der Änderung wird Trunking nicht mehr unterstützt. In diesem Fall müssen Sie die Struktur für OOD konfigurieren.
+** Es gibt ein ISL vor der Änderung und mehrere ISLs nach der Änderung.
+** Wenn mehrere ISLs einen Trunk bilden, konfigurieren Sie das Fabric für IOD. Wenn mehrere ISLs *nicht* einen Trunk bilden können, konfigurieren Sie das Fabric für OOD.
+** Deaktivieren Sie die Switches dauerhaft mithilfe der `switchcfgpersistentdisable` Befehl wie im folgenden Beispiel dargestellt:
++
+[listing]
+----
+
+Switch_A_1:admin> switchcfgpersistentdisable
+Switch_B_1:admin> switchcfgpersistentdisable
+----
++
+... Konfigurieren Sie den Trunking-Modus für jede ISL `portcfgtrunkport _port number_` Wie in der folgenden Tabelle dargestellt:
++
+[cols="30,70"]
+|===
+
+
+| Szenario | Schritte 
+
+
+ a| 
+Konfiguration der ISL für das Trunking \(IOD\)
+ a| 
+Stellen Sie die ein `portcfgtrunkport _port number_` Zu 1:
+
+....
+FC_switch_A_1:admin> portcfgtrunkport 20 1
+FC_switch_A_1:admin> portcfgtrunkport 21 1
+FC_switch_B_1:admin> portcfgtrunkport 20 1
+FC_switch_B_1:admin> portcfgtrunkport 21 1
+....
+
+
+ a| 
+Konfiguration der ISL für Trunking \ (OOD\)
+ a| 
+Stellen Sie die ein `portcfgtrunkport _port number_` An 0:
+
+....
+FC_switch_A_1:admin> portcfgtrunkport 20 0
+FC_switch_A_1:admin> portcfgtrunkport 21 0
+FC_switch_B_1:admin> portcfgtrunkport 20 0
+FC_switch_B_1:admin> portcfgtrunkport 21 0
+....
+|===
+... Konfigurieren Sie die Fabric für IOD oder OOD nach Bedarf.
++
+[cols="30,70"]
+|===
+
+
+| Szenario | Schritte 
+
+
+ a| 
+Konfigurieren Sie die Fabric für IOD
+ a| 
+Legen Sie mithilfe des die drei Einstellungen für IOD, APT und DLS fest `iodset`, `aptpolicypolicy`, und `dlsreset` Befehle, wie im folgenden Beispiel gezeigt:
+
+....
+Switch_A_1:admin> iodset
+Switch_A_1:admin> aptpolicy 1
+Policy updated successfully.
+Switch_A_1:admin> dlsreset
+FC_switch_A_1:admin>portcfgtrunkport 40 1
+FC_switch_A_1:admin>portcfgtrunkport 41 1
+
+Switch_B_1:admin> iodset
+Switch_B_1:admin> aptpolicy 1
+Policy updated successfully.
+Switch_B_1:admin> dlsreset
+FC_switch_B_1:admin>portcfgtrunkport 20 1
+FC_switch_B_1:admin>portcfgtrunkport 21 1
+....
+
+
+ a| 
+Konfigurieren Sie das Fabric für OOD
+ a| 
+Legen Sie mithilfe des die drei Einstellungen für IOD, APT und DLS fest `iodreset`, `aptpolicy__policy__`, und `dlsset` Befehle, wie im folgenden Beispiel gezeigt:
+
+....
+Switch_A_1:admin> iodreset
+Switch_A_1:admin> aptpolicy 3
+Policy updated successfully.
+Switch_A_1:admin> dlsset
+FC_switch_A_1:admin> portcfgtrunkport 40 0
+FC_switch_A_1:admin> portcfgtrunkport 41 0
+
+Switch_B_1:admin> iodreset
+Switch_B_1:admin> aptpolicy 3
+Policy updated successfully.
+Switch_B_1:admin> dlsset
+FC_switch_B_1:admin> portcfgtrunkport 40 0
+FC_switch_B_1:admin> portcfgtrunkport 41 0
+....
+|===
+... Dauerhaft aktivieren Sie die Switches:
++
+`switchcfgpersistentenable`
+
++
+[listing]
+----
+switch_A_1:admin>switchcfgpersistentenable
+switch_B_1:admin>switchcfgpersistentenable
+----
++
+Wenn dieser Befehl nicht vorhanden ist, verwenden Sie den `switchenable` Befehl wie im folgenden Beispiel dargestellt:
+
++
+[listing]
+----
+brocade_switch_A_1:admin>
+switchenable
+----
+... Überprüfen Sie die OOD-Einstellungen mit der `iodshow`, `aptpolicy`, und `dlsshow` Befehle, wie im folgenden Beispiel gezeigt:
++
+[listing]
+----
+switch_A_1:admin> iodshow
+IOD is not set
+
+switch_A_1:admin> aptpolicy
+
+       Current Policy: 3 0(ap)
+
+       3 0(ap) : Default Policy
+       1: Port Based Routing Policy
+       3: Exchange Based Routing Policy
+       0: AP Shared Link Policy
+       1: AP Dedicated Link Policy
+       command aptpolicy completed
+
+switch_A_1:admin> dlsshow
+DLS is set by default with current routing policy
+----
++
+
+NOTE: Sie müssen diese Befehle auf beiden Switches ausführen.
+
+... Überprüfen Sie die IOD-Einstellungen mit dem `iodshow`, `aptpolicy`, und `dlsshow` Befehle, wie im folgenden Beispiel gezeigt:
++
+[listing]
+----
+switch_A_1:admin> iodshow
+IOD is set
+
+switch_A_1:admin> aptpolicy
+       Current Policy: 1 0(ap)
+
+       3 0(ap) : Default Policy
+       1: Port Based Routing Policy
+       3: Exchange Based Routing Policy
+       0: AP Shared Link Policy
+       1: AP Dedicated Link Policy
+       command aptpolicy completed
+
+switch_A_1:admin> dlsshow
+DLS is not set
+----
++
+
+NOTE: Sie müssen diese Befehle auf beiden Switches ausführen.
+
+
+
+
+
+. Stellen Sie sicher, dass die ISLs online sind und mit dem Trunking (sofern die Verbindungsausrüstung Trunking unterstützt) getrackt wurden `islshow` Und `trunkshow` Befehle.
++
+
+NOTE: Wenn FEC aktiviert ist, kann der Deskew-Wert des letzten Online-Ports der Trunk-Gruppe einen Unterschied von bis zu 36 zeigen, obwohl die Kabel alle dieselbe Länge haben.
+
++
+[cols="20,80"]
+|===
+
+
+| Sind ISLs triked? | Sie sehen die folgende Ausgabe des Systems... 
+
+
+ a| 
+Ja.
+ a| 
+Wenn die ISLs nicht verfügbar sind, erscheint in der Ausgabe für das nur ein einziger ISL `islshow` Befehl. Port 40 oder 41 können je nach Trunk-Master angezeigt werden. Die Ausgabe von `trunkshow` Sollte ein Trunk mit ID „`1`“ die sowohl physischen ISLs auf den Ports 40 und 41 auflisten. Im folgenden Beispiel sind die Ports 40 und 41 für die Verwendung als ISL konfiguriert:
+
+[listing]
+----
+switch_A_1:admin> islshow 1:
+40-> 40 10:00:00:05:33:88:9c:68 2 switch_B_1 sp: 16.000G bw: 32.000G TRUNK CR_RECOV FEC
+switch_A_1:admin> trunkshow
+1: 40-> 40 10:00:00:05:33:88:9c:68 2 deskew 51 MASTER
+41-> 41 10:00:00:05:33:88:9c:68 2 deskew 15
+----
+
+
+ a| 
+Nein
+ a| 
+Wenn die ISLs nicht in Trunks sind, erscheinen beide ISLs separat in den Ausgaben für `islshow` Und `trunkshow`. Bei beiden Befehlen werden die ISLs mit ihrer ID von „`1`“ und „`2`“ aufgelistet. Im folgenden Beispiel werden die Ports „`40`“ und „`41`“ für die Verwendung als ISL konfiguriert:
+
+[listing]
+----
+switch_A_1:admin> islshow
+1: 40-> 40 10:00:00:05:33:88:9c:68 2 switch_B_1 sp: 16.000G bw: 16.000G TRUNK CR_RECOV FEC
+2: 41-> 41 10:00:00:05:33:88:9c:68 2 switch_B_1 sp: 16.000G bw: 16.000G TRUNK CR_RECOV FEC
+switch_A_1:admin> trunkshow
+1: 40-> 40 10:00:00:05:33:88:9c:68 2 deskew 51 MASTER
+2: 41-> 41 10:00:00:05:33:88:9c:68 2 deskew 48 MASTER
+----
+|===
+. Führen Sie die aus `spinfab` Befehl an beiden Switches, um sich zu vergewissern, dass die ISLs sich in einem ordnungsgemäßen Zustand befinden:
++
+[listing]
+----
+switch_A_1:admin> spinfab -ports 0/40 - 0/41
+----
+. Aktivieren Sie die Ports, die in Schritt 1 deaktiviert wurden:
++
+`portenable _port number_`
+
++
+Im folgenden Beispiel werden die ISL-Ports „`0`“ bis „`7`“ aktiviert:
+
++
+[listing]
+----
+brocade_switch_A_1:admin> portenable 0-7
+----
+

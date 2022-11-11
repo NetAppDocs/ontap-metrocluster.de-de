@@ -1,0 +1,37 @@
+---
+permalink: install-stretch/task_synchronize_the_system_time_us_ntp.html 
+sidebar: sidebar 
+keywords: metrocluster, stretch, installation, synchronize, system, time, ntp 
+summary: 'Jedes Cluster benötigt einen eigenen Network Time Protocol \(NTP\)-Server, um die Zeit zwischen den Nodes und ihren Clients zu synchronisieren. Mit dem Dialogfeld DateTime bearbeiten in System Manager können Sie den NTP-Server konfigurieren.' 
+---
+= Synchronisieren der Systemzeit mithilfe von NTP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Jedes Cluster benötigt einen eigenen NTP-Server (Network Time Protocol), um die Zeit zwischen den Nodes und ihren Clients zu synchronisieren. Mit dem Dialogfeld DateTime bearbeiten in System Manager können Sie den NTP-Server konfigurieren.
+
+Überprüfen Sie, ob Sie System Manager heruntergeladen und installiert haben. System Manager ist über die NetApp Support Site erhältlich.
+
+* Sie können nach dem Takeover die Zeitzoneneinstellungen für einen ausgefallenen Node oder den Partner-Node nicht ändern.
+* Jedes Cluster in der MetroCluster FC-Konfiguration sollte über einen eigenen separaten NTP-Server oder von den Nodes verwendete Server und (falls vorhanden) FC-to-SAS-Bridges an diesem MetroCluster-Standort verfügen.
++
+Wenn Sie die MetroCluster Tiebreaker Software verwenden, sollte es auch einen eigenen separaten NTP-Server haben.
+
+
+
+.Schritte
+. Doppelklicken Sie auf der Startseite auf das entsprechende Storage-System.
+. Erweitern Sie die *Cluster* -Hierarchie im linken Navigationsbereich.
+. Klicken Sie im Navigationsbereich auf *Konfiguration* > *Systemwerkzeuge* > *DateTime*.
+. Klicken Sie Auf *Bearbeiten*.
+. Wählen Sie die Zeitzone aus.
+. Geben Sie die IP-Adressen der Zeitserver an, und klicken Sie dann auf *Hinzufügen*.
++
+Sie müssen einen NTP-Server zur Liste der Zeitserver hinzufügen. Der Domänencontroller kann ein autorisierende Server sein.
+
+. Klicken Sie auf *OK*.
+. Überprüfen Sie die Änderungen, die Sie an den Datums- und Zeiteinstellungen im Fenster Datum und Uhrzeit vorgenommen haben.
+

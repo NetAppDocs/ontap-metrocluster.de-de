@@ -1,0 +1,41 @@
+---
+permalink: install-stretch/task_install_the_fc_to_sas_bridge_and_sas_shelves_fb_new_install_parent.html 
+sidebar: sidebar 
+keywords: metrocluster, stretch, installation, install, fc, sas, bridge, shelves 
+summary: Nachdem Sie sichergestellt haben, dass das System alle Anforderungen im Abschnitt „Vorbereitungen für die Installation“ erfüllt, können Sie Ihr neues System installieren. 
+---
+= Installation der FC-to-SAS-Bridge und der SAS-Shelfs
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Nachdem Sie sichergestellt haben, dass das System alle Anforderungen im Abschnitt „`Vorbereitung für die Installation`“ erfüllt, können Sie Ihr neues System installieren.
+
+* Die Festplatten- und Shelf-Konfiguration an beiden Standorten sollte identisch sein.
++
+Wenn ein nicht gespiegeltes Aggregat verwendet wird, kann die Festplatten- und Shelf-Konfiguration an jedem Standort unterschiedlich sein.
+
++
+
+NOTE: Alle Festplatten in der Disaster Recovery-Gruppe (DR) müssen denselben Verbindungstyp verwenden und für alle Nodes innerhalb der Disaster Recovery-Gruppe sichtbar sein. Dabei ist es unerheblich, welche Festplatten für ein gespiegeltes oder nicht gespiegeltes Aggregat verwendet werden.
+
+* Die Anforderungen an die Systemkonnektivität für maximale Entfernungen von Platten-Shelfs, FC-Switches und Backup-Bandgeräten mit 50-Mikron- und Multimode-Glasfaserkabeln gelten auch für FibreBridge-Brücken.
++
+https://hwu.netapp.com["NetApp Hardware Universe"]
+
+* Eine Kombination aus IOM12-Modulen und IOM3-Modulen wird im selben Storage-Stack nicht unterstützt. Wenn auf dem System eine unterstützte Version von ONTAP ausgeführt wird, wird im selben Storage Stack eine Kombination aus IOM12-Modulen und IOM6-Modulen unterstützt.
+
+
+[NOTE]
+====
+In-Band ACP wird ohne zusätzliche Verkabelung in den folgenden Shelves und FibreBridge 7500N oder 7600N Bridge unterstützt:
+
+* IOM12 (DS460C) hinter einer 7500N bzw. 7600N Brücke mit ONTAP 9.2 und höher
+* IOM12 (DS212C und DS224C) hinter einer 7500N oder 7600N Brücke mit ONTAP 9.1 und höher
+
+
+====
+
+NOTE: SAS-Shelves in MetroCluster-Konfigurationen unterstützen keine ACP-Verkabelung.

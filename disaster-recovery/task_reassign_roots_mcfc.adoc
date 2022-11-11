@@ -1,0 +1,167 @@
+---
+permalink: disaster-recovery/task_reassign_roots_mcfc.html 
+sidebar: sidebar 
+keywords: reassign, ownership, nvram, system, id, replaced 
+summary: Wenn am Disaster-Standort ein oder beide Controller-Module oder NVRAM-Karten ausgetauscht wurden, müssen Festplatten, die zu den Root-Aggregaten gehören, den Ersatz-Controller-Modulen neu zugewiesen werden. 
+---
+= Neuzuweisung der Eigentumsrechte an den Root-Aggregaten an Ersatz-Controller-Modulen (MetroCluster FC-Konfigurationen)
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn am Disaster-Standort ein oder beide Controller-Module oder NVRAM-Karten ausgetauscht wurden, hat sich die System-ID geändert, und Sie müssen Festplatten, die zu den Root-Aggregaten gehören, den Ersatz-Controller-Modulen neu zuweisen.
+
+Da sich die Nodes im Umschaltmodus befinden und die Reparatur durchgeführt wurde, werden in diesem Abschnitt nur die Festplatten mit den Root-Aggregaten von Pool 1 des Disaster Site neu zugewiesen. Sie sind derzeit die einzigen Festplatten, die noch zur alten System-ID gehören.
+
+Dieser Abschnitt enthält Beispiele für Konfigurationen mit zwei und vier Nodes. Bei Konfigurationen mit zwei Nodes können Sie Verweise auf den zweiten Node an jedem Standort ignorieren. Bei Konfigurationen mit acht Nodes müssen die zusätzlichen Nodes in der zweiten DR-Gruppe berücksichtigt werden. Die Beispiele machen folgende Annahmen:
+
+* Standort A ist der Notfallstandort.
++
+** Node_A_1 wurde ersetzt.
+** Node_A_2 wurde ersetzt.
++
+Nur in MetroCluster Konfigurationen mit vier Nodes vorhanden.
+
+
+
+* Standort B ist der überlebende Standort.
++
+** Node_B_1 ist in einem ordnungsgemäßen Zustand.
+** Node_B_2 ist in einem ordnungsgemäßen Zustand.
++
+Nur in MetroCluster Konfigurationen mit vier Nodes vorhanden.
+
+
+
+
+
+Die alten und neuen System-IDs wurden in identifiziert link:task_replace_hardware_and_boot_new_controllers.html#determining-the-system-ids-and-vlan-ids-of-the-old-controller-modules["Ermitteln der System-IDs der Ersatz-Controller-Module"].
+
+Die Beispiele in diesem Verfahren verwenden Controller mit den folgenden System-IDs:
+
+|===
+
+
+| Anzahl der Nodes | Knoten | Ursprüngliche System-ID | Neue System-ID 
+
+
+.4+| Vier  a| 
+Node_A_1
+ a| 
+4068741258
+ a| 
+1574774970
+
+
+
+ a| 
+Node_A_2
+ a| 
+4068741260
+ a| 
+1574774991
+
+
+
+ a| 
+Knoten_B_1
+ a| 
+4068741254
+ a| 
+Unverändert
+
+
+
+ a| 
+Knoten_B_2
+ a| 
+4068741256
+ a| 
+Unverändert
+
+
+
+ a| 
+Zwei
+ a| 
+Node_A_1
+ a| 
+4068741258
+ a| 
+1574774970
+
+|===
+.Schritte
+. Weisen Sie beim Ersatzknoten im Wartungsmodus die Root-Aggregat-Festplatten neu zu:
++
+`disk reassign -s old-system-ID -d new-system-ID`
+
++
+[listing]
+----
+*> disk reassign -s 4068741258 -d 1574774970
+----
+. Sehen Sie sich die Festplatten an, um die Eigentümeränderung der Pool1 Root-Aggr-Festplatten der Disaster Site zum Ersatzknoten zu bestätigen:
++
+`disk show`
+
++
+Die Ausgabe kann mehr oder weniger Festplatten anzeigen, je nachdem, wie viele Festplatten sich im Root-Aggregat befinden und ob eine dieser Festplatten ausgefallen ist und ersetzt wurde. Wenn die Festplatten ausgetauscht wurden, werden Pool0-Laufwerke nicht in der Ausgabe angezeigt.
+
++
+Die Pool1 Root-Aggregat-Platten des Disaster-Standortes sollten nun dem Ersatz-Node zugewiesen werden.
+
++
+[listing]
+----
+*> disk show
+Local System ID: 1574774970
+
+  DISK             OWNER                POOL   SERIAL NUMBER   HOME                DR HOME
+------------       -------------        -----  -------------   -------------       -------------
+sw_A_1:6.126L19    node_A_1(1574774970) Pool0  serial-number   node_A_1(1574774970)
+sw_A_1:6.126L3     node_A_1(1574774970) Pool0  serial-number   node_A_1(1574774970)
+sw_A_1:6.126L7     node_A_1(1574774970) Pool0  serial-number   node_A_1(1574774970)
+sw_B_1:6.126L8     node_A_1(1574774970) Pool1  serial-number   node_A_1(1574774970)
+sw_B_1:6.126L24    node_A_1(1574774970) Pool1  serial-number   node_A_1(1574774970)
+sw_B_1:6.126L2     node_A_1(1574774970) Pool1  serial-number   node_A_1(1574774970)
+
+*> aggr status
+         Aggr State           Status
+ node_A_1_root online          raid_dp, aggr
+                               mirror degraded
+                               64-bit
+*>
+----
+. Aggregatstatus anzeigen:
++
+`aggr status`
+
++
+Die Ausgabe kann mehr oder weniger Festplatten anzeigen, je nachdem, wie viele Festplatten sich im Root-Aggregat befinden und ob eine dieser Festplatten ausgefallen ist und ersetzt wurde. Wenn Disketten ersetzt wurden, werden Pool0-Platten nicht in der Ausgabe angezeigt.
+
++
+[listing]
+----
+*> aggr status
+          Aggr State           Status
+  node_A_1_root online          raid_dp, aggr
+                                mirror degraded
+                                64-bit
+*>
+----
+. Löschen Sie den Inhalt der Mailbox-Platten:
++
+`mailbox destroy local`
+
+. Wenn das Aggregat nicht online ist, bringen Sie es online:
++
+`aggr online aggr_name`
+
+. Halten Sie den Node an, um die LOADER-Eingabeaufforderung anzuzeigen:
++
+`halt`
+
+

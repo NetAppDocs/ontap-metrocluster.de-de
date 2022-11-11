@@ -1,0 +1,32 @@
+---
+permalink: disaster-recovery/task_verify_storage_mcfc.html 
+sidebar: sidebar 
+keywords: verify, storage, configuration 
+summary: Es muss sichergestellt werden, dass der gesamte Storage von den verbleibenden Nodes aus sichtbar ist. 
+---
+= Überprüfen der Speicherkonfiguration
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Es muss sichergestellt werden, dass der gesamte Storage von den verbleibenden Nodes aus sichtbar ist.
+
+.Schritte
+. Vergewissern Sie sich, dass alle Storage-Komponenten am Notfallstandort gleich sind in Menge und Typ am verbleibenden Standort.
++
+Am verbleibenden Standort und am DR-Standort sollte die gleiche Anzahl an Festplatten-Shelf-Stacks, Platten-Shelfs und Festplatten verwendet werden. In einer MetroCluster-Konfiguration mit Bridge- oder Fabric-Attached Storage sollten die Standorte über die gleiche Anzahl von FC-to-SAS-Bridges verfügen.
+
+. Vergewissern Sie sich, dass alle Festplatten, die am Disaster-Standort ausgetauscht wurden, im Besitz sind:
++
+`run local disk show-n`
+
++
+Festplatten sollten als nicht-Eigentümer angezeigt werden.
+
+. Wenn keine Festplatten ausgetauscht wurden, vergewissern Sie sich, dass alle Festplatten vorhanden sind:
++
+`disk show`
+
+

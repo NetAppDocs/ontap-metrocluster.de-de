@@ -1,0 +1,105 @@
+---
+permalink: install-stretch/concept_required_mcc_components_and_example_names_for_two_node_sas_attached_stretch_configurations_mcc.html 
+sidebar: sidebar 
+keywords: metrocluster, stretch, installation, required, hardware, components, naming, guidelines, two, node, sas, configuration 
+summary: Die MetroCluster-Konfiguration erfordert eine Vielzahl von Hardwarekomponenten. Für Einfachheit und Klarheit werden in der gesamten MetroCluster-Dokumentation Standardnamen für Komponenten verwendet. Ein Standort wird als Standort A bezeichnet, der andere Standort wird als Standort B bezeichnet 
+---
+= Erforderliche MetroCluster Hardwarekomponenten und Benennungsrichtlinien für Stretch-Konfigurationen mit zwei Nodes über SAS
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Die MetroCluster-Konfiguration erfordert eine Vielzahl von Hardwarekomponenten. Für Einfachheit und Klarheit werden in der gesamten MetroCluster-Dokumentation Standardnamen für Komponenten verwendet. Ein Standort wird als Standort A bezeichnet, der andere Standort wird als Standort B bezeichnet
+
+
+
+== Unterstützte Software und Hardware
+
+Hardware und Software müssen für die MetroCluster FC-Konfiguration unterstützt werden.
+
+https://hwu.netapp.com["NetApp Hardware Universe"]
+
+Beim Einsatz von AFF Systemen müssen alle Controller-Module in der MetroCluster Konfiguration als AFF Systeme konfiguriert sein.
+
+
+
+== Hardwareredundanz in der MetroCluster Konfiguration
+
+Aufgrund der Hardware-Redundanz in der MetroCluster Konfiguration gibt es an jedem Standort zwei jeder Komponenten. Den Standorten werden die Buchstaben A und B willkürlich zugeordnet und den einzelnen Komponenten werden die Zahlen 1 und 2 willkürlich zugeordnet.
+
+
+
+== ONTAP Cluster mit zwei Single-Node-Clustern
+
+Für die Stretch-MetroCluster Konfiguration über SAS ist zwei Single-Node-ONTAP Cluster erforderlich.
+
+Die Benennung muss innerhalb der MetroCluster Konfiguration eindeutig sein.
+
+Beispielnamen:
+
+* Standort A: Cluster_A
+* Standort B: Cluster_B
+
+
+
+
+== Zwei Storage Controller-Module
+
+Die SAS-Attached Stretch MetroCluster Konfiguration erfordert zwei Storage Controller-Module.
+
+* Die Benennung muss innerhalb der MetroCluster Konfiguration eindeutig sein.
+* Alle Controller-Module in der MetroCluster Konfiguration müssen dieselbe Version von ONTAP ausführen.
+* Alle Controller-Module in einer DR-Gruppe müssen aus dem gleichen Modell sein.
+* Alle Controller-Module in einer DR-Gruppe müssen dieselbe FC-VI-Konfiguration verwenden.
++
+Einige Controller Module unterstützen zwei Optionen für FC-VI-Konnektivität:
+
++
+** Integrierte FC-VI-Ports
+** Eine FC-VI-Karte in Steckplatz 1
++
+Ein Mix aus einem Controller-Modul mit integrierten FC-VI-Ports und einem anderen Controller-Modul mit einer zusätzlichen FC-VI-Karte wird nicht unterstützt. Wenn beispielsweise ein Node integrierte FC-VI-Konfiguration verwendet, müssen alle anderen Nodes in der DR-Gruppe auch integrierte FC-VI-Konfigurationen verwenden.
+
+
+
+
+
+Beispielnamen:
+
+* Standort A: Controller_A_1
+* Standort B: Controller_B_1
+
+
+
+
+== Mindestens vier SAS-Platten-Shelves (empfohlen)
+
+Bei der SAS-Attached Stretch MetroCluster Konfiguration sind mindestens zwei SAS-Festplatten-Shelfs erforderlich. Wir empfehlen vier SAS-Platten-Shelves.
+
+Es werden zwei Shelves an jedem Standort empfohlen, damit die Festplatteneigentümer pro Shelf sind. Es wird mindestens ein Shelf an jedem Standort unterstützt.
+
+Beispielnamen:
+
+* Standort A:
++
+** Shelf_A_1_1
+** Shelf_A_1_2
+
+
+* Standort B:
++
+** Shelf_B_1_1
+** Shelf_B_1_2
+
+
+
+
+
+
+== Mischen von IOM12 und IOM 6 Modulen in einem Stack
+
+Ihre Version von ONTAP muss Shelf-Mix unterstützen. Informieren Sie sich im Interoperabilitäts-Matrix-Tool (IMT), ob Ihre Version von ONTAP Shelf-Mischungen unterstützt. https://mysupport.netapp.com/NOW/products/interoperability["NetApp Interoperabilität"]
+
+Weitere Informationen zum Anmischen von Regalen finden Sie unter: https://docs.netapp.com/platstor/topic/com.netapp.doc.hw-ds-mix-hotadd/home.html["Hot-Adding-Shelfs mit IOM12-Modulen werden in einem Shelf-Stack mit IOM6-Modulen ausgeführt"]

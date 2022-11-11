@@ -1,0 +1,339 @@
+---
+permalink: install-ip/task_switch_config_nvidia.html 
+sidebar: sidebar 
+keywords: ip, switch, connection, configuring, configure, NVIDIA, factory defaults, MSN2100, SN2100 
+summary: Sie müssen die NVIDIA IP-Switches für die Verwendung als Cluster-Interconnect und für die Back-End-MetroCluster-IP-Konnektivität konfigurieren. 
+---
+= Konfigurieren Sie den NVIDIA IP SN2100-Switch
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen die NVIDIA SN2100 IP-Switches für die Verwendung als Cluster-Interconnect und für die Back-End-MetroCluster-IP-Konnektivität konfigurieren.
+
+
+
+== Setzen Sie den NVIDIA IP SN2100-Switch auf die Werkseinstellungen zurück
+
+Sie können eine der folgenden Methoden auswählen, um einen Schalter auf die werkseitigen Standardeinstellungen zurückzusetzen.
+
+* ,Setzen Sie den Switch mithilfe der RCF-Dateioption zurück
+* ,Setzen Sie den Schalter mithilfe der Cumulus-Installationsoption zurück
+
+
+
+
+=== Setzen Sie den Switch mithilfe der RCF-Dateioption zurück
+
+Bevor Sie eine neue RCF-Konfiguration installieren, müssen Sie die NVIDIA-Switch-Einstellungen zurücksetzen.
+
+Um den Switch auf die Standardeinstellungen zurückzusetzen, führen Sie die RCF-Datei mit dem aus `restoreDefaults` Option. Mit dieser Option werden die ursprünglichen gesicherten Dateien an den ursprünglichen Speicherort kopiert und anschließend der Switch neu gestartet. Nach dem Neustart wird der Switch mit der ursprünglichen Konfiguration online geschaltet, die bei der ersten Ausführung der RCF-Datei zum Konfigurieren des Switches existierte.
+
+Die folgenden Konfigurationsdetails werden nicht zurückgesetzt:
+
+* Konfiguration von Benutzern und Anmeldeinformationen
+* Konfiguration des Management-Netzwerk-Ports, eth0
+
+
+
+NOTE: Alle anderen Konfigurationsänderungen, die während der Anwendung der RCF-Datei auftreten, werden auf die ursprüngliche Konfiguration zurückgesetzt.
+
+.Bevor Sie beginnen
+* Sie müssen den Switch gemäß konfigurieren ,Laden Sie die NVIDIA RCF-Datei herunter, und installieren Sie sie. Wenn Sie auf diese Weise nicht konfiguriert haben oder vor der Ausführung der RCF-Datei zusätzliche Funktionen konfiguriert haben, können Sie dieses Verfahren nicht verwenden.
+* Sie müssen diese Schritte bei jedem der IP-Switches in der MetroCluster IP-Konfiguration wiederholen.
+* Sie müssen über eine serielle Konsolenverbindung mit dem Switch verbunden sein.
+* Mit dieser Aufgabe wird die Konfiguration des Managementnetzwerks zurückgesetzt.
+
+
+.Schritte
+. Überprüfen Sie, ob die RCF-Konfiguration erfolgreich mit derselben oder einer kompatiblen RCF-Dateiversion angewendet wurde und ob die Sicherungsdateien vorhanden sind.
++
+
+NOTE: Die Ausgabe kann Backup-Dateien, erhaltene Dateien oder beides anzeigen. Wenn Sicherungsdateien oder nicht vorhandene Dateien nicht in der Ausgabe angezeigt werden, können Sie dieses Verfahren nicht verwenden.
+
++
+[listing, subs="+quotes"]
+----
+cumulus@IP_switch_A_1:mgmt:~$ sudo python3 MSN2100_v1.0_IP_switch_A_1.py
+[sudo] password for cumulus:
+>>> Opened RcfApplyLog
+*A RCF configuration has been successfully applied.*
+  *Backup files exist.*
+    *Preserved files exist.*
+    Listing completion of the steps:
+        Success: Step: 1: Performing Backup and Restore
+        Success: Step: 2: updating MOTD file
+        Success: Step: 3: Disabling apt-get
+        Success: Step: 4: Disabling cdp
+        Success: Step: 5: Adding lldp config
+        Success: Step: 6: Creating interfaces
+        Success: Step: 7: Configuring switch basic settings: Hostname, SNMP
+        Success: Step: 8: Configuring switch basic settings: bandwidth allocation
+        Success: Step: 9: Configuring switch basic settings: ecn
+        Success: Step: 10: Configuring switch basic settings: cos and dscp remark
+        Success: Step: 11: Configuring switch basic settings: generic egress cos mappings
+        Success: Step: 12: Configuring switch basic settings: traffic classification
+        Success: Step: 13: Configuring LAG load balancing policies
+        Success: Step: 14: Configuring the VLAN bridge
+        Success: Step: 15: Configuring local cluster ISL ports
+        Success: Step: 16: Configuring MetroCluster ISL ports
+        Success: Step: 17: Configuring ports for MetroCluster-1, local cluster and MetroCluster interfaces
+        Success: Step: 18: Configuring ports for MetroCluster-2, local cluster and MetroCluster interfaces
+        Success: Step: 19: Configuring ports for MetroCluster-3, local cluster and MetroCluster interfaces
+        Success: Step: 20: Configuring L2FC for MetroCluster interfaces
+        Success: Step: 21: Configuring the interface to UP
+        Success: Step: 22: Final commit
+        Success: Step: 23: Final reboot of the switch
+    Exiting ...
+<<< Closing RcfApplyLog
+cumulus@IP_switch_A_1:mgmt:~$
+
+----
+. Führen Sie die RCF-Datei mit der Option zum Wiederherstellen der Standardeinstellungen aus: `restoreDefaults`
++
+[listing]
+----
+cumulus@IP_switch_A_1:mgmt:~$ sudo python3 MSN2100_v1.0_IP_switch_A_2.py restoreDefaults
+[sudo] password for cumulus:
+>>> Opened RcfApplyLog
+Can restore from backup directory. Continuing.
+This will reboot the switch !!!
+Enter yes or no: yes
+----
+. Beantworten Sie die Eingabeaufforderung mit „Ja“. Der Switch wird auf die ursprüngliche Konfiguration zurückgesetzt und startet neu.
+. Warten Sie, bis der Schalter neu gestartet wurde.
++
+Der Switch wird zurückgesetzt und behält die ursprüngliche Konfiguration wie z. B. die Konfiguration des Managementnetzwerks und die aktuellen Zugangsdaten vor dem Anwenden der RCF-Datei bei. Nach dem Neustart können Sie eine neue Konfiguration mit der gleichen oder einer anderen Version der RCF-Datei anwenden.
+
+
+
+
+
+=== Setzen Sie den Schalter mithilfe der Cumulus-Installationsoption zurück
+
+Verwenden Sie diese Schritte, wenn Sie den Schalter vollständig zurücksetzen möchten, indem Sie das Cumulus-Bild anwenden.
+
+.Bevor Sie beginnen
+* Sie müssen über eine serielle Konsolenverbindung mit dem Switch verbunden sein.
+* Das Cumulus Switch-Softwarebild ist über HTTP zugänglich.
+* Sie müssen das Root-Passwort für haben `sudo` Zugriff auf die Befehle.
+
+
+.Schritte
+. Von der Cumulus-Konsole herunterladen und die Switch-Software-Installation mit dem Befehl in Warteschlange stellen `onie-install -a -i` Anschließend folgt der Dateipfad zur Switch-Software:
++
+In diesem Beispiel die Firmware-Datei `cumulus-linux-4.4.2-mlx-amd64.bin` Wird vom HTTP-Server '50.50.50.50' auf den lokalen Switch kopiert.
+
++
+[listing]
+----
+cumulus@IP_switch_A_1:mgmt:~$ sudo onie-install -a -i http://50.50.50.50/switchsoftware/cumulus-linux-4.4.2-mlx-amd64.bin
+Fetching installer: http://50.50.50.50/switchsoftware/cumulus-linux-4.4.2-mlx-amd64.bin
+Downloading URL: http://50.50.50.50/switchsoftware/cumulus-linux-4.4.2-mlx-amd64.bin
+######################################################################### 100.0%
+Success: HTTP download complete.
+tar: ./sysroot.tar: time stamp 2021-01-30 17:00:58 is 53895092.604407122 s in the future
+tar: ./kernel: time stamp 2021-01-30 17:00:58 is 53895092.582826352 s in the future
+tar: ./initrd: time stamp 2021-01-30 17:00:58 is 53895092.509682557 s in the future
+tar: ./embedded-installer/bootloader/grub: time stamp 2020-12-10 15:25:16 is 49482950.509433937 s in the future
+tar: ./embedded-installer/bootloader/init: time stamp 2020-12-10 15:25:16 is 49482950.509336507 s in the future
+tar: ./embedded-installer/bootloader/uboot: time stamp 2020-12-10 15:25:16 is 49482950.509213637 s in the future
+tar: ./embedded-installer/bootloader: time stamp 2020-12-10 15:25:16 is 49482950.509153787 s in the future
+tar: ./embedded-installer/lib/init: time stamp 2020-12-10 15:25:16 is 49482950.509064547 s in the future
+tar: ./embedded-installer/lib/logging: time stamp 2020-12-10 15:25:16 is 49482950.508997777 s in the future
+tar: ./embedded-installer/lib/platform: time stamp 2020-12-10 15:25:16 is 49482950.508913317 s in the future
+tar: ./embedded-installer/lib/utility: time stamp 2020-12-10 15:25:16 is 49482950.508847367 s in the future
+tar: ./embedded-installer/lib/check-onie: time stamp 2020-12-10 15:25:16 is 49482950.508761477 s in the future
+tar: ./embedded-installer/lib: time stamp 2020-12-10 15:25:47 is 49482981.508710647 s in the future
+tar: ./embedded-installer/storage/blk: time stamp 2020-12-10 15:25:16 is 49482950.508631277 s in the future
+tar: ./embedded-installer/storage/gpt: time stamp 2020-12-10 15:25:16 is 49482950.508523097 s in the future
+tar: ./embedded-installer/storage/init: time stamp 2020-12-10 15:25:16 is 49482950.508437507 s in the future
+tar: ./embedded-installer/storage/mbr: time stamp 2020-12-10 15:25:16 is 49482950.508371177 s in the future
+tar: ./embedded-installer/storage/mtd: time stamp 2020-12-10 15:25:16 is 49482950.508293856 s in the future
+tar: ./embedded-installer/storage: time stamp 2020-12-10 15:25:16 is 49482950.508243666 s in the future
+tar: ./embedded-installer/platforms.db: time stamp 2020-12-10 15:25:16 is 49482950.508179456 s in the future
+tar: ./embedded-installer/install: time stamp 2020-12-10 15:25:47 is 49482981.508094606 s in the future
+tar: ./embedded-installer: time stamp 2020-12-10 15:25:47 is 49482981.508044066 s in the future
+tar: ./control: time stamp 2021-01-30 17:00:58 is 53895092.507984316 s in the future
+tar: .: time stamp 2021-01-30 17:00:58 is 53895092.507920196 s in the future
+Staging installer image...done.
+WARNING:
+WARNING: Activating staged installer requested.
+WARNING: This action will wipe out all system data.
+WARNING: Make sure to back up your data.
+WARNING:
+Are you sure (y/N)? y
+Activating staged installer...done.
+Reboot required to take effect.
+cumulus@IP_switch_A_1:mgmt:~$
+----
+. Antworten `y` Um die Eingabeaufforderung zur Bestätigung der Installation zu bestätigen, wenn das Image heruntergeladen und verifiziert wurde.
+. Starten Sie den Switch neu, um die neue Software zu installieren: `sudo reboot`
++
+[listing]
+----
+cumulus@IP_switch_A_1:mgmt:~$ sudo reboot
+----
++
+
+NOTE: Der Switch startet neu und wechselt in die Switch-Software-Installation, was einige Zeit in Anspruch nimmt. Nach Abschluss der Installation wird der Switch neu gestartet und bleibt an der Eingabeaufforderung „Login“.
+
+. Konfigurieren Sie die grundlegenden Switch-Einstellungen
++
+.. Wenn der Switch gestartet wird und in der Anmeldeaufforderung angezeigt wird, melden Sie sich an, und ändern Sie das Passwort.
++
+
+NOTE: Der Benutzername ist 'Cumulus' und das Standardpasswort lautet 'Cumulus'.
+
+
+
++
+[listing]
+----
+Debian GNU/Linux 10 cumulus ttyS0
+
+cumulus login: cumulus
+Password:
+You are required to change your password immediately (administrator enforced)
+Changing password for cumulus.
+Current password:
+New password:
+Retype new password:
+Linux cumulus 4.19.0-cl-1-amd64 #1 SMP Cumulus 4.19.206-1+cl4.4.2u1 (2021-12-18) x86_64
+
+Welcome to NVIDIA Cumulus (R) Linux (R)
+
+For support and online technical documentation, visit
+http://www.cumulusnetworks.com/support
+
+The registered trademark Linux (R) is used pursuant to a sublicense from LMI,
+the exclusive licensee of Linus Torvalds, owner of the mark on a world-wide
+basis.
+
+cumulus@cumulus:mgmt:~$
+----
+. Konfigurieren Sie die Managementoberfläche.
++
+
+NOTE: Das folgende Beispiel zeigt, wie der Hostname (IP_Switch_A_1), die IP-Adresse (10.10.10.10), die Netmask (255.255.255.0 (24)) und das Gateway (10.10.10.1) mit den Befehlen konfiguriert werden: `net add hostname <hostname>`, `net add interface eth0 ip address <IPAddress/mask>`, und `net add interface eth0 ip gateway <Gateway>`.
+
++
+[listing]
+----
+
+cumulus@cumulus:mgmt:~$ net add hostname IP_switch_A_1
+cumulus@cumulus:mgmt:~$ net add interface eth0 ip address 10.0.10.10/24
+cumulus@cumulus:mgmt:~$ net add interface eth0 ip gateway 10.10.10.1
+cumulus@cumulus:mgmt:~$ net pending
+
+.
+.
+.
+
+
+cumulus@cumulus:mgmt:~$ net commit
+
+.
+.
+.
+
+
+net add/del commands since the last "net commit"
+
+
+User Timestamp Command
+
+cumulus 2021-05-17 22:21:57.437099 net add hostname Switch-A-1
+cumulus 2021-05-17 22:21:57.538639 net add interface eth0 ip address 10.10.10.10/24
+cumulus 2021-05-17 22:21:57.635729 net add interface eth0 ip gateway 10.10.10.1
+
+cumulus@cumulus:mgmt:~$
+----
+. Starten Sie den Switch mithilfe des neu `sudo reboot` Befehl.
++
+[listing]
+----
+cumulus@cumulus:~$ sudo reboot
+----
++
+Wenn der Switch neu startet, können Sie eine neue Konfiguration mit den Schritten unter anwenden ,Laden Sie die NVIDIA RCF-Datei herunter, und installieren Sie sie.
+
+
+
+
+
+== Laden Sie die NVIDIA RCF-Dateien herunter, und installieren Sie sie
+
+Sie müssen die RCF-Datei des Switch auf jedem Switch der MetroCluster IP-Konfiguration herunterladen und installieren.
+
+.Bevor Sie beginnen
+* Sie müssen das Root-Passwort für haben `sudo` Zugriff auf die Befehle.
+* Die Switch-Software wird installiert und das Managementnetzwerk konfiguriert.
+* Sie haben die ersten Schritte zur Installation des Switches mit der Methode 1 oder Methode 2 ausgeführt.
+* Nach der Erstinstallation haben Sie keine zusätzliche Konfiguration angewendet.
++
+
+NOTE: Wenn Sie nach dem Zurücksetzen des Switches und vor dem Anwenden der RCF-Datei eine weitere Konfiguration durchführen, können Sie dieses Verfahren nicht verwenden.
+
+
+
+Sie müssen diese Schritte bei jedem der IP-Schalter in der MetroCluster IP-Konfiguration (neue Installation) oder am Ersatzschalter (Switch-Austausch) wiederholen.
+
+.Schritte
+. Generieren Sie die NVIDIA RCF-Dateien für MetroCluster IP.
++
+.. Laden Sie die herunter https://mysupport.netapp.com/site/tools/tool-eula/rcffilegenerator["RCfFileGenerator für MetroCluster-IP"^].
+.. Generieren Sie die RCF-Datei für Ihre Konfiguration mit dem RcfFileGenerator für MetroCluster IP.
+.. Navigieren Sie zu Ihrem Home Directory. Wenn Sie als 'cumulus' angemeldet sind, lautet der Dateipfad `/home/cumulus`.
++
+[listing]
+----
+cumulus@IP_switch_A_1:mgmt:~$ cd ~
+cumulus@IP_switch_A_1:mgmt:~$ pwd
+/home/cumulus
+cumulus@IP_switch_A_1:mgmt:~$
+----
+.. Laden Sie die RCF-Datei in dieses Verzeichnis herunter. Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen `MSN2100_v1.0_IP_switch_A_1.txt` Von Server '50.50.50.50' in Ihr Home-Verzeichnis und speichern Sie es als `MSN2100_v1.0_IP_switch_A_1.py`:
++
+[listing]
+----
+cumulus@Switch-A-1:mgmt:~$ scp username@50.50.50.50:/RcfFiles/MSN2100_v1.0_IP_switch_A_1.txt ./MSN2100_v1.0_IP_switch-A1.py
+The authenticity of host '50.50.50.50 (50.50.50.50)' can't be established.
+RSA key fingerprint is SHA256:B5gBtOmNZvdKiY+dPhh8=ZK9DaKG7g6sv+2gFlGVF8E.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added '50.50.50.50' (RSA) to the list of known hosts.
+***********************************************************************
+Banner of the SCP server
+***********************************************************************
+username@50.50.50.50's password:
+MSN2100_v1.0-X2_IP_switch_A1.txt 100% 55KB 1.4MB/s 00:00
+cumulus@IP_switch_A_1:mgmt:~$
+----
+
+
+. Ausführen der RCF-Datei. Die RCF-Datei erfordert eine Option zum Anwenden eines oder mehrerer Schritte. Führen Sie die RCF-Datei ohne die Befehlszeilenoption aus, sofern Sie nicht vom technischen Support dazu aufgefordert werden. Um den Abschlussstatus der verschiedenen Schritte der RCF-Datei zu überprüfen, verwenden Sie die Option '-1' oder 'all', um alle (ausstehenden) Schritte anzuwenden.
++
+[listing]
+----
+
+cumulus@IP_switch_A_1:mgmt:~$ sudo python3 MSN2100_v1.0_IP_switch_A_1.py
+all
+[sudo] password for cumulus:
+The switch will be rebooted after the step(s) have been run.
+Enter yes or no: yes
+
+
+
+... the steps will apply - this is generating a lot of output ...
+
+
+
+Running Step 24: Final reboot of the switch
+
+
+
+... The switch will reboot if all steps applied successfully ...
+----
+

@@ -1,0 +1,74 @@
+---
+permalink: upgrade/task_change_the_ha_config_setts_mcc_add_a_2nd_controller.html 
+sidebar: sidebar 
+keywords: metrocluster, upgrade, change, ha, config, sett, existing, new, controller, modules 
+summary: Wenn Sie eine MetroCluster-Konfiguration erweitern, müssen Sie die HA-Konfigurationseinstellung des vorhandenen Controller-Moduls und des neuen Controller-Moduls aktualisieren. Sie müssen außerdem die System-ID des neuen Controller-Moduls bestimmen. 
+---
+= Ändern der HA-Konfigurationseinstellung für die vorhandenen und neuen Controller-Module
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie eine MetroCluster-Konfiguration erweitern, müssen Sie die HA-Konfigurationseinstellung des vorhandenen Controller-Moduls und des neuen Controller-Moduls aktualisieren. Sie müssen außerdem die System-ID des neuen Controller-Moduls bestimmen.
+
+Diese Aufgabe wird sowohl bei vorhandenen als auch bei neuen Controller-Modulen im Wartungsmodus ausgeführt.
+
+.Schritte
+. Ändern Sie die HA-Konfigurationseinstellung des vorhandenen Controller-Moduls:
++
+.. Zeigen Sie die HA-Konfigurationseinstellung des vorhandenen Controller-Moduls und des Gehäuses an:
++
+`ha-config show`
+
++
+Die HA-Konfigurationseinstellung ist für alle Komponenten „`mcc-2n`“, da sich das Controller-Modul in einer MetroCluster-Konfiguration mit zwei Knoten befand.
+
+.. Ändern Sie die HA-Konfigurationseinstellung des vorhandenen Controller-Moduls in „`mcc`“: +
+`ha-config modify controller mcc`
+.. Ändern Sie die HA-Konfigurationseinstellung des vorhandenen Gehäuses in „`mcc`“:
++
+`ha-config modify chassis mcc`
+
+.. Rufen Sie die System-ID für das vorhandene Controller-Modul ab:
++
+`sysconfig`
+
++
+Notieren Sie die System-ID. Sie benötigen es, wenn Sie die Partner-ID auf dem neuen Controller-Modul einstellen.
+
+.. Beenden Sie den Wartungsmodus, um zur LOADER-Eingabeaufforderung zurückzukehren:
++
+`halt`
+
+
+
+. Ändern Sie die HA-Konfigurationseinstellung und rufen Sie die System-ID des neuen Controller-Moduls ab:
++
+.. Wenn sich das neue Controller-Modul nicht bereits im Wartungsmodus befindet, starten Sie es in den Wartungsmodus:
++
+`boot_ontap maint`
+
+.. Ändern Sie die HA-Konfigurationseinstellung des neuen Controller-Moduls in „`mcc`“:
++
+`ha-config modify controller mcc`
+
+.. Ändern Sie die HA-Konfigurationseinstellung des neuen Chassis in mcc:
++
+`ha-config modify chassis mcc`
+
+.. Rufen Sie die System-ID für das neue Controller-Modul ab:
++
+`sysconfig`
+
++
+Notieren Sie die System-ID. Sie benötigen es, wenn Sie die Partner-ID festlegen und dem neuen Controller-Modul Festplatten zuweisen.
+
+.. Beenden Sie den Wartungsmodus, um zur LOADER-Eingabeaufforderung zurückzukehren:
++
+`halt`
+
+
+
+

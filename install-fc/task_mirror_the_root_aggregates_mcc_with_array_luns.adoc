@@ -1,0 +1,36 @@
+---
+permalink: install-fc/task_mirror_the_root_aggregates_mcc_with_array_luns.html 
+sidebar: sidebar 
+keywords: metrocluster, fabric, installation, mirror, root, aggregates 
+summary: Sie müssen die Root-Aggregate in Ihrer MetroCluster Konfiguration spiegeln, um die Datensicherung zu gewährleisten. 
+---
+= Spiegelung der Root-Aggregate
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen die Root-Aggregate in Ihrer MetroCluster Konfiguration spiegeln, um die Datensicherung zu gewährleisten.
+
+Sie müssen sicherstellen, dass die SyncMirror-Anforderungen für die MetroCluster-Konfiguration mit Array-LUNs erfüllt sind. Siehelink:reference_requirements_for_a_mcc_configuration_with_array_luns_reference.html["Anforderungen für eine MetroCluster-Konfiguration mit Array-LUNs"].
+
+Sie müssen diese Aufgabe für jeden Controller in der MetroCluster-Konfiguration wiederholen.
+
+.Schritt
+. Spiegelung des nicht gespiegelten Root-Aggregats:
++
+`storage aggregate mirror`
+
++
+Der folgende Befehl spiegelt das Root-Aggregat für Controller_A_1:
+
++
+[listing]
+----
+controller_A_1::> storage aggregate mirror aggr0_controller_A_1
+----
++
+Das Root-Aggregat wird mit Array-LUNs aus Pool1 gespiegelt.
+
+

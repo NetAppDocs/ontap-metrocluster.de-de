@@ -1,0 +1,305 @@
+---
+permalink: install-ip/concept_required_mcc_ip_components_and_naming_guidelines_mcc_ip.html 
+sidebar: sidebar 
+keywords: plan, metrocluster, ip, configuration, planning, require, hardware, software, clarity, conventions, component, documentation, naming, name, requirement, support, redundancy, switch, ontap, cluster, controller, module, gigabit, ethernet, adapter, pool, drive, drive, location, consideration, partial, populate, shelves, shelf, aff, a800, internal, iom12, iom, module, stack, four-node, raid-dp, raid4, AFF A800 internal drives 
+summary: Wenn Sie Ihre MetroCluster IP-Konfiguration planen, müssen Sie die erforderlichen und unterstützten Hardware- und Softwarekomponenten kennen. Für Einfachheit und Klarheit sollten Sie auch die Namenskonventionen verstehen, die für Komponenten in Beispielen in der gesamten Dokumentation verwendet werden. 
+---
+= Erforderliche MetroCluster IP-Komponenten und Namenskonventionen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie Ihre MetroCluster IP-Konfiguration planen, müssen Sie die erforderlichen und unterstützten Hardware- und Softwarekomponenten kennen. Für Einfachheit und Klarheit sollten Sie auch die Namenskonventionen verstehen, die für Komponenten in Beispielen in der gesamten Dokumentation verwendet werden.
+
+
+
+== Unterstützte Software und Hardware
+
+Hardware und Software müssen für die MetroCluster IP-Konfiguration unterstützt werden.
+
+https://hwu.netapp.com["NetApp Hardware Universe"]
+
+Beim Einsatz von AFF Systemen müssen alle Controller-Module in der MetroCluster Konfiguration als AFF Systeme konfiguriert sein.
+
+
+
+== Anforderungen an Hardwareredundanz in einer MetroCluster IP-Konfiguration
+
+Aufgrund der Hardware-Redundanz in der MetroCluster IP-Konfiguration gibt es an jedem Standort zwei Komponenten. Den Standorten werden die Buchstaben A und B willkürlich zugeordnet, und den einzelnen Komponenten werden die Zahlen 1 und 2 willkürlich zugeordnet.
+
+
+
+== ONTAP-Cluster-Anforderungen in einer MetroCluster IP-Konfiguration
+
+Für MetroCluster IP-Konfigurationen sind zwei ONTAP Cluster erforderlich, eines an jedem MetroCluster Standort.
+
+Die Benennung muss innerhalb der MetroCluster Konfiguration eindeutig sein.
+
+Beispielnamen:
+
+* Standort A: Cluster_A
+* Standort B: Cluster_B
+
+
+
+
+== IP-Switch-Anforderungen in einer MetroCluster IP-Konfiguration
+
+Für MetroCluster IP-Konfigurationen sind vier IP-Switches erforderlich. Die vier Switches bilden zwei Switch-Storage-Fabrics, die in der MetroCluster IP-Konfiguration zwischen jedem der Cluster die ISL bieten.
+
+Zudem sorgen die IP-Switches für eine Intracluster-Kommunikation zwischen den Controller-Modulen in jedem Cluster.
+
+Die Benennung muss innerhalb der MetroCluster Konfiguration eindeutig sein.
+
+Beispielnamen:
+
+* Standort A: Cluster_A
++
+** IP_Switch_A_1
+** IP_Switch_A_2
+
+
+* Standort B: Cluster_B
++
+** IP_Switch_B_1
+** IP_Switch_B_2
+
+
+
+
+
+
+== Anforderungen an das Controller-Modul in einer MetroCluster IP-Konfiguration
+
+MetroCluster IP-Konfigurationen erfordern vier oder acht Controller-Module.
+
+Die Controller-Module an jedem Standort bilden ein HA-Paar. Jedes Controller-Modul besitzt einen DR-Partner am anderen Standort.
+
+Jedes Controller-Modul muss die gleiche ONTAP-Version aufweisen. Unterstützte Plattformmodelle sind von der ONTAP Version abhängig:
+
+* Neue MetroCluster IP-Installationen auf FAS Systemen werden in ONTAP 9.4 nicht unterstützt.
++
+Vorhandene MetroCluster IP Konfigurationen auf FAS Systemen können auf ONTAP 9.4 aktualisiert werden.
+
+* Ab ONTAP 9.5 werden neue MetroCluster IP-Installationen auf FAS Systemen unterstützt.
+* Ab ONTAP 9.4 werden für ADP konfigurierte Controller-Module unterstützt.
+
+
+
+
+=== Controller-Modelle sind auf Konfigurationen mit vier Nodes beschränkt
+
+Diese Modelle sind in einer MetroCluster-Konfiguration auf vier begrenzt.
+
+* AFF A220
+* AFF A250
+* FAS2750
+* FAS500f
+
+
+Beispielsweise werden die folgenden Konfigurationen nicht unterstützt:
+
+* Eine Konfiguration mit acht Nodes, die aus acht AFF A250 Controllern besteht.
+* Eine Konfiguration mit acht Nodes, bestehend aus vier AFF 220 Controllern und vier FAS500f Controllern.
+* Zwei MetroCluster IP-Konfigurationen mit vier Nodes, die jeweils aus AFF A250 Controllern und denselben Back-End-Switches bestehen.
+* Eine Konfiguration mit acht Nodes, bestehend aus DR Group 1 mit AFF A250 Controllern und DR-Gruppe 2 mit FAS9000 Controllern
+
+
+Sie können zwei separate MetroCluster IP-Konfigurationen mit vier Nodes mit denselben Back-End Switches konfigurieren, wenn im zweiten MetroCluster keine der oben genannten Modelle enthalten sind.
+
+
+
+=== Beispielnamen
+
+Die folgenden Beispielnamen werden in der Dokumentation verwendet:
+
+* Standort A: Cluster_A
++
+** Controller_A_1
+** Controller_A_2
+
+
+* Standort B: Cluster_B
++
+** Controller_B_1
+** Controller_B_2
+
+
+
+
+
+
+== Anforderungen für Gigabit-Ethernet-Adapter in einer MetroCluster IP-Konfiguration
+
+Bei den MetroCluster IP-Konfigurationen wird für die IP-Schnittstellen zu den für das MetroCluster IP Fabric verwendeten IP-Switches ein Ethernet-Adapter mit 40/100 Gbit/s oder 10/25 Gbit/s verwendet.
+
+|===
+
+
+| Modell der Plattform | Erforderlicher Gigabit-Ethernet-Adapter | Erforderlicher Steckplatz für Adapter | Ports 
+
+
+| AFF A900 UND FAS9500 | X91146A | Steckplatz 5, Steckplatz 7 | E5b, e7b 
+
+
+ a| 
+AFF A700 UND FAS9000
+ a| 
+X91146A-C
+ a| 
+Einschubfach 5
+ a| 
+e5a, e5b
+
+
+
+ a| 
+AFF A800
+ a| 
+X1146A/Onboard-Ports
+ a| 
+Steckplatz 1
+ a| 
+e0b: e1b
+
+
+
+ a| 
+AFF A400 UND FAS8300
+ a| 
+X1146A
+ a| 
+Steckplatz 1
+ a| 
+e1a, e1b
+
+
+
+ a| 
+AFF A300 UND FAS8200
+ a| 
+X1116 A
+ a| 
+Steckplatz 1
+ a| 
+e1a, e1b
+
+
+
+ a| 
+AFF A220 UND FAS2750
+ a| 
+Onboard-Ports
+ a| 
+Steckplatz 0
+ a| 
+e0a, e0b
+
+
+
+ a| 
+AFF A250 und FAS500f
+ a| 
+Onboard-Ports
+ a| 
+Steckplatz 0
+ a| 
+e0c, e0d
+
+
+
+ a| 
+AFF A320
+ a| 
+Onboard-Ports
+ a| 
+Steckplatz 0
+ a| 
+e0g, e0h
+
+|===
+
+
+== Pool- und Festplattenanforderungen (mindestens unterstützt)
+
+Es werden acht SAS-Platten-Shelves empfohlen (vier Shelfs an jedem Standort), damit sich die Anschaffung von Festplatten pro Shelf zulässt.
+
+MetroCluster IP-Konfigurationen mit vier Nodes erfordern an jedem Standort die Minimalkonfiguration:
+
+* Jeder Node hat mindestens einen lokalen Pool und einen Remote-Pool am Standort.
+* Mindestens sieben Laufwerke pro Pool.
++
+In einer MetroCluster-Konfiguration mit vier Nodes und einem einzelnen gespiegelten Datenaggregat pro Node sind für die Minimalkonfiguration 24 Festplatten am Standort erforderlich.
+
+
+
+In einer minimal unterstützten Konfiguration verfügt jeder Pool über das folgende Laufwerkslayout:
+
+* Drei Root-Laufwerke
+* Drei Datenlaufwerke
+* Ein Ersatzlaufwerk
+
+
+Bei einer unterstützten Minimalkonfiguration ist pro Standort mindestens ein Shelf erforderlich.
+
+MetroCluster-Konfigurationen unterstützen RAID-DP und RAID4.
+
+
+
+== Überlegungen zum Speicherort von Laufwerken für teilweise bestückte Shelfs
+
+Die Laufwerke sollten sich in den Steckplätzen 0-5 und 18-23 befinden, um Laufwerke bei Verwendung von Shelfs, die halb bestückt sind (12 Laufwerke in einem Shelf mit 24 Laufwerken), automatisch zuweisen.
+
+Bei einer Konfiguration mit einem teilweise bestückten Shelf müssen die Laufwerke gleichmäßig in die vier Quadranten des Shelfs verteilt werden.
+
+
+
+== Überlegungen zum Laufwerkstandort für interne AFF A800 Laufwerke
+
+Für eine korrekte Implementierung der ADP-Funktion müssen die AFF A800 Systemfestplattenschächte in Quartale aufgeteilt und die Laufwerke symmetrisch in den Quartalen angeordnet sein.
+
+Ein AFF A800 System verfügt über 48 Laufwerkschächte. Die Buchten können in Quartiere unterteilt werden:
+
+* Quartal:
++
+** Einschübe 0 Bis 5
+** Buchten 24 - 29
+
+
+* Quartal:
++
+** Buchten 6 - 11
+** Buchten 30 - 35
+
+
+* Quartal:
++
+** Buchten 12 - 17
+** Buchten 36 - 41
+
+
+* Quartal:
++
+** Buchten 18 - 23
+** Buchten 42 - 47
+
+
+
+
+Wenn dieses System mit 16 Laufwerken bestückt ist, müssen sie symmetrisch auf die vier Quartale verteilt werden:
+
+* Vier Laufwerke im ersten Quartal: 0, 1, 2, 3
+* Im zweiten Quartal vier Laufwerke: 6, 7, 8, 9
+* Im dritten Quartal vier Laufwerke: 12, 13, 14, 15
+* Vier Laufwerke im vierten Quartal: 18, 19, 20, 21
+
+
+
+
+== Mischen von IOM12 und IOM 6 Modulen in einem Stack
+
+Ihre Version von ONTAP muss Shelf-Mix unterstützen. Siehe https://mysupport.netapp.com/NOW/products/interoperability["NetApp Interoperabilitäts-Matrix-Tool (IMT)"] Um zu prüfen, ob Ihre Version von ONTAP Shelf-Mischungen unterstützt.
+
+Weitere Informationen zum Anmischen von Regalen finden Sie unter https://docs.netapp.com/platstor/topic/com.netapp.doc.hw-ds-mix-hotadd/home.html["Hot-Adding-Shelfs mit IOM12-Modulen werden in einem Shelf-Stack mit IOM6-Modulen ausgeführt"]

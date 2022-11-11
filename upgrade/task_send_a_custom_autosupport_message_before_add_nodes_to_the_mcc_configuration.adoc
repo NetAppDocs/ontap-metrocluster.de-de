@@ -1,0 +1,31 @@
+---
+permalink: upgrade/task_send_a_custom_autosupport_message_before_add_nodes_to_the_mcc_configuration.html 
+sidebar: sidebar 
+keywords: metrocluster, upgrade, autosupport, custom, message, add, node, configuration 
+summary: Sie sollten eine AutoSupport Meldung ausgeben, um den technischen Support von NetApp über die laufende Wartung zu informieren. Die Mitteilung des technischen Supports über laufende Wartungsarbeiten verhindert, dass ein Fall eröffnet wird, wenn eine Störung aufgetreten ist. 
+---
+= Senden einer benutzerdefinierten AutoSupport Meldung vor dem Hinzufügen von Nodes zur MetroCluster Konfiguration
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie sollten eine AutoSupport Meldung ausgeben, um den technischen Support von NetApp über die laufende Wartung zu informieren. Die Mitteilung des technischen Supports über laufende Wartungsarbeiten verhindert, dass ein Fall eröffnet wird, wenn eine Störung aufgetreten ist.
+
+Diese Aufgabe muss auf jedem MetroCluster-Standort ausgeführt werden.
+
+.Schritte
+. Melden Sie sich bei Site_A beim Cluster an
+. Rufen Sie eine AutoSupport-Meldung auf, die den Beginn der Wartung angibt:
++
+`system node autosupport invoke -node * -type all -message MAINT=__maintenance-window-in-hours__`
+
++
+Der `maintenance-window-in-hours` Der Parameter gibt die Länge des Wartungsfensters an und kann maximal 72 Stunden betragen. Wenn die Wartung vor Ablauf der Zeit abgeschlossen ist, können Sie den folgenden Befehl eingeben, um anzugeben, dass der Wartungszeitraum beendet ist:
+
++
+`system node autosupport invoke -node * -type all -message MAINT=end`
+
+. Wiederholen Sie diesen Schritt auf der Partner-Site.
+

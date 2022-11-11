@@ -1,0 +1,38 @@
+= 
+:allow-uri-read: 
+
+
++
+
+--
+[NOTE]
+====
+* Bestimmte Plattformen verwenden ein VLAN für die MetroCluster IP Schnittstelle. Standardmäßig verwenden alle beiden Ports ein anderes VLAN: 10 und 20. Sie können auch ein anderes (nicht standardmäßiges) VLAN angeben, das höher als 100 (zwischen 101 und 4095) ist `-vlan-id parameter` Im `metrocluster configuration-settings interface create` Befehl.
+* Ab ONTAP 9.9 müssen Sie auch die angeben, wenn Sie eine Layer 3-Konfiguration verwenden `-gateway` Parameter beim Erstellen von MetroCluster-IP-Schnittstellen. Siehe link:../install-ip/concept_considerations_layer_3.html["Überlegungen für Layer 3-Weitbereichs-Netzwerke"].
+
+
+====
+--
++ die folgenden Plattformmodelle können der vorhandenen MetroCluster Konfiguration hinzugefügt werden, wenn die verwendeten VLANs 10/20 oder größer als 100 sind. Werden weitere VLANs verwendet, können diese Plattformen nicht zur vorhandenen Konfiguration hinzugefügt werden, da die MetroCluster Schnittstelle nicht konfiguriert werden kann. Wenn Sie eine andere Plattform verwenden, ist die VLAN-Konfiguration nicht relevant, da dies in ONTAP nicht erforderlich ist.
+
++
+
+|===
+
+
+| AFF Plattformen | FAS Plattformen 
+
+
+ a| 
+* AFF A220
+* AFF A250
+* AFF A400
+
+ a| 
+* FAS2750
+* FAS500f
+* FAS8300
+* FAS8700
+
+
+|===

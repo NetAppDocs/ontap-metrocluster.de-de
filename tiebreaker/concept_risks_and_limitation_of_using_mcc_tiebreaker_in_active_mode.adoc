@@ -1,0 +1,26 @@
+---
+permalink: tiebreaker/concept_risks_and_limitation_of_using_mcc_tiebreaker_in_active_mode.html 
+sidebar: sidebar 
+keywords: switchover, upon, detection, site, failure, automatic, metrocluster, tiebreaker, active, mode, supplement, ontap, fas, capability, risk, limitation 
+summary: Umschaltung bei Erkennung eines Standortausfalls wird automatisch ausgeführt. MetroCluster Tiebreaker befindet sich im aktiven Modus. Dieser Modus kann zur Ergänzung der Funktion zur automatischen Umschaltung von ONTAP/FAS verwendet werden. 
+---
+= Risiken und Einschränkungen bei der Verwendung von MetroCluster Tiebreaker im aktiven Modus
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Umschaltung bei Erkennung eines Standortausfalls wird automatisch ausgeführt. MetroCluster Tiebreaker befindet sich im aktiven Modus. Dieser Modus kann zur Ergänzung der Funktion zur automatischen Umschaltung von ONTAP/FAS verwendet werden.
+
+Wenn Sie MetroCluster Tiebreaker im aktiven Modus implementieren, können die folgenden bekannten Probleme zu Datenverlust führen:
+
+* Wenn die Verbindung zwischen den Standorten fehlschlägt, werden die Controller auf jedem Standort weiterhin mit den Clients verbunden. Die Controller werden jedoch nicht gespiegelt. Der Ausfall eines Controllers an einem Standort wird als Standortausfall erkannt und der MetroCluster Tiebreaker initiiert eine Umschaltung. Die Daten, die nach dem Ausfall der Verbindung zwischen den Standorten mit dem Remote Standort nicht gespiegelt werden, gehen verloren.
+* Eine Umschaltung findet statt, wenn die Aggregate am Remote-Standort eingeschränkt sind. Die Daten werden nicht repliziert, wenn die Umschaltung erfolgt ist, bevor die Aggregat-Resynchronisierung erfolgt ist.
+* Wenn die Umschaltung abgeschlossen wird, tritt ein Remote-Storage-Ausfall auf.
+* Nicht-flüchtiger Speicher (NVRAM oder NVMEM, je nach Plattformmodell) in den Storage-Controllern wird nicht vom Remote Disaster Recovery (DR)-Partner am Partnerstandort gespiegelt.
+* Die Metadaten gehen verloren, wenn das Cluster-Peering-Netzwerk über einen längeren Zeitraum ausfällt und die Metadaten-Volumes nach einem Switchover nicht online sind.
+
+
+
+NOTE: Möglicherweise treten Szenarien auf, die nicht erwähnt werden. NetApp ist nicht verantwortlich für jegliche Schäden, die sich aus der Verwendung von MetroCluster Tiebreaker im aktiven Modus ergeben können. Verwenden Sie MetroCluster Tiebreaker nicht im aktiven Modus, wenn die Risiken und Einschränkungen für Sie nicht akzeptabel sind.

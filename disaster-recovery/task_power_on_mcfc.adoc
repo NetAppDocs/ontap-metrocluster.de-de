@@ -1,0 +1,141 @@
+---
+permalink: disaster-recovery/task_power_on_mcfc.html 
+sidebar: sidebar 
+keywords: power, sas, storage, direct, attached, configuration, fabric 
+summary: Wenn die Vorbereitung auf den Wechsel zum Back bereit ist, müssen die MetroCluster Komponenten am Disaster-Standort eingeschaltet werden. 
+---
+= Einschalten des Systems am Disaster-Standort
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn die Vorbereitung auf den Wechsel zum Back bereit ist, müssen die MetroCluster Komponenten am Disaster-Standort eingeschaltet werden. Zusätzlich müssen Sie die SAS-Storage-Verbindungen auch in Direct-Attached MetroCluster-Konfigurationen reaktivieren und in Fabric-Attached MetroCluster-Konfigurationen-Ports unterstützen, die nicht zwischen Switches liegen.
+
+Sie müssen die MetroCluster-Komponenten bereits genau wie die alten ersetzt und verkabelt haben.
+
+link:../install-fc/index.html["Installation und Konfiguration von Fabric-Attached MetroCluster"]
+
+link:../install-stretch/concept_considerations_differences.html["Installation und Konfiguration von Stretch MetroCluster"]
+
+Die Beispiele in diesem Verfahren gehen davon aus, dass:
+
+* Standort A ist der Notfallstandort.
++
+** FC_Switch_A_1 wurde ersetzt.
+** FC_Switch_A_2 wurde ersetzt.
+
+
+* Standort B ist der überlebende Standort.
++
+** FC_Switch_B_1 ist in einem ordnungsgemäßen Zustand.
+** FC_Switch_B_2 ist in einem ordnungsgemäßen Zustand.
+
+
+
+
+Die FC-Switches sind nur in Fabric-Attached MetroCluster-Konfigurationen verfügbar.
+
+.Schritte
+. Bei Stretch-MetroCluster-Konfiguration über SAS-Verkabelung (und keine FC Switch Fabric- oder FC-to-SAS-Bridges) verbinden Sie den gesamten Storage einschließlich des Remote-Storage über beide Standorte hinweg.
++
+Der Controller am Disaster-Standort muss ausgeschaltet bleiben oder an DER LOADER-Eingabeaufforderung angezeigt werden.
+
+. Deaktivieren Sie auf dem verbleibenden Standort die automatische Festplattenzuordnung:
++
+`storage disk option modify -autoassign off *`
+
++
+[listing]
+----
+cluster_B::> storage disk option modify -autoassign off *
+2 entries were modified.
+----
+. Vergewissern Sie sich am verbleibenden Standort, dass die automatische Festplattenzuordnung aus ist:
++
+`storage disk option show`
+
++
+[listing]
+----
+cluster_B::> storage disk option show
+Node     BKg. FW. Upd.  Auto Copy   Auto Assign  Auto Assign Policy
+--------  -------------  -----------  -----------  ------------------
+node_B_1       on            on          off             default
+node_B_2       on            on          off             default
+2 entries were displayed.
+
+ cluster_B::>
+----
+. Schalten Sie die Platten-Shelfs am Disaster Standort ein und stellen Sie sicher, dass alle Festplatten ausgeführt werden.
+. Aktivieren Sie in einer MetroCluster Konfiguration mit Bridge- oder Fabric-Attached Storage alle FC-to-SAS-Bridges am DR-Standort.
+. Wenn Festplatten ausgetauscht wurden, lassen Sie die Controller ausgeschaltet oder an DER LOADER-Eingabeaufforderung.
+. Aktivieren Sie in einer Fabric-Attached MetroCluster-Konfiguration die nicht-ISL-Ports auf den FC-Switches.
++
+|===
+
+
+| Wenn der Switch-Anbieter... | Verwenden Sie anschließend diese Schritte, um die Ports zu aktivieren... 
+
+
+ a| 
+Brocade
+ a| 
+.. Dauerhaft die Ports aktivieren, die mit den FC-to-SAS-Bridges verbunden sind: `portpersistentenable port-number`
++
+Im folgenden Beispiel sind die Ports 6 und 7 aktiviert:
+
++
+[listing]
+----
+FC_switch_A_1:admin> portpersistentenable 6
+FC_switch_A_1:admin> portpersistentenable 7
+
+FC_switch_A_1:admin>
+----
+.. Dauerhaft aktivieren Sie die Ports, die mit den HBAs und FC-VI-Adaptern verbunden sind: `portpersistentenable port-number`
++
+Im folgenden Beispiel sind die Ports 6 und 7 aktiviert:
+
++
+[listing]
+----
+FC_switch_A_1:admin> portpersistentenable 1
+FC_switch_A_1:admin> portpersistentenable 2
+FC_switch_A_1:admin> portpersistentenable 4
+FC_switch_A_1:admin> portpersistentenable 5
+FC_switch_A_1:admin>
+----
++
+
+NOTE: Bei AFF A700 und FAS9000 Systemen müssen Sie alle vier FC-VI-Ports mithilfe des Befehls switchcfgpersistent enable dauerhaft aktivieren.
+
+.. Wiederholen Sie die Teilschritte A und b für den zweiten FC-Switch am noch verbleibenden Standort.
+
+
+
+
+ a| 
+Cisco
+ a| 
+.. Wechseln Sie in den Konfigurationsmodus für die Schnittstelle, und aktivieren Sie dann die Ports mit dem Befehl „no shut“.
++
+Im folgenden Beispiel ist Port fc1/36 deaktiviert:
+
++
+[listing]
+----
+FC_switch_A_1# conf t
+FC_switch_A_1(config)# interface fc1/36
+FC_switch_A_1(config)# no shut
+FC_switch_A_1(config-if)# end
+FC_switch_A_1# copy running-config startup-config
+----
+.. Vergewissern Sie sich, dass der Switch-Port aktiviert ist: `show interface brief`
+.. Wiederholen Sie die Subschritte A und b auf den anderen Ports, die mit den FC-to-SAS-Bridges, HBAs und FC-VI-Adaptern verbunden sind.
+.. Wiederholen Sie die Teilschritte A, b und c für den zweiten FC-Switch am verbleibenden Standort.
+
+
+|===
+

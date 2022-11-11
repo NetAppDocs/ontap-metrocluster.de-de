@@ -1,0 +1,187 @@
+---
+permalink: upgrade/task_prepare_cluster_ports_on_the_exist_controller.html 
+sidebar: sidebar 
+keywords: metrocluster, upgrade, prepare, cluster, ports, existing, controller, module 
+summary: Vor dem Installieren eines neuen Controller-Moduls müssen Sie Cluster-Ports auf dem vorhandenen Controller-Modul konfigurieren, damit die Cluster-Ports mit dem neuen Controller-Modul kommunizieren können. 
+---
+= Vorbereiten von Cluster-Ports auf einem vorhandenen Controller-Modul
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Vor dem Installieren eines neuen Controller-Moduls müssen Sie Cluster-Ports auf dem vorhandenen Controller-Modul konfigurieren, damit die Cluster-Ports mit dem neuen Controller-Modul kommunizieren können.
+
+Wenn Sie einen 2-Node-Cluster ohne Switches erstellen (ohne Cluster-Netzwerk-Switches), müssen Sie den Switch-freien Cluster-Netzwerkmodus aktivieren.
+
+Ausführliche Informationen zur Port-, LIF- und Netzwerkkonfiguration in ONTAP finden Sie unter link:https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-nmg/home.html["Netzwerkmanagement"^].
+
+.Schritte
+. Legen Sie fest, welche Ports als Cluster-Ports des Node verwendet werden sollen.
++
+Eine Liste der Standard-Portrollen für Ihre Plattform finden Sie im https://hwu.netapp.com/["Hardware Universe"^]
+
++
+Die Anweisungen _Installation and Setup_ für Ihre Plattform auf der NetApp Support Site enthalten Informationen zu den Ports für Cluster-Netzwerkverbindungen.
+
+. Geben Sie für jeden Cluster-Port die Port-Rollen an:
++
+`network port show`
+
++
+Im folgenden Beispiel müssen die Ports „`e0a`“, „`e0b`“, „`e0c`“ und „`e0d`“ in Cluster-Ports geändert werden:
+
++
+[listing]
+----
+cluster_A::> network port show
+
+Node: controller_A_1
+Speed(Mbps) Health
+Port      IPspace      Broadcast Domain Link  MTU    Admin/Oper  Status
+--------- ------------ ---------------- ----  ----   ----------- --------
+e0M       Default      mgmt_bd_1500     up    1500   auto/1000   healthy
+e0a       Default      Default          up    1500   auto/10000  healthy
+e0b       Default      Default          up    1500   auto/10000  healthy
+e0c       Default      Default          up    1500   auto/10000  healthy
+e0d       Default      Default          up    1500   auto/10000  healthy
+e0i       Default      Default          down  1500   auto/10     -
+e0j       Default      Default          down  1500   auto/10     -
+e0k       Default      Default          down  1500   auto/10     -
+e0l       Default      Default          down  1500   auto/10     -
+e2a       Default      Default          up    1500   auto/10000  healthy
+e2b       Default      Default          up    1500   auto/10000  healthy
+e4a       Default      Default          up    1500   auto/10000  healthy
+e4b       Default      Default          up    1500   auto/10000  healthy
+13 entries were displayed.
+----
+. Ändern Sie für alle Daten-LIFs, die einen Cluster-Port als Home-Port oder aktuellen Port verwenden, die LIF, um einen Daten-Port als Home-Port zu verwenden:
++
+`network interface modify`
+
++
+Im folgenden Beispiel wird der Home-Port einer Daten-LIF auf einen Daten-Port geändert:
+
++
+[listing]
+----
+cluster1::> network interface modify -lif datalif1 -vserver vs1 -home-port e1b
+----
+. Setzen Sie für jede geänderte LIF auf ihren neuen Home-Port zurück:
++
+`network interface revert`
+
++
+Das folgende Beispiel setzt das LIF „`datalif1`“ auf seinen neuen Home-Port „`e1b`“ zurück:
+
++
+[listing]
+----
+cluster1::> network interface revert -lif datalif1 -vserver vs1
+----
+. Entfernen Sie alle VLAN-Ports mithilfe von Cluster-Ports als Mitgliedsports und ifgrps, die Cluster-Ports als Mitgliedsports verwenden.
++
+.. VLAN-Ports löschen: +
+`network port vlan delete -node _node-name_ -vlan-name _portid-vlandid_`
++
+Beispiel:
+
++
+[listing]
+----
+network port vlan delete -node node1 -vlan-name e1c-80
+----
+.. Entfernen Sie physische Ports aus den Schnittstellengruppen:
++
+`network port ifgrp remove-port -node _node-name_ -ifgrp _interface-group-name_ -port _portid_`
+
++
+Beispiel:
+
++
+[listing]
+----
+network port ifgrp remove-port -node node1 -ifgrp a1a -port e0d
+----
+.. Entfernen Sie VLAN und Interface Group Ports aus Broadcast-Domäne:
++
+`network port broadcast-domain remove-ports -ipspace _ipspace_ -broadcast-domain _broadcast-domain-name_ -ports _nodename:portname,nodename:portname_,..`
+
+.. Ändern Sie die Schnittstellen-Gruppen-Ports, um bei Bedarf andere physische Ports als Mitglied zu verwenden.: +
+`ifgrp add-port -node _node-name_ -ifgrp _interface-group-name_ -port _port-id_`
+
+
+. Vergewissern Sie sich, dass sich die Portrollen geändert haben:
++
+`network port show`
+
++
+Das folgende Beispiel zeigt, dass die Ports „`e0a`“, „`e0b`“, „`e0c`“ und „`e0d`“ nun Cluster-Ports sind:
+
++
+[listing]
+----
+Node: controller_A_1
+Speed(Mbps) Health
+Port      IPspace      Broadcast Domain Link  MTU    Admin/Oper  Status
+--------- ------------ ---------------- ----  ----   ----------- --------
+e0M       Default      mgmt_bd_1500     up    1500   auto/1000   healthy
+e0a       Cluster      Cluster          up    9000   auto/10000  healthy
+e0b       Cluster      Cluster          up    9000   auto/10000  healthy
+e0c       Cluster      Cluster          up    9000   auto/10000  healthy
+e0d       Cluster      Cluster          up    9000   auto/10000  healthy
+e0i       Default      Default          down  1500   auto/10 -
+e0j       Default      Default          down  1500   auto/10 -
+e0k       Default      Default          down  1500   auto/10 -
+e0l       Default      Default          down  1500   auto/10 -
+e2a       Default      Default          up    1500   auto/10000  healthy
+e2b       Default      Default          up    1500   auto/10000  healthy
+e4a       Default      Default          up    1500   auto/10000  healthy
+e4b       Default      Default          up    1500   auto/10000  healthy
+13 entries were displayed.
+----
+. Fügen Sie die Ports zur Cluster Broadcast Domain hinzu:
++
+`broadcast-domain add-ports -ipspace Cluster -broadcast-domain Cluster -ports _port-id_, _port-id_, _port-id_...`
+
++
+Beispiel:
+
++
+[listing]
+----
+broadcast-domain add-ports -ipspace Cluster -broadcast-domain Cluster -ports cluster1-01:e0a
+----
+. Wenn Ihr System Teil eines geswitchten Clusters ist, erstellen Sie Cluster-LIFs auf den Cluster-Ports: `network interface create`
++
+Im folgenden Beispiel wird eine Cluster-LIF auf einem der Cluster-Ports des Node erstellt. Der `-auto` Mit dem Parameter wird das LIF so konfiguriert, dass eine Link-lokale IP-Adresse verwendet wird.
+
++
+[listing]
+----
+cluster1::> network interface create -vserver Cluster -lif clus1 -role cluster -home-node node0 -home-port e1a -auto true
+----
+. Wenn Sie einen 2-Node-Cluster ohne Switches erstellen, aktivieren Sie den Cluster-Netzwerkmodus ohne Switch:
++
+.. Ändern Sie von jedem Node auf die erweiterte Berechtigungsebene:
++
+`set -privilege advanced`
+
++
+Sie können antworten `y` Wenn Sie gefragt werden, ob Sie den erweiterten Modus fortsetzen möchten. Die Eingabeaufforderung für den erweiterten Modus wird angezeigt (`*>`).
+
+.. Aktivieren Sie den Cluster-Netzwerkmodus ohne Switches:
++
+`network options switchless-cluster modify -enabled true`
+
+.. Zurück zur Administratorberechtigungsebene:
++
+`set -privilege admin`
+
+
+
+
+
+
+IMPORTANT: Die Erstellung der Cluster-Schnittstelle für den vorhandenen Node in einem 2-Node-Cluster-System ohne Switches wird abgeschlossen, nachdem das Cluster-Setup per Netzboot des neuen Controller-Moduls abgeschlossen wurde.

@@ -1,0 +1,72 @@
+---
+permalink: disaster-recovery/task_verify_port_mcfc.html 
+sidebar: sidebar 
+keywords: verify, port, environmental, metrocluster, configuration 
+summary: Sie müssen die Umgebungsvariablen auf dem Node festlegen und dann deaktivieren, um die MetroCluster Konfiguration vorzubereiten. 
+---
+= Überprüfen der Portkonfiguration (nur MetroCluster FC-Konfigurationen)
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen die Umgebungsvariablen auf dem Node festlegen und dann deaktivieren, um die MetroCluster Konfiguration vorzubereiten.
+
+Dieses Verfahren wird bei den Ersatz-Controller-Modulen im Wartungsmodus durchgeführt.
+
+Die Schritte zum Prüfen der Konfiguration der Ports sind nur auf Systemen erforderlich, auf denen FC- oder CNA-Ports im Initiator-Modus verwendet werden.
+
+.Schritte
+. Stellen Sie im Wartungsmodus die FC-Port-Konfiguration wieder her:
++
+`ucadmin modify -m fc -t initiatoradapter_name`
+
++
+Wenn Sie in der Initiator-Konfiguration nur eines der Portpaare verwenden möchten, geben Sie einen genauen Adapternamen ein.
+
+. Führen Sie je nach Konfiguration eine der folgenden Aktionen durch:
++
+|===
+
+
+| Wenn die Konfiguration des FC-Ports... | Dann... 
+
+
+ a| 
+Das gleiche für beide Ports
+ a| 
+Beantworten Sie „`y`“, wenn Sie vom System dazu aufgefordert werden, da durch das Ändern eines Ports in einem Portpaar auch der andere Port geändert wird.
+
+
+
+ a| 
+Anders
+ a| 
+.. Beantworten Sie „`n`“, wenn Sie vom System dazu aufgefordert werden.
+.. Wiederherstellen der Konfiguration des FC-Ports:
+
+
+`ucadmin modify -m fc -t initiator|targetadapter_name`
+
+|===
+. Beenden des Wartungsmodus:
++
+`halt`
+
++
+Nachdem Sie den Befehl ausgegeben haben, warten Sie, bis das System an der LOADER-Eingabeaufforderung angehalten wird.
+
+. Starten Sie den Node wieder in den Wartungsmodus, damit die Konfigurationsänderungen wirksam werden:
++
+`boot_ontap maint`
+
+. Überprüfen Sie die Werte der Variablen:
++
+`ucadmin show`
+
+. Beenden Sie den Wartungsmodus und zeigen Sie die LOADER-Eingabeaufforderung an:
++
+`halt`
+
+

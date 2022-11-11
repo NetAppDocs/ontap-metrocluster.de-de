@@ -1,0 +1,1769 @@
+---
+permalink: install-fc/concept_switch_ports_required_for_a_eight_node_mcc_configuration_with_array_luns.html 
+sidebar: sidebar 
+keywords: ontap, metrocluster, 
+summary: Wenn Sie ONTAP-Systeme mit FC-Switches verbinden, um eine MetroCluster-Konfiguration mit Array LUNs einzurichten, müssen Sie FC-VI- und HBA-Ports von jedem Controller mit spezifischen Switch-Ports verbinden. 
+---
+= Erforderliche Switch-Ports für eine MetroCluster-Konfiguration mit Array-LUNs
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie ONTAP-Systeme mit FC-Switches verbinden, um eine MetroCluster-Konfiguration mit Array LUNs einzurichten, müssen Sie FC-VI- und HBA-Ports von jedem Controller mit spezifischen Switch-Ports verbinden.
+
+Wenn Sie in der MetroCluster-Konfiguration sowohl Array-LUNs als auch Festplatten verwenden, müssen Sie sicherstellen, dass die Controller-Ports mit den für die Konfiguration mit Festplatten empfohlenen Switch-Ports verbunden sind, und dann die restlichen Ports für die Konfiguration mit Array-LUNs verwenden.
+
+In der folgenden Tabelle werden die spezifischen FC-Switch-Ports aufgeführt, mit denen Sie die verschiedenen Controller-Ports in einer MetroCluster-Konfiguration mit acht Nodes und Array-LUNs verbinden müssen.
+
+
+
+== Allgemeine Verkabelungsrichtlinien mit Array LUNs
+
+Beachten Sie bei der Verwendung der Verkabelungstabellen die folgenden Richtlinien:
+
+* Brocade- und Cisco-Switches verwenden unterschiedliche Port-Nummerierung:
++
+** Bei Brocade Switches wird der erste Port mit der Nummer 0 nummeriert.
+** Bei Cisco Switches wird der erste Port mit der Nummer 1 nummeriert.
+
+
+* Für jeden FC-Switch im Switch Fabric ist die Verkabelung identisch.
+* FAS8200 Storage-Systeme können mit einer oder zwei Optionen für FC-VI-Konnektivität bestellt werden:
++
+** Die integrierten Ports 0e und 0f sind im FC-VI-Modus konfiguriert.
+** Die Ports 1a und 1b auf einer FC-VI-Karte in Steckplatz 1.
+
+
+* FAS9000 Storage-Systeme erfordern vier FC-VI-Ports. Die folgenden Tabellen zeigen die Verkabelung für die FC Switches mit vier FC-VI-Ports auf jedem Controller.
++
+Verwenden Sie für andere Storage-Systeme die in den Tabellen gezeigten Kabel, ignorieren Sie jedoch die Verkabelung für FC-VI-Ports c und d.
+
++
+Sie können diese Ports leer lassen.
+
+
+
+
+
+== Verwendung von Brocade Ports für Controller in einer MetroCluster-Konfiguration
+
+Die folgenden Tabellen zeigen die Portnutzung auf Brocade Switches. Die Tabellen zeigen die maximal unterstützte Konfiguration mit acht Controller-Modulen in zwei DR-Gruppen. Bei kleineren Konfigurationen ignorieren Sie die Zeilen für die zusätzlichen Controller-Module. Beachten Sie, dass acht ISLs der Brocade 6510 und G620 Switches unterstützt werden.
+
+
+NOTE: Die Portnutzung für den Brocade 6505-Switch in einer MetroCluster-Konfiguration mit acht Nodes wird nicht angezeigt. Aufgrund der begrenzten Anzahl an Ports müssen abhängig vom Controller-Modulmodell und der Anzahl der verwendeten ISLs und Brückenpaare standortabhängig Port-Zuweisungen vorgenommen werden.
+
+Die folgende Tabelle zeigt die Verkabelung der ersten DR-Gruppe:
+
+|===
+
+
+2+|  2+| Brocade 6520, 6510, 6505, G620, G610, Oder 7840 Schalter 
+
+
+| * Komponente* | *Port* | *Schalter 1* | *Schalter 2* 
+
+
+.8+| Controller_x_1  a| 
+FC-VI-Port A
+ a| 
+0
+ a| 
+
+
+
+ a| 
+FC-VI-Port b
+ a| 
+-
+ a| 
+0
+
+
+
+ a| 
+FC-VI-Port c
+ a| 
+1
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port d
+ a| 
+-
+ a| 
+1
+
+
+
+ a| 
+HBA-Port A
+ a| 
+2
+ a| 
+-
+
+
+
+ a| 
+HBA-Port b
+ a| 
+-
+ a| 
+2
+
+
+
+ a| 
+HBA-Port c
+ a| 
+3
+ a| 
+-
+
+
+
+ a| 
+HBA-Port d
+ a| 
+-
+ a| 
+3
+
+
+
+.8+| Controller_x_2  a| 
+FC-VI-Port A
+ a| 
+4
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port b
+ a| 
+-
+ a| 
+4
+
+
+
+ a| 
+FC-VI-Port c
+ a| 
+5
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port d
+ a| 
+-
+ a| 
+5
+
+
+
+ a| 
+HBA-Port A
+ a| 
+6
+ a| 
+-
+
+
+
+ a| 
+HBA-Port b
+ a| 
+-
+ a| 
+6
+
+
+
+ a| 
+HBA-Port c
+ a| 
+7
+ a| 
+-
+
+
+
+ a| 
+HBA-Port d
+ a| 
+-
+ a| 
+7
+
+|===
+Die folgende Tabelle zeigt die Verkabelung der zweiten DR-Gruppe:
+
+|===
+
+
+2+|  2+| Brocade 6510 2+| Brocade 6520 2+| Brocade G620 
+
+
+| * Komponente* | *Port* | *Schalter 1* | *Schalter 2* | *Schalter 1* | *Schalter 2* | *Schalter 1* | *Schalter 2* 
+
+
+.8+| Controller_x_3  a| 
+FC-VI-Port A
+ a| 
+24
+ a| 
+-
+ a| 
+48
+ a| 
+-
+ a| 
+18
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port b
+ a| 
+-
+ a| 
+24
+ a| 
+-
+ a| 
+48
+ a| 
+-
+ a| 
+18
+
+
+
+ a| 
+FC-VI-Port c
+ a| 
+25
+ a| 
+-
+ a| 
+49
+ a| 
+-
+ a| 
+19
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port d
+ a| 
+-
+ a| 
+25
+ a| 
+-
+ a| 
+49
+ a| 
+-
+ a| 
+19
+
+
+
+ a| 
+HBA-Port A
+ a| 
+26
+ a| 
+-
+ a| 
+50
+ a| 
+-
+ a| 
+24
+ a| 
+-
+
+
+
+ a| 
+HBA-Port b
+ a| 
+-
+ a| 
+26
+ a| 
+-
+ a| 
+50
+ a| 
+-
+ a| 
+24
+
+
+
+ a| 
+HBA-Port c
+ a| 
+27
+ a| 
+-
+ a| 
+51
+ a| 
+-
+ a| 
+25
+ a| 
+-
+
+
+
+ a| 
+HBA-Port d
+ a| 
+-
+ a| 
+27
+ a| 
+-
+ a| 
+51
+ a| 
+-
+ a| 
+25
+
+
+
+.8+| Controller_x_4  a| 
+FC-VI-Port A
+ a| 
+28
+ a| 
+-
+ a| 
+52
+ a| 
+-
+ a| 
+22
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port b
+ a| 
+-
+ a| 
+28
+ a| 
+-
+ a| 
+52
+ a| 
+-
+ a| 
+22
+
+
+
+ a| 
+FC-VI-Port c
+ a| 
+29
+ a| 
+-
+ a| 
+53
+ a| 
+-
+ a| 
+23
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port d
+ a| 
+-
+ a| 
+29
+ a| 
+-
+ a| 
+53
+ a| 
+-
+ a| 
+23
+
+
+
+ a| 
+HBA-Port A
+ a| 
+30
+ a| 
+-
+ a| 
+54
+ a| 
+-
+ a| 
+28
+ a| 
+-
+
+
+
+ a| 
+HBA-Port b
+ a| 
+-
+ a| 
+30
+ a| 
+-
+ a| 
+54
+ a| 
+-
+ a| 
+28
+
+
+
+ a| 
+HBA-Port c
+ a| 
+31
+ a| 
+-
+ a| 
+55
+ a| 
+-
+ a| 
+29
+ a| 
+-
+
+
+
+ a| 
+HBA-Port d
+ a| 
+-
+ a| 
+31
+ a| 
+-
+ a| 
+55
+ a| 
+-
+ a| 
+29
+
+
+
+8+| *ISLs* 
+
+
+ a| 
+ISL 1
+ a| 
+40
+ a| 
+40
+ a| 
+23
+ a| 
+23
+ a| 
+40
+ a| 
+40
+
+
+
+ a| 
+ISL 2
+ a| 
+41
+ a| 
+41
+ a| 
+47
+ a| 
+47
+ a| 
+41
+ a| 
+41
+
+
+
+ a| 
+ISL 3
+ a| 
+42
+ a| 
+42
+ a| 
+71
+ a| 
+71
+ a| 
+42
+ a| 
+42
+
+
+
+ a| 
+ISL 4
+ a| 
+43
+ a| 
+43
+ a| 
+95
+ a| 
+95
+ a| 
+43
+ a| 
+43
+
+
+
+ a| 
+ISL 5
+ a| 
+44
+ a| 
+44
+2.4+| Nicht unterstützt  a| 
+44
+ a| 
+44
+
+
+
+ a| 
+ISL 6
+ a| 
+45
+ a| 
+45
+ a| 
+45
+ a| 
+45
+
+
+
+ a| 
+ISL 7
+ a| 
+46
+ a| 
+46
+ a| 
+46
+ a| 
+46
+
+
+
+ a| 
+ISL 8
+ a| 
+47
+ a| 
+47
+ a| 
+47
+ a| 
+47
+
+|===
+
+
+== Verwendung von Cisco Ports für Controller in einer MetroCluster-Konfiguration mit ONTAP 9.4 oder höher
+
+Die Tabellen zeigen die maximal unterstützte Konfiguration mit acht Controller-Modulen in zwei DR-Gruppen. Bei kleineren Konfigurationen ignorieren Sie die Zeilen für die zusätzlichen Controller-Module.
+
+
+
+=== Verwendung von Cisco 9396S-Ports
+
+|===
+
+
+4+| Cisco 9396S 
+
+
+| * Komponente* | *Port* | *Schalter 1* | *Schalter 2* 
+
+
+.8+| Controller_x_1  a| 
+FC-VI-Port A
+ a| 
+1
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port b
+ a| 
+-
+ a| 
+1
+
+
+
+ a| 
+FC-VI-Port c
+ a| 
+2
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port d
+ a| 
+-
+ a| 
+2
+
+
+
+ a| 
+HBA-Port A
+ a| 
+3
+ a| 
+-
+
+
+
+ a| 
+HBA-Port b
+ a| 
+-
+ a| 
+3
+
+
+
+ a| 
+HBA-Port c
+ a| 
+4
+ a| 
+-
+
+
+
+ a| 
+HBA-Port d
+ a| 
+-
+ a| 
+4
+
+
+
+.8+| Controller_x_2  a| 
+FC-VI-Port A
+ a| 
+5
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port b
+ a| 
+-
+ a| 
+5
+
+
+
+ a| 
+FC-VI-Port c
+ a| 
+6
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port d
+ a| 
+-
+ a| 
+6
+
+
+
+ a| 
+HBA-Port A
+ a| 
+7
+ a| 
+-
+
+
+
+ a| 
+HBA-Port b
+ a| 
+-
+ a| 
+7
+
+
+
+ a| 
+HBA-Port c
+ a| 
+8
+ a| 
+-
+
+
+
+ a| 
+HBA-Port d
+ a| 
+-
+ a| 
+8
+
+
+
+.8+| Controller_x_3  a| 
+FC-VI-Port A
+ a| 
+49
+ a| 
+
+
+
+ a| 
+FC-VI-Port b
+ a| 
+-
+ a| 
+49
+
+
+
+ a| 
+FC-VI-Port c
+ a| 
+50
+ a| 
+
+
+
+ a| 
+FC-VI-Port d
+ a| 
+-
+ a| 
+50
+
+
+
+ a| 
+HBA-Port A
+ a| 
+51
+ a| 
+
+
+
+ a| 
+HBA-Port b
+ a| 
+-
+ a| 
+51
+
+
+
+ a| 
+HBA-Port c
+ a| 
+52
+ a| 
+
+
+
+ a| 
+HBA-Port d
+ a| 
+-
+ a| 
+52
+
+
+
+.8+| Controller_x_4  a| 
+FC-VI-Port A
+ a| 
+53
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port b
+ a| 
+-
+ a| 
+53
+
+
+
+ a| 
+FC-VI-Port c
+ a| 
+54
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port d
+ a| 
+-
+ a| 
+54
+
+
+
+ a| 
+HBA-Port A
+ a| 
+55
+ a| 
+-
+
+
+
+ a| 
+HBA-Port b
+ a| 
+-
+ a| 
+55
+
+
+
+ a| 
+HBA-Port c
+ a| 
+56
+ a| 
+-
+
+
+
+ a| 
+HBA-Port d
+ a| 
+-
+ a| 
+56
+
+|===
+
+
+=== Verwendung von Cisco 9148S-Ports
+
+|===
+
+
+4+| Cisco 9148S 
+
+
+| * Komponente* | *Port* | *Schalter 1* | *Schalter 2* 
+
+
+.8+| Controller_x_1  a| 
+FC-VI-Port A
+ a| 
+1
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port b
+ a| 
+-
+ a| 
+1
+
+
+
+ a| 
+FC-VI-Port c
+ a| 
+2
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port d
+ a| 
+-
+ a| 
+2
+
+
+
+ a| 
+HBA-Port A
+ a| 
+3
+ a| 
+-
+
+
+
+ a| 
+HBA-Port b
+ a| 
+-
+ a| 
+3
+
+
+
+ a| 
+HBA-Port c
+ a| 
+4
+ a| 
+-
+
+
+
+ a| 
+HBA-Port d
+ a| 
+-
+ a| 
+4
+
+
+
+.8+| Controller_x_2  a| 
+FC-VI-Port A
+ a| 
+5
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port b
+ a| 
+-
+ a| 
+5
+
+
+
+ a| 
+FC-VI-Port c
+ a| 
+6
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port d
+ a| 
+-
+ a| 
+6
+
+
+
+ a| 
+HBA-Port A
+ a| 
+7
+ a| 
+-
+
+
+
+ a| 
+HBA-Port b
+ a| 
+-
+ a| 
+7
+
+
+
+ a| 
+HBA-Port c
+ a| 
+8
+ a| 
+-
+
+
+
+ a| 
+HBA-Port d
+ a| 
+-
+ a| 
+8
+
+
+
+.8+| Controller_x_3  a| 
+FC-VI-Port A
+ a| 
+25
+ a| 
+
+
+
+ a| 
+FC-VI-Port b
+ a| 
+-
+ a| 
+25
+
+
+
+ a| 
+FC-VI-Port c
+ a| 
+26
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port d
+ a| 
+-
+ a| 
+26
+
+
+
+ a| 
+HBA-Port A
+ a| 
+27
+ a| 
+-
+
+
+
+ a| 
+HBA-Port b
+ a| 
+-
+ a| 
+27
+
+
+
+ a| 
+HBA-Port c
+ a| 
+28
+ a| 
+-
+
+
+
+ a| 
+HBA-Port d
+ a| 
+-
+ a| 
+28
+
+
+
+.8+| Controller_x_4  a| 
+FC-VI-Port A
+ a| 
+29
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port b
+ a| 
+-
+ a| 
+29
+
+
+
+ a| 
+FC-VI-Port c
+ a| 
+30
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port d
+ a| 
+-
+ a| 
+30
+
+
+
+ a| 
+HBA-Port A
+ a| 
+31
+ a| 
+-
+
+
+
+ a| 
+HBA-Port b
+ a| 
+-
+ a| 
+31
+
+
+
+ a| 
+HBA-Port c
+ a| 
+32
+ a| 
+-
+
+
+
+ a| 
+HBA-Port d
+ a| 
+-
+ a| 
+32
+
+|===
+
+
+=== Verwendung von Cisco 9132T-Ports
+
+|===
+
+
+4+| Cisco 9132T 
+
+
+4+| MDS-Modul 1 
+
+
+| * Komponente* | *Port* | *Schalter 1* | *Schalter 2* 
+
+
+.8+| Controller_x_1  a| 
+FC-VI-Port A
+ a| 
+1
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port b
+ a| 
+-
+ a| 
+1
+
+
+
+ a| 
+FC-VI-Port c
+ a| 
+2
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port d
+ a| 
+-
+ a| 
+2
+
+
+
+ a| 
+HBA-Port A
+ a| 
+3
+ a| 
+-
+
+
+
+ a| 
+HBA-Port b
+ a| 
+-
+ a| 
+3
+
+
+
+ a| 
+HBA-Port c
+ a| 
+4
+ a| 
+-
+
+
+
+ a| 
+HBA-Port d
+ a| 
+-
+ a| 
+4
+
+
+
+.8+| Controller_x_2  a| 
+FC-VI-Port A
+ a| 
+5
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port b
+ a| 
+-
+ a| 
+5
+
+
+
+ a| 
+FC-VI-Port c
+ a| 
+6
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port d
+ a| 
+-
+ a| 
+6
+
+
+
+ a| 
+HBA-Port A
+ a| 
+7
+ a| 
+-
+
+
+
+ a| 
+HBA-Port b
+ a| 
+-
+ a| 
+7
+
+
+
+ a| 
+HBA-Port c
+ a| 
+8
+ a| 
+-
+
+
+
+ a| 
+HBA-Port d
+ a| 
+-
+ a| 
+8
+
+
+
+4+| *MDS-Modul 2* 
+
+
+| * Komponente* | *Port* | *Schalter 1* | *Schalter 2* 
+
+
+.8+| Controller_x_3  a| 
+FC-VI-Port A
+ a| 
+1
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port b
+ a| 
+-
+ a| 
+1
+
+
+
+ a| 
+FC-VI-Port c
+ a| 
+2
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port d
+ a| 
+-
+ a| 
+2
+
+
+
+ a| 
+HBA-Port A
+ a| 
+3
+ a| 
+-
+
+
+
+ a| 
+HBA-Port b
+ a| 
+-
+ a| 
+3
+
+
+
+ a| 
+HBA-Port c
+ a| 
+4
+ a| 
+-
+
+
+
+ a| 
+HBA-Port d
+ a| 
+-
+ a| 
+4
+
+
+
+.8+| Controller_x_4  a| 
+FC-VI-Port A
+ a| 
+5
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port b
+ a| 
+-
+ a| 
+5
+
+
+
+ a| 
+FC-VI-Port c
+ a| 
+6
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port d
+ a| 
+-
+ a| 
+6
+
+
+
+ a| 
+HBA-Port A
+ a| 
+7
+ a| 
+-
+
+
+
+ a| 
+HBA-Port b
+ a| 
+-
+ a| 
+7
+
+
+
+ a| 
+HBA-Port c
+ a| 
+8
+ a| 
+-
+
+
+
+ a| 
+HBA-Port d
+ a| 
+-
+ a| 
+8
+
+|===
+
+
+=== Verwendung von Cisco 9250 Ports
+
+--
+
+NOTE: In der folgenden Tabelle werden die Systeme mit zwei FC-VI-Ports angezeigt. Die AFF Systeme A700 und FAS9000 verfügen über vier FC-VI-Ports (A, b, c und d). Bei Verwendung eines AFF A700 oder FAS9000 Systems bewegen sich die Port-Zuweisungen an einer Position entlang. FC-VI-Ports c und d beispielsweise zu Switch-Port 2 und HBA-Ports A und b gelangen zu Switch-Port 3.
+
+--
+|===
+
+
+4+| Cisco 9250i 
+
+
+4+| Der Cisco 9250i Switch wird für MetroCluster Konfigurationen mit acht Nodes nicht unterstützt. 
+
+
+| * Komponente* | *Port* | *Schalter 1* | *Schalter 2* 
+
+
+.6+| Controller_x_1  a| 
+FC-VI-Port A
+ a| 
+1
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port b
+ a| 
+-
+ a| 
+1
+
+
+
+ a| 
+HBA-Port A
+ a| 
+2
+ a| 
+-
+
+
+
+ a| 
+HBA-Port b
+ a| 
+-
+ a| 
+2
+
+
+
+ a| 
+HBA-Port c
+ a| 
+3
+ a| 
+-
+
+
+
+ a| 
+HBA-Port d
+ a| 
+-
+ a| 
+3
+
+
+
+.6+| Controller_x_2  a| 
+FC-VI-Port A
+ a| 
+4
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port b
+ a| 
+-
+ a| 
+4
+
+
+
+ a| 
+HBA-Port A
+ a| 
+5
+ a| 
+-
+
+
+
+ a| 
+HBA-Port b
+ a| 
+-
+ a| 
+5
+
+
+
+ a| 
+HBA-Port c
+ a| 
+6
+ a| 
+-
+
+
+
+ a| 
+HBA-Port d
+ a| 
+-
+ a| 
+6
+
+
+
+.6+| Controller_x_3  a| 
+FC-VI-Port A
+ a| 
+7
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port b
+ a| 
+-
+ a| 
+7
+
+
+
+ a| 
+HBA-Port A
+ a| 
+8
+ a| 
+-
+
+
+
+ a| 
+HBA-Port b
+ a| 
+-
+ a| 
+8
+
+
+
+ a| 
+HBA-Port c
+ a| 
+9
+ a| 
+-
+
+
+
+ a| 
+HBA-Port d
+ a| 
+-
+ a| 
+9
+
+
+
+.6+| Controller_x_4  a| 
+FC-VI-Port A
+ a| 
+10
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port b
+ a| 
+-
+ a| 
+10
+
+
+
+ a| 
+HBA-Port A
+ a| 
+11
+ a| 
+-
+
+
+
+ a| 
+HBA-Port b
+ a| 
+-
+ a| 
+11
+
+
+
+ a| 
+HBA-Port c
+ a| 
+13
+ a| 
+-
+
+
+
+ a| 
+HBA-Port d
+ a| 
+-
+ a| 
+13
+
+|===
+
+
+== Shared Initiator- und Shared Target-Unterstützung für MetroCluster-Konfiguration mit Array LUNs
+
+Die Möglichkeit, einen bestimmten FC-Initiator-Port oder Ziel-Ports gemeinsam zu nutzen, ist für Unternehmen nützlich, die die Anzahl der verwendeten Initiator- oder Ziel-Ports minimieren möchten. Ein Unternehmen, das beispielsweise eine geringe I/O-Nutzung über einen FC-Initiator-Port oder Ziel-Ports erwartet, möchte FC-Initiator-Port oder Ziel-Ports möglicherweise lieber gemeinsam nutzen, anstatt jeden FC-Initiator-Port einem einzelnen Ziel-Port zuzuweisen.
+
+Allerdings kann die gemeinsame Nutzung von Initiator- oder Ziel-Ports negative Auswirkungen auf die Performance haben.
+
+https://kb.netapp.com/Advice_and_Troubleshooting/Data_Protection_and_Security/MetroCluster/How_to_support_Shared_Initiator_and_Shared_Target_configuration_with_Array_LUNs_in_a_MetroCluster_environment["So unterstützen Sie die Konfiguration von Shared Initiator und Shared Target mit Array LUNs in einer MetroCluster-Umgebung"]

@@ -1,0 +1,58 @@
+---
+permalink: upgrade/task_power_up_both_controller_modules_and_display_the_loader_prompt_2_node_mcc_expansion.html 
+sidebar: sidebar 
+keywords: metrocluster, upgrade, power, up, controller. modules, display, loader, prompt 
+summary: Sie schalten das vorhandene Controller-Modul und das neue Controller-Modul ein, um die LOADER-Eingabeaufforderung anzuzeigen. 
+---
+= Einschalten beider Controller-Module und Anzeigen der LOADER-Eingabeaufforderung
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie schalten das vorhandene Controller-Modul und das neue Controller-Modul ein, um die LOADER-Eingabeaufforderung anzuzeigen.
+
+Schalten Sie die Controller-Module aus und unterbrechen Sie den Bootvorgang, indem Sie die Schritte für Ihre Konfiguration verwenden:
+
+[cols="25,75"]
+|===
+
+
+| Wenn die Controller-Module... | Dann... 
+
+
+ a| 
+Im gleichen Chassis
+ a| 
+. Vergewissern Sie sich, dass das neue Controller-Modul *nicht* vollständig in den Schacht eingesetzt ist.
++
+Das vorhandene Controller-Modul sollte vollständig in den Schacht eingesetzt werden, da es nie aus dem Chassis entfernt wurde, das neue Controller-Modul jedoch nicht sein sollte.
+
+. Schließen Sie das Netzteil an, und schalten Sie die Netzteile ein, sodass das vorhandene Controller-Modul mit Strom versorgt wird.
+. Unterbrechen Sie den Boot-Vorgang des vorhandenen Controller-Moduls, indem Sie Strg-C drücken
+. Drücken Sie das neue Controller-Modul fest in den Schacht.
++
+Wenn das neue Controller-Modul voll eingesetzt ist, wird es mit Strom versorgt und wird automatisch gestartet.
+
+. Unterbrechen Sie den Boot-Vorgang, indem Sie Strg-C drücken
+. Ziehen Sie ggf. die Daumenschraube am Nockengriff fest.
+. Installieren Sie das Kabelverwaltungsgerät, falls vorhanden.
+. Verbinden Sie die Kabel mit dem Haken- und Schlaufenband mit dem Kabelmanagement-Gerät.
+
+
+
+
+ a| 
+In einem separaten Chassis
+ a| 
+. Schalten Sie die Netzteile des vorhandenen Controller-Moduls ein.
+. Unterbrechen Sie den Boot-Vorgang, indem Sie Strg-C drücken
+. Wiederholen Sie diese Schritte für das neue Controller-Modul
+
+
+|===
+Jedes Controller-Modul sollte die LOADER-Eingabeaufforderung anzeigen (`LOADER>`, `LOADER-A>`, Oder `LOADER-B>`).
+
+
+NOTE: Wenn keine LOADER-Eingabeaufforderung angezeigt wird, notieren Sie die Fehlermeldung. Wenn das Startmenü angezeigt wird, starten Sie den Neustart neu, und versuchen Sie erneut, den Bootvorgang zu unterbrechen.

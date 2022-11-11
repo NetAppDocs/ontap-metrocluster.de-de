@@ -1,0 +1,122 @@
+---
+permalink: maintain/task_replace_an_ip_switch.html 
+sidebar: sidebar 
+keywords: metrocluster, maintain, service, replace, ip, switch 
+summary: 'Möglicherweise müssen Sie einen fehlgeschlagenen Switch ersetzen oder einen Switch aktualisieren oder herunterstufen. Der neue Switch kann mit dem alten Schalter identisch sein, wenn ein Switch ausgefallen ist, oder Sie können den Switch-Typ \ (Upgrade oder Downgrade des Switch\) ändern.' 
+---
+= Austauschen eines IP-Switches
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Möglicherweise müssen Sie einen fehlgeschlagenen Switch ersetzen oder einen Switch aktualisieren oder herunterstufen. Der neue Switch kann mit dem alten Schalter identisch sein, wenn ein Switch ausgefallen ist, oder Sie können den Switch-Typ ändern (Upgrade oder Downgrade des Schalters).
+
+Wenn Sie einen fehlgeschlagenen Schalter durch dieselbe Art von Switch ersetzen möchten, müssen Sie nur den ausgefallenen Schalter austauschen. Wenn Sie einen Switch aktualisieren oder herunterstufen möchten, müssen Sie zwei Switches im selben Netzwerk anpassen. Zwei Switches befinden sich im selben Netzwerk, wenn sie mit einer Inter-Switch-Link (ISL) verbunden sind und sich nicht am selben Standort befinden. Netzwerk 1 umfasst beispielsweise IP_Switch_A_1 und IP_Switch_B_1. Netzwerk 2 enthält IP_Switch_A_2 und IP_Switch_B_2, wie im folgenden Diagramm dargestellt:
+
+image::../media/mcc_ip_hardware_architecture_ip_interconnect.png[mcc ip-Hardwarearchitektur ip-Interconnect]
+
+Dieses Verfahren gilt, wenn Sie NetApp Validated Switches verwenden. Wenn Sie MetroCluster-konforme Switches verwenden, wenden Sie sich an den Switch-Anbieter.
+
+Wenn Sie die Netzwerke aktualisieren oder herunterstufen, müssen Sie diesen Vorgang für das zweite Netzwerk wiederholen.
+
+.Schritte
+. Überprüfen Sie den Zustand der Konfiguration.
++
+.. Vergewissern Sie sich, dass die MetroCluster für jedes Cluster im normalen Modus konfiguriert ist: `*metrocluster show*`
++
+[listing]
+----
+cluster_A::> metrocluster show
+Cluster                   Entry Name          State
+------------------------- ------------------- -----------
+ Local: cluster_A         Configuration state configured
+                          Mode                normal
+                          AUSO Failure Domain auso-on-cluster-disaster
+Remote: cluster_B         Configuration state configured
+                          Mode                normal
+                          AUSO Failure Domain auso-on-cluster-disaster
+----
+.. Vergewissern Sie sich, dass die Spiegelung auf jedem Knoten aktiviert ist: `*metrocluster node show*`
++
+[listing]
+----
+cluster_A::> metrocluster node show
+DR                           Configuration  DR
+Group Cluster Node           State          Mirroring Mode
+----- ------- -------------- -------------- --------- --------------------
+1     cluster_A
+              node_A_1       configured     enabled   normal
+      cluster_B
+              node_B_1       configured     enabled   normal
+2 entries were displayed.
+----
+.. Prüfen Sie, ob die MetroCluster-Komponenten ordnungsgemäß sind: `*metrocluster check run*`
++
+[listing]
+----
+cluster_A::> metrocluster check run
+
+Last Checked On: 10/1/2014 16:03:37
+
+Component           Result
+------------------- ---------
+nodes               ok
+lifs                ok
+config-replication  ok
+aggregates          ok
+4 entries were displayed.
+
+Command completed. Use the "metrocluster check show -instance" command or sub-commands in "metrocluster check" directory for detailed results.
+To check if the nodes are ready to do a switchover or switchback operation, run "metrocluster switchover -simulate" or "metrocluster switchback -simulate", respectively.
+----
+.. Vergewissern Sie sich, dass es keine Systemzustandsmeldungen gibt: `*system health alert show*`
+
+
+. Konfigurieren Sie den neuen Switch vor der Installation.
++
+
+NOTE: Wenn Sie die Switches aktualisieren oder verkleinern, müssen Sie alle Switches im Netzwerk konfigurieren.
+
++
+Befolgen Sie die Schritte im Abschnitt _Konfigurieren der IP-Switches_ im link:https://docs.netapp.com/us-en/ontap-metrocluster/install-ip/using_rcf_generator.html["Installation und Konfiguration von MetroCluster IP"]
+
++
+Stellen Sie sicher, dass Sie die korrekte RCF-Datei für den Schalter _A_1, _A_2, _B_1 oder _B_2 anwenden. Wenn der neue Switch mit dem alten Switch identisch ist, müssen Sie dieselbe RCF-Datei anwenden.
+
++
+Wenn Sie einen Switch aktualisieren oder herunterstufen, wenden Sie die neueste unterstützte RCF-Datei für den neuen Switch an.
+
+. Führen Sie den Befehl Port show aus, um Informationen zu den Netzwerkports anzuzeigen:
++
+`*network port show*`
+
+. Trennen Sie die ISL-Verbindungen vom Remote-Switch, der mit dem alten Switch verbunden ist.
++
+Sie sollten die ISL-Verbindungen von den Ports am IP_Switch_A_1 trennen, die eine Verbindung zu IP_Switch_B_1 herstellen.
+
+. Schalten Sie den Schalter aus, entfernen Sie die Kabel und entfernen Sie IP_Switch_B_1 physisch.
+. Den neuen Schalter einbauen.
++
+Verkabeln Sie den neuen Switch zuerst (einschließlich ISLs) gemäß den Schritten im Abschnitt _Verkabelung der IP-Switches_ link:https://docs.netapp.com/us-en/ontap-metrocluster/install-ip/using_rcf_generator.html["Installation und Konfiguration von MetroCluster IP"].
+
++
+[NOTE]
+====
+Die verwendeten Ports können von denen auf dem alten Switch abweichen, wenn der Switch-Typ anders ist. Wenn Sie die Switches aktualisieren oder verkleinern, müssen Sie die lokalen ISLs nicht * verkabeln. Verkabeln Sie nur die lokalen ISLs, wenn Sie die Switches im zweiten Netzwerk aktualisieren oder herunterstufen und beide Switches an einem Standort identisch sind.
+
+====
+. Schalten Sie den Schalter ein oder schalten Sie den Schalter ein.
++
+Wenn der neue Schalter gleich ist, schalten Sie den neuen Schalter ein. Wenn Sie die Schalter aktualisieren oder verkleinern, schalten Sie beide Schalter ein. Die Konfiguration kann mit zwei verschiedenen Switches an jedem Standort betrieben werden, bis das zweite Netzwerk aktualisiert wird.
+
+. Überprüfen Sie, ob die MetroCluster-Konfiguration ordnungsgemäß funktioniert, indem Sie Schritt 1 wiederholen.
++
+Wenn Sie die Switches im ersten Netzwerk aktualisieren oder verkleinern, werden möglicherweise einige Warnmeldungen im Zusammenhang mit dem lokalen Clustering angezeigt.
+
++
+
+NOTE: Wenn Sie die Netzwerke aktualisieren oder herunterstufen, dann wiederholen Sie alle Schritte für das zweite Netzwerk.
+
+

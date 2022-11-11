@@ -1,0 +1,52 @@
+---
+permalink: upgrade/task_enable_storage_failover_both_controller_modules_and_set_cluster_ha.html 
+sidebar: sidebar 
+keywords: metrocluster, upgrade, enable, storage, failover, both, controller, module, cluster, ha 
+summary: Nachdem Sie der MetroCluster Konfiguration neue Controller-Module hinzugefügt haben, müssen Sie Storage Failover auf beiden Controller-Modulen aktivieren und die separat aktiviert werden. 
+---
+= Aktivieren von Storage Failover auf beiden Controller-Modulen und Aktivieren von Cluster HA
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Nachdem Sie der MetroCluster Konfiguration neue Controller-Module hinzugefügt haben, müssen Sie Storage Failover auf beiden Controller-Modulen aktivieren und die separat aktiviert werden.
+
+Die MetroCluster Konfiguration muss zuvor mit dem aktualisiert worden sein `metrocluster configure -refresh true` Befehl.
+
+Diese Aufgabe muss auf jedem MetroCluster-Standort ausgeführt werden.
+
+.Schritte
+. Storage-Failover:
++
+`storage failover modify -enabled true -node _existing-node-name_`
+
++
+Der einzelne Befehl ermöglicht ein Storage Failover beider Controller-Module.
+
+. Vergewissern Sie sich, dass Storage-Failover aktiviert ist:
++
+`storage failover show`
+
++
+Die Ausgabe sollte wie folgt aussehen:
+
++
+[listing]
+----
+
+Node           Partner        Possible State Description
+-------------- -------------- -------- ----------------------
+old-ctlr        new-ctlr      true      Connected to new-ctlr
+new-ctlr        old-ctlr      true      Connected to old-ctlr
+2 entries were displayed.
+----
+. Cluster-HA aktivieren:
++
+`cluster ha modify -configured true`
+
++
+Cluster High Availability (HA) muss in einem Cluster konfiguriert werden, wenn es nur zwei Nodes enthält und sich von der durch Storage Failover gelieferten HA unterscheidet.
+
+

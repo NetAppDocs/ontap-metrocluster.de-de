@@ -1,0 +1,32 @@
+---
+permalink: install-fc/task_cable_the_ha_interconnect.html 
+sidebar: sidebar 
+keywords: metrocluster, fabric, installation, cable, ha, interconnect, cabling 
+summary: Wenn Sie eine MetroCluster-Konfiguration mit acht oder vier Nodes haben und sich die Storage Controller innerhalb der HA-Paare in einem separaten Chassis befinden, müssen Sie den HA Interconnect zwischen den Controllern verkabeln. 
+---
+= Verkabelung des HA Interconnect
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie eine MetroCluster-Konfiguration mit acht oder vier Nodes haben und sich die Storage Controller innerhalb der HA-Paare in einem separaten Chassis befinden, müssen Sie den HA Interconnect zwischen den Controllern verkabeln.
+
+.Über diese Aufgabe
+* Diese Aufgabe gilt nicht für MetroCluster-Konfigurationen mit zwei Nodes.
+* Dieser Vorgang muss an beiden MetroCluster-Standorten durchgeführt werden.
+* Der HA Interconnect muss nur verkabelt werden, wenn sich die Storage-Controller innerhalb des HA-Paars in einem separaten Chassis befinden.
++
+Einige Storage Controller-Modelle unterstützen zwei Controller in einem einzelnen Chassis, in diesem Fall wird ein interner HA Interconnect verwendet.
+
+
+
+.Schritte
+. Verkabeln Sie den HA Interconnect, wenn sich der HA-Partner des Storage Controllers in einem separaten Chassis befindet.
++
+https://docs.netapp.com/platstor/index.jsp["AFF and FAS Documentation Center"]
+
+. Wenn der Standort MetroCluster zwei HA-Paare enthält, wiederholen Sie die vorherigen Schritte auf dem zweiten HA-Paar.
+. Wiederholen Sie diesen Vorgang auf der MetroCluster-Partnerseite.
+

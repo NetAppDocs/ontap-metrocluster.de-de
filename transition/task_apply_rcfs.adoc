@@ -1,0 +1,43 @@
+---
+permalink: transition/task_apply_rcfs.html 
+sidebar: sidebar 
+keywords: Generating and applying RCFs to the new IP switches, review, requirement, preparing, prepare, transition, perform, procedure, order, completing, complete, step, task, moving, move, controller, storage, shelves, shelf, exist, configuration, direct, metrocluster, fc, ip, verify, health, removing, remove, tiebreaker, monitor, software, generating, generate, apply, rcf, switch, controller, configure, prepare, preparing 
+summary: Wenn Sie neue IP-Schalter für die MetroCluster IP-Konfiguration verwenden, müssen Sie die Switches mit einer benutzerdefinierten RCF-Datei konfigurieren. 
+---
+= Erstellen und Anwenden von RCFs auf die neuen IP-Switches
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie neue IP-Schalter für die MetroCluster IP-Konfiguration verwenden, müssen Sie die Switches mit einer benutzerdefinierten RCF-Datei konfigurieren.
+
+Diese Aufgabe ist erforderlich, wenn Sie neue Switches verwenden.
+
+Wenn Sie vorhandene Switches verwenden, fahren Sie mit fort link:task_move_cluster_connections.html["Verschieben der lokalen Cluster-Verbindungen"].
+
+. Installieren und Rack der neuen IP-Switches.
+. Bereiten Sie die IP-Schalter für die Anwendung der neuen RCF-Dateien vor.
++
+Folgen Sie den Schritten im Abschnitt Ihres Switch-Anbieters vom link:../install-ip/using_rcf_generator.html["Installation und Konfiguration von MetroCluster IP"]
+
++
+** link:../install-ip/task_switch_config_broadcom.html["Zurücksetzen des Broadcom IP-Switches auf die Werkseinstellungen"]
+** link:../install-ip/task_switch_config_cisco.html["Zurücksetzen des Cisco IP-Switches auf die Werkseinstellungen"]
+
+
+. Aktualisieren Sie die Firmware auf dem Switch auf eine unterstützte Version, falls erforderlich.
+. Verwenden Sie das RCF-Generator-Tool, um die RCF-Datei abhängig vom Switch-Anbieter und den Plattformmodellen zu erstellen und dann die Switches mit der Datei zu aktualisieren.
++
+Folgen Sie den Schritten im Abschnitt für Ihren Switch-Anbieter von _MetroCluster IP Installation and Configuration_.
+
++
+link:../install-ip/concept_considerations_differences.html["Installation und Konfiguration von MetroCluster IP"]
+
++
+** link:../install-ip/task_switch_config_broadcom.html["Herunterladen und Installieren der Broadcom IP RCF-Dateien"]
+** link:../install-ip/task_switch_config_cisco.html["Herunterladen und Installieren der Cisco IP RCF-Dateien"]
+
+
+

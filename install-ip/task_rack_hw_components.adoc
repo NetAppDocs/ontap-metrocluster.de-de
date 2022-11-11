@@ -1,0 +1,71 @@
+---
+permalink: install-ip/task_rack_hw_components.html 
+sidebar: sidebar 
+keywords: metrocluster ip, rack hardware, components, racking 
+summary: Wenn Sie noch nicht die bereits in den Schränken installierten Geräte erhalten haben, müssen Sie die Komponenten in einem Rack unterbringen. 
+---
+= Die Hardwarekomponenten in den Rack führen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie noch nicht die bereits in den Schränken installierten Geräte erhalten haben, müssen Sie die Komponenten in einem Rack unterbringen.
+
+Dieser Task muss auf beiden MetroCluster-Sites ausgeführt werden.
+
+.Schritte
+. Planen der Positionierung der MetroCluster Komponenten
++
+Die Rack-Fläche hängt vom Plattformmodell der Controller-Module, den Switch-Typen und der Anzahl der Festplatten-Shelf-Stacks in Ihrer Konfiguration ab.
+
+. Richtig gemahlen.
+. Installieren Sie die Controller-Module im Rack oder Schrank.
++
+https://library.netapp.com/ecm/ecm_download_file/ECMLP2842666["Installations- und Setup-Anleitung für AFF A220/FAS2700 Systeme"^]
+
++
+https://library.netapp.com/ecm/ecm_download_file/ECMLP2870798["Installations- und Setup-Anleitung für AFF A250-Systeme"^]
+
++
+https://library.netapp.com/ecm/ecm_download_file/ECMLP2469722["Installations- und Setup-Anleitung für AFF A300 Systeme"^]
+
++
+https://docs.netapp.com/platstor/topic/com.netapp.doc.hw-a320-install-setup/home.html["AFF A320-Systeme: Installation und Einrichtung"^]
+
++
+https://library.netapp.com/ecm/ecm_download_file/ECMLP2858854["Installations- und Setup-Anleitung für AFF A400 Systeme"^]
+
++
+https://library.netapp.com/ecm/ecm_download_file/ECMLP2873445["Installations- und Setup-Anleitung für AFF A700 Systeme"^]
+
++
+https://library.netapp.com/ecm/ecm_download_file/ECMLP2842668["Installations- und Setup-Anleitung für AFF A800 Systeme"^]
+
++
+https://library.netapp.com/ecm/ecm_download_file/ECMLP2872833["Installations- und Setup-Anleitung für FAS500f Systeme"^]
+
++
+https://library.netapp.com/ecm/ecm_download_file/ECMLP2316769["FAS8200 Systems Installation and Setup instructions"^]
+
++
+https://library.netapp.com/ecm/ecm_download_file/ECMLP2858856["Installations- und Setup-Anleitung für FAS8300 und FAS8700 Systeme"^]
+
++
+https://library.netapp.com/ecm/ecm_download_file/ECMLP2874463["FAS9000 Systems Installation and Setup instructions"^]
+
+
+
+. Installieren Sie die IP-Switches im Rack oder Schrank.
+. Installieren Sie die Festplatten-Shelfs, schalten Sie sie ein und legen Sie die Shelf-IDs fest.
++
+** Sie müssen jedes Festplatten-Shelf aus- und wieder einschalten.
+** Um die Fehlerbehebung zu unterstützen, werden für jedes SAS-Platten-Shelf in jeder MetroCluster DR-Gruppe eindeutige Shelf-IDs empfohlen.
+
+
++
+
+IMPORTANT: Verkabeln Sie zum jetzigen Zeitpunkt keine Festplatten-Shelfs, die nicht gespiegelte Aggregate enthalten sollen. Sie müssen warten, bis die für nicht gespiegelte Aggregate vorgesehenen Shelfs implementiert sind, bevor die MetroCluster-Konfiguration abgeschlossen ist und diese erst nach Verwendung der implementiert werden `metrocluster modify -enable-unmirrored-aggr-deployment true` Befehl.
+
+

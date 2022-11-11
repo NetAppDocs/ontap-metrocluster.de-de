@@ -1,0 +1,43 @@
+---
+permalink: install-fc/concept_choosing_the_correct_installation_procedure_for_your_configuration_mcc_install.html 
+sidebar: sidebar 
+keywords: metrocluster, fabric, installation, correct, procedure, configuration 
+summary: Sie müssen das korrekte Installationsverfahren anhand der jeweiligen Einstellung auswählen, ob Sie FlexArray LUNs, die Anzahl der Nodes in der MetroCluster Konfiguration und ob Sie eine vorhandene FC Switch Fabric nutzen, die von einem 7-Mode Fabric MetroCluster verwendet wird. 
+---
+= Auswahl des richtigen Installationsverfahrens für Ihre Konfiguration
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen das korrekte Installationsverfahren anhand der jeweiligen Einstellung auswählen, ob Sie FlexArray LUNs, die Anzahl der Nodes in der MetroCluster Konfiguration und ob Sie eine vorhandene FC Switch Fabric nutzen, die von einem 7-Mode Fabric MetroCluster verwendet wird.
+
+image::../media/workflow_select_your_metrocluster_configuration_fabric.gif[Workflow Wählen Sie Ihre MetroCluster Konfigurations-Fabric]
+
+|===
+
+
+| Für diesen Installationstyp... | Verwenden Sie diese Verfahren... 
+
+
+ a| 
+Fabric-Attached-Konfiguration mit NetApp (nativen) Festplatten
+ a| 
+. link:task_configure_the_mcc_hardware_components_fabric.html["Verkabelung einer Fabric-Attached MetroCluster-Konfiguration"]
+. link:concept_configure_the_mcc_software_in_ontap.html["Konfigurieren der MetroCluster-Software in ONTAP"]
+
+
+
+
+ a| 
+Fabric-Attached-Konfiguration bei Freigabe mit einem vorhandenen FC Switch Fabric
+
+Dies wird nur als temporäre Konfiguration mit einer 7-Mode Fabric MetroCluster Konfiguration unter Verwendung von Brocade 6510 Switches unterstützt.
+ a| 
+. link:task_configure_the_mcc_hardware_components_fabric.html["Verkabelung einer Fabric-Attached MetroCluster-Konfiguration"]
+. link:task_fmc_mcc_transition_configure_the_mcc_hardware_for_share_a_7_mode_brocade_6510_fc_fabric_dure_transition.html["Konfiguration der MetroCluster Hardware für die gemeinsame Nutzung einer 7-Mode Brocade 6510 FC Fabric während der Transition"]
+. link:concept_configure_the_mcc_software_in_ontap.html["Konfigurieren der MetroCluster-Software in ONTAP"]
+
+
+|===

@@ -1,0 +1,70 @@
+---
+permalink: manage/reference_commands_for_switchover_healing_and_switchback.html 
+sidebar: sidebar 
+keywords: ontap, command, perform, metrocluster, disaster, recovery, process, switchover, heal, switchback 
+summary: Zur Durchführung der MetroCluster Disaster Recovery-Prozesse gibt es bestimmte ONTAP-Befehle. 
+---
+= Befehle für Umschaltung, Healing und Switchback
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Zur Durchführung der MetroCluster Disaster Recovery-Prozesse gibt es bestimmte ONTAP-Befehle.
+
+[cols="1,2"]
+|===
+
+
+| Ihr Ziel ist | Befehl 
+
+
+ a| 
+Überprüfen Sie, ob die Umschaltung fehlerfrei oder Vetos durchgeführt werden kann.
+ a| 
+`metrocluster switchover -simulate` + auf der erweiterten Berechtigungsebene
+
+
+
+ a| 
+Überprüfen Sie, ob der Wechsel fehlerfrei oder Vetos ausgeführt werden kann.
+ a| 
+`metrocluster switchback -simulate` + auf der erweiterten Berechtigungsebene
+
+
+
+ a| 
+Wechseln Sie zu den Partner-Nodes (ausgehandelte Umschaltung).
+ a| 
+`metrocluster switchover`
+
+
+
+ a| 
+Wechseln zu den Partner-Nodes (erzwungene Umschaltung).
+ a| 
+`metrocluster switchover -forced-on-disaster true`
+
+
+
+ a| 
+Reparatur von Datenaggregaten
+ a| 
+`metrocluster heal -phase aggregates`
+
+
+
+ a| 
+Reparatur des Root-Aggregats
+ a| 
+`metrocluster heal -phase root-aggregates`
+
+
+
+ a| 
+Wechseln Sie zurück zu den Home-Knoten.
+ a| 
+`metrocluster switchback`
+
+|===

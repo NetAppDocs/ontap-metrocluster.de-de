@@ -1,0 +1,44 @@
+---
+permalink: install-stretch/task_cable_the_controllers_to_each_other_and_the_storage_shelves.html 
+sidebar: sidebar 
+keywords: metrocluster, stretch, installation, cable, controllers, storage, shelves 
+summary: Die FC-VI-Controller-Adapter müssen direkt miteinander verbunden sein. Die Controller-SAS-Ports müssen sowohl mit den Remote- als auch mit den lokalen Storage-Stacks verbunden werden. 
+---
+= Verkabelung der Controller untereinander und den Storage Shelfs
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Die FC-VI-Controller-Adapter müssen direkt miteinander verbunden sein. Die Controller-SAS-Ports müssen sowohl mit den Remote- als auch mit den lokalen Storage-Stacks verbunden werden.
+
+Dieser Vorgang muss an beiden MetroCluster-Standorten durchgeführt werden.
+
+.Schritte
+. FC-VI-Ports verkabeln.
++
+image::../media/mcc_cabling_fc_vi_controller_to_partner.gif[mcc Verkabelung des fc vi Controllers zum Partner]
+
++
+Die obige Abbildung ist ein typischer repräsentativer Kabelanschluss. Die spezifischen FC-VI-Ports variieren je nach Controller-Modul.
+
++
+** Die Controller-Module FAS8200 und AFF A300 können mit einer der zwei Optionen für FC-VI-Konnektivität bestellt werden:
++
+*** Die Onboard-Ports 0e und 0f sind im FC-VI-Modus konfiguriert.
+*** Die Ports 1a und 1b auf einer FC-VI-Karte werden in Steckplatz 1 gespeichert.
+
+
+** Die Controller-Module des AFF A700 und der FAS9000 Storage-Systeme verwenden jeweils vier FC-VI-Ports.
+** Die Controller-Module des AFF A400 und FAS8300 verwenden FC-VI-Ports 2a und 2b.
+
+
+. Verkabeln Sie die SAS-Ports.
++
+Die folgende Abbildung zeigt die Verbindungen. Ihre Port-Verwendung kann sich abhängig von den verfügbaren SAS- und FC-VI-Ports auf dem Controller-Modul unterscheiden.
+
++
+image::../media/mcc_two_node_optical_sas_space_configuration.png[mcc Konfiguration für optischen sas-Speicherplatz mit zwei Nodes]
+
+

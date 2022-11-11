@@ -1,0 +1,51 @@
+---
+permalink: install-stretch/task_cable_a_fibrebridge_7600n_or_7500n_bridge_with_disk_shelves_us_iom12_modules_sas3.html 
+sidebar: sidebar 
+keywords: metrocluster, stretch, installation, cable, fibrebridge, bridge, disk, shelves, iom12, modules 
+summary: Nach der Konfiguration der Bridge können Sie die Verkabelung des Systems starten. 
+---
+= Verkabelung einer FibreBridge 7600N oder 7500N Bridge mit Platten-Shelves mit IOM12-Modulen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Nach der Konfiguration der Bridge können Sie die Verkabelung des Systems starten.
+
+Setzen Sie bei Festplatten-Shelfs einen SAS-Kabelanschluss ein, wobei die Zuglasche nach unten (auf der Unterseite des Connectors) ausgerichtet ist.
+
+.Schritte
+. Schalten Sie die Festplatten-Shelfs in den einzelnen Stacks in Reihe:
++
+.. Beginnend mit dem logischen ersten Shelf im Stack, verbinden Sie IOM A-Port 3 mit dem IOM A-Port 1 des nächsten Shelfs. Wiederholen Sie den Vorgang, bis jedes IOM A im Stack verbunden ist.
+.. Wiederholen Sie den vorherigen Unterschritt für IOM B.
+.. Wiederholen Sie die vorherigen Unterschritte für jeden Stack.
+
+
++
+Das _Installation and Service Guide_ für Ihr Festplatten-Shelf-Modell bietet detaillierte Informationen zum Verketten von Platten-Shelfs in Reihe.
+
+. Schalten Sie die Festplatten-Shelfs ein und legen Sie dann die Shelf-IDs fest.
++
+** Sie müssen jedes Festplatten-Shelf aus- und wieder einschalten.
+** Shelf-IDs müssen für jedes SAS-Festplatten-Shelf innerhalb jeder MetroCluster DR-Gruppe (einschließlich beider Standorte) eindeutig sein.
+
+
+. Verkabeln Sie die Platten-Shelves mit den FibreBridge Bridges.
++
+.. Verkabeln Sie beim ersten Stack der Festplatten-Shelfs IOM A des ersten Shelfs mit SAS-Port A auf FibreBridge A Verkabeln Sie IOM B des letzten Shelf mit SAS-Port A auf FibreBridge B
+.. Wiederholen Sie für weitere Shelf-Stacks den vorherigen Schritt mit dem nächsten verfügbaren SAS-Port der FibreBridge-Brücken, wobei Port B für den zweiten Stack, Port C für den dritten Stack und Port D für den vierten Stack verwendet wird.
+.. Schließen Sie während der Verkabelung die auf IOM12- und IOM3-/IOM6-Modulen basierenden Stacks an dieselbe Bridge an, solange sie mit separaten SAS-Ports verbunden sind.
++
+
+NOTE: Jeder Stack kann unterschiedliche IOM-Modelle verwenden. Alle Festplatten-Shelfs in einem Stack müssen jedoch dasselbe Modell verwenden.
+
+
+
++
+Die folgende Abbildung zeigt die mit einem Paar FibreBridge 7600N- oder 7500N-Brücken verbundenen Platten-Shelves:
+
+
+
+image::../media/mcc_cabling_bridge_and_sas3_stack_with_7500n_and_multiple_stacks.gif[mcc-Kabelbrücke und sas3-Stack mit 7500n und mehreren Stacks]

@@ -1,0 +1,70 @@
+---
+permalink: upgrade/task_prepare_the_netboot_server_cluster_mode.html 
+sidebar: sidebar 
+keywords: metrocluster, upgrade, prepare, netboot, server, download, image 
+summary: Wenn Sie den Netzboot-Server vorbereiten möchten, müssen Sie das korrekte ONTAP-Netzboot-Image von der NetApp Support Site auf den Netzboot-Server herunterladen und die IP-Adresse beachten. 
+---
+= Vorbereiten des Netzboots-Servers zum Herunterladen des Images
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie den Netzboot-Server vorbereiten möchten, müssen Sie das korrekte ONTAP-Netzboot-Image von der NetApp Support Site auf den Netzboot-Server herunterladen und die IP-Adresse beachten.
+
+.Über diese Aufgabe
+* Sie müssen vor und nach dem Hinzufügen des neuen Controller-Moduls auf einen HTTP-Server aus dem System zugreifen können.
+* Sie müssen auf die NetApp Support-Website zugreifen können, um die erforderlichen Systemdateien für Ihre Plattform und Ihre Version von ONTAP herunterzuladen.
++
+https://mysupport.netapp.com/site/global/dashboard["NetApp Support Website"]
+
+* Beide Controller-Module im HA-Paar müssen dieselbe Version von ONTAP ausführen.
+
+
+.Schritte
+. Laden Sie die entsprechende ONTAP Software im Bereich Software Downloads auf der NetApp Support Website herunter und speichern Sie die `<ontap_version>_image.tgz` Datei in einem webbasierten Verzeichnis.
++
+Der `<ontap_version>_image.tgz` Die Datei wird zum Ausführen eines Netzboots des Systems verwendet.
+
+. Wechseln Sie in das Verzeichnis für den Zugriff über das Internet, und stellen Sie sicher, dass die benötigten Dateien verfügbar sind.
++
+|===
+
+
+| Für... | Dann... 
+
+
+ a| 
+SYSTEME DER FAS2200, FAS2500, FAS3200, FAS6200, FAS/AFF8000 SERIE
+ a| 
+Extrahieren Sie den Inhalt der datei ontap_Version_image.tgz in das Zielverzeichnis:
+
+`tar -zxvf <ontap_version>_image.tgz`
+
+
+NOTE: Wenn Sie die Inhalte unter Windows extrahieren, verwenden Sie 7-Zip oder WinRAR, um das Netzboot-Bild zu extrahieren.
+
+Ihre Verzeichnisliste sollte einen Netzboot-Ordner mit einer Kernel-Datei enthalten:
+
+`netboot/kernel`
+
+
+
+ a| 
+Alle anderen Systeme
+ a| 
+Ihre Verzeichnisliste sollte die folgende Datei enthalten:
+
+`<ontap_version>_image.tgz`
+
+
+NOTE: Der Dateiinhalt muss nicht extrahiert werden.
+
+|===
+. Ermitteln Sie die IP-Adresse des vorhandenen Controller-Moduls.
++
+Diese Adresse wird später in diesem Verfahren als bezeichnet `_ip-address-of-existing controller_`.
+
+. Ping `_ip-address-of-existing controller_` Um zu überprüfen, ob die IP-Adresse erreichbar ist.
+

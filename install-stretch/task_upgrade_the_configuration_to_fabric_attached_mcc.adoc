@@ -1,0 +1,66 @@
+---
+permalink: install-stretch/task_upgrade_the_configuration_to_fabric_attached_mcc.html 
+sidebar: sidebar 
+keywords: metrocluster, stretch, installation, transition, stretch, fabric, attacjed, configuration 
+summary: In einer Fabric-Attached MetroCluster-Konfiguration sind die Nodes an unterschiedlichen Orten. Dieser geografische Unterschied erhöht den Katastrophenschutz. Für den Übergang von einer Stretch- zu einer Fabric-Attached MetroCluster-Konfiguration müssen Sie FC Switches und gegebenenfalls FC-zu-SAS-Bridges hinzufügen. 
+---
+= Umstieg von einer Stretch- zu einer Fabric-Attached MetroCluster Konfiguration
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+In einer Fabric-Attached MetroCluster-Konfiguration sind die Nodes an unterschiedlichen Orten. Dieser geografische Unterschied erhöht den Katastrophenschutz. Für den Übergang von einer Stretch- zu einer Fabric-Attached MetroCluster-Konfiguration müssen Sie FC Switches und gegebenenfalls FC-zu-SAS-Bridges hinzufügen.
+
+* Sie müssen die automatische Umschaltung auf beiden Clustern deaktivieren, indem Sie den ausführen `metrocluster modify -auto-switchover-failure-domain auto-disabled` Befehl.
+* Sie müssen die Nodes herunterfahren.
++
+Dieser Vorgang ist störend.
+
+
+
+Die MetroCluster Konfiguration muss an beiden Standorten umgestellt werden. Nach einem Upgrade der MetroCluster Konfiguration müssen Sie die automatische Umschaltung auf beide Cluster aktivieren. Sie müssen die Konfiguration auch validieren, indem Sie den ausführen `metrocluster check run` Befehl.
+
+Dieses Verfahren gibt einen Überblick über die erforderlichen Schritte. Detaillierte Schritte finden Sie in bestimmten Abschnitten im link:https://docs.netapp.com/us-en/ontap-metrocluster/install-fc/index.html["Installation und Konfiguration von Fabric-Attached MetroCluster"]. Sie müssen keine vollständige Installation und Konfiguration durchführen.
+
+.Schritte
+. Bereiten Sie sich auf das Upgrade vor, indem Sie den Abschnitt „Vorbereitungen für die MetroCluster Installation“ in der sorgfältig prüfen link:https://docs.netapp.com/us-en/ontap-metrocluster/install-fc/index.html["Installation und Konfiguration von Fabric-Attached MetroCluster"].
+. Die erforderlichen Switches und FC-to-SAS-Bridges installieren, verkabeln und konfigurieren.
++
+
+NOTE: Verwenden Sie die Verfahren im Abschnitt „Verkabelung einer Fabric-Attached MetroCluster-Konfiguration“ der link:https://docs.netapp.com/us-en/ontap-metrocluster/install-fc/index.html["Installation und Konfiguration von Fabric-Attached MetroCluster"].
+
+. Aktualisieren Sie die MetroCluster-Konfiguration mit den folgenden Schritten.
++
+Verwenden Sie nicht die Verfahren im Abschnitt „Konfigurieren der MetroCluster-Software in ONTAP“, die im Link: https://docs.netapp.com/us-en/ontap-metrocluster/install-fc/index.html[Fabric-attached MetroCluster-Installation und -Konfiguration] zu finden sind.
+
++
+.. Rufen Sie den erweiterten Berechtigungsmodus auf: +
+`*set -privilege advanced*`
+.. Aktualisieren Sie die MetroCluster-Konfiguration: +
+`*metrocluster configure -refresh true*`
++
+Mit dem folgenden Befehl wird die MetroCluster-Konfiguration auf allen Nodes in der DR-Gruppe aktualisiert, die Controller_A_1 enthält:
+
++
+[listing]
+----
+controller_A_1::*> metrocluster configure -refresh true
+[Job 009] Job succeeded: Configure is successful.
+----
+.. Zurück zum Admin-Berechtigungsmodus: +
+`*set -privilege admin*`
+
+
+. Überprüfen Sie die MetroCluster Konfiguration auf Fehler und überprüfen Sie, ob sie funktionsfähig ist.
++
+Sie sollten die Verfahren in den folgenden Abschnitten des verwenden link:https://docs.netapp.com/us-en/ontap-metrocluster/install-fc/index.html["Installation und Konfiguration von Fabric-Attached MetroCluster"]:
+
++
+** Überprüfen auf MetroCluster-Konfigurationsfehler mit Config Advisor
+** Überprüfen des lokalen HA-Vorgangs
+** Überprüfung von Umschaltung, Reparatur und Wechsel zurück
+
+
+

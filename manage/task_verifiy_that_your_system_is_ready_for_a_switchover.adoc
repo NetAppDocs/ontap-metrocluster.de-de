@@ -1,0 +1,44 @@
+---
+permalink: manage/task_verifiy_that_your_system_is_ready_for_a_switchover.html 
+sidebar: sidebar 
+keywords: simulate, option, preview, result, switchover, operation, verification, check, precondition, succesful, verify, ready, example 
+summary: Mit der Option -Simulate können Sie die Ergebnisse eines Switchover-Vorgangs in einer Vorschau anzeigen. Durch eine Überprüfung können Sie überprüfen, ob die meisten Voraussetzungen für einen erfolgreichen Lauf erfüllt sind, bevor Sie den Vorgang starten. 
+---
+= Überprüfung, ob das System bereit für eine Umschaltung ist
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können das verwenden `-simulate` Option, um eine Vorschau der Ergebnisse eines Umschaltvorgangs anzuzeigen. Durch eine Überprüfung können Sie überprüfen, ob die meisten Voraussetzungen für einen erfolgreichen Lauf erfüllt sind, bevor Sie den Vorgang starten. Geben Sie diese Befehle von der Site aus ein, die in Betrieb bleibt:
+
+. Legen Sie die Berechtigungsebene auf erweitert fest: `set -privilege advanced`
+. Simulieren Sie einen Switchover-Betrieb am Standort: `metrocluster switchover -simulate`
+. Überprüfen Sie die zurückgegebene Ausgabe.
++
+Der Ausgang zeigt an, ob ein Vetos einen Umschaltvorgang verhindern würde. Jedes Mal, wenn Sie einen MetroCluster-Vorgang durchführen, müssen Sie eine Reihe von Kriterien für den Erfolg des Vorgangs überprüfen. Ein „`vebis`“ ist ein Mechanismus zum Verbot der Operation, wenn ein oder mehrere der Kriterien nicht erfüllt sind. Es gibt zwei Arten von Veto: Ein "`soft`" Veto und ein "`Hard`" Veto. Sie können ein weiches Veto außer Kraft setzen, jedoch kein hartes Veto. Um beispielsweise eine ausgehandelte Umschaltung in einer MetroCluster Konfiguration mit vier Nodes durchzuführen, ist ein Kriterium, dass alle Nodes ordnungsgemäß ausgeführt werden. Angenommen, ein Node ist ausgefallen und wurde von seinem HA-Partner übernommen. Der Switchover-Vorgang wird wegen seines harten Vetos schwierig, da es ein wichtiges Kriterium ist, dass alle Knoten in Betrieb und Zustand sein müssen. Da dies ein harter Veto ist, können Sie das Veto nicht überschreiben.
+
++
+
+IMPORTANT: Es ist am besten, kein Veto außer Kraft zu setzen.
+
+
+
+
+
+== Beispiel: Verifizierungsergebnisse
+
+Das folgende Beispiel zeigt die Fehler, die bei der Simulation eines Switchover-Vorgangs auftreten:
+
+[listing]
+----
+cluster4::*> metrocluster switchover -simulate
+
+[Job 126] Preparing the cluster for the switchover operation...
+[Job 126] Job failed: Failed to prepare the cluster for the switchover
+operation. Use the "metrocluster operation show" command to view detailed error
+information. Resolve the errors, then try the command again.
+----
+
+NOTE: Ausgehandelte Switchover- und Switchback-Funktion schlägt fehl, bis Sie alle ausgefallenen Festplatten ersetzen. Sie können Disaster Recovery durchführen, nachdem Sie die ausgefallenen Festplatten ersetzt haben. Wenn Sie die Warnung für fehlerhafte Festplatten ignorieren möchten, können Sie ein weiches Veto für die ausgehandelte Umschaltung hinzufügen und wieder zurückwechseln.

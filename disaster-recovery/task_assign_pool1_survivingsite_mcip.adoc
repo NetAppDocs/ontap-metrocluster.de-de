@@ -1,0 +1,31 @@
+---
+permalink: disaster-recovery/task_assign_pool1_survivingsite_mcip.html 
+sidebar: sidebar 
+keywords: adp, system, assign, surviving, site 
+summary: Am verbleibenden Standort müssen Sie manuell dem Pool 1 der verbliebenen Nodes Remote-Laufwerke am DR-Standort zuweisen. 
+---
+= Zuweisen von Pool 1-Laufwerken am verbleibenden Standort (MetroCluster-IP-Konfigurationen)
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Laufwerke am Disaster-Standort ausgetauscht wurden und das System nicht für ADP konfiguriert ist, müssen am verbleibenden Standort manuell Remote-Laufwerke am DR-Standort dem Pool 1 des verbleibenden Nodes zugewiesen werden. Sie müssen die Anzahl der zuzuordnenden Laufwerke angeben.
+
+Bei ADP-Systemen werden die Laufwerke automatisch zugewiesen.
+
+.Schritt
+. Weisen Sie am verbleibenden Standort dem Pool 1-Laufwerk (Remote-Laufwerke) des ersten Node zu: `storage disk assign -n number-of-replacement disks -p 1 0m*`
++
+Dieser Befehl weist die neu hinzugefügten und nicht im Besitz befindlichen Laufwerke am Disaster-Standort zu.
+
++
+Mit dem folgenden Befehl werden 22 Laufwerke zugewiesen:
+
++
+[listing]
+----
+cluster_B::> storage disk assign -n 22 -p 1 0m*
+----
+

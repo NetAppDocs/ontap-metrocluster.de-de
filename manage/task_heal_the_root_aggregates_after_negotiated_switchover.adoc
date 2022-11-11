@@ -1,0 +1,50 @@
+---
+permalink: manage/task_heal_the_root_aggregates_after_negotiated_switchover.html 
+sidebar: sidebar 
+keywords: data, aggregate, heal, root, preparation, switchback, operation, negotiate, switchover 
+summary: Nachdem die Datenaggregate geheilt wurden, müssen Sie die Root-Aggregate heilen, um den Switchback-Betrieb zu ermöglichen. 
+---
+= Heilen der Root-Aggregate nach ausgehandelter Umschaltung
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Nachdem die Datenaggregate geheilt wurden, müssen Sie die Root-Aggregate heilen, um den Switchback-Betrieb zu ermöglichen.
+
+Die Datenaggregationsphase des MetroCluster-Heilungsprozesses muss erfolgreich abgeschlossen sein.
+
+.Schritte
+. Schalten Sie die gespiegelten Aggregate zurück, indem Sie den MetroCluster Heal -Phase Root-Aggregates-Befehl ausführen.
++
+[listing]
+----
+cluster_A::> metrocluster heal -phase root-aggregates
+[Job 137] Job succeeded: Heal Root Aggregates is successful
+----
++
+Wenn das Heilen vetoed ist, haben Sie die Möglichkeit, den befehl MetroCluster Heal mit dem Parameter --override-vetoes erneut auszugeben. Wenn Sie diesen optionalen Parameter verwenden, überschreibt das System alle weichen Vetos, die die Heilung verhindern.
+
+. Bestätigen Sie den Abschluss des Heal-Vorgangs, indem Sie den Befehl „MetroCluster Operation show“ im gesunden Cluster ausführen:
++
+[listing]
+----
+
+cluster_A::> metrocluster operation show
+  Operation: heal-root-aggregates
+      State: successful
+ Start Time: 7/29/2014 20:54:41
+   End Time: 7/29/2014 20:54:42
+     Errors: -
+----
+. Überprüfen und entfernen Sie ausgefallene Festplatten, die zum Disaster-Site gehören, indem Sie den folgenden Befehl am gesunden Standort eingeben: `disk show -broken`
+. Schalten Sie jedes Controller-Modul am Disaster-Standort aus oder starten Sie es.
++
+Wenn vom System die LOADER-Eingabeaufforderung angezeigt wird, führen Sie den aus `boot_ontap` Befehl.
+
+. Nachdem die Nodes gebootet wurden, überprüfen Sie, ob die Root-Aggregate gespiegelt wurden.
++
+Wenn beide Plexe vorhanden sind, erfolgt eine Neusynchronisierung automatisch, wenn die Plexe nicht synchronisiert werden. Wenn ein Plex fehlgeschlagen ist, muss dieser Plex zerstört sein und der Spiegel muss mit dem Storage Aggregat Mirror -aggregateaggregate-Name Befehl neu erstellt werden, um die Mirror-Beziehung wiederherzustellen.
+
+

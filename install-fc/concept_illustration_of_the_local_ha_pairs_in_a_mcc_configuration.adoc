@@ -1,0 +1,26 @@
+---
+permalink: install-fc/concept_illustration_of_the_local_ha_pairs_in_a_mcc_configuration.html 
+sidebar: sidebar 
+keywords: metrocluster, fabric, installation, local, ha, pairs, configuration, illustration 
+summary: In MetroCluster Konfigurationen mit acht oder vier Nodes besteht jeder Standort aus Storage-Controllern, die als ein oder zwei HA-Paare konfiguriert sind. Dadurch wird lokale Redundanz ermöglicht, sodass der lokale HA-Partner übernimmt, wenn ein Storage Controller ausfällt. Solche Ausfälle können ohne MetroCluster-Switchover-Operation behoben werden. 
+---
+= Darstellung der lokalen HA-Paare in einer MetroCluster Konfiguration
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+In MetroCluster Konfigurationen mit acht oder vier Nodes besteht jeder Standort aus Storage-Controllern, die als ein oder zwei HA-Paare konfiguriert sind. Dadurch wird lokale Redundanz ermöglicht, sodass der lokale HA-Partner übernimmt, wenn ein Storage Controller ausfällt. Solche Ausfälle können ohne MetroCluster-Switchover-Operation behoben werden.
+
+Lokale HA-Failover- und Giveback-Vorgänge werden mit Storage Failover-Befehlen auf gleiche Weise durchgeführt wie eine andere Konfiguration von MetroCluster.
+
+image::../media/mcc_hw_architecture_local_ha.gif[mcc hw-Architektur lokal ha]
+
+link:concept_illustration_of_redundant_fc_to_sas_bridges.html["Darstellung redundanter FC-to-SAS-Bridges"]
+
+link:concept_redundant_fc_switch_fabrics.html["Redundante FC Switch Fabrics"]
+
+link:concept_cluster_peering_network_mcc.html["Illustration des Cluster-Peering-Netzwerks"]
+
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-concepts/home.html["ONTAP-Konzepte"^]

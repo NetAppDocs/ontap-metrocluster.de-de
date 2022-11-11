@@ -1,0 +1,44 @@
+---
+permalink: install-stretch/concept_parts_of_a_two_node_sas_attached_stretch_mcc_configuration.html 
+sidebar: sidebar 
+keywords: metrocluster, stretch, installation, parts, two, node, sas, attached, configuration 
+summary: Die MetroCluster SAS-Attached-Konfiguration mit zwei Nodes erfordert mehrere Teile. Dazu gehören zwei Single-Node-Cluster, in denen die Storage-Controller über SAS-Kabel direkt mit dem Storage verbunden sind. 
+---
+= Teile einer Stretch MetroCluster Konfiguration mit zwei Nodes über SAS
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Die MetroCluster SAS-Attached-Konfiguration mit zwei Nodes erfordert mehrere Teile. Dazu gehören zwei Single-Node-Cluster, in denen die Storage-Controller über SAS-Kabel direkt mit dem Storage verbunden sind.
+
+Die MetroCluster Konfiguration umfasst die folgenden wichtigen Hardware-Elemente:
+
+* Storage Controller
++
+Die Storage-Controller sind über SAS-Kabel direkt mit dem Storage verbunden.
+
++
+Jeder Storage Controller ist als DR-Partner für einen Storage Controller am Standort des Partners konfiguriert.
+
++
+** Kupfer-SAS-Kabel können für kürzere Entfernungen verwendet werden.
+** Optische SAS-Kabel können über größere Entfernungen verwendet werden.
++
+
+NOTE: Bei Systemen mit E-Series Array-LUNs können die Storage-Controller direkt mit den E-Series Storage-Arrays verbunden werden. Bei anderen Array LUNs sind Verbindungen über FC-Switches erforderlich.
+
++
+https://mysupport.netapp.com/matrix["NetApp Interoperabilitäts-Matrix-Tool"]
+
++
+Im IMT können Sie im Feld Storage-Lösung die Auswahl Ihrer MetroCluster Lösung verwenden. Sie verwenden den *Komponenten-Explorer*, um die Komponenten und die ONTAP-Version auszuwählen, um Ihre Suche zu verfeinern. Klicken Sie auf *Ergebnisse anzeigen*, um die Liste der unterstützten Konfigurationen anzuzeigen, die den Kriterien entsprechen.
+
+
+
+* Cluster-Peering-Netzwerk
++
+Das Cluster-Peering-Netzwerk bietet Konnektivität zur Spiegelung der SVM-Konfiguration (Storage Virtual Machine). Die Konfiguration aller SVMs auf einem Cluster wird dem Partner-Cluster gespiegelt.
+
+

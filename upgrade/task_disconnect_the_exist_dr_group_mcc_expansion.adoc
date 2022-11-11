@@ -1,0 +1,27 @@
+---
+permalink: upgrade/task_disconnect_the_exist_dr_group_mcc_expansion.html 
+sidebar: sidebar 
+keywords: metrocluster, upgrade, disconnect, existing, dr, group, fabric 
+summary: Sie müssen die vorhandenen Controller-Module von den FC-Switches in der Fabric trennen. 
+---
+= Bestehende DR-Gruppe von der Fabric trennen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen die vorhandenen Controller-Module von den FC-Switches in der Fabric trennen.
+
+Diese Aufgabe muss an jedem MetroCluster Standort ausgeführt werden.
+
+.Schritte
+. Deaktivieren Sie die HBA-Ports, die die vorhandenen Controller-Module mit der zu Wartungszwecken laufenden Switch-Fabric verbinden:
++
+`storage port disable -node _node-name_ -port _port-number_`
+
+. Entfernen Sie bei den lokalen FC-Switches die Kabel von den Ports für die HBA-, FC-VI- und ATTO-Brücken des vorhandenen Controller-Moduls.
++
+Sie sollten die Kabel so kennzeichnen, dass sie sich leicht identifizieren lassen, wenn Sie sie erneut verkabeln. Nur die ISL-Ports sollten verkabelt bleiben.
+
+

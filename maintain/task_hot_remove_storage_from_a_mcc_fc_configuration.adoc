@@ -1,0 +1,146 @@
+---
+permalink: maintain/task_hot_remove_storage_from_a_mcc_fc_configuration.html 
+sidebar: sidebar 
+keywords: metrocluster, maintain, service, hot, remove, storage, fc, configuration 
+summary: Sie können Laufwerk-Shelfs in Betrieb nehmen – Shelfs, bei denen die Aggregate von den Laufwerken entfernt wurden, physisch von einer MetroCluster FC-Konfiguration entfernen, die Daten bereitstellt. Sie können ein oder mehrere Shelfs innerhalb eines Shelfs im laufenden Betrieb entfernen oder einen Shelf-Stack entfernen. 
+---
+= Hot-Removing Storage aus einer MetroCluster FC-Konfiguration
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können Laufwerk-Shelfs in Betrieb nehmen – physische Shelfs entfernen, bei denen die Aggregate von den Laufwerken entfernt wurden – von einer MetroCluster FC-Konfiguration, die Daten bereitstellt. Sie können ein oder mehrere Shelfs innerhalb eines Shelfs im laufenden Betrieb entfernen oder einen Shelf-Stack entfernen.
+
+* Ihr System muss eine Multipath HA-, Multipath-, Quad-Path-Konfiguration oder Quad-Path-Konfiguration sein.
+* In einer MetroCluster FC-Konfiguration mit vier Nodes kann sich das lokale HA-Paar nicht in einem Takeover-Status befinden.
+* Sie müssen bereits alle Aggregate aus den Laufwerken in den Shelves entfernt haben, die Sie entfernen.
++
+
+IMPORTANT: Wenn Sie versuchen, dieses Verfahren bei Konfigurationen ohne MetroCluster FC mit Aggregaten auf dem Shelf zu entfernen, können Sie dazu führen, dass das System mit mehreren Laufwerkpanik ausfällt.
+
++
+Das Entfernen von Aggregaten beinhaltet das Aufteilen der gespiegelten Aggregate auf den Shelves, die Sie entfernen, und anschließende Neuerstellen der gespiegelten Aggregate mit einem anderen Satz an Laufwerken.
+
++
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-psmg/home.html["Festplatten- und Aggregatmanagement"]
+
+* Nachdem Sie die Aggregate aus den Laufwerken in den Shelfs entfernt haben, müssen Sie die Laufwerkeigentümer entfernt haben.
++
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-psmg/home.html["Festplatten- und Aggregatmanagement"]
+
+* Wenn Sie ein oder mehrere Shelfs aus einem Stack entfernen, müssen Sie die Entfernung berücksichtigt haben, um die entfernenden Shelfs zu umgehen.
++
+Wenn die aktuellen Kabel nicht lang genug sind, müssen Sie längere Kabel zur Verfügung haben.
+
+
+
+Dieser Task gilt für die folgenden MetroCluster FC-Konfigurationen:
+
+* Direct-Attached MetroCluster FC-Konfigurationen, in denen die Storage Shelfs direkt über SAS-Kabel mit den Storage Controllern verbunden sind
+* Fabric-Attached- oder Bridge-Attached MetroCluster-FC-Konfigurationen, bei denen Storage-Shelfs über FC-to-SAS-Bridges verbunden werden
+
+
+.Schritte
+. Überprüfen Sie den Betrieb der MetroCluster-Konfiguration in ONTAP:
++
+.. Überprüfen Sie, ob das System multipathed ist: +
+`*node run -node _node-name_ sysconfig -a*`
+.. Überprüfen Sie auf beiden Clustern auf Zustandswarnmeldungen:
++
+`*system health alert show*`
+
+.. Bestätigen Sie die MetroCluster-Konfiguration und den normalen Betriebsmodus: +
+`*metrocluster show*`
+.. Durchführen einer MetroCluster-Prüfung:
++
+`*metrocluster check run*`
+
+.. Ergebnisse der MetroCluster-Prüfung anzeigen:
++
+`*metrocluster check show*`
+
+.. Prüfen Sie, ob auf den Switches Zustandswarnmeldungen vorliegen (falls vorhanden):
++
+`*storage switch show*`
+
+.. Nutzen Sie Config Advisor.
++
+https://mysupport.netapp.com/site/tools/tool-eula/activeiq-configadvisor["NetApp Downloads: Config Advisor"]
+
+.. Überprüfen Sie nach dem Ausführen von Config Advisor die Ausgabe des Tools und befolgen Sie die Empfehlungen in der Ausgabe, um die erkannten Probleme zu beheben.
+
+
+. Legen Sie die Berechtigungsebene auf erweitert fest:
++
+`*set -privilege advanced*`
+
+. Vergewissern Sie sich, dass sich kein Postfachlaufwerk in den Regalen befindet:
+`*storage failover mailbox-disk show*`
+. Entfernen Sie das Regal gemäß den Schritten für das jeweilige Szenario.
++
+|===
+
+
+| Szenario | Schritte 
+
+
+ a| 
+Zur Entfernung eines Aggregats, wenn das Shelf entweder nicht gespiegelt, gespiegelt oder beide Typen von Aggregat enthält...
+ a| 
+.. Verwenden Sie die `storage aggregate delete -aggregate _aggregate name_` Befehl zum Entfernen des Aggregats.
+.. Verwenden Sie das Standardverfahren, um die Eigentümerschaft aller Laufwerke im Shelf zu entfernen und dann das Shelf physisch zu entfernen.
++
+Folgen Sie den Anweisungen im _SAS Disk Shelfs Service Guide_, um Shelfs beim Hot-remove-Modell zu entfernen.
+
+
+
+
+
+ a| 
+Um einen Plex aus einem gespiegelten Aggregat zu entfernen, müssen Sie das Aggregat unspiegeln.
+ a| 
+.. Identifizieren Sie den Plex, den Sie entfernen möchten, indem Sie den verwenden `run -node local sysconfig -r` Befehl.
++
+Im folgenden Beispiel können Sie den Plex aus der Zeile identifizieren `Plex /dpg_mcc_8020_13_a1_aggr1/plex0`. In diesem Fall ist der zu angegebene Plex „`plex0`“.
+
++
+[listing]
+----
+dpgmcc_8020_13_a1a2::storage aggregate> run -node local sysconfig -r
+*** This system has taken over dpg-mcc-8020-13-a1
+Aggregate dpg_mcc_8020_13_a1_aggr1 (online, raid_dp, mirrored) (block checksums)
+  Plex /dpg_mcc_8020_13_a1_aggr1/plex0 (online, normal, active, pool0)
+    RAID group /dpg_mcc_8020_13_a1_aggr1/plex0/rg0 (normal, block checksums)
+      RAID Disk Device                          HA  SHELF BAY CHAN Pool Type  RPM  Used (MB/blks)    Phys (MB/blks)
+      --------- ------                          ------------- ---- ---- ---- ----- --------------    --------------
+      dparity   mcc-cisco-8Gb-fab-2:1-1.126L16  0c    32  15  FC:B   0   SAS 15000 272000/557056000  274845/562884296
+      parity    mcc-cisco-8Gb-fab-2:1-1.126L18  0c    32  17  FC:B   0   SAS 15000 272000/557056000  274845/562884296
+      data      mcc-cisco-8Gb-fab-2:1-1.126L19  0c    32  18  FC:B   0   SAS 15000 272000/557056000  274845/562884296
+      data      mcc-cisco-8Gb-fab-2:1-1.126L21  0c    32  20  FC:B   0   SAS 15000 272000/557056000  274845/562884296
+      data      mcc-cisco-8Gb-fab-2:1-1.126L22  0c    32  21  FC:B   0   SAS 15000 272000/557056000  274845/562884296
+
+  Plex /dpg_mcc_8020_13_a1_aggr1/plex1 (online, normal, active, pool1)
+    RAID group /dpg_mcc_8020_13_a1_aggr1/plex1/rg0 (normal, block checksums)
+
+      RAID Disk Device                          HA  SHELF BAY CHAN Pool Type  RPM  Used (MB/blks)    Phys (MB/blks)
+      --------- ------                          ------------- ---- ---- ---- ----- --------------    --------------
+      dparity   mcc-cisco-8Gb-fab-3:1-1.126L37  0d    34  10  FC:A   1   SAS 15000 272000/557056000  280104/573653840
+      parity    mcc-cisco-8Gb-fab-3:1-1.126L14  0d    33  13  FC:A   1   SAS 15000 272000/557056000  280104/573653840
+      data      mcc-cisco-8Gb-fab-3:1-1.126L41  0d    34  14  FC:A   1   SAS 15000 272000/557056000  280104/573653840
+      data      mcc-cisco-8Gb-fab-3:1-1.126L15  0d    33  14  FC:A   1   SAS 15000 272000/557056000  280104/573653840
+      data      mcc-cisco-8Gb-fab-3:1-1.126L45  0d    34  18  FC:A   1   SAS 15000 272000/557056000  280104/573653840
+----
+.. Verwenden Sie die `storage aggregate plex delete -aggregate _aggr_name_ -plex _plex_name_` Befehl zum Entfernen des Plex.
++
+plex definiert den Plex-Namen, z. B. „`plex3`“ oder „`plex6`“.
+
+.. Verwenden Sie das Standardverfahren, um die Eigentümerschaft aller Laufwerke im Shelf zu entfernen und dann das Shelf physisch zu entfernen.
++
+Folgen Sie den Anweisungen im _SAS Disk Shelfs Service Guide_, um Shelfs beim Hot-remove-Modell zu entfernen.
+
+
+
+|===
+

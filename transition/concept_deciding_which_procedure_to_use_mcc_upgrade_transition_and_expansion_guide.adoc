@@ -1,0 +1,79 @@
+---
+permalink: transition/concept_deciding_which_procedure_to_use_mcc_upgrade_transition_and_expansion_guide.html 
+sidebar: sidebar 
+keywords: difference, metrocluster, upgrade, expansion, transition, procedure, match, goal, deciding, decide 
+summary: Sie müssen die Unterschiede zwischen einem MetroCluster Upgrade, einer Erweiterung oder einem Umstieg verstehen und die Vorgehensweise wählen, die Ihrem Ziel entspricht. 
+---
+= Entscheidung, welches Verfahren verwendet werden soll
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen die Unterschiede zwischen einem MetroCluster Upgrade, einer Erweiterung oder einem Umstieg verstehen und die Vorgehensweise wählen, die Ihrem Ziel entspricht.
+
+* *Upgrade*
++
+Bei einem Upgrade-Verfahren werden die Controller-Module durch ein neues Modell des Controller-Moduls ersetzt.
+
++
+** Die alten Controller-Module werden außer Betrieb genommen.
+** Der Speicher wird nicht aktualisiert.
+** Die Storage-Switch-Infrastrukturtechnologie ist nicht geändert.
++
+Es bleibt als MetroCluster IP-, Fabric-Attached MetroCluster- oder Stretch MetroCluster-Konfiguration erhalten.
+
++
+link:../upgrade/concept_choosing_an_upgrade_method_mcc.html["Wahl einer Upgrade- oder Aktualisierungsmethode"]
+
+
+
+* *Aktualisieren*
++
+Bei einer Aktualisierung ersetzen Sie die Controller-Module durch ein neues Modell des Controller-Moduls und ersetzen die Storage Shelfs.
+
++
+** Die alten Controller-Module und Storage-Shelfs werden außer Betrieb genommen.
+** Die Storage-Switch-Infrastrukturtechnologie wird nicht geändert, es sei denn, neue Switches sind für die neuen Plattformmodelle erforderlich.
++
+Die Konfiguration bleibt als ursprünglicher Typ:
+
++
+*** MetroCluster IP
+*** Fabric-Attached MetroCluster
+*** Stretch-MetroCluster-Konfiguration +link:../upgrade/concept_choosing_an_upgrade_method_mcc.html["Wahl einer Upgrade- oder Aktualisierungsmethode"]
+
+
+
+
+* *Übergang*
++
+Bei einem Umstiegsprozess wird die Back-End-Switch-Infrastruktur von FC-Switches oder -Verbindungen zu IP-Switches geändert und die Plattformmodelle werden ausgetauscht.
+
++
+** Das Hinzufügen neuer Controller-Module zur Konfiguration
+** Die ursprünglichen Controller-Module werden nach dem Verfahren außer Betrieb genommen.
+** Wenn in der ursprünglichen Konfiguration Cluster Interconnect Switches verwendet werden, können sie, abhängig von den Switch- und Plattformmodellen, wiederverwendet werden.
+** Der Storage kann je nach Plattformmodell wiederverwendet oder ausgetauscht werden.
++
+Wenn die Storage Shelfs nicht wiederverwendet werden, werden die Daten von den alten Shelfs in die neuen Shelfs verschoben.
+
++
+Link:../Übergang/concept_choosing_your_transition_procedure_mcc_transition.html
+
+
+
+* *Erweiterung*
++
+Bei einer Erweiterung werden der MetroCluster FC-Konfiguration zusätzliche Nodes und zusätzlicher Storage hinzugefügt.
+
++
+** link:../upgrade/task_expand_a_two_node_mcc_fc_configuration_to_a_four_node_fc_configuration_supertask.html["Erweitern einer MetroCluster FC-Konfiguration mit zwei Nodes auf eine Konfiguration mit vier Nodes"]
+** link:../upgrade/task_expand_a_four_node_mcc_fc_configuration_to_an_eight_node_configuration.html["Erweitern einer MetroCluster FC-Konfiguration mit vier Nodes auf eine Konfiguration mit acht Nodes"]
++
+LINK FÜR MIGRATION WURDE ENTFERNT
+
+
+
+

@@ -1,0 +1,45 @@
+---
+permalink: disaster-recovery/task_verify_connectivity_mcip.html 
+sidebar: sidebar 
+keywords: metrocluster, ip, configuration, verify, storage, connectivity, remote 
+summary: Sie müssen sicherstellen, dass die ersetzten Nodes mit den Festplatten-Shelfs am verbleibenden Standort verbunden sind. 
+---
+= Überprüfen der Storage-Konnektivität zum Remote Standort (MetroCluster IP-Konfigurationen)
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen sicherstellen, dass die ersetzten Nodes mit den Festplatten-Shelfs am verbleibenden Standort verbunden sind.
+
+Diese Aufgabe wird auf den Ersatz-Nodes am Disaster-Standort ausgeführt.
+
+Diese Aufgabe wird im Wartungsmodus ausgeführt.
+
+.Schritte
+. Zeigt die Festplatten an, die der ursprünglichen System-ID gehören.
++
+`disk show -s old-system-ID`
+
++
+Die Remote-Datenträger können vom 0m-Gerät erkannt werden. 0m zeigt an, dass die Festplatte über die MetroCluster-iSCSI-Verbindung verbunden ist. Diese Festplatten müssen später im Wiederherstellungsverfahren neu zugewiesen werden.
+
++
+[listing]
+----
+*> disk show -s 4068741256
+Local System ID: 1574774970
+
+  DISK     OWNER                 POOL  SERIAL NUMBER   HOME                  DR HOME
+---------- --------------------- ----- -------------   --------------------- ----------------------
+0m.i0.0L11 node_A_2 (4068741256) Pool1 S396NA0HA02128  node_A_2 (4068741256) node_A_2  (4068741256)
+0m.i0.1L38 node_A_2 (4068741256) Pool1 S396NA0J148778  node_A_2 (4068741256) node_A_2  (4068741256)
+0m.i0.0L52 node_A_2 (4068741256) Pool1 S396NA0J148777  node_A_2 (4068741256) node_A_2  (4068741256)
+...
+...
+NOTE: Currently 49 disks are unowned. Use 'disk show -n' for additional information.
+*>
+----
+. Wiederholen Sie diesen Schritt auf den anderen Ersatzknoten
+

@@ -1,0 +1,36 @@
+---
+permalink: install-stretch/task_rack_the_hardware_components_2_node_stretch_sas.html 
+sidebar: sidebar 
+keywords: metrocluster, stretch, installation, rack, hardware, components 
+summary: Wenn Sie noch nicht die bereits in den Schränken installierten Geräte erhalten haben, müssen Sie die Komponenten in einem Rack unterbringen. 
+---
+= Die Hardwarekomponenten in den Rack führen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie noch nicht die bereits in den Schränken installierten Geräte erhalten haben, müssen Sie die Komponenten in einem Rack unterbringen.
+
+Dieser Task muss auf beiden MetroCluster-Sites ausgeführt werden.
+
+.Schritte
+. Planen Sie die Positionierung der MetroCluster Komponenten.
++
+Die erforderliche Rack-Fläche hängt vom Plattformmodell der Storage Controller, den Switch-Typen und der Anzahl von Festplatten-Shelf-Stacks in Ihrer Konfiguration ab.
+
+. Durch die Verwendung von Standardpraktiken in der Werkstatt für die Arbeit mit elektrischen Geräten stellen Sie sicher, dass Sie ordnungsgemäß geerdet sind.
+. Die Storage Controller im Rack oder Schrank einbauen.
++
+https://docs.netapp.com/platstor/index.jsp["AFF and FAS Documentation Center"]
+
+. Installieren Sie die Festplatten-Shelfs, schalten Sie die Festplatten-Shelfs in den einzelnen Stacks ein, und legen Sie die Shelf-IDs fest.
++
+Informationen über das Verketten von Platten-Shelfs und das Festlegen von Shelf-IDs finden Sie im entsprechenden Leitfaden für Ihr Festplatten-Shelf-Modell.
+
++
+
+NOTE: Shelf-IDs müssen für jedes SAS-Festplatten-Shelf innerhalb jeder MetroCluster DR-Gruppe (einschließlich beider Standorte) eindeutig sein. Wenn Sie Shelf-IDs manuell einstellen, müssen Sie das Festplatten-Shelf aus- und wieder einschalten.
+
+

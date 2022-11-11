@@ -1,0 +1,85 @@
+---
+permalink: manage/task_verify_a_successful_switchback.html 
+sidebar: sidebar 
+keywords: perform, switchback, aggregate, storage, virtual, machine, svm, switch, back, online, verify, successful 
+summary: 'Nach dem Wechsel zurück möchten Sie sicherstellen, dass alle Aggregate und Storage Virtual Machines \ (SVMs\) zurück und online geschaltet werden.' 
+---
+= Überprüfen eines erfolgreichen Umschalttasches
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Nach dem Wechsel zurück möchten Sie sicherstellen, dass alle Aggregate und Storage Virtual Machines (SVMs) zurück und wieder online geschaltet werden.
+
+. Vergewissern Sie sich, dass die Switched-Data-Aggregate zurückgeschaltet sind:
++
+`storage aggregate show`
+
++
+Im folgenden Beispiel ist aggr_b2 an Knoten B2 zurückgeschaltet:
+
++
+[listing]
+----
+node_B_1::> storage aggregate show
+Aggregate     Size Available Used% State   #Vols  Nodes            RAID Status
+--------- -------- --------- ----- ------- ------ ---------------- ------------
+...
+aggr_b2    227.1GB   227.1GB    0% online       0 node_B_2   raid_dp,
+                                                                   mirrored,
+                                                                   normal
+----
+. Überprüfen Sie, ob alle synchronen Ziel-SVMs auf dem verbleibenden Cluster inaktiv sind (mit einem Administratorstatus von „`sTop`“), und die SVMs der synchronen Quelle auf dem Disaster Cluster laufen in Betrieb:
++
+`vserver show -subtype sync-source`
+
++
+[listing]
+----
+node_B_1::> vserver show -subtype sync-source
+                               Admin      Root                       Name    Name
+Vserver     Type    Subtype    State      Volume     Aggregate       Service Mapping
+----------- ------- ---------- ---------- ---------- ----------      ------- -------
+...
+vs1a        data    sync-source
+                               running    vs1a_vol   node_B_2        file    file
+                                                                     aggr_b2
+
+node_A_1::> vserver show -subtype sync-destination
+                               Admin      Root                         Name    Name
+Vserver            Type    Subtype    State      Volume     Aggregate  Service Mapping
+-----------        ------- ---------- ---------- ---------- ---------- ------- -------
+...
+cluster_A-vs1a-mc  data    sync-destination
+                                      stopped    vs1a_vol   sosb_      file    file
+                                                                       aggr_b2
+----
++
+Für Sync-Ziel-Aggregate in der MetroCluster-Konfiguration wurde das Suffix „`-mc`“ automatisch an ihren Namen angehängt, um sie zu identifizieren.
+
+. Vergewissern Sie sich, dass die Umkehrvorgänge mit dem erfolgreich waren `metrocluster operation show` Befehl.
++
+|===
+
+
+| Wenn die Befehlsausgabe angezeigt wird... | Dann... 
+
+
+ a| 
+Dass der Betriebszustand zurückwechseln erfolgreich ist.
+ a| 
+Der Switch-Back-Vorgang ist abgeschlossen, und Sie können den Betrieb des Systems fortsetzen.
+
+
+
+ a| 
+Dass der Betrieb des zurückkehrenden oder zurückkehrenden Agenten teilweise erfolgreich ist.
+ a| 
+Führen Sie den vorgeschlagenen Fix aus, der in der Ausgabe des angegeben ist `metrocluster operation show` Befehl.
+
+|===
+
+
+Sie müssen die vorherigen Abschnitte wiederholen, um den Umschalter in die entgegengesetzte Richtung auszuführen. Wenn Site_A die Umschaltung von Site_B durchgeführt hat, muss Site_B die Umschaltung von Site_A durchführen

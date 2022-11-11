@@ -1,0 +1,48 @@
+---
+permalink: install-stretch/concept_parts_of_a_two_node_mcc_configuration_using_fc_to_sas_bridges.html 
+sidebar: sidebar 
+keywords: metrocluster, stretch, installation, parts, two, node, bridge, stretch, configuration 
+summary: Bei der Planung der MetroCluster Konfiguration sollten Sie sich mit den einzelnen Komponenten der Konfiguration und deren Zusammenspiel vertraut machen. 
+---
+= Teile einer Stretch MetroCluster Konfiguration mit zwei Nodes über eine Bridge
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Bei der Planung der MetroCluster Konfiguration sollten Sie sich mit den einzelnen Komponenten der Konfiguration und deren Zusammenspiel vertraut machen.
+
+Die MetroCluster Konfiguration umfasst die folgenden wichtigen Hardware-Elemente:
+
+* Storage Controller
++
+Die Storage Controller sind nicht direkt mit dem Storage verbunden, sondern mit FC-to-SAS-Bridges verbunden. Die Storage-Controller sind über FC-Kabel zwischen den FC-VI-Adaptern der einzelnen Controller miteinander verbunden.
+
++
+Jeder Storage Controller ist als DR-Partner für einen Storage Controller am Standort des Partners konfiguriert.
+
+* FC-to-SAS-Bridges
++
+Die FC-to-SAS-Bridges verbinden die SAS-Storage-Stacks mit den FC-Initiator-Ports auf den Controllern und sorgen somit für den Überbrückung zwischen den beiden Protokollen.
+
+* Cluster-Peering-Netzwerk
++
+Das Cluster-Peering-Netzwerk bietet Konnektivität zur Spiegelung der SVM-Konfiguration (Storage Virtual Machine). Die Konfiguration aller SVMs auf einem Cluster wird dem Partner-Cluster gespiegelt.
+
+
+
+Die folgende Abbildung zeigt eine vereinfachte Ansicht der MetroCluster Konfiguration. Bei einigen Verbindungen stellt eine einzelne Leitung mehrere redundante Verbindungen zwischen den Komponenten dar. Verbindungen zu Daten und Management-Netzwerken werden nicht angezeigt.
+
+image::../media/mcc_hardware_architecture_both_clusters_2_node_atto.gif[mcc-Hardwarearchitektur Cluster beide atto mit 2 Nodes]
+
+* Die Konfiguration besteht aus zwei Single-Node-Clustern.
+* Jeder Standort verfügt über einen oder mehrere SAS-Storage-Stacks.
++
+
+NOTE: SAS-Shelves in MetroCluster-Konfigurationen werden mit ACP-Verkabelung nicht unterstützt.
+
++
+Zusätzliche Storage-Stacks werden unterstützt, aber nur einer wird an jedem Standort angezeigt.
+
+

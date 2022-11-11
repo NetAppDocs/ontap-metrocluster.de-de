@@ -1,0 +1,45 @@
+---
+permalink: upgrade/task_assign_disks_to_the_new_controller_mcc_expansion.html 
+sidebar: sidebar 
+keywords: metrocluster, upgrade, assign, disks, new, controller, module 
+summary: Bevor Sie die Konfiguration des neuen Controller-Moduls über einen Netzboot ausführen, müssen Sie ihm Festplatten zuweisen. 
+---
+= Zuweisen von Festplatten zum neuen Controller-Modul
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Bevor Sie die Konfiguration des neuen Controller-Moduls über einen Netzboot ausführen, müssen Sie ihm Festplatten zuweisen.
+
+Sie müssen sicherstellen, dass genügend Ersatzteile, nicht zugewiesene Festplatten oder zugewiesene Festplatten nicht Teil eines vorhandenen Aggregats sind.
+
+link:task_prepare_for_the_upgrade_add_2nd_controller_to_create_ha_pair.html["Vorbereitung auf das Upgrade"]
+
+Diese Schritte werden am vorhandenen Controller-Modul durchgeführt.
+
+.Schritte
+. Weisen Sie die Root-Festplatte dem neuen Controller-Modul zu:
++
+`storage disk assign -disk _disk_name_ -sysid _new_controller_sysID_ -force true`
+
++
+Wenn Ihr Plattformmodell die ADP-Funktion (Advanced Drive Partitioning) verwendet, müssen Sie den Parameter -root true angeben:
+
++
+`storage disk assign -disk _disk_name_ -root true -sysid _new_controller_sysID_ -force true`
+
+. Weisen Sie dem neuen Controller-Modul die verbleibenden erforderlichen Festplatten zu, indem Sie für jede Festplatte den folgenden Befehl eingeben:
++
+`storage disk assign -disk _disk_name_ -sysid _new_controller_sysID_ -force true`
+
+. Vergewissern Sie sich, dass die Festplattenzuordnungen korrekt sind:
++
+`storage disk show -partitionownership*`
+
++
+
+NOTE: Stellen Sie sicher, dass Sie alle Laufwerke zugewiesen haben, die Sie dem neuen Knoten zuweisen möchten.
+
+

@@ -1,0 +1,37 @@
+---
+permalink: upgrade/task_expand_a_four_node_mcc_fc_configuration_to_an_eight_node_configuration.html 
+sidebar: sidebar 
+keywords: metrocluster, upgrade, expand, four, node, eight, configuration 
+summary: Um eine MetroCluster FC-Konfiguration mit vier Nodes auf eine MetroCluster FC-Konfiguration mit acht Nodes zu erweitern, müssen jedem Cluster zwei Controller hinzugefügt werden. So bilden sie an jedem MetroCluster Standort ein zweites HA-Paar, und anschließend werden der MetroCluster FC-Konfigurationsvorgang ausgeführt. 
+---
+= Erweitern einer MetroCluster FC-Konfiguration mit vier Nodes auf eine Konfiguration mit acht Nodes
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Um eine MetroCluster FC-Konfiguration mit vier Nodes auf eine MetroCluster FC-Konfiguration mit acht Nodes zu erweitern, müssen jedem Cluster zwei Controller hinzugefügt werden. So bilden sie an jedem MetroCluster Standort ein zweites HA-Paar, und anschließend werden der MetroCluster FC-Konfigurationsvorgang ausgeführt.
+
+.Über diese Aufgabe
+* Die Knoten müssen ONTAP 9 in einer MetroCluster FC-Konfiguration ausführen.
++
+Frühere Versionen von ONTAP oder MetroCluster IP-Konfigurationen unterstützen dieses Verfahren nicht.
+
+* Die vorhandene MetroCluster FC-Konfiguration muss sich in einem ordnungsgemäßen Zustand befindet.
+* Die Geräte, die Sie hinzufügen, müssen unterstützt werden und alle in beschriebenen Anforderungen erfüllen link:../install-fc/index.html["Installation und Konfiguration von Fabric-Attached MetroCluster"]
+* Sie benötigen verfügbare FC-Switch-Ports, um die neuen Controller und neue Bridges aufnehmen zu können.
+* Sie benötigen das Admin-Passwort und den Zugriff auf einen FTP- oder SCP-Server.
+* Dieses Verfahren gilt nur für MetroCluster FC-Konfigurationen.
+* Diese Vorgehensweise verursacht keine Unterbrechungen und dauert etwa einen Tag (ausgenommen Rack und Stack), wenn Festplatten gelöscht werden.
+
+
+Bevor Sie dieses Verfahren durchführen, besteht die MetroCluster FC-Konfiguration aus vier Nodes mit einem HA-Paar an jedem Standort:
+
+image::../media/mcc_dr_groups_4_node.gif[mcc dr Gruppen 4 Knoten]
+
+Nach Abschluss dieses Verfahrens besteht die MetroCluster FC-Konfiguration aus zwei HA-Paaren an jedem Standort:
+
+image::../media/mcc_dr_groups_8_node.gif[mcc dr Gruppen 8 Knoten]
+
+Beide Standorte müssen gleichermaßen erweitert werden. Eine MetroCluster FC-Konfiguration darf nicht aus einer ungleichmäßigen Anzahl von Nodes bestehen.

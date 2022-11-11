@@ -1,0 +1,245 @@
+---
+permalink: maintain/task_hot_add_a_stack_to_exist_7500n_pair.html 
+sidebar: sidebar 
+keywords: metrocluster, maintain, service, hot, add, stack, sas, disk, shelves, existing, pair, fibrebridge, bridge 
+summary: Sie können einen Stack von SAS-Platten-Shelves zu einem vorhandenen FibreBridge 7500N-Paar mit verfügbaren Ports im laufenden Betrieb hinzufügen. 
+---
+= Hot-Adding eines SAS-Festplatten-Shelfs zu einem vorhandenen FibreBridge 7500N-Paar
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können einen Stack von SAS-Platten-Shelves zu einem vorhandenen FibreBridge 7500N-Paar mit verfügbaren Ports im laufenden Betrieb hinzufügen.
+
+.Bevor Sie beginnen
+* Sie müssen die neueste Festplatten- und Festplatten-Shelf-Firmware heruntergeladen haben.
+* Auf allen Festplatten-Shelfs in der MetroCluster-Konfiguration (vorhandene Shelfs) muss dieselbe Firmware-Version ausgeführt werden. Wenn auf einer oder mehreren Festplatten oder Shelfs nicht die neueste Firmware-Version ausgeführt wird, aktualisieren Sie die Firmware, bevor Sie die neuen Festplatten oder Shelfs anschließen.
++
+https://mysupport.netapp.com/site/downloads/firmware/disk-drive-firmware["NetApp Downloads: Festplatten-Firmware"^]
+
++
+https://mysupport.netapp.com/site/downloads/firmware/disk-shelf-firmware["NetApp Downloads: Festplatten-Shelf Firmware"^]
+
+* Die FibreBridge 7500N-Brücken müssen angeschlossen sein und über verfügbare SAS-Ports verfügen.
+
+
+Dieses Verfahren wird mit der Annahme geschrieben, dass Sie die empfohlenen Bridge Management-Schnittstellen verwenden: Die ATTO ExpressNAV GUI und das ATTO Quicknav Dienstprogramm.
+
+Sie können die ATTO ExpressNAV GUI verwenden, um eine Bridge zu konfigurieren und zu verwalten und die Bridge-Firmware zu aktualisieren. Sie können das Dienstprogramm ATTO Quicknav verwenden, um den Bridge Ethernet Management 1 Port zu konfigurieren.
+
+Bei Bedarf können Sie andere Management-Schnittstellen verwenden. Diese Optionen umfassen die Verwendung eines seriellen Ports oder Telnet zur Konfiguration und Verwaltung einer Bridge sowie zur Konfiguration des Ethernet Management 1-Ports und die Verwendung von FTP zur Aktualisierung der Bridge-Firmware. Wenn Sie eine dieser Management-Schnittstellen auswählen, müssen Sie die entsprechenden Anforderungen in erfüllen link:reference_requirements_for_using_other_interfaces_to_configure_and_manage_fibrebridge_bridges.html["Anderen Bridge-Managementschnittstellen"].
+
+
+IMPORTANT: Wenn Sie ein SAS-Kabel in den falschen Port stecken, müssen Sie das Kabel von einem SAS-Port entfernen und mindestens 120 Sekunden warten, bevor Sie das Kabel an einen anderen SAS-Port anschließen. Wenn Sie dies nicht tun, erkennt das System nicht, dass das Kabel auf einen anderen Port verschoben wurde.
+
+.Schritte
+. Richtig gemahlen.
+. Vergewissern Sie sich an der Konsole eines der Controller, dass die automatische Zuweisung der Festplatte im System aktiviert ist:
++
+`storage disk option show`
+
++
+In der Spalte Automatische Zuweisung wird angegeben, ob die automatische Zuweisung von Laufwerken aktiviert ist.
+
++
+[listing]
+----
+
+Node        BKg. FW. Upd.  Auto Copy   Auto Assign  Auto Assign Policy
+----------  -------------  ----------  -----------  ------------------
+node_A_1             on           on           on           default
+node_A_2             on           on           on           default
+2 entries were displayed.
+----
+. Deaktivieren Sie die Switch-Ports für den neuen Stack.
+. Aktualisieren Sie die FibreBridge-Firmware auf jeder Bridge.
++
+Wenn die neue Bridge den gleichen Typ hat wie das Upgrade der Partnerbrücke auf die gleiche Firmware wie die Partner Bridge. Falls sich die neue Brücke von einem anderen Typ der Partnerbrücke unterscheidet, aktualisieren Sie auf die neueste Firmware, die von der Bridge und Version von ONTAP unterstützt wird. Siehe Abschnitt „Firmware auf einer FibreBridge-Brücke aktualisieren“ im _MetroCluster-Wartungshandbuch_.
+
+. Aktivieren Sie an jeder Bridge im Paar den SAS-Port, der eine Verbindung mit dem neuen Stack herstellt:
++
+`SASPortEnable _port-letter_`
+
++
+Auf beiden Brücken muss derselbe SAS-Port (B, C oder D) verwendet werden.
+
+. Speichern Sie die Konfiguration, und starten Sie jede Bridge neu:
++
+`SaveConfiguration Restart`
+
+. Die Platten-Shelfs mit den Bridges verkabeln:
++
+.. Schalten Sie die Festplatten-Shelfs in den einzelnen Stacks in Reihe.
++
+Das _Installation and Service Guide_ für Ihr Festplatten-Shelf-Modell bietet detaillierte Informationen zum Verketten von Platten-Shelfs in Reihe.
+
+.. Verkabeln Sie für jeden Stack der Festplatten-Shelfs IOM A des ersten Shelf mit SAS-Port A auf FibreBridge A und verkabeln Sie dann IOM B des letzten Shelfs mit SAS-Port A auf FibreBridge B
++
+link:../install-fc/index.html["Installation und Konfiguration von Fabric-Attached MetroCluster"]
+
++
+link:../install-stretch/concept_considerations_differences.html["Installation und Konfiguration von Stretch MetroCluster"]
+
++
+Jede Bridge verfügt über einen Pfad zu ihrem Festplatten-Shelf. Bridge A wird über das erste Shelf mit Der A-Seite des Stacks verbunden, und Bridge B wird über das letzte Shelf mit der B-Seite des Stacks verbunden.
+
++
+
+NOTE: Der Bridge-SAS-Port B ist deaktiviert.
+
+
+
+. Überprüfen Sie, ob jede Bridge alle Festplattenlaufwerke und Festplatten-Shelfs erkennen kann, mit denen die Bridge verbunden ist.
++
+[cols="30,70"]
+|===
+
+
+| Wenn Sie den... | Dann... 
+
+
+ a| 
+ATTO ExpressNAV GUI
+ a| 
+.. Geben Sie in einem unterstützten Webbrowser die IP-Adresse einer Bridge in das Browserfenster ein.
++
+Sie werden auf die ATTO FibreBridge Homepage gebracht, die einen Link hat.
+
+.. Klicken Sie auf den Link, und geben Sie dann Ihren Benutzernamen und das Passwort ein, das Sie beim Konfigurieren der Bridge festgelegt haben.
++
+Die ATTO FibreBridge-Statusseite wird mit einem Menü links angezeigt.
+
+.. Klicken Sie im Menü auf *Erweitert*.
+.. Anzeigen der angeschlossenen Geräte:
++
+`sastargets`
+
+.. Klicken Sie Auf *Absenden*.
+
+
+
+
+ a| 
+Serieller Anschluss
+ a| 
+Anzeigen der angeschlossenen Geräte:
+
+`sastargets`
+
+|===
++
+Die Ausgabe zeigt die Geräte (Festplatten und Festplatten-Shelfs) an, mit denen die Bridge verbunden ist. Die Ausgabelinien werden nacheinander nummeriert, sodass Sie die Geräte schnell zählen können.
+
++
+
+NOTE: Wenn der Text "`response cuted`" am Anfang der Ausgabe erscheint, können Sie Telnet verwenden, um die Verbindung mit der Brücke herzustellen, und dann alle Ergebnisse mit dem anzeigen `sastargets` Befehl.
+
++
+Die folgende Ausgabe zeigt, dass 10 Festplatten angeschlossen sind:
+
++
+[listing]
+----
+Tgt VendorID ProductID        Type        SerialNumber
+  0 NETAPP   X410_S15K6288A15 DISK        3QP1CLE300009940UHJV
+  1 NETAPP   X410_S15K6288A15 DISK        3QP1ELF600009940V1BV
+  2 NETAPP   X410_S15K6288A15 DISK        3QP1G3EW00009940U2M0
+  3 NETAPP   X410_S15K6288A15 DISK        3QP1EWMP00009940U1X5
+  4 NETAPP   X410_S15K6288A15 DISK        3QP1FZLE00009940G8YU
+  5 NETAPP   X410_S15K6288A15 DISK        3QP1FZLF00009940TZKZ
+  6 NETAPP   X410_S15K6288A15 DISK        3QP1CEB400009939MGXL
+  7 NETAPP   X410_S15K6288A15 DISK        3QP1G7A900009939FNTT
+  8 NETAPP   X410_S15K6288A15 DISK        3QP1FY0T00009940G8PA
+  9 NETAPP   X410_S15K6288A15 DISK        3QP1FXW600009940VERQ
+----
+. Überprüfen Sie, ob in der Befehlsausgabe angezeigt wird, dass die Bridge mit allen entsprechenden Festplatten und Festplatten-Shelfs im Stack verbunden ist.
++
+[cols="30,70"]
+|===
+
+
+| Wenn die Ausgabe... | Dann... 
+
+
+ a| 
+Das Ist Korrekt
+ a| 
+Wiederholen Sie den vorherigen Schritt für jede verbleibende Brücke.
+
+
+
+ a| 
+Nicht richtig
+ a| 
+.. Überprüfen Sie, ob sich die SAS-Kabel lose anschließen oder korrigieren Sie die SAS-Verkabelung, indem Sie den Schritt zum Verkabeln der Platten-Shelfs mit den Bridges wiederholen.
+.. Wiederholen Sie den vorherigen Schritt für jede verbleibende Brücke.
+
+
+|===
+. Aktualisieren Sie die Festplatten-Firmware von der Systemkonsole auf die aktuellste Version:
++
+`disk_fw_update`
+
++
+Sie müssen diesen Befehl auf beiden Controllern ausführen.
+
++
+https://mysupport.netapp.com/site/downloads/firmware/disk-drive-firmware["NetApp Downloads: Festplatten-Firmware"^]
+
+. Aktualisieren Sie die Festplatten-Shelf-Firmware auf die aktuelle Version, indem Sie die Anweisungen für die heruntergeladene Firmware verwenden.
++
+Sie können die Befehle des Verfahrens über die Systemkonsole eines der beiden Controller ausführen.
+
++
+https://mysupport.netapp.com/site/downloads/firmware/disk-shelf-firmware["NetApp Downloads: Festplatten-Shelf Firmware"^]
+
+. Wenn die automatische Zuweisung von Laufwerken auf Ihrem System nicht aktiviert ist, weisen Sie die Eigentumsrechte an der Festplatte zu.
++
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-psmg/home.html["Festplatten- und Aggregatmanagement"^]
+
++
+
+NOTE: Wenn Sie die Eigentumsrechte eines einzigen Stacks an Festplatten-Shelfs auf mehrere Controller verteilen, müssen Sie die automatische Zuweisung der Festplatte deaktivieren (`storage disk option modify -autoassign off *` Aus beiden Nodes im Cluster) vor dem Zuweisen von Festplatteneigentum. Anderenfalls werden die übrigen Festplattenlaufwerke ggf. automatisch demselben Controller und Pool zugewiesen, wenn Sie ein einzelnes Laufwerk zuweisen.
+
++
+
+NOTE: Sie dürfen Aggregate oder Volumes erst dann Laufwerke hinzufügen, wenn die Festplatten-Firmware und Festplatten-Shelf-Firmware aktualisiert wurden und die Verifizierungsschritte dieser Aufgabe abgeschlossen sind.
+
+. Aktivieren Sie die Switch-Ports für den neuen Stack.
+. Überprüfen Sie den Betrieb der MetroCluster-Konfiguration in ONTAP:
++
+.. Prüfen Sie, ob das System multipathed ist:
++
+`node run -node _node-name_ sysconfig -a`
+
+.. Überprüfen Sie auf beiden Clustern auf Zustandswarnmeldungen:
++
+`system health alert show`
+
+.. Bestätigen Sie die MetroCluster-Konfiguration und den normalen Betriebsmodus:
++
+`metrocluster show`
+
+.. Durchführen einer MetroCluster-Prüfung:
++
+`metrocluster check run`
+
+.. Ergebnisse der MetroCluster-Prüfung anzeigen:
++
+`metrocluster check show`
+
+.. Prüfen Sie, ob auf den Switches Zustandswarnmeldungen vorliegen (falls vorhanden):
++
+`storage switch show`
+
+.. Nutzen Sie Config Advisor.
++
+https://mysupport.netapp.com/site/tools/tool-eula/activeiq-configadvisor["NetApp Downloads: Config Advisor"^]
+
+.. Überprüfen Sie nach dem Ausführen von Config Advisor die Ausgabe des Tools und befolgen Sie die Empfehlungen in der Ausgabe, um die erkannten Probleme zu beheben.
+
+
+. Wiederholen Sie dieses Verfahren bei Bedarf für die Partner Site.
+

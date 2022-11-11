@@ -1,0 +1,31 @@
+= 
+:allow-uri-read: 
+
+
+[role="lead"]
+Falls erforderlich, können Sie die Boot_Recovery und rdb_Corrupt_bootargs zurücksetzen
+
+.Schritte
+. Halten Sie den Node wieder an die LOADER-Eingabeaufforderung an:
++
+[listing]
+----
+node_A_1::*> halt -node _node-name_
+----
+. Überprüfen Sie, ob die folgenden Bootargs eingestellt sind:
++
+[listing]
+----
+LOADER> printenv bootarg.init.boot_recovery
+LOADER> printenv bootarg.rdb_corrupt
+----
+. Wenn eine der Bootarg auf einen Wert gesetzt wurde, heben Sie die Einstellung auf und starten Sie die ONTAP:
++
+[listing]
+----
+LOADER> unsetenv bootarg.init.boot_recovery
+LOADER> unsetenv bootarg.rdb_corrupt
+LOADER> saveenv
+LOADER> bye
+----
+

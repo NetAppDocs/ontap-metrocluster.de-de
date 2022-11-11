@@ -1,0 +1,33 @@
+---
+permalink: install-fc/task_cable_the_cluster_peering_connections.html 
+sidebar: sidebar 
+keywords: metrocluster, fabric, installation, cable, cluster, peering, connections 
+summary: Sie müssen die für Cluster-Peering verwendeten Controller-Modul-Ports verkabeln, damit sie eine Verbindung zum Cluster am Partnerstandort haben. 
+---
+= Verkabeln der Cluster-Peering-Verbindungen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen die für Cluster-Peering verwendeten Controller-Modul-Ports verkabeln, damit sie eine Verbindung zum Cluster am Partnerstandort haben.
+
+Diese Aufgabe muss für jedes Controller-Modul der MetroCluster-Konfiguration ausgeführt werden.
+
+Mindestens zwei Ports auf jedem Controller-Modul sollten für Cluster-Peering verwendet werden.
+
+Die empfohlene minimale Bandbreite für die Ports und Netzwerkkonnektivität ist 1 GbE.
+
+.Schritt
+. Identifizieren und verkabeln Sie mindestens zwei Ports für Cluster-Peering und vergewissern Sie sich, dass sie über eine Netzwerkverbindung mit dem Partner-Cluster verfügen.
++
+Cluster-Peering kann auf dedizierten Ports oder auf Daten-Ports durchgeführt werden. Durch den Einsatz von dedizierten Ports wird ein höherer Durchsatz für den Cluster-Peering-Datenverkehr erzielt.
+
+
+
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-clus-peer/home.html["Express-Konfiguration für Cluster und SVM-Peering"]
+
+Jede MetroCluster Website ist als Peer-to-dessen Partner-Website konfiguriert. Sie sollten die Voraussetzungen und Richtlinien für die Konfiguration der Peering-Beziehungen kennen und bei der Entscheidung, ob für diese Beziehungen freigegebene oder dedizierte Ports verwendet werden sollen.
+
+link:concept_prepare_for_the_mcc_installation.html["Überlegungen für die Konfiguration von Cluster-Peering"]

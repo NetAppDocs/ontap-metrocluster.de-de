@@ -1,0 +1,185 @@
+---
+permalink: upgrade/concept_removing_a_disaster_recovery_group.html 
+sidebar: sidebar 
+keywords:  
+summary: Ab ONTAP 9.8 können Sie eine DR-Gruppe aus einer MetroCluster Konfiguration mit acht Nodes entfernen, um eine MetroCluster Konfiguration mit vier Nodes zu erstellen. 
+---
+= Entfernen einer Disaster Recovery-Gruppe
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Ab ONTAP 9.8 können Sie eine DR-Gruppe aus einer MetroCluster Konfiguration mit acht Nodes entfernen, um eine MetroCluster Konfiguration mit vier Nodes zu erstellen.
+
+Dieses Verfahren wird unter ONTAP 9.8 und höher unterstützt. Informationen zu Systemen mit ONTAP 9.7 oder einer älteren Version finden Sie im Knowledge Base-Artikel
+
+link:https://kb.netapp.com/Advice_and_Troubleshooting/Data_Protection_and_Security/MetroCluster/How_to_remove_a_DR-Group_from_a_MetroCluster["So entfernen Sie eine DR-Gruppe aus einer MetroCluster-Konfiguration"]
+
+https://mysupport.netapp.com/site/global/dashboard["NetApp Support"]
+
+Eine Konfiguration mit acht Nodes umfasst acht Nodes, die als zwei DR-Gruppen mit vier Nodes organisiert sind.
+
+image::../media/mcc_dr_groups_8_node.gif[mcc dr Gruppen 8 Knoten]
+
+Durch Entfernen einer DR-Gruppe verbleiben vier Knoten in der Konfiguration.
+
+image::../media/mcc_dr_groups_4_node.gif[mcc dr Gruppen 4 Knoten]
+
+
+
+== Entfernen der DR-Gruppen-Nodes aus jedem Cluster
+
+* Sie müssen diesen Schritt auf beiden Clustern durchführen.
+* Der `metrocluster remove-dr-group` Befehl wird nur auf ONTAP 9.8 und höher unterstützt.
++
+.. Bereiten Sie sich auf das Entfernen der DR-Gruppe vor, falls noch nicht.
++
+... Verschieben Sie alle Daten-Volumes in eine andere DR-Gruppe.
+... Verschieben Sie alle MDV_CRS-Metadaten-Volumes in eine andere DR-Gruppe. Gehen Sie wie folgt vor: https://docs.netapp.com/ontap-9/topic/com.netapp.doc.hw-metrocluster-service/task_move_a_metadata_volume_in_mcc_configurations.html["Verschieben eines Metadaten-Volumes in MetroCluster Konfigurationen"]
+... Löschen Sie alle MDV_aud-Metadaten-Volumes, die in der zu entfernenden DR-Gruppe vorhanden sein könnten.
+... Löschen Sie alle Datenaggregate in der DR-Gruppe, die entfernt werden sollen, wie im folgenden Beispiel gezeigt:
++
+[listing]
+----
+ClusterA::> storage aggregate show -node ClusterA-01, ClusterA-02 -fields aggregate ,node
+ClusterA::> aggr delete -aggregate aggregate_name
+ClusterB::> storage aggregate show -node ClusterB-01, ClusterB-02 -fields aggregate ,node
+ClusterB::> aggr delete -aggregate aggregate_name
+----
++
+
+NOTE: Root-Aggregate werden nicht gelöscht.
+
+... Migrieren Sie alle Daten-LIFs auf Home Nodes in einer anderen DR-Gruppe. +
+`network interface show -home-node _old_node_`
++
+`network interface modify -vserver _svm-name_ -lif _data-lif_ -home-port _port-id_`
+
+... Migrieren Sie die Cluster-Management-LIF auf einen Home-Node in einer anderen DR-Gruppe.
++
+`network interface show -role cluster-mgmt`
+
++
+`network interface modify -vserver _svm-name_ -lif _data-lif_ -home-port _port-id_`
+
++
+Das Node-Management und logische Schnittstellen zwischen Clustern werden nicht migriert.
+
+... Übertragen Sie Epsilon auf einen Node in einer anderen DR-Gruppe, falls erforderlich.
++
+[listing]
+----
+ClusterA::> set advanced
+ClusterA::*> cluster show
+Move epsilon if needed
+ClusterA::*> cluster modify -node nodename -epsilon false
+ClusterA::*> cluster modify -node nodename -epsilon true
+
+ClusterB::> set advanced
+ClusterB::*> cluster show
+ClusterB::*> cluster modify -node nodename -epsilon false
+ClusterB::*> cluster modify -node nodename -epsilon true
+ClusterB::*> set admin
+----
+
+
+.. Identifizieren und entfernen Sie die DR-Gruppe.
++
+... Identifizieren Sie die richtige DR-Gruppe für das Entfernen:
++
+`metrocluster node show`
+
+... Entfernen Sie die Knoten der DR-Gruppe: +
+`metrocluster remove-dr-group -dr-group-id 1`
++
+Im folgenden Beispiel wird das Entfernen der Konfiguration der DR-Gruppe auf „Cluster_A“ gezeigt
+
++
+[listing]
+----
+cluster_A::*>
+
+Warning: Nodes in the DR group that are removed from the MetroCluster
+         configuration will lose their disaster recovery protection.
+
+         Local nodes "node_A_1-FC, node_A_2-FC"will be removed from the
+         MetroCluster configuration. You must repeat the operation on the
+         partner cluster "cluster_B"to remove the remote nodes in the DR group.
+Do you want to continue? {y|n}: y
+
+Info: The following preparation steps must be completed on the local and partner
+      clusters before removing a DR group.
+
+      1. Move all data volumes to another DR group.
+      2. Move all MDV_CRS metadata volumes to another DR group.
+      3. Delete all MDV_aud metadata volumes that may exist in the DR group to
+      be removed.
+      4. Delete all data aggregates in the DR group to be removed. Root
+      aggregates are not deleted.
+      5. Migrate all data LIFs to home nodes in another DR group.
+      6. Migrate the cluster management LIF to a home node in another DR group.
+      Node management and inter-cluster LIFs are not migrated.
+      7. Transfer epsilon to a node in another DR group.
+
+      The command is vetoed if the preparation steps are not completed on the
+      local and partner clusters.
+Do you want to continue? {y|n}: y
+[Job 513] Job succeeded: Remove DR Group is successful.
+
+cluster_A::*>
+----
+
+
+.. Wiederholen Sie den vorherigen Schritt im Partner-Cluster.
+.. Entfernen Sie bei einer MetroCluster IP-Konfiguration die MetroCluster-Verbindungen auf den Nodes der alten DR-Gruppe.
++
+Diese Befehle können von beiden Clustern ausgegeben werden und gelten für die gesamte DR-Gruppe, die beide Cluster abdeckt.
+
++
+... Trennen Sie die Verbindungen:
++
+`metrocluster configuration-settings connection disconnect _dr-group-id_`
+
+... Löschen Sie die MetroCluster-Schnittstellen auf den Knoten der alten DR-Gruppe:
++
+`metrocluster configuration-settings interface delete`
+
+... Löschen Sie die Konfiguration der alten DR-Gruppe. +
+`metrocluster configuration-settings dr-group delete`
+
+
+.. Heben Sie die Verbindung zu den Knoten in der alten DR-Gruppe auf.
++
+Sie müssen diesen Schritt für jedes Cluster durchführen.
+
++
+... Legen Sie die erweiterte Berechtigungsebene fest:
++
+`set -privilege advanced`
+
+... Deaktivieren des Speicher-Failover:
++
+`storage failover modify -node _node-name_ -enable false`
+
+... Heben Sie die Verbindung zum Knoten auf: +
+`cluster unjoin -node _node-name_`
++
+Wiederholen Sie diesen Schritt für den anderen lokalen Knoten in der alten DR-Gruppe.
+
+... Legen Sie die Administrator-Berechtigungsebene fest: +
+`set -privilege admin`
+
+
+.. Cluster-HA in der neuen DR-Gruppe erneut aktivieren:
++
+`cluster ha modify -configured true`
+
++
+Sie müssen diesen Schritt für jedes Cluster durchführen.
+
+.. Halten Sie den Vorgang an, schalten Sie ihn aus und entfernen Sie die alten Controller-Module und Storage-Shelfs.
+
+
+

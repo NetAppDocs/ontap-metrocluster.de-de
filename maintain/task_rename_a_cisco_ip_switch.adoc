@@ -1,0 +1,115 @@
+---
+permalink: maintain/task_rename_a_cisco_ip_switch.html 
+sidebar: sidebar 
+keywords: metrocluster, maintain, service, rename, cisco, ip, switch 
+summary: Möglicherweise müssen Sie einen Cisco IP-Switch umbenennen, um während der Konfiguration eine konsistente Benennung zu ermöglichen. 
+---
+= Umbenennen eines Cisco IP-Switches
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Möglicherweise müssen Sie einen Cisco IP-Switch umbenennen, um während der Konfiguration eine konsistente Benennung zu ermöglichen.
+
+In den Beispielen in dieser Aufgabe wird der Switch-Name von geändert `myswitch` Bis `IP_switch_A_1`.
+
+. Globalen Konfigurationsmodus aufrufen:
++
+`*configure terminal*`
+
++
+Im folgenden Beispiel wird die Eingabeaufforderung für den Konfigurationsmodus angezeigt. In beiden Eingabeaufforderungen wird der Switch-Name von angezeigt `myswitch`.
+
++
+[listing]
+----
+myswitch# configure terminal
+myswitch(config)#
+----
+. Umbenennung des Switches:
++
+`*switchname new-switch-name*`
+
++
+Wenn Sie beide Switches in der Fabric umbenennen, verwenden Sie auf jedem Switch den gleichen Befehl.
+
++
+Die CLI-Eingabeaufforderung wird geändert, um den neuen Namen wiederzugeben:
+
++
+[listing]
+----
+myswitch(config)# switchname IP_switch_A_1
+IP_switch_A_1(config)#
+----
+. Konfigurationsmodus beenden:
++
+`*exit*`
+
++
+Die Eingabeaufforderung für den Schalter auf oberster Ebene wird angezeigt:
+
++
+[listing]
+----
+IP_switch_A_1(config)# exit
+IP_switch_A_1#
+----
+. Kopieren der aktuellen Konfiguration in die Startkonfigurationsdatei:
++
+`*copy running-config startup-config*`
+
+. Vergewissern Sie sich, dass die Änderung des Switch-Namens von der ONTAP-Cluster-Eingabeaufforderung aus sichtbar ist.
++
+Beachten Sie, dass der neue Switch-Name und der alte Switch-Name angezeigt werden (`myswitch`) Erscheint nicht.
+
++
+.. Rufen Sie den erweiterten Berechtigungsmodus auf, und drücken Sie `*y*` Wenn Sie dazu aufgefordert werden: +
+`*set -privilege advanced*`
+.. Anzeige der angeschlossenen Geräte: +
+`*network device-discovery show*`
+.. Zurück zum Admin-Berechtigungsmodus: +
+`*set -privilege admin*`
++
+Das folgende Beispiel zeigt, dass der Schalter mit dem neuen Namen angezeigt wird. `IP_switch_A_1`:
+
++
+[listing]
+----
+cluster_A::storage show> set advanced
+
+Warning: These advanced commands are potentially dangerous; use them only when directed to do so by NetApp personnel.
+Do you want to continue? {y|n}: y
+
+cluster_A::storage show*> network device-discovery show
+Node/       Local  Discovered
+Protocol    Port   Device                    Interface         Platform
+----------- ------ ------------------------- ----------------  ----------------
+node_A_2/cdp
+            e0M    LF01-410J53.mycompany.com(SAL18516DZY)
+                                             Ethernet125/1/28  N9K-C9372PX
+            e1a    IP_switch_A_1(FOC21211RBU)
+                                             Ethernet1/2       N3K-C3232C
+            e1b    IP_switch_A_1(FOC21211RBU)
+                                             Ethernet1/10      N3K-C3232C
+.
+.
+.                                             Ethernet1/18      N9K-C9372PX
+node_A_1/cdp
+            e0M    LF01-410J53.mycompany.com(SAL18516DZY)
+                                             Ethernet125/1/26  N9K-C9372PX
+            e0a    IP_switch_A_2(FOC21211RB5)
+                                             Ethernet1/1       N3K-C3232C
+            e0b    IP_switch_A_2(FOC21211RB5)
+                                             Ethernet1/9       N3K-C3232C
+            e1a    IP_switch_A_1(FOC21211RBU)
+.
+.
+.
+16 entries were displayed.
+----
+
+
+

@@ -1,0 +1,4402 @@
+---
+permalink: install-fc/concept_port_assignments_for_fc_switches_when_using_ontap_9_1_and_later.html 
+sidebar: sidebar 
+keywords:  
+summary: Sie müssen überprüfen, ob Sie die angegebenen Portzuweisungen verwenden, wenn Sie die FC-Switches mit ONTAP 9.1 und höher verkabeln. 
+---
+= Port-Zuweisungen für FC-Switches bei Verwendung von ONTAP 9.1 oder höher
+:allow-uri-read: 
+
+
+Sie müssen überprüfen, ob Sie die angegebenen Portzuweisungen verwenden, wenn Sie die FC-Switches mit ONTAP 9.1 und höher verkabeln.
+
+Ports, die nicht zum Anschließen von Initiator-Ports, FC-VI-Ports oder ISLs verwendet werden, können neu konfiguriert werden, um als Storage Ports zu fungieren. Wenn jedoch die unterstützten RCFs verwendet werden, muss das Zoning entsprechend geändert werden.
+
+Bei Verwendung der unterstützten RCFs können ISL-Ports keine Verbindung zu denselben Ports herstellen und müssen möglicherweise manuell neu konfiguriert werden.
+
+Wenn Sie Ihre Switches mit den Portzuweisungen für ONTAP 9 konfiguriert haben, können Sie die älteren Zuweisungen weiterhin verwenden. Neue Konfigurationen mit ONTAP 9.1 oder höheren Versionen sollten jedoch die hier gezeigten Port-Zuweisungen verwenden.
+
+
+
+== Allgemeine Verkabelungsrichtlinien
+
+Beachten Sie bei der Verwendung der Verkabelungstabellen die folgenden Richtlinien:
+
+* Brocade- und Cisco-Switches verwenden unterschiedliche Port-Nummerierung:
++
+** Bei Brocade Switches wird der erste Port mit der Nummer 0 nummeriert.
+** Bei Cisco Switches wird der erste Port mit der Nummer 1 nummeriert.
+
+
+* Für jeden FC-Switch im Switch Fabric ist die Verkabelung identisch.
+* Die AFF A300 und FAS8200 Storage-Systeme können mit einer der zwei Optionen für FC-VI-Konnektivität bestellt werden:
++
+** Die integrierten Ports 0e und 0f sind im FC-VI-Modus konfiguriert.
+** Die Ports 1a und 1b auf einer FC-VI-Karte in Steckplatz 1.
+
+
+* Für die AFF A700 und FAS9000 Storage-Systeme sind vier FC-VI-Ports erforderlich. Die folgenden Tabellen zeigen die Verkabelung für die FC Switches mit vier FC-VI-Ports an jedem Controller, außer für den Cisco 9250i Switch.
++
+Verwenden Sie für andere Storage-Systeme die in den Tabellen gezeigten Kabel, ignorieren Sie jedoch die Verkabelung für FC-VI-Ports c und d.
+
++
+Sie können diese Ports leer lassen.
+
+* Die Storage-Systeme der AFF A400 und FAS8300 verwenden die Ports 2a und 2b für FC-VI-Konnektivität.
+* Wenn zwei MetroCluster-Konfigurationen ISLs gemeinsam nutzen, verwenden Sie für eine MetroCluster-Verkabelung mit acht Nodes die gleichen Port-Zuweisungen wie diese.
++
+Die Anzahl der KabelISLs kann je nach Anforderungen des Standorts variieren.
+
++
+Weitere Informationen zu den Überlegungen zu ISL finden Sie im Abschnitt.
+
+
+
+
+
+== Brocade Port-Verwendung für Controller in einer MetroCluster-Konfiguration mit ONTAP 9.1 oder höher
+
+Die folgenden Tabellen zeigen die Portnutzung auf Brocade Switches. Die Tabellen zeigen die maximal unterstützte Konfiguration mit acht Controller-Modulen in zwei DR-Gruppen. Bei kleineren Konfigurationen ignorieren Sie die Zeilen für die zusätzlichen Controller-Module. Beachten Sie, dass acht ISLs nur von Brocade 6510, Brocade DCX 8510-8, G620, G630, G620-1, unterstützt werden. Schalter G630-1 und G720.
+
+[NOTE]
+====
+* Die Port-Nutzung der Brocade 6505 und Brocade G610-Switches in einer MetroCluster-Konfiguration mit acht Nodes wird nicht dargestellt. Aufgrund der begrenzten Anzahl an Ports müssen abhängig vom Controller-Modulmodell und der Anzahl der verwendeten ISLs und Brückenpaare standortabhängig Port-Zuweisungen vorgenommen werden.
+* Der Brocade DCX 8510-8 Switch kann dasselbe Portlayout verwenden wie der 6510 Switch *_or_* des 7840 Switch.
+
+
+====
+|===
+
+
+5+| Konfigurationen mit FibreBridge 6500N-Bridges oder FibreBridge 7500N oder 7600N nur mit einem FC-Port (FC1 oder FC2) 
+
+
+5+| MetroCluster 1 oder DR-Gruppe 1 
+
+
+.2+| Komponente .2+| Port 2+| Brocade Switch-Modelle 6505, 6510, 6520, 7810, 7840 G610, G620, G620-1, G630, G630-1 UND DCX 8510-8 | Brocade Switch-Modell G720 
+
+
+| Verbindung mit FC-Switch... | Verbindung zum Switch-Port wird hergestellt... | Verbindung zum Switch-Port wird hergestellt... 
+
+
+ a| 
+Controller_x_1
+ a| 
+FC-VI-Port A
+ a| 
+1
+ a| 
+0
+ a| 
+0
+
+
+
+ a| 
+FC-VI-Port b
+ a| 
+2
+ a| 
+0
+ a| 
+0
+
+
+
+ a| 
+FC-VI-Port c
+ a| 
+1
+ a| 
+1
+ a| 
+1
+
+
+
+ a| 
+FC-VI-Port d
+ a| 
+2
+ a| 
+1
+ a| 
+1
+
+
+
+ a| 
+HBA-Port A
+ a| 
+1
+ a| 
+2
+ a| 
+8
+
+
+
+ a| 
+HBA-Port b
+ a| 
+2
+ a| 
+2
+ a| 
+8
+
+
+
+ a| 
+HBA-Port c
+ a| 
+1
+ a| 
+3
+ a| 
+9
+
+
+
+ a| 
+HBA-Port d
+ a| 
+2
+ a| 
+3
+ a| 
+9
+
+
+
+ a| 
+Controller_x_2
+ a| 
+FC-VI-Port A
+ a| 
+1
+ a| 
+4
+ a| 
+4
+
+
+
+ a| 
+FC-VI-Port b
+ a| 
+2
+ a| 
+4
+ a| 
+4
+
+
+
+ a| 
+FC-VI-Port c
+ a| 
+1
+ a| 
+5
+ a| 
+5
+
+
+
+ a| 
+FC-VI-Port d
+ a| 
+2
+ a| 
+5
+ a| 
+5
+
+
+
+ a| 
+HBA-Port A
+ a| 
+1
+ a| 
+6
+ a| 
+12
+
+
+
+ a| 
+HBA-Port b
+ a| 
+2
+ a| 
+6
+ a| 
+12
+
+
+
+ a| 
+HBA-Port c
+ a| 
+1
+ a| 
+7
+ a| 
+13
+
+
+
+ a| 
+HBA-Port d
+ a| 
+2
+ a| 
+7
+ a| 
+13
+
+|===
+|===
+
+
+5+| Konfigurationen mit FibreBridge 6500N-Bridges oder FibreBridge 7500N oder 7600N nur mit einem FC-Port (FC1 oder FC2) 
+
+
+5+| MetroCluster 1 oder DR-Gruppe 1 
+
+
+.2+| Komponente .2+| Port 2+| Brocade Switch-Modelle 6505, 6510, 6520, 7810, 7840 G610, G620, G620-1, G630, G630-1 UND DCX 8510-8 | Brocade Switch-Modell G720 
+
+
+| Verbindung mit FC-Switch... | Verbindung zum Switch-Port wird hergestellt... | Verbindung zum Switch-Port wird hergestellt... 
+
+
+ a| 
+Stack 1
+ a| 
+Bridge_x_1a
+ a| 
+1
+ a| 
+8
+ a| 
+10
+
+
+
+ a| 
+Bridge_x_1b
+ a| 
+2
+ a| 
+8
+ a| 
+10
+
+
+
+ a| 
+Stack 2
+ a| 
+Bridge_x_2a
+ a| 
+1
+ a| 
+9
+ a| 
+11
+
+
+
+ a| 
+Bridge_x_2b
+ a| 
+2
+ a| 
+9
+ a| 
+11
+
+
+
+ a| 
+Stapel 3
+ a| 
+Bridge_x_3a
+ a| 
+1
+ a| 
+10
+ a| 
+14
+
+
+
+ a| 
+Bridge_x_4b
+ a| 
+2
+ a| 
+10
+ a| 
+14
+
+
+
+ a| 
+Stapel Y
+ a| 
+Bridge_x_ya
+ a| 
+1
+ a| 
+11
+ a| 
+15
+
+
+
+ a| 
+Bridge_x_yb
+ a| 
+2
+ a| 
+11
+ a| 
+15
+
+
+
+ a| 
+[NOTE]
+====
+* Bei den Switches G620, G630, G620-1 und G630-1 können zusätzliche Brücken an die Anschlüsse 12 - 17, 20 und 21 angeschlossen werden.
+* Bei den G610-Switches können weitere Brücken an die Ports 12 - 19 angeschlossen werden.
+* Bei den Switches G720 können zusätzliche Brücken an die Anschlüsse 16 - 17, 20 und 21 angeschlossen werden.
+
+
+====
+|===
+|===
+
+
+8+| Konfigurationen mit FibreBridge 6500N-Bridges oder FibreBridge 7500N oder 7600N nur mit einem FC-Port (FC1 oder FC2) 
+
+
+8+| MetroCluster 2 oder DR-Gruppe 2 
+
+
+3+|  5+| Brocade Switch-Modell 
+
+
+| Komponente | Port | Verbindung mit FC_Switch... | 6510, DCX 8510-8 | 6520 | 7840, DCX 8510-8 | G620, G620-1, G630, G630-1 | G720 
+
+
+ a| 
+Controller_x_3
+ a| 
+FC-VI-Port A
+ a| 
+1
+ a| 
+24
+ a| 
+48
+ a| 
+12
+ a| 
+18
+ a| 
+18
+
+
+
+ a| 
+FC-VI-Port b
+ a| 
+2
+ a| 
+24
+ a| 
+48
+ a| 
+12
+ a| 
+18
+ a| 
+18
+
+
+
+ a| 
+FC-VI-Port c
+ a| 
+1
+ a| 
+25
+ a| 
+49
+ a| 
+13
+ a| 
+19
+ a| 
+19
+
+
+
+ a| 
+FC-VI-Port d
+ a| 
+2
+ a| 
+25
+ a| 
+49
+ a| 
+13
+ a| 
+19
+ a| 
+19
+
+
+
+ a| 
+HBA-Port A
+ a| 
+1
+ a| 
+26
+ a| 
+50
+ a| 
+14
+ a| 
+24
+ a| 
+26
+
+
+
+ a| 
+HBA-Port b
+ a| 
+2
+ a| 
+26
+ a| 
+50
+ a| 
+14
+ a| 
+24
+ a| 
+26
+
+
+
+ a| 
+HBA-Port c
+ a| 
+1
+ a| 
+27
+ a| 
+51
+ a| 
+15
+ a| 
+25
+ a| 
+27
+
+
+
+ a| 
+HBA-Port d
+ a| 
+2
+ a| 
+27
+ a| 
+51
+ a| 
+15
+ a| 
+25
+ a| 
+27
+
+
+
+ a| 
+Controller_x_4
+ a| 
+FC-VI-Port A
+ a| 
+1
+ a| 
+28
+ a| 
+52
+ a| 
+16
+ a| 
+22
+ a| 
+22
+
+
+
+ a| 
+FC-VI-Port b
+ a| 
+2
+ a| 
+28
+ a| 
+52
+ a| 
+16
+ a| 
+22
+ a| 
+22
+
+
+
+ a| 
+FC-VI-Port c
+ a| 
+1
+ a| 
+29
+ a| 
+53
+ a| 
+17
+ a| 
+23
+ a| 
+23
+
+
+
+ a| 
+FC-VI-Port d
+ a| 
+2
+ a| 
+29
+ a| 
+53
+ a| 
+17
+ a| 
+23
+ a| 
+23
+
+
+
+ a| 
+HBA-Port A
+ a| 
+1
+ a| 
+30
+ a| 
+54
+ a| 
+18
+ a| 
+28
+ a| 
+30
+
+
+
+ a| 
+HBA-Port b
+ a| 
+2
+ a| 
+30
+ a| 
+54
+ a| 
+18
+ a| 
+28
+ a| 
+30
+
+
+
+ a| 
+HBA-Port c
+ a| 
+1
+ a| 
+31
+ a| 
+55
+ a| 
+19
+ a| 
+29
+ a| 
+31
+
+
+
+ a| 
+HBA-Port d
+ a| 
+2
+ a| 
+32
+ a| 
+55
+ a| 
+19
+ a| 
+29
+ a| 
+31
+
+
+
+ a| 
+Stack 1
+ a| 
+Bridge_x_51a
+ a| 
+1
+ a| 
+32
+ a| 
+56
+ a| 
+20
+ a| 
+26
+ a| 
+32
+
+
+
+ a| 
+Bridge_x_51b
+ a| 
+2
+ a| 
+32
+ a| 
+56
+ a| 
+20
+ a| 
+26
+ a| 
+32
+
+
+
+ a| 
+Stack 2
+ a| 
+Bridge_x_52a
+ a| 
+1
+ a| 
+33
+ a| 
+57
+ a| 
+21
+ a| 
+27
+ a| 
+33
+
+
+
+ a| 
+Bridge_x_52b
+ a| 
+2
+ a| 
+33
+ a| 
+57
+ a| 
+21
+ a| 
+27
+ a| 
+33
+
+
+
+ a| 
+Stapel 3
+ a| 
+Bridge_x_53a
+ a| 
+1
+ a| 
+34
+ a| 
+58
+ a| 
+22
+ a| 
+30
+ a| 
+34
+
+
+
+ a| 
+Bridge_x_54b
+ a| 
+2
+ a| 
+34
+ a| 
+58
+ a| 
+22
+ a| 
+30
+ a| 
+34
+
+
+
+ a| 
+Stapel Y
+ a| 
+Bridge_x_ya
+ a| 
+1
+ a| 
+35
+ a| 
+59
+ a| 
+23
+ a| 
+31
+ a| 
+35
+
+
+
+ a| 
+Bridge_x_yb
+ a| 
+2
+ a| 
+35
+ a| 
+59
+ a| 
+23
+ a| 
+31
+ a| 
+35
+
+
+
+ a| 
+[NOTE]
+====
+* Bei den Switches G720 können zusätzliche Brücken an die Ports 36-39 angeschlossen werden.
+
+
+====
+|===
+|===
+
+
+6+| Konfigurationen mit FibreBridge 7500N oder 7600N mit beiden FC-Ports (FC1 und FC2) 
+
+
+6+| MetroCluster 1 oder DR-Gruppe 1 
+
+
+2.2+| Komponente .2+| Port 2+| Brocade Switch-Modelle 6505, 6510, 6520, 7810, 7840 G610, G620, G620-1, G630, G630-1, Und DCX 8510-8 | Brocade Switch G720 
+
+
+| Verbindung mit FC_Switch... | Verbindung zum Switch-Port wird hergestellt... | Verbindung zum Switch-Port wird hergestellt... 
+
+
+ a| 
+Stack 1
+ a| 
+Bridge_x_1a
+ a| 
+FC1
+ a| 
+1
+ a| 
+8
+ a| 
+10
+
+
+
+ a| 
+FC2
+ a| 
+2
+ a| 
+8
+ a| 
+10
+
+
+
+ a| 
+Bridge_x_1B
+ a| 
+FC1
+ a| 
+1
+ a| 
+9
+ a| 
+11
+
+
+
+ a| 
+FC2
+ a| 
+2
+ a| 
+9
+ a| 
+11
+
+
+
+ a| 
+Stack 2
+ a| 
+Bridge_x_2a
+ a| 
+FC1
+ a| 
+1
+ a| 
+10
+ a| 
+14
+
+
+
+ a| 
+FC2
+ a| 
+2
+ a| 
+10
+ a| 
+14
+
+
+
+ a| 
+Bridge_x_2B
+ a| 
+FC1
+ a| 
+1
+ a| 
+11
+ a| 
+15
+
+
+
+ a| 
+FC2
+ a| 
+2
+ a| 
+11
+ a| 
+15
+
+
+
+ a| 
+Stapel 3
+ a| 
+Bridge_x_3a
+ a| 
+FC1
+ a| 
+1
+ a| 
+12*
+ a| 
+16
+
+
+
+ a| 
+FC2
+ a| 
+2
+ a| 
+12*
+ a| 
+16
+
+
+
+ a| 
+Bridge_x_3B
+ a| 
+FC1
+ a| 
+1
+ a| 
+13*
+ a| 
+17
+
+
+
+ a| 
+FC2
+ a| 
+2
+ a| 
+13*
+ a| 
+17
+
+
+
+ a| 
+Stapel Y
+ a| 
+Bridge_x_ya
+ a| 
+FC1
+ a| 
+1
+ a| 
+14*
+ a| 
+20
+
+
+
+ a| 
+FC2
+ a| 
+2
+ a| 
+14*
+ a| 
+20
+
+
+
+ a| 
+Bridge_x_yb
+ a| 
+FC1
+ a| 
+1
+ a| 
+15*
+ a| 
+21
+
+
+
+ a| 
+FC2
+ a| 
+2
+ a| 
+15*
+ a| 
+21
+
+
+
+ a| 
+&Ast; die Ports 12 bis 15 sind für die zweite MetroCluster oder DR-Gruppe auf dem Brocade 7840 Switch reserviert.
+
+
+NOTE: Zusätzliche Brücken können mit den Ports 16, 17, 20 und 21 bei den Switches G620, G630, G620-1 und G630-1 verkabelt werden.
+
+|===
+|===
+
+
+9+| Konfigurationen mit FibreBridge 7500N oder 7600N mit beiden FC-Ports (FC1 und FC2) 
+
+
+9+| MetroCluster 2 oder DR-Gruppe 2 
+
+
+2.2+| Komponente .2+| Port 6+| Brocade Switch-Modell 
+
+
+| Verbindung mit FC_Switch... | 6510, DCX 8510-8 | 6520 | 7840, DCX 8510-8 | G620, G620-1, G630, G630-1 | G720 
+
+
+ a| 
+Controller_x_3
+ a| 
+FC-VI-Port A
+ a| 
+1
+ a| 
+24
+ a| 
+48
+ a| 
+12
+ a| 
+18
+ a| 
+18
+
+
+
+ a| 
+FC-VI-Port b
+ a| 
+2
+ a| 
+24
+ a| 
+48
+ a| 
+12
+ a| 
+18
+ a| 
+18
+
+
+
+ a| 
+FC-VI-Port c
+ a| 
+1
+ a| 
+25
+ a| 
+49
+ a| 
+13
+ a| 
+19
+ a| 
+19
+
+
+
+ a| 
+FC-VI-Port d
+ a| 
+2
+ a| 
+25
+ a| 
+49
+ a| 
+13
+ a| 
+19
+ a| 
+19
+
+
+
+ a| 
+HBA-Port A
+ a| 
+1
+ a| 
+26
+ a| 
+50
+ a| 
+14
+ a| 
+24
+ a| 
+26
+
+
+
+ a| 
+HBA-Port b
+ a| 
+2
+ a| 
+26
+ a| 
+50
+ a| 
+14
+ a| 
+24
+ a| 
+26
+
+
+
+ a| 
+HBA-Port c
+ a| 
+1
+ a| 
+27
+ a| 
+51
+ a| 
+15
+ a| 
+25
+ a| 
+27
+
+
+
+ a| 
+HBA-Port d
+ a| 
+2
+ a| 
+27
+ a| 
+51
+ a| 
+15
+ a| 
+25
+ a| 
+27
+
+
+
+ a| 
+Controller_x_4
+ a| 
+FC-VI-Port A
+ a| 
+1
+ a| 
+28
+ a| 
+52
+ a| 
+16
+ a| 
+22
+ a| 
+22
+
+
+
+ a| 
+FC-VI-Port b
+ a| 
+2
+ a| 
+28
+ a| 
+52
+ a| 
+16
+ a| 
+22
+ a| 
+22
+
+
+
+ a| 
+FC-VI-Port c
+ a| 
+1
+ a| 
+29
+ a| 
+53
+ a| 
+17
+ a| 
+23
+ a| 
+23
+
+
+
+ a| 
+FC-VI-Port d
+ a| 
+2
+ a| 
+29
+ a| 
+53
+ a| 
+17
+ a| 
+23
+ a| 
+23
+
+
+
+ a| 
+HBA-Port A
+ a| 
+1
+ a| 
+30
+ a| 
+54
+ a| 
+18
+ a| 
+28
+ a| 
+30
+
+
+
+ a| 
+HBA-Port b
+ a| 
+2
+ a| 
+30
+ a| 
+54
+ a| 
+18
+ a| 
+28
+ a| 
+30
+
+
+
+ a| 
+HBA-Port c
+ a| 
+1
+ a| 
+31
+ a| 
+55
+ a| 
+19
+ a| 
+29
+ a| 
+31
+
+
+
+ a| 
+HBA-Port d
+ a| 
+2
+ a| 
+31
+ a| 
+55
+ a| 
+19
+ a| 
+29
+ a| 
+31
+
+
+
+ a| 
+Stack 1
+ a| 
+Bridge_x_51a
+ a| 
+FC1
+ a| 
+1
+ a| 
+32
+ a| 
+56
+ a| 
+20
+ a| 
+26
+ a| 
+32
+
+
+
+ a| 
+FC2
+ a| 
+2
+ a| 
+32
+ a| 
+56
+ a| 
+20
+ a| 
+26
+ a| 
+32
+
+
+
+ a| 
+Bridge_x_51b
+ a| 
+FC1
+ a| 
+1
+ a| 
+33
+ a| 
+57
+ a| 
+21
+ a| 
+27
+ a| 
+33
+
+
+
+ a| 
+FC2
+ a| 
+2
+ a| 
+33
+ a| 
+57
+ a| 
+21
+ a| 
+27
+ a| 
+33
+
+
+
+ a| 
+Stack 2
+ a| 
+Bridge_x_52a
+ a| 
+FC1
+ a| 
+1
+ a| 
+34
+ a| 
+58
+ a| 
+22
+ a| 
+30
+ a| 
+34
+
+
+
+ a| 
+FC2
+ a| 
+2
+ a| 
+34
+ a| 
+58
+ a| 
+22
+ a| 
+30
+ a| 
+34
+
+
+
+ a| 
+Bridge_x_52b
+ a| 
+FC1
+ a| 
+1
+ a| 
+35
+ a| 
+59
+ a| 
+23
+ a| 
+31
+ a| 
+35
+
+
+
+ a| 
+FC2
+ a| 
+2
+ a| 
+35
+ a| 
+59
+ a| 
+23
+ a| 
+31
+ a| 
+35
+
+
+
+ a| 
+Stapel 3
+ a| 
+Bridge_x_53a
+ a| 
+FC1
+ a| 
+1
+ a| 
+36
+ a| 
+60
+ a| 
+-
+ a| 
+32
+ a| 
+36
+
+
+
+ a| 
+FC2
+ a| 
+2
+ a| 
+36
+ a| 
+60
+ a| 
+-
+ a| 
+32
+ a| 
+36
+
+
+
+ a| 
+Bridge_x_53b
+ a| 
+FC1
+ a| 
+1
+ a| 
+37
+ a| 
+61
+ a| 
+-
+ a| 
+33
+ a| 
+37
+
+
+
+ a| 
+FC2
+ a| 
+2
+ a| 
+37
+ a| 
+61
+ a| 
+-
+ a| 
+33
+ a| 
+37
+
+
+
+ a| 
+Stapel Y
+ a| 
+Bridge_x_5ya
+ a| 
+FC1
+ a| 
+1
+ a| 
+38
+ a| 
+62
+ a| 
+-
+ a| 
+34
+ a| 
+38
+
+
+
+ a| 
+FC2
+ a| 
+2
+ a| 
+38
+ a| 
+62
+ a| 
+-
+ a| 
+34
+ a| 
+38
+
+
+
+ a| 
+Bridge_x_5yb
+ a| 
+FC1
+ a| 
+1
+ a| 
+39
+ a| 
+63
+ a| 
+-
+ a| 
+35
+ a| 
+39
+
+
+
+ a| 
+FC2
+ a| 
+2
+ a| 
+39
+ a| 
+63
+ a| 
+-
+ a| 
+35
+ a| 
+39
+
+
+
+ a| 
+
+NOTE: Zusätzliche Bridges können mit den Ports 36 bis 39 in den Switches G620, G630, G620-1 und G630-1 verbunden werden.
+ a| 
+
+|===
+
+
+== Verwendung von Brocade Ports für ISLs in einer MetroCluster-Konfiguration mit ONTAP 9.1 oder höher
+
+Die folgende Tabelle zeigt die Verwendung des ISL-Ports für die Brocade-Switches.
+
+
+NOTE: AFF A700 oder FAS9000 Systeme unterstützen bis zu acht ISLs und verbessern so die Performance. Von den Brocade 6510 und G620 Switches werden acht ISLs unterstützt.
+
+|===
+
+
+| Switch-Modell | ISL-Port | Switch-Port 
+
+
+ a| 
+Brocade 6520
+ a| 
+ISL-Port 1
+ a| 
+23
+
+
+
+ a| 
+ISL-Port 2
+ a| 
+47
+
+
+
+ a| 
+ISL-Port 3
+ a| 
+71
+
+
+
+ a| 
+ISL-Port 4
+ a| 
+95
+
+
+
+ a| 
+Brocade 6505
+ a| 
+ISL-Port 1
+ a| 
+20
+
+
+
+ a| 
+ISL-Port 2
+ a| 
+21
+
+
+
+ a| 
+ISL-Port 3
+ a| 
+22
+
+
+
+ a| 
+ISL-Port 4
+ a| 
+23
+
+
+
+ a| 
+Brocade 6510 und Brocade DCX 8510-8
+ a| 
+ISL-Port 1
+ a| 
+40
+
+
+
+ a| 
+ISL-Port 2
+ a| 
+41
+
+
+
+ a| 
+ISL-Port 3
+ a| 
+42
+
+
+
+ a| 
+ISL-Port 4
+ a| 
+43
+
+
+
+ a| 
+ISL-Port 5
+ a| 
+44
+
+
+
+ a| 
+ISL-Port 6
+ a| 
+45
+
+
+
+ a| 
+ISL-Port 7
+ a| 
+46
+
+
+
+ a| 
+ISL-Port 8
+ a| 
+47
+
+
+
+ a| 
+Brocade 7810
+ a| 
+ISL-Port 1
+ a| 
+ge2 (10 Gbit/s)
+
+
+
+ a| 
+ISL-Port 2
+ a| 
+ge3 (10 Gbit/s)
+
+
+
+ a| 
+ISL-Port 3
+ a| 
+ge4 (10 Gbit/s)
+
+
+
+ a| 
+ISL-Port 4
+ a| 
+Ge5 (10 Gbit/s)
+
+
+
+ a| 
+ISL-Port 5
+ a| 
+ge6 (10 Gbit/s)
+
+
+
+ a| 
+ISL-Port 6
+ a| 
+Ge7 (10 Gbit/s)
+
+
+
+ a| 
+Brocade 7840
+
+*Hinweis*: Der Brocade 7840 Switch unterstützt entweder zwei 40 Gbps VE-Ports oder bis zu vier 10 Gbps VE-Ports pro Switch zur Erstellung von FCIP ISLs.
+ a| 
+ISL-Port 1
+ a| 
+ge0 (40 Gbit/s) oder ge2 (10 Gbit/s)
+
+
+
+ a| 
+ISL-Port 2
+ a| 
+ge1 (40 Gbit/s) oder ge3 (10 Gbit/s)
+
+
+
+ a| 
+ISL-Port 3
+ a| 
+ge10 (10 Gbit/s)
+
+
+
+ a| 
+ISL-Port 4
+ a| 
+Ge11 (10 Gbit/s)
+
+
+
+ a| 
+Brocade G610
+ a| 
+ISL-Port 1
+ a| 
+20
+
+
+
+ a| 
+ISL-Port 2
+ a| 
+21
+
+
+
+ a| 
+ISL-Port 3
+ a| 
+22
+
+
+
+ a| 
+ISL-Port 4
+ a| 
+23
+
+
+
+ a| 
+BROCADE G620, G620-1, G630, G630-1, G720
+ a| 
+ISL-Port 1
+ a| 
+40
+
+
+
+ a| 
+ISL-Port 2
+ a| 
+41
+
+
+
+ a| 
+ISL-Port 3
+ a| 
+42
+
+
+
+ a| 
+ISL-Port 4
+ a| 
+43
+
+
+
+ a| 
+ISL-Port 5
+ a| 
+44
+
+
+
+ a| 
+ISL-Port 6
+ a| 
+45
+
+
+
+ a| 
+ISL-Port 7
+ a| 
+46
+
+
+
+ a| 
+ISL-Port 8
+ a| 
+47
+
+|===
+
+
+== Verwendung von Cisco Ports für Controller in einer MetroCluster-Konfiguration mit ONTAP 9.4 oder höher
+
+In den Tabellen sind die maximal unterstützten Konfigurationen mit acht Controller-Modulen in zwei DR-Gruppen aufgeführt. Bei kleineren Konfigurationen ignorieren Sie die Zeilen für die zusätzlichen Controller-Module.
+
+|===
+
+
+4+| Cisco 9396S 
+
+
+| Komponente | Port | Schalter 1 | Schalter 2 
+
+
+ a| 
+Controller_x_1
+ a| 
+FC-VI-Port A
+ a| 
+1
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port b
+ a| 
+-
+ a| 
+1
+
+
+
+ a| 
+FC-VI-Port c
+ a| 
+2
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port d
+ a| 
+-
+ a| 
+2
+
+
+
+ a| 
+HBA-Port A
+ a| 
+3
+ a| 
+-
+
+
+
+ a| 
+HBA-Port b
+ a| 
+-
+ a| 
+3
+
+
+
+ a| 
+HBA-Port c
+ a| 
+4
+ a| 
+-
+
+
+
+ a| 
+HBA-Port d
+ a| 
+-
+ a| 
+4
+
+
+
+ a| 
+Controller_x_2
+ a| 
+FC-VI-Port A
+ a| 
+5
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port b
+ a| 
+-
+ a| 
+5
+
+
+
+ a| 
+FC-VI-Port c
+ a| 
+6
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port d
+ a| 
+-
+ a| 
+6
+
+
+
+ a| 
+HBA-Port A
+ a| 
+7
+ a| 
+-
+
+
+
+ a| 
+HBA-Port b
+ a| 
+-
+ a| 
+7
+
+
+
+ a| 
+HBA-Port c
+ a| 
+8
+ a| 
+
+
+
+ a| 
+HBA-Port d
+ a| 
+-
+ a| 
+8
+
+
+
+ a| 
+Controller_x_3
+ a| 
+FC-VI-Port A
+ a| 
+49
+ a| 
+
+
+
+ a| 
+FC-VI-Port b
+ a| 
+-
+ a| 
+49
+
+
+
+ a| 
+FC-VI-Port c
+ a| 
+50
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port d
+ a| 
+-
+ a| 
+50
+
+
+
+ a| 
+HBA-Port A
+ a| 
+51
+ a| 
+-
+
+
+
+ a| 
+HBA-Port b
+ a| 
+-
+ a| 
+51
+
+
+
+ a| 
+HBA-Port c
+ a| 
+52
+ a| 
+
+
+
+ a| 
+HBA-Port d
+ a| 
+-
+ a| 
+52
+
+
+
+ a| 
+Controller_x_4
+ a| 
+FC-VI-Port A
+ a| 
+53
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port b
+ a| 
+-
+ a| 
+53
+
+
+
+ a| 
+FC-VI-Port c
+ a| 
+54
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port d
+ a| 
+-
+ a| 
+54
+
+
+
+ a| 
+HBA-Port A
+ a| 
+55
+ a| 
+-
+
+
+
+ a| 
+HBA-Port b
+ a| 
+-
+ a| 
+55
+
+
+
+ a| 
+HBA-Port c
+ a| 
+56
+ a| 
+-
+
+
+
+ a| 
+HBA-Port d
+ a| 
+-
+ a| 
+56
+
+|===
+|===
+
+
+4+| Cisco 9148S 
+
+
+| Komponente | Port | Schalter 1 | Schalter 2 
+
+
+ a| 
+Controller_x_1
+ a| 
+FC-VI-Port A
+ a| 
+1
+ a| 
+
+
+
+ a| 
+FC-VI-Port b
+ a| 
+-
+ a| 
+1
+
+
+
+ a| 
+FC-VI-Port c
+ a| 
+2
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port d
+ a| 
+-
+ a| 
+2
+
+
+
+ a| 
+HBA-Port A
+ a| 
+3
+ a| 
+-
+
+
+
+ a| 
+HBA-Port b
+ a| 
+-
+ a| 
+3
+
+
+
+ a| 
+HBA-Port c
+ a| 
+4
+ a| 
+-
+
+
+
+ a| 
+HBA-Port d
+ a| 
+-
+ a| 
+4
+
+
+
+ a| 
+Controller_x_2
+ a| 
+FC-VI-Port A
+ a| 
+5
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port b
+ a| 
+-
+ a| 
+5
+
+
+
+ a| 
+FC-VI-Port c
+ a| 
+6
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port d
+ a| 
+-
+ a| 
+6
+
+
+
+ a| 
+HBA-Port A
+ a| 
+7
+ a| 
+-
+
+
+
+ a| 
+HBA-Port b
+ a| 
+-
+ a| 
+7
+
+
+
+ a| 
+HBA-Port c
+ a| 
+8
+ a| 
+-
+
+
+
+ a| 
+HBA-Port d
+ a| 
+-
+ a| 
+8
+
+
+
+ a| 
+Controller_x_3
+ a| 
+FC-VI-Port A
+ a| 
+25
+ a| 
+
+
+
+ a| 
+FC-VI-Port b
+ a| 
+-
+ a| 
+25
+
+
+
+ a| 
+FC-VI-Port c
+ a| 
+26
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port d
+ a| 
+-
+ a| 
+26
+
+
+
+ a| 
+HBA-Port A
+ a| 
+27
+ a| 
+-
+
+
+
+ a| 
+HBA-Port b
+ a| 
+-
+ a| 
+27
+
+
+
+ a| 
+HBA-Port c
+ a| 
+28
+ a| 
+-
+
+
+
+ a| 
+HBA-Port d
+ a| 
+-
+ a| 
+28
+
+
+
+ a| 
+Controller_x_4
+ a| 
+FC-VI-Port A
+ a| 
+29
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port b
+ a| 
+-
+ a| 
+29
+
+
+
+ a| 
+FC-VI-Port c
+ a| 
+30
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port d
+ a| 
+-
+ a| 
+30
+
+
+
+ a| 
+HBA-Port A
+ a| 
+31
+ a| 
+-
+
+
+
+ a| 
+HBA-Port b
+ a| 
+-
+ a| 
+31
+
+
+
+ a| 
+HBA-Port c
+ a| 
+32
+ a| 
+-
+
+
+
+ a| 
+HBA-Port d
+ a| 
+-
+ a| 
+32
+
+|===
+|===
+
+
+4+| Cisco 9132T 
+
+
+4+| MDS-Modul 1 
+
+
+| Komponente | Port | Schalter 1 | Schalter 2 
+
+
+ a| 
+Controller_x_1
+ a| 
+FC-VI-Port A
+ a| 
+1
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port b
+ a| 
+-
+ a| 
+1
+
+
+
+ a| 
+FC-VI-Port c
+ a| 
+2
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port d
+ a| 
+-
+ a| 
+2
+
+
+
+ a| 
+HBA-Port A
+ a| 
+3
+ a| 
+-
+
+
+
+ a| 
+HBA-Port b
+ a| 
+-
+ a| 
+3
+
+
+
+ a| 
+HBA-Port c
+ a| 
+4
+ a| 
+-
+
+
+
+ a| 
+HBA-Port d
+ a| 
+-
+ a| 
+4
+
+
+
+ a| 
+Controller_x_2
+ a| 
+FC-VI-Port A
+ a| 
+5
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port b
+ a| 
+-
+ a| 
+5
+
+
+
+ a| 
+FC-VI-Port c
+ a| 
+6
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port d
+ a| 
+-
+ a| 
+6
+
+
+
+ a| 
+HBA-Port A
+ a| 
+7
+ a| 
+-
+
+
+
+ a| 
+HBA-Port b
+ a| 
+-
+ a| 
+7
+
+
+
+ a| 
+HBA-Port c
+ a| 
+8
+ a| 
+-
+
+
+
+ a| 
+HBA-Port d
+ a| 
+-
+ a| 
+8
+
+
+
+4+| MDS-Modul 2 
+
+
+ a| 
+Komponente
+ a| 
+Port
+ a| 
+Schalter 1
+ a| 
+Schalter 2
+
+
+
+ a| 
+Controller_x_3
+ a| 
+FC-VI-Port A
+ a| 
+1
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port b
+ a| 
+-
+ a| 
+1
+
+
+
+ a| 
+FC-VI-Port c
+ a| 
+2
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port d
+ a| 
+-
+ a| 
+2
+
+
+
+ a| 
+HBA-Port A
+ a| 
+3
+ a| 
+-
+
+
+
+ a| 
+HBA-Port b
+ a| 
+-
+ a| 
+3
+
+
+
+ a| 
+HBA-Port c
+ a| 
+4
+ a| 
+-
+
+
+
+ a| 
+HBA-Port d
+ a| 
+-
+ a| 
+4
+
+
+
+ a| 
+Controller_x_4
+ a| 
+FC-VI-Port A
+ a| 
+5
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port b
+ a| 
+-
+ a| 
+5
+
+
+
+ a| 
+FC-VI-Port c
+ a| 
+6
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port d
+ a| 
+-
+ a| 
+6
+
+
+
+ a| 
+HBA-Port A
+ a| 
+7
+ a| 
+-
+
+
+
+ a| 
+HBA-Port b
+ a| 
+-
+ a| 
+7
+
+
+
+ a| 
+HBA-Port c
+ a| 
+8
+ a| 
+-
+
+
+
+ a| 
+HBA-Port d
+ a| 
+-
+ a| 
+8
+
+|===
+
+NOTE: In der folgenden Tabelle werden die Systeme mit zwei FC-VI-Ports angezeigt. Die AFF Systeme A700 und FAS9000 verfügen über vier FC-VI-Ports (A, b, c und d). Bei Verwendung eines AFF A700 oder FAS9000 Systems bewegen sich die Port-Zuweisungen an einer Position entlang. FC-VI-Ports c und d beispielsweise zu Switch-Port 2 und HBA-Ports A und b gelangen zu Switch-Port 3.
+
+|===
+
+
+4+| Cisco 9250i Hinweis: Der Cisco 9250i-Switch wird für MetroCluster-Konfigurationen mit acht Nodes nicht unterstützt. 
+
+
+| Komponente | Port | Schalter 1 | Schalter 2 
+
+
+ a| 
+Controller_x_1
+ a| 
+FC-VI-Port A
+ a| 
+1
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port b
+ a| 
+-
+ a| 
+1
+
+
+
+ a| 
+HBA-Port A
+ a| 
+2
+ a| 
+-
+
+
+
+ a| 
+HBA-Port b
+ a| 
+-
+ a| 
+2
+
+
+
+ a| 
+HBA-Port c
+ a| 
+3
+ a| 
+-
+
+
+
+ a| 
+HBA-Port d
+ a| 
+-
+ a| 
+3
+
+
+
+ a| 
+Controller_x_2
+ a| 
+FC-VI-Port A
+ a| 
+4
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port b
+ a| 
+-
+ a| 
+4
+
+
+
+ a| 
+HBA-Port A
+ a| 
+5
+ a| 
+-
+
+
+
+ a| 
+HBA-Port b
+ a| 
+-
+ a| 
+5
+
+
+
+ a| 
+HBA-Port c
+ a| 
+6
+ a| 
+-
+
+
+
+ a| 
+HBA-Port d
+ a| 
+-
+ a| 
+6
+
+
+
+ a| 
+Controller_x_3
+ a| 
+FC-VI-Port A
+ a| 
+7
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port b
+ a| 
+-
+ a| 
+7
+
+
+
+ a| 
+HBA-Port A
+ a| 
+8
+ a| 
+-
+
+
+
+ a| 
+HBA-Port b
+ a| 
+-
+ a| 
+8
+
+
+
+ a| 
+HBA-Port c
+ a| 
+9
+ a| 
+-
+
+
+
+ a| 
+HBA-Port d
+ a| 
+-
+ a| 
+9
+
+
+
+ a| 
+Controller_x_4
+ a| 
+FC-VI-Port A
+ a| 
+10
+ a| 
+-
+
+
+
+ a| 
+FC-VI-Port b
+ a| 
+-
+ a| 
+10
+
+
+
+ a| 
+HBA-Port A
+ a| 
+11
+ a| 
+-
+
+
+
+ a| 
+HBA-Port b
+ a| 
+-
+ a| 
+11
+
+
+
+ a| 
+HBA-Port c
+ a| 
+13
+ a| 
+-
+
+
+
+ a| 
+HBA-Port d
+ a| 
+-
+ a| 
+13
+
+|===
+
+
+== Cisco Port-Einsatz für FC-to-SAS-Bridges in einer MetroCluster-Konfiguration mit ONTAP 9.1 oder höher
+
+|===
+
+
+4+| Cisco 9396S 
+
+
+| FibreBridge 7500 mit zwei FC-Ports | Port | Schalter 1 | Schalter 2 
+
+
+ a| 
+Bridge_x_1a
+ a| 
+FC1
+ a| 
+9
+ a| 
+-
+
+
+
+ a| 
+FC2
+ a| 
+-
+ a| 
+9
+
+
+
+ a| 
+Bridge_x_1b
+ a| 
+FC1
+ a| 
+10
+ a| 
+-
+
+
+
+ a| 
+FC2
+ a| 
+-
+ a| 
+10
+
+
+
+ a| 
+Bridge_x_2a
+ a| 
+FC1
+ a| 
+11
+ a| 
+-
+
+
+
+ a| 
+FC2
+ a| 
+-
+ a| 
+11
+
+
+
+ a| 
+Bridge_x_2b
+ a| 
+FC1
+ a| 
+12
+ a| 
+-
+
+
+
+ a| 
+FC2
+ a| 
+-
+ a| 
+12
+
+
+
+ a| 
+Bridge_x_3a
+ a| 
+FC1
+ a| 
+13
+ a| 
+-
+
+
+
+ a| 
+FC2
+ a| 
+-
+ a| 
+13
+
+
+
+ a| 
+Bridge_x_3b
+ a| 
+FC1
+ a| 
+14
+ a| 
+-
+
+
+
+ a| 
+FC2
+ a| 
+-
+ a| 
+14
+
+
+
+ a| 
+Bridge_x_4a
+ a| 
+FC1
+ a| 
+15
+ a| 
+-
+
+
+
+ a| 
+FC2
+ a| 
+-
+ a| 
+15
+
+
+
+ a| 
+Bridge_x_4b
+ a| 
+FC1
+ a| 
+16
+ a| 
+-
+
+
+
+ a| 
+FC2
+ a| 
+-
+ a| 
+16
+
+|===
+Zusätzliche Brücken können mit den Ports 17 bis 40 und 57 bis 88 nach dem gleichen Muster befestigt werden.
+
+|===
+
+
+4+| Cisco 9148S 
+
+
+| FibreBridge 7500 mit zwei FC-Ports | Port | Schalter 1 | Schalter 2 
+
+
+ a| 
+Bridge_x_1a
+ a| 
+FC1
+ a| 
+9
+ a| 
+-
+
+
+
+ a| 
+FC2
+ a| 
+-
+ a| 
+9
+
+
+
+ a| 
+Bridge_x_1b
+ a| 
+FC1
+ a| 
+10
+ a| 
+-
+
+
+
+ a| 
+FC2
+ a| 
+-
+ a| 
+10
+
+
+
+ a| 
+Bridge_x_2a
+ a| 
+FC1
+ a| 
+11
+ a| 
+-
+
+
+
+ a| 
+FC2
+ a| 
+-
+ a| 
+11
+
+
+
+ a| 
+Bridge_x_2b
+ a| 
+FC1
+ a| 
+12
+ a| 
+-
+
+
+
+ a| 
+FC2
+ a| 
+-
+ a| 
+12
+
+
+
+ a| 
+Bridge_x_3a
+ a| 
+FC1
+ a| 
+13
+ a| 
+-
+
+
+
+ a| 
+FC2
+ a| 
+-
+ a| 
+13
+
+
+
+ a| 
+Bridge_x_3b
+ a| 
+FC1
+ a| 
+14
+ a| 
+-
+
+
+
+ a| 
+FC2
+ a| 
+-
+ a| 
+14
+
+
+
+ a| 
+Bridge_x_4a
+ a| 
+FC1
+ a| 
+15
+ a| 
+-
+
+
+
+ a| 
+FC2
+ a| 
+-
+ a| 
+15
+
+
+
+ a| 
+Bridge_x_4b
+ a| 
+FC1
+ a| 
+16
+ a| 
+-
+
+
+
+ a| 
+FC2
+ a| 
+-
+ a| 
+16
+
+|===
+Zusätzliche Bridges für eine zweite DR-Gruppe oder eine zweite MetroCluster-Konfiguration können über die Ports 33 bis 40 nach dem gleichen Muster verbunden werden.
+
+|===
+
+
+4+| Cisco 9132T 
+
+
+| FibreBridge 7500 mit zwei FC-Ports | Port | Switch | Schalter 2 
+
+
+ a| 
+Bridge_x_1a
+ a| 
+FC1
+ a| 
+9
+ a| 
+-
+
+
+
+ a| 
+FC2
+ a| 
+-
+ a| 
+9
+
+
+
+ a| 
+Bridge_x_1b
+ a| 
+FC1
+ a| 
+10
+ a| 
+-
+
+
+
+ a| 
+FC2
+ a| 
+-
+ a| 
+10
+
+
+
+ a| 
+Bridge_x_2a
+ a| 
+FC1
+ a| 
+11
+ a| 
+-
+
+
+
+ a| 
+FC2
+ a| 
+-
+ a| 
+11
+
+
+
+ a| 
+Bridge_x_2b
+ a| 
+FC1
+ a| 
+12
+ a| 
+-
+
+
+
+ a| 
+FC2
+ a| 
+-
+ a| 
+12
+
+|===
+Zusätzliche Bridges für eine zweite DR-Gruppe oder eine zweite MetroCluster-Konfiguration können mithilfe derselben Port-Nummern auf dem zweiten MDS-Modul verbunden werden.
+
+|===
+
+
+4+| Cisco 9250i 
+
+
+| FibreBridge 7500 mit zwei FC-Ports | Port | Schalter 1 | Schalter 2 
+
+
+ a| 
+Bridge_x_1a
+ a| 
+FC1
+ a| 
+14
+ a| 
+-
+
+
+
+ a| 
+FC2
+ a| 
+-
+ a| 
+14
+
+
+
+ a| 
+Bridge_x_1b
+ a| 
+FC1
+ a| 
+15
+ a| 
+-
+
+
+
+ a| 
+FC2
+ a| 
+-
+ a| 
+15
+
+
+
+ a| 
+Bridge_x_2a
+ a| 
+FC1
+ a| 
+17
+ a| 
+-
+
+
+
+ a| 
+FC2
+ a| 
+-
+ a| 
+17
+
+
+
+ a| 
+Bridge_x_2b
+ a| 
+FC1
+ a| 
+18
+ a| 
+-
+
+
+
+ a| 
+FC2
+ a| 
+-
+ a| 
+18
+
+
+
+ a| 
+Bridge_x_3a
+ a| 
+FC1
+ a| 
+19
+ a| 
+-
+
+
+
+ a| 
+FC2
+ a| 
+-
+ a| 
+19
+
+
+
+ a| 
+Bridge_x_3b
+ a| 
+FC1
+ a| 
+21
+ a| 
+-
+
+
+
+ a| 
+FC2
+ a| 
+-
+ a| 
+21
+
+
+
+ a| 
+Bridge_x_4a
+ a| 
+FC1
+ a| 
+22
+ a| 
+-
+
+
+
+ a| 
+FC2
+ a| 
+-
+ a| 
+22
+
+
+
+ a| 
+Bridge_x_4b
+ a| 
+FC1
+ a| 
+23
+ a| 
+-
+
+
+
+ a| 
+FC2
+ a| 
+-
+ a| 
+23
+
+|===
+Zusätzliche Bridges für eine zweite DR-Gruppe oder eine zweite MetroCluster-Konfiguration können über die Ports 25 bis 48 nach dem gleichen Muster verbunden werden.
+
+Die folgenden Tabellen zeigen die Verwendung des Bridge-Ports bei Verwendung von FibreBridge 6500-Bridges oder FibreBridge 7500-Bridges mit nur einem FC-Port (FC1 oder FC2). Bei FibreBridge 7500-Bridges mit einem FC-Port kann entweder FC1 oder FC2 mit dem als FC1 angegebenen Port verbunden werden. Über die Ports 25-48 können weitere Brücken befestigt werden.
+
+|===
+
+
+4+| FibreBridge 6500 Bridges oder FibreBridge 7500 Bridges mit einem FC-Port 
+
+
+.2+| FibreBridge 6500 Bridge oder FibreBridge 7500 mit einem FC-Port .2+| Port 2+| Cisco 9396S 
+
+
+| Schalter 1 | Schalter 2 
+
+
+ a| 
+Bridge_x_1a
+ a| 
+FC1
+ a| 
+9
+ a| 
+-
+
+
+
+ a| 
+Bridge_x_1b
+ a| 
+FC1
+ a| 
+-
+ a| 
+9
+
+
+
+ a| 
+Bridge_x_2a
+ a| 
+FC1
+ a| 
+10
+ a| 
+-
+
+
+
+ a| 
+Bridge_x_2b
+ a| 
+FC1
+ a| 
+-
+ a| 
+10
+
+
+
+ a| 
+Bridge_x_3a
+ a| 
+FC1
+ a| 
+11
+ a| 
+-
+
+
+
+ a| 
+Bridge_x_3b
+ a| 
+FC1
+ a| 
+-
+ a| 
+11
+
+
+
+ a| 
+Bridge_x_4a
+ a| 
+FC1
+ a| 
+12
+ a| 
+-
+
+
+
+ a| 
+Bridge_x_4b
+ a| 
+FC1
+ a| 
+-
+ a| 
+12
+
+
+
+ a| 
+Bridge_x_5a
+ a| 
+FC1
+ a| 
+13
+ a| 
+-
+
+
+
+ a| 
+Bridge_x_5b
+ a| 
+FC1
+ a| 
+-
+ a| 
+13
+
+
+
+ a| 
+Bridge_x_6a
+ a| 
+FC1
+ a| 
+14
+ a| 
+-
+
+
+
+ a| 
+Bridge_x_6b
+ a| 
+FC1
+ a| 
+-
+ a| 
+14
+
+
+
+ a| 
+Bridge_x_7a
+ a| 
+FC1
+ a| 
+15
+ a| 
+-
+
+
+
+ a| 
+Bridge_x_7b
+ a| 
+FC1
+ a| 
+-
+ a| 
+15
+
+
+
+ a| 
+Bridge_x_8a
+ a| 
+FC1
+ a| 
+16
+ a| 
+-
+
+
+
+ a| 
+Bridge_x_8b
+ a| 
+FC1
+ a| 
+-
+ a| 
+16
+
+|===
+Zusätzliche Brücken können mit den Ports 17 bis 40 und 57 bis 88 nach dem gleichen Muster befestigt werden.
+
+|===
+
+
+4+| FibreBridge 6500 Bridges oder FibreBridge 7500 Bridges mit einem FC-Port 
+
+
+.2+| Brücke .2+| Port 2+| Cisco 9148S 
+
+
+| Schalter 1 | Schalter 2 
+
+
+ a| 
+Bridge_x_1a
+ a| 
+FC1
+ a| 
+9
+ a| 
+-
+
+
+
+ a| 
+Bridge_x_1b
+ a| 
+FC1
+ a| 
+-
+ a| 
+9
+
+
+
+ a| 
+Bridge_x_2a
+ a| 
+FC1
+ a| 
+10
+ a| 
+-
+
+
+
+ a| 
+Bridge_x_2b
+ a| 
+FC1
+ a| 
+-
+ a| 
+10
+
+
+
+ a| 
+Bridge_x_3a
+ a| 
+FC1
+ a| 
+11
+ a| 
+-
+
+
+
+ a| 
+Bridge_x_3b
+ a| 
+FC1
+ a| 
+-
+ a| 
+11
+
+
+
+ a| 
+Bridge_x_4a
+ a| 
+FC1
+ a| 
+12
+ a| 
+-
+
+
+
+ a| 
+Bridge_x_4b
+ a| 
+FC1
+ a| 
+-
+ a| 
+12
+
+
+
+ a| 
+Bridge_x_5a
+ a| 
+FC1
+ a| 
+13
+ a| 
+-
+
+
+
+ a| 
+Bridge_x_5b
+ a| 
+FC1
+ a| 
+-
+ a| 
+13
+
+
+
+ a| 
+Bridge_x_6a
+ a| 
+FC1
+ a| 
+14
+ a| 
+-
+
+
+
+ a| 
+Bridge_x_6b
+ a| 
+FC1
+ a| 
+-
+ a| 
+14
+
+
+
+ a| 
+Bridge_x_7a
+ a| 
+FC1
+ a| 
+15
+ a| 
+-
+
+
+
+ a| 
+Bridge_x_7b
+ a| 
+FC1
+ a| 
+-
+ a| 
+15
+
+
+
+ a| 
+Bridge_x_8a
+ a| 
+FC1
+ a| 
+16
+ a| 
+-
+
+
+
+ a| 
+Bridge_x_8b
+ a| 
+FC1
+ a| 
+-
+ a| 
+16
+
+|===
+Zusätzliche Bridges für eine zweite DR-Gruppe oder eine zweite MetroCluster-Konfiguration können über die Ports 25 bis 48 nach dem gleichen Muster verbunden werden.
+
+|===
+
+
+4+| Cisco 9250i 
+
+
+| FibreBridge 6500 Bridge oder FibreBridge 7500 mit einem FC-Port | Port | Schalter 1 | Schalter 2 
+
+
+ a| 
+Bridge_x_1a
+ a| 
+FC1
+ a| 
+14
+ a| 
+-
+
+
+
+ a| 
+Bridge_x_1b
+ a| 
+FC1
+ a| 
+-
+ a| 
+14
+
+
+
+ a| 
+Bridge_x_2a
+ a| 
+FC1
+ a| 
+15
+ a| 
+-
+
+
+
+ a| 
+Bridge_x_2b
+ a| 
+FC1
+ a| 
+-
+ a| 
+15
+
+
+
+ a| 
+Bridge_x_3a
+ a| 
+FC1
+ a| 
+17
+ a| 
+-
+
+
+
+ a| 
+Bridge_x_3b
+ a| 
+FC1
+ a| 
+-
+ a| 
+17
+
+
+
+ a| 
+Bridge_x_4a
+ a| 
+FC1
+ a| 
+18
+ a| 
+-
+
+
+
+ a| 
+Bridge_x_4b
+ a| 
+FC1
+ a| 
+-
+ a| 
+18
+
+
+
+ a| 
+Bridge_x_5a
+ a| 
+FC1
+ a| 
+19
+ a| 
+-
+
+
+
+ a| 
+Bridge_x_5b
+ a| 
+FC1
+ a| 
+-
+ a| 
+19
+
+
+
+ a| 
+Bridge_x_6a
+ a| 
+FC1
+ a| 
+21
+ a| 
+-
+
+
+
+ a| 
+Bridge_x_6b
+ a| 
+FC1
+ a| 
+-
+ a| 
+21
+
+
+
+ a| 
+Bridge_x_7a
+ a| 
+FC1
+ a| 
+22
+ a| 
+-
+
+
+
+ a| 
+Bridge_x_7b
+ a| 
+FC1
+ a| 
+-
+ a| 
+22
+
+
+
+ a| 
+Bridge_x_8a
+ a| 
+FC1
+ a| 
+23
+ a| 
+-
+
+
+
+ a| 
+Bridge_x_8b
+ a| 
+FC1
+ a| 
+-
+ a| 
+23
+
+|===
+Zusätzliche Brücken können über die Ports 25 bis 48 nach dem gleichen Muster befestigt werden.
+
+
+
+== Verwendung von Cisco Ports für ISLs in einer Konfiguration mit acht Nodes in einer MetroCluster Konfiguration mit ONTAP 9.1 oder höher
+
+Die folgende Tabelle zeigt die Verwendung des ISL-Ports. Die Verwendung des ISL-Ports ist bei allen Switches in der Konfiguration identisch.
+
+|===
+
+
+| Switch-Modell | ISL-Port | Switch-Port 
+
+
+ a| 
+Cisco 9396S
+ a| 
+ISL 1
+ a| 
+44
+
+
+
+ a| 
+ISL 2
+ a| 
+48
+
+
+
+ a| 
+ISL 3
+ a| 
+92
+
+
+
+ a| 
+ISL 4
+ a| 
+96
+
+
+
+ a| 
+Cisco 9250i mit 24-Port-Lizenz
+ a| 
+ISL 1
+ a| 
+12
+
+
+
+ a| 
+ISL 2
+ a| 
+16
+
+
+
+ a| 
+ISL 3
+ a| 
+20
+
+
+
+ a| 
+ISL 4
+ a| 
+24
+
+
+
+ a| 
+Cisco 9148S
+ a| 
+ISL 1
+ a| 
+20
+
+
+
+ a| 
+ISL 2
+ a| 
+24
+
+
+
+ a| 
+ISL 3
+ a| 
+44
+
+
+
+ a| 
+ISL 4
+ a| 
+48
+
+
+
+ a| 
+Cisco 9132T
+ a| 
+ISL 1
+ a| 
+MDS-Modul 1 Anschluss 13
+
+
+
+ a| 
+ISL 2
+ a| 
+MDS-Modul 1 Anschluss 14
+
+
+
+ a| 
+ISL 3
+ a| 
+MDS-Modul 1 Anschluss 15
+
+
+
+ a| 
+ISL 4
+ a| 
+MDS-Modul 1 Anschluss 16
+
+|===

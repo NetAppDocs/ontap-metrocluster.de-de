@@ -1,0 +1,39 @@
+= 
+:allow-uri-read: 
+
+
+[role="lead"]
+Bevor Sie in der MetroCluster-Konfiguration ein neues Controller-Modul verwenden, müssen Sie die vorhandene Konfiguration löschen.
+
+.Schritte
+. Halten Sie gegebenenfalls den Node an, um die LOADER-Eingabeaufforderung anzuzeigen:
++
+`halt`
+
+. Legen Sie an der Loader-Eingabeaufforderung die Umgebungsvariablen auf Standardwerte fest:
++
+`set-defaults`
+
+. Umgebung speichern:
++
+`saveenv`
+
+. Starten Sie an der LOADER-Eingabeaufforderung das Boot-Menü:
++
+`boot_ontap menu`
+
+. Löschen Sie an der Eingabeaufforderung des Startmenüs die Konfiguration:
++
+`wipeconfig`
+
++
+Antworten `yes` An die Bestätigungsaufforderung.
+
++
+Der Node wird neu gebootet, und das Startmenü wird erneut angezeigt.
+
+. Wählen Sie im Startmenü die Option *5*, um das System im Wartungsmodus zu booten.
++
+Antworten `yes` An die Bestätigungsaufforderung.
+
+

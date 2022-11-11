@@ -1,0 +1,58 @@
+---
+permalink: upgrade/task_shut_down_the_exist_controller_when_add_a_2nd_controller_in_c_mode.html 
+sidebar: sidebar 
+keywords: metrocluster, upgrade, shut, down, existing, controller, module 
+summary: Sie müssen das vorhandene Controller-Modul sauber herunterfahren, um zu überprüfen, ob alle Daten auf die Festplatte geschrieben wurden. Sie müssen auch die Netzteile trennen. 
+---
+= Herunterfahren des vorhandenen Controller-Moduls
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen das vorhandene Controller-Modul sauber herunterfahren, um zu überprüfen, ob alle Daten auf die Festplatte geschrieben wurden. Sie müssen auch die Netzteile trennen.
+
+.Über diese Aufgabe
+--
+
+IMPORTANT: Sie müssen ein sauberes System herunterfahren, bevor Sie die Systemkomponenten ersetzen, um zu vermeiden, dass die nicht geschriebenen Daten in NVRAM oder NVMEM verloren gehen.
+
+--
+.Schritte
+. Stoppen Sie den Knoten von der vorhandenen Eingabeaufforderung für das Controller-Modul:
++
+`halt local -inhibit-takeover true`
+
++
+Wenn Sie aufgefordert werden, den Vorgang zum Anhalten fortzusetzen, geben Sie ein `y` Wenn Sie dazu aufgefordert werden, und warten Sie, bis das System an der LOADER-Eingabeaufforderung angehalten wird.
+
++
+In einem 80xx-System befindet sich die NVRAM-LED auf dem Controller-Modul rechts neben den Netzwerkports, die mit einem Batteriesymbol gekennzeichnet sind.
+
++
+Diese LED blinkt, wenn nicht geschriebene Daten im NVRAM vorhanden sind. Wenn diese LED gelb blinkt, nachdem Sie den Befehl zum Anhalten eingegeben haben, müssen Sie das System neu booten und versuchen, das System erneut zu stoppen.
+
+. Wenn Sie nicht bereits geerdet sind, sollten Sie sich richtig Erden.
+. Schalten Sie die Netzteile aus und trennen Sie die Stromversorgung mit der richtigen Methode für Ihr System und Ihren Netzteiltyp:
++
+|===
+
+
+| Setzt Ihr System Folgendes ein: | Dann... 
+
+
+ a| 
+Netzteile
+ a| 
+Ziehen Sie die Netzkabel von der Stromversorgung ab, und entfernen Sie anschließend die Netzkabel.
+
+
+
+ a| 
+Gleichstromnetzteile
+ a| 
+Trennen Sie die Stromversorgung an der Gleichstromquelle, und entfernen Sie ggf. die Gleichstromkabel.
+
+|===
+

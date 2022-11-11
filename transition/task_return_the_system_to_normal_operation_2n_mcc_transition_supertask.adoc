@@ -1,0 +1,94 @@
+---
+permalink: transition/task_return_the_system_to_normal_operation_2n_mcc_transition_supertask.html 
+sidebar: sidebar 
+keywords: perform, final, configuration, return, metrocluster, normal, operation, system, verify, assign, drive, transition, install, license, module, complete, completing, node, send, custom, autosupport, message, maintenance 
+summary: Sie müssen die abschließenden Konfigurationsschritte durchführen und die MetroCluster-Konfiguration in den normalen Betrieb bringen. 
+---
+= Stellt den normalen Betrieb des Systems wieder her
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen die abschließenden Konfigurationsschritte durchführen und die MetroCluster-Konfiguration in den normalen Betrieb bringen.
+
+
+
+== Überprüfung des MetroCluster-Betriebs und Zuweisung von Laufwerken nach dem Umstieg
+
+[role="lead"]
+Sie müssen überprüfen, ob die MetroCluster ordnungsgemäß funktioniert und dem zweiten Paar neuer Knoten Laufwerke zuweisen (Node_A_2-IP und Node_B_2-IP).
+
+. Vergewissern Sie sich, dass der MetroCluster-Konfigurationstyp IP-Fabric ist: `metrocluster show`
+. Führen Sie eine MetroCluster-Prüfung durch.
++
+.. Geben Sie den folgenden Befehl ein: `metrocluster check run`
+.. Ergebnisse der MetroCluster-Prüfung anzeigen: `metrocluster check show`
+
+
+. Vergewissern Sie sich, dass die DR-Gruppe mit den MetroCluster IP Nodes konfiguriert ist: `metrocluster node show`
+. Zusätzliche Datenaggregate können je nach Bedarf für Controller Node_A_2-IP und Node_B_2-IP an jedem Standort erstellt und gespiegelt werden.
+
+
+
+
+== Installieren von Lizenzen für das neue Controller-Modul
+
+[role="lead"]
+Lizenzen für das neue Controller-Modul müssen für alle ONTAP Services hinzugefügt werden, die Standard-Lizenzen (mit Nodes gesperrt) erfordern. Bei Standardlizenzen muss jeder Node im Cluster über seinen eigenen Schlüssel für die Funktion verfügen.
+
+Ausführliche Informationen zur Lizenzierung finden Sie in der Knowledge Base-Artikel 3013749: Übersicht über die Data ONTAP 8.2 Lizenzierung und Referenzen auf der NetApp Support Site und _System Administration Reference_.
+
+. Falls erforderlich, beziehen Sie Lizenzschlüssel für den neuen Node auf der NetApp Support Site im Abschnitt „My Support“ unter „Software-Lizenzen“.
++
+Weitere Informationen zum Austausch von Lizenzen finden Sie im Knowledge Base-Artikel link:https://kb.netapp.com/Advice_and_Troubleshooting/Flash_Storage/AFF_Series/Post_Motherboard_Replacement_Process_to_update_Licensing_on_a_AFF_FAS_system["Verfahren zum Austausch der Hauptplatine zur Aktualisierung der Lizenzierung auf einem All Flash FAS/FAS System"^]
+
+. Geben Sie den folgenden Befehl ein, um jeden Lizenzschlüssel zu installieren: `system license add -license-code license_key`
++
+Der Lizenzschlüssel ist 28 Ziffern lang.
+
++
+Wiederholen Sie diesen Schritt für jede erforderliche Standard-Lizenz (Node-locked).
+
+
+
+
+
+== Die Konfiguration der Nodes wird abgeschlossen
+
+[role="lead"]
+Vor dem Abschluss der Verfahren können verschiedene Konfigurationsschritte durchgeführt werden. Einige dieser Schritte sind optional.
+
+. Konfigurieren Sie den Service Processor: `system service-processor network modify`
+. AutoSupport auf den neuen Nodes einrichten: `system node autosupport modify`
+. Controller können optional im Rahmen der Transition umbenannt werden. Der folgende Befehl wird zum Umbenennen eines Controllers verwendet: `system node rename -node <old-name> -newname <new-name>`
++
+Die Umbenennung kann einige Minuten in Anspruch nehmen. Vergewissern Sie sich, dass alle Namensänderungen an jeden Knoten übertragen wurden, bevor Sie mit anderen Schritten mit dem Befehl „System show -fields Node“ fortfahren.
+
+. Konfigurieren Sie einen Überwachungsdienst nach Bedarf.
++
+link:../install-ip/concept_considerations_mediator.html["Überlegungen für Mediator"]
+
++
+Link:../install-ip/concept_mediator_requirements.html
+
++
+link:../tiebreaker/concept_overview_of_the_tiebreaker_software.html["Installation und Konfiguration von Tiebreaker Software"]
+
+
+
+
+
+== Senden einer benutzerdefinierten AutoSupport Meldung nach der Wartung
+
+[role="lead"]
+Nach Abschluss des Übergangs sollten Sie eine AutoSupport-Nachricht mit dem Ende der Wartung senden, damit die automatische Case-Erstellung fortgesetzt werden kann.
+
+. Um mit der automatischen Erstellung von Support-Cases fortzufahren, senden Sie eine AutoSupport Meldung, um anzugeben, dass die Wartung abgeschlossen ist.
++
+.. Geben Sie den folgenden Befehl ein: `system node autosupport invoke -node * -type all -message MAINT=end`
+.. Wiederholen Sie den Befehl im Partner-Cluster.
+
+
+

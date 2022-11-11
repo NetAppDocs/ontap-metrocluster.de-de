@@ -1,0 +1,254 @@
+---
+permalink: maintain/task_disable_encryption_on_brocade_fc_switches.html 
+sidebar: sidebar 
+keywords: metrocluster, maintain, service, disable, encryption, brocade, fc, switch 
+summary: Möglicherweise müssen Sie die Verschlüsselung auf Brocade FC-Switches deaktivieren. 
+---
+= Deaktivieren der Verschlüsselung bei Brocade FC-Switches
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Möglicherweise müssen Sie die Verschlüsselung auf Brocade FC-Switches deaktivieren.
+
+.Schritte
+. Senden Sie von beiden Standorten eine AutoSupport-Nachricht, die den Beginn der Wartung angibt.
++
+[listing]
+----
+cluster_A::> autosupport invoke -node * -type all -message MAINT=4h
+----
++
+[listing]
+----
+cluster_B::> autosupport invoke -node * -type all -message MAINT=4h
+----
+. Überprüfen Sie den Betrieb der MetroCluster-Konfiguration von Cluster A
++
+.. Bestätigen Sie die MetroCluster-Konfiguration und den normalen Betriebsmodus: +
+`*metrocluster show*`
++
+[listing]
+----
+cluster_A::> metrocluster show
+----
+.. Führen Sie eine MetroCluster-Prüfung durch: +
+`*metrocluster check run*`
++
+[source, nolinebreak]
+----
+cluster_A::> metrocluster check run
+----
+.. Zeigen Sie die Ergebnisse der MetroCluster-Prüfung an: +
+`*metrocluster check show*`
++
+[source, nolinebreak]
+----
+cluster_A::> metrocluster check show
+----
+
+
+. Überprüfen Sie den Status beider Switches:
++
+`*fabric show*`
+
++
+[listing]
+----
+switch_A_1:admin> fabric show
+----
++
+[listing]
+----
+switch_B_1:admin> fabric show
+----
+. Beide Switches deaktivieren:
++
+`*switchdisable*`
+
++
+[listing]
+----
+switch_A_1:admin> switchdisable
+----
++
+[listing]
+----
+switch_B_1:admin> switchdisable
+----
+. Überprüfen Sie die verfügbaren Pfade für die Nodes auf den einzelnen Clustern:
++
+`*sysconfig*`
+
++
+[listing]
+----
+cluster_A::> system node run -node node-name -command sysconfig -a
+----
++
+[listing]
+----
+cluster_B::> system node run -node node-name -command sysconfig -a
+----
++
+Da die Switch-Fabric jetzt deaktiviert ist, sollte die System-Storage-Konfiguration Single-Path HA sein.
+
+. Überprüfen Sie den Aggregatstatus für beide Cluster.
++
+[listing]
+----
+cluster_A::> aggr status
+----
++
+[listing]
+----
+cluster_B::> aggr status
+----
++
+Ausgabe des Systems sollte zeigen, dass die Aggregate für beide Cluster gespiegelt und normal sind:
+
++
+[listing]
+----
+mirrored,normal
+----
+. Wiederholen Sie die folgenden Teilschritte von der Admin-Eingabeaufforderung auf beiden Switches.
++
+.. Zeigt an, welche Ports verschlüsselt sind: +
+`*portenccompshow*`
++
+[listing]
+----
+switch_A_1:admin> portenccompshow
+----
+.. Deaktivieren Sie die Verschlüsselung auf den verschlüsselten Ports: +
+`*portcfgencrypt – disable _port-number_*`
++
+[listing]
+----
+switch_A_1:admin> portcfgencrypt --disable 40
+switch_A_1:admin> portcfgencrypt --disable 41
+switch_A_1:admin> portcfgencrypt --disable 42
+switch_A_1:admin> portcfgencrypt --disable 43
+----
+.. Legen Sie den Authentifizierungstyp auf alle fest:
++
+`*authUtil --set -a all*`
+
++
+[listing]
+----
+switch_A_1:admin> authUtil --set -a all
+----
+.. Legen Sie die Authentifizierungsrichtlinie auf dem Switch fest. Zu aus: +
+`*authutil --policy -sw off*`
++
+[listing]
+----
+switch_A_1:admin> authutil --policy -sw off
+----
+.. Setzen Sie die Authentifizierung Diffie-Hellman-Gruppe auf +*+ : +
+`*authutil --set -g **`
++
+[listing]
+----
+switch_A_1:admin> authUtil --set -g *
+----
+.. Löschen Sie die geheime Schlüsseldatenbank: +
+`*secAuthSecret --remove -all*`
++
+[listing]
+----
+switch_A_1:admin> secAuthSecret --remove -all
+----
+.. Vergewissern Sie sich, dass die Verschlüsselung auf den Ports: + deaktiviert ist
+`*portenccompshow*`
++
+[listing]
+----
+switch_A_1:admin> portenccompshow
+----
+.. Schalter aktivieren: +
+`*switchenable*`
++
+[listing]
+----
+switch_A_1:admin> switchenable
+----
+.. Den Status der ISLs bestätigen: +
+`*islshow*`
++
+[listing]
+----
+switch_A_1:admin> islshow
+----
+
+
+. Überprüfen Sie die verfügbaren Pfade für die Nodes auf den einzelnen Clustern:
++
+`*sysconfig*`
+
++
+[listing]
+----
+cluster_A::> system node run -node * -command sysconfig -a
+----
++
+[listing]
+----
+cluster_B::> system node run -node * -command sysconfig -a
+----
++
+Die Systemausgabe sollte angeben, dass sich die Storage-Konfiguration in Quad-Path HA geändert hat.
+
+. Überprüfen Sie den Aggregatstatus für beide Cluster.
++
+[listing]
+----
+cluster_A::> aggr status
+----
++
+[listing]
+----
+cluster_B::> aggr status
+----
++
+Das System sollte zeigen, dass die Aggregate für beide Cluster gespiegelt und normal sind, wie in der folgenden Befehlsausgabe des Systems dargestellt:
+
++
+[listing]
+----
+mirrored,normal
+----
+. Überprüfen Sie den Betrieb der MetroCluster-Konfiguration von Cluster A
++
+.. Führen Sie eine MetroCluster-Prüfung durch: +
+`*metrocluster check run*`
++
+[listing]
+----
+cluster_A::> metrocluster check run
+----
+.. Zeigen Sie die Ergebnisse der MetroCluster-Prüfung an: +
+`*metrocluster check show*`
++
+[listing]
+----
+cluster_A::> metrocluster check show
+----
+
+
+. Senden Sie eine AutoSupport-Nachricht von beiden Standorten, die das Ende der Wartung angibt.
++
+[listing]
+----
+cluster_A::> autosupport invoke -node node-name -type all -message MAINT=END
+----
++
+[listing]
+----
+cluster_B::> autosupport invoke -node node-name -type all -message MAINT=END
+----
+

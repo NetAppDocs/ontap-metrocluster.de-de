@@ -1,0 +1,448 @@
+---
+permalink: install-ip/task_switch_config_cisco_macsec.html 
+sidebar: sidebar 
+keywords: cisco, MACsec encryption 
+summary: Sie müssen die MACsec-Verschlüsselung nur für die WAN-ISL-Ports konfigurieren, die zwischen den Standorten ausgeführt werden. Sie müssen MACsec konfigurieren, nachdem Sie die korrekte RCF-Datei angewendet haben. 
+---
+= Konfigurieren Sie die MACsec-Verschlüsselung auf Cisco 9336C-Switches
+:allow-uri-read: 
+
+
+Auf Wunsch können Sie die MACsec-Verschlüsselung für die WAN-ISL-Ports konfigurieren, die zwischen den Standorten ausgeführt werden. Sie müssen MACsec konfigurieren, nachdem Sie die korrekte RCF-Datei angewendet haben.
+
+
+NOTE: Die MACsec-Verschlüsselung kann nur auf die WAN-ISL-Ports angewendet werden.
+
+
+
+== Konfigurieren Sie die MACsec-Verschlüsselung auf Cisco 9336C-Switches
+
+Sie müssen die MACsec-Verschlüsselung nur für die WAN-ISL-Ports konfigurieren, die zwischen den Standorten ausgeführt werden. Sie müssen MACsec konfigurieren, nachdem Sie die korrekte RCF-Datei angewendet haben.
+
+
+
+=== Lizenzierungsanforderungen für MACsec
+
+MACsec erfordert eine Sicherheitslizenz. Eine vollständige Erläuterung des Cisco NX-OS-Lizenzschemas und der Beschaffung und Anwendung von Lizenzen finden Sie im https://www.cisco.com/c/en/us/td/docs/switches/datacenter/sw/nx-os/licensing/guide/b_Cisco_NX-OS_Licensing_Guide/b_Cisco_NX-OS_Licensing_Guide_chapter_01.html["Cisco NX-OS Licensing Guide"^]
+
+
+
+=== Aktivierung von Cisco MACs Encryption WAN-ISLs in MetroCluster IP-Konfigurationen
+
+Sie können die MACsec-Verschlüsselung für Cisco 9336C-Switches auf WAN-ISLs in einer MetroCluster IP-Konfiguration aktivieren.
+
+.Schritte
+. Globalen Konfigurationsmodus aufrufen:
++
+`configure terminal`
+
++
+[listing]
+----
+IP_switch_A_1# configure terminal
+IP_switch_A_1(config)#
+----
+. Aktivieren Sie MACsec und MKA auf dem Gerät:
++
+`feature macsec`
+
++
+[listing]
+----
+IP_switch_A_1(config)# feature macsec
+----
+. Kopieren Sie die laufende Konfiguration in die Startkonfiguration:
++
+`copy running-config startup-config`
+
++
+[listing]
+----
+IP_switch_A_1(config)# copy running-config startup-config
+----
+
+
+
+
+=== Konfigurieren Sie eine MACsec-Schlüsselkette und -Tasten
+
+Sie können eine MACsec-Schlüsselkette oder Schlüssel für Ihre Konfiguration erstellen.
+
+* Key Lifetime und Hitless Key Rollover*
+
+Eine MACsec-Schlüsselkette kann über mehrere vorinstallierte PSKs (Preshared Keys) verfügen, die jeweils mit einer Schlüssel-ID und einer optionalen Lebensdauer konfiguriert sind. Eine Schlüssellebensdauer legt fest, zu welcher Zeit die Taste aktiviert und abläuft. Wenn keine lebenslange Konfiguration vorhanden ist, ist die Standardlebensdauer unbegrenzt. Wenn eine Lebensdauer konfiguriert ist, rollt MKA nach Ablauf der Lebensdauer zum nächsten konfigurierten vorfreigegebenen Schlüssel in der Schlüsselkette um. Die Zeitzone des Schlüssels kann lokal oder UTC sein. Die Standardzeitzone ist UTC. Ein Schlüssel kann auf einen zweiten Schlüssel innerhalb derselben Schlüsselkette übertragen werden, wenn Sie den zweiten Schlüssel (in der Schlüsselkette) konfigurieren und eine Lebensdauer für den ersten Schlüssel konfigurieren. Wenn die Lebensdauer der ersten Taste abläuft, wird automatisch die nächste Taste in der Liste angezeigt. Wenn dieselbe Taste auf beiden Seiten des Links gleichzeitig konfiguriert ist, ist der Schlüsselüberschlag ohne Unterbrechung des Datenverkehrs aktiviert (d. h. der Schlüssel wird ohne Unterbrechung des Datenverkehrs überrollt).
+
+.Schritte
+. Den globalen Konfigurationsmodus aufrufen:
++
+`configure terminal`
+
++
+[listing]
+----
+IP_switch_A_1# configure terminal
+IP_switch_A_1(config)#
+----
+. Um den verschlüsselten Schlüsselzeichenkette auszublenden, ersetzen Sie den String in der Ausgabe des durch ein Platzhalterzeichen `show running-config` Und `show startup-config` Befehl:
++
+[listing]
+----
+IP_switch_A_1(config)# key-chain macsec-psk no-show
+----
++
+
+NOTE: Die Oktett-Zeichenfolge wird ebenfalls ausgeblendet, wenn Sie die Konfiguration in einer Datei speichern.
+
++
+Standardmäßig werden PSK-Schlüssel im verschlüsselten Format angezeigt und können einfach entschlüsselt werden. Dieser Befehl gilt nur für MACsec-Schlüsselketten.
+
+. Erstellen Sie eine MACsec-Schlüsselkette, um eine Reihe von MACsec-Schlüsseln zu halten und den MACsec-Konfigurationsmodus für die Schlüsselkette aufzurufen:
++
+`key chain name macsec`
+
++
+[listing]
+----
+IP_switch_A_1(config)# key chain 1 macsec
+IP_switch_A_1(config-macseckeychain)#
+----
+. Erstellen Sie eine MACsec-Taste, und rufen Sie den MACsec-Key-Konfigurationsmodus auf:
++
+`key key-id`
+
++
+Der Bereich liegt zwischen 1 und 32 hex-stelligen Schlüsselzeichenfolge und die maximale Größe beträgt 64 Zeichen.
+
++
+[listing]
+----
+IP_switch_A_1 switch(config-macseckeychain)# key 1000
+IP_switch_A_1 (config-macseckeychain-macseckey)#
+----
+. Konfigurieren Sie die Oktett-Zeichenfolge für den Schlüssel:
++
+`key-octet-string octet-string cryptographic-algorithm AES_128_CMAC | AES_256_CMAC`
+
++
+[listing]
+----
+IP_switch_A_1(config-macseckeychain-macseckey)# key-octet-string abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789
+cryptographic-algorithm AES_256_CMAC
+----
++
+
+NOTE: Das Argument Octet-string kann bis zu 64 hexadezimale Zeichen enthalten. Der Oktett-Schlüssel wird intern kodiert, so dass der Schlüssel im Klartext nicht in der Ausgabe des angezeigt wird `show running-config macsec` Befehl.
+
+. Konfigurieren einer Sendezeit für die Taste (in Sekunden):
++
+`send-lifetime start-time duration duration`
+
++
+[listing]
+----
+IP_switch_A_1(config-macseckeychain-macseckey)# send-lifetime 00:00:00 Oct 04 2020 duration 100000
+----
++
+Standardmäßig behandelt das Gerät die Startzeit als UTC. Das Argument Start-Time ist die Uhrzeit und das Datum, zu der der Schlüssel aktiv wird. Das Argument „Dauer“ ist die Länge der Lebensdauer in Sekunden. Die maximale Länge beträgt 2147483646 Sekunden (ca. 68 Jahre).
+
+. Kopieren Sie die laufende Konfiguration in die Startkonfiguration:
++
+`copy running-config startup-config`
+
++
+[listing]
+----
+IP_switch_A_1(config)# copy running-config startup-config
+----
+. Zeigt die Schlüsselkettenkonfiguration an:
++
+`show key chain name`
+
++
+[listing]
+----
+IP_switch_A_1(config-macseckeychain-macseckey)# show key chain 1
+----
+
+
+
+
+=== Konfigurieren einer MACsec-Richtlinie
+
+.Schritte
+. Globalen Konfigurationsmodus aufrufen:
++
+`configure terminal`
+
++
+[listing]
+----
+IP_switch_A_1# configure terminal
+IP_switch_A_1(config)#
+----
+. Erstellen einer MACsec-Richtlinie:
++
+`macsec policy name`
+
++
+[listing]
+----
+IP_switch_A_1(config)# macsec policy abc
+IP_switch_A_1(config-macsec-policy)#
+----
+. Konfigurieren Sie eine der folgenden Chiffren GCM-AES-128, GCM-AES-256, GCM-AES-XPN-128 oder GCM-AES-XPN-256:
++
+`cipher-suite name`
+
++
+[listing]
+----
+IP_switch_A_1(config-macsec-policy)# cipher-suite GCM-AES-256
+----
+. Konfigurieren Sie die zentrale Serverpriorität, um die Verbindung zwischen Peers während eines Schlüsselaustauschs zu unterbrechen:
++
+`key-server-priority number`
+
++
+[listing]
+----
+switch(config-macsec-policy)# key-server-priority 0
+----
+. Konfigurieren Sie die Sicherheitsrichtlinie, um den Umgang mit Daten und Kontrollpaketen zu definieren:
++
+`security-policy security policy`
+
++
+Wählen Sie aus den folgenden Optionen eine Sicherheitsrichtlinie aus:
+
++
+** Must-Secure -- Pakete, die keine MACsec-Header tragen, werden verworfen
+** Sollte-sicher -- Pakete, die keine MACsec-Header tragen, sind zulässig (dies ist der Standardwert)
+
+
++
+[listing]
+----
+IP_switch_A_1(config-macsec-policy)# security-policy should-secure
+----
+. Konfigurieren Sie das Replay Protection-Fenster, damit die gesicherte Schnittstelle kein Paket akzeptiert, das kleiner als die konfigurierte Fenstergröße ist: `window-size number`
++
+
+NOTE: Die Größe des Replay Protection Window stellt die maximale Anzahl von Frames dar, die von MACsec akzeptiert und nicht verworfen werden. Der Bereich liegt zwischen 0 und 596000000.
+
++
+[listing]
+----
+IP_switch_A_1(config-macsec-policy)# window-size 512
+----
+. Konfigurieren Sie die Zeit in Sekunden, um einen SAK-Rekey zu erzwingen:
++
+`sak-expiry-time time`
+
++
+Sie können mit diesem Befehl den Sitzungsschlüssel in ein vorhersehbares Zeitintervall ändern. Der Standardwert ist 0.
+
++
+[listing]
+----
+IP_switch_A_1(config-macsec-policy)# sak-expiry-time 100
+----
+. Konfigurieren Sie einen der folgenden Vertraulichkeitsvereinbarungen im Layer 2-Frame, in dem die Verschlüsselung beginnt:
++
+`conf-offsetconfidentiality offset`
+
++
+Wählen Sie eine der folgenden Optionen:
+
++
+** CONF-OFFSET-0.
+** CONF-OFFSET-30.
+** CONF-OFFSET-50.
++
+[listing]
+----
+IP_switch_A_1(config-macsec-policy)# conf-offset CONF-OFFSET-0
+----
++
+
+NOTE: Dieser Befehl kann erforderlich sein, damit zwischen den Zwischenschaltern Paketheader (dmac, smac, etype) wie MPLS-Tags verwendet werden können.
+
+
+
+. Kopieren Sie die laufende Konfiguration in die Startkonfiguration:
++
+`copy running-config startup-config`
+
++
+[listing]
+----
+IP_switch_A_1(config)# copy running-config startup-config
+----
+. Die MACsec-Richtlinienkonfiguration anzeigen:
++
+`show macsec policy`
+
++
+[listing]
+----
+IP_switch_A_1(config-macsec-policy)# show macsec policy
+----
+
+
+
+
+=== Aktivieren Sie die Verschlüsselung von Cisco MACsec an den Schnittstellen
+
+. Globalen Konfigurationsmodus aufrufen:
++
+`configure terminal`
+
++
+[listing]
+----
+IP_switch_A_1# configure terminal
+IP_switch_A_1(config)#
+----
+. Wählen Sie die Schnittstelle aus, die Sie mit MACsec-Verschlüsselung konfiguriert haben.
++
+Sie können den Schnittstellentyp und die Identität angeben. Verwenden Sie für einen Ethernet-Port ethernet-Steckplatz/Ethernet-Port.
+
++
+[listing]
+----
+IP_switch_A_1(config)# interface ethernet 1/15
+switch(config-if)#
+----
+. Fügen Sie die Schlüsselanhänger und die Richtlinie, die auf der Schnittstelle konfiguriert werden sollen, hinzu, um die MACsec-Konfiguration hinzuzufügen:
++
+`macsec keychain keychain-name policy policy-name`
+
++
+[listing]
+----
+IP_switch_A_1(config-if)# macsec keychain 1 policy abc
+----
+. Wiederholen Sie die Schritte 1 und 2 auf allen Schnittstellen, für die die MACsec-Verschlüsselung konfiguriert werden soll.
+. Kopieren Sie die laufende Konfiguration in die Startkonfiguration:
++
+`copy running-config startup-config`
+
++
+[listing]
+----
+IP_switch_A_1(config)# copy running-config startup-config
+----
+
+
+
+
+=== Deaktivieren Sie Cisco MACs Verschlüsselungs-WAN-ISLs in MetroCluster IP-Konfigurationen
+
+Möglicherweise müssen Sie die MACsec-Verschlüsselung für Cisco 9336C-Switches auf WAN-ISLs in einer MetroCluster IP-Konfiguration deaktivieren.
+
+.Schritte
+. Globalen Konfigurationsmodus aufrufen:
++
+`configure terminal`
+
++
+[listing]
+----
+IP_switch_A_1# configure terminal
+IP_switch_A_1(config)#
+----
+. Deaktivieren Sie die MACsec-Konfiguration auf dem Gerät:
++
+`macsec shutdown`
+
++
+[listing]
+----
+IP_switch_A_1(config)# macsec shutdown
+----
++
+
+NOTE: Durch Auswahl der Option „`no`“ wird die MACsec-Funktion wiederhergestellt.
+
+. Wählen Sie die Schnittstelle aus, die Sie bereits mit MACsec konfiguriert haben.
++
+Sie können den Schnittstellentyp und die Identität angeben. Verwenden Sie für einen Ethernet-Port ethernet-Steckplatz/Ethernet-Port.
+
++
+[listing]
+----
+IP_switch_A_1(config)# interface ethernet 1/15
+switch(config-if)#
+----
+. Entfernen Sie die auf der Schnittstelle konfigurierte Schlüsselanhänger und Richtlinie, um die MACsec-Konfiguration zu entfernen:
++
+`no macsec keychain keychain-name policy policy-name`
+
++
+[listing]
+----
+IP_switch_A_1(config-if)# no macsec keychain 1 policy abc
+----
+. Wiederholen Sie die Schritte 3 und 4 auf allen Schnittstellen, für die MACsec konfiguriert ist.
+. Kopieren Sie die laufende Konfiguration in die Startkonfiguration:
++
+`copy running-config startup-config`
+
++
+[listing]
+----
+IP_switch_A_1(config)# copy running-config startup-config
+----
+
+
+
+
+=== Überprüfen der MACsec-Konfiguration
+
+.Schritte
+. Wiederholen Sie * alle* der vorherigen Vorgänge auf dem zweiten Schalter innerhalb der Konfiguration, um eine MACsec-Sitzung einzurichten.
+. Führen Sie die folgenden Befehle aus, um zu überprüfen, ob beide Switches erfolgreich verschlüsselt sind:
++
+.. Ausführen: `show macsec mka summary`
+.. Ausführen: `show macsec mka session`
+.. Ausführen: `show macsec mka statistics`
++
+Sie können die MACsec-Konfiguration mit den folgenden Befehlen überprüfen:
+
++
+|===
+
+
+| Befehl | Zeigt Informationen über... an. 
+
+
+ a| 
+`show macsec mka session interface typeslot/port number`
+ a| 
+Die MKA-Sitzung von MACsec für eine bestimmte Schnittstelle oder für alle Schnittstellen
+
+
+
+ a| 
+`show key chain name`
+ a| 
+Konfiguration der Schlüsselkette
+
+
+
+ a| 
+`show macsec mka summary`
+ a| 
+Die MKA-Konfiguration von MACsec
+
+
+
+ a| 
+`show macsec policy policy-name`
+ a| 
+Die Konfiguration für eine bestimmte MACsec-Richtlinie oder für alle MACsec-Richtlinien
+
+|===
+
+
+

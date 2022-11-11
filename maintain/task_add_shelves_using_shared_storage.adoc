@@ -1,0 +1,705 @@
+---
+permalink: maintain/task_add_shelves_using_shared_storage.html 
+sidebar: sidebar 
+keywords: metrocluster, maintain, shelf, shelves, add, ns224, 
+summary: Möglicherweise müssen Sie einem MetroCluster NS224-Shelfs mit Shared-Storage-MetroCluster-Switches hinzufügen. 
+---
+= Hinzufügen von Shelfs zu einer MetroCluster IP mithilfe von Shared Storage MetroCluster Switches
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Möglicherweise müssen Sie einem MetroCluster NS224-Shelfs mit Shared-Storage-MetroCluster-Switches hinzufügen.
+
+Ab ONTAP 9.10.1 können Sie NS224-Shelfs von einem MetroCluster aus mithilfe der Shared Storage-/MetroCluster-Switches hinzufügen. Sie können mehrere Shelfs gleichzeitig hinzufügen.
+
+.Bevor Sie beginnen
+* Nodes müssen ONTAP 9.9.1 oder höher ausführen.
+* Alle derzeit verbundenen NS224-Shelfs müssen mit den gleichen Switches verbunden sein wie die MetroCluster (Konfiguration für Shared Storage/MetroCluster-Switches).
+* Mit diesem Verfahren können Konfigurationen nicht mit direkt verbundenen NS224-Shelfs oder mit dedizierten Ethernet-Switches verbundenen NS224-Shelfs in eine Konfiguration mit Shared Storage/MetroCluster-Switches umgewandelt werden.
+
+
+
+
+== Senden einer benutzerdefinierten AutoSupport Meldung vor der Wartung
+
+Bevor Sie die Wartung durchführen, sollten Sie eine AutoSupport Meldung ausgeben, um den technischen Support von NetApp über die laufende Wartung zu informieren. Die Mitteilung des technischen Supports über laufende Wartungsarbeiten verhindert, dass ein Fall eröffnet wird, wenn eine Störung aufgetreten ist.
+
+Diese Aufgabe muss auf jedem MetroCluster-Standort ausgeführt werden.
+
+.Schritte
+. Um eine automatische Erstellung von Support-Cases zu verhindern, senden Sie eine AutoSupport Meldung, damit das Upgrade ausgeführt wird.
++
+.. Geben Sie den folgenden Befehl ein:
++
+`system node autosupport invoke -node * -type all -message "Maint=10h Adding or Removing NS224 shelves"_`
+
++
+Dieses Beispiel gibt ein Wartungsfenster von 10 Stunden an. Je nach Plan sollten Sie möglicherweise zusätzliche Zeit einplanen.
+
++
+Wenn die Wartung vor dem Vergehen der Zeit abgeschlossen ist, können Sie eine AutoSupport-Meldung mit dem Ende des Wartungszeitraums aufrufen:
+
++
+`system node autosupport invoke -node * -type all -message MAINT=end`
+
+.. Wiederholen Sie den Befehl im Partner-Cluster.
+
+
+
+
+
+
+== Überprüfen des Systemzustands der MetroCluster-Konfiguration
+
+Sie müssen den Zustand und die Konnektivität der MetroCluster Konfiguration vor der Durchführung der Transition überprüfen.
+
+.Schritte
+. Überprüfen Sie den Betrieb der MetroCluster-Konfiguration in ONTAP:
++
+.. Prüfen Sie, ob das System multipathed ist:
++
+`node run -node _node-name_ sysconfig -a`
+
+.. Überprüfen Sie auf beiden Clustern auf Zustandswarnmeldungen:
++
+`system health alert show`
+
+.. Bestätigen Sie die MetroCluster-Konfiguration und den normalen Betriebsmodus:
++
+`metrocluster show`
+
+.. Durchführen einer MetroCluster-Prüfung:
++
+`metrocluster check run`
+
+.. Ergebnisse der MetroCluster-Prüfung anzeigen:
++
+`metrocluster check show`
+
+.. Nutzen Sie Config Advisor.
++
+https://mysupport.netapp.com/site/tools/tool-eula/activeiq-configadvisor["NetApp Downloads: Config Advisor"]
+
+.. Überprüfen Sie nach dem Ausführen von Config Advisor die Ausgabe des Tools und befolgen Sie die Empfehlungen in der Ausgabe, um die erkannten Probleme zu beheben.
+
+
+. Vergewissern Sie sich, dass das Cluster sich in einem ordnungsgemäßen Zustand befindet:
++
+`cluster show -vserver Cluster`
+
++
+[listing]
+----
+cluster_A::> cluster show -vserver Cluster
+Node           Health  Eligibility   Epsilon
+-------------- ------  -----------   -------
+node_A_1    true    true          false
+node_A_2    true    true          false
+
+cluster_A::>
+----
+. Vergewissern Sie sich, dass alle Cluster-Ports aktiv sind:
++
+`network port show -ipspace cluster`
+
++
+[listing]
+----
+cluster_A::> network port show -ipspace cluster
+
+Node: node_A_1-old
+
+                                                  Speed(Mbps) Health
+Port      IPspace      Broadcast Domain Link MTU  Admin/Oper  Status
+--------- ------------ ---------------- ---- ---- ----------- --------
+e0a       Cluster      Cluster          up   9000  auto/10000 healthy
+e0b       Cluster      Cluster          up   9000  auto/10000 healthy
+
+Node: node_A_2-old
+
+                                                  Speed(Mbps) Health
+Port      IPspace      Broadcast Domain Link MTU  Admin/Oper  Status
+--------- ------------ ---------------- ---- ---- ----------- --------
+e0a       Cluster      Cluster          up   9000  auto/10000 healthy
+e0b       Cluster      Cluster          up   9000  auto/10000 healthy
+
+4 entries were displayed.
+
+cluster_A::>
+----
+. Vergewissern Sie sich, dass alle Cluster-LIFs betriebsbereit sind und betriebsbereit sind:
++
+`network interface show -vserver Cluster`
+
++
+Jede Cluster-LIF sollte True für IS Home anzeigen und einen Status Admin/Oper von up/Up haben
+
++
+[listing]
+----
+cluster_A::> network interface show -vserver cluster
+
+            Logical      Status     Network          Current       Current Is
+Vserver     Interface  Admin/Oper Address/Mask       Node          Port    Home
+----------- ---------- ---------- ------------------ ------------- ------- -----
+Cluster
+            node_A_1-old_clus1
+                       up/up      169.254.209.69/16  node_A_1   e0a     true
+            node_A_1-old_clus2
+                       up/up      169.254.49.125/16  node_A_1   e0b     true
+            node_A_2-old_clus1
+                       up/up      169.254.47.194/16  node_A_2   e0a     true
+            node_A_2-old_clus2
+                       up/up      169.254.19.183/16  node_A_2   e0b     true
+
+4 entries were displayed.
+
+cluster_A::>
+----
+. Vergewissern Sie sich, dass die automatische Umrüstung auf allen Cluster-LIFs aktiviert ist:
++
+`network interface show -vserver Cluster -fields auto-revert`
+
++
+[listing]
+----
+cluster_A::> network interface show -vserver Cluster -fields auto-revert
+
+          Logical
+Vserver   Interface     Auto-revert
+--------- ------------- ------------
+Cluster
+           node_A_1-old_clus1
+                        true
+           node_A_1-old_clus2
+                        true
+           node_A_2-old_clus1
+                        true
+           node_A_2-old_clus2
+                        true
+
+    4 entries were displayed.
+
+cluster_A::>
+----
+
+
+
+
+== Anwenden der neuen RCF-Datei auf die Switches
+
+
+NOTE: Wenn Ihr Switch bereits richtig konfiguriert ist, können Sie diese nächsten Abschnitte überspringen und direkt zu gehen  MACsec encryption on Cisco 9336C switches, Sofern zutreffend oder für  the new NS224 shelf.
+
+* Sie müssen die Switch-Konfiguration ändern, um Shelfs hinzuzufügen.
+* Sie sollten sich die Details zur Verkabelung unter ansehen link:https://docs.netapp.com/us-en/ontap-metrocluster/install-ip/port_usage_3232c_9336c.html#cabling-a-aff-a800-to-a-cisco-3232c-or-cisco-9336c-switch["Zuweisung von Plattform-Ports"^].
+* Sie müssen das **RcfFileGenerator**-Tool verwenden, um die RCF-Datei für Ihre Konfiguration zu erstellen. Der link:https://mysupport.netapp.com/site/tools/tool-eula/rcffilegenerator["RCfFileGenerator"^] Bietet außerdem eine Übersicht über die Verkabelung pro Port für jeden Switch. Stellen Sie sicher, dass Sie die richtige Anzahl an Shelves auswählen. Es gibt zusätzliche Dateien, die zusammen mit der RCF-Datei erstellt werden, die ein detailliertes Verkabelungslayout bieten, das Ihren spezifischen Optionen entspricht. Mithilfe dieser Verkabelungsübersicht können Sie bei der Verkabelung der neuen Shelves Ihre Verkabelung überprüfen.
+
+
+
+
+=== Aktualisieren von RCF-Dateien auf MetroCluster IP-Switches
+
+Wenn Sie neue Switch-Firmware installieren, müssen Sie die Switch-Firmware installieren, bevor Sie die RCF-Datei aktualisieren.
+
+Dieses Verfahren unterbricht den Datenverkehr auf dem Switch, auf dem die RCF-Datei aktualisiert wird. Der Datenverkehr wird wieder aufgenommen, sobald die neue RCF-Datei angewendet wurde.
+
+.Schritte
+. Überprüfen Sie den Zustand der Konfiguration.
++
+.. Vergewissern Sie sich, dass die MetroCluster-Komponenten ordnungsgemäß sind:
++
+`*metrocluster check run*`
+
++
+[listing]
+----
+cluster_A::*> metrocluster check run
+
+----
+
+
++
+Der Vorgang wird im Hintergrund ausgeführt.
+
++
+.. Nach dem `metrocluster check run` Vorgang abgeschlossen, Ausführung `metrocluster check show` Um die Ergebnisse anzuzeigen.
++
+Nach etwa fünf Minuten werden die folgenden Ergebnisse angezeigt:
+
++
+[listing]
+----
+-----------
+::*> metrocluster check show
+
+Last Checked On: 4/7/2019 21:15:05
+
+Component           Result
+------------------- ---------
+nodes               ok
+lifs                ok
+config-replication  ok
+aggregates          warning
+clusters            ok
+connections         not-applicable
+volumes             ok
+7 entries were displayed.
+----
+.. Um den Status des laufenden MetroCluster-Prüfvorgangs zu überprüfen, verwenden Sie den Befehl: +
+`*metrocluster operation history show -job-id 38*`
+.. Stellen Sie sicher, dass es keine Zustandswarnmeldungen gibt: +
+`*system health alert show*`
+
+
+. Bereiten Sie die IP-Schalter für die Anwendung der neuen RCF-Dateien vor.
+
+
+
+
+=== Zurücksetzen des Cisco IP-Switches auf die Werkseinstellungen
+
+Bevor Sie eine neue Softwareversion und RCFs installieren, müssen Sie die Cisco Switch-Konfiguration löschen und eine grundlegende Konfiguration durchführen.
+
+Sie müssen diese Schritte bei jedem der IP-Switches in der MetroCluster IP-Konfiguration wiederholen.
+
+. Setzen Sie den Schalter auf die werkseitigen Standardeinstellungen zurück:
++
+.. Löschen Sie die vorhandene Konfiguration: `write erase`
+.. Laden Sie die Switch-Software neu: `reload`
++
+Das System startet neu und wechselt in den Konfigurationsassistenten. Wenn Sie während des Startvorgangs die Eingabeaufforderung Auto Provisioning abbrechen und mit der normalen Einrichtung fortfahren?(ja/nein)[n], sollten Sie antworten `yes` Fortfahren.
+
+.. Geben Sie im Konfigurationsassistenten die grundlegenden Switch-Einstellungen ein:
++
+*** Admin-Passwort
+*** Switch-Name
+*** Out-of-Band-Managementkonfiguration
+*** Standard-Gateway
+*** SSH-Service (RSA) nach Abschluss des Konfigurationsassistenten wird der Switch neu gestartet.
+
+
+.. Geben Sie bei entsprechender Aufforderung den Benutzernamen und das Kennwort ein, um sich beim Switch anzumelden.
++
+Das folgende Beispiel zeigt die Eingabeaufforderungen und Systemantworten bei der Konfiguration des Switches. Die Winkelklammern (`<<<`Geben Sie an, wo Sie die Informationen eingeben.
+
++
+[listing]
+----
+---- System Admin Account Setup ----
+Do you want to enforce secure password standard (yes/no) [y]:y  **<<<**
+
+Enter the password for "admin": password
+Confirm the password for "admin": password
+---- Basic System Configuration Dialog VDC: 1 ----
+
+This setup utility will guide you through the basic configuration of the system. Setup configures only enough connectivity for management of the system.
+
+Please register Cisco Nexus3000 Family devices promptly with your supplier. Failure to register may affect response times for initial service calls. Nexus3000 devices must be registered to receive entitled support services.
+
+Press Enter at anytime to skip a dialog. Use ctrl-c at anytime to skip the remaining dialogs.
+----
++
+Sie geben grundlegende Informationen in die nächsten Eingabeaufforderungen ein, einschließlich Switch-Name, Managementadresse und Gateway, und wählen SSH mit RSA aus.
+
++
+[listing]
+----
+Would you like to enter the basic configuration dialog (yes/no): yes
+  Create another login account (yes/no) [n]:
+  Configure read-only SNMP community string (yes/no) [n]:
+  Configure read-write SNMP community string (yes/no) [n]:
+  Enter the switch name : switch-name **<<<**
+  Continue with Out-of-band (mgmt0) management configuration? (yes/no) [y]:
+    Mgmt0 IPv4 address : management-IP-address  **<<<**
+   Mgmt0 IPv4 netmask : management-IP-netmask  **<<<**
+  Configure the default gateway? (yes/no) [y]: y **<<<**
+    IPv4 address of the default gateway : gateway-IP-address  **<<<**
+  Configure advanced IP options? (yes/no) [n]:
+  Enable the telnet service? (yes/no) [n]:
+  Enable the ssh service? (yes/no) [y]: y  **<<<**
+    Type of ssh key you would like to generate (dsa/rsa) [rsa]: rsa **<<<**
+   Number of rsa key bits <1024-2048> [1024]:
+ Configure the ntp server? (yes/no) [n]:
+  Configure default interface layer (L3/L2) [L2]:
+ Configure default switchport interface state (shut/noshut) [noshut]: shut **<<<**
+  Configure CoPP system profile (strict/moderate/lenient/dense) [strict]:
+----
++
+Die letzte Reihe von Eingabeaufforderungen vervollständigt die Konfiguration:
+
++
+[listing]
+----
+The following configuration will be applied:
+ password strength-check
+  switchname IP_switch_A_1
+vrf context management
+ip route 0.0.0.0/0 10.10.99.1
+exit
+ no feature telnet
+  ssh key rsa 1024 force
+  feature ssh
+  system default switchport
+  system default switchport shutdown
+  copp profile strict
+interface mgmt0
+ip address 10.10.99.10 255.255.255.0
+no shutdown
+
+Would you like to edit the configuration? (yes/no) [n]:
+
+Use this configuration and save it? (yes/no) [y]:
+2017 Jun 13 21:24:43 A1 %$ VDC-1 %$ %COPP-2-COPP_POLICY: Control-Plane is protected with policy copp-system-p-policy-strict.
+
+[########################################] 100%
+Copy complete.
+
+User Access Verification
+IP_switch_A_1 login: admin
+Password:
+Cisco Nexus Operating System (NX-OS) Software
+.
+.
+.
+IP_switch_A_1#
+----
+
+
+. Konfiguration speichern:
++
+[listing]
+----
+IP_switch-A-1# copy running-config startup-config
+----
+. Starten Sie den Switch neu, und warten Sie, bis der Schalter neu geladen wurde:
++
+[listing]
+----
+IP_switch-A-1# reload
+----
+. Wiederholen Sie die vorherigen Schritte auf den anderen drei Switches in der MetroCluster IP-Konfiguration.
+
+
+
+
+=== Herunterladen und Installieren der Cisco Switch NX-OS-Software
+
+Sie müssen die Betriebssystemdatei und die RCF-Datei auf jeden Switch in der MetroCluster IP-Konfiguration herunterladen.
+
+Diese Aufgabe erfordert Dateiübertragungssoftware, wie FTP, TFTP, SFTP oder SCP, Um die Dateien auf die Switches zu kopieren.
+
+Diese Schritte müssen bei jedem der IP-Switches in der MetroCluster IP-Konfiguration wiederholt werden.
+
+Sie müssen die unterstützte Switch-Softwareversion verwenden.
+
+https://hwu.netapp.com["NetApp Hardware Universe"]
+
+. Laden Sie die unterstützte NX-OS-Softwaredatei herunter.
++
+https://software.cisco.com/download/home["Cisco Software-Download"]
+
+. Kopieren Sie die Switch-Software auf den Switch: `+copy sftp://root@server-ip-address/tftpboot/NX-OS-file-name bootflash: vrf management+`
++
+In diesem Beispiel wird die Datei nxos.7.0.3.I4.6.bin vom SFTP-Server 10.10.99.99 auf den lokalen Bootflash kopiert:
+
++
+[listing]
+----
+IP_switch_A_1# copy sftp://root@10.10.99.99/tftpboot/nxos.7.0.3.I4.6.bin bootflash: vrf management
+root@10.10.99.99's password: password
+sftp> progress
+Progress meter enabled
+sftp> get   /tftpboot/nxos.7.0.3.I4.6.bin  /bootflash/nxos.7.0.3.I4.6.bin
+Fetching /tftpboot/nxos.7.0.3.I4.6.bin to /bootflash/nxos.7.0.3.I4.6.bin
+/tftpboot/nxos.7.0.3.I4.6.bin                 100%  666MB   7.2MB/s   01:32
+sftp> exit
+Copy complete, now saving to disk (please wait)...
+----
+. Überprüfen Sie auf jedem Switch, ob die NX-OS-Dateien des Switches im Bootflash-Verzeichnis jedes Switches vorhanden sind: `dir bootflash:`
++
+Das folgende Beispiel zeigt, dass die Dateien auf IP_Switch_A_1 vorhanden sind:
+
++
+[listing]
+----
+IP_switch_A_1# dir bootflash:
+                  .
+                  .
+                  .
+  698629632    Jun 13 21:37:44 2017  nxos.7.0.3.I4.6.bin
+                  .
+                  .
+                  .
+
+Usage for bootflash://sup-local
+ 1779363840 bytes used
+13238841344 bytes free
+15018205184 bytes total
+IP_switch_A_1#
+----
+. Installieren der Switch-Software: `install all nxos bootflash:nxos.version-number.bin`
++
+Der Switch wird automatisch neu geladen (neu gestartet), nachdem die Switch-Software installiert wurde.
+
++
+Das folgende Beispiel zeigt die Softwareinstallation auf IP_Switch_A_1:
+
++
+[listing]
+----
+IP_switch_A_1# install all nxos bootflash:nxos.7.0.3.I4.6.bin
+Installer will perform compatibility check first. Please wait.
+Installer is forced disruptive
+
+Verifying image bootflash:/nxos.7.0.3.I4.6.bin for boot variable "nxos".
+[####################] 100% -- SUCCESS
+
+Verifying image type.
+[####################] 100% -- SUCCESS
+
+Preparing "nxos" version info using image bootflash:/nxos.7.0.3.I4.6.bin.
+[####################] 100% -- SUCCESS
+
+Preparing "bios" version info using image bootflash:/nxos.7.0.3.I4.6.bin.
+[####################] 100% -- SUCCESS       [####################] 100%            -- SUCCESS
+
+Performing module support checks.            [####################] 100%            -- SUCCESS
+
+Notifying services about system upgrade.     [####################] 100%            -- SUCCESS
+
+
+
+Compatibility check is done:
+Module  bootable          Impact  Install-type  Reason
+------  --------  --------------  ------------  ------
+     1       yes      disruptive         reset  default upgrade is not hitless
+
+
+
+Images will be upgraded according to following table:
+Module       Image   Running-Version(pri:alt)         New-Version   Upg-Required
+------  ----------   ------------------------  ------------------   ------------
+     1        nxos                7.0(3)I4(1)         7.0(3)I4(6)   yes
+     1        bios         v04.24(04/21/2016)  v04.24(04/21/2016)   no
+
+
+Switch will be reloaded for disruptive upgrade.
+Do you want to continue with the installation (y/n)?  [n] y
+
+
+Install is in progress, please wait.
+
+Performing runtime checks.         [####################] 100%    -- SUCCESS
+
+Setting boot variables.
+[####################] 100% -- SUCCESS
+
+Performing configuration copy.
+[####################] 100% -- SUCCESS
+
+Module 1: Refreshing compact flash and upgrading bios/loader/bootrom.
+Warning: please do not remove or power off the module at this time.
+[####################] 100% -- SUCCESS
+
+
+Finishing the upgrade, switch will reboot in 10 seconds.
+IP_switch_A_1#
+----
+. Warten Sie, bis der Schalter neu geladen ist, und melden Sie sich dann am Schalter an.
++
+Nach dem Neustart des Switches wird die Eingabeaufforderung für die Anmeldung angezeigt:
+
++
+[listing]
+----
+User Access Verification
+IP_switch_A_1 login: admin
+Password:
+Cisco Nexus Operating System (NX-OS) Software
+TAC support: http://www.cisco.com/tac
+Copyright (C) 2002-2017, Cisco and/or its affiliates.
+All rights reserved.
+.
+.
+.
+MDP database restore in progress.
+IP_switch_A_1#
+
+The switch software is now installed.
+----
+. Vergewissern Sie sich, dass die Switch-Software installiert ist: `show version`
++
+Das folgende Beispiel zeigt die Ausgabe:
+
++
+[listing]
+----
+IP_switch_A_1# show version
+Cisco Nexus Operating System (NX-OS) Software
+TAC support: http://www.cisco.com/tac
+Copyright (C) 2002-2017, Cisco and/or its affiliates.
+All rights reserved.
+.
+.
+.
+
+Software
+  BIOS: version 04.24
+  NXOS: version 7.0(3)I4(6)   **<<< switch software version**
+  BIOS compile time:  04/21/2016
+  NXOS image file is: bootflash:///nxos.7.0.3.I4.6.bin
+  NXOS compile time:  3/9/2017 22:00:00 [03/10/2017 07:05:18]
+
+
+Hardware
+  cisco Nexus 3132QV Chassis
+  Intel(R) Core(TM) i3- CPU @ 2.50GHz with 16401416 kB of memory.
+  Processor Board ID FOC20123GPS
+
+  Device name: A1
+  bootflash:   14900224 kB
+  usb1:               0 kB (expansion flash)
+
+Kernel uptime is 0 day(s), 0 hour(s), 1 minute(s), 49 second(s)
+
+Last reset at 403451 usecs after  Mon Jun 10 21:43:52 2017
+
+  Reason: Reset due to upgrade
+  System version: 7.0(3)I4(1)
+  Service:
+
+plugin
+  Core Plugin, Ethernet Plugin
+IP_switch_A_1#
+----
+. Wiederholen Sie diese Schritte für die verbleibenden drei IP-Switches in der MetroCluster IP-Konfiguration.
+
+
+
+
+== Konfiguration der MACsec-Verschlüsselung bei Cisco 9336C-Switches
+
+Auf Wunsch können Sie die MACsec-Verschlüsselung für die WAN-ISL-Ports konfigurieren, die zwischen den Standorten ausgeführt werden. Sie müssen MACsec konfigurieren, nachdem Sie die korrekte RCF-Datei angewendet haben.
+
+
+NOTE: Die MACsec-Verschlüsselung kann nur auf die WAN-ISL-Ports angewendet werden.
+
+
+
+=== Lizenzierungsanforderungen für MACsec
+
+MACsec erfordert eine Sicherheitslizenz. Eine vollständige Erläuterung des Cisco NX-OS-Lizenzschemas und der Beschaffung und Anwendung von Lizenzen finden Sie im https://www.cisco.com/c/en/us/td/docs/switches/datacenter/sw/nx-os/licensing/guide/b_Cisco_NX-OS_Licensing_Guide/b_Cisco_NX-OS_Licensing_Guide_chapter_01.html["Cisco NX-OS Licensing Guide"]
+
+
+
+=== Aktivierung von Cisco MACs Encryption WAN-ISLs in MetroCluster IP-Konfigurationen
+
+Sie können die MACsec-Verschlüsselung für Cisco 9336C-Switches auf WAN-ISLs in einer MetroCluster IP-Konfiguration aktivieren.
+
+. Den globalen Konfigurationsmodus aufrufen: `configure terminal`
++
+[listing]
+----
+IP_switch_A_1# configure terminal
+IP_switch_A_1(config)#
+----
+. Aktivieren Sie MACsec und MKA auf dem Gerät: `feature macsec`
++
+[listing]
+----
+IP_switch_A_1(config)# feature macsec
+----
+. Kopieren Sie die laufende Konfiguration in die Startkonfiguration: `copy running-config startup-config`
++
+[listing]
+----
+IP_switch_A_1(config)# copy running-config startup-config
+----
+
+
+
+
+=== Deaktivieren von Cisco MACsec Encryption
+
+Möglicherweise müssen Sie die MACsec-Verschlüsselung für Cisco 9336C-Switches auf WAN-ISLs in einer MetroCluster IP-Konfiguration deaktivieren.
+
+
+NOTE: Wenn Sie die Verschlüsselung deaktivieren, müssen Sie auch Ihre Schlüssel löschen.
+
+. Den globalen Konfigurationsmodus aufrufen: `configure terminal`
++
+[listing]
+----
+IP_switch_A_1# configure terminal
+IP_switch_A_1(config)#
+----
+. Deaktivieren Sie die MACsec-Konfiguration auf dem Gerät: `macsec shutdown`
++
+[listing]
+----
+IP_switch_A_1(config)# macsec shutdown
+----
++
+
+NOTE: Durch Auswahl der Option „Keine“ wird die Funktion „MACsec“ wiederhergestellt.
+
+. Wählen Sie die Schnittstelle aus, die Sie bereits mit MACsec konfiguriert haben.
++
+Sie können den Schnittstellentyp und die Identität angeben. Verwenden Sie für einen Ethernet-Port ethernet-Steckplatz/Ethernet-Port.
+
++
+[listing]
+----
+IP_switch_A_1(config)# interface ethernet 1/15
+switch(config-if)#
+----
+. Entfernen Sie die auf der Schnittstelle konfigurierte Schlüsselanhänger, Richtlinie und Fallback-keychain, um die MACsec-Konfiguration zu entfernen: `no macsec keychain keychain-name policy policy-name fallback-keychain keychain-name`
++
+[listing]
+----
+IP_switch_A_1(config-if)# no macsec keychain kc2 policy abc fallback-keychain fb_kc2
+----
+. Wiederholen Sie die Schritte 3 und 4 auf allen Schnittstellen, für die MACsec konfiguriert ist.
+. Kopieren Sie die laufende Konfiguration in die Startkonfiguration: `copy running-config startup-config`
++
+[listing]
+----
+IP_switch_A_1(config)# copy running-config startup-config
+----
+
+
+
+
+=== Konfigurieren einer MACsec-Schlüsselkette und -Tasten
+
+Weitere Informationen zur Konfiguration einer MACsec-Schlüsselkette finden Sie in der Cisco-Dokumentation für Ihren Switch.
+
+
+
+== Anschließen des neuen NS224-Regals
+
+.Schritte
+. Installieren Sie das im Lieferumfang des Regals beiliegte Schienensatz mithilfe des im Kit enthaltenen Installationsflyers.
+. Montieren und befestigen Sie das Regal mithilfe des Installationsflyers an den Halterungen und Rack oder Schrank.
+. Schließen Sie die Stromkabel an das Shelf an, befestigen Sie sie in der Kabelhalterung, und schließen Sie die Netzkabel anschließend an verschiedene Stromquellen an, um für Ausfallsicherheit zu sorgen.
++
+Ein Shelf schaltet sich ein, wenn es mit einer Stromquelle verbunden ist. Es verfügt nicht über Netzschalter. Bei ordnungsgemäßer Funktion leuchtet die zweifarbige LED des Netzteils grün.
+
+. Legen Sie die Shelf-ID auf eine Zahl fest, die innerhalb des HA-Paars und über die Konfiguration eindeutig ist.
+. Verbinden Sie die Shelf-Ports in folgender Reihenfolge:
++
+.. NSM-A, e0a mit dem Switch verbinden (Switch-A1 oder Switch-B1)
+.. NSM-B, e0a mit dem Switch verbinden (Switch-A2 oder Switch-B2)
+.. Verbinden Sie NSM-A, e0b mit dem Switch (Switch-A1 oder Switch-B1).
+.. Verbinden Sie NSM-B, e0b mit dem Switch (Switch-A2 oder Switch-B2).
+
+
+. Verwenden Sie das aus dem **RcfFileGenerator**-Werkzeug generierte Verkabelungslayout, um das Shelf mit den entsprechenden Ports zu verkabeln.
++
+Sobald das neue Shelf ordnungsgemäß verkabelt ist, erkennt ONTAP es automatisch im Netzwerk.
+
+

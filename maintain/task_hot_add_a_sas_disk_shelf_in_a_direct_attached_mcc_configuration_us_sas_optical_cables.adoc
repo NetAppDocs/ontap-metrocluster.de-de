@@ -1,0 +1,32 @@
+---
+permalink: maintain/task_hot_add_a_sas_disk_shelf_in_a_direct_attached_mcc_configuration_us_sas_optical_cables.html 
+sidebar: sidebar 
+keywords: metrocluster, maintain, service, hot, add, sas, disk, shelf, direct, attached, fc, configuration, optical, cables 
+summary: Sie können mit optischen SAS-Kabeln ein SAS-Platten-Shelf zu einem vorhandenen Stack von SAS-Platten-Shelfs in einer Direct-Attached MetroCluster FC-Konfiguration oder als neuer Stack zu einem SAS HBA oder einem integrierten SAS-Port am Controller hinzufügen. 
+---
+= Hinzufügen eines SAS-Festplatten-Shelfs in einer Direct-Attached MetroCluster FC-Konfiguration mit optischen SAS-Kabeln
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können mit optischen SAS-Kabeln ein SAS-Platten-Shelf zu einem vorhandenen Stack von SAS-Platten-Shelfs in einer Direct-Attached MetroCluster FC-Konfiguration oder als neuer Stack zu einem SAS HBA oder einem integrierten SAS-Port am Controller hinzufügen.
+
+* Dieser Vorgang läuft unterbrechungsfrei ab und dauert ungefähr zwei Stunden.
+* Sie benötigen das Admin-Passwort und den Zugriff auf einen FTP- oder SCP-Server.
+* Informationen zum Hinzufügen eines IOM12-Shelfs zu einem Stack von IOM6-Shelfs finden Sie unter link:https://docs.netapp.com/platstor/topic/com.netapp.doc.hw-ds-mix-hotadd/home.html["Hot-Adding-IOM12-Shelfs zu einem Stack mit IOM6-Shelfs"].
+
+
+Dieser Schritt betrifft eine MetroCluster FC-Konfiguration, in der der Storage über SAS-Kabel direkt mit den Storage Controllern verbunden ist. Dies gilt nicht für MetroCluster FC-Konfigurationen, die FC-to-SAS-Bridges oder FC-Switch-Fabrics verwenden.
+
+.Schritte
+. Befolgen Sie die Anweisungen zum Hinzufügen eines SAS-Festplatten-Shelfs im _Installation Guide_, um Ihr Festplatten-Shelf-Modell die folgenden Aufgaben auszuführen, damit Sie ein Festplatten-Shelf im laufenden Betrieb hinzufügen:
++
+.. Installieren Sie ein Festplatten-Shelf für eine Hot-Add-Installation.
+.. Schalten Sie die Netzteile ein und legen Sie die Shelf-ID für ein Hot-Add-On fest.
+.. Verkabeln Sie das Hot-Added Festplatten-Shelf.
+.. Überprüfen Sie die SAS-Konnektivität.
+
+
+

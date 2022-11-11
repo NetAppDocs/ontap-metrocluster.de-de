@@ -1,0 +1,52 @@
+---
+permalink: install-fc/task_assign_ownership_of_array_luns.html 
+sidebar: sidebar 
+keywords: metrocluster, fabric, installation, assigning, ownership, array, luns 
+summary: Array-LUNs müssen dem Node gehören, bevor sie einem Aggregat zur Verwendung als Storage hinzugefügt werden können. 
+---
+= Eigentümerschaft von Array LUNs wird zugewiesen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Array-LUNs müssen dem Node gehören, bevor sie einem Aggregat zur Verwendung als Storage hinzugefügt werden können.
+
+.Bevor Sie beginnen
+* Back-End-Konfigurationstests (Tests der Konnektivität und Konfiguration von Geräten hinter den ONTAP-Systemen) müssen abgeschlossen sein.
+* Array-LUNs, die Sie zuweisen möchten, müssen den ONTAP Systemen vorgelegt werden.
+
+
+Sie können Array-LUNs mit den folgenden Eigenschaften zuweisen:
+
+* Sie sind ohne Besitzer.
+* Es gibt keine Konfigurationsfehler für das Storage-Array, wie z. B. die folgenden:
++
+** Die Array-LUN ist kleiner oder größer als die von ONTAP unterstützte Größe.
+** Die LDEV ist nur auf einem Port zugeordnet.
+** Der LDEV weist inkonsistente LUN-IDs zu.
+** Die LUN ist nur auf einem Pfad verfügbar.
+
+
+
+
+ONTAP gibt eine Fehlermeldung aus, wenn Sie versuchen, die Eigentümerschaft einer Array-LUN mit Back-End-Konfigurationsfehlern zuzuweisen, die das ONTAP-System beeinträchtigen würden und das Storage-Array zusammen arbeiten. Sie müssen solche Fehler beheben, bevor Sie mit der Array-LUN-Zuweisung fortfahren können.
+
+ONTAP benachrichtigt Sie, wenn Sie versuchen, eine Array-LUN mit einem Redundanzfehler zuzuweisen: Zum Beispiel sind alle Pfade zu dieser Array-LUN mit dem gleichen Controller oder nur einem Pfad zur Array-LUN verbunden. Sie können einen Redundanzfehler vor oder nach dem Zuweisen des Eigentums an der LUN beheben.
+
+.Schritte
+. Zeigen Sie die Array-LUNs an, die noch keinem Node zugewiesen wurden:
++
+`storage disk show -container-type unassigned`
+
+. Weisen Sie diesem Knoten eine Array-LUN zu:
++
+`storage disk assign -disk _array_LUN_name_ -owner _nodename_`
+
++
+Wenn Sie einen Redundanzfehler nach der Festplattenzuordnung anstatt vorher beheben möchten, müssen Sie den verwenden `-force` Parameter mit dem Befehl „Storage Disk assign“.
+
+
+
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.vs-irrg/home.html["Installationsanforderungen für FlexArray Virtualisierung und Referenz"]

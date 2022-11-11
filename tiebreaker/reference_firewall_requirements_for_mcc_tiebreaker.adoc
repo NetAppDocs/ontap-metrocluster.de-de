@@ -1,0 +1,121 @@
+---
+permalink: tiebreaker/reference_firewall_requirements_for_mcc_tiebreaker.html 
+sidebar: sidebar 
+keywords: metrocluster, tiebreaker, port, communicate, specific, service, firewall, requirement 
+summary: MetroCluster Tiebreaker nutzt eine Reihe von Ports, um mit bestimmten Services zu kommunizieren. 
+---
+= Firewall-Anforderungen für MetroCluster Tiebreaker
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+MetroCluster Tiebreaker nutzt eine Reihe von Ports, um mit bestimmten Services zu kommunizieren.
+
+In der folgenden Tabelle sind die Ports aufgeführt, die Sie in Ihrer Firewall zulassen müssen:
+
+|===
+
+
+| Port/Services | Quelle | Ziel | Zweck 
+
+
+ a| 
+443 / TCP
+ a| 
+Tiebreaker
+ a| 
+Internet
+ a| 
+Senden von AutoSupport Meldungen an NetApp
+
+
+
+ a| 
+22 / TCP
+ a| 
+Management-Host
+ a| 
+Tiebreaker
+ a| 
+Tiebreaker Management
+
+
+
+ a| 
+443 / TCP
+ a| 
+Tiebreaker
+ a| 
+Cluster-Management-LIFs
+ a| 
+Sichere Kommunikation zum Cluster über HTTP (SSL)
+
+
+
+ a| 
+22 / TCP
+ a| 
+Tiebreaker
+ a| 
+Cluster-Management-LIFs
+ a| 
+Sichere Kommunikation zum Cluster über SSH
+
+
+
+ a| 
+443 / TCP
+ a| 
+Tiebreaker
+ a| 
+Node-Management-LIFs
+ a| 
+Sichere Kommunikation mit Knoten über HTTP (SSL)
+
+
+
+ a| 
+22 / TCP
+ a| 
+Tiebreaker
+ a| 
+Node-Management-LIFs
+ a| 
+Sichere Kommunikation mit Knoten über SSH
+
+
+
+ a| 
+162 / UDP
+ a| 
+Tiebreaker
+ a| 
+SNMP-Trap-Host
+ a| 
+Wird zum Senden von SNMP-Traps für Warnmeldungen verwendet
+
+
+
+ a| 
+ICMP (Ping)
+ a| 
+Tiebreaker
+ a| 
+Cluster-Management-LIFs
+ a| 
+Überprüfen, ob Cluster-IP erreichbar ist
+
+
+
+ a| 
+ICMP (Ping)
+ a| 
+Tiebreaker
+ a| 
+Node-Management-LIFs
+ a| 
+Überprüfen Sie, ob die Knoten-IP erreichbar ist
+
+|===

@@ -1,0 +1,51 @@
+---
+permalink: install-ip/concept_considerations_tdm_encryption.html 
+sidebar: sidebar 
+keywords: differences, eight-node, four-node, fabric-attached, stretch, metrocluster ip, storage, bridges, fc-to-sas, atto, fibrebridge, SAS, local HA, auso, automatic unplanned switchover, array luns, mediator, tiebreaker 
+summary: Bei der Verwendung von Multiplexing-Geräten in der MetroCluster IP-Konfiguration sollten Sie sich über bestimmte Überlegungen im Klaren sein. 
+---
+= Verwendung von TDM/xWDM und Verschlüsselungsgeräten mit MetroCluster IP-Konfigurationen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Bei der Verwendung von Multiplexing-Geräten in der MetroCluster IP-Konfiguration sollten Sie sich über bestimmte Überlegungen im Klaren sein.
+
+Diese Überlegungen gelten nur für direkte, dedizierte MetroCluster Back-End-Links und -Switches, nicht für Links, die mit Traffic außerhalb von MetroCluster genutzt werden.
+
+Das Hardware Universe-Tool enthält einige Hinweise zu den Anforderungen, die TDM/xWDM-Geräte erfüllen müssen, um mit einer MetroCluster-IP-Konfiguration zu arbeiten.
+
+https://hwu.netapp.com["NetApp Hardware Universe"]
+
+
+
+== Verwenden der Verschlüsselung auf WDM oder externen Verschlüsselungsgeräten
+
+Bei der Verwendung von Verschlüsselung auf WDM-Geräten in der MetroCluster IP-Konfiguration muss Ihre Umgebung die folgenden Anforderungen erfüllen:
+
+* Die externen Verschlüsselungsgeräte oder DWDM-Geräte müssen vom Anbieter mit dem betreffenden Switch zertifiziert worden sein.
++
+Die Zertifizierung sollte den Betriebsmodus (wie Trunking und Verschlüsselung) abdecken.
+
+* Die End-to-End-Latenz und der Jitter insgesamt einschließlich der Verschlüsselung dürfen nicht über dem im IMT oder in diesem Dokument angegebenen Maximum liegen.
+
+
+
+
+== SFP-Überlegungen
+
+SFPs oder QSFPs, die vom Geräteanbieter unterstützt werden, werden von den MetroCluster ISLs unterstützt. SFPs und QSFPs können von NetApp oder dem Equipment-Anbieter erworben werden.
+
+
+
+== Überlegungen für ISLs
+
+Die ISLs in einem Fabric sollten alle dieselbe Geschwindigkeit und Länge aufweisen.
+
+Die ISLs in einem Fabric sollten alle dieselbe Topologie haben. Sie sollten beispielsweise alle direkte Links sein, oder wenn die Konfiguration WDM verwendet, dann sollten sie alle WDM verwenden.
+
+Wenn Sie ISLs in einem Netzwerk außerhalb von MetroCluster teilen, müssen Sie die Richtlinien im Abschnitt befolgen link:concept_considerations_layer_2.html["Überlegungen für die gemeinsame Nutzung privater Layer 2-Netzwerke"].
+
+Der maximal unterstützte Unterschied in der Entfernung zwischen Stoff 1 und Stoff 2 beträgt 20 km

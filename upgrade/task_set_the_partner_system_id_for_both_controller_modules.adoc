@@ -1,0 +1,27 @@
+---
+permalink: upgrade/task_set_the_partner_system_id_for_both_controller_modules.html 
+sidebar: sidebar 
+keywords: metrocluster, upgrade, set, up, partner, system, id, controller, module 
+summary: Sie müssen die Partner-System-ID auf beiden Controller-Modulen festlegen, damit sie ein HA-Paar bilden können. 
+---
+= Festlegen der Partner-System-ID für beide Controller-Module
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen die Partner-System-ID auf beiden Controller-Modulen festlegen, damit sie ein HA-Paar bilden können.
+
+Dieser Task wird an der LOADER-Eingabeaufforderung mit beiden Controller-Modulen ausgeführt.
+
+.Schritte
+. Legen Sie im vorhandenen Controller-Modul die Partner-System-ID auf die des neuen Controller-Moduls fest:
++
+`setenv partner-sysid _sysID_of_new_controller_`
+
+. Stellen Sie bei dem neuen Controller-Modul die Partner-System-ID auf die des vorhandenen Controller-Moduls ein:
++
+`setenv partner-sysid _sysID_of_existing_controller_`
+
+

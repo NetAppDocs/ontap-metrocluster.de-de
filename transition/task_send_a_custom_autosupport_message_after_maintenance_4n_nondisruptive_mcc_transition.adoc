@@ -1,0 +1,22 @@
+---
+permalink: transition/task_send_a_custom_autosupport_message_after_maintenance_4n_nondisruptive_mcc_transition.html 
+sidebar: sidebar 
+keywords: complete, completing, transition, autosupport, message, indicating, indicate, maintenance, automatic, case, creation, resume, send 
+summary: Nach Abschluss des Übergangs sollten Sie eine AutoSupport-Nachricht mit dem Ende der Wartung senden, damit die automatische Case-Erstellung fortgesetzt werden kann. 
+---
+= Senden einer benutzerdefinierten AutoSupport Meldung nach der Wartung
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Nach Abschluss des Übergangs sollten Sie eine AutoSupport-Nachricht mit dem Ende der Wartung senden, damit die automatische Case-Erstellung fortgesetzt werden kann.
+
+. Um mit der automatischen Erstellung von Support-Cases fortzufahren, senden Sie eine AutoSupport Meldung, um anzugeben, dass die Wartung abgeschlossen ist.
++
+.. Geben Sie den folgenden Befehl ein: `system node autosupport invoke -node * -type all -message MAINT=end`
+.. Wiederholen Sie den Befehl im Partner-Cluster.
+
+
+

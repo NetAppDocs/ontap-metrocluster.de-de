@@ -1,0 +1,24 @@
+---
+permalink: install-fc/reference_example_of_a_two_node_fabric_attached_mcc_configuration_with_disks_and_array_luns.html 
+sidebar: sidebar 
+keywords: metrocluster, fabric, installation, two, node, array, luns, disks 
+summary: Zum Einrichten einer Fabric-Attached MetroCluster Konfiguration mit zwei Nodes für native Festplatten und Array-LUNs müssen Sie über FC-to-SAS-Bridges die ONTAP Systeme über FC-Switches mit den Festplatten-Shelfs verbinden. Sie können Array-LUNs über die FC-Switches mit den ONTAP-Systemen verbinden. 
+---
+= Beispiel einer Fabric-Attached MetroCluster-Konfiguration mit zwei Nodes mit Festplatten und Array-LUNs
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Zum Einrichten einer Fabric-Attached MetroCluster Konfiguration mit zwei Nodes für native Festplatten und Array-LUNs müssen Sie über FC-to-SAS-Bridges die ONTAP Systeme über FC-Switches mit den Festplatten-Shelfs verbinden. Sie können Array-LUNs über die FC-Switches mit den ONTAP-Systemen verbinden.
+
+Die folgenden Abbildungen zeigen Beispiele für eine Fabric-Attached MetroCluster-Konfiguration mit zwei Knoten mit Festplatten und Array-LUNs. Beide Lösungen stellen dieselbe MetroCluster-Konfiguration dar. Die Darstellungen von Festplatten und Array-LUNs werden nur zur Vereinfachung getrennt.
+
+In der folgenden Abbildung, die die Konnektivität zwischen ONTAP Systemen und Festplatten zeigt, werden die HBA-Ports 1a bis 1d für die Verbindung mit Festplatten über die FC-to-SAS-Bridges verwendet:
+
+image::../media/two_node_mcc_combined_fabric_disks.gif[mcc-Laufwerke mit zwei Knoten kombiniert]
+
+In der folgenden Abbildung, die die Konnektivität zwischen ONTAP-Systemen und Array-LUNs zeigt, werden die HBA-Ports 0a bis 0d für die Konnektivität mit Array-LUNs verwendet, da Ports 1a bis 1d für die Konnektivität mit Festplatten verwendet werden:
+
+image::../media/two_node_mcc_combined_fabric_arrayluns.gif[Kombinierter Fabric Carrayluns mit zwei Nodes]

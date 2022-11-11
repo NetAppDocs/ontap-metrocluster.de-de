@@ -1,0 +1,101 @@
+---
+permalink: install-ip/task_configuring_the_ontap_mediator_service_from_a_metrocluster_ip_configuration.html 
+sidebar: sidebar 
+keywords: metrocluster, mediator, configure 
+summary: Der ONTAP Mediator-Dienst muss auf dem ONTAP-Knoten für die Verwendung in einer MetroCluster-IP-Konfiguration konfiguriert sein. 
+---
+= Konfigurieren Sie den ONTAP Mediator-Dienst über eine MetroCluster-IP-Konfiguration
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Der ONTAP Mediator-Dienst muss auf dem ONTAP-Knoten für die Verwendung in einer MetroCluster-IP-Konfiguration konfiguriert sein.
+
+.Bevor Sie beginnen
+* Der ONTAP Mediator muss erfolgreich an einem Netzwerkstandort installiert worden sein, der von beiden MetroCluster-Standorten erreichbar ist.
++
+link:https://docs.netapp.com/us-en/ontap/mediator/index.html["Installieren oder aktualisieren Sie den ONTAP Mediator-Dienst"^]
+
+* Sie müssen über die IP-Adresse des Hosts verfügen, auf dem der ONTAP Mediator-Dienst ausgeführt wird.
+* Sie müssen den Benutzernamen und das Kennwort für den ONTAP Mediator-Dienst besitzen.
+* Alle Nodes der MetroCluster IP-Konfiguration müssen online sein.
+
+
+
+CAUTION: Ab ONTAP 9.12.1 kann die Funktion zur automatischen erzwungenen Umschaltung von MetroCluster in einer MetroCluster IP Konfiguration aktiviert werden. Diese Funktion ist eine Erweiterung der mediatorgestützten ungeplanten Umschaltung. Bevor Sie diese Funktion aktivieren, überprüfen Sie diese link:concept-risks-limitations-automatic-switchover.html["Risiken und Einschränkungen bei der automatischen erzwungenen MetroCluster Umschaltung"].
+
+.Über diese Aufgabe
+* Diese Aufgabe ermöglicht standardmäßig automatische ungeplante Umschaltung.
+* Diese Aufgabe kann auf der ONTAP-Schnittstelle eines beliebigen Knotens der MetroCluster IP-Konfiguration ausgeführt werden.
+* Eine einzelne Installation des ONTAP Mediator Service kann mit bis zu fünf MetroCluster IP-Konfigurationen konfiguriert werden.
+
+
+.Schritte
+. Fügen Sie den ONTAP Mediator-Dienst zu ONTAP hinzu:
++
+`metrocluster configuration-settings mediator add -mediator-address _ip-address-of-mediator-host_`
+
++
+
+NOTE: Sie werden aufgefordert, den Benutzernamen und das Kennwort für das Mediator Admin-Benutzerkonto einzugeben.
+
+. Überprüfen Sie, ob die Funktion zur automatischen Umschaltung aktiviert ist:
++
+`metrocluster show`
+
+. Überprüfen Sie, ob der Mediator jetzt ausgeführt wird.
++
+.. Zeigen Sie die virtuellen Mediator-Laufwerke an:
++
+`storage disk show -container-type mediator`
+
++
+....
+ cluster_A::> storage disk show -container-type mediator
+                        Usable           Disk    Container   Container
+ Disk                   Size Shelf Bay Type    Type        Name      Owner
+ ---------------- ---------- ----- --- ------- ----------- --------- --------
+ NET-1.5                   -     -   - VMDISK  mediator    -         node_A_2
+ NET-1.6                   -     -   - VMDISK  mediator    -         node_B_1
+ NET-1.7                   -     -   - VMDISK  mediator    -         node_B_2
+ NET-1.8                   -     -   - VMDISK  mediator    -         node_A_1
+....
+.. Legen Sie den Berechtigungsmodus auf erweitert fest:
++
+`set advanced`
+
++
+....
+ cluster_A::> set advanced
+....
+.. Anzeigen der Initiatoren, die als Mediator bezeichnet werden:
++
+`storage iscsi-initiator show -label mediator`
+
++
+....
+ cluster_A::*> storage iscsi-initiator show -label mediator
+   (storage iscsi-initiator show)
+  +                                                                     Status
+ Node Type Label    Target Portal      Target Name                      Admin/Op
+ ---- ---- -------- ------------------ -------------------------------- --------
+ node_A_1
+      mailbox
+           mediator 1.1.1.1       iqn.2012-05.local:mailbox.target.6616cd3f-9ef1-11e9-aada-00a098ccf5d8:a05e1ffb-9ef1-11e9-8f68- 00a098cbca9e:1 up/up
+ node_A_2
+      mailbox
+           mediator 1.1.1.1       iqn.2012-05.local:mailbox.target.6616cd3f-9ef1-11e9-aada-00a098ccf5d8:a05e1ffb-9ef1-11e9-8f68-00a098cbca9e:1 up/up
+....
+
+
+. Wenn Sie die automatische erzwungene MetroCluster-Umschaltung konfigurieren möchten, führen Sie den folgenden Befehl aus: `metrocluster modify -allow-automatic-forced-switchover true`
++
+Bevor Sie diese Funktion aktivieren, überprüfen Sie diese link:concept-risks-limitations-automatic-switchover.html["Risiken und Einschränkungen bei der automatischen erzwungenen MetroCluster Umschaltung"].
+
++
+....
+cluster_A::*> metrocluster modify -allow-automatic-forced-switchover true
+....
+

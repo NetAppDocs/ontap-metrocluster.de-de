@@ -1,0 +1,33 @@
+---
+permalink: install-ip/task_cable_other_connections.html 
+sidebar: sidebar 
+keywords: cabling, cable, component, peering, management, network, hardware, component, switch, cluster, connection, management, data, configuring, configure 
+summary: Sie müssen die für Cluster-Peering, Management und Datenkonnektivität verwendeten Controller-Modul-Ports verkabeln. 
+---
+= Verkabelung der Controller-Peering-, Daten- und Management-Ports
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen die für Cluster-Peering, Management und Datenkonnektivität verwendeten Controller-Modul-Ports verkabeln.
+
+Diese Aufgabe muss für jedes Controller-Modul der MetroCluster-Konfiguration ausgeführt werden.
+
+Mindestens zwei Ports auf jedem Controller-Modul sollten für Cluster-Peering verwendet werden.
+
+Die empfohlene minimale Bandbreite für die Ports und Netzwerkkonnektivität ist 1 GbE.
+
+. Identifizieren und verkabeln Sie mindestens zwei Ports für Cluster-Peering und vergewissern Sie sich, dass sie über eine Netzwerkverbindung mit dem Partner-Cluster verfügen.
++
+Cluster-Peering kann auf dedizierten Ports oder auf Daten-Ports durchgeführt werden. Durch den Einsatz von dedizierten Ports wird ein höherer Durchsatz für den Cluster-Peering-Datenverkehr erzielt.
+
++
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-clus-peer/home.html["Express-Konfiguration für Cluster und SVM-Peering"]
+
+. Verkabeln Sie die Management- und Daten-Ports des Controllers mit den Management- und Datennetzwerken am lokalen Standort.
++
+Befolgen Sie die Installationsanweisungen für Ihre Plattform auf der https://docs.netapp.com/us-en/ontap-systems/["AFF und FAS Systemdokumentation"].
+
+

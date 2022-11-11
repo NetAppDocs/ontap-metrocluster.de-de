@@ -1,0 +1,67 @@
+---
+permalink: upgrade/concept_choosing_an_upgrade_method_mcc.html 
+sidebar: sidebar 
+keywords: metrocluster, upgrade, choose, upgrade, refresh, method 
+summary: Das von Ihnen verwendete Upgrade- oder Aktualisierungsverfahren hängt vom Plattformmodell, dem Umfang des Upgrades und dem Typ der MetroCluster-Konfiguration ab. 
+---
+= Hier starten: Sie haben die Wahl zwischen Controller-Upgrade, Systemaktualisierung oder Erweiterung
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Je nach Umfang des Geräte-Upgrades haben Sie sich für ein Controller-Upgrade, ein Verfahren zur Systemaktualisierung oder einen Erweiterungsprozedur entschieden.
+
+* Das Controller-Upgrade gilt nur für die Controller-Module. Die Controller werden durch ein neues Controller-Modell ersetzt.
++
+Modelle für Storage Shelfs werden nicht aktualisiert.
+
++
+** Bei Switchover- und Switchover-Prozessen wird der MetroCluster Switchover-Betrieb verwendet, um Clients unterbrechungsfreien Service zu bieten, während die Controller-Module im Partner-Cluster aktualisiert werden.
+** Bei einem ARL-basierten Upgrade-Verfahren werden die Aggregatverschiebung verwendet, um Daten unterbrechungsfrei von der alten Konfiguration in die neue, aktualisierte Konfiguration zu verschieben.
+
+
+* Aktualisierungsverfahren gelten für die Controller und die Storage Shelfs.
++
+Im Aktualisierungsverfahren werden der MetroCluster Konfiguration neue Controller und Shelves hinzugefügt, eine zweite DR-Gruppe erstellt und die Daten werden unterbrechungsfrei zu den neuen Nodes migriert.
+
++
+Die ursprünglichen Controller werden dann außer Betrieb genommen.
+
+* Erweiterungsverfahren fügen der MetroCluster-Konfiguration zusätzliche Controller und Shelves hinzu, ohne dass jegliche entfernt werden muss.
++
+Das von Ihnen verwendete Verfahren hängt vom MetroCluster-Typ und der Anzahl der vorhandenen Controller ab.
+
+
+
+[cols="2,5"]
+|===
+
+
+| Upgrade-Typ | Gehe zu... 
+
+
+ a| 
+Für Controller-Upgrade
+ a| 
+link:../upgrade/concept_choosing_controller_upgrade_mcc.html["Wählen Sie ein Controller-Upgrade-Verfahren"]
+
+
+
+ a| 
+Systemaktualisierung
+ a| 
+link:../upgrade/concept_choosing_tech_refresh_mcc.html["Wählen Sie ein Verfahren zur Systemaktualisierung aus"]
+
+
+
+ a| 
+Erweiterung
+ a| 
+* link:../upgrade/task_expand_a_two_node_mcc_fc_configuration_to_a_four_node_fc_configuration_supertask.html["MetroCluster mit zwei Nodes auf vier Nodes"]
+* link:../upgrade/task_expand_a_four_node_mcc_fc_configuration_to_an_eight_node_configuration.html["MetroCluster FC mit vier Nodes auf acht Nodes"]
+* link:../upgrade/task_expand_a_four_node_mcc_ip_configuration.html["MetroCluster IP mit vier Nodes auf acht Nodes"]
+
+
+|===

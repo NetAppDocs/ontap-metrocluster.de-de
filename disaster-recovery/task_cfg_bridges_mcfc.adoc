@@ -1,0 +1,158 @@
+---
+permalink: disaster-recovery/task_cfg_bridges_mcfc.html 
+sidebar: sidebar 
+keywords: fc, sas, bridge, configure, metrocluster, configuration 
+summary: Wenn Sie die Bridges für FC-to-SAS ersetzt haben, müssen Sie sie beim Wiederherstellen der MetroCluster-Konfiguration konfigurieren. 
+---
+= Konfiguration der FC-to-SAS-Bridges (nur MetroCluster FC-Konfigurationen)
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie die Bridges für FC-to-SAS ersetzt haben, müssen Sie sie beim Wiederherstellen der MetroCluster-Konfiguration konfigurieren. Das Verfahren entspricht der Erstkonfiguration einer FC-to-SAS-Bridge.
+
+.Schritte
+. Schalten Sie die FC-to-SAS-Bridges ein.
+. Legen Sie die IP-Adresse an den Ethernet-Ports mithilfe des fest `set IPAddress port ipaddress` Befehl.
++
+** `port` Kann entweder „MP1“ oder „MP2“ sein.
+** `ipaddress` Kann eine IP-Adresse im Format xxx.xxx.xxx.xxx sein.
++
+Im folgenden Beispiel ist die IP-Adresse 10.10.10.55 am Ethernet-Port 1:
+
++
+[listing]
+----
+
+Ready.
+set IPAddress MP1 10.10.10.55
+
+Ready. *
+----
+
+
+. Stellen Sie die IP-Subnetzmaske an den Ethernet-Ports mithilfe des ein `set IPSubnetMask port mask` Befehl.
++
+** `port` Kann „MP1“ oder „MP2“ sein.
+** `mask` Kann eine Subnetzmaske im Format xxx.xxx.xxx.xxx.xxx sein.
++
+Im folgenden Beispiel ist die IP-Subnetzmaske 255.255.255.0 auf Ethernet-Port 1:
+
++
+[listing]
+----
+
+Ready.
+set IPSubnetMask MP1 255.255.255.0
+
+Ready. *
+----
+
+
+. Stellen Sie die Geschwindigkeit an den Ethernet-Ports mithilfe des ein `set EthernetSpeed port speed` Befehl.
++
+** `port` Kann „MP1“ oder „MP2“ sein.
+** `speed` Kann „100“ oder „1000“ lauten.
++
+Im folgenden Beispiel ist die Ethernet-Geschwindigkeit auf 1000 am Ethernet-Port 1 eingestellt.
+
++
+[listing]
+----
+
+Ready.
+set EthernetSpeed MP1 1000
+
+Ready. *
+----
+
+
+. Speichern Sie die Konfiguration mit dem `saveConfiguration` Führen Sie einen Befehl aus, und starten Sie die Bridge neu, wenn Sie dazu aufgefordert werden.
++
+Wenn Sie die Konfiguration nach der Konfiguration der Ethernet-Ports speichern, können Sie mit der Bridge-Konfiguration über Telnet fortfahren und über FTP auf die Bridge zugreifen, um Firmware-Updates durchzuführen.
+
++
+Das folgende Beispiel zeigt die `saveConfiguration` Befehl und Eingabeaufforderung zum Neustart der Bridge.
+
++
+[listing]
+----
+
+Ready.
+SaveConfiguration
+  Restart is necessary....
+  Do you wish to restart (y/n) ?
+Confirm with 'y'. The bridge will save and restart with the new settings.
+----
+. Nachdem die FC-to-SAS-Bridge neu gebootet wurde, melden Sie sich erneut an.
+. Legen Sie die Geschwindigkeit auf den FC-Ports mit dem fest `set fcdatarate port speed` Befehl.
++
+** `port` Kann „1“ oder „2“ sein.
+** `speed` Je nach Modellbrücke können Sie entweder „2 GB“, „4 GB“, „8 GB“ oder „16 GB“ wählen.
++
+Im folgenden Beispiel wird die Port-FC1-Geschwindigkeit auf „8 GB“ eingestellt.
+
++
+[listing]
+----
+
+Ready.
+set fcdatarate 1 8Gb
+
+Ready. *
+----
+
+
+. Legen Sie die Topologie auf den FC-Ports mit dem fest `set FCConnMode port mode` Befehl.
++
+** `port` Kann „1“ oder „2“ sein.
+** `mode` Kann „ptp“, „Loop“, „ptp-Loop“ oder „Auto“ sein.
++
+Im folgenden Beispiel wird die Port-FC1-Topologie auf „ptp“ gesetzt.
+
++
+[listing]
+----
+
+Ready.
+set FCConnMode 1 ptp
+
+Ready. *
+----
+
+
+. Speichern Sie die Konfiguration mit dem `saveConfiguration` Führen Sie einen Befehl aus, und starten Sie die Bridge neu, wenn Sie dazu aufgefordert werden.
++
+Das folgende Beispiel zeigt die `saveConfiguration` Befehl und Eingabeaufforderung zum Neustart der Bridge.
+
++
+[listing]
+----
+
+ Ready.
+ SaveConfiguration
+    Restart is necessary....
+    Do you wish to restart (y/n) ?
+ Confirm with 'y'. The bridge will save and restart with the new settings.
+----
+. Nachdem die FC-to-SAS-Bridge neu gebootet wurde, melden Sie sich erneut an.
+. Wenn auf der FC-to-SAS-Bridge Firmware 1.60 oder höher ausgeführt wird, aktivieren Sie SNMP.
++
+[listing]
+----
+
+Ready.
+set snmp enabled
+
+Ready. *
+saveconfiguration
+
+Restart is necessary....
+Do you wish to restart (y/n) ?
+
+Verify with 'y' to restart the FibreBridge.
+----
+. Schalten Sie die FC-to-SAS-Bridges aus.
+

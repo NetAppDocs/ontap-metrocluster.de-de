@@ -1,0 +1,65 @@
+---
+permalink: maintain/reference_requirements_for_using_other_interfaces_to_configure_and_manage_fibrebridge_bridges.html 
+sidebar: sidebar 
+keywords: metrocluster, maintain, service, requirements, interfaces, fibrebridge, bridges, manage, configures 
+summary: Sie können die Kombination aus seriellem Port, Telnet und FTP verwenden, um die FibreBridge-Brücken anstelle der empfohlenen Verwaltungsschnittstellen zu verwalten. Das System muss die Anforderungen für die jeweilige Schnittstelle erfüllen, bevor Sie die Brücken installieren. 
+---
+= Anforderungen für die Verwendung anderer Schnittstellen zur Konfiguration und Verwaltung von FibreBridge-Brücken
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können die Kombination aus seriellem Port, Telnet und FTP verwenden, um die FibreBridge-Brücken anstelle der empfohlenen Verwaltungsschnittstellen zu verwalten. Das System muss die Anforderungen für die jeweilige Schnittstelle erfüllen, bevor Sie die Brücken installieren.
+
+Sie können einen seriellen Port oder Telnet verwenden, um die Bridge- und Ethernet-Management-1-Ports zu konfigurieren und die Bridge zu verwalten. Sie können FTP verwenden, um die Bridge-Firmware zu aktualisieren.
+
+
+NOTE: Das _ATTO FibreBridge Installations- und Bedienungshandbuch_ für Ihre Modellbrücke enthält weitere Informationen zu Management-Schnittstellen.
+
+Sie können auf dieses Dokument über die ATTO-Website über den Link auf der Seite ATTO Fibrebridge Description zugreifen.
+
+
+
+== Serieller Port
+
+Bei der Verwendung des seriellen Ports zur Konfiguration und Verwaltung einer Bridge und zur Konfiguration des Ethernet Management 1-Ports muss das System die folgenden Anforderungen erfüllen:
+
+* Ein serielles Kabel (das vom seriellen Bridge-Port an einen seriellen COM-Port (serieller Anschluss) des Computers, den Sie für die Einrichtung verwenden, angeschlossen wird)
++
+Der serielle Bridge-Port ist RJ-45 und verfügt über die gleiche Anschlussbuchse wie die Controller.
+
+* Ein Terminalemulationsprogramm wie Hyperterminal, Teraterm oder PuTTY zum Zugriff auf die Konsole
++
+Das Terminalprogramm sollte in der Lage sein, Bildschirmausgabe in eine Datei zu protokollieren.
+
+
+
+
+
+== Telnet
+
+Wenn Sie Telnet verwenden, um eine Bridge zu konfigurieren und zu verwalten, muss Ihr System die folgenden Anforderungen erfüllen:
+
+* Ein serielles Kabel (das vom seriellen Bridge-Port an einen seriellen COM-Port (serieller Anschluss) des Computers, den Sie für die Einrichtung verwenden, angeschlossen wird)
++
+Der serielle Bridge-Port ist RJ-45 und verfügt über die gleiche Anschlussbuchse wie die Controller.
+
+* (Empfohlen) Ein nicht standardmäßiger Benutzername und ein Kennwort (für den Zugriff auf die Bridge)
+* Ein Terminalemulationsprogramm wie Hyperterminal, Teraterm oder PuTTY zum Zugriff auf die Konsole
++
+Das Terminalprogramm sollte in der Lage sein, Bildschirmausgabe in eine Datei zu protokollieren.
+
+* Eine IP-Adresse, eine Subnetzmaske und Gateway-Informationen für den Ethernet-Management-1-Port auf jeder Bridge
+
+
+
+
+== FTP
+
+Wenn Sie FTP verwenden, um die Bridge-Firmware zu aktualisieren, muss Ihr System die folgenden Anforderungen erfüllen:
+
+* Ein Standard-Ethernet-Kabel (das über den Bridge Ethernet Management 1-Port mit Ihrem Netzwerk verbunden wird)
+* (Empfohlen) Ein nicht standardmäßiger Benutzername und ein Kennwort (für den Zugriff auf die Bridge)
+

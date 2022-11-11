@@ -1,0 +1,270 @@
+---
+permalink: transition/task_disruptively_transition_while_move_volumes_from_old_shelves_to_new_shelves.html 
+sidebar: sidebar 
+keywords: start, ontap, disruptive, transition, two-node, metrocluster, fc, configuration, four-node, two-node, retire, storage, shelves, shelf, procedure, exist, drive, requirement, retiring, workflow, moving, data, move, retiring, retire, migrate, migrating, root, aggregate, 
+summary: Ab ONTAP 9.8 ist es möglich, eine MetroCluster FC-Konfiguration mit zwei Nodes unterbrechungsfrei auf eine MetroCluster IP-Konfiguration mit vier Nodes zu verschieben und die vorhandenen Storage Shelfs außer Betrieb zu nehmen. Verfahren umfasst Schritte zum Verschieben der Daten von den vorhandenen Festplatten-Shelfs zur neuen Konfiguration und anschließend zum Ausmustern der alten Shelfs. 
+---
+= Unterbrechungsfreier Übergang von MetroCluster FC auf MetroCluster IP beim Ausmustern von Storage Shelves (ONTAP 9.8 und höher)
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Ab ONTAP 9.8 ist es möglich, eine MetroCluster FC-Konfiguration mit zwei Nodes unterbrechungsfrei auf eine MetroCluster IP-Konfiguration mit vier Nodes zu verschieben und die vorhandenen Storage Shelfs außer Betrieb zu nehmen. Verfahren umfasst Schritte zum Verschieben der Daten von den vorhandenen Festplatten-Shelfs zur neuen Konfiguration und anschließend zum Ausmustern der alten Shelfs.
+
+* Diese Vorgehensweise wird verwendet, wenn Sie die vorhandenen Storage-Shelfs ausmustern und alle Daten auf die neuen Shelfs in der MetroCluster IP-Konfiguration verschieben möchten.
+* Die bestehenden Storage Shelf-Modelle müssen von den neuen MetroCluster IP Nodes unterstützt werden.
+* Dieses Verfahren wird auf Systemen mit ONTAP 9.8 und höher unterstützt.
+* Dieser Vorgang ist störend.
+* Dieses Verfahren gilt nur für eine MetroCluster FC-Konfiguration mit zwei Nodes.
++
+Wenn Sie über eine MetroCluster-FC-Konfiguration mit vier Nodes verfügen, finden Sie Informationen unter link:concept_choosing_your_transition_procedure_mcc_transition.html["Auswahl des Migrationsverfahrens"].
+
+* Sie müssen alle Anforderungen erfüllen und alle Schritte des Verfahrens befolgen.
+
+
+
+
+== Anforderungen für den Umstieg beim Ausmustern alter Shelfs
+
+Bevor Sie mit dem Umstieg beginnen, müssen Sie sicherstellen, dass die vorhandene MetroCluster FC-Konfiguration die Anforderungen erfüllt.
+
+* Es muss eine Fabric-Attached- oder Stretch-MetroCluster-Konfiguration mit zwei Nodes und auf allen Nodes ONTAP 9.8 oder höher ausgeführt werden.
++
+Die neuen MetroCluster IP Controller-Module sollten dieselbe Version von ONTAP 9.8 ausführen.
+
+* Die bestehenden und neuen Plattformen müssen eine unterstützte Kombination für den Umstieg sein.
++
+link:concept_supported_platforms_for_transition.html["Unterstützte Plattformen für unterbrechungsfreien Übergang"]
+
+* Er muss alle Anforderungen und Verkabelung erfüllen, wie in den _MetroCluster Installations- und Konfigurationsleitfäden_ beschrieben.
++
+link:../install-fc/index.html["Installation und Konfiguration von Fabric-Attached MetroCluster"]
+
+
+
+Die neue Konfiguration muss auch die folgenden Anforderungen erfüllen:
+
+* Die neuen MetroCluster IP Plattformmodelle müssen alte Storage Shelf-Modelle unterstützen.
++
+https://hwu.netapp.com["NetApp Hardware Universe"^]
+
+* Abhängig von den in den vorhandenen Shelves verfügbaren Spare-Festplatten müssen zusätzliche Festplatten hinzugefügt werden.
++
+Dafür könnten zusätzliche Festplatten-Shelfs erforderlich sein.
+
++
+Sie benötigen weitere 14 bis 18 Laufwerke für jeden Controller:
+
++
+** Drei Pool-Laufwerke: 0
+** Drei Pool-1-Laufwerke
+** Zwei Ersatzlaufwerke
+** Sechs bis zehn Laufwerke für das System-Volume
+
+
+* Sie müssen sicherstellen, dass die Konfiguration, einschließlich der neuen Nodes, die Plattformlimits für die Konfiguration nicht überschreitet, einschließlich Laufwerksanzahl, Root-Aggregatgröße usw.
++
+Diese Informationen sind für jedes Plattformmodell bei verfügbar https://hwu.netapp.com["NetApp Hardware Universe"^]
+
+
+
+Sie müssen über Remote-Konsolenzugriff für alle sechs Nodes von einem MetroCluster Standort aus verfügen oder Reisen zwischen den Standorten planen, wie im Verfahren erforderlich.
+
+
+
+== Workflow für Unterbrechungen beim Verschieben von Daten und Aussortieren alter Storage Shelves
+
+Um eine erfolgreiche Umstellung sicherzustellen, müssen Sie den spezifischen Workflow einhalten.
+
+Planen Sie bei der Vorbereitung der Transition die Reise zwischen den Standorten ein. Beachten Sie, dass Sie nach dem Rack und verkabelt der Remote-Nodes seriellen Zugriff auf die Nodes benötigen. Der Service-Prozessor-Zugriff ist erst verfügbar, wenn die Nodes konfiguriert sind.
+
+image::../media/workflow_2n_transition_moving_data_to_new_shelves.png[Workflow 2n wandelt die Daten in neue Shelves um]
+
+
+
+== Umstellung der Konfiguration
+
+Sie müssen das detaillierte Übergangsverfahren befolgen.
+
+In den folgenden Schritten werden Sie zu anderen Verfahren geleitet. Sie müssen die Schritte in jeder referenzierten Prozedur in der angegebenen Reihenfolge durchführen.
+
+.Schritte
+. Planen Sie die Port-Zuordnung mithilfe der Schritte in link:../transition/concept_requirements_for_fc_to_ip_transition_2n_mcc_transition.html#mapping-ports-from-the-metrocluster-fc-nodes-to-the-metrocluster-ip-nodes["Zuordnen von Ports von den MetroCluster FC-Nodes zu den MetroCluster IP-Nodes"].
+. Bereiten Sie die MetroCluster IP-Controller mithilfe der Schritte in vor link:../transition/concept_requirements_for_fc_to_ip_transition_2n_mcc_transition.html#preparing-the-metrocluster-ip-controllers["Vorbereiten der MetroCluster IP-Controller"].
+. Überprüfen Sie den Systemzustand der MetroCluster FC-Konfiguration.
++
+Führen Sie die Schritte unter aus link:../transition/concept_requirements_for_fc_to_ip_transition_2n_mcc_transition.html#verifying-the-health-of-the-metrocluster-fc-configuration["Überprüfen des Systemzustands der MetroCluster FC-Konfiguration"].
+
+. Erfassen von Informationen aus der MetroCluster FC-Konfiguration
++
+Führen Sie die Schritte unter aus link:task_transition_the_mcc_fc_nodes_2n_mcc_transition_supertask.html#gathering-information-from-the-existing-controller-modules-before-the-transition["Sammeln von Informationen aus den vorhandenen Controller-Modulen vor dem Umstieg"].
+
+. Gegebenenfalls das Tiebreaker Monitoring entfernen.
++
+Führen Sie die Schritte unter aus link:../transition/concept_requirements_for_fc_to_ip_transition_2n_mcc_transition.html#verifying-the-health-of-the-metrocluster-fc-configuration["Entfernen der vorhandenen Konfiguration über den Tiebreaker oder eine andere Monitoring-Software"].
+
+. Bereiten Sie die vorhandenen MetroCluster FC-Nodes vor und entfernen Sie sie.
++
+Führen Sie die Schritte unter aus link:task_transition_the_mcc_fc_nodes_2n_mcc_transition_supertask.html["Umstellung der MetroCluster FC Nodes"].
+
+. Verbinden Sie die neuen MetroCluster IP-Knoten.
++
+Führen Sie die Schritte unter aus link:task_connect_the_mcc_ip_controller_modules_2n_mcc_transition_supertask.html["Anschließen der MetroCluster IP-Controller-Module"].
+
+. Konfiguration der neuen MetroCluster IP-Knoten und vollständiger Übergang.
++
+Führen Sie die Schritte unter aus link:task_configure_the_new_nodes_and_complete_transition.html["Konfiguration der neuen Nodes und Abschluss des Übergangs"].
+
+
+
+
+
+== Migration der Root-Aggregate
+
+Migrieren Sie nach Abschluss der Transition die bestehenden Stammaggregate von der MetroCluster FC-Konfiguration auf neue Shelfs in der MetroCluster IP-Konfiguration.
+
+Mit dieser Aufgabe werden die Root-Aggregate für Node_A_1-FC und Node_B_1-FC auf Festplatten-Shelfs verschoben, die sich im Besitz der neuen MetroCluster IP-Controller befinden:
+
+.Schritte
+. Weisen Sie dem Controller, der das Root migriert hat, Pool 0-Festplatten im neuen lokalen Storage Shelf zu (z. B. wenn das Root von Node_A_1-FC migriert wird, weisen Sie Pool 0-Festplatten im neuen Shelf Node_A_1-IP zu).
++
+Beachten Sie, dass die Migration _entfernt und die Root-Spiegelung_ nicht neu erstellt. Pool 1-Festplatten müssen daher erst zugewiesen werden, wenn Sie den Migrationsbefehl starten
+
+. Legen Sie den Berechtigungsmodus auf erweitert fest:
++
+`set priv advanced`
+
+. Migrieren des Root-Aggregats:
++
+`system node migrate-root -node node-name -disklist disk-id1,disk-id2,diskn -raid-type raid-type`
+
++
+** Der Node-Name ist der Node, auf den das Root-Aggregat migriert wird.
+** Die Festplatten-id identifiziert die Pool-0-Festplatten auf dem neuen Shelf.
+** Der RAID-Typ ist normalerweise der gleiche wie der RAID-Typ des bestehenden Root-Aggregats.
+** Sie können den Befehl verwenden `job show -idjob-id-instance` Um den Migrationsstatus zu überprüfen, wobei Job-id der Wert ist, der beim Ausgeben des Befehls „Migration-Root“ angegeben wird.
++
+Wenn das Root-Aggregat für Node_A_1-FC beispielsweise aus drei Festplatten mit RAID_dp bestand, würde der folgende Befehl verwendet, um das Root zu einem neuen Shelf 11 zu migrieren:
+
++
+[listing]
+----
+system node migrate-root -node node_A_1-IP -disklist 3.11.0,3.11.1,3.11.2 -raid-type raid_dp
+----
+
+
+. Warten Sie, bis der Migrationsvorgang abgeschlossen ist und der Node automatisch neu gebootet wird.
+. Weisen Sie Pool 1-Disks für das Root-Aggregat auf einem neuen Shelf zu, das direkt mit dem Remote-Cluster verbunden ist.
+. Spiegeln Sie das migrierte Root-Aggregat.
+. Warten Sie, bis das Root-Aggregat neu synchronisiert wurde.
++
+Mit dem Befehl „Storage Aggregate show“ können Sie den Synchronisierungsstatus der Aggregate überprüfen.
+
+. Wiederholen Sie diese Schritte für das andere Root-Aggregat.
+
+
+
+
+== Und die Daten-Aggregate migrieren
+
+Erstellen Sie Datenaggregate auf den neuen Shelfs und verschieben Sie die Daten-Volumes von den alten Shelfs zu den Aggregaten auf den neuen Shelfs.
+
+. Verschieben Sie die Daten-Volumes zu Aggregaten auf den neuen Controllern, jeweils ein Volume.
++
+http://docs.netapp.com/platstor/topic/com.netapp.doc.hw-upgrade-controller/GUID-AFE432F6-60AD-4A79-86C0-C7D12957FA63.html["Erstellung eines Aggregats und Verschiebung von Volumes zu den neuen Nodes"^]
+
+
+
+
+
+== Ausmustern von Shelfs, die von Node_A_1-FC und Node_A_2-FC verschoben wurden
+
+Sie haben die alten Storage Shelfs aus der ursprünglichen MetroCluster FC-Konfiguration entfernt. Ursprünglich waren die Shelfs Node_A_1-FC und Node_A_2-FC im Besitz dieser Shelfs.
+
+. Ermitteln Sie die Aggregate auf den alten Shelfs auf Cluster_B, die gelöscht werden müssen.
++
+In diesem Beispiel werden die folgenden Datenaggregate vom MetroCluster FC Cluster_B gehostet und müssen gelöscht werden: aggr_Data_a1 und aggr_Data_a2.
+
++
+
+NOTE: Es müssen die Schritte ausgeführt werden, um die Datenaggregate auf den Shelfs zu identifizieren, offline und zu löschen. Das Beispiel gilt nur für ein Cluster.
+
++
+[listing]
+----
+cluster_B::> aggr show
+
+Aggregate     Size Available Used% State   #Vols  Nodes            RAID Status
+--------- -------- --------- ----- ------- ------ ---------------- ------------
+aggr0_node_A_1-FC
+           349.0GB   16.83GB   95% online       1 node_A_1-IP      raid_dp,
+                                                                   mirrored,
+                                                                   normal
+aggr0_node_A_2-IP
+           349.0GB   16.83GB   95% online       1 node_A_2-IP      raid_dp,
+                                                                   mirrored,
+                                                                   normal
+...
+8 entries were displayed.
+
+cluster_B::>
+----
+. Überprüfen Sie, ob die Datenaggregate über MDV_aud-Volumes verfügen, und löschen Sie sie, bevor Sie die Aggregate löschen.
++
+Sie müssen die MDV_aud-Volumes löschen, da sie nicht verschoben werden können.
+
+. Nehmen Sie jedes Aggregat in den Offline-Modus und löschen Sie es anschließend:
++
+.. Versetzen Sie das Aggregat in den Offline-Modus:
++
+`storage aggregate offline -aggregate aggregate-name`
+
++
+Das folgende Beispiel zeigt, dass der aggregierte Node_B_1_aggr0 offline geschaltet wird:
+
++
+[listing]
+----
+cluster_B::> storage aggregate offline -aggregate node_B_1_aggr0
+
+Aggregate offline successful on aggregate: node_B_1_aggr0
+----
+.. Löschen Sie das Aggregat:
++
+`storage aggregate delete -aggregate aggregate-name`
+
++
+Sie können den Plex zerstören, wenn Sie dazu aufgefordert werden.
+
++
+Das folgende Beispiel zeigt, dass der aggregierte Node_B_1_aggr0 gelöscht wird.
+
++
+[listing]
+----
+cluster_B::> storage aggregate delete -aggregate node_B_1_aggr0
+Warning: Are you sure you want to destroy aggregate "node_B_1_aggr0"? {y|n}: y
+[Job 123] Job succeeded: DONE
+
+cluster_B::>
+----
+
+
+. Nach dem Löschen aller Aggregate fahren Sie herunter, trennen die Shelfs und entfernen sie.
+. Wiederholen Sie die oben genannten Schritte, um das Cluster_A-Shelf außer Betrieb zu nehmen.
+
+
+
+
+== Übergang abschließen
+
+Wenn die alten Controller-Module entfernt wurden, können Sie den Umstieg abschließen.
+
+.Schritt
+. Abschluss des Transitionsprozesses
++
+Führen Sie die Schritte unter aus link:task_return_the_system_to_normal_operation_2n_mcc_transition_supertask.html["Stellt den normalen Betrieb des Systems wieder her"].
+
+

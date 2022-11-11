@@ -1,0 +1,83 @@
+---
+permalink: transition/concept_switchover_and_switchback_operations_during_transition.html 
+sidebar: sidebar 
+keywords: stage, transition, process, metrocluster, switchover, heal, switchback, operation, fc, ip, workflow 
+summary: Je nach Phase des Übergangs verwenden die MetroCluster Switchover-, Healing- und Switchback-Vorgänge entweder den MetroCluster FC- oder MetroCluster IP-Workflow. 
+---
+= Umschaltung, Reparatur und Wechsel zwischen den Abläufen während des unterbrechungsfreien Übergangs
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Je nach Phase des Übergangs verwenden die MetroCluster Switchover-, Healing- und Switchback-Vorgänge entweder den MetroCluster FC- oder MetroCluster IP-Workflow.
+
+Die folgende Tabelle zeigt, welche Workflows in verschiedenen Phasen des Wechsels zum Einsatz kommen. In einigen Phasen werden Umschaltung und zurückwechseln nicht unterstützt.
+
+* Im MetroCluster FC-Workflow werden die Schritte Switchover, Healing und Switchback von einer MetroCluster FC-Konfiguration verwendet.
+* Im MetroCluster IP-Workflow werden die Schritte Switchover, Healing und Switchback von einer MetroCluster IP-Konfiguration verwendet.
+* Wenn im einheitlichen Workflow sowohl die FC- als auch die IP-Knoten konfiguriert sind, hängen die Schritte davon ab, ob NSO oder USO ausgeführt wird. Die Details sind in der Tabelle aufgeführt.
+
+
+Informationen zu den MetroCluster FC- und IP-Workflows für Switchover, Healing und Switchback finden Sie unter link:../manage/concept_understanding_mcc_data_protection_and_disaster_recovery.html["MetroCluster Datensicherung und Disaster Recovery verstehen"].
+
+
+NOTE: Während des Umstiegs ist keine automatische, ungeplante Umschaltung verfügbar.
+
+[cols="2,1,3"]
+|===
+
+
+| Phase des Übergangs | Die ausgehandelte Umschaltung nutzt diesen Workflow... | Ungeplante Umschaltung nutzt diesen Workflow... 
+
+
+ a| 
+Bevor die MetroCluster IP-Knoten dem Cluster beigetreten sind
+ a| 
+MetroCluster FC
+ a| 
+MetroCluster FC
+
+
+
+ a| 
+Nachdem die MetroCluster-IP-Nodes dem Cluster beigetreten sind, bevor der `metrocluster configure` Befehl wird ausgeführt
+ a| 
+Nicht unterstützt
+ a| 
+MetroCluster FC
+
+
+
+ a| 
+Nach dem `metrocluster configure` Befehl wurde ausgegeben. Die Volume-Verschiebung kann ausgeführt werden.
+ a| 
+Unified: Alle Nodes an Remote-Standorten bleiben aktiviert, und die Reparatur erfolgt automatisch
+ a| 
+Vereinheitlicht:
+
+* Gespiegelte Aggregate des MetroCluster FC-Node werden gespiegelt, wenn der Storage verfügbar ist. Nach der Umschaltung werden alle anderen Aggregate herabgestuft.
+* Alle Nodes am Remote-Standort können gestartet werden.
+* Der `heal aggregate` Und `heal root` Sie müssen Befehle manuell ausführen.
+
+
+
+
+ a| 
+Die MetroCluster FC-Nodes wurden nicht konfiguriert.
+ a| 
+Nicht unterstützt
+ a| 
+MetroCluster IP
+
+
+
+ a| 
+Der `cluster unjoin` Der Befehl wurde auf den MetroCluster FC-Knoten ausgeführt.
+ a| 
+MetroCluster IP
+ a| 
+MetroCluster IP
+
+|===

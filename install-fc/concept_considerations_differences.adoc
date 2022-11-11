@@ -1,0 +1,235 @@
+---
+permalink: install-fc/concept_considerations_differences.html 
+sidebar: sidebar 
+keywords: preparing, prepare, metrocluster, mcc, installation, install, differences, configurations, between, considerations, all, san, array, asa, cluster, peering, prerequisites, dedicated, ports, sharing, data, ports, native, disk, shelves, array, luns, transitions, 7-mode, isls, tdm/wdm, fabric-attached, iod, ood, encryption, devices, unmirrored, aggregates, maintenance, requiring, power, shutdown, firewall, hardware, racking, cabling, setup, checklist, all san array, asa 
+summary: Die verschiedenen MetroCluster Konfigurationen weisen wesentliche Unterschiede in den erforderlichen Komponenten auf. 
+---
+= Unterschiede zwischen den ONTAP MetroCluster Konfigurationen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+Die verschiedenen MetroCluster Konfigurationen weisen wesentliche Unterschiede in den erforderlichen Komponenten auf.
+
+In allen Konfigurationen ist jeder der beiden MetroCluster-Standorte als ONTAP-Cluster konfiguriert. In einer MetroCluster Konfiguration mit zwei Nodes ist jeder Node als Single-Node-Cluster konfiguriert.
+
+|===
+
+
+| Merkmal | IP-Konfigurationen 2+| Fabric-Attached-Konfigurationen 2+| Stretch-Konfigurationen 
+
+
+|  |  | *Vier- oder acht-Knoten* | * Zwei Knoten* | * Zwei-Knoten-Brücke-verbunden* | * Zwei-Knoten direkt verbunden* 
+
+
+ a| 
+Anzahl an Controllern
+ a| 
+Vier oder acht*
+ a| 
+Vier oder acht
+ a| 
+Zwei
+ a| 
+Zwei
+ a| 
+Zwei
+
+
+
+ a| 
+Storage Fabric mit FC-Switch
+ a| 
+Nein
+ a| 
+Ja.
+ a| 
+Ja.
+ a| 
+Nein
+ a| 
+Nein
+
+
+
+ a| 
+Verwendet eine IP Switch Storage Fabric
+ a| 
+Ja.
+ a| 
+Nein
+ a| 
+Nein
+ a| 
+Nein
+ a| 
+Nein
+
+
+
+ a| 
+Verwendung von FC-to-SAS-Bridges
+ a| 
+Nein
+ a| 
+Ja.
+ a| 
+Ja.
+ a| 
+Ja.
+ a| 
+Nein
+
+
+
+ a| 
+Nutzung von Direct-Attached SAS Storage
+ a| 
+Ja (nur lokal in Verbindung)
+ a| 
+Nein
+ a| 
+Nein
+ a| 
+Nein
+ a| 
+Ja.
+
+
+
+ a| 
+Unterstützt ADP
+ a| 
+Ja (ab ONTAP 9.4)
+ a| 
+Nein
+ a| 
+Nein
+ a| 
+Nein
+ a| 
+Nein
+
+
+
+ a| 
+Unterstützt lokale HA
+ a| 
+Ja.
+ a| 
+Ja.
+ a| 
+Nein
+ a| 
+Nein
+ a| 
+Nein
+
+
+
+ a| 
+Unterstützt ONTAP AUSO
+ a| 
+Nein
+ a| 
+Ja.
+ a| 
+Ja.
+ a| 
+Ja.
+ a| 
+Ja.
+
+
+
+ a| 
+Unterstützt nicht gespiegelte Aggregate
+ a| 
+Ja (ab ONTAP 9.8)
+ a| 
+Ja.
+ a| 
+Ja.
+ a| 
+Ja.
+ a| 
+Ja.
+
+
+
+ a| 
+Unterstützt Array-LUNs
+ a| 
+Nein
+ a| 
+Ja.
+ a| 
+Ja.
+ a| 
+Ja.
+ a| 
+Ja.
+
+
+
+ a| 
+Unterstützt den ONTAP Mediator
+ a| 
+Ja (ab ONTAP 9.7)
+ a| 
+Nein
+ a| 
+Nein
+ a| 
+Nein
+ a| 
+Nein
+
+
+
+ a| 
+Unterstützung von MetroCluster Tiebreaker
+ a| 
+Ja (nicht in Kombination mit ONTAP Mediator)
+ a| 
+Ja.
+ a| 
+Ja.
+ a| 
+Ja.
+ a| 
+Ja.
+
+
+
+| Unterstützt  for All SAN Array systems in MetroCluster configurations,Rein SAN-basierte Arrays  a| 
+Ja.
+ a| 
+Ja.
+ a| 
+Ja.
+ a| 
+Ja.
+ a| 
+Ja.
+
+|===
+* Wichtig*
+
+Beachten Sie bei MetroCluster IP-Konfigurationen mit acht Nodes die folgenden Überlegungen:
+
+* Konfigurationen mit acht Nodes werden ab ONTAP 9.9 unterstützt.
+* Es werden nur NetApp validierte MetroCluster Switches (bei NetApp bestellt) unterstützt.
+* Konfigurationen, die IP-geroutet (Layer 3)-Back-End-Verbindungen verwenden, werden nicht unterstützt.
+* Konfigurationen mit gemeinsam genutzten privaten Layer 2-Netzwerken werden nicht unterstützt.
+* Konfigurationen mit einem gemeinsamen Cisco 9336C-FX2 Switch werden nicht unterstützt.
+
+
+
+
+== Unterstützung für alle SAN-Array-Systeme in MetroCluster Konfigurationen
+
+Einige der All-SAN-Arrays (ASAs) werden in MetroCluster-Konfigurationen unterstützt. In der MetroCluster-Dokumentation gelten die Informationen zu AFF-Modellen auf das entsprechende ASA-System. Beispielsweise gelten alle Kabel und weitere Informationen zum AFF A400 System auch für das ASA AFF A400 System.
+
+Unterstützte Plattformkonfigurationen sind im aufgeführt https://hwu.netapp.com["NetApp Hardware Universe"].

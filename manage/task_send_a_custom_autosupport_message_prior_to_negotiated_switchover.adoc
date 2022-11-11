@@ -1,0 +1,25 @@
+---
+permalink: manage/task_send_a_custom_autosupport_message_prior_to_negotiated_switchover.html 
+sidebar: sidebar 
+keywords: perform, negotiate, switchover, autosupport, message, netapp, technical, support, maintenance, underway, failure, trigger, support, prevent, disruption, custom, prior 
+summary: Bevor Sie eine Umschaltung durchführen, sollten Sie eine AutoSupport Meldung ausgeben, um den technischen Support von NetApp über laufende Wartungsarbeiten zu informieren. Die ausgehandelte Umschaltung kann zu Plex- oder MetroCluster-Betriebsausfällen führen, die AutoSupport Meldungen auslösen. Die Mitteilung des technischen Supports über laufende Wartungsarbeiten verhindert, dass ein Fall eröffnet wird, wenn eine Störung aufgetreten ist. 
+---
+= Senden einer individuellen AutoSupport Nachricht vor der ausgehandelten Umschaltung
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Bevor Sie eine Umschaltung durchführen, sollten Sie eine AutoSupport Meldung ausgeben, um den technischen Support von NetApp über laufende Wartungsarbeiten zu informieren. Die ausgehandelte Umschaltung kann zu Plex- oder MetroCluster-Betriebsausfällen führen, die AutoSupport Meldungen auslösen. Die Mitteilung des technischen Supports über laufende Wartungsarbeiten verhindert, dass ein Fall eröffnet wird, wenn eine Störung aufgetreten ist.
+
+Diese Aufgabe muss auf jedem MetroCluster-Standort ausgeführt werden.
+
+.Schritte
+. Melden Sie sich bei Site_A beim Cluster an
+. Rufen Sie eine AutoSupport-Meldung auf, die den Beginn der Wartung angibt: `system node autosupport invoke -node * -type all -message MAINT=maintenance-window-in-hours`
++
+Maintenance-Fenster in Stunden gibt die Länge des Wartungsfensters an und kann maximal 72 Stunden betragen. Wenn die Wartung vor Ablauf der Zeit abgeschlossen ist, können Sie mit dem Befehl angeben, dass der Wartungszeitraum beendet ist:``system node autosupport invoke -node * -type all -message MAINT=end``
+
+. Wiederholen Sie diesen Schritt auf der Partner-Site.
+

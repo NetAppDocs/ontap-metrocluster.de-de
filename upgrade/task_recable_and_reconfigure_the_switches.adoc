@@ -1,0 +1,80 @@
+---
+permalink: upgrade/task_apply_the_rcf_files_and_recable_the_switches.html 
+sidebar: sidebar 
+keywords: metrocluster, upgrade, apply, rcf, files, recable, switches 
+summary: Sie müssen die RCF-Dateien anwenden, um das Zoning neu zu konfigurieren, um die neuen Nodes aufzunehmen. 
+---
+= Die Switches können neu konfiguriert und neu konfiguriert werden
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen die RCF-Dateien anwenden, um das Zoning neu zu konfigurieren, um die neuen Nodes aufzunehmen.
+
+Wenn Sie die RCF-Dateien nicht zur Konfiguration der Switches verwenden können, müssen Sie die Switches manuell konfigurieren. Siehe:
+
+* link:../install-fc/task_fcsw_brocade_configure_the_brocade_fc_switches_supertask.html["Konfigurieren Sie die Brocade FC-Switches manuell"]
+* link:../install-fc/task_fcsw_cisco_configure_a_cisco_switch_supertask.html["Konfigurieren Sie Cisco FC-Switches manuell"]
+
+
+.Schritte
+. Suchen Sie die RCF-Dateien für Ihre Konfiguration.
++
+Sie müssen die RCF-Dateien für eine Konfiguration mit acht Nodes verwenden, die Ihrem Switch-Modell entspricht.
+
+. Wenden Sie die RCF-Dateien an, indem Sie den Anweisungen auf der Download-Seite folgen und die ISL-Einstellungen nach Bedarf anpassen.
+. Stellen Sie sicher, dass die Switch-Konfiguration gespeichert ist.
+. Starten Sie die FC-Switches neu.
+. Verkabelung der vorhandenen und der neuen FC-to-SAS-Bridges zu den FC-Switches, wobei Sie das zuvor erstellte Verkabelungslayout verwenden.
++
+Die Verwendung von FC-Switch-Ports muss mit der in beschriebenen Verwendung von acht MetroCluster-Nodes übereinstimmen link:../install-fc/index.html["Installation und Konfiguration von Fabric-Attached MetroCluster"] Damit die Referenzkonfigurationsdateien (RCfs) verwendet werden können.
+
+. Überprüfen Sie, ob die Ports online sind, indem Sie den korrekten Befehl für Ihren Switch verwenden.
++
+|===
+
+
+| Switch-Anbieter | Befehl 
+
+
+ a| 
+Brocade
+ a| 
+switchshow
+
+
+
+ a| 
+Cisco
+ a| 
+Schnittstellenübersicht anzeigen
+
+|===
+. Verwenden Sie das Verfahren unter link:../install-fc/index.html["Installation und Konfiguration von Fabric-Attached MetroCluster"] Um die FC-VI-Ports mithilfe des zuvor erstellten Verkabelungslayouts von den vorhandenen und neuen Controllern zu verkabeln.
++
+Die Verwendung von FC-Switch-Ports muss mit der in beschriebenen Verwendung von acht MetroCluster-Nodes übereinstimmen link:../install-fc/index.html["Installation und Konfiguration von Fabric-Attached MetroCluster"] Damit die Referenzkonfigurationsdateien (RCfs) verwendet werden können.
+
+. Vergewissern Sie sich von den vorhandenen Nodes, dass die FC-VI-Ports online sind:
++
+`metrocluster interconnect adapter show`
+
++
+`metrocluster interconnect mirror show`
+
+. Verkabeln Sie die HBA-Ports der aktuellen und der neuen Controller.
+. Aktivieren Sie bei den vorhandenen Controller-Modulen die Ports, die im Rahmen der Wartung an die Switch-Fabric angeschlossen sind:
++
+`storage port enable -node _node-name_ -port _port-ID_`
+
+. Starten Sie die neuen Controller, und starten Sie sie in den Wartungsmodus:
++
+`boot_ontap maint`
+
+. Vergewissern Sie sich, dass nur Storage sichtbar ist, der von der neuen DR-Gruppe verwendet wird.
++
+Keiner der Storage, der von der anderen DR-Gruppe verwendet wird, sollte sichtbar sein.
+
+. Kehren Sie zu Beginn dieses Prozesses zurück, um die zweite Switch-Fabric wieder zu verkabeln.
+

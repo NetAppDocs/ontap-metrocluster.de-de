@@ -1,0 +1,42 @@
+---
+permalink: upgrade/task_mirror_the_root_aggregates_mcc.html 
+sidebar: sidebar 
+keywords: metrocluster, upgrade, mirror, root, aggregate 
+summary: Um Datensicherung zu ermöglichen, müssen Sie die Root-Aggregate spiegeln. 
+---
+= Spiegelung der Root-Aggregate
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Um Datensicherung zu ermöglichen, müssen Sie die Root-Aggregate spiegeln.
+
+Standardmäßig wird das Root-Aggregat als RAID-DP Typ Aggregat erstellt. Sie können das Root-Aggregat von RAID-DP zu einem Aggregat des RAID4-Typs ändern. Mit dem folgenden Befehl wird das Root-Aggregat für das RAID4-Typ-Aggregat modifiziert:
+
+[listing]
+----
+storage aggregate modify –aggregate aggr_name -raidtype raid4
+----
+
+NOTE: Auf Systemen anderer Hersteller kann der RAID-Typ des Aggregats von dem Standard RAID-DP zu RAID4 vor oder nach der Spiegelung des Aggregats geändert werden.
+
+.Schritte
+. Root-Aggregat spiegeln:
++
+`storage aggregate mirror _aggr_name_`
+
++
+Der folgende Befehl spiegelt das Root-Aggregat für Controller_A_1:
+
++
+[listing]
+----
+controller_A_1::> storage aggregate mirror aggr0_controller_A_1
+----
++
+Dies spiegelt das Aggregat, also besteht es aus einem lokalen Plex und einem Remote Plex am Remote MetroCluster Standort.
+
+. Wiederholen Sie den vorherigen Schritt für jeden Node in der MetroCluster-Konfiguration.
+

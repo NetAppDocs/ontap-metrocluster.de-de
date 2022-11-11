@@ -1,0 +1,90 @@
+---
+permalink: upgrade/task_create_unmirrored_data_aggregates_mcc.html 
+sidebar: sidebar 
+keywords: metrocluster, upgrade, create, unmirrored, data, aggregates 
+summary: Optional können Sie nicht gespiegelte Datenaggregate für Daten erstellen, für die keine redundante Spiegelung von MetroCluster-Konfigurationen erforderlich ist. 
+---
+= Erstellen von nicht gespiegelten Datenaggregaten
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Optional können Sie nicht gespiegelte Datenaggregate für Daten erstellen, für die keine redundante Spiegelung von MetroCluster-Konfigurationen erforderlich ist.
+
+.Über diese Aufgabe
+* Sie sollten wissen, welche Laufwerke oder Array LUNs im neuen Aggregat verwendet werden.
+* Wenn Sie mehrere Laufwerktypen in Ihrem System haben (heterogener Speicher), sollten Sie verstehen, wie Sie überprüfen können, ob der richtige Laufwerkstyp ausgewählt ist.
+
+
+
+IMPORTANT: In MetroCluster IP-Konfigurationen können Remote-Aggregate nach einem Switchover nicht zugänglich gemacht werden
+
+
+NOTE: Die nicht gespiegelten Aggregate müssen sich lokal an dem Node halten, auf dem sie sich enthalten.
+
+* Laufwerke und Array-LUNs sind Eigentum eines bestimmten Nodes. Wenn Sie ein Aggregat erstellen, müssen alle Laufwerke in diesem Aggregat Eigentum desselben Node sein, der zum Home Node für das Aggregat wird.
+* Aggregatnamen sollten dem Benennungsschema entsprechen, das Sie beim Planen Ihrer MetroCluster-Konfiguration ermittelt haben.
+* _Festplatten- und Aggregatmanagement_ enthält weitere Informationen zur Spiegelung von Aggregaten.
+
+
+.Schritte
+. Installieren und verkabeln Sie die Festplatten-Shelfs, die die nicht gespiegelten Aggregate enthalten.
++
+Sie können die Verfahren in der Dokumentation _Installation and Setup_ für Ihre Plattform und Platten-Shelfs verwenden.
+
++
+https://docs.netapp.com/platstor/index.jsp["AFF and FAS Documentation Center"]
+
+. Weisen Sie alle Festplatten auf dem neuen Shelf dem entsprechenden Node manuell zu:
++
+`disk assign -disk _disk-id_ -owner _owner-node-name_`
+
+. Erstellen Sie das Aggregat:
++
+`storage aggregate create`
+
++
+Wenn Sie auf der Cluster-Managementoberfläche beim Cluster angemeldet sind, können Sie auf jedem Node im Cluster ein Aggregat erstellen. Um zu überprüfen, ob das Aggregat auf einem bestimmten Node erstellt wird, sollten Sie das verwenden `-node` Parameter oder geben Sie Laufwerke an, die diesem Node gehören.
+
++
+Darüber hinaus müssen Sie sicherstellen, dass Sie nur Laufwerke in das nicht gespiegelte Shelf zum Aggregat aufnehmen.
+
++
+Sie können die folgenden Optionen angeben:
+
++
+** Der Home Node des Aggregats (d. h. der Knoten, der das Aggregat im normalen Betrieb besitzt)
+** Liste bestimmter Laufwerke oder Array LUNs, die dem Aggregat hinzugefügt werden sollen
+** Anzahl der zu einführenden Laufwerke
+** Prüfsummenstil, den Sie für das Aggregat verwenden möchten
+** Typ der zu verwendenden Laufwerke
+** Die Größe der zu verwendenden Laufwerke
+** Fahrgeschwindigkeit zu verwenden
+** RAID-Typ für RAID-Gruppen auf dem Aggregat
+** Maximale Anzahl an Laufwerken oder Array-LUNs, die in einer RAID-Gruppe enthalten sein können
+** Gibt an, ob Laufwerke mit unterschiedlichen U/min zulässig sind
++
+Weitere Informationen zu diesen Optionen finden Sie im `storage aggregate create` Man-Page.
+
++
+Mit dem folgenden Befehl wird ein nicht gespiegeltes Aggregat mit 10 Festplatten erstellt:
+
++
+[listing]
+----
+controller_A_1::> storage aggregate create aggr1_controller_A_1 -diskcount 10 -node controller_A_1
+[Job 15] Job is queued: Create aggr1_controller_A_1.
+[Job 15] The job is starting.
+[Job 15] Job succeeded: DONE
+----
+
+
+. Überprüfen Sie die RAID-Gruppe und die Laufwerke Ihres neuen Aggregats:
++
+`storage aggregate show-status -aggregate _aggregate-name_`
+
+
+
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-psmg/home.html["Festplatten- und Aggregatmanagement"]

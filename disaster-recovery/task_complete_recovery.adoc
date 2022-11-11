@@ -1,0 +1,608 @@
+---
+permalink: disaster-recovery/task_complete_recovery.html 
+sidebar: sidebar 
+keywords: object, fabricpool, mirror, co-located, metrocluster, disaster, site, destroy, reestablish, store, reestablish, store, configuration, verify, license, replace, node, perform, switchback, successful, root, aggregates, replacement, health, reconfiguring, reconfigure, ontap, mediator, service, ip, configuration 
+summary: Wenn einer der Objektspeicher in einer FabricPool Spiegelung sich gemeinsam mit dem Disaster-Standort MetroCluster befand und zerstört wurde, müssen Sie den Objektspeicher und die FabricPool Spiegelung wiederherstellen. 
+---
+= Wiederherstellung abgeschlossen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+
+
+== Wiederherstellung von Objektspeichern für FabricPool-Konfigurationen
+
+Wenn einer der Objektspeicher in einer FabricPool Spiegelung sich gemeinsam mit dem Disaster-Standort MetroCluster befand und zerstört wurde, müssen Sie den Objektspeicher und die FabricPool Spiegelung wiederherstellen.
+
+.Über diese Aufgabe
+* Wenn die Objektspeicher über einen Remote-Standort und ein MetroCluster Standort zerstört werden, müssen Sie den Objektspeicher nicht neu erstellen, die ursprünglichen Objektspeicherkonfigurationen sowie die Cold-Daten-Inhalte werden aufbewahrt.
+* Weitere Informationen zu FabricPool-Konfigurationen finden Sie im link:https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-psmg/home.html["Festplatten- und Aggregatmanagement"^].
+
+
+.Schritt
+. Folgen Sie dem Verfahren „Ersetzen einer FabricPool-Spiegelung auf einer MetroCluster-Konfiguration“ in link:https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-psmg/home.html["Festplatten- und Aggregatmanagement"^].
+
+
+
+
+== Überprüfung der Lizenzen auf den ersetzten Nodes
+
+Sie müssen neue Lizenzen für die Ersatzknoten installieren, wenn die beeinträchtigten Knoten ONTAP-Funktionen verwenden, die eine Standard-Lizenz (Node-locked) erfordern. Bei Standardlizenzen sollte jeder Node im Cluster über seinen eigenen Schlüssel für die Funktion verfügen.
+
+Bis zum Installieren von Lizenzschlüssel sind Funktionen, für die Standardlizenzen erforderlich sind, weiterhin für den Ersatz-Node verfügbar. Wenn der beeinträchtigte Knoten jedoch der einzige Node im Cluster war, der eine Lizenz für die Funktion besitzt, sind keine Konfigurationsänderungen an der Funktion zulässig. Durch die Verwendung nicht lizenzierter Funktionen auf dem Node können Sie Ihre Lizenzvereinbarung möglicherweise nicht mehr erfüllen, sodass Sie den Ersatzlizenzschlüssel oder die Schlüssel so schnell wie möglich auf dem Ersatzknoten installieren sollten.
+
+Die Lizenzschlüssel müssen im 28-stelligen Format vorliegen.
+
+Sie haben eine 90-Tage-Nachfrist zur Installation der Lizenzschlüssel. Nach Ablauf der Frist werden alle alten Lizenzen ungültig. Nachdem ein gültiger Lizenzschlüssel installiert wurde, haben Sie 24 Stunden Zeit, um alle Schlüssel zu installieren, bevor die Kulanzzeit endet.
+
+
+NOTE: Wenn alle Nodes an einem Standort ausgetauscht wurden (ein einzelner Node bei einer MetroCluster Konfiguration mit zwei Nodes), müssen vor dem Wechsel die Lizenzschlüssel auf dem Ersatz-Node oder auf den Nodes installiert werden.
+
+.Schritte
+. Identifizieren Sie die Lizenzen auf dem Knoten:
++
+`license show`
+
++
+Im folgenden Beispiel werden Informationen zu Lizenzen im System angezeigt:
+
++
+[listing]
+----
+cluster_B::>  license show
+         (system license show)
+
+Serial Number: 1-80-00050
+Owner: site1-01
+Package           Type       Description             Expiration
+-------          -------     -------------           -----------
+Base             license     Cluster Base License        -
+NFS              site        NFS License                 -
+CIFS             site        CIFS License                -
+iSCSI            site        iSCSI License               -
+FCP              site        FCP License                 -
+FlexClone        site        FlexClone License           -
+
+6 entries were displayed.
+----
+. Vergewissern Sie sich nach dem Wechsel zurück, dass die Lizenzen für den Node gut sind:
++
+`metrocluster check license show`
+
++
+Im folgenden Beispiel werden die Lizenzen angezeigt, die für den Knoten gut sind:
+
++
+[listing]
+----
+cluster_B::> metrocluster check license show
+
+Cluster           Check                             Result
+-------           -------                           -------------
+Cluster_B         negotiated-switchover-ready       not-applicable
+NFS               switchback-ready                  not-applicable
+CIFS              job-schedules                     ok
+iSCSI             licenses                          ok
+FCP               periodic-check-enabled            ok
+----
+. Wenn Sie neue Lizenzschlüssel benötigen, rufen Sie die Ersatz-Lizenzschlüssel auf der NetApp Support Site im Abschnitt „My Support“ unter „Software-Lizenzen“ auf.
++
+
+NOTE: Die neuen Lizenzschlüssel, die Sie benötigen, werden automatisch generiert und an die E-Mail-Adresse in der Datei gesendet. Wenn Sie die E-Mail mit den Lizenzschlüssel nicht innerhalb von 30 Tagen erhalten, lesen Sie den Abschnitt _ „Kontakt aufnehmen, wenn ich Probleme mit meinen Lizenzen habe?“_ im Knowledge Base-Artikel link:https://kb.netapp.com/Advice_and_Troubleshooting/Flash_Storage/AFF_Series/Post_Motherboard_Replacement_Process_to_update_Licensing_on_a_AFF_FAS_system["Verfahren zum Austausch der Hauptplatine zur Aktualisierung der Lizenzierung auf einem All Flash FAS/FAS System"^]
+
+. Installieren Sie jeden Lizenzschlüssel:
++
+`system license add -license-code license-key, license-key...+`
+
+. Entfernen Sie ggf. die alten Lizenzen:
++
+.. Suchen Sie nach nicht verwendeten Lizenzen:
++
+`license clean-up -unused -simulate`
+
+.. Wenn die Liste korrekt aussieht, entfernen Sie die nicht verwendeten Lizenzen:
++
+`license clean-up -unused`
+
+
+
+
+
+
+
+== Wiederherstellung von Verschlüsselungsmanagement
+
+Sind die Daten-Volumes verschlüsselt, müssen Sie das Verschlüsselungsmanagement wiederherstellen. Ist das Root-Volume verschlüsselt, müssen Sie das Verschlüsselungsmanagement wiederherstellen.
+
+.Schritte
+. Wenn Daten-Volumes verschlüsselt sind, stellen Sie die Schlüssel mithilfe des richtigen Befehls für Ihre Schlüsselverwaltungskonfiguration wieder her.
++
+[cols="1,2"]
+|===
+
+
+| Sie verwenden... | Befehl 
+
+
+ a| 
+* Onboard-Verschlüsselungsmanagement*
+ a| 
+`security key-manager onboard sync`
+
+Weitere Informationen finden Sie unter https://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-nve/GUID-E4AB2ED4-9227-4974-A311-13036EB43A3D.html["Wiederherstellung der integrierten Schlüssel für das Verschlüsselungsmanagement"^].
+
+
+
+ a| 
+*Externes Schlüsselmanagement*
+ a| 
+`security key-manager key query -node node-name`
+
+Weitere Informationen finden Sie unter https://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-nve/GUID-32DA96C3-9B04-4401-92B8-EAF323C3C863.html["Wiederherstellen der externen Schlüssel für das Verschlüsselungsmanagement"^].
+
+|===
+. Wenn das Root-Volume verschlüsselt ist, verwenden Sie das Verfahren unter link:../transition/task_connect_the_mcc_ip_controller_modules_2n_mcc_transition_supertask.html#recovering-key-management-if-the-root-volume-is-encrypted["Wiederherstellung des Verschlüsselungsmanagements bei Verschlüsselung des Root-Volumes"].
+
+
+
+
+== Zurückwechseln
+
+Nachdem Sie die MetroCluster-Konfiguration repariert haben, können Sie den MetroCluster-Switchback-Vorgang ausführen. Der MetroCluster Switchback-Vorgang gibt die Konfiguration wieder in den normalen Betriebsstatus zurück, wobei die Virtual Machines (SVMs) am Disaster-Standort aktiv sind und die Daten aus den lokalen Festplattenpools bereitstellen.
+
+.Bevor Sie beginnen
+* Der Disaster Cluster muss erfolgreich auf den verbleibenden Cluster umgeschaltet sein.
+* Mit den Daten und den Root-Aggregaten muss eine Reparatur durchgeführt worden sein.
+* Die verbleibenden Cluster-Nodes dürfen sich nicht im HA-Failover-Status befinden (alle Nodes müssen für jedes HA-Paar in Betrieb sein).
+* Die Controller-Module des Disaster-Site-Standorts müssen vollständig gebootet werden und nicht im HA-Übernahmemodus.
+* Das Root-Aggregat muss gespiegelt werden.
+* Die Inter-Switch Links (ISLs) müssen online sein.
+* Alle erforderlichen Lizenzen müssen auf dem System installiert sein.
+
+
+.Schritte
+. Vergewissern Sie sich, dass sich alle Nodes im Status aktiviert befinden:
++
+`metrocluster node show`
+
++
+Im folgenden Beispiel werden die Nodes angezeigt, die den Status aktiviert haben:
+
++
+[listing]
+----
+cluster_B::>  metrocluster node show
+
+DR                        Configuration  DR
+Group Cluster Node        State          Mirroring Mode
+----- ------- ----------- -------------- --------- --------------------
+1     cluster_A
+              node_A_1    configured     enabled   heal roots completed
+              node_A_2    configured     enabled   heal roots completed
+      cluster_B
+              node_B_1    configured     enabled   waiting for switchback recovery
+              node_B_2    configured     enabled   waiting for switchback recovery
+4 entries were displayed.
+----
+. Bestätigen Sie, dass die Neusynchronisierung auf allen SVMs abgeschlossen ist:
++
+`metrocluster vserver show`
+
+. Überprüfen Sie, ob alle automatischen LIF-Migrationen, die durch die heilenden Vorgänge durchgeführt werden, erfolgreich abgeschlossen sind:
++
+`metrocluster check lif show`
+
+. Führen Sie den Wechsel zurück durch, indem Sie den ausführen `metrocluster switchback` Befehl von einem beliebigen Node im verbleibenden Cluster
+. Überprüfen Sie den Fortschritt des Umschalttaschens:
++
+`metrocluster show`
+
++
+Der Umkehrvorgang läuft noch, wenn die Ausgabe „Warten auf Umkehren“ anzeigt:
+
++
+[listing]
+----
+cluster_B::> metrocluster show
+Cluster                   Entry Name          State
+------------------------- ------------------- -----------
+ Local: cluster_B         Configuration state configured
+                          Mode                switchover
+                          AUSO Failure Domain -
+Remote: cluster_A         Configuration state configured
+                          Mode                waiting-for-switchback
+                          AUSO Failure Domain -
+----
++
+Der Umschalttavorgang ist abgeschlossen, wenn der Ausgang „Normal“ anzeigt:
+
++
+[listing]
+----
+cluster_B::> metrocluster show
+Cluster                   Entry Name          State
+------------------------- ------------------- -----------
+ Local: cluster_B         Configuration state configured
+                          Mode                normal
+                          AUSO Failure Domain -
+Remote: cluster_A         Configuration state configured
+                          Mode                normal
+                          AUSO Failure Domain -
+----
++
+Wenn ein Wechsel zurückkehrt lange dauert, können Sie den Status der Basispläne in Bearbeitung überprüfen, indem Sie den folgenden Befehl auf der erweiterten Berechtigungsebene verwenden:
+
++
+`metrocluster config-replication resync-status show`
+
+. Wiederherstellung beliebiger SnapMirror oder SnapVault Konfigurationen
++
+In ONTAP 8.3 müssen Sie nach dem Wechsel zum MetroCluster eine verlorene SnapMirror Konfiguration manuell wiederherstellen. In ONTAP 9.0 und höher wird die Beziehung automatisch wiederhergestellt.
+
+
+
+
+
+== Überprüfen eines erfolgreichen Umschalttasches
+
+Nach dem Wechsel zurück möchten Sie sicherstellen, dass alle Aggregate und Storage Virtual Machines (SVMs) zurück und wieder online geschaltet werden.
+
+.Schritte
+. Vergewissern Sie sich, dass die Switched-Data-Aggregate zurückgeschaltet sind:
++
+`storage aggregate show`
+
++
+Im folgenden Beispiel ist aggr_b2 an Knoten B2 zurückgeschaltet:
+
++
+[listing]
+----
+node_B_1::> storage aggregate show
+Aggregate     Size Available Used% State   #Vols  Nodes            RAID Status
+--------- -------- --------- ----- ------- ------ ---------------- ------------
+...
+aggr_b2    227.1GB   227.1GB    0% online       0 node_B_2   raid_dp,
+                                                                   mirrored,
+                                                                   normal
+
+node_A_1::> aggr show
+Aggregate     Size Available Used% State   #Vols  Nodes            RAID Status
+--------- -------- --------- ----- ------- ------ ---------------- ------------
+...
+aggr_b2          -         -     - unknown      - node_A_1
+----
++
+Wenn am Disaster Site nicht gespiegelte Aggregate und nicht gespiegelte Aggregate nicht mehr vorhanden sind, dann zeigt das Aggregat in der Ausgabe des Befehls show des Storage aggregate möglicherweise den Status „`unknown`“ an. Wenden Sie sich an den technischen Support, um veraltete Einträge für nicht gespiegelte Aggregate zu entfernen, verweisen Sie im Knowledge Base-Artikel link:https://kb.netapp.com/Advice_and_Troubleshooting/Data_Protection_and_Security/MetroCluster/How_to_remove_stale_unmirrored_aggregate_entries_in_a_MetroCluster_following_disaster_where_storage_was_lost["Wie entfernt man veraltete, nicht gespiegelte Aggregate Einträge in einer MetroCluster nach dem Zwischenfall, bei dem Speicher verloren ging."^]
+
+. Überprüfen Sie, ob alle synchronen Ziel-SVMs auf dem verbleibenden Cluster inaktiv sind (mit einem Administratorstatus von „`sgekrönt`“), und ob die SVMs der synchronen Quelle auf dem Disaster Cluster verfügbar sind:
++
+`vserver show -subtype sync-source`
+
++
+[listing]
+----
+node_B_1::> vserver show -subtype sync-source
+                               Admin      Root                       Name    Name
+Vserver     Type    Subtype    State      Volume     Aggregate       Service Mapping
+----------- ------- ---------- ---------- ---------- ----------      ------- -------
+...
+vs1a        data    sync-source
+                               running    vs1a_vol   node_B_2        file    file
+                                                                     aggr_b2
+
+node_A_1::> vserver show -subtype sync-destination
+                               Admin      Root                         Name    Name
+Vserver            Type    Subtype    State      Volume     Aggregate  Service Mapping
+-----------        ------- ---------- ---------- ---------- ---------- ------- -------
+...
+cluster_A-vs1a-mc  data    sync-destination
+                                      stopped    vs1a_vol   sosb_      file    file
+                                                                       aggr_b2
+----
++
+Für Sync-Ziel-Aggregate in der MetroCluster-Konfiguration wurde das Suffix „-mc“ automatisch an ihren Namen angehängt, um sie zu identifizieren.
+
+. Vergewissern Sie sich, dass die Umkehrvorgänge mit dem erfolgreich waren `metrocluster operation show` Befehl.
++
+|===
+
+
+| Wenn die Befehlsausgabe angezeigt wird... | Dann... 
+
+
+ a| 
+Dass der Betriebszustand zurückwechseln erfolgreich ist.
+ a| 
+Der Switch-Back-Vorgang ist abgeschlossen, und Sie können den Betrieb des Systems fortsetzen.
+
+
+
+ a| 
+Dass der Betrieb des zurückkehrenden oder zurückkehrenden Agenten teilweise erfolgreich ist.
+ a| 
+Führen Sie den vorgeschlagenen Fix aus, der in der Ausgabe des Befehls MetroCluster Operation show angegeben ist.
+
+|===
+
+
+Sie müssen die vorherigen Abschnitte wiederholen, um den Umschalter in die entgegengesetzte Richtung auszuführen. Wenn Site_A die Umschaltung von Site_B durchgeführt hat, muss Site_B die Umschaltung von Site_A durchführen
+
+
+
+== Spiegelung der Root-Aggregate der Ersatz-Nodes
+
+Falls Festplatten ausgetauscht wurden, müssen die Root-Aggregate der neuen Nodes am Disaster Site gespiegelt werden.
+
+.Schritte
+. Geben Sie am Notfallstandort die Aggregate an, die nicht gespiegelt wurden:
++
+`storage aggregate show`
+
++
+[listing]
+----
+cluster_A::> storage aggregate show
+
+Aggregate     Size Available Used% State   #Vols  Nodes            RAID Status
+--------- -------- --------- ----- ------- ------ ---------------- ------------
+node_A_1_aggr0
+            1.49TB   74.12GB   95% online       1 node_A_1         raid4,
+                                                                   normal
+node_A_2_aggr0
+            1.49TB   74.12GB   95% online       1 node_A_2         raid4,
+                                                                   normal
+node_A_1_aggr1
+            1.49TB   74.12GB   95% online       1 node_A_1         raid 4, normal
+                                                                   mirrored
+node_A_2_aggr1
+            1.49TB   74.12GB   95% online       1 node_A_2         raid 4, normal
+                                                                   mirrored
+4 entries were displayed.
+
+cluster_A::>
+----
+. Eines der Root-Aggregate spiegeln:
++
+`storage aggregate mirror -aggregate root-aggregate`
+
++
+Das folgende Beispiel zeigt, wie der Befehl Festplatten auswählt und wie Sie beim Spiegeln des Aggregats eine Bestätigung erhalten.
+
++
+[listing]
+----
+cluster_A::> storage aggregate mirror -aggregate node_A_2_aggr0
+
+Info: Disks would be added to aggregate "node_A_2_aggr0" on node "node_A_2" in
+      the following manner:
+
+      Second Plex
+
+        RAID Group rg0, 3 disks (block checksum, raid4)
+          Position   Disk                      Type                  Size
+          ---------- ------------------------- ---------- ---------------
+          parity     2.10.0                    SSD                      -
+          data       1.11.19                   SSD                894.0GB
+          data       2.10.2                    SSD                894.0GB
+
+      Aggregate capacity available for volume use would be 1.49TB.
+
+Do you want to continue? {y|n}: y
+
+cluster_A::>
+----
+. Überprüfen Sie, ob die Spiegelung des Root-Aggregats abgeschlossen ist:
++
+`storage aggregate show`
+
++
+Das folgende Beispiel zeigt, dass die Root-Aggregate gespiegelt werden.
+
++
+[listing]
+----
+cluster_A::> storage aggregate show
+
+Aggregate     Size Available Used% State   #Vols  Nodes       RAID Status
+--------- -------- --------- ----- ------- ------ ----------- ------------
+node_A_1_aggr0
+            1.49TB   74.12GB   95% online       1 node_A_1    raid4,
+                                                              mirrored,
+                                                              normal
+node_A_2_aggr0
+            2.24TB   838.5GB   63% online       1 node_A_2    raid4,
+                                                              mirrored,
+                                                              normal
+node_A_1_aggr1
+            1.49TB   74.12GB   95% online       1 node_A_1    raid4,
+                                                              mirrored,
+                                                              normal
+node_A_2_aggr1
+            1.49TB   74.12GB   95% online       1 node_A_2    raid4
+                                                              mirrored,
+                                                              normal
+4 entries were displayed.
+
+cluster_A::>
+----
+. Wiederholen Sie diese Schritte für die anderen Root-Aggregate.
++
+Jedes Root-Aggregat, das keinen Status der Spiegelung hat, muss gespiegelt werden.
+
+
+
+
+
+== Neukonfigurieren des ONTAP Mediator-Dienstes (MetroCluster IP-Konfigurationen)
+
+Wenn Sie über eine MetroCluster-IP-Konfiguration verfügen, die mit dem ONTAP Mediator-Dienst konfiguriert wurde, müssen Sie die Zuordnung zum Mediator entfernen und neu konfigurieren.
+
+.Bevor Sie beginnen
+* Sie müssen die IP-Adresse und den Benutzernamen und das Kennwort für den ONTAP Mediator-Dienst besitzen.
+* Der ONTAP Mediator-Dienst muss konfiguriert und auf dem Linux-Host ausgeführt werden.
+
+
+.Schritte
+. Entfernen Sie die vorhandene ONTAP Mediator-Konfiguration:
++
+`metrocluster configuration-settings mediator remove`
+
+. Konfigurieren des ONTAP Mediators neu konfigurieren:
++
+`metrocluster configuration-settings mediator add -mediator-address mediator-IP-address`
+
+
+
+
+
+== Überprüfen des Systemzustands der MetroCluster-Konfiguration
+
+Sie sollten den Systemzustand der MetroCluster-Konfiguration überprüfen, um einen ordnungsgemäßen Betrieb zu gewährleisten.
+
+.Schritte
+. Vergewissern Sie sich, dass die MetroCluster für jedes Cluster im normalen Modus konfiguriert ist:
++
+`metrocluster show`
+
++
+[listing]
+----
+cluster_A::> metrocluster show
+Cluster                   Entry Name          State
+------------------------- ------------------- -----------
+ Local: cluster_A         Configuration state configured
+                          Mode                normal
+                          AUSO Failure Domain auso-on-cluster-disaster
+Remote: cluster_B         Configuration state configured
+                          Mode                normal
+                          AUSO Failure Domain auso-on-cluster-disaster
+----
+. Vergewissern Sie sich, dass die Spiegelung auf jedem Knoten aktiviert ist:
++
+`metrocluster node show`
+
++
+[listing]
+----
+cluster_A::> metrocluster node show
+DR                           Configuration  DR
+Group Cluster Node           State          Mirroring Mode
+----- ------- -------------- -------------- --------- --------------------
+1     cluster_A
+              node_A_1       configured     enabled   normal
+      cluster_B
+              node_B_1       configured     enabled   normal
+2 entries were displayed.
+----
+. Prüfen Sie, ob die MetroCluster-Komponenten ordnungsgemäß sind:
++
+`metrocluster check run`
+
++
+[listing]
+----
+cluster_A::> metrocluster check run
+
+Last Checked On: 10/1/2014 16:03:37
+
+Component           Result
+------------------- ---------
+nodes               ok
+lifs                ok
+config-replication  ok
+aggregates          ok
+4 entries were displayed.
+
+Command completed. Use the `metrocluster check show -instance` command or sub-commands in `metrocluster check` directory for detailed results.
+To check if the nodes are ready to do a switchover or switchback operation, run `metrocluster switchover -simulate` or `metrocluster switchback -simulate`, respectively.
+----
+. Vergewissern Sie sich, dass es keine Systemzustandsmeldungen gibt:
++
+`system health alert show`
+
+. Simulation eines Switchover-Vorgangs:
++
+.. Ändern Sie von der Eingabeaufforderung eines beliebigen Node auf die erweiterte Berechtigungsebene:
++
+`set -privilege advanced`
+
++
+Sie müssen mit reagieren `y` Wenn Sie dazu aufgefordert werden, den erweiterten Modus fortzusetzen und die Eingabeaufforderung für den erweiterten Modus (*) anzuzeigen.
+
+.. Führen Sie den Switchover mit durch `-simulate` Parameter:
++
+`metrocluster switchover -simulate`
+
+.. Zurück zur Administratorberechtigungsebene:
++
+`set -privilege admin`
+
+
+
+. Bei MetroCluster IP-Konfigurationen unter Verwendung des ONTAP Mediator-Dienstes bestätigen Sie, dass der Mediator-Dienst aktiv ist.
++
+.. Überprüfen Sie, ob die Mediator-Festplatten für das System sichtbar sind:
++
+`storage failover mailbox-disk show`
+
++
+Das folgende Beispiel zeigt, dass die Mailbox-Platten erkannt wurden.
+
++
+[listing]
+----
+node_A_1::*> storage failover mailbox-disk show
+                 Mailbox
+Node             Owner     Disk    Name        Disk UUID
+-------------     ------   -----   -----        ----------------
+sti113-vsim-ucs626g
+.
+.
+     local     0m.i2.3L26      7BBA77C9:AD702D14:831B3E7E:0B0730EE:00000000:00000000:00000000:00000000:00000000:00000000
+     local     0m.i2.3L27      928F79AE:631EA9F9:4DCB5DE6:3402AC48:00000000:00000000:00000000:00000000:00000000:00000000
+     local     0m.i1.0L60      B7BCDB3C:297A4459:318C2748:181565A3:00000000:00000000:00000000:00000000:00000000:00000000
+.
+.
+.
+     partner   0m.i1.0L14      EA71F260:D4DD5F22:E3422387:61D475B2:00000000:00000000:00000000:00000000:00000000:00000000
+     partner   0m.i2.3L64      4460F436:AAE5AB9E:D1ED414E:ABF811F7:00000000:00000000:00000000:00000000:00000000:00000000
+28 entries were displayed.
+----
+.. Ändern Sie die erweiterte Berechtigungsebene:
++
+`set -privilege advanced`
+
+.. Überprüfen Sie, ob die Mailbox-LUNs für das System sichtbar sind:
++
+`storage iscsi-initiator show`
+
++
+In der Ausgabe wird das Vorhandensein der Mailbox-LUNs angezeigt:
+
++
+[listing]
+----
+
+Node    Type       Label      Target Portal     Target Name                                 Admin/Op
+----    ----       --------   ---------    --------- --------------------------------       --------
+.
+.
+.
+.node_A_1
+               mailbox
+                     mediator 172.16.254.1    iqn.2012-05.local:mailbox.target.db5f02d6-e3d3    up/up
+.
+.
+.
+17 entries were displayed.
+----
+.. Zurück zur Administratorberechtigungsebene:
++
+`set -privilege admin`
+
+
+
+

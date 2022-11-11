@@ -1,0 +1,46 @@
+---
+permalink: transition/task_move_data_to_new_drive_shelves.html 
+sidebar: sidebar 
+keywords: Generating and applying RCFs to the new IP switches, review, requirement, preparing, prepare, transition, perform, procedure, order, completing, complete, step, task, moving, move, controller, storage, shelves, shelf, exist, configuration, direct, metrocluster, fc, ip, verify, health, removing, remove, tiebreaker, monitor, software, generating, generate, apply, rcf, switch, controller, configure, prepare, preparing 
+summary: Während der Umstellung werden die Daten von den Laufwerk-Shelfs in der MetroCluster FC-Konfiguration auf die neue MetroCluster IP-Konfiguration verschoben. 
+---
+= Die Daten werden auf die neuen Festplatten-Shelfs verschoben
+:allow-uri-read: 
+
+
+[role="lead"]
+Während der Umstellung werden die Daten von den Laufwerk-Shelfs in der MetroCluster FC-Konfiguration auf die neue MetroCluster IP-Konfiguration verschoben.
+
+Sie sollten neue SAN-LIFs auf den Ziel- oder IP-Nodes erstellen und Hosts verbinden, bevor Sie Volumes zu den neuen Aggregaten verschieben.
+
+. Um mit der automatischen Erstellung von Support-Cases fortzufahren, senden Sie eine AutoSupport Meldung, um anzugeben, dass die Wartung abgeschlossen ist.
++
+.. Geben Sie den folgenden Befehl ein: `system node autosupport invoke -node * -type all -message MAINT=end`
+.. Wiederholen Sie den Befehl im Partner-Cluster.
+
+
+. Verschieben Sie die Daten-Volumes zu Aggregaten auf den neuen Controllern, jeweils ein Volume.
++
+Verwenden Sie das Verfahren unter http://docs.netapp.com/platstor/topic/com.netapp.doc.hw-upgrade-controller/GUID-AFE432F6-60AD-4A79-86C0-C7D12957FA63.html["Erstellung eines Aggregats und Verschiebung von Volumes zu den neuen Nodes"].
+
+. Erstellen Sie SAN-LIFs auf den kürzlich hinzugefügten Nodes.
++
+Gehen Sie wie folgt vor http://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-expand/GUID-E3BB89AF-6251-4210-A979-130E845BC9A1.html["LUN-Pfade für die neuen Nodes werden aktualisiert"^].
+
+. Prüfen Sie, ob auf den FC-Nodes gesperrte Lizenzen für Nodes vorhanden sind. Falls vorhanden, müssen sie den neu hinzugefügten Nodes hinzugefügt werden.
++
+Gehen Sie wie folgt vor http://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-expand/GUID-487FAC36-3C5C-4314-B4BD-4253CB67ABE8.html["Hinzufügen von Node-gesperrten Lizenzen"^].
+
+. Migrieren der Daten-LIFs
++
+Verwenden Sie das Verfahren unter  http://docs.netapp.com/platstor/topic/com.netapp.doc.hw-upgrade-controller/GUID-95CA9262-327D-431D-81AA-C73DEFF3DEE2.html["Die verschieben von LIFs für nicht-SAN-Daten und LIFs für das Cluster-Management auf die neuen Nodes"^] Führen Sie aber die letzten beiden Schritte durch, um LIFs für das Cluster-Management zu migrieren.
+
+
+
+[NOTE]
+====
+* Sie können keine LIF migrieren, die für Copy-Offload-Vorgänge verwendet wird – mit VMware vStorage APIs for Array Integration (VAAI).
+* Nach dem Abschluss der Umstellung Ihrer MetroCluster Nodes von FC zu IP müssen Sie eventuell Ihre iSCSI Host-Verbindungen zu den neuen Nodes von finden Sie unter link:task_move_linux_iscsi_hosts_from_mcc_fc_to_mcc_ip_nodes.html["Verschieben von Linux iSCSI-Hosts von MetroCluster-FC- zu MetroCluster-IP-Knoten."]
+
+
+====

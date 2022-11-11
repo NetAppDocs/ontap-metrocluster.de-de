@@ -1,0 +1,181 @@
+---
+permalink: maintain/concept_where_to_find_procedures_for_mcc_maintenance_tasks.html 
+sidebar: sidebar 
+keywords: metrocluster, maintain, service, find, procedures, maintenance, tasks 
+summary: Sie sollten sicher sein, dass Sie das richtige Verfahren auswählen, wenn Sie MetroCluster-Hardwarewartungsaufgaben ausführen. 
+---
+= Hier finden Sie Verfahren für MetroCluster-Wartungsarbeiten
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie sollten sicher sein, dass Sie das richtige Verfahren auswählen, wenn Sie MetroCluster-Hardwarewartungsaufgaben ausführen.
+
+
+NOTE: Mit der Veröffentlichung von ONTAP 9.8 haben sich die MetroCluster Upgrade- und Erweiterungsverfahren in das verlagert link:../upgrade/concept_choosing_an_upgrade_method_mcc.html["MetroCluster Upgrade und Erweiterung"] Und link:../transition/concept_choosing_your_transition_procedure_mcc_transition.html["Umstellung von MetroCluster FC auf MetroCluster IP"].
+
+|===
+
+
+| Komponente | MetroCluster Typ (FC oder IP) | Aufgabe | Verfahren 
+
+
+ a| 
+ONTAP Software
+ a| 
+Beides
+ a| 
+ONTAP-Software-Upgrade
+ a| 
+https://docs.netapp.com/us-en/ontap/upgrade/index.html["Upgrade, Zurücksetzen oder Downgrade"^]
+
+
+
+ a| 
+Controller-Modul
+ a| 
+Beides
+ a| 
+FRU-Ersatz (einschließlich Controller-Module, PCIe-Karten, FC-VI-Karte usw.)
+
+
+NOTE: Das Verschieben eines Storage-Controller-Moduls oder einer NVRAM-Karte zu den MetroCluster Storage-Systemen wird nicht unterstützt.
+ a| 
+https://docs.netapp.com/platstor/index.jsp["AFF and FAS Documentation Center"]
+
+
+
+ a| 
+Upgrades und Erweiterungen
+ a| 
+link:../upgrade/concept_choosing_an_upgrade_method_mcc.html["MetroCluster® Upgrade und Erweiterung"]
+
+
+
+ a| 
+Übergang von FC- zu IP-Konnektivität
+ a| 
+link:../transition/concept_choosing_your_transition_procedure_mcc_transition.html["Umstellung von MetroCluster FC auf MetroCluster IP"]
+
+
+
+ a| 
+Festplatten-Shelf
+ a| 
+FC
+ a| 
+Regalzugang (Stapel mit Brücken oder Einzelregal)
+ a| 
+link:task_hot_add_a_stack_to_exist_7500n_pair.html["Hot-Adding eines SAS-Festplatten-Shelfs zu einem vorhandenen FibreBridge 7500N-Paar"]
+
+link:task_fb_hot_add_stack_of_shelves_and_bridges.html["Hot-Adding eines Stacks mit SAS-Platten-Shelves und Brücken zu einem MetroCluster System"]
+
+link:task_fb_hot_add_shelf_prepare_7500n.html["Hot-Adding eines SAS-Platten-Shelf zu einem Stack von SAS-Festplatten-Shelfs"]
+
+
+
+ a| 
+FC
+ a| 
+Entfernen von Shelfs
+ a| 
+link:task_hot_remove_storage_from_a_mcc_fc_configuration.html["Hot-Removing Storage aus einer MetroCluster FC-Konfiguration"]
+
+
+
+ a| 
+FC
+ a| 
+Alle anderen Shelf-Wartungsarbeiten Die Standardverfahren können verwendet werden.
+ a| 
+https://docs.netapp.com/platstor/topic/com.netapp.doc.hw-ds-sas3-service/home.html["Aufrechterhaltung der Festplatten-Shelfs DS460C DS224C und DS212C"^]
+
+
+
+ a| 
+IP
+ a| 
+Alle Shelf-Wartungsarbeiten Die Standardverfahren können verwendet werden.
+
+Wenn Sie Shelfs für ein nicht gespiegeltes Aggregat hinzufügen, lesen Sie http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-mcc-inst-cnfg-ip/GUID-EA385AF8-7786-4C3C-B5AE-1B4CFD3AD2EE.html["Überlegungen bei der Verwendung von nicht gespiegelten Aggregaten"^]
+ a| 
+https://docs.netapp.com/platstor/topic/com.netapp.doc.hw-ds-sas3-service/home.html["Aufrechterhaltung der Festplatten-Shelfs DS460C DS224C und DS212C"^]
+
+
+
+ a| 
+Beides
+ a| 
+Hot-Hinzufügen von IOM12-Shelfs zu einem Stack von IOM6-Shelfs
+ a| 
+https://docs.netapp.com/platstor/topic/com.netapp.doc.hw-ds-mix-hotadd/home.html["Hot-Adding-Shelfs mit IOM12-Modulen werden in einem Shelf-Stack mit IOM6-Modulen ausgeführt"^]
+
+
+
+ a| 
+FC-to-SAS-Bridge
+ a| 
+FC
+ a| 
+Brückenaustausch
+ a| 
+link:task_replace_a_sle_fc_to_sas_bridge.html["Austauschen einer einzelnen FC-to-SAS-Bridge"]
+
+link:task_fb_consolidate_replace_a_pair_of_fibrebridge_6500n_bridges_with_7500n_bridges.html["Austausch von zwei FibreBridge 6500N-Brücken durch 7600N- oder 7500N-Brücken"]
+
+link:task_replace_a_sle_fc_to_sas_bridge.html#hot-swapping-a-fibrebridge-7500n-with-a-7600n-bridge["Hot-Swap einer FibreBridge 7500N mit einer 7600N-Brücke"]
+
+
+
+ a| 
+FC
+ a| 
+Firmware-Upgrade
+ a| 
+link:task_update_firmware_on_a_fibrebridge_bridge_parent_topic.html["Aktualisieren der Firmware auf einer FibreBridge-Bridge"]
+
+
+
+ a| 
+FC
+ a| 
+Austausch eines defekten Netzteilmoduls
+ a| 
+link:reference_fb_replace_a_power_supply.html["Hot-Ersetzen eines fehlerhaften Netzteilmoduls"]
+
+
+
+ a| 
+FC Switch
+ a| 
+FC
+ a| 
+Switch-Upgrade
+ a| 
+link:task_upgrade_to_new_brocade_switches.html["Upgrade auf neue Brocade FC-Switches"]
+
+
+
+ a| 
+FC
+ a| 
+Wechsel des Schalters
+ a| 
+link:task_replace_a_brocade_fc_switch_mcc.html["Ersetzen eines Brocade FC-Switches (MetroCluster)"]
+
+link:task_replace_a_cisco_fc_switch_mcc.html["Austausch eines Cisco FC-Switches"]
+
+
+
+ a| 
+FC
+ a| 
+Firmware-Upgrade
+ a| 
+link:task_upgrade_or_downgrad_the_firmware_on_a_brocade_fc_switch_mcc.html["Aktualisieren der Firmware auf einem Brocade FC-Switch"]
+
+link:task_upgrade_or_downgrad_the_firmware_on_a_cisco_fc_switch_mcc.html["Aktualisieren der Firmware auf einem Cisco FC-Switch"]
+
+|===

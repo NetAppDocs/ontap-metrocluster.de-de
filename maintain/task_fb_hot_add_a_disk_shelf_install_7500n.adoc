@@ -1,0 +1,196 @@
+---
+permalink: maintain/task_fb_hot_add_a_disk_shelf_install_7500n.html 
+sidebar: sidebar 
+keywords: metrocluster, maintain, service, hot, add, disk, shelf 
+summary: Sie können ein Platten-Shelf während des laufenden Betrieb hinzufügen, wenn Sie die Storage-Kapazität erhöhen möchten, ohne die Performance zu beeinträchtigen. 
+---
+= Hot-Adding eines Festplatten-Shelfs
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können ein Platten-Shelf während des laufenden Betrieb hinzufügen, wenn Sie die Storage-Kapazität erhöhen möchten, ohne die Performance zu beeinträchtigen.
+
+* Das System muss alle Anforderungen in erfüllen link:task_fb_hot_add_shelf_prepare_7500n.html["Vorbereitung auf Hot-Add-Platten-Shelves"].
+* Ihre Umgebung muss eines der folgenden Szenarien erfüllen, um ein Hot-Add-Shelf zu aktivieren:
++
+** Sie haben zwei FibreBridge 7500N-Bridges mit einem Stack von SAS-Platten-Shelves verbunden.
+** Sie verfügen über eine FibreBridge 7500N Bridge und eine FibreBridge 6500N-Bridge, die mit einem SAS-Festplatten-Shelf verbunden ist.
+** Sie haben zwei FibreBridge 6500N-Bridges mit einem Stack von SAS-Platten-Shelves verbunden.
+
+
+* Dieses Verfahren dient zum Hinzufügen eines Festplatten-Shelfs zum letzten Festplatten-Shelf im Stack.
++
+Dieses Verfahren setzt die Annahme ein, dass das letzte Festplatten-Shelf eines Stacks von IOM A mit der Bridge A und von IOM B zu Bridge B verbunden ist
+
+* Hierbei handelt es sich um ein unterbrechungsfreies Verfahren.
+* Sie sollten an jedem Standort die gleiche Anzahl an Platten-Shelfs hinzufügen.
+* Wenn Sie mehrere Festplatten-Shelfs im laufenden Betrieb hinzufügen, müssen Sie ein Festplatten-Shelf gleichzeitig im laufenden Betrieb hinzufügen.
++
+
+NOTE: Jedes Paar Brücken FibreBridge 7500N oder 7600N kann bis zu vier Stapel unterstützen.
+
+
+
+
+IMPORTANT: Zum Hot-Hinzufügen eines Festplatten-Shelfs müssen Sie die Festplatten-Firmware auf dem Hot-Added Disk Shelf aktualisieren, indem Sie die ausführen `storage disk firmware update` Befehl im erweiterten Modus. Diese Ausführung dieses Befehls kann den Betrieb unterbrechen, wenn die Firmware auf vorhandenen Festplattenlaufwerken im System eine ältere Version ist.
+
+
+IMPORTANT: Wenn Sie ein SAS-Kabel in den falschen Port stecken, müssen Sie das Kabel von einem SAS-Port entfernen und mindestens 120 Sekunden warten, bevor Sie das Kabel an einen anderen SAS-Port anschließen. Wenn Sie dies nicht tun, erkennt das System nicht, dass das Kabel auf einen anderen Port verschoben wurde.
+
+.Schritte
+. Richtig gemahlen.
+. Überprüfen Sie die Festplatten-Shelf-Konnektivität von der Systemkonsole eines Controllers:
++
+`*sysconfig -v*`
+
++
+Die Ausgabe ähnelt der folgenden Ausgabe:
+
++
+** Jede Bridge in einer separaten Zeile und unter jedem FC-Port, zu dem sie sichtbar ist, führt zum Beispiel: Wenn ein Platten-Shelf zu einer Reihe von FibreBridge 7500N-Bridges hinzugefügt wird, ergibt dies folgende Ausgabe:
++
+[listing]
+----
+FC-to-SAS Bridge:
+cisco_A_1-1:9.126L0: ATTO  FibreBridge7500N 2.10  FB7500N100189
+cisco_A_1-2:1.126L0: ATTO  FibreBridge7500N 2.10  FB7500N100162
+----
+** Jedes Festplatten-Shelf in einer separaten Zeile unter jedem FC-Port, zu dem es sichtbar ist:
++
+[listing]
+----
+Shelf   0: IOM6  Firmware rev. IOM6 A: 0173 IOM6 B: 0173
+Shelf   1: IOM6  Firmware rev. IOM6 A: 0173 IOM6 B: 0173
+----
+** Jedes Laufwerk in einer separaten Zeile unter jedem FC-Port, zu dem es sichtbar ist:
++
+[listing]
+----
+cisco_A_1-1:9.126L1   : NETAPP   X421_HCOBD450A10 NA01 418.0GB (879097968 520B/sect)
+cisco_A_1-1:9.126L2   : NETAPP   X421_HCOBD450A10 NA01 418.0GB (879097968 520B/sect)
+----
+
+
+. Überprüfen Sie, ob die automatische Festplattenzuordnung über die Konsole eines der Controller aktiviert ist:
++
+`*storage disk option show*`
+
++
+Die Richtlinie für die automatische Zuweisung wird in der Spalte Automatische Zuweisung angezeigt.
+
++
+[listing]
+----
+
+Node        BKg. FW. Upd.  Auto Copy   Auto Assign  Auto Assign Policy
+----------  -------------  ----------  -----------  ------------------
+node_A_1             on           on           on           default
+node_A_2             on           on           on           default
+2 entries were displayed.
+----
+. Wenn die automatische Zuweisung von Festplatten im System nicht aktiviert ist oder wenn sich die Laufwerke im selben Stapel im Eigentum beider Controller befinden, weisen Sie den entsprechenden Pools Festplatten zu.
++
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-psmg/home.html["Festplatten- und Aggregatmanagement"]
+
++
+[NOTE]
+====
+Wenn Sie einen einzelnen Stack von Platten-Shelfs zwischen zwei Controllern aufteilen, muss die automatische Festplattenzuweisung deaktiviert werden, bevor Sie die Festplatteneigentümer festlegen. Andernfalls werden die übrigen Festplattenlaufwerke automatisch demselben Controller und demselben Pool zugewiesen.
+
+Der `storage disk option modify -node _node-name_ -autoassign off` Mit Befehl wird die automatische Festplattenzuordnung deaktiviert.
+
+====
++
+
+NOTE: Festplattenlaufwerke dürfen Aggregaten und Volumes erst dann hinzugefügt werden, wenn die Festplatten- und Festplatten-Shelf-Firmware aktualisiert wurde.
+
+. Aktualisieren Sie die Festplatten-Shelf-Firmware auf die aktuelle Version, indem Sie die Anweisungen für die heruntergeladene Firmware verwenden.
++
+Sie können die Befehle des Verfahrens über die Systemkonsole eines der beiden Controller ausführen.
+
++
+https://mysupport.netapp.com/site/downloads/firmware/disk-shelf-firmware["NetApp Downloads: Festplatten-Shelf Firmware"]
+
+. Installieren und verkabeln Sie das Festplatten-Shelf:
++
+Beachten Sie die folgenden Überlegungen:
+
++
+** Für FibreBridge 6500N-Brücken:
++
+Warten Sie mindestens 10 Sekunden, bevor Sie den Anschluss anschließen. Die SAS-Kabelanschlüsse sind codiert; wenn sie korrekt in einen SAS-Port ausgerichtet sind, klickt der Anschluss an einen Platz und die Festplatten-Shelf-SAS-Port LNK-LED leuchtet grün.bei Platten-Shelves setzen Sie einen SAS-Kabelanschluss ein, wobei die Pull-Lasche nach unten (auf der Unterseite des Connectors) ausgerichtet ist.
+
+** Für FibreBridge 7500N-Brücken:
++
+Erzwingen Sie keinen Anschluss in einen Port. Die Mini-SAS-Kabel sind codiert; wenn sie korrekt in einen SAS-Port ausgerichtet sind, klickt das SAS-Kabel an ihre Stelle und die Festplatten-Shelf-SAS-Port LNK LED leuchtet grün.für Platten-Shelves setzen Sie einen SAS-Kabelanschluss ein, wobei die Zuglasche nach oben (auf der Oberseite des Anschlusses) ausgerichtet ist.
+
++
+... Installieren Sie das Festplatten-Shelf, schalten Sie es ein und legen Sie die Shelf-ID fest.
++
+Das _Installation Guide_ für Ihr Festplatten-Shelf-Modell enthält detaillierte Informationen zur Installation von Festplatten-Shelfs.
+
++
+
+NOTE: Sie müssen das Festplatten-Shelf aus- und wieder einschalten und die Shelf-IDs für jedes SAS-Festplatten-Shelf innerhalb des gesamten Storage-Systems eindeutig aufbewahren.
+
+... Trennen Sie das SAS-Kabel vom Port IOM B des letzten Shelfs im Stack, und schließen Sie es dann wieder an den gleichen Port im neuen Shelf an.
++
+Das andere Ende dieses Kabels bleibt mit Brücke B. verbunden
+
+... Schalten Sie das neue Festplatten-Shelf in Reihe, indem Sie die neuen Shelf-IOM-Ports (von IOM A und IOM B) mit den letzten Shelf-IOM-Ports (von IOM A und IOM B) verkabeln.
+
+
+
+
++
+Das _Installation Guide_ für Ihr Festplatten-Shelf-Modell bietet detaillierte Informationen zum Verkettung von Platten-Shelfs in Reihe.
+
+. Aktualisieren Sie die Festplatten-Firmware von der Systemkonsole auf die aktuellste Version.
++
+https://mysupport.netapp.com/site/downloads/firmware/disk-drive-firmware["NetApp Downloads: Festplatten-Firmware"]
+
++
+.. Wechseln Sie zur erweiterten Berechtigungsebene: +
+`*set -privilege advanced*`
++
+Sie müssen mit reagieren `*y*` Wenn Sie dazu aufgefordert werden, den erweiterten Modus fortzusetzen und die Eingabeaufforderung für den erweiterten Modus (*>) anzuzeigen.
+
+.. Aktualisieren Sie die Festplatten-Firmware von der Systemkonsole aus auf die aktuellste Version: +
+`*storage disk firmware update*`
+.. Zurück zur Administrator-Berechtigungsebene: +
+`*set -privilege admin*`
+.. Wiederholen Sie die vorherigen Unterschritte auf dem anderen Controller.
+
+
+. Überprüfen Sie den Betrieb der MetroCluster-Konfiguration in ONTAP:
++
+.. Prüfen Sie, ob das System multipathed ist:
++
+`*node run -node _node-name_ sysconfig -a*`
+
+.. Überprüfen Sie auf beiden Clustern auf alle Zustandswarnmeldungen: +
+`*system health alert show*`
+.. Bestätigen Sie die MetroCluster-Konfiguration und den normalen Betriebsmodus: +
+`*metrocluster show*`
+.. Führen Sie eine MetroCluster-Prüfung durch: +
+`*metrocluster check run*`
+.. Ergebnisse der MetroCluster-Prüfung anzeigen:
++
+`*metrocluster check show*`
+
+.. Prüfen Sie, ob auf den Switches Zustandswarnmeldungen vorliegen (falls vorhanden):
++
+`*storage switch show*`
+
+.. Nutzen Sie Config Advisor.
++
+https://mysupport.netapp.com/site/tools/tool-eula/activeiq-configadvisor["NetApp Downloads: Config Advisor"]
+
+.. Überprüfen Sie nach dem Ausführen von Config Advisor die Ausgabe des Tools und befolgen Sie die Empfehlungen in der Ausgabe, um die erkannten Probleme zu beheben.
+
+
+. Wenn Sie mehr als ein Festplatten-Shelf im laufenden Betrieb hinzufügen, wiederholen Sie die vorherigen Schritte für jedes Festplatten-Shelf, das Sie hinzufügen.
+

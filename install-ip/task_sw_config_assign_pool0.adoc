@@ -1,0 +1,200 @@
+---
+permalink: install-ip/task_sw_config_assign_pool0.html 
+sidebar: sidebar 
+keywords: metrocluster, controller, assign drives, pool 0, disk assign 
+summary: Wenn Sie die werkseitig konfigurierten Systeme nicht empfangen haben, müssen Sie die Pool-0-Laufwerke möglicherweise manuell zuweisen. Je nach Plattformmodell und ob das System ADP nutzt, müssen Sie für jeden Knoten der MetroCluster-IP-Konfiguration Laufwerke manuell dem Pool 0 zuweisen. Das von Ihnen verwendete Verfahren hängt von der Version von ONTAP ab. 
+---
+= Manuelles Zuweisen von Laufwerken zu Pool 0
+:allow-uri-read: 
+
+
+[role="lead"]
+Wenn Sie die werkseitig konfigurierten Systeme nicht empfangen haben, müssen Sie die Pool-0-Laufwerke möglicherweise manuell zuweisen. Je nach Plattformmodell und ob das System ADP nutzt, müssen Sie für jeden Knoten der MetroCluster-IP-Konfiguration Laufwerke manuell dem Pool 0 zuweisen. Das von Ihnen verwendete Verfahren hängt von der Version von ONTAP ab.
+
+
+
+== Manuelles Zuweisen von Laufwerken für Pool 0 (ONTAP 9.4 und höher)
+
+Wenn das System werkseitig nicht konfiguriert wurde und die Anforderungen für die automatische Laufwerkszuweisung nicht erfüllt, müssen Sie die Pool-0-Laufwerke manuell zuweisen.
+
+Dieses Verfahren gilt für Konfigurationen mit ONTAP 9.4 oder höher.
+
+Um festzustellen, ob Ihr System eine manuelle Festplattenzuweisung benötigt, sollten Sie prüfen link:concept_considerations_drive_assignment.html["Überlegungen zur automatischen Laufwerkszuweisung und zu ADP-Systemen in ONTAP 9.4 und höher"].
+
+Sie führen diese Schritte im Wartungsmodus aus. Der Vorgang muss an jedem Knoten der Konfiguration durchgeführt werden.
+
+Die Beispiele in diesem Abschnitt basieren auf folgenden Annahmen:
+
+* Node_A_1 und Node_A_2 eigene Laufwerke auf:
++
+** Standort_A-Shelf_1 (lokal)
+** Standort_B-Shelf_2 (Remote)
+
+
+* Eigene Laufwerke Node_B_1 und Node_B_2 auf:
++
+** Standort_B-Shelf_1 (lokal)
+** Standort_A-Shelf_2 (Remote)
+
+
+
+
+.Schritte
+. Anzeigen des Startmenüs:
++
+`boot_ontap menu`
+
+. Wählen Sie Option 9a.
++
+Auf dem folgenden Bildschirm wird die Eingabeaufforderung des Startmenüs angezeigt:
+
++
+[listing]
+----
+
+Please choose one of the following:
+
+    (1) Normal Boot.
+    (2) Boot without /etc/rc.
+    (3) Change password.
+    (4) Clean configuration and initialize all disks.
+    (5) Maintenance mode boot.
+    (6) Update flash from backup config.
+    (7) Install new software first.
+    (8) Reboot node.
+    (9) Configure Advanced Drive Partitioning.
+    Selection (1-9)?  9a
+########## WARNING ##########
+
+    This is a disruptive operation and will result in the
+    loss of all filesystem data. Before proceeding further,
+    make sure that:
+    1) This option (9a) has been executed or will be executed
+    on the HA partner node (and DR/DR-AUX partner nodes if
+    applicable), prior to reinitializing any system in the
+    HA-pair (or MetroCluster setup).
+    2) The HA partner node (and DR/DR-AUX partner nodes if
+    applicable) is currently waiting at the boot menu.
+
+    Do you still want to continue (yes/no)? yes
+----
+. Wenn der Knoten neu gestartet wird, drücken Sie bei Aufforderung Strg-C, um das Startmenü anzuzeigen, und wählen Sie dann die Option für *Wartungsmodus Boot* aus.
+. Weisen Sie im Wartungsmodus den lokalen Aggregaten auf dem Node manuell Laufwerke zu:
++
+`disk assign _disk-id_ -p 0 -s _local-node-sysid_`
+
++
+Die Laufwerke sollten symmetrisch zugeordnet werden, sodass jeder Knoten eine gleiche Anzahl von Laufwerken hat. Nachfolgend finden Sie eine Konfiguration mit zwei Storage-Shelfs an jedem Standort.
+
++
+.. Bei der Konfiguration von Node_A_1 weisen Sie Laufwerke von Steckplatz 0 bis 11 manuell dem Pool0 des Node A1 von Site_A-Shelf_1 zu.
+.. Bei der Konfiguration von Node_A_2 weisen Sie die Laufwerke von Steckplatz 12 bis 23 manuell dem Pool0 des Node A2 von Site_A-Shelf_1 zu.
+.. Beim Konfigurieren von Node_B_1 weisen Sie Laufwerke von Steckplatz 0 bis 11 manuell dem Pool0 des Node B1 von Site_B-Shelf_1 zu.
+.. Beim Konfigurieren von Node_B_2 weisen Sie Laufwerke manuell zwischen Steckplatz 12 und 23 dem Pool0 des Node B2 von Site_B-Shelf_1 zu.
+
+
+. Beenden des Wartungsmodus:
++
+`halt`
+
+. Anzeigen des Startmenüs:
++
+`boot_ontap menu`
+
+. Wählen Sie im Startmenü die Option „4“ und lassen Sie das System booten.
+. Wiederholen Sie diese Schritte auf den anderen Knoten der MetroCluster IP-Konfiguration.
+. Fahren Sie mit fort link:task_sw_config_setup_ontap.html["Einrichtung von ONTAP"].
+
+
+
+
+== Manuelles Zuweisen von Laufwerken für Pool 0 (ONTAP 9.3)
+
+Wenn für jeden Node mindestens zwei Festplatten-Shelfs vorhanden sind, können Sie die automatische Zuweisung von ONTAP nutzen, um die lokalen (Pool 0) Festplatten automatisch zuzuweisen.
+
+Im Wartungsmodus des Node müssen Sie zunächst eine einzelne Festplatte in den entsprechenden Shelfs Pool 0 zuweisen. ONTAP weist dann automatisch den Rest der Festplatten im Shelf demselben Pool zu. Diese Aufgabe ist nicht erforderlich für Systeme, die vom Werk empfangen werden, die über Pool 0 verfügen, um das vorkonfigurierte Root-Aggregat zu enthalten.
+
+Dieses Verfahren gilt für Konfigurationen mit ONTAP 9.3.
+
+Dieser Vorgang ist nicht erforderlich, wenn Sie Ihre MetroCluster-Konfiguration vom Werk erhalten haben. Die Nodes aus dem Werk werden mit Pool 0-Festplatten und Root-Aggregaten konfiguriert.
+
+Dieses Verfahren kann nur angewandt werden, wenn mindestens zwei Festplatten-Shelfs für jeden Node vorhanden sind, sodass die automatische Zuweisung von Festplatten auf Shelf-Ebene möglich ist. Wenn Sie die automatische Zuweisung auf Shelf-Ebene nicht verwenden können, müssen Sie die lokalen Festplatten manuell zuweisen, damit jeder Node über einen lokalen Festplatten-Pool (Pool 0) verfügt.
+
+Diese Schritte müssen im Wartungsmodus ausgeführt werden.
+
+Beispiele in diesem Abschnitt setzen die folgenden Platten-Shelves voraus:
+
+* Node_A_1 besitzt Festplatten auf:
++
+** Standort_A-Shelf_1 (lokal)
+** Standort_B-Shelf_2 (Remote)
+
+
+* Node_A_2 ist verbunden mit:
++
+** Standort_A-Shelf_3 (lokal)
+** Standort_B-Shelf_4 (Remote)
+
+
+* Node_B_1 ist verbunden mit:
++
+** Standort_B-Shelf_1 (lokal)
+** Standort_A-Shelf_2 (Remote)
+
+
+* Node_B_2 ist verbunden mit:
++
+** Standort_B-Shelf_3 (lokal)
+** Standort_A-Shelf_4 (Remote)
+
+
+
+
+.Schritte
+. Weisen Sie auf jedem Knoten manuell eine einzelne Festplatte für das Root-Aggregat zu:
++
+`disk assign _disk-id_ -p 0 -s _local-node-sysid_`
+
++
+Durch die manuelle Zuweisung dieser Festplatten kann die Funktion für die automatische Zuweisung von ONTAP den Rest der Festplatten auf jedem Shelf zuweisen.
+
++
+.. Weisen Sie auf Node_A_1 manuell einer Festplatte aus dem lokalen Standort_A-Shelf_1 dem Pool 0 zu.
+.. Weisen Sie auf Node_A_2 manuell einer Festplatte aus dem lokalen Site_A-Shelf_3 dem Pool 0 zu.
+.. Weisen Sie auf Node_B_1 manuell eine Festplatte vom lokalen Standort_B-Shelf_1 dem Pool 0 zu.
+.. Weisen Sie auf Node_B_2 dem Pool 0 manuell eine Festplatte von Local Site_B-Shelf_3 zu.
+
+
+. Starten Sie jeden Knoten an Standort A mit Option 4 im Startmenü:
++
+Sie sollten diesen Schritt auf einem Node abschließen, bevor Sie mit dem nächsten Node fortfahren.
+
++
+.. Beenden des Wartungsmodus:
++
+`halt`
+
+.. Anzeigen des Startmenüs:
++
+`boot_ontap menu`
+
+.. Wählen Sie im Startmenü Option 4, und fahren Sie fort.
+
+
+. Starten Sie jeden Knoten an Standort B mit Option 4 im Startmenü:
++
+Sie sollten diesen Schritt auf einem Node abschließen, bevor Sie mit dem nächsten Node fortfahren.
+
++
+.. Beenden des Wartungsmodus:
++
+`halt`
+
+.. Anzeigen des Startmenüs:
++
+`boot_ontap menu`
+
+.. Wählen Sie im Startmenü Option 4, und fahren Sie fort.
+
+
+

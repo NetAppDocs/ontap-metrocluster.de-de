@@ -1,0 +1,119 @@
+---
+permalink: install-stretch/task_fb_new_install_cable_the_fc_to_sas_bridges_to_the_controller_module_in_a_two_node_bridge_attached_configuration.html 
+sidebar: sidebar 
+keywords: metrocluster, stretch, installation, cable, fc, sas, bridge, controller, module, two, node, configuration 
+summary: Sie müssen die Bridges in einer über zwei Knoten angeschlossenen MetroCluster-Konfiguration mit dem Controller-Modul verkabeln. 
+---
+= Verkabelung der FC-zu-SAS-Verbindungen mit dem Controller-Modul in einer über zwei Knoten verbundenen MetroCluster-Konfiguration
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen die Bridges in einer über zwei Knoten angeschlossenen MetroCluster-Konfiguration mit dem Controller-Modul verkabeln.
+
+.Schritte
+. [[ste1-verify-detect]]]) Prüfen Sie, ob jede Bridge alle Festplattenlaufwerke und Platten-Shelfs erkennen kann, mit denen die Bridge verbunden ist.
++
+|===
+
+
+| Wenn Sie den... | Dann... 
+
+
+ a| 
+ATTO ExpressNAV GUI
+ a| 
+.. Geben Sie in einem unterstützten Webbrowser die IP-Adresse einer Bridge in das Browserfenster ein.
++
+Sie werden zur ATTO FibreBridge Homepage des Bridge-Links für die eingegebene IP-Adresse gebracht.
+
+.. Klicken Sie auf den Link, geben Sie dann Ihren Benutzernamen und das Passwort ein, das Sie beim Konfigurieren der Bridge festgelegt haben.
++
+Die ATTO FibreBridge-Statusseite der Brücke wird mit einem Menü links angezeigt.
+
+.. Klicken Sie im Menü auf *Erweitert*.
+.. Führen Sie den folgenden Befehl aus, und klicken Sie dann auf *Absenden*: +
+`sastargets`
+
+
+
+
+ a| 
+Serieller Anschluss
+ a| 
+Führen Sie den folgenden Befehl aus:
+
+`sastargets`
+
+|===
++
+Der `sastargets` In der Befehlsausgabe werden die mit der Bridge verbundenen Geräte (Festplatten und Festplatten-Shelfs) angezeigt. Die Ausgabelinien werden nacheinander nummeriert, sodass Sie die Geräte schnell zählen können.
+
++
+
+NOTE: Wenn „`Text response cuted`“ zu Beginn der Ausgabe angezeigt wird, können Sie mithilfe von Telnet eine Verbindung zur Bridge herstellen und denselben Befehl ausführen, um die gesamte Ausgabe anzuzeigen.
+
++
+Die folgende Ausgabe zeigt, dass 10 Festplatten angeschlossen sind:
+
++
+[listing]
+----
+Tgt VendorID ProductID        Type        SerialNumber
+  0 NETAPP   X410_S15K6288A15 DISK        3QP1CLE300009940UHJV
+  1 NETAPP   X410_S15K6288A15 DISK        3QP1ELF600009940V1BV
+  2 NETAPP   X410_S15K6288A15 DISK        3QP1G3EW00009940U2M0
+  3 NETAPP   X410_S15K6288A15 DISK        3QP1EWMP00009940U1X5
+  4 NETAPP   X410_S15K6288A15 DISK        3QP1FZLE00009940G8YU
+  5 NETAPP   X410_S15K6288A15 DISK        3QP1FZLF00009940TZKZ
+  6 NETAPP   X410_S15K6288A15 DISK        3QP1CEB400009939MGXL
+  7 NETAPP   X410_S15K6288A15 DISK        3QP1G7A900009939FNTT
+  8 NETAPP   X410_S15K6288A15 DISK        3QP1FY0T00009940G8PA
+  9 NETAPP   X410_S15K6288A15 DISK        3QP1FXW600009940VERQ
+----
+. Überprüfen Sie, ob in der Befehlsausgabe angezeigt wird, dass die Bridge mit allen Festplatten und Festplatten-Shelfs im Stack verbunden ist, an die sie angeschlossen werden soll.
++
+[cols="30,70"]
+|===
+
+
+| Wenn die Ausgabe... | Dann... 
+
+
+ a| 
+Das Ist Korrekt
+ a| 
+Wiederholen ,Schritt 1 Für jede verbleibende Brücke.
+
+
+
+ a| 
+Nicht richtig
+ a| 
+.. Überprüfen Sie, ob die SAS-Kabel lose sind oder korrigieren Sie die SAS-Verkabelung, indem Sie die Platten-Shelves an den Bridges neu verkabeln.
++
+link:task_fb_new_install_cabl.html["Verkabelung von Platten-Shelves zu den Bridges"]
+
+.. Wiederholen ,Schritt 1 Für jede verbleibende Brücke.
+
+
+|===
+. [[ste3-cable-each-Bridge]]Verkabeln Sie jede Bridge mit den Controller-Modulen:
++
+.. FC-Port 1 der Bridge mit einem FC-Port am Controller-Modul in Cluster_A verkabeln
+.. Verkabeln Sie den FC-Port 2 der Bridge mit einem FC-Port am Controller-Modul in Cluster_B.
++
+Wenn das Controller-Modul mit einem Quad-Port FC-Adapter konfiguriert ist, stellen Sie sicher, dass die Storage-Stacks mit zwei FC-Ports auf demselben ASIC verbunden sind. Port A und Port b teilen sich denselben ASIC, und Port c und Port d verwenden denselben ASIC. Schließen Sie keinen Stapel von Shelfs an Port A und Port B. an Verwenden Sie stattdessen Port A und Port c oder verwenden Sie Port b und Port d, um einen Single Point of Failure zu vermeiden, wenn ein ASIC ausfällt.
+
++
+Wenn das Controller-Modul mit mehr als einem FC-Adapter konfiguriert ist, verkabeln Sie nicht beide Bridge-Ports mit demselben Adapter. Sie sollten den FC-Port 1 an Adapter A und FC-Port 2 an Adapter B verteilen, um einen Single Point of Failure zu vermeiden.
+
++
+image::../media/cluster_peering_network.gif[Cluster-Peering-Netzwerk]
+
+
+
+. Wiederholen ,Schritt 3 An den anderen Brücken bis alle Brücken verkabelt sind.
+

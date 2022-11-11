@@ -1,0 +1,70 @@
+---
+permalink: maintain/task_secur_or_unsecur_a_fibrebridge_bridge.html 
+sidebar: sidebar 
+keywords: metrocluster, maintain, service, secure, unsecure, fibrebridge, bridge 
+summary: Um potenziell unsichere Ethernet-Protokolle auf einer Bridge einfach zu deaktivieren, können Sie ab ONTAP 9.5 die Bridge sichern. Dadurch werden die Ethernet-Ports der Bridge deaktiviert. Sie können auch den Ethernet-Zugriff erneut aktivieren. 
+---
+= Sichern oder Entricken der FibreBridge-Brücke
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Um potenziell unsichere Ethernet-Protokolle auf einer Bridge einfach zu deaktivieren, können Sie ab ONTAP 9.5 die Bridge sichern. Dadurch werden die Ethernet-Ports der Bridge deaktiviert. Sie können auch den Ethernet-Zugriff erneut aktivieren.
+
+* Durch das Sichern der Brücke werden Telnet und andere IP-Port-Protokolle und -Dienste (FTP, ExpressNAV, ICMP oder Quicknav) auf der Brücke deaktiviert.
+* Bei diesem Verfahren wird die Out-of-Band-Verwaltung mithilfe der ONTAP-Eingabeaufforderung verwendet, die ab ONTAP 9.5 verfügbar ist.
++
+Sie können die Befehle aus der Bridge-CLI ausgeben, wenn Sie keine Out-of-Band-Verwaltung verwenden.
+
+* Der `*unsecurebridge*` Mit dem Befehl können die Ethernet-Ports erneut aktiviert werden.
+* In ONTAP 9.7 und früher, Ausführen der `*securebridge*` Durch den Befehl auf der ATTO FibreBridge wird der Bridge-Status auf dem Partner-Cluster möglicherweise nicht korrekt aktualisiert. Führen Sie in diesem Fall den aus `*securebridge*` Befehl aus dem Partner-Cluster.
+
+
+
+NOTE: Ab ONTAP 9.8 beginnt der `*storage bridge*` Befehl wird durch ersetzt `*system bridge*`. Die folgenden Schritte zeigen das `*storage bridge*` Befehl, aber wenn Sie ONTAP 9.8 oder höher ausführen, der `*system bridge*` Befehl ist bevorzugt.
+
+.Schritte
+. Sichern Sie die Bridge an der ONTAP-Eingabeaufforderung des Clusters mit der Bridge oder unsichern Sie sie.
++
+Mit dem folgenden Befehl wird Bridge_A_1 gesichert:
+
++
+[listing]
+----
+cluster_A> storage bridge run-cli -bridge bridge_A_1 -command securebridge
+----
++
+Mit dem folgenden Befehl wird Bridge_A_1 aufgehoben:
+
++
+[listing]
+----
+cluster_A> storage bridge run-cli -bridge bridge_A_1 -command unsecurebridge
+----
+. Speichern Sie in der ONTAP-Eingabeaufforderung des Clusters, der die Bridge enthält, die Bridge-Konfiguration:
++
+`*storage bridge run-cli -bridge _bridge-name_ -command saveconfiguration*`
+
++
+Mit dem folgenden Befehl wird Bridge_A_1 gesichert:
+
++
+[listing]
+----
+cluster_A> storage bridge run-cli -bridge bridge_A_1 -command saveconfiguration
+----
+. Starten Sie an der ONTAP-Eingabeaufforderung des Clusters, das die Bridge enthält, die Firmware der Bridge neu:
++
+`*storage bridge run-cli -bridge _bridge-name_ -command firmwarerestart*`
+
++
+Mit dem folgenden Befehl wird Bridge_A_1 gesichert:
+
++
+[listing]
+----
+cluster_A> storage bridge run-cli -bridge bridge_A_1 -command firmwarerestart
+----
+

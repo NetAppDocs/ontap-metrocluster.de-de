@@ -1,0 +1,66 @@
+---
+permalink: install-stretch/task_enable_ip_port_access_on_the_fibrebridge_7600n_bridge_guides.html 
+sidebar: sidebar 
+keywords: metrocluster, stretch, installation, enable, ip, port, access, bridge, fibrebridge 
+summary: 'Wenn Sie eine ONTAP-Version vor 9.5 verwenden oder planen, Out-of-Band-Zugriff auf die FibreBridge 7600N-Bridge mit Telnet oder anderen IP-Port-Protokollen und -Diensten \ (FTP, ExpressNAV, ICMP oder Quicknav\) zu nutzen, können Sie die Zugriffsservices über den Konsolen-Port aktivieren.' 
+---
+= Aktivieren des IP-Portzugriffs auf der FibreBridge 7600N-Brücke, falls erforderlich
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie eine ONTAP-Version vor 9.5 verwenden oder einen Out-of-Band-Zugriff auf die FibreBridge 7600N-Bridge mit Telnet oder anderen IP-Port-Protokollen und -Diensten (FTP, ExpressNAV, ICMP oder Quicknav) planen, können Sie die Zugriffsservices über den Konsolen-Port aktivieren.
+
+Im Gegensatz zu den Bridges ATTO FibreBridge 7500N und 6500N wird die FibreBridge 7600N mit allen IP-Port-Protokollen und -Diensten ausgeliefert.
+
+Ab ONTAP 9.5 werden _in-Band-Management_ der Brücken unterstützt. Das bedeutet, dass die Brücken über die FC-Verbindung zur Bridge von der ONTAP-CLI konfiguriert und überwacht werden können. Physischer Zugang zur Bridge über die Bridge-Ethernet-Ports ist nicht erforderlich und die Bridge-Benutzeroberflächen sind nicht erforderlich.
+
+Ab ONTAP 9.8 werden _in-Band-Management_ der Brücken standardmäßig unterstützt und die bandexterne SNMP-Verwaltung ist veraltet.
+
+Diese Aufgabe ist erforderlich, wenn Sie zur Verwaltung der Brücken * nicht* verwenden. In diesem Fall müssen Sie die Bridge über den Ethernet-Management-Port konfigurieren.
+
+.Schritte
+. Greifen Sie auf die Konsolenschnittstelle der Bridge zu, indem Sie ein serielles Kabel an den seriellen Port der FibreBridge 7600N anschließen.
+. Aktivieren Sie die Zugriffsservices über die Konsole, und speichern Sie die Konfiguration:
++
+`*set closeport none*`
+
++
+`*saveconfiguration*`
+
++
+Der `set closeport none` Befehl aktiviert alle Zugriffsservices auf der Bridge.
+
+. Deaktivieren Sie ggf. einen Dienst, indem Sie den ausstellen `set closeport` Und den Befehl ggf. wiederholen, bis alle gewünschten Dienste deaktiviert sind:
++
+`*set closeport _service_*`
+
++
+Der `set closeport` Durch den Befehl wird ein einzelner Dienst gleichzeitig deaktiviert.
+
++
+`_service_` Folgende Optionen stehen zur Verfügung:
+
++
+** expressnav
+** ftp
+** icmp
+** quicknav
+** snmp
+** telnet + Sie können mithilfe des überprüfen, ob ein bestimmtes Protokoll aktiviert oder deaktiviert ist `get closeport` Befehl.
+
+
+. Wenn Sie SNMP aktivieren, müssen Sie auch den Befehl Set SNMP Enabled eingeben:
++
+`*set SNMP enabled*`
+
++
+SNMP ist das einzige Protokoll, das einen separaten Enable-Befehl erfordert.
+
+. Konfiguration speichern:
++
+`*saveconfiguration*`
+
+

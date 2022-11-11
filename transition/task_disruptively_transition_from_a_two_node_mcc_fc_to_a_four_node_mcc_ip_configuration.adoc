@@ -1,0 +1,33 @@
+---
+permalink: transition/task_disruptively_transition_from_a_two_node_mcc_fc_to_a_four_node_mcc_ip_configuration.html 
+sidebar: sidebar 
+keywords: start, ontap, transition, workload, data, exist, two-node, metrocluster, fc, configuration, four-node, ip, disk, shelves, shelf, disruptive, fc 
+summary: Ab ONTAP 9.8 können Sie Workloads und Daten von einer bestehenden MetroCluster FC Konfiguration mit zwei Nodes auf eine neue MetroCluster IP-Konfiguration mit vier Nodes umstellen. Festplatten-Shelfs der MetroCluster FC-Nodes werden zu IP-Nodes verschoben. 
+---
+= Unterbrechungsfreie Umstellung von einer MetroCluster FC-Konfiguration mit zwei Nodes auf eine MetroCluster IP-Konfiguration mit vier Nodes (ONTAP 9.8 und höher)
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Ab ONTAP 9.8 können Sie Workloads und Daten von einer bestehenden MetroCluster FC Konfiguration mit zwei Nodes auf eine neue MetroCluster IP-Konfiguration mit vier Nodes umstellen. Festplatten-Shelfs der MetroCluster FC-Nodes werden zu IP-Nodes verschoben.
+
+Die folgende Abbildung bietet eine vereinfachte Ansicht der Konfiguration vor und nach diesem Migrationsvorgang.
+
+image::../media/transition_2n_begin_to_end.png[Übergang 2n beginnt zu beenden]
+
+* Dieses Verfahren wird auf Systemen mit ONTAP 9.8 und höher unterstützt.
+* Dieser Vorgang ist störend.
+* Dieses Verfahren gilt nur für eine MetroCluster FC-Konfiguration mit zwei Nodes.
++
+Wenn Sie über eine MetroCluster-FC-Konfiguration mit vier Nodes verfügen, finden Sie Informationen unter link:concept_choosing_your_transition_procedure_mcc_transition.html["Auswahl des Migrationsverfahrens"].
+
+* ADP wird in der mit diesem Verfahren erstellten vier-Knoten-MetroCluster-IP-Konfiguration nicht unterstützt.
+* Sie müssen alle Anforderungen erfüllen und alle Schritte des Verfahrens befolgen.
+* Die vorhandenen Storage-Shelves werden auf die neuen MetroCluster IP-Knoten verschoben.
+* Bei Bedarf können der Konfiguration zusätzliche Storage Shelves hinzugefügt werden.
++
+Siehe link:concept_requirements_for_fc_to_ip_transition_2n_mcc_transition.html["Wiederverwendung von Festplatten-Shelfs und Festplattenanforderungen für einen unterbrechungsfreien Wechsel von FC zu IP"].
+
+

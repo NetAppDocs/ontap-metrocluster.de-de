@@ -1,0 +1,25 @@
+---
+permalink: upgrade/task_send_a_custom_autosupport_message_after_add_nodes_to_the_mcc_configuration.html 
+sidebar: sidebar 
+keywords: metrocluster, upgrade, send, custom, autosupport, message, add, nodes, configuration 
+summary: Sie sollten eine Meldung von AutoSupport senden, um den technischen Support von NetApp über die Wartung zu informieren. 
+---
+= Senden einer benutzerdefinierten AutoSupport Meldung nach dem Hinzufügen von Nodes zur MetroCluster Konfiguration
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie sollten eine Meldung von AutoSupport senden, um den technischen Support von NetApp über die Wartung zu informieren.
+
+Diese Aufgabe muss auf jedem MetroCluster-Standort ausgeführt werden.
+
+.Schritte
+. Melden Sie sich bei Site_A beim Cluster an
+. Rufen Sie eine AutoSupport-Meldung auf, die das Ende der Wartung angibt:
++
+`system node autosupport invoke -node * -type all -message MAINT=end`
+
+. Wiederholen Sie diesen Schritt auf der Partner-Site.
+

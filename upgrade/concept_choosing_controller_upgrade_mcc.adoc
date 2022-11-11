@@ -1,0 +1,139 @@
+---
+permalink: upgrade/concept_choosing_controller_upgrade_mcc.html 
+sidebar: sidebar 
+keywords: metrocluster, upgrade, choose, upgrade, refresh, method 
+summary: Das von Ihnen verwendete Upgrade-Verfahren hängt vom Plattformmodell ab. 
+---
+= Wählen Sie eine Controller-Upgrade-Verarbeitung
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Das von Ihnen verwendete Controller-Upgrade hängt vom Plattformmodell, dem Umfang des Upgrades und dem Typ der MetroCluster-Konfiguration ab.
+
+
+
+== Wählen eines Verfahrens, das keine Aggregatverschiebung verwendet
+
+[cols="2,1,1,2"]
+|===
+
+
+| Art des Upgrades oder der Aktualisierung | MetroCluster-Typ | Unterstützung für erste ONTAP Version | Verfahren 
+
+
+ a| 
+* Bereich: Nur Plattform (Controller-Module
+* Methode: Automatisiertes Switchover/Switchback
+
+ a| 
+FC
+ a| 
+9.10.1
+ a| 
+link:task_upgrade_controllers_system_control_commands_in_a_four_node_mcc_fc.html["Controller-Upgrade in einer MetroCluster FC-Konfiguration mit vier Nodes durch Umschaltung und Switchback mit Befehlen zum Austausch eines System-Controllers (ONTAP 9.10.1 und höher)"]
+
+
+
+ a| 
+* Bereich: Nur Plattform (Controller-Module
+* Methode: Automatisiertes Switchover/Switchback
+
+ a| 
+IP
+ a| 
+9.10.1
+ a| 
+link:task_upgrade_A700_to_A900_in_a_four_node_mcc_ip_us_switchover_and_switchback.html["Upgrade von Controllern von AFF A700 auf AFF A900 in einer MetroCluster IP Konfiguration mittels Umschaltung und Switchback (ONTAP 9.10.1 und höher)"]
+
+
+
+ a| 
+* Bereich: Nur Plattform (Controller-Module
+* Methode: Umschalten/zurückwechseln
+
+ a| 
+FC
+ a| 
+9.8
+ a| 
+link:task_upgrade_controllers_in_a_four_node_fc_mcc_us_switchover_and_switchback_mcc_fc_4n_cu.html["Controller-Upgrade in einer MetroCluster FC-Konfiguration durch Switchover und Switchback"]
+
+
+
+ a| 
+* Bereich: Nur Plattform (Controller-Module
+* Methode: Umschalten/zurückwechseln
+
+ a| 
+IP
+ a| 
+9.8
+ a| 
+link:task_upgrade_controllers_in_a_four_node_ip_mcc_us_switchover_and_switchback_mcc_ip.html["Controller-Upgrade in einer MetroCluster IP-Konfiguration durch Switchover und Switchback (ONTAP 9.8 und höher)"]
+
+|===
+
+
+== Wählen eines Verfahrens mithilfe der Aggregatverschiebung
+
+|===
+| Aggregierter Umzugsvorgang | MetroCluster-Typ | Unterstützung für erste ONTAP Version | Verfahren 
+
+
+ a| 
+Wird Verwendet `system controller replace` Befehle und Austausch des Controller-Moduls und NVM
+ a| 
+FC
+ a| 
+9.10.1 und höher
+ a| 
+https://docs.netapp.com/us-en/ontap-systems-upgrade/upgrade-arl-auto-affa900/index.html["Verwenden Sie „System Controller Replace“-Befehle, um AFF A700 auf AFF A900 mit ONTAP 9.10.1 RC2 oder höher zu aktualisieren"^]
+
+
+
+ a| 
+Wird Verwendet `system controller replace` Befehle
+ a| 
+FC
+ a| 
+9.8 und höher
+ a| 
+https://docs.netapp.com/us-en/ontap-systems-upgrade/upgrade-arl-auto-app/index.html["Mit „`sSystem-Controller ersetzen`“-Befehlen zum Upgrade der Controller-Hardware mit ONTAP 9.8 und höher"^]
+
+
+
+ a| 
+Wird Verwendet `system controller replace` Befehle
+ a| 
+FC
+ a| 
+9.5 bis 9.7
+ a| 
+https://docs.netapp.com/us-en/ontap-systems-upgrade/upgrade-arl-auto/index.html["Verwenden von „`sSystem-Controller ersetzen`“-Befehlen, um die Controller-Hardware mit ONTAP 9.5 auf ONTAP 9.7 zu aktualisieren"^]
+
+
+
+ a| 
+Verwenden von manuellen ARL-Befehlen
+ a| 
+FC
+ a| 
+9.8
+ a| 
+https://docs.netapp.com/us-en/ontap-systems-upgrade/upgrade-arl-manual-app/index.html["Manuelles Upgrade der Controller-Hardware mit ONTAP 9.8 und höher"^]
+
+
+
+ a| 
+Verwenden von manuellen ARL-Befehlen
+ a| 
+FC
+ a| 
+9.7 und früher
+ a| 
+https://docs.netapp.com/us-en/ontap-systems-upgrade/upgrade-arl-manual/index.html["Manuelles Upgrade der Controller-Hardware mit ONTAP 9.7 und einer älteren Version"^]
+
+|===

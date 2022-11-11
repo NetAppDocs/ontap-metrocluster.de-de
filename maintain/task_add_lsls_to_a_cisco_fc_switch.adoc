@@ -1,0 +1,71 @@
+---
+permalink: maintain/task_add_lsls_to_a_cisco_fc_switch.html 
+sidebar: sidebar 
+keywords: metrocluster, maintain, service, add, isl, cisco, switch 
+summary: Möglicherweise müssen Sie ISLs zu einem Switch hinzufügen, wenn Hardware wie zusätzliche oder schnellere Controller oder schnellere Switches hinzugefügt oder aktualisiert wird. 
+---
+= Hinzufügen von lSLs zu einem Cisco Switch
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Möglicherweise müssen Sie ISLs zu einem Switch hinzufügen, wenn Hardware wie zusätzliche oder schnellere Controller oder schnellere Switches hinzugefügt oder aktualisiert wird.
+
+Schritte, die bei einem Switch ausgeführt werden, müssen ebenfalls auf dem anderen ausgeführt werden, um ISL-Konnektivität zu gewährleisten.
+
+.Schritte
+. Deaktivieren Sie die ISL-Ports der ISLs, die auf beiden Switches im Fabric hinzugefügt werden:
++
+`*FC_switch_A_1#config t*`
+
++
+Geben Sie die Konfigurationsbefehle ein pro Zeile ein. Beenden Sie mit STRG-Z, nachdem alle Konfigurationsbefehle eingegeben wurden.
+
++
+[listing]
+----
+
+	FC_switch_A_1(config)# interface fc1/36
+	FC_switch_A_1(config-if)# shut
+	FC_switch_A_1(config)# end
+----
+. Fügen Sie SFPs in die Ports ein, die Sie als ISL-Ports hinzufügen, und verkabeln Sie diese gemäß dem _Installation and Configuration Guide_.
++
+Stellen Sie sicher, dass diese Ports im Handbuch _Installation und Konfiguration_ für den Switch aufgeführt sind, zu dem Sie sie hinzufügen.
+
+. Konfigurieren Sie die ISL-Ports gemäß _Installation and Configuration Guide_.
+. Alle ISL-Ports (falls nicht aktiviert) auf beiden Switches in der Fabric aktivieren:
++
+`*FC_switch_A_1# config t*`
+
++
+Geben Sie die Konfigurationsbefehle ein pro Zeile ein. Mit STRG-Z beenden.
+
++
+[listing]
+----
+
+ FC_switch_A_1# interface fc1/36
+	FC_switch_A_1(config-if)# no shut
+	FC_switch_A_1(config)# end
+----
+. Überprüfen Sie, ob die ISLs zwischen beiden Switches aufgebaut sind:
++
+`*show topology isl*`
+
+. Wiederholen Sie den Vorgang auf dem zweiten Gewebe:
++
+[listing]
+----
+--------------------------------------------------------------------------------
+	__________Local_________ _________Remote_________ VSAN Cost I/F  PC    I/F  Band
+	 PC Domain SwName   Port  Port   SwName Domain PC          Stat Stat Speed width
+	--------------------------------------------------------------------------------
+	  1   0x11 cisco9 fc1/36  fc1/36 cisco9 0xbc    1    1   15 up   up    16g   64g
+	  1   0x11 cisco9 fc1/40  fc1/40 cisco9 0xbc    1    1   15 up   up    16g   64g
+	  1   0x11 cisco9 fc1/44  fc1/44 cisco9 0xbc    1    1   15 up   up    16g   64g
+	  1   0x11 cisco9 fc1/48  fc1/48 cisco9 0xbc    1    1   15 up   up    16g   64g
+----
+

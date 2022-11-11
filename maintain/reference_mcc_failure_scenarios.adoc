@@ -1,0 +1,111 @@
+---
+permalink: maintain/reference_mcc_failure_scenarios.html 
+sidebar: sidebar 
+keywords: metrocluster, maintain, service, failure, recovery, scenarios 
+summary: Sie sollten sich bewusst sein, wie die MetroCluster Konfiguration auf unterschiedliche Ausfallereignisse reagiert. 
+---
+= MetroCluster-Fehlerszenarien und Recovery
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie sollten sich bewusst sein, wie die MetroCluster Konfiguration auf unterschiedliche Ausfallereignisse reagiert.
+
+
+NOTE: Weitere Informationen zur Wiederherstellung nach Knotenausfällen finden Sie im Abschnitt „Auswahl des richtigen Wiederherstellungsverfahrens“ link:../disaster-recovery/concept_dr_workflow.html["Nach einem Ausfall wiederherstellen"].
+
+|===
+
+
+| Ereignis | Auswirkungen | Recovery 
+
+
+ a| 
+Ausfall eines Single Node
+ a| 
+Ein Failover wird ausgelöst.
+ a| 
+Die Konfiguration ist durch eine lokale Übernahme wiederhergestellt. RAID ist nicht beeinträchtigt. Überprüfen Sie die Systemmeldungen und ersetzen Sie ggf. fehlerhafte FRUs.
+
+https://docs.netapp.com/platstor/index.jsp["AFF and FAS Documentation Center"^]
+
+
+
+ a| 
+Zwei Nodes fallen an einem Standort aus
+ a| 
+Zwei Nodes funktionieren nur, wenn die automatisierte Umschaltung in der MetroCluster Tiebreaker Software aktiviert ist.
+ a| 
+Bei manueller USO-AKTIVIERUNG in der MetroCluster Tiebreaker Software ist keine automatische Umschaltung aktiviert.
+
+https://docs.netapp.com/platstor/index.jsp["AFF and FAS Documentation Center"^]
+
+
+
+ a| 
+Fehler der MetroCluster-IP-Schnittstelle eines Ports
+ a| 
+Das System ist beeinträchtigt. Zusätzlicher Port-Ausfall hat Auswirkungen auf die HA-Spiegelung.
+ a| 
+Der zweite Port wird verwendet. Die Systemzustandsüberwachung generiert eine Meldung, wenn die physische Verbindung zum Port beschädigt ist. Überprüfen Sie die Systemmeldungen und ersetzen Sie ggf. fehlerhafte FRUs.
+
+https://docs.netapp.com/platstor/index.jsp["AFF and FAS Documentation Center"^]
+
+
+
+ a| 
+Fehler der MetroCluster-IP-Schnittstelle beider Ports
+ a| 
+DIE HA-Funktion ist beeinträchtigt. Die Synchronisierung der RAID SyncMirror des Nodes wird unterbrochen.
+ a| 
+Sofortige manuelle Wiederherstellung ist erforderlich, da kein HA Takeover vorhanden ist. Überprüfen Sie die Systemmeldungen und ersetzen Sie ggf. fehlerhafte FRUs.
+
+https://docs.netapp.com/platstor/index.jsp["AFF and FAS Documentation Center"^]
+
+
+
+ a| 
+Ausfall eines MetroCluster IP-Switch
+ a| 
+Keine Auswirkungen. Redundanz wird über das zweite Netzwerk bereitgestellt.
+ a| 
+Tauschen Sie den defekten Schalter ggf. aus.
+
+link:task_replace_an_ip_switch.html["Austauschen eines IP-Switches"]
+
+
+
+ a| 
+Ausfall von zwei MetroCluster IP-Switches im selben Netzwerk
+ a| 
+Keine Auswirkungen. Redundanz wird über das zweite Netzwerk bereitgestellt.
+ a| 
+Tauschen Sie den defekten Schalter ggf. aus.
+
+link:task_replace_an_ip_switch.html["Austauschen eines IP-Switches"]
+
+
+
+ a| 
+Ausfall von zwei MetroCluster IP-Switchen an einem Standort
+ a| 
+Die Synchronisierung der RAID SyncMirror des Nodes wird unterbrochen. DIE HA-Funktion wird beeinträchtigt und das Cluster geht nicht mehr durch Quorum.
+ a| 
+Tauschen Sie den defekten Schalter ggf. aus.
+
+link:task_replace_an_ip_switch.html["Austauschen eines IP-Switches"]
+
+
+
+ a| 
+Ausfall von zwei MetroCluster IP Switches, die sich an verschiedenen Standorten befinden und nicht im gleichen Netzwerk (diagonal Ausfall)
+ a| 
+Die Synchronisierung der RAID SyncMirror des Nodes wird unterbrochen.
+ a| 
+Die Synchronisierung der RAID SyncMirror des Nodes wird unterbrochen. Cluster- und HA-Funktionen sind nicht beeinträchtigt. Tauschen Sie den defekten Schalter ggf. aus.
+
+link:task_replace_an_ip_switch.html["Austauschen eines IP-Switches"]
+
+|===

@@ -1,0 +1,79 @@
+---
+permalink: upgrade/task_create_a_mirrored_data_aggregate_on_each_node_mcc.html 
+sidebar: sidebar 
+keywords: metrocluster, upgrade, create, mirrored, data, aggregate, node 
+summary: Sie müssen auf jedem Knoten in der DR-Gruppe ein gespiegeltes Datenaggregat erstellen. 
+---
+= Erstellung eines gespiegelten Datenaggregats auf jedem Node
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen auf jedem Knoten in der DR-Gruppe ein gespiegeltes Datenaggregat erstellen.
+
+.Über diese Aufgabe
+* Sie sollten wissen, welche Laufwerke in dem neuen Aggregat verwendet werden.
+* Wenn Sie mehrere Laufwerktypen in Ihrem System haben (heterogener Speicher), sollten Sie verstehen, wie Sie sicherstellen können, dass der richtige Laufwerkstyp ausgewählt ist.
+* Laufwerke sind Eigentum eines bestimmten Nodes. Wenn Sie ein Aggregat erstellen, müssen alle Laufwerke in diesem Aggregat im Besitz desselben Nodes sein, der zum Home-Node für das Aggregat wird.
++
+In Systemen mit ADP werden Aggregate mithilfe von Partitionen erstellt, in denen jedes Laufwerk in die Partitionen P1, P2 und P3 partitioniert wird.
+
+* Aggregatnamen sollten dem Benennungsschema entsprechen, das Sie beim Planen Ihrer MetroCluster-Konfiguration ermittelt haben.
++
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-psmg/home.html["Festplatten- und Aggregatmanagement"]
+
+
+
+.Schritte
+. Liste der verfügbaren Ersatzteile anzeigen:
++
+`storage disk show -spare -owner _node_name_`
+
+. Erstellen Sie das Aggregat:
++
+`storage aggregate create -mirror true`
+
++
+Wenn Sie auf der Cluster-Managementoberfläche beim Cluster angemeldet sind, können Sie auf jedem Node im Cluster ein Aggregat erstellen. Um sicherzustellen, dass das Aggregat auf einem bestimmten Node erstellt wird, verwenden Sie die `-node` Parameter oder geben Sie Laufwerke an, die diesem Node gehören.
+
++
+Sie können die folgenden Optionen angeben:
+
++
+** Der Home Node des Aggregats (d. h. der Knoten, der das Aggregat im normalen Betrieb besitzt)
+** Liste spezifischer Laufwerke, die dem Aggregat hinzugefügt werden sollen
+** Anzahl der zu einführenden Laufwerke
++
+
+NOTE: In der unterstützten Minimalkonfiguration, bei der eine begrenzte Anzahl an Laufwerken verfügbar ist, müssen Sie die Force-Small-Aggregate Option verwenden, um das Erstellen eines drei Festplatten-RAID-DP Aggregats zu ermöglichen.
+
+** Prüfsummenstil, den Sie für das Aggregat verwenden möchten
+** Typ der zu verwendenden Laufwerke
+** Die Größe der zu verwendenden Laufwerke
+** Fahrgeschwindigkeit zu verwenden
+** RAID-Typ für RAID-Gruppen auf dem Aggregat
+** Maximale Anzahl an Laufwerken, die in eine RAID-Gruppe aufgenommen werden können
+** Gibt an, ob Laufwerke mit unterschiedlichen U/min zulässig sind
++
+Weitere Informationen zu diesen Optionen finden Sie im `storage aggregate create` Man-Page.
+
++
+Mit dem folgenden Befehl wird ein gespiegeltes Aggregat mit 10 Festplatten erstellt:
+
++
+[listing]
+----
+cluster_A::> storage aggregate create aggr1_node_A_1 -diskcount 10 -node node_A_1 -mirror true
+[Job 15] Job is queued: Create aggr1_node_A_1.
+[Job 15] The job is starting.
+[Job 15] Job succeeded: DONE
+----
+
+
+. Überprüfen Sie die RAID-Gruppe und die Laufwerke Ihres neuen Aggregats:
++
+`storage aggregate show-status -aggregate _aggregate-name_`
+
+

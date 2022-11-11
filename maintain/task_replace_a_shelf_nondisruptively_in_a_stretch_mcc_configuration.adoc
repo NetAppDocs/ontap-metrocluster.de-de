@@ -1,0 +1,137 @@
+---
+permalink: maintain/task_replace_a_shelf_nondisruptively_in_a_stretch_mcc_configuration.html 
+sidebar: sidebar 
+keywords: metrocluster, maintain, service, replace, shelf, nondisruptively, stretch, configuration 
+summary: In einer Stretch MetroCluster Konfiguration können Sie Festplatten-Shelfs ohne Unterbrechungen durch ein vollständig bestücktes Festplatten-Shelf oder ein Festplatten-Shelf-Chassis ersetzen und Komponenten aus dem zu entfernenden Shelf übertragen. 
+---
+= Unterbrechungsfreies Ersetzen eines Shelfs in einer Stretch-MetroCluster-Konfiguration
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+In einer Stretch MetroCluster Konfiguration können Sie Festplatten-Shelfs ohne Unterbrechungen durch ein vollständig bestücktes Festplatten-Shelf oder ein Festplatten-Shelf-Chassis ersetzen und Komponenten aus dem zu entfernenden Shelf übertragen.
+
+Das installiertes Festplatten-Shelf-Modell muss die in angegebenen Anforderungen des Storage-Systems erfüllen link:https://hwu.netapp.com["Hardware Universe"^], Die unterstützte Shelf-Modelle, unterstützte Festplattentypen, die maximale Anzahl an Platten-Shelfs in einem Stack und unterstützte ONTAP-Versionen umfasst.
+
+.Schritte
+. Richtig gemahlen.
+. Ermitteln Sie alle Aggregate und Volumes, deren Festplatten aus der Schleife enthalten sind, die das zu ersetzende Shelf enthält, und notieren Sie sich den betroffenen Plex-Namen.
++
+Jeder Node kann Festplatten aus dem Loop des betroffenen Shelf- und Host-Aggregaten oder Host-Volumes enthalten.
+
+. Wählen Sie basierend auf dem von Ihnen geplanten Ersatzszenario eine der folgenden zwei Optionen aus.
++
+** Wenn Sie ein vollständiges Festplatten-Shelf, einschließlich des Shelf-Chassis, Festplatten und I/O-Modulen (IOM), ersetzen, führen Sie die entsprechende Aktion durch, wie in der folgenden Tabelle beschrieben:
++
+|===
+
+
+| Szenario | Aktion 
+
+
+ a| 
+Der betroffene Plex enthält weniger Festplatten aus dem betroffenen Shelf.
+ a| 
+Ersetzen Sie die Festplatten eins für eins auf dem betroffenen Regal durch Ersatzteile von einem anderen Regal.
+
+
+NOTE: Nach Abschluss des Festplattenaustauschs können Sie den Plex offline schalten.
+
+
+
+ a| 
+Der betroffene Plex enthält mehr Disks, als sich im betroffenen Shelf befinden.
+ a| 
+Verschieben Sie den Plex offline und löschen Sie dann den Plex.
+
+
+
+ a| 
+Der betroffene Plex enthält eine Festplatte aus dem betroffenen Shelf.
+ a| 
+Verschieben Sie den Plex offline, aber löschen Sie ihn nicht.
+
+|===
+** Wenn Sie nur das Festplatten-Shelf-Chassis ohne andere Komponenten ersetzen, führen Sie die folgenden Schritte aus:
++
+... Offline die betroffenen Plexe vom Controller, auf dem sie gehostet werden:
++
+`aggregate offline`
+
+... Überprüfen Sie, ob die Plexe offline sind:
++
+`aggregate status -r`
+
+
+
+
+
+. Identifizieren Sie die Controller-SAS-Ports, mit denen die betroffene Shelf-Schleife verbunden ist, und deaktivieren Sie die SAS-Ports an beiden Standort-Controllern:
++
+`storage port disable -node _node_name_ -port _SAS_port_`
+
++
+Die betroffene Shelf-Schleife ist mit beiden Standorten verbunden.
+
+. Warten Sie, bis ONTAP erkennt, dass die Festplatte fehlt.
++
+.. Vergewissern Sie sich, dass die Festplatte fehlt:
++
+`sysconfig -a` Oder `sysconfig -r`
+
+
+
+. Schalten Sie den Netzschalter am Festplatten-Shelf aus.
+. Ziehen Sie alle Netzkabel vom Festplatten-Shelf ab.
+. Erstellen Sie eine Aufzeichnung der Anschlüsse, von denen Sie die Kabel trennen, damit Sie das neue Platten-Shelf auf die gleiche Weise verkabeln können.
+. Trennen Sie die Kabel vom Festplatten-Shelf und entfernen Sie sie, um die anderen Festplatten-Shelfs oder das Speichersystem anzuschließen.
+. Entfernen Sie das Festplatten-Shelf aus dem Rack.
++
+Um das Platten-Shelf leichter und leichter zu manövrieren, entfernen Sie die Netzteile und das IOM. Wenn Sie ein Festplatten-Shelf-Chassis installieren, entfernen Sie auch die Festplattenlaufwerke oder Laufwerksträger. Vermeiden Sie andernfalls, wenn möglich, das Entfernen von Festplattenlaufwerken oder Trägern, da ein übermäßiges Handling zu einer Beschädigung des internen Laufwerks führen kann.
+
+. Installieren und befestigen Sie das Ersatz-Festplatten-Shelf an den Halterungen und am Rack.
+. Wenn Sie ein Festplatten-Shelf-Chassis installiert haben, installieren Sie die Netzteile und IOM neu.
+. Konfigurieren Sie den Stack der Festplatten-Shelfs neu, indem Sie alle Kabel mit den Ersatz-Festplatten-Shelf-Ports genau so verbinden, wie sie auf dem entfernten Festplatten-Shelf konfiguriert wurden.
+. Schalten Sie das Ersatz-Festplatten-Shelf ein und warten Sie, bis die Festplatten erweitert werden.
+. Ändern Sie die Festplatten-Shelf-ID in eine eindeutige ID von 0 bis 98.
+. Aktivieren Sie alle SAS-Ports, die Sie zuvor deaktiviert haben.
++
+.. Warten Sie, bis ONTAP erkennt, dass die Festplatten eingesetzt wurden.
+.. Vergewissern Sie sich, dass die Festplatten eingesetzt sind:
++
+`sysconfig -a` Oder `sysconfig -r`
+
+
+
+. Wenn Sie das gesamte Festplatten-Shelf (Festplatten-Shelf-Chassis, Festplatten, IOM) ersetzen, führen Sie die folgenden Schritte aus:
++
+
+NOTE: Wenn Sie nur das Festplatten-Shelf-Chassis ohne weitere Komponenten ersetzen, fahren Sie mit Schritt 19 fort.
+
++
+.. Legen Sie fest, ob die automatische Festplattenzuordnung aktiviert ist (ein).
++
+`storage disk option modify -autoassign`
+
++
+Die Festplattenzuordnung erfolgt automatisch.
+
+.. Wenn die automatische Zuweisung der Festplatte nicht aktiviert ist, weisen Sie den Festplattenbesitzer manuell zu.
+
+
+. Verschieben Sie die Plexe wieder online:
++
+`aggregate online _plex name_`
+
+. Erstellen Sie alle Plexe, die durch eine Spiegelung des Aggregats gelöscht wurden, neu.
+. Überwachen Sie die Plexe, wenn sie neu synchronisiert werden:
++
+`aggregate status -r <aggregate name>`
+
+. Vergewissern Sie sich, dass das Storage-System wie erwartet funktioniert:
++
+`system health alert show`
+
+

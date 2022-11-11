@@ -1,0 +1,169 @@
+---
+permalink: disaster-recovery/task_heal_restore_mcfc.html 
+sidebar: sidebar 
+keywords: configure, fc, switches, metrocluster, configuration 
+summary: Nach dem Ersetzen der Hardware und dem Zuweisen von Festplatten können Sie die MetroCluster-Heilvorgänge durchführen. 
+---
+= Durchführen der Aggregatheilung und Wiederherstellung von Spiegelungen (MetroCluster FC-Konfigurationen)
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Nach dem Ersetzen der Hardware und dem Zuweisen von Festplatten können Sie die MetroCluster-Heilvorgänge durchführen. Es muss bestätigt werden, dass die Aggregate gespiegelt wurden und, falls erforderlich, die Spiegelung neu starten.
+
+.Schritte
+. Führen Sie die beiden Heilungsphasen (Aggregatheilung und Wurzelheilung) am Notfallstandort durch:
++
+[listing]
+----
+cluster_B::> metrocluster heal -phase aggregates
+
+cluster_B::> metrocluster heal -phase root aggregates
+----
+. Überwachen Sie die Reparatur und überprüfen Sie, ob sich die Aggregate entweder im resynchronisiert oder gespiegelten Status befinden:
++
+`storage aggregate show -node local`
+
++
+|===
+
+
+| Wenn das Aggregat diesen Status zeigt... | Dann... 
+
+
+ a| 
+Resynchronisierung
+ a| 
+Es ist keine Aktion erforderlich. Lassen Sie das Aggregat die Resynchronisierung abschließen.
+
+
+
+ a| 
+Spiegelung beeinträchtigt
+ a| 
+Fahren Sie mit fort ,Wenn ein oder mehrere Plexe offline bleiben, sind zum Rebuild des Spiegels zusätzliche Schritte erforderlich.
+
+
+
+ a| 
+Gespiegelt, normal
+ a| 
+Es ist keine Aktion erforderlich.
+
+
+
+ a| 
+Unbekannt, offline
+ a| 
+Das Root-Aggregat zeigt diesen Status an, wenn alle Festplatten der Disaster-Sites ersetzt wurden.
+
+|===
++
+[listing]
+----
+cluster_B::> storage aggregate show -node local
+
+ Aggregate     Size Available Used% State   #Vols  Nodes      RAID Status
+ --------- -------- --------- ----- ------- ------ ---------- ------------
+ node_B_1_aggr1
+            227.1GB   11.00GB   95% online       1 node_B_1   raid_dp,
+                                                              resyncing
+ NodeA_1_aggr2
+            430.3GB   28.02GB   93% online       2 node_B_1   raid_dp,
+                                                              mirror
+                                                              degraded
+ node_B_1_aggr3
+            812.8GB   85.37GB   89% online       5 node_B_1   raid_dp,
+                                                              mirrored,
+                                                              normal
+ 3 entries were displayed.
+
+cluster_B::>
+----
++
+In den folgenden Beispielen besitzen die drei Aggregate einen anderen Status:
+
++
+|===
+
+
+| Knoten | Bundesland 
+
+
+ a| 
+Node_B_1_aggr1
+ a| 
+Resynchronisierung
+
+
+
+ a| 
+Node_B_1_aggr2
+ a| 
+Spiegelung beeinträchtigt
+
+
+
+ a| 
+Node_B_1_aggr3
+ a| 
+Gespiegelt, normal
+
+|===
+. [[ste3_fc_aggr_healing]] Wenn ein oder mehrere Plexe offline bleiben, sind zusätzliche Schritte erforderlich, um die Spiegelung wiederherzustellen.
++
+In der vorherigen Tabelle muss die Spiegelung für Node_B_1_aggr2 neu erstellt werden.
+
++
+.. Zeigen Sie Details zum Aggregat an, um fehlerhafte Plexe zu identifizieren:
++
+`storage aggregate show -r -aggregate node_B_1_aggr2`
+
++
+Im folgenden Beispiel befindet sich Plex /Node_B_1_aggr2/plex0 in einem fehlgeschlagenen Zustand:
+
++
+[listing]
+----
+cluster_B::> storage aggregate show -r -aggregate node_B_1_aggr2
+
+ Owner Node: node_B_1
+  Aggregate: node_B_1_aggr2 (online, raid_dp, mirror degraded) (block checksums)
+   Plex: /node_B_1_aggr2/plex0 (offline, failed, inactive, pool0)
+    RAID Group /node_B_1_aggr2/plex0/rg0 (partial)
+                                                               Usable Physical
+      Position Disk                     Pool Type     RPM     Size     Size Status
+      -------- ------------------------ ---- ----- ------ -------- -------- ----------
+
+   Plex: /node_B_1_aggr2/plex1 (online, normal, active, pool1)
+    RAID Group /node_B_1_aggr2/plex1/rg0 (normal, block checksums)
+                                                               Usable Physical
+      Position Disk                     Pool Type     RPM     Size     Size Status
+      -------- ------------------------ ---- ----- ------ -------- -------- ----------
+      dparity  1.44.8                    1   SAS    15000  265.6GB  273.5GB (normal)
+      parity   1.41.11                   1   SAS    15000  265.6GB  273.5GB (normal)
+      data     1.42.8                    1   SAS    15000  265.6GB  273.5GB (normal)
+      data     1.43.11                   1   SAS    15000  265.6GB  273.5GB (normal)
+      data     1.44.9                    1   SAS    15000  265.6GB  273.5GB (normal)
+      data     1.43.18                   1   SAS    15000  265.6GB  273.5GB (normal)
+ 6 entries were displayed.
+
+ cluster_B::>
+----
+.. Löschen Sie den fehlgeschlagenen Plex:
++
+`storage aggregate plex delete -aggregate aggregate-name -plex plex`
+
+.. Wiederherstellung der Spiegelung:
++
+`storage aggregate mirror -aggregate aggregate-name`
+
+.. Überwachen Sie die Resynchronisierung und den Spiegelungsstatus der Plex, bis alle Spiegel wiederhergestellt sind und alle Aggregate den gespiegelten, normalen Status anzeigen:
++
+`storage aggregate show`
+
+
+
+
