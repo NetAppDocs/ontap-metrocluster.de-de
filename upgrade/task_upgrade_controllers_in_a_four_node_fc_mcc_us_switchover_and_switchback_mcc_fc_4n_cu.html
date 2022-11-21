@@ -6155,7 +6155,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-11-15 12:43:23 +0000">11/15/2022</time>
+    <time datetime="2022-11-21 18:33:20 +0000">11/21/2022</time>
     
   
 
@@ -6980,18 +6980,31 @@ dr-group-id cluster    node      node-systemid dr-partner-systemid
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Geben Sie den folgenden Befehl für Cluster_A ein:</p>
+<p>Wählen Sie die Option aus, die Ihrer Konfiguration entspricht, und geben Sie den korrekten Befehl auf Cluster_A aus:</p>
+<div class="exampleblock tabbed-block">
+<div class="content">
+<div class="openblock">
+<div class="title">Option 1: FC-Konfiguration mit vier oder acht Nodes und ONTAP 9.8 oder höher</div>
+<div class="content">
 <div class="paragraph">
-<p><code>metrocluster switchover -controller-replacement true</code></p>
+<p>Führen Sie den Befehl aus: <code>metrocluster switchover -controller-replacement true</code></p>
 </div>
-</li>
-</ol>
+</div>
+</div>
+<div class="openblock">
+<div class="title">Option 2: FC-Konfiguration mit zwei Nodes und ONTAP 9.3 und höher</div>
+<div class="content">
+<div class="paragraph">
+<p>Führen Sie den Befehl aus: <code>metrocluster switchover</code></p>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="paragraph">
 <p>Der Vorgang kann einige Minuten dauern.</p>
 </div>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
+</li>
 <li>
 <p>Überwachen Sie den Switchover-Betrieb:</p>
 <div class="paragraph">
