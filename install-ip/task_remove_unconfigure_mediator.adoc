@@ -15,8 +15,6 @@ Sie können die Konfiguration des ONTAP Mediator-Dienstes von der MetroCluster I
 
 Sie müssen den ONTAP Mediator erfolgreich an einem Netzwerkstandort installiert und konfiguriert haben, der von beiden MetroCluster-Standorten erreichbar ist.
 
-Sie müssen diese Aufgabe für beide Cluster in der MetroCluster IP-Konfiguration ausführen.
-
 .Schritte
 . Deaktivieren Sie die Konfiguration des ONTAP Mediator-Dienstes mit dem folgenden Befehl:
 +
@@ -34,6 +32,28 @@ Sie müssen diese Aufgabe für beide Cluster in der MetroCluster IP-Konfiguratio
 ....
 There are no entries matching your query.
 ....
+
+
+. Vergewissern Sie sich, dass der ONTAP Mediator-Dienst aus der MetroCluster-Konfiguration entfernt wurde, indem Sie die folgenden Befehle auf beiden Clustern ausführen:
++
+.. `metrocluster configuration-settings mediator show`
++
+*Beispiel*
+
++
+[listing]
+----
+This table is currently empty.
+----
+.. `storage iscsi-initiator show -label mediator`
++
+*Beispiel*
+
++
+[listing]
+----
+There are no entries matching your query.
+----
 
 
 

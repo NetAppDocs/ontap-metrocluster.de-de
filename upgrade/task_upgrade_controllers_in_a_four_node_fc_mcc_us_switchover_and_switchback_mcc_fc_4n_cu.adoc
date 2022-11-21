@@ -561,10 +561,21 @@ image::../media/mcc_upgrade_cluster_a_in_switchover.png[Upgrade von mcc Cluster 
 .Schritte
 . Wechseln Sie über die MetroCluster-Konfiguration zu Site_A, damit Site_B-Knoten aktualisiert werden können:
 +
-.. Geben Sie den folgenden Befehl für Cluster_A ein:
+.. Wählen Sie die Option aus, die Ihrer Konfiguration entspricht, und geben Sie den korrekten Befehl auf Cluster_A aus:
 +
-`metrocluster switchover -controller-replacement true`
+[role="tabbed-block"]
+====
+.Option 1: FC-Konfiguration mit vier oder acht Nodes und ONTAP 9.8 oder höher
+--
+Führen Sie den Befehl aus: `metrocluster switchover -controller-replacement true`
 
+--
+.Option 2: FC-Konfiguration mit zwei Nodes und ONTAP 9.3 und höher
+--
+Führen Sie den Befehl aus: `metrocluster switchover`
+
+--
+====
 +
 Der Vorgang kann einige Minuten dauern.
 
