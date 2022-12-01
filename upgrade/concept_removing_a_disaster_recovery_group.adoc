@@ -52,17 +52,21 @@ ClusterB::> aggr delete -aggregate aggregate_name
 
 NOTE: Root-Aggregate werden nicht gelöscht.
 
+... Verschieben Sie die Daten-LIFs offline. +
+`network interface modify -vserver _svm-name_ -lif _data-lif_ -status-admin down`
 ... Migrieren Sie alle Daten-LIFs auf Home Nodes in einer anderen DR-Gruppe. +
 `network interface show -home-node _old_node_`
 +
-`network interface modify -vserver svm-name -lif data-lif -home-node new_node -home-port port-id`
+`network interface modify -vserver _svm-name_ -lif _data-lif_ -home-node _new_node_ -home-port _port-id_`
 
+... Verschieben Sie die Daten-LIFs wieder online.
+`network interface modify -vserver _svm-name_ -lif _data-lif_ -status-admin up`
 ... Migrieren Sie die Cluster-Management-LIF auf einen Home-Node in einer anderen DR-Gruppe.
 +
 `network interface show -role cluster-mgmt`
 
 +
-`network interface modify -vserver svm-name -lif cluster_mgmt -home-node new_node -home-port port-id`
+`network interface modify -vserver _svm-name_ -lif _cluster_mgmt_ -home-node _new_node_ -home-port _port-id_`
 
 +
 Das Node-Management und logische Schnittstellen zwischen Clustern werden nicht migriert.

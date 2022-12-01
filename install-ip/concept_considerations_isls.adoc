@@ -49,10 +49,7 @@ Sie sollten diese Abschnitte prüfen, um die erforderliche End-to-End-Kapazität
 
 Die folgenden Anforderungen müssen für Round-Trip-Datenverkehr zwischen den MetroCluster IP-Switches an Site_A und Site_B erfüllt werden. Die MetroCluster-Konfiguration ist dabei im stabilen Betrieb:
 
-* Die Latenz für die hin- und Rückfahrt muss kleiner als oder gleich 7 ms sein.
-+
-Die maximale Entfernung beträgt 700 km. Daher wird der Abstand zwischen den Standorten durch die Latenz oder die maximale Entfernung begrenzt, je nachdem, welcher Wert zuerst erreicht wird.
-
+* Spezifische Informationen zur Latenz bei und für die maximale Entfernung Ihrer Konfiguration finden Sie im link:https://hwu.netapp.com/["Hardware Universe:"^]
 +
 Mit zunehmender Entfernung zwischen zwei MetroCluster Standorten steigt die Latenz, in der Regel im Bereich von 1 ms Paketumlaufzeit pro 100 km (62 Meilen). Diese Latenz hängt auch von dem Service Level Agreement (SLA) des Netzwerks ab, bezogen auf die Bandbreite der ISL-Links, die Paketabfallrate und der Jitter auf das Netzwerk. Geringe Bandbreite, hoher Jitter und zufällige Paketverluste führen zu unterschiedlichen Recovery-Mechanismen durch die Switches oder die TCP-Engine auf den Controller-Modulen für eine erfolgreiche Paketzustellung. Diese Recovery-Mechanismen können die Latenz insgesamt erhöhen.
 
