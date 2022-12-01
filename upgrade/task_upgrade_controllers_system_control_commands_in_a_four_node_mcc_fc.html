@@ -6155,7 +6155,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-11-15 12:43:23 +0000">11/15/2022</time>
+    <time datetime="2022-12-01 16:19:17 +0000">12/01/2022</time>
     
   
 
@@ -7395,7 +7395,7 @@ Rebooting to load the restored env file...</pre>
 </div>
 </li>
 <li>
-<p>Fügen Sie den physischen Port hinzu, der die Intercluster LIFs der entsprechenden Broadcast Domain hostet.</p>
+<p>Fügen Sie den physischen Port hinzu, der die Intercluster LIFs der entsprechenden Broadcast-Domäne hostet.</p>
 </li>
 <li>
 <p>Ändern Sie Intercluster LIFs, um den neuen physischen Port als Home-Port zu verwenden.</p>
@@ -7422,6 +7422,16 @@ Rebooting to load the restored env file...</pre>
 </div>
 <div class="paragraph">
 <p><a href="https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-nmg/GUID-DBC9DEE2-EAB7-430A-A773-4E3420EE2AA1.html" target="_blank" rel="noopener">"Verbinden von physischen Ports zum Erstellen von Schnittstellengruppen"</a></p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Überprüfen Sie, ob das Partner-Cluster erreichbar ist und ob die Konfiguration auf dem Partner-Cluster erfolgreich resynchronisiert ist:</p>
+<div class="paragraph">
+<p><code>metrocluster switchback -simulate true</code></p>
+</div>
+</li>
+</ol>
 </div>
 </li>
 <li>
