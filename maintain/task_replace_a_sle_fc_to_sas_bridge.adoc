@@ -13,14 +13,17 @@ summary: Sie können eine Bridge unterbrechungsfrei durch dieselbe Modellbrücke
 [role="lead"]
 Sie können eine Bridge unterbrechungsfrei durch dieselbe Modellbrücke oder durch eine neue Modellbrücke ersetzen.
 
+.Bevor Sie beginnen
 Sie benötigen das Admin-Passwort und den Zugriff auf einen FTP- oder SCP-Server.
 
+.Über diese Aufgabe
 Diese Prozedur ist unterbrechungsfrei und dauert etwa 60 Minuten.
 
 Bei diesem Verfahren wird über die Bridge-CLI eine Bridge konfiguriert und verwaltet, und die Bridge-Firmware und das ATTO Quicknav-Dienstprogramm aktualisiert, um den Bridge Ethernet Management 1-Port zu konfigurieren. Sie können andere Schnittstellen verwenden, wenn sie die Anforderungen erfüllen.
 
 link:reference_requirements_for_using_other_interfaces_to_configure_and_manage_fibrebridge_bridges.html["Anforderungen für die Verwendung anderer Schnittstellen zur Konfiguration und Verwaltung von FibreBridge-Brücken"]
 
+.Verwandte Informationen
 link:task_fb_consolidate_replace_a_pair_of_fibrebridge_6500n_bridges_with_7500n_bridges.html["Austausch von zwei FibreBridge 6500N-Brücken durch 7600N- oder 7500N-Brücken"]
 
 
@@ -29,6 +32,7 @@ link:task_fb_consolidate_replace_a_pair_of_fibrebridge_6500n_bridges_with_7500n_
 
 Vor dem Austausch von Brücken sollten Sie die Verbindung zu Bridge und Storage überprüfen. Wenn Sie sich die Befehlsausgabe vertraut machen, können Sie die Konnektivität nach Konfigurationsänderungen nachträglich überprüfen.
 
+.Über diese Aufgabe
 Sie können diese Befehle von der Admin-Eingabeaufforderung eines der Controller-Module in der MetroCluster-Konfiguration am Standort, der gewartet wird, ausgeben.
 
 .Schritte
@@ -95,6 +99,7 @@ slot 0: FC Host Adapter 0g (QLogic 8324 rev. 2, N-port, <UP>)**<=== Initiator po
 
 Sie können eine fehlerhafte Bridge durch eine andere Brücke desselben Modells im laufenden Betrieb austauschen.
 
+.Über diese Aufgabe
 Wenn Sie die bandinterne Verwaltung der Bridge anstelle der IP-Verwaltung verwenden, können die Schritte zur Konfiguration des Ethernet-Ports und der IP-Einstellungen übersprungen werden, wie in den entsprechenden Schritten angegeben.
 
 
@@ -513,15 +518,15 @@ Tgt VendorID ProductID        Type SerialNumber
  a| 
 Das Ist Korrekt
  a| 
-Wiederholen ,Schritt 18 Für jede verbleibende Brücke.
+Wiederholen <<step18-verify-each-bridge,Schritt 18>> Für jede verbleibende Brücke.
 
 
 
  a| 
 Nicht richtig
  a| 
-.. Überprüfen Sie, ob sich lose SAS-Kabel befinden oder korrigieren Sie die SAS-Verkabelung, indem Sie das Kabel wiederholt ,Schritt 17.
-.. Wiederholen ,Schritt 18.
+.. Überprüfen Sie, ob sich lose SAS-Kabel befinden oder korrigieren Sie die SAS-Verkabelung, indem Sie das Kabel wiederholt <<step17-reconnect-newbridge,Schritt 17>>.
+.. Wiederholen <<step18-verify-each-bridge,Schritt 18>>.
 
 
 |===
@@ -641,6 +646,7 @@ https://mysupport.netapp.com/site/tools/tool-eula/activeiq-configadvisor["NetApp
 
 
 
+.Verwandte Informationen
 link:concept_in_band_management_of_the_fc_to_sas_bridges.html["In-Band-Management der FC-to-SAS-Bridges"]
 
 
@@ -649,6 +655,7 @@ link:concept_in_band_management_of_the_fc_to_sas_bridges.html["In-Band-Managemen
 
 Sie können eine FibreBridge 7500N-Bridge im laufenden Betrieb durch eine 7600N-Brücke austauschen.
 
+.Über diese Aufgabe
 Wenn Sie die bandinterne Verwaltung der Bridge anstelle der IP-Verwaltung verwenden, können die Schritte zur Konfiguration des Ethernet-Ports und der IP-Einstellungen übersprungen werden, wie in den entsprechenden Schritten angegeben.
 
 
@@ -910,7 +917,7 @@ Wiederholen Sie den vorherigen Schritt für jede verbleibende Brücke.
  a| 
 Nicht richtig
  a| 
-.. Überprüfen Sie, ob sich lose SAS-Kabel befinden oder korrigieren Sie die SAS-Verkabelung, indem Sie das Kabel wiederholt ,Schritt 17.
+.. Überprüfen Sie, ob sich lose SAS-Kabel befinden oder korrigieren Sie die SAS-Verkabelung, indem Sie das Kabel wiederholt <<step17-reconnect-cables,Schritt 17>>.
 .. Wiederholen Sie den vorherigen Schritt.
 
 
@@ -1031,6 +1038,7 @@ https://mysupport.netapp.com/site/tools/tool-eula/activeiq-configadvisor["NetApp
 
 
 
+.Verwandte Informationen
 link:concept_in_band_management_of_the_fc_to_sas_bridges.html["In-Band-Management der FC-to-SAS-Bridges"]
 
 
@@ -1351,7 +1359,7 @@ Wiederholen Sie den vorherigen Schritt für jede verbleibende Brücke.
  a| 
 Nicht richtig
  a| 
-.. Überprüfen Sie, ob sich lose SAS-Kabel befinden oder korrigieren Sie die SAS-Verkabelung, indem Sie das Kabel wiederholt ,Schritt 17.
+.. Überprüfen Sie, ob sich lose SAS-Kabel befinden oder korrigieren Sie die SAS-Verkabelung, indem Sie das Kabel wiederholt <<step17-recable,Schritt 17>>.
 .. Wiederholen Sie den vorherigen Schritt für jede verbleibende Brücke.
 
 
@@ -1469,4 +1477,5 @@ https://mysupport.netapp.com/site/tools/tool-eula/activeiq-configadvisor["NetApp
 . Nach dem Austausch des Teils senden Sie das fehlerhafte Teil an NetApp zurück, wie in den mit dem Kit gelieferten RMA-Anweisungen beschrieben. Siehe link:https://mysupport.netapp.com/site/info/rma["Teilerückgabe  Austausch"] Seite für weitere Informationen.
 
 
+.Verwandte Informationen
 link:concept_in_band_management_of_the_fc_to_sas_bridges.html["In-Band-Management der FC-to-SAS-Bridges"]

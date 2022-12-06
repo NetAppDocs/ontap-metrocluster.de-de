@@ -13,6 +13,7 @@ summary: Sie müssen bestimmte Aufgaben durchführen, um die gemischte MetroClus
 [role="lead"]
 Sie müssen bestimmte Aufgaben durchführen, um die gemischte MetroCluster IP- und FC-Konfiguration für den Switchback-Betrieb vorzubereiten. Dieses Verfahren gilt nur für Konfigurationen, bei denen während der Migration von MetroCluster FC zu IP ein Fehler aufgetreten ist.
 
+.Über diese Aufgabe
 Dieses Verfahren sollte nur verwendet werden, wenn eine Wiederherstellung auf einem System durchgeführt wird, das sich während des Ausfalls Mitte des Übergangs befand.
 
 In diesem Szenario ist die MetroCluster eine gemischte Konfiguration:
@@ -27,6 +28,7 @@ Auf diesen Knoten müssen Sie die MetroCluster IP-Recovery-Schritte durchführen
 
 
 
+.Schritte
 Führen Sie die Schritte in der folgenden Reihenfolge aus.
 
 . Bereiten Sie die FC-Nodes auf den Wechsel vor, indem Sie die folgenden Aufgaben in der Reihenfolge durchführen:
@@ -64,7 +66,7 @@ Das System startet zweimal, das zweite Mal, um die neue Konfiguration zu laden.
 
 +
 
-NOTE: Wenn Sie den NVRAM-Inhalt eines verwendeten Ersatz-Controllers nicht gelöscht haben, wird möglicherweise ein Panikzustand mit der folgenden Meldung angezeigt: `PANIC: NVRAM contents are invalid...` Wenn dies der Fall ist, wiederholen Sie diese Teilschritte, um das System an der ONTAP-Eingabeaufforderung zu booten. Dann müssen Sie es ,Setzen Sie die Boot Recovery und rdb_Corrupt Bootargs zurück
+NOTE: Wenn Sie den NVRAM-Inhalt eines verwendeten Ersatz-Controllers nicht gelöscht haben, wird möglicherweise ein Panikzustand mit der folgenden Meldung angezeigt: `PANIC: NVRAM contents are invalid...` Wenn dies der Fall ist, wiederholen Sie diese Teilschritte, um das System an der ONTAP-Eingabeaufforderung zu booten. Dann müssen Sie es <<Reset-the-boot-recovery,Setzen Sie die Boot Recovery und rdb_Corrupt Bootargs zurück>>
 
 
 
@@ -137,7 +139,7 @@ Group Cluster Node               State          Mirroring Mode
 
 
 
-=== Setzen Sie die Boot_Recovery und rdb_Corrupt Bootargs zurück
+=== [[Reset-the-Boot-Recovery]]Reset the Boot_Recovery and rdb_corrupte Bootargs
 
 [role="lead"]
 Falls erforderlich, können Sie die Boot_Recovery und rdb_Corrupt_bootargs zurücksetzen

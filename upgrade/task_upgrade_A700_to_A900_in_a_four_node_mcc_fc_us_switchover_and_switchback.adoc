@@ -232,7 +232,7 @@ NOTE: Das RCF-Dateiupdate zur Unterstützung der AFF A900 oder FAS9500 Fabric Me
 `metrocluster check show`
 
 
-. Aktualisieren Sie die Fabric-B-Schalter (Schalter 2 und 4), indem Sie sich wiederholen ,Schritt 2 Bis ,Schritt 5.
+. Aktualisieren Sie die Fabric-B-Schalter (Schalter 2 und 4), indem Sie sich wiederholen <<Update-RCF,Schritt 2>> Bis <<verify-healthy,Schritt 5>>.
 
 
 
@@ -338,6 +338,7 @@ Wenn die AFF A700 oder FAS9000 Controller über eine Karte in Steckplatz 7 verf�
 
 Vor dem Upgrade müssen Informationen für alle Nodes gesammelt und bei Bedarf die Netzwerk-Broadcast-Domänen angepasst, beliebige VLANs und Schnittstellengruppen entfernt und Verschlüsselungsinformationen gesammelt werden.
 
+.Über diese Aufgabe
 Diese Aufgabe wird für die vorhandene MetroCluster FC-Konfiguration ausgeführt.
 
 .Schritte
@@ -449,6 +450,7 @@ Informationen zur Anwendung finden Sie in der Dokumentation.
 
 Bevor Sie die Wartung durchführen, sollten Sie eine AutoSupport Meldung ausgeben, um den technischen Support von NetApp über die laufende Wartung zu informieren. Die Mitteilung des technischen Supports über laufende Wartungsarbeiten verhindert, dass ein Fall eröffnet wird, wenn eine Störung aufgetreten ist.
 
+.Über diese Aufgabe
 Diese Aufgabe muss auf jedem MetroCluster-Standort ausgeführt werden.
 
 .Schritte
@@ -475,6 +477,7 @@ Diese Aufgabe muss auf jedem MetroCluster-Standort ausgeführt werden.
 
 Sie müssen die Konfiguration auf Site_A umschalten, damit die Plattformen auf Site_B aktualisiert werden können.
 
+.Über diese Aufgabe
 Diese Aufgabe muss auf Site_A ausgeführt werden
 
 Nach Abschluss dieser Aufgabe ist Site_A aktiv und stellt Daten für beide Standorte bereit. Site_B ist inaktiv und bereit, den Upgrade-Prozess zu starten, wie in der folgenden Abbildung dargestellt. (Diese Abbildung gilt auch für das Upgrade einer FAS9000 auf einen FAS9500 Controller.)
@@ -555,6 +558,7 @@ Sie müssen die alten Controller aus der Konfiguration entfernen.
 
 Sie führen diese Aufgabe auf Site_B. aus
 
+.Bevor Sie beginnen
 Wenn Sie nicht bereits geerdet sind, sollten Sie sich richtig Erden.
 
 .Schritte
@@ -634,6 +638,7 @@ NOTE: Sollten zusätzliche Module als Coredump-Geräte auf dem nicht flüchtigen
 
 Sie müssen das AFF A900 oder FAS9500 NVS und das Controller-Modul aus dem Upgrade-Kit auf beiden Knoten in Site_B. installieren Verschieben Sie das coredump-Gerät nicht vom AFF A700 oder FAS9000 NVS-Modul in das AFF A900 oder FAS9500 NVS Modul.
 
+.Bevor Sie beginnen
 Wenn Sie nicht bereits geerdet sind, sollten Sie sich richtig Erden.
 
 
@@ -736,7 +741,7 @@ Es ist nicht möglich, die auf den Boot-Medien eines AFF A900 oder FAS9500 Contr
 `<dns_domain>` Der Domain Name (DNS) ist der Domain-Name. Dieser Parameter ist optional. HINWEIS: Andere Parameter können für Ihre Schnittstelle erforderlich sein. Geben Sie an der Firmware-Eingabeaufforderung die Hilfe ifconfig ein, um Details zu erhalten. 
 |===
 . Performance `netboot` Bei Knoten 1:
-`netboot http://<web_server_ip/path_to_web_accessible_directory>/netboot/kernel`Der `<path_to_the_web-accessible_directory>` Sollten Sie dazu führen, wo Sie das heruntergeladen haben `<ontap_version>_image.tgz` In ,Schritt 2.
+`netboot http://<web_server_ip/path_to_web_accessible_directory>/netboot/kernel`Der `<path_to_the_web-accessible_directory>` Sollten Sie dazu führen, wo Sie das heruntergeladen haben `<ontap_version>_image.tgz` In <<step2-download-software,Schritt 2>>.
 +
 
 NOTE: Unterbrechen Sie den Startvorgang nicht.
@@ -970,6 +975,7 @@ mcc
 
 Weisen Sie die Root-Aggregat-Festplatten dem neuen Controller-Modul unter Verwendung der zuvor gesammelten Sysiden wieder zu
 
+.Über diese Aufgabe
 Diese Aufgabe wird im Wartungsmodus ausgeführt.
 
 Die alten System-IDs wurden in identifiziert link:task_upgrade_controllers_in_a_four_node_fc_mcc_us_switchover_and_switchback_mcc_fc_4n_cu.html["Sammeln von Informationen vor dem Upgrade"].
@@ -1078,6 +1084,7 @@ aggr0_node_b_1-root    online      raid_dp, aggr    root, nosnap=on,
 
 Sie müssen die Controller aus dem Boot-Menü neu booten, um das Controller-Flash-Image zu aktualisieren. Bei Konfiguration der Verschlüsselung sind weitere Schritte erforderlich.
 
+.Über diese Aufgabe
 Diese Aufgabe muss für alle neuen Controller ausgeführt werden.
 
 .Schritte
@@ -1230,6 +1237,7 @@ Weitere Informationen finden Sie unter link:https://docs.netapp.com/us-en/ontap/
 
 Stellen Sie vor dem Wechsel sicher, dass LIFs auf den entsprechenden Nodes/Ports gehostet werden. Folgende Schritte sind auszuführen
 
+.Über diese Aufgabe
 Diese Aufgabe wird in Site_B ausgeführt, wo die Nodes mit Root-Aggregaten gestartet wurden.
 
 .Schritte
@@ -1265,6 +1273,7 @@ Führen Sie diesen Schritt bei allen SVMs aus, falls erforderlich.
 
 Nachdem die neuen Controller konfiguriert wurden, schalten Sie die MetroCluster Konfiguration zurück und kehren den normalen Betrieb zurück.
 
+.Über diese Aufgabe
 In dieser Aufgabe führen Sie den Vorgang zum Zurückkehren aus und kehren die MetroCluster-Konfiguration in den normalen Betrieb zurück. Die Knoten auf Site_A warten noch auf das Upgrade, wie in der folgenden Abbildung dargestellt. (Diese Abbildung gilt auch für das Upgrade einer FAS9000 auf einen FAS9500 Controller.)
 
 image::../media/mcc_upgrade_cluster_a_switchback_A900.png[MetroCluster mit vier Nodes]
@@ -1327,6 +1336,7 @@ Wenn ein Wechsel eine lange Zeit in Anspruch nimmt, können Sie den Status der i
 
 Nach dem Upgrade der Controller-Module müssen Sie den Systemzustand der MetroCluster Konfiguration überprüfen.
 
+.Über diese Aufgabe
 Diese Aufgabe kann auf jedem Node der MetroCluster Konfiguration ausgeführt werden.
 
 .Schritte

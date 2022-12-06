@@ -13,6 +13,7 @@ summary: Sie müssen die Ersatzknoten am Disaster-Standort zum Betriebssystem ON
 [role="lead"]
 Sie müssen die Ersatzknoten am Disaster-Standort zum Betriebssystem ONTAP booten.
 
+.Über diese Aufgabe
 Dieser Task beginnt mit den Nodes am Disaster-Standort im Wartungsmodus.
 
 .Schritte
@@ -24,7 +25,7 @@ Das System bootet zweimal. Sie sollten antworten `yes` Wenn Sie dazu aufgeforder
 
 +
 
-NOTE: Wenn Sie den NVRAM-Inhalt eines verwendeten Ersatz-Controller-Moduls nicht gelöscht haben, wird möglicherweise die folgende Panikmeldung angezeigt: `PANIC: NVRAM contents are invalid....` Wenn dieser Fall eintritt, booten Sie das System erneut zur ONTAP-Eingabeaufforderung (`boot_ontap menu`). Dann müssen Sie es ,Setzen Sie die Boot_Recovery und rdb_Corrupt Bootargs zurück
+NOTE: Wenn Sie den NVRAM-Inhalt eines verwendeten Ersatz-Controller-Moduls nicht gelöscht haben, wird möglicherweise die folgende Panikmeldung angezeigt: `PANIC: NVRAM contents are invalid....` Wenn dieser Fall eintritt, booten Sie das System erneut zur ONTAP-Eingabeaufforderung (`boot_ontap menu`). Dann müssen Sie es <<Reset-the-boot-recovery,Setzen Sie die Boot_Recovery und rdb_Corrupt Bootargs zurück>>
 
 +
 ** Bestätigung zur Fortsetzung der Eingabeaufforderung:
@@ -194,7 +195,7 @@ cluster_B::*>
 
 
 
-=== Setzen Sie die Boot_Recovery und rdb_Corrupt Bootargs zurück
+=== [[Reset-the-Boot-Recovery]]Reset the Boot_Recovery and rdb_corrupte Bootargs
 
 [role="lead"]
 Falls erforderlich, können Sie die Boot_Recovery und rdb_Corrupt_bootargs zurücksetzen

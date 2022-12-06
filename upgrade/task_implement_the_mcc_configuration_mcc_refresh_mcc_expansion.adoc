@@ -13,6 +13,7 @@ summary: Sie müssen den MetroCluster configure -refresh true-Befehl ausführen,
 [role="lead"]
 Sie müssen den ausführen `metrocluster configure -refresh true` Befehl zum Starten der Datensicherung auf den Nodes, die Sie einer MetroCluster-Konfiguration hinzugefügt haben.
 
+.Über diese Aufgabe
 Sie stellen das aus `metrocluster configure -refresh true` Befehl einmal auf einem der neu hinzugefügten Nodes, um die MetroCluster-Konfiguration zu aktualisieren. Sie müssen den Befehl nicht an jedem Standort bzw. jeder Node ausgeben.
 
 Der `metrocluster configure -refresh true` Befehl koppelt die beiden Nodes automatisch mit den niedrigsten System-IDs in jedem der beiden Cluster als Disaster Recovery (DR) Partner. In einer MetroCluster Konfiguration mit vier Nodes gibt es zwei DR-Partnerpaare. Das zweite DR-Paar wird aus den beiden Knoten mit höheren System-IDs erstellt.

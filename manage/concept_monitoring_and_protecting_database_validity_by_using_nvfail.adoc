@@ -112,6 +112,7 @@ Zeigt an, ob NVFAIL derzeit für ein angegebenes Volume aktiviert ist
 *Hinweis:* Sie stellen das ein `-fields` Parameter in „nvfail“ zum Anzeigen des NV-Fehler-Attributs für ein angegebenes Volume.
 
 |===
+.Verwandte Informationen
 Weitere Informationen finden Sie auf der man-Page für jeden Befehl.
 
 
@@ -120,18 +121,22 @@ Weitere Informationen finden Sie auf der man-Page für jeden Befehl.
 
 Nach einer Umschaltung müssen Sie den NV-Fehler-Status löschen, indem Sie den zurücksetzen `-in-nvfailed-state` Parameter von `volume modify` Befehl, um die Einschränkung von Clients für den Zugriff auf Daten zu entfernen.
 
+.Bevor Sie beginnen
 Die Datenbank oder das Dateisystem dürfen nicht ausgeführt werden oder es darf versucht werden, auf das betroffene Volume zuzugreifen.
 
+.Über diese Aufgabe
 Einstellung `-in-nvfailed-state` Für Parameter ist die Berechtigung auf erweiterter Ebene erforderlich.
 
 .Schritt
 . Stellen Sie das Volume mithilfe des Befehls Volume modify wieder her, mit dem Parameter -in-nvfailed-State auf false gesetzt.
 
 
+.Nachdem Sie fertig sind
 Anweisungen zur Überprüfung der Gültigkeit von Datenbankdateien finden Sie in der Dokumentation für Ihre spezifische Datenbanksoftware.
 
 Wenn Ihre Datenbank LUNs verwendet, überprüfen Sie die Schritte, um nach einem NVRAM-Fehler den Host Zugriff auf die LUNs zu ermöglichen.
 
+.Verwandte Informationen
 link:../manage/concept_monitoring_and_protecting_database_validity_by_using_nvfail.html["Überwachen und Schützen der Systemkonsistenz der Dateien mit NVFAIL"]
 
 
@@ -140,6 +145,7 @@ link:../manage/concept_monitoring_and_protecting_database_validity_by_using_nvfa
 
 Nach einer Umschaltung hat der Host nicht mehr Zugriff auf Daten auf den LUNs, die sich im Status „NV-Fehler“ befinden. Sie müssen eine Reihe von Aktionen durchführen, bevor die Datenbank Zugriff auf die LUNs hat.
 
+.Bevor Sie beginnen
 Die Datenbank darf nicht ausgeführt werden.
 
 .Schritte

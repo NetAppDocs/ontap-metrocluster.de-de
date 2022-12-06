@@ -13,8 +13,10 @@ summary: Um die zusätzlichen FC2-Anschlüsse der FibreBridge 7600N oder 7500N-B
 [role="lead"]
 Um die zusätzlichen FC2-Anschlüsse der FibreBridge 7600N oder 7500N-Brücken zu nutzen und die Rack-Auslastung zu verringern, können Sie 6500N-Brücken unterbrechungsfrei ersetzen und bis zu vier Speicher-Stacks hinter einem einzigen FibreBridge 7600N- oder 7500N-Paar konsolidieren.
 
+.Bevor Sie beginnen
 Sie benötigen das Admin-Passwort und den Zugriff auf einen FTP- oder SCP-Server.
 
+.Über diese Aufgabe
 Sie sollten dieses Verfahren verwenden, wenn:
 
 * Sie ersetzen ein Paar FibreBridge 6500N-Brücken durch FibreBridge 7600N oder 7500N-Brücken.
@@ -27,6 +29,7 @@ Nach dem Austausch müssen beide Brücken im Paar das gleiche Modell sein.
 
 Dieser Vorgang läuft unterbrechungsfrei ab und dauert ungefähr zwei Stunden.
 
+.Verwandte Informationen
 link:task_replace_a_sle_fc_to_sas_bridge.html["Austauschen einer einzelnen FC-to-SAS-Bridge"]
 
 
@@ -100,6 +103,7 @@ slot 0: FC Host Adapter 0g (QLogic 8324 rev. 2, N-port, <UP>)**<=== Initiator po
 
 Um eine oder zwei FibreBridge 6500N Hot-Swap durchzuführen, um eine Konfiguration mit zwei FibreBridge 7600N oder 7500N Brücken zu erstellen, müssen Sie die Brücken nacheinander austauschen und den korrekten Kabelvorgang befolgen. Die neue Verkabelung unterscheidet sich von der ursprünglichen Verkabelung.
 
+.Über diese Aufgabe
 Sie können dieses Verfahren auch verwenden, wenn die folgenden Bedingungen erfüllt sind:
 
 * Sie ersetzen ein Paar FibreBridge 6500N-Brücken, die beide mit demselben SAS-Speicher verbunden sind.
@@ -248,6 +252,7 @@ slot 0: FC Host Adapter 0g (QLogic 8324 rev. 2, N-port, <UP>)**<=== Initiator po
 
 Wenn Sie mehrere SAS Storage Stacks hinter einem einzigen FibreBridge 7600N- oder 7500N-Paar mit verfügbaren SAS-Ports konsolidieren, müssen Sie die oberen und unteren SAS-Kabel auf die neuen Brücken bringen.
 
+.Über diese Aufgabe
 Die FibreBridge 6500N Bridge SAS-Ports verwenden QSFP-Anschlüsse. Die SAS-Ports FibreBridge 7600N oder 7500N verwenden Mini-SAS-Anschlüsse.
 
 
@@ -362,6 +367,7 @@ Das Zoning muss geändert werden, wenn Sie FibreBridge 6500N-Bridges durch Fibre
 
 Das Zoning muss geändert werden, wenn Sie FibreBridge 6500N-Brücken durch FibreBridge 7500N-Brücken ersetzen und beide FC-Ports auf den FibreBridge 7500N verwenden. Jede Zone kann nicht mehr als vier Initiator-Ports enthalten. Das Zoning, das Sie verwenden, hängt davon ab, ob Sie ONTAP vor Version 9.1 oder 9.1 und höher ausführen
 
+.Über diese Aufgabe
 Das spezifische Zoning in dieser Aufgabe gilt für Versionen von ONTAP vor Version 9.1.
 
 Die Änderungen beim Zoning sind erforderlich, um Probleme mit ONTAP zu vermeiden, die erfordern, dass nicht mehr als vier FC-Initiator-Ports einen Pfad zu einer Festplatte haben können. Nach Neuordnung zur Konsolidierung der Shelves würde das vorhandene Zoning dazu führen, dass jede Festplatte über acht FC-Ports erreichbar ist. Sie müssen das Zoning ändern, um die Initiator-Ports in jeder Zone auf vier zu reduzieren.
@@ -507,6 +513,7 @@ Informationen finden Sie im Abschnitt zum FC-Switch von link:../install-fc/index
 
 Um mehrere Pfade zu den Speicherstapeln bereitzustellen, können Sie den zweiten FC-Port an jeder FibreBridge 7600N oder 7500N-Brücke verkabeln, wenn Sie der Konfiguration die FibreBridge 7600N oder 7500N-Brücke hinzugefügt haben.
 
+.Bevor Sie beginnen
 Das Zoning muss angepasst werden, um Zonen für die zweiten FC-Ports bereitzustellen.
 
 .Schritte

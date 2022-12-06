@@ -271,6 +271,7 @@ Configuration Saved!
 
 Sie müssen die Betriebssystemdatei und die RCF-Datei auf jeden Switch in der MetroCluster IP-Konfiguration herunterladen.
 
+.Über diese Aufgabe
 Diese Aufgabe muss bei jedem Switch in der MetroCluster IP-Konfiguration wiederholt werden.
 
 []
@@ -378,8 +379,8 @@ Nicht FIPS-konform
 
 |===
 +
-** Methode 1:  to upgrade EFOS with downloading the software image to the backup boot partition
-** Methode 2:  to upgrade EFOS using the ONIE OS installation
+** Methode 1: <<Schritte zum Aktualisieren von EFOS beim Herunterladen des Software-Images auf die Backup-Boot-Partition>>
+** Methode 2: <<Schritte zum Aktualisieren von EFOS mit der ONIE OS-Installation>>
 
 
 
@@ -492,12 +493,12 @@ Are you sure you would like to reset the system? (y/n) y
 . Warten Sie, bis der Schalter neu gestartet wurde.
 +
 
-NOTE: In seltenen Fällen kann der Switch nicht booten. Folgen Sie den  to upgrade EFOS using the ONIE OS installation Um das neue Image zu installieren.
+NOTE: In seltenen Fällen kann der Switch nicht booten. Folgen Sie den <<Schritte zum Aktualisieren von EFOS mit der ONIE OS-Installation>> Um das neue Image zu installieren.
 
 . Wenn Sie den Switch von EFOS 3.4.x.x auf EFOS 3.7.x.x oder umgekehrt umstellen, befolgen Sie die folgenden beiden Verfahren, um die korrekte Konfiguration (RCF) anzuwenden:
 +
-..  the Broadcom IP switch to factory defaults
-..  and installing the Broadcom RCF files
+.. <<Zurücksetzen des Broadcom IP-Switches auf die Werkseinstellungen>>
+.. <<Herunterladen und Installieren der Broadcom RCF-Dateien>>
 
 
 . Wiederholen Sie diese Schritte für die verbleibenden drei IP-Switches in der MetroCluster IP-Konfiguration.
@@ -645,8 +646,8 @@ unit 	active 	   backup   current-active  next-active
 Der Switch wird neu gestartet, ohne dass die Konfiguration angewendet wurde, und setzt die Werkseinstellungen zurück. Befolgen Sie die beiden Verfahren, um die Grundeinstellungen des Switches zu konfigurieren und die RCF-Datei anzuwenden, wie in den folgenden beiden Dokumenten beschrieben:
 
 +
-.. Konfigurieren Sie die Grundeinstellungen des Switches. Befolgen Sie Schritt 4 und höher:  the Broadcom IP switch to factory defaults
-.. Erstellen und wenden Sie die RCF-Datei wie in beschrieben an  and installing the Broadcom RCF files
+.. Konfigurieren Sie die Grundeinstellungen des Switches. Befolgen Sie Schritt 4 und höher: <<Zurücksetzen des Broadcom IP-Switches auf die Werkseinstellungen>>
+.. Erstellen und wenden Sie die RCF-Datei wie in beschrieben an <<Herunterladen und Installieren der Broadcom RCF-Dateien>>
 
 
 
@@ -657,8 +658,10 @@ Der Switch wird neu gestartet, ohne dass die Konfiguration angewendet wurde, und
 
 Sie müssen die RCF-Datei des Switch auf jedem Switch der MetroCluster IP-Konfiguration herunterladen und installieren.
 
+.Bevor Sie beginnen
 Diese Aufgabe erfordert Dateiübertragungssoftware, wie FTP, TFTP, SFTP oder SCP, Um die Dateien auf die Switches zu kopieren.
 
+.Über diese Aufgabe
 Diese Schritte müssen bei jedem der IP-Switches in der MetroCluster IP-Konfiguration wiederholt werden.
 
 Es gibt vier RCF-Dateien, eine für jeden der vier Schalter in der MetroCluster IP-Konfiguration. Sie müssen die richtigen RCF-Dateien für das Switch-Modell verwenden, das Sie verwenden.

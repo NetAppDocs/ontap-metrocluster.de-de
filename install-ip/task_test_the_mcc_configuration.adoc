@@ -19,6 +19,7 @@ Sie können Fehlerszenarien testen, um den korrekten Betrieb der MetroCluster-Ko
 
 Sie können die ausgehandelte (geplante) Umschaltung testen, um die unterbrechungsfreie Datenverfügbarkeit zu bestätigen.
 
+.Über diese Aufgabe
 Dieser Test überprüft, ob sich die Datenverfügbarkeit nicht auf die Protokolle Microsoft Server Message Block (SMB) und Solaris Fibre Channel auswirkt (ausgenommen Microsoft Server Message Block), indem der Cluster in das zweite Rechenzentrum umgeschaltet wird.
 
 Dieser Test dauert etwa 30 Minuten.
@@ -117,6 +118,7 @@ cluster_A::> metrocluster operation show
 
 Sie können die Healing- und manuellen Switchback-Vorgänge testen, um zu überprüfen, ob die Datenverfügbarkeit nicht beeinträchtigt ist (außer bei SMB- und Solaris-FC-Konfigurationen), indem Sie nach einer ausgehandelten Umschaltung das Cluster wieder zum ursprünglichen Datacenter wechseln.
 
+.Über diese Aufgabe
 Dieser Test dauert etwa 30 Minuten.
 
 Das erwartete Ergebnis dieses Verfahrens ist, dass Services zurück auf ihre Home-Knoten geschaltet werden sollten.
@@ -280,6 +282,7 @@ cluster_A::> metrocluster operation show
 
 Sie können die Antwort der MetroCluster-Konfiguration auf den Ausfall einer PDU testen.
 
+.Über diese Aufgabe
 Als Best Practice empfiehlt es sich, jede Netzteileinheit (PSU) einer Komponente mit separaten Netzteilen zu verbinden. Wenn beide Netzteile mit derselben Stromverteilereinheit (Power Distribution Unit, PDU) verbunden sind und eine elektrische Störung auftritt, kann der Standort ausfallen oder ein komplettes Shelf nicht mehr verfügbar sein. Der Ausfall einer Stromleitung wird getestet, um zu bestätigen, dass keine Verkabelungsabweichung besteht, die zu einer Serviceunterbrechung führen kann.
 
 Dieser Test dauert etwa 15 Minuten.
@@ -340,6 +343,7 @@ Power               Critical condition is detected in storage shelf power supply
 
 Sie können den Ausfall eines einzelnen Storage Shelf testen, um sicherzustellen, dass es keinen Single Point of Failure gibt.
 
+.Über diese Aufgabe
 Dieses Verfahren hat folgende erwartete Ergebnisse:
 
 * Eine Fehlermeldung sollte von der Überwachungssoftware gemeldet werden.

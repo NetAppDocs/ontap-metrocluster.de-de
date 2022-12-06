@@ -19,6 +19,7 @@ Die Konfiguration muss die vier neuen Controller-Module und alle zusätzlichen S
 
 Sie müssen die neuen MetroCluster IP Controller in einem Rack unterbringen und mit den zuvor mit den MetroCluster FC-Controllern verbundenen Storage-Shelfs verkabeln.
 
+.Über diese Aufgabe
 Diese Schritte müssen auf jedem der MetroCluster IP Knoten durchgeführt werden.
 
 * Node_A_1-IP
@@ -219,6 +220,7 @@ Weitere Informationen finden Sie unter https://docs.netapp.com/ontap-9/topic/com
 
 Wenn das Root-Volume verschlüsselt ist, müssen Sie spezielle Boot-Befehle verwenden, um das Verschlüsselungsmanagement wiederherzustellen.
 
+.Bevor Sie beginnen
 Sie müssen die Passphrases früher gesammelt haben.
 
 .Schritte
@@ -373,6 +375,7 @@ Das System startet zum Startmenü.
 
 Sie müssen eine Netzwerkkonfiguration erstellen, die der Konfiguration auf den FC-Nodes entspricht. Dies liegt daran ONTAP, dass der MetroCluster IP-Node beim Booten die gleiche Konfiguration wiedergibt. Dies bedeutet, dass Node_A_1-IP und Node_B_1-IP Boot versuchen wird, LIFs auf denselben Ports zu hosten, die auf Node_A_1-FC und Node_B_1-FC verwendet wurden.
 
+.Über diese Aufgabe
 Verwenden Sie beim Erstellen der Netzwerkkonfiguration den in erstellten Plan link:concept_requirements_for_fc_to_ip_transition_2n_mcc_transition.html["Zuordnen von Ports von den MetroCluster FC-Nodes zu den MetroCluster IP-Nodes"] Um Ihnen zu helfen.
 
 
@@ -574,6 +577,7 @@ Sie müssen den neuen MetroCluster IP Node an jedem Standort erzeugen und konfig
 
 Sie müssen die neuen Controller-Module nacheinander mit der richtigen Option im Startmenü booten.
 
+.Über diese Aufgabe
 In diesen Schritten booten Sie die beiden brandneuen Nodes und erweiterten die bislang eine Konfiguration mit zwei Nodes in eine Konfiguration mit vier Nodes.
 
 Auf den folgenden Knoten werden diese Schritte durchgeführt:

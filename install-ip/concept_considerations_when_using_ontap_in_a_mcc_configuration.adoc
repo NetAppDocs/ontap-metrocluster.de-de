@@ -75,6 +75,7 @@ Wenn die Umschaltung ausgelöst wird und wenn Site_A und site_C nicht verbunden 
 
 Wenn ein Wechsel zurück durchgeführt wird, müssen Sie die SVMs on site_A (das ursprüngliche Cluster) und site_C. erneut aufheben
 
+.Verwandte Informationen
 http://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-fc-mgmt/home.html["Management von FlexCache Volumes"^]
 
 
@@ -104,6 +105,7 @@ Dies kann der standardmäßige IP-Speicherplatz sein oder ein IP-Speicherplatz, 
 
 NOTE: Bevor Sie das Aggregat konfigurieren, müssen Sie Objektspeichern gemäß der Beschreibung unter „Einrichten von Objektspeichern für FabricPool in einer MetroCluster-Konfiguration“ in einrichten https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-psmg/home.html["Festplatten- und Aggregatmanagement"^].
 
+.Schritte
 So konfigurieren Sie ein Aggregat für die Verwendung in einem FabricPool:
 
 . Erstellen Sie das Aggregat oder wählen Sie ein vorhandenes Aggregat aus.
@@ -157,6 +159,7 @@ Eine auf einer Storage Virtual Machine (SVM) auf einem lokalen Cluster erstellte
 
 Sie sollten beachten, wie in einer MetroCluster Konfiguration LIFs erstellt und repliziert werden. Außerdem müssen Sie über die Notwendigkeit der Konsistenz Bescheid wissen, damit Sie bei der Konfiguration Ihres Netzwerks richtige Entscheidungen treffen können.
 
+.Verwandte Informationen
 https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-nmg/home.html["Netzwerk- und LIF-Management"^]
 
 link:concept_considerations_when_using_ontap_in_a_mcc_configuration.html#ipspace-object-replication-and-subnet-configuration-requirements["Anforderungen für die Replikation von IPspace-Objekten und die Subnetz-Konfiguration"]
@@ -221,6 +224,7 @@ subnet1   192.168.2.0/24   Default   192.168.2.1       10/10    192.168.2.21-192
 
 Wenn IPv6 auf einem Standort konfiguriert ist, muss IPv6 auch auf dem anderen Standort konfiguriert werden.
 
+.Verwandte Informationen
 link:concept_considerations_when_using_ontap_in_a_mcc_configuration.html#requirements-for-lif-creation-in-a-metrocluster-configuration["Anforderungen für die LIF-Erstellung in einer MetroCluster-Konfiguration"]
 
 link:concept_considerations_when_using_ontap_in_a_mcc_configuration.html#lif-replication-and-placement-requirements-and-issues["Anforderungen und Probleme bei der LIF-Replizierung sowie bei der Platzierung"]
@@ -246,6 +250,7 @@ Beim Erstellen von LIFs müssen Sie die folgenden Richtlinien beachten:
 
 Sie können die erfolgreiche Erstellung einer logischen Schnittstelle in einer MetroCluster-Konfiguration bestätigen, indem Sie den MetroCluster Check lif show-Befehl ausführen. Falls beim Erstellen des LIF Probleme auftreten, können Sie den Befehl MetroCluster Check lif Repair-Placement zum Beheben von Problemen verwenden.
 
+.Verwandte Informationen
 link:concept_considerations_when_using_ontap_in_a_mcc_configuration.html#ipspace-object-replication-and-subnet-configuration-requirements["Anforderungen für die Replikation von IPspace-Objekten und die Subnetz-Konfiguration"]
 
 link:concept_considerations_when_using_ontap_in_a_mcc_configuration.html#lif-replication-and-placement-requirements-and-issues["Anforderungen und Probleme bei der LIF-Replizierung sowie bei der Platzierung"]
@@ -348,6 +353,7 @@ Sie können einen Replikationsfehler beheben, indem Sie den ausführen `metroclu
 
 NOTE: Selbst wenn die Quell-SVM ausfällt, wird die LIF-Platzierung möglicherweise normal fortgesetzt, wenn in einem Port mit demselben IPspace und Netzwerk in der Ziel-SVM eine LIF zu einer anderen SVM gehört.
 
+.Verwandte Informationen
 link:concept_considerations_when_using_ontap_in_a_mcc_configuration.html#ipspace-object-replication-and-subnet-configuration-requirements["Anforderungen für die Replikation von IPspace-Objekten und die Subnetz-Konfiguration"]
 
 link:concept_considerations_when_using_ontap_in_a_mcc_configuration.html#requirements-for-lif-creation-in-a-metrocluster-configuration["Anforderungen für die LIF-Erstellung in einer MetroCluster-Konfiguration"]

@@ -158,7 +158,7 @@ NTP-Server 2
 |===
 
 
-=== AutoSupport-Informationen zu Standort A
+=== Standort A nbsp; AutoSupport-Informationen
 
 Sie müssen AutoSupport für jeden Node konfigurieren. Dazu sind folgende Informationen erforderlich:
 
@@ -372,7 +372,7 @@ NTP-Server 2
 |===
 
 
-=== AutoSupport-Informationen zu Standort B
+=== Standort B nbsp; AutoSupport-Informationen
 
 Sie müssen AutoSupport für jeden Node konfigurieren. Dazu sind folgende Informationen erforderlich:
 
@@ -431,7 +431,7 @@ Partner
 |===
 
 
-=== SP-Informationen zu Standort B
+=== Standort B nbsp; SP-Informationen
 
 Sie müssen den Zugriff auf den Service-Prozessor (SP) jedes Node für die Fehlerbehebung und Wartung aktivieren. Hierfür sind die folgenden Netzwerkinformationen für jeden Node erforderlich:
 
@@ -522,6 +522,7 @@ Erforderlich
 
 Um eine erfolgreiche MetroCluster-Installation zu gewährleisten, setzen Sie die Standardeinstellungen auf den Controller-Modulen zurück und stellen sie wieder her.
 
+.Wichtig
 Dies ist nur für Stretch-Konfigurationen mit FC-to-SAS-Bridges erforderlich.
 
 .Schritte
@@ -655,6 +656,7 @@ Please choose one of the following:
 
 Wenn Sie die Quad-Port-Karte X1132A-R6 auf einem FAS8020 System verwenden, können Sie in den Wartungsmodus wechseln, um die 1a- und 1b-Ports für die FC-VI- und Initiatorverwendung zu konfigurieren. Dies ist für MetroCluster Systeme, die vom Werk empfangen werden, in denen die Ports für Ihre Konfiguration entsprechend eingestellt sind, nicht erforderlich.
 
+.Über diese Aufgabe
 Diese Aufgabe muss im Wartungsmodus ausgeführt werden.
 
 
@@ -760,8 +762,10 @@ controller_B_1
 
 Vor dem vollständigen Booten des Systems zu ONTAP können Sie optional das System im Wartungsmodus booten und die Festplattenzuordnung auf den Nodes überprüfen. Die Festplatten sollten eine vollständig symmetrische Konfiguration erstellen, bei der beide Standorte ihre eigenen Platten-Shelves besitzen und Daten bereitstellen, wobei jedem Knoten und jedem Pool die gleiche Anzahl von gespiegelten Festplatten zugewiesen ist.
 
+.Bevor Sie beginnen
 Das System muss sich im Wartungsmodus befinden.
 
+.Über diese Aufgabe
 Neue MetroCluster Systeme haben vor der Auslieferung Festplattenzuordnungen abgeschlossen.
 
 In der folgenden Tabelle sind Beispiele für Pool-Zuweisungen für eine MetroCluster-Konfiguration aufgeführt. Festplatten werden Pools nach Shelf-Basis zugewiesen.
@@ -912,6 +916,7 @@ Wenn der Storage Controller Node_B_1 vier Shelfs hat, geben Sie die folgenden Be
 
 In einer Stretch MetroCluster Konfiguration, die werkseitig nicht vorkonfiguriert ist, müssen Sie überprüfen, ob der HA-Zustand der Controller- und Gehäusekomponente auf „`mcc-2n`“ eingestellt ist, damit sie ordnungsgemäß hochfahren. Bei Systemen, die vom Werk empfangen werden, ist dieser Wert vorkonfiguriert, und Sie müssen ihn nicht überprüfen.
 
+.Bevor Sie beginnen
 Das System muss sich im Wartungsmodus befinden.
 
 .Schritte
@@ -945,8 +950,10 @@ Warten Sie, bis der Node an der LOADER-Eingabeaufforderung wieder angezeigt wird
 
 In einer MetroCluster-Konfiguration mit zwei Nodes müssen Sie auf jedem Cluster den Node booten, den Setup-Assistenten für den Cluster beenden und den verwenden `cluster setup` Befehl zum Konfigurieren des Node in einem Single-Node-Cluster.
 
+.Bevor Sie beginnen
 Sie dürfen den Service Processor nicht konfiguriert haben.
 
+.Über diese Aufgabe
 Diese Aufgabe gilt für MetroCluster-Konfigurationen mit zwei Nodes, die nativen NetApp Storage verwenden.
 
 Neue MetroCluster Systeme sind vorkonfiguriert. Sie müssen diese Schritte nicht ausführen. Sie sollten jedoch AutoSupport konfigurieren.
@@ -1047,6 +1054,7 @@ Sie müssen die Cluster Peer, die Root-Aggregate spiegeln, ein gespiegeltes Date
 
 Die Cluster in der MetroCluster Konfiguration müssen sich in einer Peer-Beziehung zueinander finden, damit sie kommunizieren und die für MetroCluster Disaster Recovery essentielle Datenspiegelung durchführen können.
 
+.Verwandte Informationen
 http://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-clus-peer/home.html["Express-Konfiguration für Cluster und SVM-Peering"^]
 
 link:concept_considerations_peering.html#considerations-when-using-dedicated-ports["Überlegungen bei der Verwendung von dedizierten Ports"]
@@ -1291,6 +1299,7 @@ cluster01
 ----
 
 
+.Verwandte Informationen
 link:concept_considerations_peering.html#considerations-when-using-dedicated-ports["Überlegungen bei der Verwendung von dedizierten Ports"]
 
 
@@ -1452,6 +1461,7 @@ cluster01
 ----
 
 
+.Verwandte Informationen
 link:concept_considerations_peering.html#considerations-when-sharing-data-ports["Überlegungen bei der Freigabe von Datenports"]
 
 
@@ -1680,6 +1690,7 @@ cluster01-02
 
 Um Datensicherung zu ermöglichen, müssen Sie die Root-Aggregate spiegeln.
 
+.Über diese Aufgabe
 Standardmäßig wird das Root-Aggregat als RAID-DP Typ Aggregat erstellt. Sie können das Root-Aggregat von RAID-DP zu einem Aggregat des RAID4-Typs ändern. Mit dem folgenden Befehl wird das Root-Aggregat für das RAID4-Typ-Aggregat modifiziert:
 
 `storage aggregate modify –aggregate _aggr_name_ -raidtype raid4`
@@ -1706,6 +1717,7 @@ Dies spiegelt das Aggregat, also besteht es aus einem lokalen Plex und einem Rem
 . Wiederholen Sie den vorherigen Schritt für jeden Node in der MetroCluster-Konfiguration.
 
 
+.Verwandte Informationen
 https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-vsmg/home.html["Logisches Storage-Management"^]
 
 https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-concepts/home.html["ONTAP-Konzepte"^]
@@ -1872,6 +1884,7 @@ NOTE: Wenn Sie ein einzelnes gespiegeltes Datenaggregat verwenden möchten, find
 * Der HA-Konfigurationsstatus der Controller und des Gehäuses muss „`mcc-2n`“ sein.
 
 
+.Über diese Aufgabe
 Sie können die ausgeben `metrocluster configure` Um die MetroCluster-Konfiguration zu aktivieren, aktivieren Sie einmal den Befehl auf einem der Nodes. Sie müssen den Befehl nicht für jede der Standorte oder Nodes ausführen. Es ist nicht von Bedeutung, auf welchem Node oder Standort Sie den Befehl ausgeben möchten.
 
 .Schritte
@@ -2184,6 +2197,7 @@ mccint-fas9000-0304
 ----
 
 
+.Verwandte Informationen
 https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-psmg/home.html["Festplatten- und Aggregatmanagement"^]
 
 https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-nmg/home.html["Netzwerk- und LIF-Management"^]

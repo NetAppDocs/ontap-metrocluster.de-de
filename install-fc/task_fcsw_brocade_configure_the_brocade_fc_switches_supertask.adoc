@@ -66,6 +66,7 @@ Im IMT können Sie im Feld Storage-Lösung die Auswahl Ihrer MetroCluster Lösun
 
 Sie benötigen bestimmte Lizenzen für die Switches in einer MetroCluster-Konfiguration. Sie müssen diese Lizenzen auf allen vier Switches installieren.
 
+.Über diese Aufgabe
 Die MetroCluster-Konfiguration erfüllt die folgenden Anforderungen an die Brocade-Lizenz:
 
 * Trunking-Lizenz für Systeme mit mehr als einer ISL, wie empfohlen.
@@ -92,6 +93,7 @@ Wenn Sie diese Lizenzen nicht besitzen, wenden Sie sich an Ihren Vertriebsmitarb
 
 Sie müssen den Schalter auf die werkseitigen Standardeinstellungen setzen, um eine erfolgreiche Konfiguration zu gewährleisten. Außerdem müssen Sie jedem Switch einen eindeutigen Namen zuweisen.
 
+.Über diese Aufgabe
 In den Beispielen dieses Verfahrens besteht das Gewebe aus BrocadeSwitchA und BrocadeSwitchB.
 
 .Schritte
@@ -325,6 +327,7 @@ FC_switch_B_1:admin> reboot
 
 Für Brocade Switches müssen Sie die globalen Grundeinstellungen, einschließlich der Domänen-ID, konfigurieren.
 
+.Über diese Aufgabe
 Diese Aufgabe enthält Schritte, die auf jedem Switch an beiden MetroCluster-Standorten ausgeführt werden müssen.
 
 In diesem Verfahren legen Sie die eindeutige Domänen-ID für jeden Switch fest, wie im folgenden Beispiel dargestellt. Im Beispiel bilden die Domänen-IDs 5 und 7 Fabric_1 und die Domänen-IDs 6 und 8 Form Fabric_2.
@@ -648,6 +651,7 @@ FC_switch_B_1:admin> switchcfgpersistentenable
 
 Für Brocade Switches müssen Sie die globalen Grundeinstellungen, einschließlich der Domänen-ID, konfigurieren.
 
+.Über diese Aufgabe
 Sie müssen die einzelnen Schritte auf jedem Switch an beiden MetroCluster Standorten durchführen. In diesem Verfahren legen Sie die Domänen-ID für jeden Switch fest, wie in den folgenden Beispielen dargestellt:
 
 * FC_Switch_A_1 ist der Domänen-ID 5 zugewiesen
@@ -738,6 +742,7 @@ switchenable
 ----
 
 
+.Verwandte Informationen
 link:concept_prepare_for_the_mcc_installation.html["Anforderungen für die Verwendung eines Brocade DCX 8510-8 Switches"]
 
 
@@ -759,6 +764,7 @@ Im IMT können Sie im Feld Storage-Lösung die Auswahl Ihrer MetroCluster Lösun
 * Der ISL-Link muss über eine dedizierte Lambda verfügen, und der Link muss von Brocade für die Entfernung, den Switch-Typ und das Fabric-Betriebssystem (FOS) unterstützt werden.
 
 
+.Über diese Aufgabe
 Sie dürfen die L0-Einstellung nicht verwenden, wenn Sie die ausgeben `portCfgLongDistance` Befehl. Stattdessen sollten Sie die EINSTELLUNG LE oder LS verwenden, um die Entfernung auf den Brocade-Switches mit einer Mindestentfernungsstufe VON LE zu konfigurieren.
 
 Sie dürfen die LD-Einstellung nicht verwenden, wenn Sie die ausgeben `portCfgLongDistance` Befehl beim Arbeiten mit xWDM/TDM-Geräten. Verwenden Sie stattdessen die EINSTELLUNG LE oder LS, um die Entfernung der Brocade-Switches zu konfigurieren.
@@ -1238,9 +1244,10 @@ FC_switch_B_1:admin> trunkshow
 ----
 
 
-. Wiederholen ,Schritt 1 Bis ,Schritt 10 Für das zweite FC Switch Fabric.
+. Wiederholen <<step1_brocade_config,Schritt 1>> Bis <<step10_brocade_config,Schritt 10>> Für das zweite FC Switch Fabric.
 
 
+.Verwandte Informationen
 link:concept_port_assignments_for_fc_switches_when_using_ontap_9_1_and_later.html["Port-Zuweisungen für FC-Switches bei Verwendung von ONTAP 9.1 und höher"]
 
 
@@ -1249,6 +1256,7 @@ link:concept_port_assignments_for_fc_switches_when_using_ontap_9_1_and_later.htm
 
 Wenn Sie die 10-Gbit/s-VE-Ports (die FCIP verwenden) für ISLs verwenden, müssen Sie an jedem Port IP-Schnittstellen erstellen und FCIP-Tunnel und -Leitungen in jedem Tunnel konfigurieren.
 
+.Über diese Aufgabe
 Dieses Verfahren muss an jeder Switch-Fabric in der MetroCluster Konfiguration durchgeführt werden.
 
 Die Beispiele in diesem Verfahren gehen davon aus, dass die beiden Brocade 7840-Switches die folgenden IP-Adressen haben:
@@ -1404,6 +1412,7 @@ FC_switch_A_1:root> portshow fcipcircuit all
 
 Wenn Sie die zwei 40-GbE-VE-Ports (die FCIP verwenden) für ISLs verwenden, müssen Sie an jedem Port IP-Schnittstellen erstellen und FCIP-Tunnel und -Leitungen in jedem Tunnel konfigurieren.
 
+.Über diese Aufgabe
 Dieses Verfahren muss an jeder Switch-Fabric in der MetroCluster Konfiguration durchgeführt werden.
 
 Die Beispiele in diesem Verfahren verwenden zwei Schalter:
@@ -1556,6 +1565,7 @@ FC_switch_A_1:root> portshow fcipcircuit all
 
 Sie müssen die nicht-E-Ports auf dem FC-Switch konfigurieren. In einer MetroCluster-Konfiguration sind dies die Ports, die den Switch mit den HBA-Initiatoren, FC-VI-Interconnects und FC-to-SAS-Bridges verbinden. Diese Schritte müssen für jeden Port durchgeführt werden.
 
+.Über diese Aufgabe
 Im folgenden Beispiel verbinden die Ports eine FC-to-SAS-Bridge:
 
 --
@@ -1645,6 +1655,7 @@ Non-DFE                             ..  ..  ..  ..  ..  ..  ..  ..  ..
 
 Wenn Sie Brocade G620 Switches verwenden und die Komprimierung für die ISLs aktivieren, müssen Sie diese an jedem E-Port der Switches konfigurieren.
 
+.Über diese Aufgabe
 Diese Aufgabe muss an den ISL-Ports beider Switches mit ISL ausgeführt werden.
 
 .Schritte
@@ -4268,6 +4279,7 @@ MC1_INIT_GRP_2_SITE_B_STK_GRP_2_BOT_FC2
 
 Sie müssen die Switch-Ports separaten Zonen zuweisen, sodass der Controller- und Storage-Traffic über Zonen für die FC-VI-Ports und Zonen für die Storage-Ports getrennt wird.
 
+.Über diese Aufgabe
 Bei den folgenden Schritten wird das Standard-Zoning für die MetroCluster-Konfiguration verwendet.
 
 link:task_fcsw_brocade_configure_the_brocade_fc_switches_supertask.html["Zoning für FC-VI-Ports"]
@@ -4396,6 +4408,7 @@ NOTE: Unterstützung der ISL-Verschlüsselung bei Brocade G620 Switches wird nur
 * Sie müssen die Brocade Dokumentation für Ihren Switch und Fabric Operating System Version überprüfen, um die Bandbreiten- und Port-Grenzwerte zu bestätigen.
 
 
+.Über diese Aufgabe
 Die Schritte müssen an beiden Switches in derselben Fabric ausgeführt werden.
 
 
@@ -4418,6 +4431,7 @@ Um die ISL-Verschlüsselung einzustellen, muss die virtuelle Fabric auf allen vi
 
 Nach der Deaktivierung der virtuellen Fabric müssen Sie die Nutzlastgröße oder die Datenfeldgröße auf beiden Switches in der Fabric festlegen.
 
+.Über diese Aufgabe
 Die Größe des Datenfelds darf 2048 nicht überschreiten.
 
 .Schritte
@@ -4444,6 +4458,7 @@ Die Größe des Datenfelds darf 2048 nicht überschreiten.
 
 Sie müssen die Authentifizierungsrichtlinie und die zugehörigen Parameter festlegen.
 
+.Über diese Aufgabe
 Die Befehle müssen an der Switch-Konsole ausgeführt werden.
 
 .Schritte
@@ -4585,4 +4600,5 @@ Port  configured     Active
 ----
 
 
+.Nächste Schritte
 Führen Sie in einer MetroCluster-Konfiguration alle Schritte auf den Switches in der anderen Fabric aus.

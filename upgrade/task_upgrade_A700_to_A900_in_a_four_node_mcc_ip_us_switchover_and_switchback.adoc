@@ -396,6 +396,7 @@ Siehe Produktdokumentation.
 
 Bevor Sie die Wartung durchführen, sollten Sie eine AutoSupport Meldung ausgeben, um den technischen Support über die laufende Wartung zu informieren. Die Mitteilung des technischen Supports über laufende Wartungsarbeiten verhindert, dass ein Fall eröffnet wird, wenn eine Störung aufgetreten ist.
 
+.Über diese Aufgabe
 Diese Aufgabe muss auf jedem MetroCluster-Standort ausgeführt werden.
 
 .Schritte
@@ -419,6 +420,7 @@ Der `maintenance-window-in-hours` Parameter gibt die Länge des Wartungsfensters
 
 Sie müssen die Konfiguration auf Site_A umschalten, damit die Plattformen auf Site_B aktualisiert werden können.
 
+.Über diese Aufgabe
 Diese Aufgabe muss auf Site_A ausgeführt werden
 
 Nach Abschluss dieser Aufgabe ist Site_A aktiv und stellt Daten für beide Standorte bereit. Site_B ist inaktiv und bereit, den Upgrade-Prozess zu starten.
@@ -458,6 +460,7 @@ Das automatische Heilen von Aggregaten nach der ausgehandelten Umschaltung wird 
 
 == Entfernen Sie das Controller-Modul der AFF A700 oder FAS9000 Plattform und NVS
 
+.Über diese Aufgabe
 Wenn Sie nicht bereits geerdet sind, sollten Sie sich richtig Erden.
 
 .Schritte
@@ -530,6 +533,7 @@ image::../media/drw_a900_move-remove_NVRAM_module.png[Modul entfernen]
 
 Sie müssen das AFF A900 oder FAS9500 NVS und das Controller-Modul installieren, das Sie im Upgrade-Kit auf beiden Knoten bei Site_B. erhalten haben Verschieben Sie das coredump-Gerät nicht vom AFF A700 oder FAS9000 NVS-Modul in das AFF A900 oder FAS9500 NVS Modul.
 
+.Über diese Aufgabe
 Wenn Sie nicht bereits geerdet sind, sollten Sie sich richtig Erden.
 
 
@@ -583,7 +587,7 @@ image::../media/drw_9500_remove_PCM.png[Controller-Modul]
 .. schieben Sie die e5a-Verbindung auf e5b.
 +
 
-NOTE: Steckplatz 7 auf allen Knoten des Clusters sollte leer sein, wie in erwähnt  ports from the old nodes to the new nodes Abschnitt.
+NOTE: Steckplatz 7 auf allen Knoten des Clusters sollte leer sein, wie in erwähnt <<Weisen Sie den neuen Nodes Ports von den alten Nodes zu>> Abschnitt.
 
 
 
@@ -606,6 +610,7 @@ Nach Austausch des AFF A900 oder FAS9500 Controller-Moduls und der NVS müssen S
 * Sie müssen die erforderlichen Systemdateien für Ihr System sowie die korrekte Version von ONTAP von der NetApp Support-Website herunterladen.
 
 
+.Über diese Aufgabe
 Wenn die installierte ONTAP Version nicht mit der auf den ursprünglichen Controllern installierten Version identisch ist, müssen Sie die neuen Controller als Netzboot ausführen. Nachdem Sie jeden neuen Controller installiert haben, starten Sie das System über das auf dem Webserver gespeicherte ONTAP 9-Image. Anschließend können Sie die richtigen Dateien auf das Boot-Medium herunterladen, um später das System zu booten.
 
 .Schritte
@@ -648,7 +653,7 @@ Konfigurieren Sie die Verbindung manuell mit dem folgenden Befehl an der Eingabe
 . Ausführen eines Netzboots auf Node_B_1:
 `netboot` `http://<web_server_ip/path_to_web_accessible_directory>/netboot/kernel`
 +
-Der `<path_to_the_web-accessible_directory>` Sollten Sie dazu führen, wo Sie das heruntergeladen haben `<ontap_version>\_image.tgz` In ,Schritt 2.
+Der `<path_to_the_web-accessible_directory>` Sollten Sie dazu führen, wo Sie das heruntergeladen haben `<ontap_version>\_image.tgz` In <<step2-download-software,Schritt 2>>.
 
 +
 
@@ -823,6 +828,7 @@ Der Node sollte am anhalten `LOADER>` Eingabeaufforderung:
 
 Sie müssen die Switches auf eine Konfiguration aktualisieren, die die neuen Plattformmodelle unterstützt.
 
+.Über diese Aufgabe
 Diese Aufgabe führen Sie an dem Standort mit den derzeit aktualisierten Controllern durch. In den Beispielen, die in diesem Verfahren gezeigt werden, aktualisieren wir zunächst Site_B.
 
 Bei einem Upgrade der Controller On Site_A werden die Switches von Site_A aktualisiert.
@@ -863,6 +869,7 @@ Neue Controller sollten jetzt bereit und verkabelt sein.
 
 Für die neuen Controller-Module müssen bestimmte MetroCluster IP-Bootarg-Werte konfiguriert werden. Die Werte müssen mit den auf den alten Controller-Modulen konfigurierten übereinstimmen.
 
+.Über diese Aufgabe
 In dieser Aufgabe verwenden Sie die UUIDs und System-IDs, die bereits im Upgrade-Verfahren in identifiziert wurden link:task_upgrade_controllers_in_a_four_node_ip_mcc_us_switchover_and_switchback_mcc_ip.html#gathering-information-before-the-upgrade["Sammeln von Informationen vor dem Upgrade"].
 
 .Schritte
@@ -995,6 +1002,7 @@ setenv bootarg.mcc.dr_partner 537403323
 
 Weisen Sie die Root-Aggregat-Festplatten dem neuen Controller-Modul unter Verwendung der zuvor gesammelten Sysiden wieder zu.
 
+.Über diese Aufgabe
 Diese Schritte werden im Wartungsmodus ausgeführt.
 
 .Schritte
@@ -1381,6 +1389,7 @@ Wenn ein Wechsel eine lange Zeit in Anspruch nimmt, können Sie den Status der i
 
 Nach dem Upgrade der Controller-Module müssen Sie den Systemzustand der MetroCluster Konfiguration überprüfen.
 
+.Über diese Aufgabe
 Diese Aufgabe kann auf jedem Node der MetroCluster Konfiguration ausgeführt werden.
 
 .Schritte

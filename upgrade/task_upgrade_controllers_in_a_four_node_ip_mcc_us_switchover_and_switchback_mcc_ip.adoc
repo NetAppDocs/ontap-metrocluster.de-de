@@ -113,6 +113,7 @@ Bevor Sie Änderungen an der bestehenden MetroCluster Konfiguration vornehmen, m
 
 Abhängig von den alten Plattformmodellen, oder wenn die Switch-Konfiguration nicht auf der Mindestversion steht oder wenn Sie die von den Back-End MetroCluster-Verbindungen verwendeten VLAN-IDs ändern möchten, müssen Sie die RCF-Dateien des Switches aktualisieren, bevor Sie mit dem Verfahren zum Plattformupgrade beginnen.
 
+.Über diese Aufgabe
 Sie müssen die RCF-Datei in den folgenden Szenarien aktualisieren:
 
 * Bei bestimmten Plattformmodellen müssen die Switches eine unterstützte VLAN-ID für die Back-End MetroCluster IP-Verbindungen verwenden. Wenn sich die alten oder neuen Plattformmodelle in der folgenden Tabelle befinden, *und nicht* mit einer unterstützten VLAN-ID, müssen Sie die RCF-Dateien für den Switch aktualisieren.
@@ -200,6 +201,7 @@ Befolgen Sie die Schritte unter link:../install-ip/concept_considerations_differ
 
 Sie müssen überprüfen, ob die physischen Ports auf Node_A_1-old den physischen Ports auf Node_A_1-New korrekt zugeordnet sind. Dadurch kann Node_A_1-New nach dem Upgrade mit anderen Knoten im Cluster und mit dem Netzwerk kommunizieren.
 
+.Über diese Aufgabe
 Wenn der neue Node zum ersten Mal während des Upgrades gebootet wird, stellt er die aktuellste Konfiguration des alten Node wieder dar, der ersetzt wird. Wenn Sie Node_A_1-New booten, versucht ONTAP, LIFs auf denselben Ports zu hosten, die in Node_A_1-old verwendet wurden. Deshalb müssen Sie im Rahmen des Upgrades die Port- und LIF-Konfiguration anpassen, sodass diese mit der der des alten Node kompatibel ist. Während des Upgrades führen Sie sowohl für die alten als auch für die neuen Nodes Schritte durch, um eine korrekte Cluster-, Management- und Daten-LIF-Konfiguration sicherzustellen.
 
 Die folgende Tabelle zeigt Beispiele für Konfigurationsänderungen in Bezug auf die Portanforderungen der neuen Nodes.
@@ -826,6 +828,7 @@ Siehe Produktdokumentation.
 
 Bevor Sie die Wartung durchführen, sollten Sie eine AutoSupport Meldung ausgeben, um den technischen Support von NetApp über die laufende Wartung zu informieren. Die Mitteilung des technischen Supports über laufende Wartungsarbeiten verhindert, dass ein Fall eröffnet wird, wenn eine Störung aufgetreten ist.
 
+.Über diese Aufgabe
 Diese Aufgabe muss auf jedem MetroCluster-Standort ausgeführt werden.
 
 .Schritte
@@ -849,6 +852,7 @@ Der `maintenance-window-in-hours` Parameter gibt die Länge des Wartungsfensters
 
 Sie müssen die Konfiguration auf Site_A umschalten, damit die Plattformen auf Site_B aktualisiert werden können.
 
+.Über diese Aufgabe
 Diese Aufgabe muss auf Site_A ausgeführt werden
 
 Nach Abschluss dieser Aufgabe ist Cluster_A aktiv und stellt Daten für beide Standorte bereit. Cluster_B ist inaktiv und kann den Upgrade-Prozess starten.
@@ -985,6 +989,7 @@ network port ifgrp remove-port -node node1 -ifgrp a1a -port e0d
 
 Sie müssen die Switches auf eine Konfiguration aktualisieren, die die neuen Plattformmodelle unterstützt.
 
+.Über diese Aufgabe
 Diese Aufgabe führen Sie an dem Standort mit den derzeit aktualisierten Controllern durch. In den Beispielen, die in diesem Verfahren gezeigt werden, aktualisieren wir zunächst Site_B.
 
 Bei einem Upgrade der Controller On Site_A werden die Switches von Site_A aktualisiert.
@@ -1156,6 +1161,7 @@ Der HA-Status für alle Komponenten sollte „`mccip`“ sein.
 
 Für die neuen Controller-Module müssen bestimmte MetroCluster IP-Bootarg-Werte konfiguriert werden. Die Werte müssen mit den auf den alten Controller-Modulen konfigurierten übereinstimmen.
 
+.Über diese Aufgabe
 In dieser Aufgabe verwenden Sie die UUIDs und System-IDs, die bereits im Upgrade-Verfahren in identifiziert wurden link:task_upgrade_controllers_in_a_four_node_ip_mcc_us_switchover_and_switchback_mcc_ip.html["Sammeln von Informationen vor dem Upgrade"].
 
 .Schritte
@@ -1335,6 +1341,7 @@ setenv bootarg.mcc.dr_partner 537403323
 
 Weisen Sie die Root-Aggregat-Festplatten dem neuen Controller-Modul unter Verwendung der zuvor gesammelten Sysiden wieder zu.
 
+.Über diese Aufgabe
 Diese Schritte werden im Wartungsmodus ausgeführt.
 
 .Schritte
@@ -1728,6 +1735,7 @@ Wenn ein Wechsel eine lange Zeit in Anspruch nimmt, können Sie den Status der i
 
 Nach dem Upgrade der Controller-Module müssen Sie den Systemzustand der MetroCluster Konfiguration überprüfen.
 
+.Über diese Aufgabe
 Diese Aufgabe kann auf jedem Node der MetroCluster Konfiguration ausgeführt werden.
 
 .Schritte

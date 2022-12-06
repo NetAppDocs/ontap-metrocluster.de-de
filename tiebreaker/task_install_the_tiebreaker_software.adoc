@@ -71,7 +71,7 @@ Sie müssen einen MySQL- oder MariaDB-Server je nach dem Linux-Betriebssystem, d
 .Schritte
 . Installieren Sie Java Runtime Environment.
 +
-,Installation Von Java Runtime Environment 1.8
+<<install-java-1-8,Installation Von Java Runtime Environment 1.8>>
 
 . MySQL oder MariaDB Server installieren:
 +
@@ -87,7 +87,7 @@ Red hat Enterprise Linux 7/CentOS 7
  a| 
 Installieren Sie MySQL
 
-,Installieren von MySQL Server 5.5.30 oder höher und 5.6.x Versionen unter Red hat Enterprise Linux 7 oder CentOS 7
+<<install-mysql-redhat,Installieren von MySQL Server 5.5.30 oder höher und 5.6.x Versionen unter Red hat Enterprise Linux 7 oder CentOS 7>>
 
 
 
@@ -96,7 +96,7 @@ Red Hat Enterprise Linux 8
  a| 
 Installieren Sie MariaDB
 
-,Installation von MariaDB Server auf Red hat Enterprise Linux 8
+<<install-mariadb,Installation von MariaDB Server auf Red hat Enterprise Linux 8>>
 
 |===
 
@@ -475,6 +475,7 @@ Wenn MySQL beim Starten nicht aktiviert ist, lesen Sie die MySQL-Dokumentation, 
 
 Sie müssen MariaDB Server auf Ihrem Hostsystem installieren, bevor Sie die Tiebreaker Software installieren oder aktualisieren.
 
+.Bevor Sie beginnen
 Ihr Hostsystem muss unter Red hat Enterprise Linux (RHEL) 8 ausgeführt werden.
 
 .Schritte
@@ -559,7 +560,7 @@ Nov 08 21:29:01 scspr0523972001 systemd[1]: Started MariaDB database server.
 ....
 +
 
-NOTE: Stellen Sie sicher, dass die Einstellung „Autostart aktivieren“ für MariaDB aktiviert ist. Siehe .
+NOTE: Stellen Sie sicher, dass die Einstellung „Autostart aktivieren“ für MariaDB aktiviert ist. Siehe <<mariadb-autostart>>.
 
 . Konfigurieren Sie die Sicherheits- und Kennworteinstellungen:
 +
@@ -712,6 +713,7 @@ NOTE: Wenn Sie das falsche MySQL-Root-Passwort eingeben, zeigt die Tiebreaker So
 . Überprüfen Sie die Tiebreaker Konnektivität mit der MetroCluster Software, indem Sie eine SSH-Verbindung vom Tiebreaker Host über jede der Node-Management-LIFs und Cluster-Management-LIFs öffnen.
 
 
+.Verwandte Informationen
 https://mysupport.netapp.com/site/["NetApp Support"]
 
 
@@ -764,7 +766,7 @@ NetApp MetroCluster Tiebreaker :> monitor modify -monitor-name _monitor_name_ -o
 ....
 . Führen Sie zum Upgrade des Tiebreaker Hosts alle Schritte durch:
 +
-,Installieren oder Aktualisieren des Softwarepakets
+<<install-upgrade-sw-pkg,Installieren oder Aktualisieren des Softwarepakets>>
 
 . Deaktivieren Sie den Beobachtermodus, um alle Monitore wieder in den Online-Modus zu verschieben.
 +

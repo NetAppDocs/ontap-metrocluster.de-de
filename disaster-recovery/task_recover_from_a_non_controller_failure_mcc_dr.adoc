@@ -36,6 +36,7 @@ Sie dürfen während des Heilungsprozesses nicht vollständig gestartet werden.
 * In MetroCluster-Konfigurationen mit vier Nodes dürfen sich Nodes im verbleibenden Standort nicht im HA-Failover-Zustand befinden (alle Nodes müssen für jedes HA-Paar in Betrieb sein).
 
 
+.Über diese Aufgabe
 Die Reparatur muss zunächst auf den Datenaggregaten und anschließend auf den Root-Aggregaten durchgeführt werden.
 
 
@@ -44,6 +45,7 @@ Die Reparatur muss zunächst auf den Datenaggregaten und anschließend auf den R
 
 Die Datenaggregate müssen nach der Reparatur und dem Austausch beliebiger Hardware am Disaster-Standort repariert und ausgetauscht werden. In diesem Prozess werden die Datenaggregate neu synchronisiert und der (jetzt reparierte) Disaster-Standort wird auf den normalen Betrieb vorbereitet. Die Datenaggregate müssen vor dem Healing der Root-Aggregate repariert werden.
 
+.Über diese Aufgabe
 Das folgende Beispiel zeigt eine erzwungene Umschaltung, um das Switchover-Aggregat online zu schalten. Alle Konfigurationsaktualisierungen im Remote-Cluster konnten erfolgreich auf das lokale Cluster repliziert werden. Im Rahmen dieses Verfahrens schalten Sie den Storage am Disaster Standort ein, jedoch nicht und dürfen die Controller-Module am DR-Standort nicht hochfahren.
 
 .Schritte
@@ -110,6 +112,7 @@ aggr_b2   227.1GB  227.1GB   0%    online  0      mcc1-a2      raid_dp, mirrored
 
 Nachdem die Datenaggregate geheilt wurden, müssen Sie die Root-Aggregate heilen, um den Switchback-Betrieb zu ermöglichen.
 
+.Bevor Sie beginnen
 Die Datenaggregationsphase des MetroCluster-Heilungsprozesses muss erfolgreich abgeschlossen sein.
 
 .Schritte
@@ -401,6 +404,7 @@ Dass der zurückwechseln Betrieb oder `switchback-continuation-agent` Der Vorgan
 Führen Sie den vorgeschlagenen Fix aus, der in der Ausgabe des angegeben ist `metrocluster operation show` Befehl.
 
 |===
+.Nachdem Sie fertig sind
 Sie müssen die vorherigen Abschnitte wiederholen, um den Umschalter in die entgegengesetzte Richtung auszuführen. Wenn Site_A die Umschaltung von Site_B durchgeführt hat, muss Site_B die Umschaltung von Site_A durchführen
 
 
@@ -409,6 +413,7 @@ Sie müssen die vorherigen Abschnitte wiederholen, um den Umschalter in die entg
 
 Unter Umständen nach dem Wechsel zurück können Sie feststellen, dass _veraltete_ Aggregate vorhanden sind. Veraltete Aggregate sind Aggregate, die aus ONTAP entfernt wurden, deren Informationen jedoch auf der Festplatte gespeichert bleiben. Veraltete Aggregate werden mit dem angezeigt `nodeshell aggr status -r` Befehl, aber nicht mit dem `storage aggregate show` Befehl. Sie können diese Datensätze so löschen, dass sie nicht mehr angezeigt werden.
 
+.Über diese Aufgabe
 Veraltete Aggregate können auftreten, wenn Sie Aggregate verschoben haben, während die MetroCluster Konfiguration in der Umschaltung war. Beispiel:
 
 . Standort A schaltet zu Standort B. um

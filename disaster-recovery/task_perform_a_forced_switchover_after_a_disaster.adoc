@@ -53,6 +53,7 @@ Damit wird der Wettbewerb mit dem ausgehandelten Switchover- oder Switchback-Bet
 
 NOTE: SnapMirror und SnapVault Konfigurationen werden automatisch gelöscht.
 
+.Über diese Aufgabe
 Der `metrocluster switchover` Command Switches über die Nodes in allen DR-Gruppen in der MetroCluster Konfiguration. In einer MetroCluster Konfiguration mit acht Nodes wechselt sie beispielsweise über die Nodes in beiden DR-Gruppen.
 
 .Schritte
@@ -86,6 +87,7 @@ Wenn die Umschaltung vetoed ist, haben Sie die Möglichkeit, die neu zu stellen 
 
 
 
+.Nachdem Sie fertig sind
 SnapMirror Beziehungen müssen nach der Umschaltung neu hergestellt werden.
 
 
@@ -100,16 +102,20 @@ Wenn Sie den ausführen `storage aggregate plex show` Befehl nach einer MetroClu
 
 Nach einer Umschaltung müssen Sie den NV-Fehler-Status löschen, indem Sie den zurücksetzen `-in-nvfailed-state` Parameter von `volume modify` Befehl, um die Einschränkung von Clients für den Zugriff auf Daten zu entfernen.
 
+.Bevor Sie beginnen
 Die Datenbank oder das Dateisystem dürfen nicht ausgeführt werden oder es darf versucht werden, auf das betroffene Volume zuzugreifen.
 
+.Über diese Aufgabe
 Einstellen des `-in-nvfailed-state` Für Parameter ist die Berechtigung auf erweiterter Ebene erforderlich.
 
 .Schritt
 . Stellen Sie das Volume mithilfe von wieder her `volume modify` Befehl mit dem `-in-nvfailed-state` Parameter auf false gesetzt.
 
 
+.Nachdem Sie fertig sind
 Anweisungen zur Überprüfung der Gültigkeit von Datenbankdateien finden Sie in der Dokumentation für Ihre spezifische Datenbanksoftware.
 
 Wenn Ihre Datenbank LUNs verwendet, überprüfen Sie die Schritte, um nach einem NVRAM-Fehler den Host Zugriff auf die LUNs zu ermöglichen.
 
+.Verwandte Informationen
 link:../manage/concept_monitoring_and_protecting_database_validity_by_using_nvfail.html["Überwachung und Schutz der Datenbankgültigkeit mithilfe von NVFAIL"]

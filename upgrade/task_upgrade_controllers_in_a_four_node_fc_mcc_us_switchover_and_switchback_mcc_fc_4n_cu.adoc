@@ -207,6 +207,7 @@ https://mysupport.netapp.com/site/tools/tool-eula/activeiq-configadvisor["NetApp
 
 Sie müssen die Zuordnung der LIFs zu physischen Ports auf den alten Nodes zu den physischen Ports auf den neuen Nodes planen.
 
+.Über diese Aufgabe
 Wenn der neue Node zum ersten Mal während des Upgrades gebootet wird, stellt er die aktuellste Konfiguration des alten Node wieder dar, der ersetzt wird. Wenn Sie Node_A_1-New booten, versucht ONTAP, LIFs auf denselben Ports zu hosten, die in Node_A_1-old verwendet wurden. Deshalb müssen Sie im Rahmen des Upgrades die Port- und LIF-Konfiguration anpassen, sodass diese mit der der des alten Node kompatibel ist. Während des Upgrades führen Sie sowohl für die alten als auch für die neuen Nodes Schritte durch, um eine korrekte Cluster-, Management- und Daten-LIF-Konfiguration sicherzustellen.
 
 Die folgende Tabelle zeigt Beispiele für Konfigurationsänderungen in Bezug auf die Portanforderungen der neuen Nodes.
@@ -399,6 +400,7 @@ Intercluster-Port
 
 Vor dem Upgrade müssen Informationen für alle Nodes gesammelt und bei Bedarf die Netzwerk-Broadcast-Domänen angepasst, beliebige VLANs und Schnittstellengruppen entfernt und Verschlüsselungsinformationen gesammelt werden.
 
+.Über diese Aufgabe
 Diese Aufgabe wird für die vorhandene MetroCluster FC-Konfiguration ausgeführt.
 
 .Schritte
@@ -526,6 +528,7 @@ Informationen zur Anwendung finden Sie in der Dokumentation.
 
 Bevor Sie die Wartung durchführen, sollten Sie eine AutoSupport Meldung ausgeben, um den technischen Support von NetApp über die laufende Wartung zu informieren. Die Mitteilung des technischen Supports über laufende Wartungsarbeiten verhindert, dass ein Fall eröffnet wird, wenn eine Störung aufgetreten ist.
 
+.Über diese Aufgabe
 Diese Aufgabe muss auf jedem MetroCluster-Standort ausgeführt werden.
 
 .Schritte
@@ -552,6 +555,7 @@ Diese Aufgabe muss auf jedem MetroCluster-Standort ausgeführt werden.
 
 Sie müssen die Konfiguration auf Site_A umschalten, damit die Plattformen auf Site_B aktualisiert werden können.
 
+.Über diese Aufgabe
 Diese Aufgabe muss auf Site_A ausgeführt werden
 
 Nach Abschluss dieser Aufgabe ist Cluster_A aktiv und stellt Daten für beide Standorte bereit. Cluster_B ist inaktiv und bereit, den Upgrade-Prozess zu starten, wie in der folgenden Abbildung dargestellt.
@@ -742,6 +746,7 @@ Dieser Schritt muss auf beiden Knoten durchgeführt werden.
 
 Die alten Controller müssen aus der Konfiguration entfernt werden.
 
+.Über diese Aufgabe
 Diese Aufgabe wird auf Site_B. ausgeführt
 
 .Schritte
@@ -1044,6 +1049,7 @@ mcc
 
 Weisen Sie die Root-Aggregat-Festplatten dem neuen Controller-Modul unter Verwendung der zuvor gesammelten Sysiden wieder zu
 
+.Über diese Aufgabe
 Diese Aufgabe wird im Wartungsmodus ausgeführt.
 
 Die alten System-IDs wurden in identifiziert link:task_upgrade_controllers_in_a_four_node_fc_mcc_us_switchover_and_switchback_mcc_fc_4n_cu.html["Sammeln von Informationen vor dem Upgrade"].
@@ -1158,6 +1164,7 @@ aggr0_node_b_1-root    online      raid_dp, aggr    root, nosnap=on,
 
 Sie müssen die Controller aus dem Boot-Menü neu booten, um das Controller-Flash-Image zu aktualisieren. Bei Konfiguration der Verschlüsselung sind weitere Schritte erforderlich.
 
+.Über diese Aufgabe
 Diese Aufgabe muss für alle neuen Controller ausgeführt werden.
 
 .Schritte
@@ -1389,6 +1396,7 @@ Weitere Informationen finden Sie unter https://docs.netapp.com/ontap-9/topic/com
 
 Stellen Sie vor dem Wechsel sicher, dass LIFs auf den entsprechenden Nodes/Ports gehostet werden. Folgende Schritte sind auszuführen
 
+.Über diese Aufgabe
 Diese Aufgabe wird in Site_B ausgeführt, wo die Nodes mit Root-Aggregaten gestartet wurden.
 
 .Schritte
@@ -1434,6 +1442,7 @@ Vor dem Wechsel-Back-Vorgang müssen Sie Lizenzen für die neuen Controller inst
 
 Nachdem die neuen Controller konfiguriert wurden, schalten Sie die MetroCluster Konfiguration zurück und kehren den normalen Betrieb zurück.
 
+.Über diese Aufgabe
 In dieser Aufgabe führen Sie den Vorgang zum Zurückkehren aus und kehren die MetroCluster-Konfiguration in den normalen Betrieb zurück. Die Knoten auf Site_A warten noch auf das Upgrade.
 
 image::../media/mcc_upgrade_cluster_a_switchback.png[upgrade von mcc Cluster A Switchback]
@@ -1496,6 +1505,7 @@ Wenn ein Wechsel eine lange Zeit in Anspruch nimmt, können Sie den Status der i
 
 Nach dem Upgrade der Controller-Module müssen Sie den Systemzustand der MetroCluster Konfiguration überprüfen.
 
+.Über diese Aufgabe
 Diese Aufgabe kann auf jedem Node der MetroCluster Konfiguration ausgeführt werden.
 
 .Schritte

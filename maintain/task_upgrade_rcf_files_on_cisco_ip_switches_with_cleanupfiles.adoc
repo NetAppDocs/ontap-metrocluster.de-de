@@ -13,8 +13,10 @@ summary: Möglicherweise müssen Sie eine RCF-Datei auf einem Cisco IP-Switch ak
 [role="lead"]
 Möglicherweise müssen Sie eine RCF-Datei auf einem Cisco IP-Switch aktualisieren. Beispielsweise ist für ein ONTAP Upgrade oder ein Switch-Firmware-Upgrade eine neue RCF-Datei erforderlich.
 
+.Über diese Aufgabe
 Ab der Version 1.4a von RcfFileGenerator gibt es eine neue Option, die Switch-Konfiguration auf Cisco IP-Switches zu ändern (Upgrade, Downgrade oder Ersetzen), ohne dass eine 'Schreiblöschung' durchgeführt werden muss.
 
+.Bevor Sie beginnen
 Sie können diese Methode verwenden, wenn Ihre Konfiguration die folgenden Anforderungen erfüllt:
 
 * Es wird die Standard-RCF-Konfiguration angewendet.
@@ -178,7 +180,7 @@ Nach Abschluss dieses Schritts sollten Sie zwei Sätze RCF-Dateien haben, die je
 
 . Laden Sie die Dateien auf den Bootflash herunter.
 +
-.. Laden Sie die CleanUpFiles herunter, die Sie in erstellt haben ,Erstellen Sie die RCF-Dateien und CleanUpFiles oder erstellen Sie allgemeine CleanUpFiles für die aktuelle Konfiguration
+.. Laden Sie die CleanUpFiles herunter, die Sie in erstellt haben <<Create-RCF-files-and-CleanUpFiles-or-create-generic-CleanUpFiles,Erstellen Sie die RCF-Dateien und CleanUpFiles oder erstellen Sie allgemeine CleanUpFiles für die aktuelle Konfiguration>>
 +
 
 NOTE: Diese CleanUpFile ist für die aktuelle RCF-Datei, die angewendet wird und *NICHT* für die neue RCF, auf die Sie aktualisieren möchten.
@@ -186,11 +188,11 @@ NOTE: Diese CleanUpFile ist für die aktuelle RCF-Datei, die angewendet wird und
 +
 Beispiel CleanUpFile für Switch-A1: `Cleanup_NX9336_v1.81_Switch-A1.txt`
 
-.. Laden Sie die neuen RCF-Dateien herunter, die Sie in erstellt haben ,Erstellen Sie die 'neuen' RCF-Dateien für die neue Konfiguration.
+.. Laden Sie die neuen RCF-Dateien herunter, die Sie in erstellt haben <<Create-the-new-RCF-files-for-the-new-configuration,Erstellen Sie die 'neuen' RCF-Dateien für die neue Konfiguration.>>
 +
 Beispiel für RCF-Datei für Switch-A1: `NX9336_v1.90_Switch-A1.txt`
 
-.. Laden Sie die CleanUpFiles herunter, die Sie in erstellt haben ,Erstellen Sie die 'neuen' RCF-Dateien für die neue Konfiguration. Dieser Schritt ist optional -- Sie können die Datei in Zukunft verwenden, um die Switch-Konfiguration zu aktualisieren. Es stimmt mit der aktuell verwendeten Konfiguration überein.
+.. Laden Sie die CleanUpFiles herunter, die Sie in erstellt haben <<Create-the-new-RCF-files-for-the-new-configuration,Erstellen Sie die 'neuen' RCF-Dateien für die neue Konfiguration.>> Dieser Schritt ist optional -- Sie können die Datei in Zukunft verwenden, um die Switch-Konfiguration zu aktualisieren. Es stimmt mit der aktuell verwendeten Konfiguration überein.
 +
 Beispiel CleanUpFile für Switch-A1: `Cleanup_NX9336_v1.90_Switch-A1.txt`
 

@@ -15,20 +15,21 @@ Sie müssen die NVIDIA SN2100 IP-Switches für die Verwendung als Cluster-Interc
 
 
 
-== Setzen Sie den NVIDIA IP SN2100-Switch auf die Werkseinstellungen zurück
+== [[Reset-the-Switch] setzt den NVIDIA IP SN2100-Schalter auf die Werkseinstellungen zurück
 
 Sie können eine der folgenden Methoden auswählen, um einen Schalter auf die werkseitigen Standardeinstellungen zurückzusetzen.
 
-* ,Setzen Sie den Switch mithilfe der RCF-Dateioption zurück
-* ,Setzen Sie den Schalter mithilfe der Cumulus-Installationsoption zurück
+* <<RCF-file-option,Setzen Sie den Switch mithilfe der RCF-Dateioption zurück>>
+* <<Cumulus-install-option,Setzen Sie den Schalter mithilfe der Cumulus-Installationsoption zurück>>
 
 
 
 
-=== Setzen Sie den Switch mithilfe der RCF-Dateioption zurück
+=== [[RCF-file-Option]]Zurücksetzen des Switches mit der RCF-Dateioption
 
 Bevor Sie eine neue RCF-Konfiguration installieren, müssen Sie die NVIDIA-Switch-Einstellungen zurücksetzen.
 
+.Über diese Aufgabe
 Um den Switch auf die Standardeinstellungen zurückzusetzen, führen Sie die RCF-Datei mit dem aus `restoreDefaults` Option. Mit dieser Option werden die ursprünglichen gesicherten Dateien an den ursprünglichen Speicherort kopiert und anschließend der Switch neu gestartet. Nach dem Neustart wird der Switch mit der ursprünglichen Konfiguration online geschaltet, die bei der ersten Ausführung der RCF-Datei zum Konfigurieren des Switches existierte.
 
 Die folgenden Konfigurationsdetails werden nicht zurückgesetzt:
@@ -41,7 +42,7 @@ Die folgenden Konfigurationsdetails werden nicht zurückgesetzt:
 NOTE: Alle anderen Konfigurationsänderungen, die während der Anwendung der RCF-Datei auftreten, werden auf die ursprüngliche Konfiguration zurückgesetzt.
 
 .Bevor Sie beginnen
-* Sie müssen den Switch gemäß konfigurieren ,Laden Sie die NVIDIA RCF-Datei herunter, und installieren Sie sie. Wenn Sie auf diese Weise nicht konfiguriert haben oder vor der Ausführung der RCF-Datei zusätzliche Funktionen konfiguriert haben, können Sie dieses Verfahren nicht verwenden.
+* Sie müssen den Switch gemäß konfigurieren <<Download-and-install,Laden Sie die NVIDIA RCF-Datei herunter, und installieren Sie sie>>. Wenn Sie auf diese Weise nicht konfiguriert haben oder vor der Ausführung der RCF-Datei zusätzliche Funktionen konfiguriert haben, können Sie dieses Verfahren nicht verwenden.
 * Sie müssen diese Schritte bei jedem der IP-Switches in der MetroCluster IP-Konfiguration wiederholen.
 * Sie müssen über eine serielle Konsolenverbindung mit dem Switch verbunden sein.
 * Mit dieser Aufgabe wird die Konfiguration des Managementnetzwerks zurückgesetzt.
@@ -111,8 +112,9 @@ Der Switch wird zurückgesetzt und behält die ursprüngliche Konfiguration wie 
 
 
 
-=== Setzen Sie den Schalter mithilfe der Cumulus-Installationsoption zurück
+=== [[Cumulus-install-Option]]Reset the Switch using the Cumulus install Option
 
+.Über diese Aufgabe
 Verwenden Sie diese Schritte, wenn Sie den Schalter vollständig zurücksetzen möchten, indem Sie das Cumulus-Bild anwenden.
 
 .Bevor Sie beginnen
@@ -258,13 +260,13 @@ cumulus@cumulus:mgmt:~$
 cumulus@cumulus:~$ sudo reboot
 ----
 +
-Wenn der Switch neu startet, können Sie eine neue Konfiguration mit den Schritten unter anwenden ,Laden Sie die NVIDIA RCF-Datei herunter, und installieren Sie sie.
+Wenn der Switch neu startet, können Sie eine neue Konfiguration mit den Schritten unter anwenden <<Download-and-install,Laden Sie die NVIDIA RCF-Datei herunter, und installieren Sie sie>>.
 
 
 
 
 
-== Laden Sie die NVIDIA RCF-Dateien herunter, und installieren Sie sie
+== [[Download-and-install]]Laden Sie die NVIDIA RCF-Dateien herunter und installieren Sie sie
 
 Sie müssen die RCF-Datei des Switch auf jedem Switch der MetroCluster IP-Konfiguration herunterladen und installieren.
 
@@ -279,6 +281,7 @@ NOTE: Wenn Sie nach dem Zurücksetzen des Switches und vor dem Anwenden der RCF-
 
 
 
+.Über diese Aufgabe
 Sie müssen diese Schritte bei jedem der IP-Schalter in der MetroCluster IP-Konfiguration (neue Installation) oder am Ersatzschalter (Switch-Austausch) wiederholen.
 
 .Schritte

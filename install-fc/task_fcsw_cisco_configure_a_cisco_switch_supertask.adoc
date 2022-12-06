@@ -13,6 +13,7 @@ summary: Jeder Cisco Switch in der MetroCluster-Konfiguration muss entsprechend 
 [role="lead"]
 Jeder Cisco Switch in der MetroCluster-Konfiguration muss entsprechend für ISL- und Storage-Verbindungen konfiguriert sein.
 
+.Bevor Sie beginnen
 Für die Cisco FC Switches gelten die folgenden Anforderungen:
 
 * Sie müssen vier unterstützte Cisco Switches desselben Modells mit derselben NX-OS-Version und derselben Lizenzierung verwenden.
@@ -26,6 +27,7 @@ Die vier Switches müssen mit zwei Fabrics von jeweils zwei Switches verbunden s
 
 Im https://mysupport.netapp.com/matrix["NetApp Interoperabilitäts-Matrix-Tool (IMT)"], Sie können im Feld Storage-Lösung die MetroCluster-Lösung auswählen. Sie verwenden den *Komponenten-Explorer*, um die Komponenten und die ONTAP-Version auszuwählen, um Ihre Suche zu verfeinern. Klicken Sie auf *Ergebnisse anzeigen*, um die Liste der unterstützten Konfigurationen anzuzeigen, die den Kriterien entsprechen.
 
+.Über diese Aufgabe
 Für die Inter-Switch Link-Verbindungen (ISL) gelten folgende Anforderungen:
 
 * Alle ISLs müssen in einem Fabric dieselbe Länge und dieselbe Geschwindigkeit aufweisen.
@@ -52,6 +54,7 @@ Sie können FAS8020, AFF8020, FAS8200 und AFF A300 Systeme mit zwei Initiatoren-
 ====
 
 
+.Verwandte Informationen
 https://mysupport.netapp.com/matrix["NetApp Interoperabilitäts-Matrix-Tool"]
 
 
@@ -90,6 +93,7 @@ NOTE: Die Cisco MDS 9250i Switches verfügen über zwei feste 1/10 GbE IP-Storag
 
 Um eine erfolgreiche Konfiguration zu gewährleisten, müssen Sie den Switch auf die Werkseinstellungen zurücksetzen. Dadurch wird sichergestellt, dass der Switch von einer sauberen Konfiguration gestartet wird.
 
+.Über diese Aufgabe
 Diese Aufgabe muss an allen Switches der MetroCluster-Konfiguration ausgeführt werden.
 
 .Schritte
@@ -114,6 +118,7 @@ Nach Ausstellung des `reload` Befehl, der Switch wird neu gebootet und anschlie�
 
 
 
+.Beispiel
 Das folgende Beispiel zeigt den Prozess für eine Fabric, die aus FC_Switch_A_1 und FC_Switch_B_1 besteht.
 
 [listing]
@@ -184,6 +189,7 @@ FC_switch_B_1# setup
 
 Sie müssen keine Cisco Switch-Lizenzen auf einer kontinuierlichen Reihe von Ports verwenden. Stattdessen können Sie Lizenzen für bestimmte Ports erwerben, die verwendet werden, und Lizenzen von nicht verwendeten Ports entfernen.
 
+.Bevor Sie beginnen
 Sie sollten die Anzahl der lizenzierten Ports in der Switch-Konfiguration überprüfen und bei Bedarf Lizenzen von einem Port in einen anderen verschieben.
 
 .Schritte
@@ -340,6 +346,7 @@ switch(config-if)# end
 
 Sie müssen die F-Ports auf dem FC-Switch konfigurieren.
 
+.Über diese Aufgabe
 In einer MetroCluster-Konfiguration sind die F-Ports die Ports, die den Switch mit den HBA-Initiatoren, FC-VI-Interconnects und FC-to-SAS-Bridges verbinden.
 
 Jeder Port muss individuell konfiguriert werden.
@@ -390,6 +397,7 @@ Diese Aufgabe muss an jedem Switch in der MetroCluster Konfiguration ausgeführt
 
 
 
+.Beispiel
 Im folgenden Beispiel werden die Befehle an den beiden Switches angezeigt:
 
 [listing]
@@ -419,6 +427,7 @@ FC_switch_B_1# copy running-config startup-config
 
 Sie müssen den F-Ports die Buffer-to-Buffer Credits zuweisen, wenn sie sich in derselben Portgruppe wie ISL befinden. Wenn die Ports nicht über die erforderlichen Buffer-to-Buffer Credits verfügen, könnte ISL funktionsunfähig sein.
 
+.Über diese Aufgabe
 Dieser Task ist nicht erforderlich, wenn sich die F-Ports nicht in derselben Portgruppe wie der ISL-Port befinden.
 
 Wenn sich die F-Ports in einer Portgruppe befinden, die ISL enthält, muss diese Aufgabe auf jedem FC-Switch in der MetroCluster-Konfiguration ausgeführt werden.
@@ -471,6 +480,7 @@ Wenn sich die F-Ports in einer Portgruppe befinden, die ISL enthält, muss diese
 
 
 
+.Beispiel
 In diesem Beispiel ist Port fc1/40 ISL. Die Ports fc1/37, fc1/38 und fc1/39 befinden sich in derselben Portgruppe und müssen konfiguriert sein.
 
 Mit den folgenden Befehlen wird der Portbereich angezeigt, der für fc1/37 bis fc1/39 konfiguriert ist:
@@ -535,6 +545,7 @@ fc1/39                                      1        8.0 dedicated
 
 Sie müssen ein VSAN für die FC-VI-Ports und ein VSAN für die Storage-Ports an jedem FC-Switch in der MetroCluster Konfiguration erstellen.
 
+.Über diese Aufgabe
 Die VSANs sollten eine eindeutige Nummer und einen eindeutigen Namen haben. Sie müssen zusätzliche Konfigurationen vornehmen, wenn Sie zwei ISLs in der Reihenfolge der Frames verwenden.
 
 Die Beispiele für diese Aufgabe verwenden die folgenden Namenskonventionen:
@@ -929,11 +940,12 @@ FC_switch_B_1# copy running-config startup-config
 
 Die Switch-Ports mit ISL müssen konfiguriert werden (dies sind die E-Ports).
 
+.Über diese Aufgabe
 Die von Ihnen verwendete Vorgehensweise hängt davon ab, welchen Schalter Sie verwenden:
 
-* ,Konfiguration der E-Ports am Cisco FC-Switch
-* ,Konfiguration von FCIP-Ports für ein einzelnes ISL auf Cisco 9250i FC-Switches
-* ,Konfiguration von FCIP-Ports für Dual ISL auf Cisco 9250i FC-Switches
+* <<config-e-ports-cisco-fc,Konfiguration der E-Ports am Cisco FC-Switch>>
+* <<config-fcip-ports-single-isl-cisco-9250i,Konfiguration von FCIP-Ports für ein einzelnes ISL auf Cisco 9250i FC-Switches>>
+* <<config-fcip-ports-dual-isl-cisco-9250i,Konfiguration von FCIP-Ports für Dual ISL auf Cisco 9250i FC-Switches>>
 
 
 
@@ -942,6 +954,7 @@ Die von Ihnen verwendete Vorgehensweise hängt davon ab, welchen Schalter Sie ve
 
 Sie müssen die FC-Switch-Ports konfigurieren, die den Inter-Switch-Link (ISL) verbinden.
 
+.Über diese Aufgabe
 Dies sind die E-Ports, und die Konfiguration muss für jeden Port erfolgen. Dazu müssen Sie die korrekte Anzahl von Buffer-to-Buffer Credits (BPCs) berechnen.
 
 Alle ISLs in der Fabric müssen mit den gleichen Einstellungen für Geschwindigkeit und Entfernung konfiguriert sein.
@@ -1171,6 +1184,7 @@ FC_switch_B_1# copy running-config startup-config
 
 
 
+.Verwandte Informationen
 Sie müssen überprüfen, ob Sie die angegebenen Portzuweisungen verwenden, wenn Sie die FC-Switches mit ONTAP 9.1 und höher verkabeln. Siehe link:concept_port_assignments_for_fc_switches_when_using_ontap_9_1_and_later.html["Port-Zuweisungen für FC-Switches bei Verwendung von ONTAP 9.1 und höher"]
 
 
@@ -1179,6 +1193,7 @@ Sie müssen überprüfen, ob Sie die angegebenen Portzuweisungen verwenden, wenn
 
 Sie müssen die FCIP-Switch-Ports konfigurieren, die ISL (E-Ports) verbinden, indem Sie FCIP-Profile und Schnittstellen erstellen und sie dann der IPStorage1/1-GbE-Schnittstelle zuweisen.
 
+.Über diese Aufgabe
 Diese Aufgabe richtet sich nur an Konfigurationen, die ein einzelnes ISL pro Switch-Fabric verwenden und auf denen die IPStorage1/1-Schnittstelle auf jedem Switch verwendet wird.
 
 Diese Aufgabe muss an jedem FC-Switch ausgeführt werden.
@@ -1587,6 +1602,7 @@ FC_switch_B_1# copy running-config startup-config
 
 Sie müssen die FCIP-Switch-Ports konfigurieren, die die ISL (E-Ports) verbinden, indem Sie FCIP-Profile und Schnittstellen erstellen und sie dann den IPStorage1/1- und IPStorage1/2-GbE-Schnittstellen zuweisen.
 
+.Über diese Aufgabe
 Diese Aufgabe gilt nur für Konfigurationen, die ein duales ISL pro Switch-Fabric verwenden und auf jedem Switch die Schnittstellen IPStorage1/1 und IPStorage1/2 GbE verwenden.
 
 Diese Aufgabe muss an jedem FC-Switch ausgeführt werden.
@@ -1595,8 +1611,8 @@ image::../media/fcip_ports_dual_isl.gif[fcip-Ports Dual isl]
 
 Die Aufgabe und Beispiele verwenden die folgenden Profilkonfigurationstabellen:
 
-* 
-* 
+* <<fabric1_table>>
+* <<fabric2_table>>
 
 
 *Tabelle zur Konfiguration des Fabric 1-Profils*
@@ -1935,7 +1951,7 @@ NOTE: Auf jedem Switch müssen die IPStorage-Schnittstellen „`IPStorage1/1`“
 +
 `exit`
 
-.. Wiederholen  Bis  So konfigurieren Sie die IPStorage1/2 GbE-Schnittstelle mit einer anderen IP-Adresse.
+.. Wiederholen <<substep_a>> Bis <<substep_f>> So konfigurieren Sie die IPStorage1/2 GbE-Schnittstelle mit einer anderen IP-Adresse.
 
 
 . Konfigurieren Sie die FCIP-Profile für FC-VI und Storage Traffic mit den Profilnamen, die in der Tabelle der Profilkonfiguration angegeben sind:
@@ -2400,6 +2416,7 @@ exit
 
 Sie müssen die Switch-Ports separaten Zonen zuweisen, um den Storage- (HBA) und Controller-Datenverkehr (FC-VI) zu isolieren.
 
+.Über diese Aufgabe
 Diese Schritte müssen auf beiden FC Switch Fabrics ausgeführt werden.
 
 Verwenden Sie die folgenden Schritte das im Abschnitt Zoning für eine FibreBridge 7500N in einer MetroCluster-Konfiguration mit vier Knoten beschriebene Zoning. Siehe link:task_fcsw_cisco_configure_a_cisco_switch_supertask.html#configuring-fcip-ports-for-a-dual-isl-on-cisco-9250i-fc-switches["Zoning für FC-VI-Ports"].
@@ -2677,6 +2694,7 @@ FC_switch_A_1# copy running-config startup-config
 
 Sie müssen sicherstellen, dass die FC-Switch-Konfiguration auf allen Switches in der Startkonfiguration gespeichert ist.
 
+.Schritt
 Geben Sie den folgenden Befehl an beiden FC Switch Fabrics ein:
 
 `copy running-config startup-config`

@@ -13,6 +13,7 @@ summary: Wenn Sie der Konfiguration neuen Speicher hinzufügen, installieren und
 [role="lead"]
 Wenn Sie der Konfiguration neuen Speicher hinzufügen, installieren und verkabeln Sie ATTO FibreBridge Bridges und SAS-Platten-Shelves.
 
+.Über diese Aufgabe
 Bei den werkseitig eingegangenen Systemen sind die FC-zu-SAS-Bridges vorkonfiguriert und erfordern keine zusätzliche Konfiguration.
 
 Dieses Verfahren wird mit der Annahme geschrieben, dass Sie die empfohlenen Bridge Management-Schnittstellen verwenden: Die ATTO ExpressNAV GUI und ATTO Quicknav Dienstprogramm.
@@ -142,6 +143,7 @@ SAS-Shelves in MetroCluster-Konfigurationen unterstützen keine ACP-Verkabelung.
 
 Wenn Sie eine ONTAP-Version vor 9.5 verwenden oder anderweitig planen, Out-of-Band-Zugriff auf die FibreBridge 7600N-Brücke über Telnet oder andere IP-Port-Protokolle und -Dienste (FTP, ExpressNAV, ICMP oder Quicknav) zu nutzen, können Sie die Zugriffsservices über den Konsolen-Port aktivieren.
 
+.Über diese Aufgabe
 Im Gegensatz zu den Bridges ATTO FibreBridge 7500N und 6500N wird die FibreBridge 7600N mit allen IP-Port-Protokollen und -Diensten ausgeliefert.
 
 Ab ONTAP 9.5 wird _in-Band-Management_ der Brücken unterstützt. Das bedeutet, dass die Brücken über die FC-Verbindung zur Bridge von der ONTAP-CLI konfiguriert und überwacht werden können. Physischer Zugang zur Bridge über die Bridge-Ethernet-Ports ist nicht erforderlich und die Bridge-Benutzeroberflächen sind nicht erforderlich.
@@ -200,6 +202,7 @@ SNMP ist das einzige Protokoll, das einen separaten Enable-Befehl erfordert.
 
 Bevor Sie das Modell der FC-zu-SAS-Brücken verkabeln, müssen Sie die Einstellungen in der FibreBridge-Software konfigurieren.
 
+.Bevor Sie beginnen
 Sie sollten entscheiden, ob Sie die bandinterne Verwaltung der Brücken verwenden.
 
 .Über diese Aufgabe
@@ -434,6 +437,7 @@ link:../maintain/index.html["Warten von MetroCluster-Komponenten"]
 
 
 
+.Verwandte Informationen
 link:task_fb_new_install.html["In-Band-Management der FC-to-SAS-Bridges"]
 
 
@@ -448,6 +452,7 @@ Für die Verkabelung Ihrer Platten-Shelves müssen die richtigen FC-to-SAS-Bridg
 
 Nach der Konfiguration der Bridge können Sie mit der Verkabelung Ihres neuen Systems beginnen.
 
+.Über diese Aufgabe
 Bei Festplatten-Shelfs stecken Sie einen SAS-Kabelanschluss mit nach unten (auf der Unterseite des Connectors) gerichteter Zuglasche.
 
 .Schritte
@@ -494,6 +499,7 @@ image::../media/mcc_cabling_bridge_and_sas3_stack_with_7500n_and_multiple_stacks
 
 Nach der Konfiguration der Bridge können Sie mit der Verkabelung Ihres neuen Systems beginnen. Die FibreBridge 7600N oder 7500N Bridge nutzt Mini-SAS-Anschlüsse und unterstützt Shelfs, die IOM6- oder IOM3-Module verwenden.
 
+.Über diese Aufgabe
 IOM3-Module werden von FibreBridge 7600N-Brücken nicht unterstützt.
 
 Bei Festplatten-Shelfs stecken Sie einen SAS-Kabelanschluss mit nach unten (auf der Unterseite des Connectors) gerichteter Zuglasche.
@@ -532,8 +538,10 @@ image::../media/mcc_cabling_bridge_and_sas_stack_with_7500n_four_stacks.gif[mcc-
 
 Nach der Konfiguration der Bridge können Sie mit der Verkabelung Ihres neuen Systems beginnen. Die FibreBridge 6500N nutzt QSFP-Anschlüsse.
 
+.Bevor Sie beginnen
 Warten Sie mindestens 10 Sekunden, bevor Sie den Anschluss anschließen. Die SAS-Kabelanschlüsse sind codiert. Wenn sie sich korrekt in einen SAS-Port orientieren, klicken sie auf ihren Platz und die Festplatten-Shelf-SAS-Port LNK-LED leuchtet grün. Bei Festplatten-Shelfs stecken Sie einen SAS-Kabelanschluss mit nach unten (auf der Unterseite des Connectors) gerichteter Zuglasche.
 
+.Über diese Aufgabe
 Die FibreBridge 6500N unterstützt keine Platten-Shelfs mit IOM12.
 
 .Schritte
@@ -629,7 +637,7 @@ NOTE: Wenn die abgeschnittene Textantwort zu Beginn der Ausgabe angezeigt wird, 
  a| 
 Das Ist Korrekt
  a| 
-Wiederholen ,Schritt 1 Für jede verbleibende Brücke.
+Wiederholen <<step1_verify_bridges,Schritt 1>> Für jede verbleibende Brücke.
 
 
 
@@ -640,7 +648,7 @@ Nicht richtig
 +
 link:task_fb_new_install.html["Verkabelung von Platten-Shelves zu den Bridges"]
 
-.. Wiederholen ,Schritt 1.
+.. Wiederholen <<step1_verify_bridges,Schritt 1>>.
 
 
 |===
@@ -655,6 +663,7 @@ Weitere Informationen finden Sie in den Portzuweisungen für Ihre Version von ON
 . Wiederholen Sie den vorherigen Schritt auf den Brücken am Partnerstandort.
 
 
+.Verwandte Informationen
 link:concept_port_assignments_for_fc_switches_when_using_ontap_9_1_and_later.html["Port-Zuweisungen für FC-Switches bei Verwendung von ONTAP 9.1 und höher"]
 
 link:concept_port_assignments_for_fc_switches_when_using_ontap_9_0.html["Port-Zuweisungen für FC-Switches bei Verwendung von ONTAP 9.0"]

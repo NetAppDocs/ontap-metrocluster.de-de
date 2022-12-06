@@ -130,6 +130,7 @@ Node-A-1    Failed         MetroCluster check failed. Reason : MCC check showed 
 
 Vor dem Upgrade, wenn das Root-Volume verschlüsselt ist, müssen Sie den Sicherungsschlüssel und andere Informationen sammeln, um die neuen Controller mit den alten verschlüsselten Root-Volumes zu booten.
 
+.Über diese Aufgabe
 Diese Aufgabe wird für die vorhandene MetroCluster FC-Konfiguration ausgeführt.
 
 .Schritte
@@ -263,8 +264,10 @@ Informationen zur Anwendung finden Sie in der Dokumentation.
 
 Nachdem Sie Informationen gesammelt und den Vorgang fortgesetzt haben, wird die Automatisierung mit dem Switchover fortgesetzt.
 
+.Über diese Aufgabe
 Der Automatisierungsvorgang initiiert die Umschaltung, `heal-aggregates`, und `heal root-aggregates` Betrieb: Nach Abschluss dieser Vorgänge hält der Vorgang bei *pausiert für Benutzereingriff* an, damit Sie die Controller in Racks installieren und installieren können, die Partner-Controller booten und die Root-Aggregat-Festplatten über Flash Backup dem neuen Controller-Modul zuweisen können `sysids` Früher gesammelt.
 
+.Bevor Sie beginnen
 Vor dem Starten der Umschaltung hält der Automatisierungsvorgang pausiert, sodass Sie manuell überprüfen können, ob alle LIFs „`up`“ an Standort B. sind Ggf. Beliebige LIFs mit „`deigenen`“ bis „`up`“ bereitstellen und den Automatisierungsvorgang mit dem fortsetzen `system controller replace resume` Befehl.
 
 
@@ -275,7 +278,7 @@ Um sicherzustellen, dass das Netzwerk auf den neuen Controllern ordnungsgemäß 
 
 .Über diese Aufgabe
 * Diese Aufgabe muss an jedem der alten Knoten ausgeführt werden.
-* Sie verwenden die in erfassten Informationen  for the upgrade.
+* Sie verwenden die in erfassten Informationen <<Vorbereitung auf das Upgrade>>.
 
 
 .Schritte
@@ -593,6 +596,7 @@ FC
 
 Weisen Sie die Root-Aggregat-Festplatten dem neuen Controller-Modul mithilfe des neu zu `sysids` Früher gesammelt
 
+.Über diese Aufgabe
 Diese Aufgabe wird im Wartungsmodus ausgeführt.
 
 Die alten System-IDs wurden in identifiziert link:task_upgrade_controllers_system_control_commands_in_a_four_node_mcc_fc.html#gathering-information-before-the-upgrade["Sammeln von Informationen vor dem Upgrade"].
@@ -709,6 +713,7 @@ Sie müssen die Controller aus dem Boot-Menü neu booten, um das Controller-Flas
 
 Sie können VLANs und Schnittstellengruppen neu konfigurieren. Falls erforderlich, ändern Sie die Ports für die Cluster-LIFs und Broadcast-Domänen manuell, bevor Sie den Vorgang mit der fortsetzen `system controller replace resume` Befehl.
 
+.Über diese Aufgabe
 Diese Aufgabe muss für alle neuen Controller ausgeführt werden.
 
 .Schritte
