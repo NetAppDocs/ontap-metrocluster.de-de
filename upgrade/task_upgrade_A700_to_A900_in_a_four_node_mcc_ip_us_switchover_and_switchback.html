@@ -6155,7 +6155,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-11-15 12:43:23 +0000">11/15/2022</time>
+    <time datetime="2022-12-06 10:34:46 +0000">12/06/2022</time>
     
   
 
@@ -6773,6 +6773,7 @@ dr-group-id cluster     node     node-systemid ha-partner-systemid dr-partner-sy
 <p>Bevor Sie die Wartung durchführen, sollten Sie eine AutoSupport Meldung ausgeben, um den technischen Support über die laufende Wartung zu informieren. Die Mitteilung des technischen Supports über laufende Wartungsarbeiten verhindert, dass ein Fall eröffnet wird, wenn eine Störung aufgetreten ist.</p>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>Diese Aufgabe muss auf jedem MetroCluster-Standort ausgeführt werden.</p>
 </div>
 <div class="olist arabic">
@@ -6808,6 +6809,7 @@ dr-group-id cluster     node     node-systemid ha-partner-systemid dr-partner-sy
 <p>Sie müssen die Konfiguration auf Site_A umschalten, damit die Plattformen auf Site_B aktualisiert werden können.</p>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>Diese Aufgabe muss auf Site_A ausgeführt werden</p>
 </div>
 <div class="paragraph">
@@ -6866,6 +6868,7 @@ dr-group-id cluster     node     node-systemid ha-partner-systemid dr-partner-sy
 <h2 id="entfernen-sie-das-controller-modul-der-aff-a700-oder-fas9000-plattform-und-nvs">Entfernen Sie das Controller-Modul der AFF A700 oder FAS9000 Plattform und NVS</h2>
 <div class="sectionbody">
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>Wenn Sie nicht bereits geerdet sind, sollten Sie sich richtig Erden.</p>
 </div>
 <div class="olist arabic">
@@ -6994,6 +6997,7 @@ dr-group-id cluster     node     node-systemid ha-partner-systemid dr-partner-sy
 <p>Sie müssen das AFF A900 oder FAS9500 NVS und das Controller-Modul installieren, das Sie im Upgrade-Kit auf beiden Knoten bei Site_B. erhalten haben Verschieben Sie das coredump-Gerät nicht vom AFF A700 oder FAS9000 NVS-Modul in das AFF A900 oder FAS9500 NVS Modul.</p>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>Wenn Sie nicht bereits geerdet sind, sollten Sie sich richtig Erden.</p>
 </div>
 <div class="sect2">
@@ -7088,7 +7092,7 @@ dr-group-id cluster     node     node-systemid ha-partner-systemid dr-partner-sy
 <img src="/us-en/ontap-metrocluster/images/note.svg" alt="Anmerkung">
 </td>
 <td class="content">
-Steckplatz 7 auf allen Knoten des Clusters sollte leer sein, wie in erwähnt  ports from the old nodes to the new nodes Abschnitt.
+Steckplatz 7 auf allen Knoten des Clusters sollte leer sein, wie in erwähnt <a href="#weisen-sie-den-neuen-nodes-ports-von-den-alten-nodes-zu">Weisen Sie den neuen Nodes Ports von den alten Nodes zu</a> Abschnitt.
 </td>
 </tr>
 </table>
@@ -7133,6 +7137,7 @@ Steckplatz 7 auf allen Knoten des Clusters sollte leer sein, wie in erwähnt  po
 </ul>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>Wenn die installierte ONTAP Version nicht mit der auf den ursprünglichen Controllern installierten Version identisch ist, müssen Sie die neuen Controller als Netzboot ausführen. Nachdem Sie jeden neuen Controller installiert haben, starten Sie das System über das auf dem Webserver gespeicherte ONTAP 9-Image. Anschließend können Sie die richtigen Dateien auf das Boot-Medium herunterladen, um später das System zu booten.</p>
 </div>
 <div class="olist arabic">
@@ -7205,7 +7210,7 @@ Sie sollten den Management-Port und die IP als Netzboot-Verbindung verwenden. Ve
 <p>Ausführen eines Netzboots auf Node_B_1:
 <code>netboot</code> <code><a href="http://&lt;web_server_ip/path_to_web_accessible_directory&gt;/netboot/kernel" class="bare">http://&lt;web_server_ip/path_to_web_accessible_directory&gt;/netboot/kernel</a></code></p>
 <div class="paragraph">
-<p>Der <code>&lt;path_to_the_web-accessible_directory&gt;</code> Sollten Sie dazu führen, wo Sie das heruntergeladen haben <code>&lt;ontap_version&gt;\_image.tgz</code> In ,Schritt 2.</p>
+<p>Der <code>&lt;path_to_the_web-accessible_directory&gt;</code> Sollten Sie dazu führen, wo Sie das heruntergeladen haben <code>&lt;ontap_version&gt;\_image.tgz</code> In <a href="#step2-download-software">Schritt 2</a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -7470,6 +7475,7 @@ Are you sure you want to continue?:</code></p>
 <p>Sie müssen die Switches auf eine Konfiguration aktualisieren, die die neuen Plattformmodelle unterstützt.</p>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>Diese Aufgabe führen Sie an dem Standort mit den derzeit aktualisierten Controllern durch. In den Beispielen, die in diesem Verfahren gezeigt werden, aktualisieren wir zunächst Site_B.</p>
 </div>
 <div class="paragraph">
@@ -7529,6 +7535,7 @@ Are you sure you want to continue?:</code></p>
 <p>Für die neuen Controller-Module müssen bestimmte MetroCluster IP-Bootarg-Werte konfiguriert werden. Die Werte müssen mit den auf den alten Controller-Modulen konfigurierten übereinstimmen.</p>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>In dieser Aufgabe verwenden Sie die UUIDs und System-IDs, die bereits im Upgrade-Verfahren in identifiziert wurden <a href="task_upgrade_controllers_in_a_four_node_ip_mcc_us_switchover_and_switchback_mcc_ip.html#gathering-information-before-the-upgrade">"Sammeln von Informationen vor dem Upgrade"</a>.</p>
 </div>
 <div class="olist arabic">
@@ -7692,6 +7699,7 @@ setenv bootarg.mcc.dr_partner 537403323</pre>
 <p>Weisen Sie die Root-Aggregat-Festplatten dem neuen Controller-Modul unter Verwendung der zuvor gesammelten Sysiden wieder zu.</p>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>Diese Schritte werden im Wartungsmodus ausgeführt.</p>
 </div>
 <div class="olist arabic">
@@ -8221,6 +8229,7 @@ Remote: cluster_A         Configuration state configured
 <p>Nach dem Upgrade der Controller-Module müssen Sie den Systemzustand der MetroCluster Konfiguration überprüfen.</p>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>Diese Aufgabe kann auf jedem Node der MetroCluster Konfiguration ausgeführt werden.</p>
 </div>
 <div class="olist arabic">

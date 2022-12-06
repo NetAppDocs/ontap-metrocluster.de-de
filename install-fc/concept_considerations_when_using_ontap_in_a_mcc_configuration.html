@@ -6155,7 +6155,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-11-15 12:43:23 +0000">11/15/2022</time>
+    <time datetime="2022-12-06 10:34:46 +0000">12/06/2022</time>
     
   
 
@@ -6255,6 +6255,7 @@
 <p>Wenn ein Wechsel zurück durchgeführt wird, müssen Sie die SVMs on site_A (das ursprüngliche Cluster) und site_C. erneut aufheben</p>
 </div>
 <div class="paragraph">
+<div class="title">Verwandte Informationen</div>
 <p><a href="http://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-fc-mgmt/home.html" target="_blank" rel="noopener">"Management von FlexCache Volumes"</a></p>
 </div>
 </div>
@@ -6303,6 +6304,7 @@ Bevor Sie das Aggregat konfigurieren, müssen Sie in den Objektspeichern wie unt
 </table>
 </div>
 <div class="paragraph">
+<div class="title">Schritte</div>
 <p>So konfigurieren Sie ein Aggregat für die Verwendung in einem FabricPool:</p>
 </div>
 <div class="olist arabic">
@@ -6407,19 +6409,19 @@ Systemerstellte Zeitpläne werden nicht repliziert, und Sie müssen manuell dens
 <li>
 <p>Sie sollten die Anforderungen für das Replizieren von IPspace-Objekten in das Partner-Cluster sowie für die Konfiguration von Subnetzen und IPv6 in einer MetroCluster-Konfiguration kennen.</p>
 <div class="paragraph">
-<p>,Anforderungen für die Replikation von IPspace-Objekten und die Subnetz-Konfiguration</p>
+<p><a href="#ipspace_obj_rep">Anforderungen für die Replikation von IPspace-Objekten und die Subnetz-Konfiguration</a></p>
 </div>
 </li>
 <li>
 <p>Bei der Konfiguration Ihres Netzwerks in einer MetroCluster-Konfiguration sollten Sie die Anforderungen zum Erstellen von LIFs kennen.</p>
 <div class="paragraph">
-<p>,Anforderungen für die LIF-Erstellung in einer MetroCluster-Konfiguration</p>
+<p><a href="#reqs_lif_create">Anforderungen für die LIF-Erstellung in einer MetroCluster-Konfiguration</a></p>
 </div>
 </li>
 <li>
 <p>Sie sollten die LIF-Replizierungsanforderungen in einer MetroCluster-Konfiguration kennen. Sie sollten auch wissen, wie eine replizierte LIF auf einem Partner-Cluster platziert ist. Beachten Sie die Probleme, die bei Ausfall der LIF-Replizierung oder der LIF-Platzierung auftreten.</p>
 <div class="paragraph">
-<p>,Anforderungen und Probleme bei der LIF-Replizierung sowie bei der Platzierung</p>
+<p><a href="#lif_rep_place">Anforderungen und Probleme bei der LIF-Replizierung sowie bei der Platzierung</a></p>
 </div>
 </li>
 </ul>
@@ -6496,13 +6498,13 @@ subnet1   192.168.2.0/24   Default   192.168.2.1       10/10    192.168.2.21-192
 <li>
 <p>Bei der Konfiguration Ihres Netzwerks in einer MetroCluster-Konfiguration sollten Sie die Anforderungen zum Erstellen von LIFs kennen.</p>
 <div class="paragraph">
-<p>,Anforderungen für die LIF-Erstellung in einer MetroCluster-Konfiguration</p>
+<p><a href="#reqs_lif_create">Anforderungen für die LIF-Erstellung in einer MetroCluster-Konfiguration</a></p>
 </div>
 </li>
 <li>
 <p>Sie sollten die LIF-Replizierungsanforderungen in einer MetroCluster-Konfiguration kennen. Sie sollten auch wissen, wie eine replizierte LIF auf einem Partner-Cluster platziert ist. Beachten Sie die Probleme, die bei Ausfall der LIF-Replizierung oder der LIF-Platzierung auftreten.</p>
 <div class="paragraph">
-<p>,Anforderungen und Probleme bei der LIF-Replizierung sowie bei der Platzierung</p>
+<p><a href="#lif_rep_place">Anforderungen und Probleme bei der LIF-Replizierung sowie bei der Platzierung</a></p>
 </div>
 </li>
 </ul>
@@ -6547,13 +6549,13 @@ subnet1   192.168.2.0/24   Default   192.168.2.1       10/10    192.168.2.21-192
 <li>
 <p>Sie sollten die Anforderungen für das Replizieren von IPspace-Objekten in das Partner-Cluster sowie für die Konfiguration von Subnetzen und IPv6 in einer MetroCluster-Konfiguration kennen.</p>
 <div class="paragraph">
-<p>,Anforderungen für die Replikation von IPspace-Objekten und die Subnetz-Konfiguration</p>
+<p><a href="#ipspace_obj_rep">Anforderungen für die Replikation von IPspace-Objekten und die Subnetz-Konfiguration</a></p>
 </div>
 </li>
 <li>
 <p>Sie sollten die LIF-Replizierungsanforderungen in einer MetroCluster-Konfiguration kennen. Sie sollten auch wissen, wie eine replizierte LIF auf einem Partner-Cluster platziert ist. Beachten Sie die Probleme, die bei Ausfall der LIF-Replizierung oder der LIF-Platzierung auftreten.</p>
 <div class="paragraph">
-<p>,Anforderungen und Probleme bei der LIF-Replizierung sowie bei der Platzierung</p>
+<p><a href="#lif_rep_place">Anforderungen und Probleme bei der LIF-Replizierung sowie bei der Platzierung</a></p>
 </div>
 </li>
 </ul>
@@ -6720,13 +6722,13 @@ Selbst wenn die Quell-SVM ausfällt, wird die LIF-Platzierung möglicherweise no
 <li>
 <p>Sie sollten die Anforderungen für das Replizieren von IPspace-Objekten in das Partner-Cluster sowie für die Konfiguration von Subnetzen und IPv6 in einer MetroCluster-Konfiguration kennen.</p>
 <div class="paragraph">
-<p>,Anforderungen für die Replikation von IPspace-Objekten und die Subnetz-Konfiguration</p>
+<p><a href="#ipspace_obj_rep">Anforderungen für die Replikation von IPspace-Objekten und die Subnetz-Konfiguration</a></p>
 </div>
 </li>
 <li>
 <p>Bei der Konfiguration Ihres Netzwerks in einer MetroCluster-Konfiguration sollten Sie die Anforderungen zum Erstellen von LIFs kennen.</p>
 <div class="paragraph">
-<p>,Anforderungen für die LIF-Erstellung in einer MetroCluster-Konfiguration</p>
+<p><a href="#reqs_lif_create">Anforderungen für die LIF-Erstellung in einer MetroCluster-Konfiguration</a></p>
 </div>
 </li>
 </ul>

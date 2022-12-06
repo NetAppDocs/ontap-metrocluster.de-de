@@ -6155,7 +6155,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-11-15 12:43:23 +0000">11/15/2022</time>
+    <time datetime="2022-12-06 10:34:46 +0000">12/06/2022</time>
     
   
 
@@ -6545,7 +6545,7 @@ Das RCF-Dateiupdate zur Unterstützung der AFF A900 oder FAS9500 Fabric MetroClu
 </div>
 </li>
 <li>
-<p>Aktualisieren Sie die Fabric-B-Schalter (Schalter 2 und 4), indem Sie sich wiederholen ,Schritt 2 Bis ,Schritt 5.</p>
+<p>Aktualisieren Sie die Fabric-B-Schalter (Schalter 2 und 4), indem Sie sich wiederholen <a href="#Update-RCF">Schritt 2</a> Bis <a href="#verify-healthy">Schritt 5</a>.</p>
 </li>
 </ol>
 </div>
@@ -6691,6 +6691,7 @@ Das RCF-Dateiupdate zur Unterstützung der AFF A900 oder FAS9500 Fabric MetroClu
 <p>Vor dem Upgrade müssen Informationen für alle Nodes gesammelt und bei Bedarf die Netzwerk-Broadcast-Domänen angepasst, beliebige VLANs und Schnittstellengruppen entfernt und Verschlüsselungsinformationen gesammelt werden.</p>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>Diese Aufgabe wird für die vorhandene MetroCluster FC-Konfiguration ausgeführt.</p>
 </div>
 <div class="olist arabic">
@@ -6865,6 +6866,7 @@ dr-group-id cluster    node           node-systemid ha-partner-systemid dr-partn
 <p>Bevor Sie die Wartung durchführen, sollten Sie eine AutoSupport Meldung ausgeben, um den technischen Support von NetApp über die laufende Wartung zu informieren. Die Mitteilung des technischen Supports über laufende Wartungsarbeiten verhindert, dass ein Fall eröffnet wird, wenn eine Störung aufgetreten ist.</p>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>Diese Aufgabe muss auf jedem MetroCluster-Standort ausgeführt werden.</p>
 </div>
 <div class="olist arabic">
@@ -6908,6 +6910,7 @@ dr-group-id cluster    node           node-systemid ha-partner-systemid dr-partn
 <p>Sie müssen die Konfiguration auf Site_A umschalten, damit die Plattformen auf Site_B aktualisiert werden können.</p>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>Diese Aufgabe muss auf Site_A ausgeführt werden</p>
 </div>
 <div class="paragraph">
@@ -7025,6 +7028,7 @@ dr-group-id cluster    node           node-systemid ha-partner-systemid dr-partn
 <p>Sie führen diese Aufgabe auf Site_B. aus</p>
 </div>
 <div class="paragraph">
+<div class="title">Bevor Sie beginnen</div>
 <p>Wenn Sie nicht bereits geerdet sind, sollten Sie sich richtig Erden.</p>
 </div>
 <div class="olist arabic">
@@ -7174,6 +7178,7 @@ Sollten zusätzliche Module als Coredump-Geräte auf dem nicht flüchtigen AFF A
 <p>Sie müssen das AFF A900 oder FAS9500 NVS und das Controller-Modul aus dem Upgrade-Kit auf beiden Knoten in Site_B. installieren Verschieben Sie das coredump-Gerät nicht vom AFF A700 oder FAS9000 NVS-Modul in das AFF A900 oder FAS9500 NVS Modul.</p>
 </div>
 <div class="paragraph">
+<div class="title">Bevor Sie beginnen</div>
 <p>Wenn Sie nicht bereits geerdet sind, sollten Sie sich richtig Erden.</p>
 </div>
 <div class="sect2">
@@ -7351,7 +7356,7 @@ Beim Einschieben des Controller-Moduls in das Gehäuse keine übermäßige Kraft
 </li>
 <li>
 <p>Performance <code>netboot</code> Bei Knoten 1:
-<code>netboot <a href="http://&lt;web_server_ip/path_to_web_accessible_directory&gt;/netboot/kernel`Der" class="bare">http://&lt;web_server_ip/path_to_web_accessible_directory&gt;/netboot/kernel`Der</a> `&lt;path_to_the_web-accessible_directory&gt;</code> Sollten Sie dazu führen, wo Sie das heruntergeladen haben <code>&lt;ontap_version&gt;_image.tgz</code> In ,Schritt 2.</p>
+<code>netboot <a href="http://&lt;web_server_ip/path_to_web_accessible_directory&gt;/netboot/kernel`Der" class="bare">http://&lt;web_server_ip/path_to_web_accessible_directory&gt;/netboot/kernel`Der</a> `&lt;path_to_the_web-accessible_directory&gt;</code> Sollten Sie dazu führen, wo Sie das heruntergeladen haben <code>&lt;ontap_version&gt;_image.tgz</code> In <a href="#step2-download-software">Schritt 2</a>.</p>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -7705,6 +7710,7 @@ Controller HA configuration: mcc</pre>
 <p>Weisen Sie die Root-Aggregat-Festplatten dem neuen Controller-Modul unter Verwendung der zuvor gesammelten Sysiden wieder zu</p>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>Diese Aufgabe wird im Wartungsmodus ausgeführt.</p>
 </div>
 <div class="paragraph">
@@ -7843,6 +7849,7 @@ aggr0_node_b_1-root    online      raid_dp, aggr    root, nosnap=on,
 <p>Sie müssen die Controller aus dem Boot-Menü neu booten, um das Controller-Flash-Image zu aktualisieren. Bei Konfiguration der Verschlüsselung sind weitere Schritte erforderlich.</p>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>Diese Aufgabe muss für alle neuen Controller ausgeführt werden.</p>
 </div>
 <div class="olist arabic">
@@ -8066,6 +8073,7 @@ Rebooting to load the restored env file...</pre>
 <p>Stellen Sie vor dem Wechsel sicher, dass LIFs auf den entsprechenden Nodes/Ports gehostet werden. Folgende Schritte sind auszuführen</p>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>Diese Aufgabe wird in Site_B ausgeführt, wo die Nodes mit Root-Aggregaten gestartet wurden.</p>
 </div>
 <div class="olist arabic">
@@ -8122,6 +8130,7 @@ Rebooting to load the restored env file...</pre>
 <p>Nachdem die neuen Controller konfiguriert wurden, schalten Sie die MetroCluster Konfiguration zurück und kehren den normalen Betrieb zurück.</p>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>In dieser Aufgabe führen Sie den Vorgang zum Zurückkehren aus und kehren die MetroCluster-Konfiguration in den normalen Betrieb zurück. Die Knoten auf Site_A warten noch auf das Upgrade, wie in der folgenden Abbildung dargestellt. (Diese Abbildung gilt auch für das Upgrade einer FAS9000 auf einen FAS9500 Controller.)</p>
 </div>
 <div class="imageblock">
@@ -8203,6 +8212,7 @@ Remote: cluster_A         Configuration state configured
 <p>Nach dem Upgrade der Controller-Module müssen Sie den Systemzustand der MetroCluster Konfiguration überprüfen.</p>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>Diese Aufgabe kann auf jedem Node der MetroCluster Konfiguration ausgeführt werden.</p>
 </div>
 <div class="olist arabic">

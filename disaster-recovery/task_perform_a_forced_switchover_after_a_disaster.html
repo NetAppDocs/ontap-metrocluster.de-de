@@ -6155,7 +6155,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-11-15 12:43:23 +0000">11/15/2022</time>
+    <time datetime="2022-12-06 10:34:46 +0000">12/06/2022</time>
     
   
 
@@ -6243,6 +6243,7 @@ SnapMirror und SnapVault Konfigurationen werden automatisch gelöscht.
 </table>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>Der <code>metrocluster switchover</code> Command Switches über die Nodes in allen DR-Gruppen in der MetroCluster Konfiguration. In einer MetroCluster Konfiguration mit acht Nodes wechselt sie beispielsweise über die Nodes in beiden DR-Gruppen.</p>
 </div>
 <div class="olist arabic">
@@ -6286,6 +6287,7 @@ mcc1A::&gt; metrocluster operation show
 </ol>
 </div>
 <div class="paragraph">
+<div class="title">Nachdem Sie fertig sind</div>
 <p>SnapMirror Beziehungen müssen nach der Umschaltung neu hergestellt werden.</p>
 </div>
 </div>
@@ -6305,9 +6307,11 @@ mcc1A::&gt; metrocluster operation show
 <p>Nach einer Umschaltung müssen Sie den NV-Fehler-Status löschen, indem Sie den zurücksetzen <code>-in-nvfailed-state</code> Parameter von <code>volume modify</code> Befehl, um die Einschränkung von Clients für den Zugriff auf Daten zu entfernen.</p>
 </div>
 <div class="paragraph">
+<div class="title">Bevor Sie beginnen</div>
 <p>Die Datenbank oder das Dateisystem dürfen nicht ausgeführt werden oder es darf versucht werden, auf das betroffene Volume zuzugreifen.</p>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>Einstellen des <code>-in-nvfailed-state</code> Für Parameter ist die Berechtigung auf erweiterter Ebene erforderlich.</p>
 </div>
 <div class="olist arabic">
@@ -6319,12 +6323,14 @@ mcc1A::&gt; metrocluster operation show
 </ol>
 </div>
 <div class="paragraph">
+<div class="title">Nachdem Sie fertig sind</div>
 <p>Anweisungen zur Überprüfung der Gültigkeit von Datenbankdateien finden Sie in der Dokumentation für Ihre spezifische Datenbanksoftware.</p>
 </div>
 <div class="paragraph">
 <p>Wenn Ihre Datenbank LUNs verwendet, überprüfen Sie die Schritte, um nach einem NVRAM-Fehler den Host Zugriff auf die LUNs zu ermöglichen.</p>
 </div>
 <div class="paragraph">
+<div class="title">Verwandte Informationen</div>
 <p><a href="../manage/concept_monitoring_and_protecting_database_validity_by_using_nvfail.html">"Überwachung und Schutz der Datenbankgültigkeit mithilfe von NVFAIL"</a></p>
 </div>
 </div>

@@ -6155,7 +6155,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-11-15 12:43:23 +0000">11/15/2022</time>
+    <time datetime="2022-12-06 10:34:46 +0000">12/06/2022</time>
     
   
 
@@ -6171,6 +6171,7 @@
 <p>Sie müssen die Ersatzknoten am Disaster-Standort zum Betriebssystem ONTAP booten.</p>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>Dieser Task beginnt mit den Nodes am Disaster-Standort im Wartungsmodus.</p>
 </div>
 <div class="olist arabic">
@@ -6194,7 +6195,7 @@
 <img src="/us-en/ontap-metrocluster/images/note.svg" alt="Anmerkung">
 </td>
 <td class="content">
-Wenn Sie den NVRAM-Inhalt eines verwendeten Ersatz-Controller-Moduls nicht gelöscht haben, wird möglicherweise die folgende Panikmeldung angezeigt: <code>PANIC: NVRAM contents are invalid&#8230;&#8203;.</code> Wenn dieser Fall eintritt, booten Sie das System erneut zur ONTAP-Eingabeaufforderung (<code>boot_ontap menu</code>). Dann müssen Sie es ,Setzen Sie die Boot_Recovery und rdb_Corrupt Bootargs zurück
+Wenn Sie den NVRAM-Inhalt eines verwendeten Ersatz-Controller-Moduls nicht gelöscht haben, wird möglicherweise die folgende Panikmeldung angezeigt: <code>PANIC: NVRAM contents are invalid&#8230;&#8203;.</code> Wenn dieser Fall eintritt, booten Sie das System erneut zur ONTAP-Eingabeaufforderung (<code>boot_ontap menu</code>). Dann müssen Sie es <a href="#Reset-the-boot-recovery">Setzen Sie die Boot_Recovery und rdb_Corrupt Bootargs zurück</a>
 </td>
 </tr>
 </table>
@@ -6405,7 +6406,7 @@ cluster_B::*&gt;</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="setzen-sie-die-boot_recovery-und-rdb_corrupt-bootargs-zurück">Setzen Sie die Boot_Recovery und rdb_Corrupt Bootargs zurück</h3>
+<h3 id="reset-the-boot_recovery-and-rdb_corrupte-bootargs"><a id="Reset-the-Boot-Recovery"></a>Reset the Boot_Recovery and rdb_corrupte Bootargs</h3>
 <div class="paragraph lead">
 <p>Falls erforderlich, können Sie die Boot_Recovery und rdb_Corrupt_bootargs zurücksetzen</p>
 </div>

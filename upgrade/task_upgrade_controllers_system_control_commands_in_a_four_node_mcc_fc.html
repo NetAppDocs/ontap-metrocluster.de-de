@@ -6155,7 +6155,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-12-01 16:19:17 +0000">12/01/2022</time>
+    <time datetime="2022-12-06 10:34:46 +0000">12/06/2022</time>
     
   
 
@@ -6379,6 +6379,7 @@ Node-A-1    Failed         MetroCluster check failed. Reason : MCC check showed 
 <p>Vor dem Upgrade, wenn das Root-Volume verschlüsselt ist, müssen Sie den Sicherungsschlüssel und andere Informationen sammeln, um die neuen Controller mit den alten verschlüsselten Root-Volumes zu booten.</p>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>Diese Aufgabe wird für die vorhandene MetroCluster FC-Konfiguration ausgeführt.</p>
 </div>
 <div class="olist arabic">
@@ -6598,9 +6599,11 @@ dr-group-id cluster    node          node-systemid dr-partner-systemid
 <p>Nachdem Sie Informationen gesammelt und den Vorgang fortgesetzt haben, wird die Automatisierung mit dem Switchover fortgesetzt.</p>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>Der Automatisierungsvorgang initiiert die Umschaltung, <code>heal-aggregates</code>, und <code>heal root-aggregates</code> Betrieb: Nach Abschluss dieser Vorgänge hält der Vorgang bei <strong>pausiert für Benutzereingriff</strong> an, damit Sie die Controller in Racks installieren und installieren können, die Partner-Controller booten und die Root-Aggregat-Festplatten über Flash Backup dem neuen Controller-Modul zuweisen können <code>sysids</code> Früher gesammelt.</p>
 </div>
 <div class="paragraph">
+<div class="title">Bevor Sie beginnen</div>
 <p>Vor dem Starten der Umschaltung hält der Automatisierungsvorgang pausiert, sodass Sie manuell überprüfen können, ob alle LIFs „<code>up</code>“ an Standort B. sind Ggf. Beliebige LIFs mit „<code>deigenen</code>“ bis „<code>up</code>“ bereitstellen und den Automatisierungsvorgang mit dem fortsetzen <code>system controller replace resume</code> Befehl.</p>
 </div>
 <div class="sect2">
@@ -6615,7 +6618,7 @@ dr-group-id cluster    node          node-systemid dr-partner-systemid
 <p>Diese Aufgabe muss an jedem der alten Knoten ausgeführt werden.</p>
 </li>
 <li>
-<p>Sie verwenden die in erfassten Informationen  for the upgrade.</p>
+<p>Sie verwenden die in erfassten Informationen <a href="#vorbereitung-auf-das-upgrade">Vorbereitung auf das Upgrade</a>.</p>
 </li>
 </ul>
 </div>
@@ -7070,6 +7073,7 @@ dr-group-id cluster    node          node-systemid dr-partner-systemid
 <p>Weisen Sie die Root-Aggregat-Festplatten dem neuen Controller-Modul mithilfe des neu zu <code>sysids</code> Früher gesammelt</p>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>Diese Aufgabe wird im Wartungsmodus ausgeführt.</p>
 </div>
 <div class="paragraph">
@@ -7217,6 +7221,7 @@ aggr0_node_b_1-root        online      raid_dp, aggr    root, nosnap=on,
 <p>Sie können VLANs und Schnittstellengruppen neu konfigurieren. Falls erforderlich, ändern Sie die Ports für die Cluster-LIFs und Broadcast-Domänen manuell, bevor Sie den Vorgang mit der fortsetzen <code>system controller replace resume</code> Befehl.</p>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>Diese Aufgabe muss für alle neuen Controller ausgeführt werden.</p>
 </div>
 <div class="olist arabic">

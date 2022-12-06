@@ -6155,7 +6155,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-11-15 12:43:23 +0000">11/15/2022</time>
+    <time datetime="2022-12-06 10:34:46 +0000">12/06/2022</time>
     
   
 
@@ -6360,6 +6360,7 @@
 <p>Abhängig von den alten Plattformmodellen, oder wenn die Switch-Konfiguration nicht auf der Mindestversion steht oder wenn Sie die von den Back-End MetroCluster-Verbindungen verwendeten VLAN-IDs ändern möchten, müssen Sie die RCF-Dateien des Switches aktualisieren, bevor Sie mit dem Verfahren zum Plattformupgrade beginnen.</p>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>Sie müssen die RCF-Datei in den folgenden Szenarien aktualisieren:</p>
 </div>
 <div class="ulist">
@@ -6507,6 +6508,7 @@ Die lokalen Cluster-Verbindungen können jedes VLAN verwenden, sie müssen nicht
 <p>Sie müssen überprüfen, ob die physischen Ports auf Node_A_1-old den physischen Ports auf Node_A_1-New korrekt zugeordnet sind. Dadurch kann Node_A_1-New nach dem Upgrade mit anderen Knoten im Cluster und mit dem Netzwerk kommunizieren.</p>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>Wenn der neue Node zum ersten Mal während des Upgrades gebootet wird, stellt er die aktuellste Konfiguration des alten Node wieder dar, der ersetzt wird. Wenn Sie Node_A_1-New booten, versucht ONTAP, LIFs auf denselben Ports zu hosten, die in Node_A_1-old verwendet wurden. Deshalb müssen Sie im Rahmen des Upgrades die Port- und LIF-Konfiguration anpassen, sodass diese mit der der des alten Node kompatibel ist. Während des Upgrades führen Sie sowohl für die alten als auch für die neuen Nodes Schritte durch, um eine korrekte Cluster-, Management- und Daten-LIF-Konfiguration sicherzustellen.</p>
 </div>
 <div class="paragraph">
@@ -7377,6 +7379,7 @@ dr-group-id cluster     node     node-systemid ha-partner-systemid dr-partner-sy
 <p>Bevor Sie die Wartung durchführen, sollten Sie eine AutoSupport Meldung ausgeben, um den technischen Support von NetApp über die laufende Wartung zu informieren. Die Mitteilung des technischen Supports über laufende Wartungsarbeiten verhindert, dass ein Fall eröffnet wird, wenn eine Störung aufgetreten ist.</p>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>Diese Aufgabe muss auf jedem MetroCluster-Standort ausgeführt werden.</p>
 </div>
 <div class="olist arabic">
@@ -7412,6 +7415,7 @@ dr-group-id cluster     node     node-systemid ha-partner-systemid dr-partner-sy
 <p>Sie müssen die Konfiguration auf Site_A umschalten, damit die Plattformen auf Site_B aktualisiert werden können.</p>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>Diese Aufgabe muss auf Site_A ausgeführt werden</p>
 </div>
 <div class="paragraph">
@@ -7616,6 +7620,7 @@ dr-group-id cluster     node     node-systemid ha-partner-systemid dr-partner-sy
 <p>Sie müssen die Switches auf eine Konfiguration aktualisieren, die die neuen Plattformmodelle unterstützt.</p>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>Diese Aufgabe führen Sie an dem Standort mit den derzeit aktualisierten Controllern durch. In den Beispielen, die in diesem Verfahren gezeigt werden, aktualisieren wir zunächst Site_B.</p>
 </div>
 <div class="paragraph">
@@ -7860,6 +7865,7 @@ dr-group-id cluster     node     node-systemid ha-partner-systemid dr-partner-sy
 <p>Für die neuen Controller-Module müssen bestimmte MetroCluster IP-Bootarg-Werte konfiguriert werden. Die Werte müssen mit den auf den alten Controller-Modulen konfigurierten übereinstimmen.</p>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>In dieser Aufgabe verwenden Sie die UUIDs und System-IDs, die bereits im Upgrade-Verfahren in identifiziert wurden <a href="task_upgrade_controllers_in_a_four_node_ip_mcc_us_switchover_and_switchback_mcc_ip.html">"Sammeln von Informationen vor dem Upgrade"</a>.</p>
 </div>
 <div class="olist arabic">
@@ -8080,6 +8086,7 @@ setenv bootarg.mcc.dr_partner 537403323</pre>
 <p>Weisen Sie die Root-Aggregat-Festplatten dem neuen Controller-Modul unter Verwendung der zuvor gesammelten Sysiden wieder zu.</p>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>Diese Schritte werden im Wartungsmodus ausgeführt.</p>
 </div>
 <div class="olist arabic">
@@ -8612,6 +8619,7 @@ Remote: cluster_A         Configuration state configured
 <p>Nach dem Upgrade der Controller-Module müssen Sie den Systemzustand der MetroCluster Konfiguration überprüfen.</p>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>Diese Aufgabe kann auf jedem Node der MetroCluster Konfiguration ausgeführt werden.</p>
 </div>
 <div class="olist arabic">

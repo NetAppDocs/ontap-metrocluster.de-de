@@ -6155,7 +6155,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-11-15 12:43:23 +0000">11/15/2022</time>
+    <time datetime="2022-12-06 10:34:46 +0000">12/06/2022</time>
     
   
 
@@ -6179,6 +6179,7 @@
 <p>Wenn in ONTAP 9.4 Ihre MetroCluster IP-Konfiguration weniger als vier externe Storage-Shelfs pro Standort umfasst, müssen Sie die automatische Laufwerkszuweisung auf allen Nodes deaktivieren und Laufwerke manuell zuweisen.</p>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>In ONTAP 9.5 und höher ist diese Aufgabe nicht erforderlich.</p>
 </div>
 <div class="paragraph">
@@ -6210,6 +6211,7 @@
 <p>Sie müssen überprüfen, ob die Remote-Laufwerke für die Knoten sichtbar sind und ordnungsgemäß zugewiesen wurden.</p>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>Die automatische Zuweisung ist abhängig vom Plattformmodell für Storage-Systeme und der Anordnung der Festplatten-Shelfs.</p>
 </div>
 <div class="paragraph">
@@ -6331,6 +6333,7 @@ cluster_B::&gt;</pre>
 <p>Die Cluster in der MetroCluster Konfiguration müssen sich in einer Peer-Beziehung zueinander finden, damit sie kommunizieren und die für MetroCluster Disaster Recovery essentielle Datenspiegelung durchführen können.</p>
 </div>
 <div class="paragraph">
+<div class="title">Verwandte Informationen</div>
 <p><a href="http://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-clus-peer/home.html">"Express-Konfiguration für Cluster und SVM-Peering"</a></p>
 </div>
 <div class="paragraph">
@@ -6604,6 +6607,7 @@ cluster01
 </ol>
 </div>
 <div class="paragraph">
+<div class="title">Verwandte Informationen</div>
 <p><a href="concept_considerations_peering.html#considerations-when-using-dedicated-ports">"Überlegungen bei der Verwendung von dedizierten Ports"</a></p>
 </div>
 </div>
@@ -6780,6 +6784,7 @@ cluster01
 </ol>
 </div>
 <div class="paragraph">
+<div class="title">Verwandte Informationen</div>
 <p><a href="concept_considerations_peering.html#considerations-when-sharing-data-ports">"Überlegungen bei der Freigabe von Datenports"</a></p>
 </div>
 </div>
@@ -6923,6 +6928,7 @@ cluster01-02
 <p>Sie müssen die Disaster-Recovery-Gruppenbeziehungen (DR) zwischen den Clustern erstellen.</p>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>Sie führen dieses Verfahren auf einem der Cluster in der MetroCluster-Konfiguration durch, um die DR-Beziehungen zwischen den Nodes in beiden Clustern zu erstellen.</p>
 </div>
 <div class="admonitionblock note">
@@ -7955,40 +7961,32 @@ cluster_B::&gt;</pre>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>Die Systeme erfüllen die Anforderungen für die automatische Laufwerkszuweisung oder wurden bei Verwendung von ONTAP 9.3 vom Werk empfangen.</p>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="literalblock">
-<div class="content">
-<pre>disk assignment for pool 1 disks</pre>
-</div>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a href="#überprüfen-der-festplattenzuordnung-für-pool-1-festplatten">Überprüfen der Festplattenzuordnung für Pool 1-Festplatten</a></p>
 </div></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>Die Konfiguration umfasst drei oder, wenn sie mehr als vier Shelfs enthält, besteht aus einem ungleichen Vielfaches von vier Shelfs (z. B. sieben Shelfs) und läuft mit ONTAP 9.5.</p>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="literalblock">
-<div class="content">
-<pre>assigning drives for pool 1 (ONTAP 9.4 or later)</pre>
-</div>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a href="#manuelles-zuweisen-von-laufwerken-für-pool-1-ontap-9-4-oder-höher">Manuelles Zuweisen von Laufwerken für Pool 1 (ONTAP 9.4 oder höher)</a></p>
 </div></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>Die Konfiguration umfasst nicht vier Storage Shelfs pro Standort und läuft mit ONTAP 9.4</p>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="literalblock">
-<div class="content">
-<pre>assigning drives for pool 1 (ONTAP 9.4 or later)</pre>
-</div>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a href="#manuelles-zuweisen-von-laufwerken-für-pool-1-ontap-9-4-oder-höher">Manuelles Zuweisen von Laufwerken für Pool 1 (ONTAP 9.4 oder höher)</a></p>
 </div></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>Die Systeme wurden nicht ab Werk empfangen und führen ONTAP 9.3Systeme aus, die von der Fabrik empfangen wurden, sind mit zugewiesenen Laufwerken vorkonfiguriert.</p>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="literalblock">
-<div class="content">
-<pre>assigning disks for pool 1 (ONTAP 9.3)</pre>
-</div>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a href="#manuelles-zuweisen-von-disketten-für-pool-1-ontap-9-3">Manuelles Zuweisen von Disketten für Pool 1 (ONTAP 9.3)</a></p>
 </div></div></td>
 </tr>
 </tbody>
@@ -7999,6 +7997,7 @@ cluster_B::&gt;</pre>
 <p>Sie müssen überprüfen, ob die Remote-Festplatten für die Knoten sichtbar sind und ordnungsgemäß zugewiesen wurden.</p>
 </div>
 <div class="paragraph">
+<div class="title">Bevor Sie beginnen</div>
 <p>Sie müssen mindestens zehn Minuten warten, bis die automatische Zuweisung von Laufwerken abgeschlossen ist, nachdem die MetroCluster-IP-Schnittstellen und -Verbindungen mit dem erstellt wurden <code>metrocluster configuration-settings connection connect</code> Befehl.</p>
 </div>
 <div class="paragraph">
@@ -8207,6 +8206,7 @@ cluster_A::&gt;</pre>
 <p>Wenn das System werkseitig nicht vorkonfiguriert war und die Anforderungen für die automatische Laufwerkszuweisung nicht erfüllt, müssen Sie die Remote Pool 1-Laufwerke manuell zuweisen.</p>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>Dieses Verfahren gilt für Konfigurationen mit ONTAP 9.4 oder höher.</p>
 </div>
 <div class="paragraph">
@@ -8332,9 +8332,11 @@ cluster_A::&gt;</pre>
 <p>Wenn Sie für jeden Node mindestens zwei Festplatten-Shelfs haben, können Sie die Remote-Festplatten (Pool1) über die automatische Zuweisungsfunktion von ONTAP automatisch zuweisen.</p>
 </div>
 <div class="paragraph">
+<div class="title">Bevor Sie beginnen</div>
 <p>Sie müssen zuerst eine Festplatte im Shelf Pool 1 zuweisen. ONTAP weist dann automatisch den Rest der Festplatten im Shelf demselben Pool zu.</p>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>Dieses Verfahren gilt für Konfigurationen mit ONTAP 9.3.</p>
 </div>
 <div class="paragraph">
@@ -8493,6 +8495,7 @@ cluster_A::&gt;</pre>
 <h2 id="aktivieren-der-automatischen-laufwerkszuweisung-in-ontap-9-4">Aktivieren der automatischen Laufwerkszuweisung in ONTAP 9.4</h2>
 <div class="sectionbody">
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>Wenn Sie in ONTAP 9.4 die automatische Laufwerkszuweisung wie zuvor in diesem Verfahren beschrieben deaktiviert haben, müssen Sie sie auf allen Knoten erneut aktivieren.</p>
 </div>
 <div class="paragraph">
@@ -8521,6 +8524,7 @@ cluster_A::&gt;</pre>
 <p>Um Datensicherung zu ermöglichen, müssen Sie die Root-Aggregate spiegeln.</p>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>Standardmäßig wird das Root-Aggregat als RAID-DP Typ Aggregat erstellt. Sie können das Root-Aggregat von RAID-DP zu einem Aggregat des RAID4-Typs ändern. Mit dem folgenden Befehl wird das Root-Aggregat für das RAID4-Typ-Aggregat modifiziert:</p>
 </div>
 <div class="paragraph">
@@ -8564,6 +8568,7 @@ Auf Systemen anderer Hersteller kann der RAID-Typ des Aggregats von dem Standard
 </ol>
 </div>
 <div class="paragraph">
+<div class="title">Verwandte Informationen</div>
 <p><a href="https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-vsmg/home.html">"Logisches Storage-Management"</a></p>
 </div>
 </div>
@@ -8706,7 +8711,7 @@ In der unterstützten Minimalkonfiguration, bei der eine begrenzte Anzahl an Lau
 <img src="/us-en/ontap-metrocluster/images/note.svg" alt="Anmerkung">
 </td>
 <td class="content">
-Wenn Sie ein einzelnes gespiegeltes Datenaggregat verwenden möchten, finden Sie weitere Informationen unter ,Schritt 1 Weitere Anweisungen.
+Wenn Sie ein einzelnes gespiegeltes Datenaggregat verwenden möchten, finden Sie weitere Informationen unter <a href="#step1_single_mirror">Schritt 1</a> Weitere Anweisungen.
 </td>
 </tr>
 </table>
@@ -9091,6 +9096,7 @@ true</code></p>
 </ol>
 </div>
 <div class="paragraph">
+<div class="title">Verwandte Informationen</div>
 <p><a href="https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-psmg/home.html">"Festplatten- und Aggregatmanagement"</a></p>
 </div>
 </div>
@@ -9102,6 +9108,7 @@ true</code></p>
 <p>Sie können überprüfen, ob die Komponenten und Beziehungen in der MetroCluster Konfiguration ordnungsgemäß funktionieren.</p>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>Nach der Erstkonfiguration und nach sämtlichen Änderungen an der MetroCluster-Konfiguration sollten Sie einen Check durchführen.</p>
 </div>
 <div class="paragraph">
@@ -9249,6 +9256,7 @@ mccint-fas9000-0304
 </ol>
 </div>
 <div class="paragraph">
+<div class="title">Verwandte Informationen</div>
 <p><a href="https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-psmg/home.html">"Festplatten- und Aggregatmanagement"</a></p>
 </div>
 <div class="paragraph">

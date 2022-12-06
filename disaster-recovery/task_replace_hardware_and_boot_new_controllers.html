@@ -6155,7 +6155,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-11-15 12:43:23 +0000">11/15/2022</time>
+    <time datetime="2022-12-06 10:34:46 +0000">12/06/2022</time>
     
   
 
@@ -6172,6 +6172,7 @@
 <p>Wenn Hardwarekomponenten ersetzt werden müssen, müssen Sie sie durch die einzelnen Hardware-Austauschrichtlinien und Installationshandbücher austauschen.</p>
 </div>
 <div class="paragraph">
+<div class="title">Bevor Sie beginnen</div>
 <p>Die Storage-Controller müssen ausgeschaltet sein oder angehalten bleiben (zeigt die LOADER-Eingabeaufforderung an).</p>
 </div>
 <div class="olist arabic">
@@ -6375,9 +6376,11 @@ In diesem Schritt ersetzen und verkabeln Sie die Komponenten genau so, wie sie v
 <p>Nachdem Sie die gesamte Hardware am Disaster-Standort ausgetauscht haben, müssen Sie die System-IDs der ersetzten Controller-Module ermitteln. Sie benötigen die alten System-IDs, wenn Sie Festplatten den neuen Controller-Modulen neu zuweisen. Bei Systemen wie AFF A220, AFF A250, AFF A400, AFF A800, FAS2750 Modelle FAS500f, FAS8300 oder FAS8700 müssen auch die von den MetroCluster IP-Schnittstellen verwendeten VLAN-IDs ermittelt werden.</p>
 </div>
 <div class="paragraph">
+<div class="title">Bevor Sie beginnen</div>
 <p>Alle Geräte am Disaster-Standort müssen ausgeschaltet sein.</p>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>Diese Diskussion enthält Beispiele für Konfigurationen mit zwei und vier Nodes. Bei Konfigurationen mit acht Nodes müssen Ausfälle in den zusätzlichen Nodes der zweiten DR-Gruppe berücksichtigt werden.</p>
 </div>
 <div class="paragraph">
@@ -6615,6 +6618,7 @@ Node_A_2 Node_A_1 HA      enabled  online
 <p>Sie müssen alle Ersatzlaufwerke isolieren, indem Sie die MetroCluster iSCSI-Initiator-Verbindungen von den noch intakten Nodes trennen.</p>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>Dieses Verfahren ist nur bei MetroCluster IP-Konfigurationen erforderlich.</p>
 </div>
 <div class="olist arabic">
@@ -6849,6 +6853,7 @@ site_B::*&gt; storage iscsi-initiator disconnect -node node_B_2 -label *</pre>
 <p>Nachdem Sie die gesamte Hardware am Notfallstandort ausgetauscht haben, müssen Sie die System-ID des neu installierten Storage Controller-Moduls oder -Moduls bestimmen.</p>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>Sie müssen dieses Verfahren mit den Ersatz-Controller-Modulen im Wartungsmodus durchführen.</p>
 </div>
 <div class="paragraph">
@@ -7065,9 +7070,11 @@ Dieser Schritt ist für eine MetroCluster Konfiguration mit zwei Nodes nicht erf
 <p>In einer MetroCluster Konfiguration muss der HA-Konfigurationszustand des Controller-Moduls und der Gehäusekomponenten auf „mcc“ oder „mcc-2n“ gesetzt werden, damit sie ordnungsgemäß hochfahren.</p>
 </div>
 <div class="paragraph">
+<div class="title">Bevor Sie beginnen</div>
 <p>Das System muss sich im Wartungsmodus befinden.</p>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>Diese Aufgabe muss an jedem neuen Controller-Modul ausgeführt werden.</p>
 </div>
 <div class="olist arabic">

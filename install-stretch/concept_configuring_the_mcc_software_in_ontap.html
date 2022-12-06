@@ -6155,7 +6155,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-12-01 16:19:17 +0000">12/01/2022</time>
+    <time datetime="2022-12-06 10:34:46 +0000">12/06/2022</time>
     
   
 
@@ -6372,7 +6372,7 @@
 </table>
 </div>
 <div class="sect2">
-<h3 id="autosupport-informationen-zu-standort-a">AutoSupport-Informationen zu Standort A</h3>
+<h3 id="standort-a-nbsp-autosupport-informationen">Standort A nbsp; AutoSupport-Informationen</h3>
 <div class="paragraph">
 <p>Sie müssen AutoSupport für jeden Node konfigurieren. Dazu sind folgende Informationen erforderlich:</p>
 </div>
@@ -6649,7 +6649,7 @@
 </table>
 </div>
 <div class="sect2">
-<h3 id="autosupport-informationen-zu-standort-b">AutoSupport-Informationen zu Standort B</h3>
+<h3 id="standort-b-nbsp-autosupport-informationen">Standort B nbsp; AutoSupport-Informationen</h3>
 <div class="paragraph">
 <p>Sie müssen AutoSupport für jeden Node konfigurieren. Dazu sind folgende Informationen erforderlich:</p>
 </div>
@@ -6711,7 +6711,7 @@
 </table>
 </div>
 <div class="sect2">
-<h3 id="sp-informationen-zu-standort-b">SP-Informationen zu Standort B</h3>
+<h3 id="standort-b-nbsp-sp-informationen">Standort B nbsp; SP-Informationen</h3>
 <div class="paragraph">
 <p>Sie müssen den Zugriff auf den Service-Prozessor (SP) jedes Node für die Fehlerbehebung und Wartung aktivieren. Hierfür sind die folgenden Netzwerkinformationen für jeden Node erforderlich:</p>
 </div>
@@ -6829,6 +6829,7 @@
 <p>Um eine erfolgreiche MetroCluster-Installation zu gewährleisten, setzen Sie die Standardeinstellungen auf den Controller-Modulen zurück und stellen sie wieder her.</p>
 </div>
 <div class="paragraph">
+<div class="title">Wichtig</div>
 <p>Dies ist nur für Stretch-Konfigurationen mit FC-to-SAS-Bridges erforderlich.</p>
 </div>
 <div class="olist arabic">
@@ -7011,6 +7012,7 @@
 <p>Wenn Sie die Quad-Port-Karte X1132A-R6 auf einem FAS8020 System verwenden, können Sie in den Wartungsmodus wechseln, um die 1a- und 1b-Ports für die FC-VI- und Initiatorverwendung zu konfigurieren. Dies ist für MetroCluster Systeme, die vom Werk empfangen werden, in denen die Ports für Ihre Konfiguration entsprechend eingestellt sind, nicht erforderlich.</p>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>Diese Aufgabe muss im Wartungsmodus ausgeführt werden.</p>
 </div>
 <div class="admonitionblock note">
@@ -7140,9 +7142,11 @@ controller_B_1
 <p>Vor dem vollständigen Booten des Systems zu ONTAP können Sie optional das System im Wartungsmodus booten und die Festplattenzuordnung auf den Nodes überprüfen. Die Festplatten sollten eine vollständig symmetrische Konfiguration erstellen, bei der beide Standorte ihre eigenen Platten-Shelves besitzen und Daten bereitstellen, wobei jedem Knoten und jedem Pool die gleiche Anzahl von gespiegelten Festplatten zugewiesen ist.</p>
 </div>
 <div class="paragraph">
+<div class="title">Bevor Sie beginnen</div>
 <p>Das System muss sich im Wartungsmodus befinden.</p>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>Neue MetroCluster Systeme haben vor der Auslieferung Festplattenzuordnungen abgeschlossen.</p>
 </div>
 <div class="paragraph">
@@ -7330,6 +7334,7 @@ controller_B_1
 <p>In einer Stretch MetroCluster Konfiguration, die werkseitig nicht vorkonfiguriert ist, müssen Sie überprüfen, ob der HA-Zustand der Controller- und Gehäusekomponente auf „<code>mcc-2n</code>“ eingestellt ist, damit sie ordnungsgemäß hochfahren. Bei Systemen, die vom Werk empfangen werden, ist dieser Wert vorkonfiguriert, und Sie müssen ihn nicht überprüfen.</p>
 </div>
 <div class="paragraph">
+<div class="title">Bevor Sie beginnen</div>
 <p>Das System muss sich im Wartungsmodus befinden.</p>
 </div>
 <div class="olist arabic">
@@ -7376,9 +7381,11 @@ controller_B_1
 <p>In einer MetroCluster-Konfiguration mit zwei Nodes müssen Sie auf jedem Cluster den Node booten, den Setup-Assistenten für den Cluster beenden und den verwenden <code>cluster setup</code> Befehl zum Konfigurieren des Node in einem Single-Node-Cluster.</p>
 </div>
 <div class="paragraph">
+<div class="title">Bevor Sie beginnen</div>
 <p>Sie dürfen den Service Processor nicht konfiguriert haben.</p>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>Diese Aufgabe gilt für MetroCluster-Konfigurationen mit zwei Nodes, die nativen NetApp Storage verwenden.</p>
 </div>
 <div class="paragraph">
@@ -7506,6 +7513,7 @@ cluster1-01           true    true</pre>
 <p>Die Cluster in der MetroCluster Konfiguration müssen sich in einer Peer-Beziehung zueinander finden, damit sie kommunizieren und die für MetroCluster Disaster Recovery essentielle Datenspiegelung durchführen können.</p>
 </div>
 <div class="paragraph">
+<div class="title">Verwandte Informationen</div>
 <p><a href="http://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-clus-peer/home.html" target="_blank" rel="noopener">"Express-Konfiguration für Cluster und SVM-Peering"</a></p>
 </div>
 <div class="paragraph">
@@ -7786,6 +7794,7 @@ cluster01
 </ol>
 </div>
 <div class="paragraph">
+<div class="title">Verwandte Informationen</div>
 <p><a href="concept_considerations_peering.html#considerations-when-using-dedicated-ports">"Überlegungen bei der Verwendung von dedizierten Ports"</a></p>
 </div>
 </div>
@@ -7977,6 +7986,7 @@ cluster01
 </ol>
 </div>
 <div class="paragraph">
+<div class="title">Verwandte Informationen</div>
 <p><a href="concept_considerations_peering.html#considerations-when-sharing-data-ports">"Überlegungen bei der Freigabe von Datenports"</a></p>
 </div>
 </div>
@@ -8240,6 +8250,7 @@ cluster01-02
 <p>Um Datensicherung zu ermöglichen, müssen Sie die Root-Aggregate spiegeln.</p>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>Standardmäßig wird das Root-Aggregat als RAID-DP Typ Aggregat erstellt. Sie können das Root-Aggregat von RAID-DP zu einem Aggregat des RAID4-Typs ändern. Mit dem folgenden Befehl wird das Root-Aggregat für das RAID4-Typ-Aggregat modifiziert:</p>
 </div>
 <div class="paragraph">
@@ -8283,6 +8294,7 @@ Auf Systemen anderer Hersteller kann der RAID-Typ des Aggregats von dem Standard
 </ol>
 </div>
 <div class="paragraph">
+<div class="title">Verwandte Informationen</div>
 <p><a href="https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-vsmg/home.html" target="_blank" rel="noopener">"Logisches Storage-Management"</a></p>
 </div>
 <div class="paragraph">
@@ -8568,6 +8580,7 @@ Wenn Sie ein einzelnes gespiegeltes Datenaggregat verwenden möchten, finden Sie
 </ul>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>Sie können die ausgeben <code>metrocluster configure</code> Um die MetroCluster-Konfiguration zu aktivieren, aktivieren Sie einmal den Befehl auf einem der Nodes. Sie müssen den Befehl nicht für jede der Standorte oder Nodes ausführen. Es ist nicht von Bedeutung, auf welchem Node oder Standort Sie den Befehl ausgeben möchten.</p>
 </div>
 <div class="olist arabic">
@@ -8955,6 +8968,7 @@ mccint-fas9000-0304
 </ol>
 </div>
 <div class="paragraph">
+<div class="title">Verwandte Informationen</div>
 <p><a href="https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-psmg/home.html" target="_blank" rel="noopener">"Festplatten- und Aggregatmanagement"</a></p>
 </div>
 <div class="paragraph">

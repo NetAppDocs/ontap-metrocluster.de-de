@@ -6155,7 +6155,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-11-15 12:43:23 +0000">11/15/2022</time>
+    <time datetime="2022-12-06 10:34:46 +0000">12/06/2022</time>
     
   
 
@@ -6173,7 +6173,7 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="setzen-sie-den-nvidia-ip-sn2100-switch-auf-die-werkseinstellungen-zurück">Setzen Sie den NVIDIA IP SN2100-Switch auf die Werkseinstellungen zurück</h2>
+<h2 id="reset-the-switch-setzt-den-nvidia-ip-sn2100-schalter-auf-die-werkseinstellungen-zurück">[[Reset-the-Switch] setzt den NVIDIA IP SN2100-Schalter auf die Werkseinstellungen zurück</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Sie können eine der folgenden Methoden auswählen, um einen Schalter auf die werkseitigen Standardeinstellungen zurückzusetzen.</p>
@@ -6181,19 +6181,20 @@
 <div class="ulist">
 <ul>
 <li>
-<p>,Setzen Sie den Switch mithilfe der RCF-Dateioption zurück</p>
+<p><a href="#RCF-file-option">Setzen Sie den Switch mithilfe der RCF-Dateioption zurück</a></p>
 </li>
 <li>
-<p>,Setzen Sie den Schalter mithilfe der Cumulus-Installationsoption zurück</p>
+<p><a href="#Cumulus-install-option">Setzen Sie den Schalter mithilfe der Cumulus-Installationsoption zurück</a></p>
 </li>
 </ul>
 </div>
 <div class="sect2">
-<h3 id="setzen-sie-den-switch-mithilfe-der-rcf-dateioption-zurück">Setzen Sie den Switch mithilfe der RCF-Dateioption zurück</h3>
+<h3 id="zurücksetzen-des-switches-mit-der-rcf-dateioption"><a id="RCF-file-Option"></a>Zurücksetzen des Switches mit der RCF-Dateioption</h3>
 <div class="paragraph">
 <p>Bevor Sie eine neue RCF-Konfiguration installieren, müssen Sie die NVIDIA-Switch-Einstellungen zurücksetzen.</p>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>Um den Switch auf die Standardeinstellungen zurückzusetzen, führen Sie die RCF-Datei mit dem aus <code>restoreDefaults</code> Option. Mit dieser Option werden die ursprünglichen gesicherten Dateien an den ursprünglichen Speicherort kopiert und anschließend der Switch neu gestartet. Nach dem Neustart wird der Switch mit der ursprünglichen Konfiguration online geschaltet, die bei der ersten Ausführung der RCF-Datei zum Konfigurieren des Switches existierte.</p>
 </div>
 <div class="paragraph">
@@ -6225,7 +6226,7 @@ Alle anderen Konfigurationsänderungen, die während der Anwendung der RCF-Datei
 <div class="title">Bevor Sie beginnen</div>
 <ul>
 <li>
-<p>Sie müssen den Switch gemäß konfigurieren ,Laden Sie die NVIDIA RCF-Datei herunter, und installieren Sie sie. Wenn Sie auf diese Weise nicht konfiguriert haben oder vor der Ausführung der RCF-Datei zusätzliche Funktionen konfiguriert haben, können Sie dieses Verfahren nicht verwenden.</p>
+<p>Sie müssen den Switch gemäß konfigurieren <a href="#Download-and-install">Laden Sie die NVIDIA RCF-Datei herunter, und installieren Sie sie</a>. Wenn Sie auf diese Weise nicht konfiguriert haben oder vor der Ausführung der RCF-Datei zusätzliche Funktionen konfiguriert haben, können Sie dieses Verfahren nicht verwenden.</p>
 </li>
 <li>
 <p>Sie müssen diese Schritte bei jedem der IP-Switches in der MetroCluster IP-Konfiguration wiederholen.</p>
@@ -6319,8 +6320,9 @@ Enter yes or no: yes</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="setzen-sie-den-schalter-mithilfe-der-cumulus-installationsoption-zurück">Setzen Sie den Schalter mithilfe der Cumulus-Installationsoption zurück</h3>
+<h3 id="reset-the-switch-using-the-cumulus-install-option"><a id="Cumulus-install-Option"></a>Reset the Switch using the Cumulus install Option</h3>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>Verwenden Sie diese Schritte, wenn Sie den Schalter vollständig zurücksetzen möchten, indem Sie das Cumulus-Bild anwenden.</p>
 </div>
 <div class="ulist">
@@ -6513,7 +6515,7 @@ cumulus@cumulus:mgmt:~$</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Wenn der Switch neu startet, können Sie eine neue Konfiguration mit den Schritten unter anwenden ,Laden Sie die NVIDIA RCF-Datei herunter, und installieren Sie sie.</p>
+<p>Wenn der Switch neu startet, können Sie eine neue Konfiguration mit den Schritten unter anwenden <a href="#Download-and-install">Laden Sie die NVIDIA RCF-Datei herunter, und installieren Sie sie</a>.</p>
 </div>
 </li>
 </ol>
@@ -6522,7 +6524,7 @@ cumulus@cumulus:mgmt:~$</pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="laden-sie-die-nvidia-rcf-dateien-herunter-und-installieren-sie-sie">Laden Sie die NVIDIA RCF-Dateien herunter, und installieren Sie sie</h2>
+<h2 id="laden-sie-die-nvidia-rcf-dateien-herunter-und-installieren-sie-sie"><a id="Download-and-install"></a>Laden Sie die NVIDIA RCF-Dateien herunter und installieren Sie sie</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Sie müssen die RCF-Datei des Switch auf jedem Switch der MetroCluster IP-Konfiguration herunterladen und installieren.</p>
@@ -6557,6 +6559,7 @@ Wenn Sie nach dem Zurücksetzen des Switches und vor dem Anwenden der RCF-Datei 
 </ul>
 </div>
 <div class="paragraph">
+<div class="title">Über diese Aufgabe</div>
 <p>Sie müssen diese Schritte bei jedem der IP-Schalter in der MetroCluster IP-Konfiguration (neue Installation) oder am Ersatzschalter (Switch-Austausch) wiederholen.</p>
 </div>
 <div class="olist arabic">
