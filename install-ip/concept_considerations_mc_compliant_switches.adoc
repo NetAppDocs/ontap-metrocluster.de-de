@@ -2,7 +2,7 @@
 permalink: install-ip/concept_considerations_mc_compliant_switches.html 
 sidebar: sidebar 
 keywords: metrocluster ip, metrocluster-compliant switches, metrocluster-compliant, requirements, compliant 
-summary: Ab ONTAP 9.7 unterstützen MetroCluster IP-Konfigurationen auch Switches, die nicht von NetApp validiert sind, sofern sie die Spezifikationen von NetApp erfüllen. 
+summary: 'MetroCluster-IP-Switches, die im als unterstützte Switches aufgeführt sind link:https://hwu.netapp.com/["NetApp Hardware Universe"^] Und die von NetApp bereitgestellt werden, sind NetApp validiert. Ab ONTAP 9.7 können in MetroCluster IP Konfigurationen MetroCluster-konforme Switches verwendet werden. Dabei handelt es sich um Switches, die nicht von NetApp validiert wurden, die jedoch die Spezifikationen von NetApp erfüllen. NetApp bietet jedoch keine Support-Services, keine Fehlerbehebung und/oder Konfiguration für nicht validierte Switches.' 
 ---
 = Überlegungen zur Verwendung von MetroCluster-konformen Switches
 :allow-uri-read: 
@@ -11,24 +11,47 @@ summary: Ab ONTAP 9.7 unterstützen MetroCluster IP-Konfigurationen auch Switche
 
 
 [role="lead"]
-NetApp bietet MetroCluster IP Switches an. Ab ONTAP 9.7 unterstützen MetroCluster IP-Konfigurationen auch Switches, die nicht von NetApp validiert sind, sofern sie die Spezifikationen von NetApp erfüllen.
+MetroCluster-IP-Switches, die im als unterstützte Switches aufgeführt sind link:https://hwu.netapp.com/["NetApp Hardware Universe"^] Und die von NetApp bereitgestellt werden, sind NetApp validiert. Ab ONTAP 9.7 können in MetroCluster IP Konfigurationen MetroCluster-konforme Switches verwendet werden. Dabei handelt es sich um Switches, die nicht von NetApp validiert wurden, die jedoch die Spezifikationen von NetApp erfüllen. NetApp bietet jedoch keine Support-Services, keine Fehlerbehebung und/oder Konfiguration für nicht validierte Switches.
 
 
 
-== Allgemeine Anforderungen
+== Von NetApp validierte Switches
+
+Ein Switch wird durch NetApp validiert, wenn es alle folgenden Anforderungen erfüllt:
+
+* Der Switch wird von NetApp im Rahmen der MetroCluster IP Konfiguration bereitgestellt
+* Der Schalter ist in aufgeführt link:https://hwu.netapp.com/["NetApp Hardware Universe"^] Als unterstützter Switch unter „MetroCluster-over-IP-connections“
+* Der Switch wird nur verwendet, um MetroCluster IP-Controller und in einigen Konfigurationen NS224-Laufwerk-Shelfs zu verbinden
+* Der Switch wird mit dem von NetApp bereitgestellten RCF (Reference Configuration File) konfiguriert.
+
+
+Ein Switch, der diese Kriterien nicht erfüllt, ist *nicht* ein von NetApp validierter Switch.
+
+
+
+== MetroCluster-konforme Switches
+
+Ein MetroCluster-konformer Switch ist nicht von NetApp validiert, kann aber in einer MetroCluster IP-Konfiguration verwendet werden, wenn er die unten aufgeführten Anforderungen und Konfigurationsrichtlinien erfüllt.
+
+
+NOTE: NetApp bietet keinen Support-Service, keine Fehlerbehebung und/oder Konfiguration für nicht validierte MetroCluster-kompatible Switches.
+
+
+
+== Allgemeine Anforderungen für MetroCluster-konforme Switches
 
 Die Anforderungen zeigen, wie MetroCluster-konforme Switches ohne Verwendung von RCF-Dateien (Reference Configuration) konfiguriert werden.
 
 * Die mit den MetroCluster Nodes verbundenen Switches können Verkehr ohne MetroCluster übertragen.
-* Es werden nur Plattformen unterstützt, die dedizierte Ports für Cluster Interconnects ohne Switches bereitstellen. Plattformen wie FAS2750 und AFF A220 werden nicht unterstützt, da sich MetroCluster Traffic und der MetroCluster Interconnect Traffic über dieselben Netzwerk-Ports teilen.
+* Nur Plattformen, die dedizierte Ports für Cluster Interconnects ohne Switches bereitstellen, können mit einem MetroCluster-konformen Switch verwendet werden. Plattformen wie FAS2750 und AFF A220 können nicht verwendet werden, da sich MetroCluster Traffic und der MetroCluster Interconnect Traffic auf dieselben Netzwerk-Ports befinden.
 +
-Das Verbinden lokaler Cluster-Verbindungen mit einem MetroCluster-konformen Switch wird nicht unterstützt.
+Der MetroCluster-kompatible Switch darf nicht für lokale Cluster-Verbindungen verwendet werden.
 
 * Die MetroCluster IP-Schnittstelle kann an jeden Switch-Port angeschlossen werden, der entsprechend den Anforderungen konfiguriert werden kann.
 * Die Switch-Ports müssen mit 25 Gbit/s für FAS8200 und AFF A300 Plattformen und mindestens 40 Gbit/s für alle anderen Plattformen (40 Gbit/s oder 100 Gbit/s) erfolgen.
 * Es sind vier IP-Switches erforderlich, zwei für jede Switch-Fabric.
 * Die ISLs müssen 10 Gbit/s oder höher liegen und für die Last der MetroCluster-Konfiguration entsprechend dimensioniert sein.
-* Die MetroCluster-Konfiguration muss mit zwei Netzwerken verbunden sein. Das Verbinden beider MetroCluster-Schnittstellen mit demselben Netzwerk oder Switch wird nicht unterstützt. Jeder MetroCluster Node muss mit zwei Netzwerk-Switches verbunden sein.
+* Die MetroCluster-Konfiguration muss mit zwei Netzwerken verbunden sein. Die MetroCluster-Schnittstellen können nicht mit demselben Netzwerk oder Switch verbunden werden. Jeder MetroCluster Node muss mit zwei Netzwerk-Switches verbunden sein.
 * Das Netzwerk muss die folgenden Anforderungen erfüllen:
 +
 ** link:../install-ip/concept_considerations_isls.html#basic-metrocluster-isl-requirements["Grundlegende Anforderungen für MetroCluster-ISL"]
@@ -42,7 +65,7 @@ Das Verbinden lokaler Cluster-Verbindungen mit einem MetroCluster-konformen Swit
 
 
 
-== Switch- und Verkabelungsanforderungen
+== Switch- und Verkabelungsanforderungen für MetroCluster-kompatible Switches
 
 * Die Switches müssen QoS/Traffic-Klassifizierung unterstützen.
 * Die Schalter müssen eine explizite Benachrichtigung über eine Staumeldung (ECN) unterstützen.
@@ -53,9 +76,9 @@ Das Verbinden lokaler Cluster-Verbindungen mit einem MetroCluster-konformen Swit
 
 
 
-== Einschränkungen
+== Beschränkungen bei MetroCluster-konformen Switches
 
-Jede Konfiguration oder Funktion, die erfordert, dass die lokalen Cluster-Verbindungen mit einem Switch verbunden sind, wird nicht unterstützt. Beispielsweise werden die folgenden Konfigurationen und Verfahren nicht unterstützt:
+Jede Konfiguration oder Funktion, die erfordert, dass die lokalen Clusterverbindungen mit einem Switch verbunden sind, kann nicht verwendet werden. Beispielsweise können die folgenden Konfigurationen und Verfahrensweisen nicht mit einem MetroCluster-kompatiblen Switch verwendet werden:
 
 * MetroCluster Konfigurationen mit acht Nodes
 * Der Wechsel von MetroCluster FC- zu MetroCluster IP-Konfigurationen
@@ -69,7 +92,7 @@ Jede Konfiguration oder Funktion, die erfordert, dass die lokalen Cluster-Verbin
 Die folgende Tabelle enthält plattformspezifische Netzwerkgeschwindigkeiten und Switch-Port-Modi für MetroCluster-konforme Switches. Sie sollten den Switch-Port-Modus wie in der Tabelle beschrieben konfigurieren.
 
 
-NOTE: Fehlende Werte geben an, dass die Plattform nicht unterstützt wird.
+NOTE: Fehlende Werte geben an, dass die Plattform nicht mit einem MetroCluster-konformen Switch verwendet werden kann.
 
 |===
 
@@ -309,7 +332,7 @@ class type queuing c-out-8q-q-default
   bandwidth remaining percent 100
   random-detect threshold burst-optimized ecn
 ----
-Sie müssen einen Switch konfigurieren, der MetroCluster-Datenverkehr auf einer ISL hat, keine Verbindung zu MetroCluster-Schnittstellen jedoch herstellen. In diesem Fall ist der Datenverkehr bereits klassifiziert und muss nur der entsprechenden Warteschlange zugeordnet werden. Im folgenden Beispiel ist der gesamte COS5 Verkehr der Klasse RDMA zugeordnet, und der gesamte COS4-Datenverkehr wird der iSCSI-Klasse zugeordnet. Beachten Sie, dass dies * alle* des COS5- und COS4-Verkehrs betrifft, nicht nur den MetroCluster-Verkehr. Wenn Sie nur den MetroCluster-Verkehr zuordnen möchten, müssen Sie die oben genannten Klassenkarten verwenden, um den Datenverkehr anhand der Zugriffsgruppen zu identifizieren.
+Möglicherweise müssen Sie einen Switch konfigurieren, der MetroCluster-Datenverkehr auf einer ISL besitzt, aber keine Verbindung zu MetroCluster-Schnittstellen herstellt. In diesem Fall ist der Datenverkehr bereits klassifiziert und muss nur der entsprechenden Warteschlange zugeordnet werden. Im folgenden Beispiel ist der gesamte COS5 Verkehr der Klasse RDMA zugeordnet, und der gesamte COS4-Datenverkehr wird der iSCSI-Klasse zugeordnet. Beachten Sie, dass dies * alle* des COS5- und COS4-Verkehrs betrifft, nicht nur den MetroCluster-Verkehr. Wenn Sie nur den MetroCluster-Verkehr zuordnen möchten, müssen Sie die oben genannten Klassenkarten verwenden, um den Datenverkehr anhand der Zugriffsgruppen zu identifizieren.
 
 Beispiel:
 
