@@ -9,14 +9,14 @@
   <meta property="og:title" content="Überlegungen zur Verwendung von MetroCluster-konformen Switches" />
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content="https://docs.netapp.com/de-de/ontap-metrocluster/install-ip/concept_considerations_mc_compliant_switches.html" />
-	<meta property="og:description" content="Ab ONTAP 9.7 unterstützen MetroCluster IP-Konfigurationen auch Switches, die nicht von NetApp validiert sind, sofern sie die Spezifikationen von NetApp erfül..." />
+	<meta property="og:description" content="MetroCluster-IP-Switches, die im als unterstützte Switches aufgeführt sind link:https://hwu.netapp.com/["NetApp Hardware Universe"^] Und die von NetApp berei..." />
   <meta property="og:image" content="https://docs.netapp.com/de-de/ontap-metrocluster/images/logo-tophat-social.png" />
   <meta property="og:image:alt" content="NetApp Logo" />
   <meta name="format-detection" content="telephone=no">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta http-equiv="encoding" content="utf-8">
   <meta http-equiv="nss-type" content="Product Documentation"/>
-  <meta http-equiv="nss-subtype" content="User Guide"/><meta name="description" content="Ab ONTAP 9.7 unterstützen MetroCluster IP-Konfigurationen auch Switches, die nicht von NetApp validiert sind, sofern sie die Spezifikationen von NetApp erfül...">
+  <meta http-equiv="nss-subtype" content="User Guide"/><meta name="description" content="MetroCluster-IP-Switches, die im als unterstützte Switches aufgeführt sind link:https://hwu.netapp.com/["NetApp Hardware Universe"^] Und die von NetApp berei...">
   <meta name="keywords" content=" metrocluster ip, metrocluster-compliant switches, metrocluster-compliant, requirements, compliant"><!-- Icons -->
   <link rel="icon" href="/de-de/ontap-metrocluster/images/favicon.ico" type="image/x-icon">
 
@@ -6155,7 +6155,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-11-15 12:43:23 +0000">11/15/2022</time>
+    <time datetime="2022-12-14 21:00:58 +0000">12/14/2022</time>
     
   
 
@@ -6168,12 +6168,59 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph lead">
-<p>NetApp bietet MetroCluster IP Switches an. Ab ONTAP 9.7 unterstützen MetroCluster IP-Konfigurationen auch Switches, die nicht von NetApp validiert sind, sofern sie die Spezifikationen von NetApp erfüllen.</p>
+<p>MetroCluster-IP-Switches, die im als unterstützte Switches aufgeführt sind <a href="https://hwu.netapp.com/" target="_blank" rel="noopener">"NetApp Hardware Universe"</a> Und die von NetApp bereitgestellt werden, sind NetApp validiert. Ab ONTAP 9.7 können in MetroCluster IP Konfigurationen MetroCluster-konforme Switches verwendet werden. Dabei handelt es sich um Switches, die nicht von NetApp validiert wurden, die jedoch die Spezifikationen von NetApp erfüllen. NetApp bietet jedoch keine Support-Services, keine Fehlerbehebung und/oder Konfiguration für nicht validierte Switches.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="allgemeine-anforderungen">Allgemeine Anforderungen</h2>
+<h2 id="von-netapp-validierte-switches">Von NetApp validierte Switches</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Ein Switch wird durch NetApp validiert, wenn es alle folgenden Anforderungen erfüllt:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Der Switch wird von NetApp im Rahmen der MetroCluster IP Konfiguration bereitgestellt</p>
+</li>
+<li>
+<p>Der Schalter ist in aufgeführt <a href="https://hwu.netapp.com/" target="_blank" rel="noopener">"NetApp Hardware Universe"</a> Als unterstützter Switch unter „MetroCluster-over-IP-connections“</p>
+</li>
+<li>
+<p>Der Switch wird nur verwendet, um MetroCluster IP-Controller und in einigen Konfigurationen NS224-Laufwerk-Shelfs zu verbinden</p>
+</li>
+<li>
+<p>Der Switch wird mit dem von NetApp bereitgestellten RCF (Reference Configuration File) konfiguriert.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Ein Switch, der diese Kriterien nicht erfüllt, ist <strong>nicht</strong> ein von NetApp validierter Switch.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="metrocluster-konforme-switches">MetroCluster-konforme Switches</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Ein MetroCluster-konformer Switch ist nicht von NetApp validiert, kann aber in einer MetroCluster IP-Konfiguration verwendet werden, wenn er die unten aufgeführten Anforderungen und Konfigurationsrichtlinien erfüllt.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/ontap-metrocluster/images/note.svg" alt="Anmerkung">
+</td>
+<td class="content">
+NetApp bietet keinen Support-Service, keine Fehlerbehebung und/oder Konfiguration für nicht validierte MetroCluster-kompatible Switches.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="allgemeine-anforderungen-für-metrocluster-konforme-switches">Allgemeine Anforderungen für MetroCluster-konforme Switches</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Die Anforderungen zeigen, wie MetroCluster-konforme Switches ohne Verwendung von RCF-Dateien (Reference Configuration) konfiguriert werden.</p>
@@ -6184,9 +6231,9 @@
 <p>Die mit den MetroCluster Nodes verbundenen Switches können Verkehr ohne MetroCluster übertragen.</p>
 </li>
 <li>
-<p>Es werden nur Plattformen unterstützt, die dedizierte Ports für Cluster Interconnects ohne Switches bereitstellen. Plattformen wie FAS2750 und AFF A220 werden nicht unterstützt, da sich MetroCluster Traffic und der MetroCluster Interconnect Traffic über dieselben Netzwerk-Ports teilen.</p>
+<p>Nur Plattformen, die dedizierte Ports für Cluster Interconnects ohne Switches bereitstellen, können mit einem MetroCluster-konformen Switch verwendet werden. Plattformen wie FAS2750 und AFF A220 können nicht verwendet werden, da sich MetroCluster Traffic und der MetroCluster Interconnect Traffic auf dieselben Netzwerk-Ports befinden.</p>
 <div class="paragraph">
-<p>Das Verbinden lokaler Cluster-Verbindungen mit einem MetroCluster-konformen Switch wird nicht unterstützt.</p>
+<p>Der MetroCluster-kompatible Switch darf nicht für lokale Cluster-Verbindungen verwendet werden.</p>
 </div>
 </li>
 <li>
@@ -6202,7 +6249,7 @@
 <p>Die ISLs müssen 10 Gbit/s oder höher liegen und für die Last der MetroCluster-Konfiguration entsprechend dimensioniert sein.</p>
 </li>
 <li>
-<p>Die MetroCluster-Konfiguration muss mit zwei Netzwerken verbunden sein. Das Verbinden beider MetroCluster-Schnittstellen mit demselben Netzwerk oder Switch wird nicht unterstützt. Jeder MetroCluster Node muss mit zwei Netzwerk-Switches verbunden sein.</p>
+<p>Die MetroCluster-Konfiguration muss mit zwei Netzwerken verbunden sein. Die MetroCluster-Schnittstellen können nicht mit demselben Netzwerk oder Switch verbunden werden. Jeder MetroCluster Node muss mit zwei Netzwerk-Switches verbunden sein.</p>
 </li>
 <li>
 <p>Das Netzwerk muss die folgenden Anforderungen erfüllen:</p>
@@ -6231,7 +6278,7 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="switch-und-verkabelungsanforderungen">Switch- und Verkabelungsanforderungen</h2>
+<h2 id="switch-und-verkabelungsanforderungen-für-metrocluster-kompatible-switches">Switch- und Verkabelungsanforderungen für MetroCluster-kompatible Switches</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
@@ -6255,10 +6302,10 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="einschränkungen">Einschränkungen</h2>
+<h2 id="beschränkungen-bei-metrocluster-konformen-switches">Beschränkungen bei MetroCluster-konformen Switches</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Jede Konfiguration oder Funktion, die erfordert, dass die lokalen Cluster-Verbindungen mit einem Switch verbunden sind, wird nicht unterstützt. Beispielsweise werden die folgenden Konfigurationen und Verfahren nicht unterstützt:</p>
+<p>Jede Konfiguration oder Funktion, die erfordert, dass die lokalen Clusterverbindungen mit einem Switch verbunden sind, kann nicht verwendet werden. Beispielsweise können die folgenden Konfigurationen und Verfahrensweisen nicht mit einem MetroCluster-kompatiblen Switch verwendet werden:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -6288,7 +6335,7 @@
 <img src="/us-en/ontap-metrocluster/images/note.svg" alt="Anmerkung">
 </td>
 <td class="content">
-Fehlende Werte geben an, dass die Plattform nicht unterstützt wird.
+Fehlende Werte geben an, dass die Plattform nicht mit einem MetroCluster-konformen Switch verwendet werden kann.
 </td>
 </tr>
 </table>
@@ -6597,7 +6644,7 @@ class type queuing c-out-8q-q-default
 </div>
 </div>
 <div class="paragraph">
-<p>Sie müssen einen Switch konfigurieren, der MetroCluster-Datenverkehr auf einer ISL hat, keine Verbindung zu MetroCluster-Schnittstellen jedoch herstellen. In diesem Fall ist der Datenverkehr bereits klassifiziert und muss nur der entsprechenden Warteschlange zugeordnet werden. Im folgenden Beispiel ist der gesamte COS5 Verkehr der Klasse RDMA zugeordnet, und der gesamte COS4-Datenverkehr wird der iSCSI-Klasse zugeordnet. Beachten Sie, dass dies * alle* des COS5- und COS4-Verkehrs betrifft, nicht nur den MetroCluster-Verkehr. Wenn Sie nur den MetroCluster-Verkehr zuordnen möchten, müssen Sie die oben genannten Klassenkarten verwenden, um den Datenverkehr anhand der Zugriffsgruppen zu identifizieren.</p>
+<p>Möglicherweise müssen Sie einen Switch konfigurieren, der MetroCluster-Datenverkehr auf einer ISL besitzt, aber keine Verbindung zu MetroCluster-Schnittstellen herstellt. In diesem Fall ist der Datenverkehr bereits klassifiziert und muss nur der entsprechenden Warteschlange zugeordnet werden. Im folgenden Beispiel ist der gesamte COS5 Verkehr der Klasse RDMA zugeordnet, und der gesamte COS4-Datenverkehr wird der iSCSI-Klasse zugeordnet. Beachten Sie, dass dies * alle* des COS5- und COS4-Verkehrs betrifft, nicht nur den MetroCluster-Verkehr. Wenn Sie nur den MetroCluster-Verkehr zuordnen möchten, müssen Sie die oben genannten Klassenkarten verwenden, um den Datenverkehr anhand der Zugriffsgruppen zu identifizieren.</p>
 </div>
 <div class="paragraph">
 <p>Beispiel:</p>
