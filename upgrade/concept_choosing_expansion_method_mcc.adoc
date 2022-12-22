@@ -1,0 +1,54 @@
+---
+permalink: upgrade/concept_choosing_expansion_method_mcc.html 
+sidebar: sidebar 
+keywords: metrocluster, expansion, method 
+summary: Das von Ihnen verwendete Erweiterungsverfahren hängt vom Typ der MetroCluster-Konfiguration und der ONTAP-Version ab. 
+---
+= Wählen Sie ein Erweiterungsverfahren aus
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Das von Ihnen verwendete Erweiterungsverfahren hängt vom Typ der MetroCluster-Konfiguration und der ONTAP-Version ab.
+
+Beim Erweiterungsverfahren muss der MetroCluster Konfiguration neue Controller und neuer Storage hinzugefügt werden. Die Erweiterung muss an jedem Standort eine geraden Anzahl an Controllern beibehalten. Das Verfahren, das Sie verwenden, hängt von der Anzahl der Nodes in der ursprünglichen MetroCluster Konfiguration ab.
+
+[cols="2,1,1,2"]
+|===
+| Erweiterungsmethode | Konfigurationstyp | ONTAP-Version | Verfahren 
+
+
+ a| 
+Methode: Erweitern Sie eine MetroCluster FC mit zwei Nodes auf vier
+ a| 
+FC mit zwei Nodes
+ a| 
+ONTAP 9 und höher (Plattformen müssen in ONTAP 9.2 und höher unterstützt werden)
+ a| 
+link:../upgrade/task_expand_a_two_node_mcc_fc_configuration_to_a_four_node_fc_configuration_supertask.html["Link zum Verfahren"]
+
+
+
+ a| 
+Methode: Erweitern Sie eine MetroCluster FC mit vier Nodes auf acht
+ a| 
+FC mit vier Nodes
+ a| 
+ONTAP 9 oder höher
+ a| 
+link:task_refresh_4n_mcc_ip.html["Link zum Verfahren"]
+
+
+
+ a| 
+Methode: Erweitern Sie eine MetroCluster-IP mit vier Knoten auf acht
+ a| 
+IP mit vier Nodes
+ a| 
+ONTAP 9.9.1 und höher
+ a| 
+link:../upgrade/task_expand_a_four_node_mcc_ip_configuration.html["Link zum Verfahren"]
+
+|===

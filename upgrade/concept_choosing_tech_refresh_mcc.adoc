@@ -11,35 +11,57 @@ summary: Das von Ihnen verwendete Aktualisierungsverfahren hängt vom Plattformm
 
 
 [role="lead"]
-Das von Ihnen verwendete Verfahren zur Systemaktualisierung hängt vom Plattformmodell, dem Umfang des Upgrades und dem Typ der MetroCluster-Konfiguration ab.
+Das von Ihnen verwendete Verfahren zur Systemaktualisierung hängt vom Plattformmodell und dem Typ der MetroCluster-Konfiguration ab. Aktualisierungsverfahren gelten für die Controller und die Storage Shelfs. Im Aktualisierungsverfahren werden der MetroCluster Konfiguration neue Controller und Shelves hinzugefügt, eine zweite DR-Gruppe erstellt und die Daten werden unterbrechungsfrei zu den neuen Nodes migriert. Die ursprünglichen Controller werden dann außer Betrieb genommen.
+
+
+
+=== Unterstützte Kombinationen von MetroCluster FC-Technologie zur Aktualisierung
+
+image::../media/metrocluster_fc_tech_refresh.png[MetroCluster fc-Technologieaktualisierung]
+
+* Stellen Sie sicher, dass Sie den Vorgang zur Technologieaktualisierung abschließen, bevor Sie eine neue Last hinzufügen.
+
+
+
+NOTE: Überschreiten Sie keine Objektgrenzen des „unteren“ der Plattformen in der Kombination. Wenden Sie die untere Objektgrenze der beiden Plattformen an. Siehe link:https://hwu.netapp.html["Hardware Universe"^] Für Plattformgrenzen
+
+
+
+=== Unterstützte Kombinationen aus MetroCluster IP-technischen Aktualisierungen
+
+image::../media/metrocluster_ip_tech_refresh.png[MetroCluster ip-Technologieaktualisierung]
+
+* Stellen Sie sicher, dass Sie den Vorgang zur Technologieaktualisierung abschließen, bevor Sie eine neue Last hinzufügen.
+
+
+
+NOTE: Überschreiten Sie keine Objektgrenzen des „unteren“ der Plattformen in der Kombination. Wenden Sie die untere Objektgrenze der beiden Plattformen an. Siehe link:https://hwu.netapp.html["Hardware Universe"^] Für Plattformgrenzen
 
 [cols="2,1,1,2"]
 |===
-| Umfang | Konfigurationstyp | ONTAP Support | Gehe zu... 
+| Aktualisierungsmethode | Konfigurationstyp | ONTAP-Version | Verfahren 
 
 
  a| 
-* Umfang: Plattform (Controller-Module) und Storage-Shelfs
 * Methode: Erweitern Sie die MetroCluster-Konfiguration, und entfernen Sie dann die alten Knoten
 
  a| 
-FC
+FC mit vier Nodes
  a| 
 9.6 und höher
  a| 
-link:task_refresh_4n_mcc_fc.html["Aktualisieren einer MetroCluster FC-Konfiguration mit vier Nodes"]
+link:task_refresh_4n_mcc_fc.html["Link zum Verfahren"]
 
 
 
  a| 
-* Umfang: Plattform (Controller-Module) und Storage-Shelfs
 * Methode: Erweitern Sie die MetroCluster-Konfiguration, und entfernen Sie dann die alten Knoten
 
  a| 
-IP
+IP mit vier Nodes
  a| 
-9.8
+9.8 und höher
  a| 
-link:task_refresh_4n_mcc_ip.html["Aktualisieren einer MetroCluster IP-Konfiguration mit vier Nodes (ONTAP 9.8 und höher)"]
+link:task_refresh_4n_mcc_ip.html["Link zum Verfahren"]
 
 |===

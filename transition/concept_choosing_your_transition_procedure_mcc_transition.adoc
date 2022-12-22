@@ -11,6 +11,22 @@ summary: Sie müssen ein Migrationsverfahren je nach Ihrer bestehenden MetroClus
 
 
 [role="lead"]
+Beim Umstieg auf eine MetroCluster IP-Konfiguration müssen Sie über eine Kombination unterstützter Plattformmodelle verfügen. Sie sollten außerdem sicherstellen, dass die MetroCluster IP-Plattform für die Auslastung geeignet ist, die Sie von der MetroCluster FC-Konfiguration auf die MetroCluster IP-Konfiguration umstellen.
+
+Die folgende Tabelle zeigt die unterstützten Plattformkombinationen. Sie können von Plattformen in der linken Spalte zu Plattformen wechseln, die in den Spalten unterstützt werden, nach rechts, wie durch die farbigen Tabellenzellen angegeben.
+
+Beispielsweise wird der Wechsel von einer MetroCluster FC-Konfiguration aus AFF8060 Controller-Modulen zu einer IP-Konfiguration aus AFF A400 Controller-Modulen unterstützt.
+
+image::../media/metrocluster_fc_ip_transition_matrix.png[MetroCluster fc ip-Umstiegsmatrix]
+
+* Hinweis 1: Diese Plattform erfordert ONTAP 9.11.1 oder höher.
+* Hinweis 2: Auf den FC-Nodes ist eine 40-GbE-Schnittstelle für die lokalen Cluster-Schnittstellen erforderlich.
+* Hinweis 3: Auf FC-Nodes ist eine 100-GbE-Schnittstelle für die lokalen Cluster-Schnittstellen erforderlich.
+
+
+
+NOTE: Überschreiten Sie keine Objektgrenzen des „unteren“ der Plattformen in der Kombination. Wenden Sie die untere Objektgrenze der beiden Plattformen an. Siehe link:https://hwu.netapp.html["Hardware Universe"^] Für Plattformgrenzen
+
 Sie müssen ein Migrationsverfahren je nach Ihrer bestehenden MetroCluster FC-Konfiguration auswählen.
 
 Ein Migrationsverfahren ersetzt das Back-End FC Switch Fabric oder die FC-VI-Verbindung durch ein IP Switch-Netzwerk. Die genaue Vorgehensweise hängt von Ihrer Startkonfiguration ab.
@@ -31,7 +47,7 @@ Unterbrechungsfrei
  a| 
 Unterstützung neuer Storage Shelfs auf neuen Plattformen
  a| 
-link:concept_requirements_for_fc_to_ip_transition_mcc.html["Unterbrechungsfreier Übergang von einer MetroCluster FC- zu einer MetroCluster IP-Konfiguration (ONTAP 9.8 und höher)"]
+link:concept_requirements_for_fc_to_ip_transition_mcc.html["Link zum Verfahren"]
 
 
 
@@ -42,7 +58,7 @@ Unterbrechungen
  a| 
 Neue Storage Shelves werden sowohl auf ursprünglichen als auch auf neuen Plattformen unterstützt.
  a| 
-link:task_disruptively_transition_from_a_two_node_mcc_fc_to_a_four_node_mcc_ip_configuration.html["Unterbrechungsfreie Umstellung von einer MetroCluster FC-Konfiguration mit zwei Nodes auf eine MetroCluster IP-Konfiguration mit vier Nodes (ONTAP 9.8 und höher)"]
+link:task_disruptively_transition_from_a_two_node_mcc_fc_to_a_four_node_mcc_ip_configuration.html["Link zum Verfahren"]
 
 
 
@@ -53,7 +69,7 @@ Unterbrechungen
  a| 
 Neue Storage Shelves werden sowohl auf ursprünglichen als auch auf neuen Plattformen unterstützt. Alte Storage-Shelves müssen außer Betrieb genommen werden.
  a| 
-link:task_disruptively_transition_while_move_volumes_from_old_shelves_to_new_shelves.html["Unterbrechungsfreier Übergang von MetroCluster FC auf MetroCluster IP beim Ausmustern von Storage Shelves (ONTAP 9.8 und höher)"]
+link:task_disruptively_transition_while_move_volumes_from_old_shelves_to_new_shelves.html["Link zum Verfahren"]
 
 
 
@@ -64,6 +80,13 @@ Unterbrechungen
  a| 
 Alte Storage-Shelves werden auf neuen Plattformen nicht unterstützt. Alte Storage-Shelves müssen außer Betrieb genommen werden.
  a| 
-link:task_disruptively_transition_when_exist_shelves_are_not_supported_on_new_controllers.html["Unterbrechungsfreie Transition, wenn vorhandene Shelfs nicht auf neuen Controllern unterstützt werden (ONTAP 9.8 und höher)"]
+link:task_disruptively_transition_when_exist_shelves_are_not_supported_on_new_controllers.html["Link zum Verfahren"]
 
 |===
+
+
+=== Wechsel zu einer gemeinsamen Switch-Konfiguration von Cisco 9336C-FX2
+
+Der Umstieg auf eine Cisco 9336C-FX2 Shared-Switch-Konfiguration wird nicht unterstützt. Eine _Shared Switch-Konfiguration_ ist eine Konfiguration, bei der die Switches sowohl die MetroCluster-Verbindungen als auch die Storage-Shelf-Verbindungen bereitstellen.
+
+Konfigurationen, bei denen der Cisco 9336C-FX2 Switch nur die MetroCluster-Verbindungen bereitstellt, werden unterstützt.
