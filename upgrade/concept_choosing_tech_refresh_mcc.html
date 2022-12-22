@@ -2029,8 +2029,6 @@
 
 
 
-
-
     
       <ul class="subfolders" style="display:none;">
         <li class="pdf-ux-container">
@@ -2200,11 +2198,11 @@
           
           <a target="_blank" 
             
-              href="/de-de/ontap-metrocluster/pdfs/sidebar/Aktualisieren_oder_erweitern_Sie_die_MetroCluster_Konfiguration.pdf" 
+              href="/de-de/ontap-metrocluster/pdfs/sidebar/Aktualisieren__Aktualisieren_oder_erweitern_der_MetroCluster_Konfiguration.pdf" 
             
           >
             <img src="/de-de/ontap-metrocluster/images/pdf.png" alt="" width="16" height="16"/>
-            Aktualisieren oder erweitern Sie die MetroCluster Konfiguration
+            Aktualisieren, Aktualisieren oder erweitern der MetroCluster Konfiguration
           </a>
           
 
@@ -2229,6 +2227,8 @@
 
     <ul class="subfolders" id="pdf-remove" style="display:none;"><li class="active"></li></ul>
   
+
+
 
 
         </li>
@@ -5016,13 +5016,6 @@
         Wählen Sie Ihr Übergangsverfahren
       </a></li><li 
       data-pdf-exists="true" 
-      data-pdf-filename="Unterstützte Plattformen für unterbrechungsfreien Übergang"
-      data-li-level="2#" 
-      class=" "
-    ><a class="na-navbar-padding" href="/de-de/ontap-metrocluster/transition/concept_supported_platforms_for_transition.html">
-        Unterstützte Plattformen für unterbrechungsfreien Übergang
-      </a></li><li 
-      data-pdf-exists="true" 
       data-pdf-filename="Unterbrechungsfreier Übergang von einer MetroCluster FC- zu einer MetroCluster IP-Konfiguration (ONTAP 9.8 und höher)"
       data-li-level="2" 
       class="subfolders "
@@ -5276,11 +5269,11 @@
         Wo Sie weitere Informationen finden
       </a></li></ul></li><li 
       data-pdf-exists="true" 
-      data-pdf-filename="Aktualisieren oder erweitern Sie die MetroCluster Konfiguration"
+      data-pdf-filename="Aktualisieren, Aktualisieren oder erweitern der MetroCluster Konfiguration"
       data-li-level="1" 
       class="subfolders "
     ><a href="#">
-        <div class="na-navbar-padding"> Aktualisieren oder erweitern Sie die MetroCluster Konfiguration</div>
+        <div class="na-navbar-padding"> Aktualisieren, Aktualisieren oder erweitern der MetroCluster Konfiguration</div>
       </a>
       <ul style="display: none;">
         <li 
@@ -5313,6 +5306,13 @@
       class="  active "
     ><a class="na-navbar-padding" href="/de-de/ontap-metrocluster/upgrade/concept_choosing_tech_refresh_mcc.html">
         Wählen Sie das Verfahren zur Systemaktualisierung aus
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Wählen Sie Erweiterungsverfahren"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/ontap-metrocluster/upgrade/concept_choosing_expansion_method_mcc.html">
+        Wählen Sie Erweiterungsverfahren
       </a></li></ul></li><li 
       data-pdf-exists="true" 
       data-pdf-filename="Aktualisieren Sie die Controller in MetroCluster FC mithilfe von Switchover und Switchback"
@@ -6155,7 +6155,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-11-15 12:43:23 +0000">11/15/2022</time>
+    <time datetime="2022-12-22 17:41:54 +0000">12/22/2022</time>
     
   
 
@@ -6165,8 +6165,65 @@
 
 </p>
 
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph lead">
-<p>Das von Ihnen verwendete Verfahren zur Systemaktualisierung hängt vom Plattformmodell, dem Umfang des Upgrades und dem Typ der MetroCluster-Konfiguration ab.</p>
+<p>Das von Ihnen verwendete Verfahren zur Systemaktualisierung hängt vom Plattformmodell und dem Typ der MetroCluster-Konfiguration ab. Aktualisierungsverfahren gelten für die Controller und die Storage Shelfs. Im Aktualisierungsverfahren werden der MetroCluster Konfiguration neue Controller und Shelves hinzugefügt, eine zweite DR-Gruppe erstellt und die Daten werden unterbrechungsfrei zu den neuen Nodes migriert. Die ursprünglichen Controller werden dann außer Betrieb genommen.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="unterstützte-kombinationen-von-metrocluster-fc-technologie-zur-aktualisierung">Unterstützte Kombinationen von MetroCluster FC-Technologie zur Aktualisierung</h3>
+<div class="imageblock">
+<div class="content">
+<img src="../media/metrocluster_fc_tech_refresh.png" alt="MetroCluster fc-Technologieaktualisierung">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Stellen Sie sicher, dass Sie den Vorgang zur Technologieaktualisierung abschließen, bevor Sie eine neue Last hinzufügen.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/ontap-metrocluster/images/note.svg" alt="Anmerkung">
+</td>
+<td class="content">
+Überschreiten Sie keine Objektgrenzen des „unteren“ der Plattformen in der Kombination. Wenden Sie die untere Objektgrenze der beiden Plattformen an. Siehe <a href="https://hwu.netapp.html" target="_blank" rel="noopener">"Hardware Universe"</a> Für Plattformgrenzen
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="unterstützte-kombinationen-aus-metrocluster-ip-technischen-aktualisierungen">Unterstützte Kombinationen aus MetroCluster IP-technischen Aktualisierungen</h3>
+<div class="imageblock">
+<div class="content">
+<img src="../media/metrocluster_ip_tech_refresh.png" alt="MetroCluster ip-Technologieaktualisierung">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Stellen Sie sicher, dass Sie den Vorgang zur Technologieaktualisierung abschließen, bevor Sie eine neue Last hinzufügen.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/ontap-metrocluster/images/note.svg" alt="Anmerkung">
+</td>
+<td class="content">
+Überschreiten Sie keine Objektgrenzen des „unteren“ der Plattformen in der Kombination. Wenden Sie die untere Objektgrenze der beiden Plattformen an. Siehe <a href="https://hwu.netapp.html" target="_blank" rel="noopener">"Hardware Universe"</a> Für Plattformgrenzen
+</td>
+</tr>
+</table>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -6177,10 +6234,10 @@
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Umfang</th>
+<th class="tableblock halign-left valign-top">Aktualisierungsmethode</th>
 <th class="tableblock halign-left valign-top">Konfigurationstyp</th>
-<th class="tableblock halign-left valign-top">ONTAP Support</th>
-<th class="tableblock halign-left valign-top">Gehe zu&#8230;&#8203;</th>
+<th class="tableblock halign-left valign-top">ONTAP-Version</th>
+<th class="tableblock halign-left valign-top">Verfahren</th>
 </tr>
 </thead>
 <tbody>
@@ -6188,46 +6245,41 @@
 <td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
 <ul>
 <li>
-<p>Umfang: Plattform (Controller-Module) und Storage-Shelfs</p>
-</li>
-<li>
 <p>Methode: Erweitern Sie die MetroCluster-Konfiguration, und entfernen Sie dann die alten Knoten</p>
 </li>
 </ul>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>FC</p>
+<p>FC mit vier Nodes</p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>9.6 und höher</p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a href="task_refresh_4n_mcc_fc.html">"Aktualisieren einer MetroCluster FC-Konfiguration mit vier Nodes"</a></p>
+<p><a href="task_refresh_4n_mcc_fc.html">"Link zum Verfahren"</a></p>
 </div></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
 <ul>
 <li>
-<p>Umfang: Plattform (Controller-Module) und Storage-Shelfs</p>
-</li>
-<li>
 <p>Methode: Erweitern Sie die MetroCluster-Konfiguration, und entfernen Sie dann die alten Knoten</p>
 </li>
 </ul>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>IP</p>
+<p>IP mit vier Nodes</p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>9.8</p>
+<p>9.8 und höher</p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a href="task_refresh_4n_mcc_ip.html">"Aktualisieren einer MetroCluster IP-Konfiguration mit vier Nodes (ONTAP 9.8 und höher)"</a></p>
+<p><a href="task_refresh_4n_mcc_ip.html">"Link zum Verfahren"</a></p>
 </div></div></td>
 </tr>
 </tbody>
 </table>
+</div>
 
     </article>
     <!-- Page Container -->
