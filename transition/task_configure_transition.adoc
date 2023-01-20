@@ -167,7 +167,7 @@ Sie müssen diese Aufgabe für beide Cluster ausführen.
 .Schritte
 . Fügen Sie die MetroCluster IP-Knoten zur bestehenden MetroCluster-Konfiguration hinzu.
 +
-.. Schließen Sie den ersten MetroCluster-IP-Knoten (Node_A_1-IP) an die vorhandene MetroCluster-FC-Konfiguration an.
+.. Schließen Sie den ersten MetroCluster-IP-Knoten (Node_A_3-IP) an die vorhandene MetroCluster-FC-Konfiguration an.
 +
 ....
 
@@ -219,10 +219,10 @@ Do you want to use this configuration? {yes, no} [yes]: yes
 .
 .
 ....
-.. Fügen Sie den zweiten MetroCluster IP-Knoten (Node_A_2-IP) der bestehenden MetroCluster FC-Konfiguration hinzu.
+.. Fügen Sie den zweiten MetroCluster IP-Knoten (Node_A_4-IP) der bestehenden MetroCluster FC-Konfiguration hinzu.
 
 
-. Wiederholen Sie diese Schritte, um Node_B_1-IP und Node_B_2-IP zu Cluster_B. zu verbinden
+. Wiederholen Sie diese Schritte, um Node_B_3-IP und Node_B_4-IP zu Cluster_B. zu verbinden
 
 
 
@@ -343,7 +343,7 @@ Siehe link:../install-ip/task_sw_config_configure_clusters.html#configuring-and-
 
 +
 
-NOTE: Sie können die MetroCluster-IP-Schnittstellen von beiden Clustern konfigurieren. Außerdem müssen Sie ab ONTAP 9.9 auch die angeben, wenn Sie eine Layer 3-Konfiguration verwenden `-gateway` Parameter beim Erstellen von MetroCluster-IP-Schnittstellen. Siehe Link:../install-ip/concept_concept_Layer_3.HTML.
+NOTE: Sie können die MetroCluster-IP-Schnittstellen von beiden Clustern konfigurieren. Außerdem müssen Sie ab ONTAP 9.9 auch die angeben, wenn Sie eine Layer 3-Konfiguration verwenden `-gateway` Parameter beim Erstellen von MetroCluster-IP-Schnittstellen. Siehe link:../install-ip/concept_considerations_layer_3.html["Überlegungen für Layer 3-Weitbereichs-Netzwerke"]
 
 +
 ....
@@ -520,9 +520,12 @@ Disk                   Size Shelf Bay Type    Type        Name      Owner
 2.20.10             546.9GB    20  10 SAS     aggregate   rha1_a1_aggr1 node_a_1
 ...
 43 entries were displayed.
-
 cluster_A::>
 ....
++
+
+NOTE: Bei Systemen, die für Advanced Drive Partitioning (ADP) konfiguriert sind, ist der Containertyp „shared“ und nicht „Remote“, wie in der Beispielausgabe dargestellt.
+
 . Root-Aggregate spiegeln:
 +
 `storage aggregate mirror -aggregate aggr0_node_A_3_IP`

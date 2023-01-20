@@ -1,0 +1,32 @@
+---
+permalink: tiebreaker/concept-mcc-tiebreaker-event-logs.html 
+sidebar: sidebar 
+keywords: metrocluster, tiebreaker, actions, events, event, log files, files, logs, file 
+summary: MetroCluster Tiebreaker Aktivitäten werden in Event-Log-Dateien protokolliert. 
+---
+= Ereignisprotokolldateien für MetroCluster Tiebreaker
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Die Event-Log-Datei enthält ein Protokoll aller Aktionen, die von der MetroCluster Tiebreaker Software durchgeführt werden.
+
+Die Tiebreaker Software führt folgende Aktionen durch:
+
+* Erkennt Standortausfälle
+* Erkennt Konfigurationsänderungen in Verbindung mit der Datenbank, anderen Tiebreaker Monitoren oder der MetroCluster Tiebreaker Software
+* Erkennt SSH-Verbindungen und -Verbindungen
+* Erkennung von MetroCluster-Konfigurationen
+
+
+Diese Aktionen werden in der Ereignis-Log-Datei im folgenden Format protokolliert:
+
+Zeitstempel der Schweregrad/des Thread-id-Moduls auf Protokollebene
+
+....
+2022-09-07 06:14:30,797 INFO  [MCCTBCommandServer-16] [SslSupport] Successfully initiated SSL context. Protocol used is TLSv1.3.
+2022-09-07 06:14:34,137 INFO  [MCCTBCommandServer-16] [DataBase] Successfully read MCCTB database.
+2022-09-07 06:14:34,137 INFO  [MCCTBCommandServer-16] [ConfigurationMonitor] Debug mode disabled.
+....

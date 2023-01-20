@@ -6761,9 +6761,6 @@
   <block id="6fd67a5ed9276ba994c073cf2c532faf" category="paragraph">Sie müssen die vier neuen MetroCluster IP-Nodes der bestehenden MetroCluster-Konfiguration hinzufügen.</block>
   <block id="b74949b8fefb7fd6ee33defaa6372e00" category="paragraph">Sie müssen diese Aufgabe für beide Cluster ausführen.</block>
   <block id="0374a6e5ac7874327546ae00b1a604d8" category="list-text">Fügen Sie die MetroCluster IP-Knoten zur bestehenden MetroCluster-Konfiguration hinzu.</block>
-  <block id="fbfd3619aa54cd6546a334791148c766" category="list-text">Schließen Sie den ersten MetroCluster-IP-Knoten (Node_A_1-IP) an die vorhandene MetroCluster-FC-Konfiguration an.</block>
-  <block id="c6bbfa16738696bfd63392cfdc4c0a5c" category="list-text">Fügen Sie den zweiten MetroCluster IP-Knoten (Node_A_2-IP) der bestehenden MetroCluster FC-Konfiguration hinzu.</block>
-  <block id="3bd4a265daa0ebad936e251efefd2525" category="list-text">Wiederholen Sie diese Schritte, um Node_B_1-IP und Node_B_2-IP zu Cluster_B. zu verbinden</block>
   <block id="d8bdae7e1444c808ab8559c95d7f81ec" category="section-title">Konfigurieren von Intercluster-LIFs, Erstellen der MetroCluster-Schnittstellen und Spiegeln von Root-Aggregaten</block>
   <block id="6449a68d295414acaf212ddfd7df25b2" category="paragraph">Sie müssen Cluster-Peering-LIFs erstellen, die MetroCluster-Schnittstellen auf den neuen MetroCluster IP-Nodes erstellen.</block>
   <block id="7e339e8333d1f898a647bba5b4b5fa97" category="paragraph">Der in den Beispielen verwendete Home-Port ist plattformspezifisch. Sie sollten den entsprechenden Home Port für die MetroCluster IP-Node-Plattform verwenden.</block>
@@ -6782,7 +6779,6 @@
   <block id="333744f802db71c53ff9d4ad61fbc125" category="list-text">Konfigurieren Sie die MetroCluster IP-Schnittstellen für die neu verbundenen MetroCluster IP-Knoten:</block>
   <block id="b1e0fc9a28d1fbc5566a3e38e1ba8e33" category="paragraph"><block ref="e36741948f6631f55a1d7c27b8da74e8" prefix="" category="inline-code"></block></block>
   <block id="2b6500c40992c83321292f4bcb8ec93d" category="paragraph">Siehe <block ref="865643442db88296ffae2da0df72fe39" category="inline-link-macro-rx"></block> Überlegungen bei der Konfiguration der IP-Schnittstellen.</block>
-  <block id="29e21146baddc462ae95a60cebbec773" category="admonition">Sie können die MetroCluster-IP-Schnittstellen von beiden Clustern konfigurieren. Außerdem müssen Sie ab ONTAP 9.9 auch die angeben, wenn Sie eine Layer 3-Konfiguration verwenden<block ref="50e57debf79bf52aa078c6e993f8969f" prefix=" " category="inline-code"></block> Parameter beim Erstellen von MetroCluster-IP-Schnittstellen. Siehe Link:../install-ip/concept_concept_Layer_3.HTML.</block>
   <block id="8c74115e4c2bebadc09e695e69b012f5" category="list-text">Überprüfen Sie, ob die MetroCluster-IP-Schnittstellen erstellt wurden:</block>
   <block id="30b6fb782c39e19cc96a63a24fc78cda" category="list-text">Verbinden Sie die MetroCluster IP-Schnittstellen:</block>
   <block id="e84d9abe5e1fc391ac4a450f001b2f71" category="paragraph"><block ref="2537b712544abaf1a4d2233756085f09" prefix="" category="inline-code"></block></block>
@@ -12847,4 +12843,21 @@
   <block id="9e70c8a747dbcd4eb73fc72a2155c425" category="paragraph">Bei nicht aktiviertem automatisierten Switchover in der MetroCluster Tiebreaker Software ist eine manuelle, ungeplante Umschaltung (USO) nicht möglich.</block>
   <block id="03a06951389ef81ee2c73f9db6d94fbf" category="list-text">Informationen darüber, welche Kombinationen von Plattform-Upgrades unterstützt werden, finden Sie in der MetroCluster-IP-Aktualisierungstabelle unter <block ref="ca31e6122d170c1a660e1ab5d0a9430f" category="inline-link-macro-rx"></block>.</block>
   <block id="04d849614bcf7a25c057bcb4f136cfc7" category="list-text">Informationen zu den unterstützten Kombinationen aus Plattform-Upgrades finden Sie in der MetroCluster-FC-Aktualisierungstabelle in <block ref="2026df26c379ba66a79d2229c4a71dd8" category="inline-link-macro-rx"></block>.</block>
+  <block id="7f3573698486df0e906484a42b56260a" category="list-text">Schließen Sie den ersten MetroCluster-IP-Knoten (Node_A_3-IP) an die vorhandene MetroCluster-FC-Konfiguration an.</block>
+  <block id="2cc9b0ebb585ef702d75e1a9560e44ee" category="list-text">Fügen Sie den zweiten MetroCluster IP-Knoten (Node_A_4-IP) der bestehenden MetroCluster FC-Konfiguration hinzu.</block>
+  <block id="43978c682537332f0c17e45dcf81c394" category="list-text">Wiederholen Sie diese Schritte, um Node_B_3-IP und Node_B_4-IP zu Cluster_B. zu verbinden</block>
+  <block id="56276c01f8fdea330f7d547910dbe817" category="inline-link-macro">Überlegungen für Layer 3-Weitbereichs-Netzwerke</block>
+  <block id="5464631d6fd9ed12f95c271bf666c4bc" category="admonition">Sie können die MetroCluster-IP-Schnittstellen von beiden Clustern konfigurieren. Außerdem müssen Sie ab ONTAP 9.9 auch die angeben, wenn Sie eine Layer 3-Konfiguration verwenden<block ref="50e57debf79bf52aa078c6e993f8969f" prefix=" " category="inline-code"></block> Parameter beim Erstellen von MetroCluster-IP-Schnittstellen. Siehe <block ref="1e1496262359096cc1cfeecfa4cefcb5" category="inline-link-macro-rx"></block></block>
+  <block id="d62d7bce1fe91e6c1145e8a56018d13e" category="admonition">Bei Systemen, die für Advanced Drive Partitioning (ADP) konfiguriert sind, ist der Containertyp „shared“ und nicht „Remote“, wie in der Beispielausgabe dargestellt.</block>
+  <block id="bad8ee5726316ec5f26bb0039cbf4bc6" category="summary">MetroCluster Tiebreaker Aktivitäten werden in Event-Log-Dateien protokolliert.</block>
+  <block id="08b9323d7a1af549de439f419bb3096a" category="doc">Ereignisprotokolldateien für MetroCluster Tiebreaker</block>
+  <block id="bbeded76bf1f0922d3c3d140c95591b9" category="paragraph">Die Event-Log-Datei enthält ein Protokoll aller Aktionen, die von der MetroCluster Tiebreaker Software durchgeführt werden.</block>
+  <block id="a683f94e07dea51d4fd5a8ef0f351f0a" category="paragraph">Die Tiebreaker Software führt folgende Aktionen durch:</block>
+  <block id="4b331bdac9dc044af8ef6c6502e176f3" category="list-text">Erkennt Standortausfälle</block>
+  <block id="62bb78b2baed22256e5a91c1b10b48ae" category="list-text">Erkennt Konfigurationsänderungen in Verbindung mit der Datenbank, anderen Tiebreaker Monitoren oder der MetroCluster Tiebreaker Software</block>
+  <block id="74e0bf9f3312e196cf0f79415f5fd557" category="list-text">Erkennt SSH-Verbindungen und -Verbindungen</block>
+  <block id="e7937ee1a1ffc7f60a0d80b1dcee5b56" category="list-text">Erkennung von MetroCluster-Konfigurationen</block>
+  <block id="98c16872714765876ef7301d6b92820a" category="paragraph">Diese Aktionen werden in der Ereignis-Log-Datei im folgenden Format protokolliert:</block>
+  <block id="efddb3b6772ab4f446bebb2bda2d2155" category="paragraph">Zeitstempel der Schweregrad/des Thread-id-Moduls auf Protokollebene</block>
+  <block id="690f8ff3b8b65da4f1bc779fb507da9d" category="sidebar">MetroCluster Tiebreaker Ereignisprotokolldateien</block>
 </blocks>
