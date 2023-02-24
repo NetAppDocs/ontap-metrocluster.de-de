@@ -1399,7 +1399,7 @@ Diese Aufgabe wird in Site_B ausgeführt, wo die Nodes mit Root-Aggregaten gesta
 
 .. Port-Konfiguration überschreiben, um korrekte LIF-Platzierung zu gewährleisten:
 +
-`vserver config override -command "network interface modify" -vserver _vserver_name_ -home-port _active_port_after_upgrade_ -lif _lif_name_ -home-node _new_node_name_"`
+`vserver config override -command "network interface modify -vserver _vserver_name_ -home-port _active_port_after_upgrade_ -lif _lif_name_ -home-node _new_node_name_"`
 
 +
 Wenn Sie den eingeben `network interface modify` Befehl im `vserver config override` Befehl, Sie können die Funktion Autovervollständigung auf der Registerkarte nicht verwenden. Sie können die erstellen `network interface modify` Verwenden Sie Autocomplete und schließen Sie es dann in das ein `vserver config override` Befehl.

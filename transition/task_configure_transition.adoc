@@ -600,22 +600,51 @@ aggr_data_a2
 Sie müssen die neue DR-Gruppe in die MetroCluster Konfiguration einbinden und gespiegelte Datenaggregate auf den neuen Nodes erstellen.
 
 .Schritte
-. Konfigurieren Sie das MetroCluster, um die Änderungen zu implementieren:
+. Konfigurieren Sie die MetroCluster, je nachdem, ob sie über einen einzelnen oder mehrere Datenaggregate verfügt:
 +
-`metrocluster configure`
+|===
 
-+
+
+| Wenn Ihre MetroCluster Konfiguration... | Dann tun Sie das... 
+
+
+ a| 
+Mehrere Datenaggregate
+ a| 
+Konfigurieren Sie an der Eingabeaufforderung eines beliebigen Nodes MetroCluster:
+
+`metrocluster configure _node-name_`
+
 
 NOTE: Sie müssen ausführen `metrocluster configure` Und *nicht* `metrocluster configure -refresh true`
 
+
+
+ a| 
+Ein einzelnes gespiegeltes Datenaggregat
+ a| 
+.. Ändern Sie von der Eingabeaufforderung eines beliebigen Node auf die erweiterte Berechtigungsebene:
 +
-....
-cluster_A::> metrocluster configure
+`set -privilege advanced`
 
-[Job 439] Job succeeded: Configure is successful.
++
+Sie müssen mit antworten `y` Wenn Sie aufgefordert werden, den erweiterten Modus fortzusetzen, wird die Eingabeaufforderung für den erweiterten Modus (*) angezeigt.
 
-cluster_A::>
-....
+.. Konfigurieren Sie die MetroCluster mit dem `-allow-with-one-aggregate true` Parameter:
++
+`metrocluster configure -allow-with-one-aggregate true _node-name_`
+
+.. Zurück zur Administratorberechtigungsebene:
++
+`set -privilege admin`
+
+
+
+|===
++
+
+NOTE: Als Best Practice empfiehlt sich die Nutzung mehrerer gespiegelter Datenaggregate. Wenn nur ein gespiegeltes Aggregat verfügbar ist, ist weniger Schutz da sich die Metadaten-Volumes auf demselben Aggregat anstatt auf separaten Aggregaten befinden.
+
 . Vergewissern Sie sich, dass die Nodes zu ihrer DR-Gruppe hinzugefügt werden:
 +
 `metrocluster node show`
