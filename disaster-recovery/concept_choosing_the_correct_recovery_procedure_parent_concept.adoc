@@ -13,6 +13,8 @@ summary: Nach einem Fehler in einer MetroCluster-Konfiguration müssen Sie abhä
 [role="lead"]
 Nach einem Fehler in einer MetroCluster-Konfiguration müssen Sie das richtige Wiederherstellungsverfahren auswählen. Verwenden Sie die folgende Tabelle und Beispiele, um das entsprechende Wiederherstellungsverfahren auszuwählen.
 
+Bei diesen Informationen in dieser Tabelle wird davon ausgegangen, dass die Installation oder der Übergang abgeschlossen ist, d. h., dass der `metrocluster configure` Befehl erfolgreich ausgeführt.
+
 |===
 
 
@@ -71,7 +73,21 @@ link:task_recover_from_a_multi_controller_and_or_storage_failure.html["Wiederher
 |===
 
 
-== Fehlerszenarien für Controller-Module bei MetroCluster FC-zu-IP Transition
+== Ausfallszenarien für Controller-Module während der MetroCluster-Installation
+
+Die Reaktion auf einen Ausfall eines Controller-Moduls während des MetroCluster-Konfigurationsverfahrens hängt davon ab, ob der `metrocluster configure` Befehl erfolgreich abgeschlossen.
+
+* Wenn der `metrocluster configure` Der Befehl wurde noch nicht ausgeführt oder ist fehlgeschlagen. Sie müssen das Verfahren zur Konfiguration der MetroCluster Software von Anfang an mit einem Ersatz-Controller-Modul neu starten.
++
+
+NOTE: Führen Sie die Schritte in aus link:https://docs.netapp.com/us-en/ontap-metrocluster/install-ip/task_sw_config_restore_defaults.html["Systemeinstellungen auf einem Controller-Modul werden wiederhergestellt"] Auf jedem Controller (einschließlich des Ersatz-Controllers) überprüfen, ob die vorherige Konfiguration entfernt wurde.
+
+* Wenn der `metrocluster configure` Befehl erfolgreich abgeschlossen und wenn das Controller-Modul ausfällt, verwenden Sie die vorherige Tabelle, um das richtige Wiederherstellungsverfahren zu bestimmen.
+
+
+
+
+== Ausfallszenarien für Controller-Module bei der Umstellung von MetroCluster FC zu IP
 
 Das Recovery-Verfahren kann angewendet werden, wenn während der Umstellung ein Standortausfall auftritt. Sie kann jedoch nur verwendet werden, wenn die Konfiguration eine stabile gemischte Konfiguration ist, bei der FC DR-Gruppe und der IP DR-Gruppe beide vollständig konfiguriert sind. Die Ausgabe des `metrocluster node show` Der Befehl sollte beide DR-Gruppen mit allen acht Nodes anzeigen.
 
