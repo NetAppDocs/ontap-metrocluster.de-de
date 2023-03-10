@@ -43,7 +43,7 @@ Wenn die Disaster-Site-Nodes zerstört wurden oder nicht angehalten werden könn
 Neben dem unterbrechungsfreien Betrieb bei Test und Wartung ermöglicht die Umschaltung mit einem einzigen Befehl ein Recovery nach einem Standortausfall.
 
 .Bevor Sie beginnen
-* Vor der Umschaltung müssen mindestens ein der noch intakten Standort-Nodes betriebsbereit sein.
+* Mindestens einer der verbleibenden Standortknoten muss vor dem Switchover betriebsbereit sein.
 * Alle früheren Konfigurationsänderungen müssen abgeschlossen sein, bevor Sie einen Switchback-Vorgang durchführen.
 +
 Damit wird der Wettbewerb mit dem ausgehandelten Switchover- oder Switchback-Betrieb vermieden.
@@ -57,15 +57,16 @@ NOTE: SnapMirror und SnapVault Konfigurationen werden automatisch gelöscht.
 Der `metrocluster switchover` Command Switches über die Nodes in allen DR-Gruppen in der MetroCluster Konfiguration. In einer MetroCluster Konfiguration mit acht Nodes wechselt sie beispielsweise über die Nodes in beiden DR-Gruppen.
 
 .Schritte
-. Implementierung der Umschaltung:
+. Führen Sie die Umschaltung durch, indem Sie den folgenden Befehl am verbleibenden Standort ausführen:
 +
 `metrocluster switchover -forced-on-disaster true`
 
 +
-Der Vorgang kann einige Minuten dauern.
+
+NOTE: Der Vorgang kann einige Minuten dauern. Sie können den Fortschritt mithilfe des überprüfen `metrocluster operation show` Befehl.
 
 . Antwort `y` Wenn Sie dazu aufgefordert werden, mit der Umschaltung fortzufahren.
-. Überprüfen Sie, ob die Umschaltung erfolgreich abgeschlossen wurde, indem Sie den befehl „operation show“ von MetroCluster ausführen.
+. Überprüfen Sie, ob die Umschaltung erfolgreich abgeschlossen wurde, indem Sie den ausführen `metrocluster operation show` Befehl.
 +
 ....
 mcc1A::> metrocluster operation show

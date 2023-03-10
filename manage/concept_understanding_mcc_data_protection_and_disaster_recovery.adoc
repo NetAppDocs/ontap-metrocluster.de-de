@@ -36,7 +36,7 @@ Die folgende Abbildung zeigt eine MetroCluster FC-Konfiguration. Die HA-Funktion
 image::../media/mcc_hw_architecture_local_ha.gif[mcc hw-Architektur lokal ha]
 
 .Verwandte Informationen
-https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-hacg/home.html["Hochverfügbarkeitskonfiguration"^]
+link:https://docs.netapp.com/us-en/ontap/high-availability/index.html["Hochverfügbarkeitskonfiguration"^]
 
 
 
@@ -225,7 +225,7 @@ Sie müssen mit verschiedenen Arten von Ausfällen und Katastrophen vertraut sei
 Eine einzelne Komponente im lokalen HA-Paar fällt aus.
 
 +
-In einer MetroCluster-Konfiguration mit vier Nodes kann dieser Ausfall je nach ausgefallener Komponente zu einer automatischen oder ausgehandelten Übernahme des beeinträchtigten Knotens führen. Die Datenwiederherstellung wird im _High Availability Configuration Guide_ beschrieben.
+In einer MetroCluster-Konfiguration mit vier Nodes kann dieser Ausfall je nach ausgefallener Komponente zu einer automatischen oder ausgehandelten Übernahme des beeinträchtigten Knotens führen. Datenwiederherstellung wird in beschrieben link:https://docs.netapp.com/us-en/ontap/high-availability/index.html["Paarverwaltung mit hoher Verfügbarkeit"^] .
 
 +
 In einer MetroCluster-Konfiguration mit zwei Nodes führt dieser Ausfall zu einer automatischen ungeplanten Umschaltung (AUSO).
@@ -235,7 +235,7 @@ In einer MetroCluster-Konfiguration mit zwei Nodes führt dieser Ausfall zu eine
 Alle Controller-Module werden an einem Standort aufgrund eines Stromausfalls, des Austauschs von Geräten oder eines Notfalls ausfallen. Normalerweise können MetroCluster-Konfigurationen Ausfälle und Ausfälle nicht unterscheiden. Witness-Software wie die MetroCluster Tiebreaker Software kann jedoch zwischen ihnen unterscheiden. Ein standortweiter Controller-Ausfall kann zu einem automatischen Switchover führen, wenn Inter-Switch Link (ISL)-Links und -Switches verfügbar sind und der Storage zugänglich ist.
 
 +
-Der _High-Availability Configuration Guide_ enthält weitere Informationen zur Wiederherstellung nach standortweiten Controller-Ausfällen, die keine Controller-Ausfälle umfassen, sowie Fehler, die einen oder mehrere Controller umfassen.
+link:https://docs.netapp.com/us-en/ontap/high-availability/index.html["Paarverwaltung mit hoher Verfügbarkeit"^] Hat weitere Informationen zur Wiederherstellung nach standortweiten Controller-Ausfällen, die keine Controller-Ausfälle umfassen, sowie Fehlern, die einen oder mehrere Controller umfassen.
 
 * ISL-Fehler
 +
@@ -285,7 +285,7 @@ Da die MetroCluster Konfiguration mit acht oder vier Nodes aus einem oder mehrer
 
 Bei MetroCluster Konfigurationen mit vier oder acht Nodes können Node-Ausfälle aufgrund von Panic-Meldungen oder Stromausfällen zu einem automatischen Switchover führen.
 
-http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-hacg/home.html["Hochverfügbarkeitskonfiguration"^]
+link:https://docs.netapp.com/us-en/ontap/high-availability/index.html["Paarverwaltung mit hoher Verfügbarkeit"^]
 
 Falls nach einem lokalen Failover ein zweiter Ausfall auftritt, sorgt das MetroCluster Switchover-Ereignis für einen unterbrechungsfreien Betrieb. Ähnlich sieht es nach einem Switchover bei einem zweiten Ausfall in einem der verbleibenden Nodes aus, so dass ein lokales Failover-Ereignis einen unterbrechungsfreien Betrieb ermöglicht. In diesem Fall stellt der noch funktionsfähige Node die Daten der anderen drei Nodes in der DR-Gruppe bereit.
 
