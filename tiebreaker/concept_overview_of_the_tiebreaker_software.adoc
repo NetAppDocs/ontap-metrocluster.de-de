@@ -120,9 +120,9 @@ Die Tiebreaker Software löst sofort eine Warnmeldung aus, wenn der Node nicht m
 
 === Panik
 
-Die Tiebreaker Software löst eine Warnmeldung aus, wenn die NV-Verbindungsverbindung zwischen den Standorten nicht verfügbar ist und die überlebende Website den Status „`AllLinksSevered`“ anzeigt. Dies geschieht nur, nachdem der Cordump-Prozess abgeschlossen ist. In diesem Szenario könnte die Zeit, die zwischen dem Cluster nicht mehr erreichbar wurde und der Erkennung eines Ausfalls mehr oder ungefähr der Zeit entsprechen, die für den Cordump-Prozess benötigt wurde. In vielen Fällen beträgt die Erkennungszeit mehr als 30 Sekunden.
+In MetroCluster FC-Konfigurationen löst die Tiebreaker Software eine Warnmeldung aus, wenn die NV-Interconnect-Verbindung zwischen den Standorten ausfällt und der verbleibende Standort den Status „`AllLinksSevered`“ anzeigt. Dies geschieht nur, nachdem der Cordump-Prozess abgeschlossen ist. In diesem Szenario könnte die Zeit, die zwischen dem Cluster nicht mehr erreichbar wurde und der Erkennung eines Ausfalls mehr oder ungefähr der Zeit entsprechen, die für den Cordump-Prozess benötigt wurde. In vielen Fällen beträgt die Erkennungszeit mehr als 30 Sekunden.
 
-Wenn ein Knoten nicht mehr funktioniert, aber keine Datei für den coredump-Prozess generiert, sollte die Erkennungszeit nicht länger als 30 Sekunden sein.
+Wenn ein Knoten nicht mehr funktioniert, aber keine Datei für den coredump-Prozess generiert, sollte die Erkennungszeit nicht länger als 30 Sekunden sein. In MetroCluster-IP-Konfigurationen stoppt der NV die Kommunikation, und der verbleibende Standort erkennt den coredump-Prozess nicht.
 
 
 

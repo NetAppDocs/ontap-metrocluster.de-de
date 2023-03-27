@@ -11,29 +11,32 @@ summary: Um SNMP mit der Tiebreaker Software zu verwenden, müssen Sie SNMP-Eins
 
 
 [role="lead"]
-Um SNMP mit der Tiebreaker Software zu verwenden, müssen Sie SNMP-Einstellungen konfigurieren.
+Um SNMP mit der Tiebreaker Software verwenden zu können, müssen Sie die SNMP-Einstellungen konfigurieren.
 
-. Verwenden Sie den Tiebreaker CLI snmp config Wizard, um MetroCluster-Konfigurationen hinzuzufügen.
+. Verwenden Sie die Tiebreaker CLI `snmp config wizard` Befehl zum Hinzufügen von MetroCluster-Konfigurationen.
 +
 
 NOTE: Derzeit wird nur ein SNMP-Trap-Host unterstützt.
 
 +
-Das folgende Beispiel zeigt die Konfiguration eines SNMP-Empfängers, der SNMP V1 mit einer IP-Adresse von 10.222.210.234 unterstützt, die Portnummer 162 für Trap-Nachrichten und die auf öffentlich eingestellte Community-Zeichenfolge:
+Das folgende Beispiel zeigt die Konfiguration eines SNMP-Empfängers, der SNMP V3 mit einer IP-Adresse 10.240.45.66 und der Portnummer 162 für Trap-Nachrichten unterstützt. Die Tiebreaker Software ist bereit, Traps an den von Ihnen angegebenen SNMP-Empfänger zu senden.
 
 +
 ....
 
 NetApp MetroCluster Tiebreaker :> snmp config wizard
-Enter SNMP Version [V1/V3]: V1
-Enter SNMP Host: 10.222.210.234
+Enter SNMP Version[V1/V3]: v3
+Enter SNMP Host: 10.240.45.66
 Enter SNMP Port: 162
-Enter SNMP V1 Community: public
+Enter SNMP V3 Security Name: v3sec
+Enter SNMP V3 Authentication password:
+Enter SNMP V3 Privacy password:
+Engine ID : 8000031504932eff571825192a6f1193b265e24593
 Successfully added SNMP properties to NetApp MetroCluster Tiebreaker software.
-NetApp MetroCluster Tiebreaker :>
 ....
 +
-Die Tiebreaker Software ist bereit, Traps an den von Ihnen angegebenen SNMP-Empfänger zu senden.
+
+NOTE: Sie sollten SNMPv3 konfigurieren, da SNMPv1 nicht sicher ist. Stellen Sie sicher, dass der Standard-Community-String *NOT* auf public gesetzt ist.
 
 . Vergewissern Sie sich, dass die SNMP-Einstellungen konfiguriert sind:
 +

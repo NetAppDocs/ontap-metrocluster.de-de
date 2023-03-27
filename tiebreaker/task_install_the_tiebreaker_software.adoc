@@ -13,7 +13,7 @@ summary: Die Tiebreaker Software bietet Monitoring-Funktionen für eine Clustere
 [role="lead"]
 Die Tiebreaker Software bietet Monitoring-Funktionen für eine Clustered Storage-Umgebung. Außerdem sendet er SNMP-Benachrichtigungen, wenn Probleme mit der Node-Konnektivität oder im Falle eines Standortnotfalls auftreten.
 
-Die MetroCluster-Software muss installiert und konfiguriert sein.
+Die Tiebreaker Software muss installiert und konfiguriert sein.
 
 
 
@@ -21,45 +21,216 @@ Die MetroCluster-Software muss installiert und konfiguriert sein.
 
 Die Tiebreaker Software wird auf einem dritten Standort installiert, wodurch die Software zwischen einem Switch-Link- (ISL)-Fehler (wenn Verbindungen zwischen den Standorten ausgefallen sind) und einem Standortausfall unterscheiden kann. Ihr Hostsystem muss bestimmte Anforderungen erfüllen, bevor Sie die Tiebreaker Software auf Ihrem lokalen Computer installieren oder aktualisieren können, um die MetroCluster-Konfiguration zu überwachen.
 
+
+NOTE: Sie müssen über „Root“-Berechtigungen verfügen, um die MetroCluster Tiebreaker Software und die abhängigen Pakete zu installieren.
+
 Die MetroCluster Tiebreaker Software verfügt über folgende Monitoring-Funktionen und Anforderungen:
 
-* Für die verschiedenen MetroCluster Konfigurationen ist keine spezielle Konfiguration erforderlich.
 * Monitoring-Funktionen für bis zu 15 MetroCluster-Konfigurationen gleichzeitig.
 +
 
-NOTE: Sie sollten nur einen MetroCluster Tiebreaker Monitor pro MetroCluster-Konfiguration haben, um Konflikte mit mehreren Tiebreaker Monitoren zu vermeiden.
+NOTE: Sie können pro MetroCluster-Konfiguration nur einen MetroCluster Tiebreaker Monitor verwenden, um Konflikte mit mehreren Tiebreaker Monitoren zu vermeiden.
 
 * Unterstützung für eine Kombination aus MetroCluster IP, MetroCluster FC und Stretch MetroCluster Konfigurationen.
 * Hardware und Software:
 +
-** ONTAP 8.3.x, 9.0, 9.1, 9.2, 9.3 9.4, 9.5, 9.6, 9.7, 9.8 9.9.1, 9.10.1 oder 9.11.1.
+** ONTAP 8.3.x, 9.0, 9.1, 9.2, 9.3 9.4, 9.5, 9.6, 9.7, 9.8, 9.9.1, 9.10.1, 9.11.1 oder 9.12.1
 
 
 * Red hat Enterprise Linux 7 bis 7.9 oder CentOS 7 bis 7.9 64 Bit (physische Installation oder virtuelle Maschine)
 +
+
+NOTE: Nur MetroCluster Tiebreaker 1.4 ist mit den RHEL-Versionen 7-7.9 kompatibel.
+
++
 ** MariaDB 5.5.52.x/MySQL Server 5.6x
 ** 4 GB RAM
-** Öffnen Sie Java Runtime Environment 8
+** Öffnen Sie JRE 8
 
 
-* Red hat Enterprise Linux 8.1 auf 8.5
+* Red hat Enterprise Linux 8.1 bis 8.7
 +
 ** MariaDB 10.x (verwenden Sie die Standardversion, die mit "yum install mariadb-Server.x86_64" installiert wird)
 ** 4 GB RAM
-** Öffnen Sie Java Runtime Environment 8
+** Öffnen Sie JRE 8
++
+Führen Sie für Systeme mit Tiebreaker 1.4 und früheren Versionen JRE 8 aus. Führen Sie für Systeme mit Tiebreaker 1.5 und höher OpenJDK 17, 18 oder 19 aus.
+
 
 
 
 
 * Festplattenkapazität: 8 GB
-* Benutzer: Root-Zugriff
 * Firewall:
 +
 ** Direkter Zugriff zum Einrichten von AutoSupport Meldungen
 ** SSH (Port 22/TCP), HTTPS (Port 443/TCP) und Ping (ICMP)
 
 
-* Die Installation auf FIPS-fähigen Hosts wird nicht unterstützt.
+
+
+
+
+== Sichern Sie die Host- und Datenbankinstallation
+
+Bei Konfigurationen mit MetroCluster Tiebreaker 1.5 und höher können Sie das Host-Betriebssystem und die Datenbank sichern und absichern.
+
+
+
+=== Sichern Sie den Host
+
+Die folgenden Richtlinien zeigen Ihnen, wie Sie den Host sichern, auf dem die Tiebreaker Software installiert ist.
+
+* Beschränken Sie den Zugriff des „root“-Benutzers.
++
+** Sie können Benutzer verwenden, die über Root-Zugriff verfügen, um die Tiebreaker Software zu installieren und zu verwalten.
+** Sie können Benutzer verwenden, die nicht in der Lage sind, den Root-Zugriff zu erhöhen, um Tiebreaker Software zu verwalten.
++
+
+NOTE: Während der Installation sollten Sie eine Gruppe namens "mcctbgrp" erstellen. Der Host-Root-Benutzer und der Benutzer, der während der Installation erstellt wurde, sind beide Mitglieder. Nur Mitglieder dieser Gruppe können die Tiebreaker Software vollständig verwalten.
+
+** Benutzer, die nicht Mitglied dieser Gruppe sind, können nicht auf die Tiebreaker Software oder CLI zugreifen. Sie können zusätzliche Benutzer auf dem Host erstellen und sie zu Mitgliedern der Gruppe machen. Diese zusätzlichen Mitglieder können die Tiebreaker-Software nicht vollständig verwalten – sie haben Lesezugriff und können keine Monitore hinzufügen, ändern oder löschen.
+
+
+* Verwenden Sie Festplattenverschlüsselung
++
+** Sie können die Festplattenverschlüsselung aktivieren. Dabei kann es sich um FullDiskEncryption (Hardware) oder Verschlüsselung durch Hostos (Software) oder durch den SVM-Host handeln.
+
+
+* Deaktivieren Sie nicht verwendete Dienste, die eingehende Verbindungen zulassen. Sie können jeden Dienst deaktivieren, der nicht verwendet wird. Die Tiebreaker Software erfordert keinen Service für eingehende Verbindungen, da alle Verbindungen aus der Tiebreaker Installation abgehend sind. Folgende Dienste können standardmäßig aktiviert und deaktiviert werden:
++
+** HTTP/HTTPS-Server
+** FTP-Server
+** Telnet, RSH, rlogin
+** NFS-, CIFS- und anderer Protokollzugriff
+** RDP (RemoteDesktopProtocol), X11 Server, VNC oder andere Remote-Service-Provider für Desktop-PCs.
++
+
+NOTE: Sie müssen entweder den seriellen Konsolenzugriff (falls unterstützt) oder mindestens ein Protokoll aktivieren, um den Host Remote zu verwalten. Wenn Sie alle Protokolle deaktivieren, benötigen Sie physischen Zugriff auf den Host für die Administration.
+
+
+
+* Sicherung des Hosts über FIPS
++
+** Sie können das Host-Betriebssystem im FIPS-konformen Modus installieren und dann Tiebreaker installieren.
++
+
+NOTE: OpenJDK 19 überprüft beim Start, ob der Host im FIPS-Modus installiert ist. Es sollten keine manuellen Änderungen erforderlich sein.
+
+
+
+* Grundlegende Empfehlungen
++
+** Führen Sie Tiebreaker nicht als Root-Benutzer aus. Verwenden Sie ein dediziertes, nicht privilegiertes Servicekonto, um Tiebreaker auszuführen.
+** Ändern Sie die Standard-Community-Zeichenfolge in der Datei „/etc/snmp/snmpd.conf“.
+** Minimale Schreibberechtigungen zulassen. Das unprivilegierte Tiebreaker-Dienstkonto sollte keinen Zugriff haben, um seine ausführbare Binärdatei oder Konfigurationsdateien zu überschreiben. Nur Verzeichnisse und Dateien für lokalen Tiebreaker Storage (z. B. für integrierten Back-End Storage) oder Audit-Protokolle sollten vom Tiebreaker Benutzer beschreibbar sein.
+** End-to-End-TLS (Transport Layer Security). Tiebreaker sollte immer mit TLS verwendet werden. Wenn für Tiebreaker Zwischenlastverteiler oder Reverse-Proxys verwendet werden, sollten Sie TLS für alle Netzwerkverbindungen zwischen allen Komponenten des Systems (einschließlich Backend-Storage) verwenden, um sicherzustellen, dass der gesamte Datenverkehr während der Übertragung von und nach Tiebreaker verschlüsselt wird. Wenn möglich, sollten Sie den HTTP Strict Transport Security (HSTS)-Header mithilfe der benutzerdefinierten Antwortheader-Funktion von Tiebreaker festlegen.
+** Sie müssen die neueste Version von OpenSSH installieren und ausführen.
+** Erlauben Sie anonyme Benutzer nicht.
+** Setzen Sie AllowTcpForwarding auf „Nein“ oder verwenden Sie die Anweisung „Match“, um anonyme Benutzer zu beschränken.
+** Shell-Befehlsverlauf Deaktivieren.
+** Aktualisieren Sie häufig. Tiebreaker wird aktiv weiterentwickelt. Regelmäßige Aktualisierungen sind wichtig, um Sicherheitfixes und alle Änderungen an Standardeinstellungen wie Schlüssellängen oder Chiffre Suites zu integrieren.
+** Abonnieren Sie die HashiCorp Announcement Mailing-Liste, um Ankündigungen über neue Versionen zu erhalten, und besuchen Sie das Tiebreaker CHANGELOG, um weitere Informationen über aktuelle Updates für neue Versionen zu erhalten.
+** Verwenden Sie die richtigen Dateiberechtigungen. Stellen Sie immer sicher, dass die erforderlichen Berechtigungen auf Dateien angewendet werden, bevor Sie die Tiebreaker Software starten, insbesondere auf Dateien mit vertraulichen Informationen.
+** Die Multi-Faktor-Authentifizierung (MFA) erhöht die Sicherheit Ihres Unternehmens, da Administratoren mehr als nur einen Benutzernamen und ein Kennwort verwenden müssen, um sich selbst zu identifizieren. Obwohl wichtig, sind Benutzernamen und Passwörter anfällig für Brute-Force-Angriffe und können von Dritten gestohlen werden. RHEL 8 bietet MFA, bei dem Benutzer mehr als eine Informationskomponente bereitstellen müssen, um sich erfolgreich bei einem Konto oder Linux-Host zu authentifizieren. Die zusätzlichen Informationen können ein Einmalpasswort sein, das per SMS an Ihr Mobiltelefon gesendet wird, oder Anmeldedaten von einer App wie Google Authenticator, Twilio Authy oder FreeOTP.
+
+
+
+
+
+
+==== Verwandte Informationen
+
+.Benutzerverwaltung
+link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_basic_system_settings/assembly_getting-started-with-managing-user-accounts_configuring-basic-system-settings["Erste Schritte mit der Verwaltung von Benutzerkonten"^]
+
+link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_basic_system_settings/introduction-to-managing-user-and-group-accounts_configuring-basic-system-settings["Einführung in die Verwaltung von Benutzer- und Gruppenkonten"^]
+
+link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_basic_system_settings/managing-user-accounts-in-the-web-console-new_configuring-basic-system-settings["Verwalten von Benutzerkonten in der Webkonsole"^]
+
+link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_basic_system_settings/managing-users-from-the-command-line_configuring-basic-system-settings["Verwalten von Benutzern über die Befehlszeile"^]
+
+link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_basic_system_settings/editing-user-groups-using-the-command-line_configuring-basic-system-settings["Bearbeiten von Benutzergruppen über die Befehlszeile"^]
+
+link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_basic_system_settings/managing-sudo-access_configuring-basic-system-settings["Verwalten des Sudo-Zugriffs"^]
+
+link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_basic_system_settings/changing-and-resetting-the-root-password-from-the-command-line_configuring-basic-system-settings["Verwalten und Zurücksetzen des Root-Passworts"^]
+
+link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/security_hardening/index["Verstärkte Sicherheit"^]
+
+link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/securing_networks/index["Sicherung von Netzwerken"^]
+
+link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_basic_system_settings/managing-system-services-with-systemctl_configuring-basic-system-settings["Verwalten von Systemdiensten mit systemctl"^]
+
+link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8["RHEL 8-Dokumentation"^]
+
+link:https://access.redhat.com/documentation/ru-ru/openjdk/8/html/configuring_openjdk_8_on_rhel_with_fips/openjdk-default-fips-configuration["Standard-FIPS-Konfiguration in OpenJDK 8"^]
+
+
+NOTE: Wenn Sie den Host sichern, müssen Sie sicherstellen, dass der Host ohne Benutzereingriff starten kann. Wenn ein Benutzereingriff erforderlich ist, ist die Tiebreaker-Funktion möglicherweise nicht verfügbar, falls der Host unerwartet neu startet. In diesem Fall ist die Tiebreaker-Funktion nur nach dem manuellen Eingriff und nach dem vollständigen Booten des Hosts verfügbar.
+
+
+
+=== Sichern Sie die Datenbankinstallation
+
+Die folgenden Richtlinien zeigen, wie Sie die MariaDB 10.x Datenbankinstallation sichern und absichern können.
+
+* Beschränken Sie den Zugriff des „root“-Benutzers.
++
+** Tiebreaker verwendet ein dediziertes Konto. Das Konto und die Tabellen zum Speichern von (Konfigurations-)Daten werden während der Installation von Tiebreaker erstellt. Nur während der Installation ist ein erhöhter Zugriff auf die Datenbank erforderlich.
+
+
+* Während der Installation sind folgende Zugriffsrechte und Berechtigungen erforderlich:
++
+** Die Fähigkeit, eine Datenbank und Tabellen zu erstellen
+** Die Fähigkeit, globale Optionen zu erstellen
+** Die Möglichkeit, einen Datenbankbenutzer zu erstellen und das Kennwort festzulegen
+** Die Möglichkeit, den Datenbankbenutzer mit der Datenbank und den Tabellen zu verknüpfen und Zugriffsrechte zuzuweisen
++
+
+NOTE: Das Benutzerkonto, das Sie während der Tiebreaker-Installation angeben, muss über alle diese Berechtigungen verfügen. Die Verwendung mehrerer Benutzerkonten für die verschiedenen Aufgaben wird nicht unterstützt.
+
+
+
+* Verwenden Sie die Verschlüsselung der Datenbank
++
+** Wir unterstützen die Verschlüsselung ruhender Daten
+** Die aktiven Daten sind nicht verschlüsselt. Die Daten im Flug verwenden eine lokale „SOCKS“-Dateiverbindung.
+** FIPS-Konformität für MariaDB -- die FIPS-Konformität der Datenbank muss nicht aktiviert werden. Die Installation des Hosts im FIPS-konformen Modus reicht aus.
+
+
++
+
+NOTE: Wenn Sie eine Verschlüsselung benötigen, müssen die Verschlüsselungseinstellungen vor der Installation der Tiebreaker Software aktiviert sein.
+
+
+
+
+
+==== Verwandte Informationen
+
+* Benutzerverwaltung der Datenbank
++
+link:https://dev.mysql.com/doc/refman/8.0/en/access-control.html["Zugriffssteuerung und Account-Management"^]
+
+* Sichern Sie die Datenbank
++
+link:https://dev.mysql.com/doc/refman/8.0/en/security-against-attack.html["MySQL Secure gegen Angreifer"^]
+
++
+link:https://mariadb.com/kb/en/securing-mariadb/["Sicherung von MariaDB"^]
+
+* Verschlüsselung für Daten im Ruhezustand
++
+link:https://mariadb.com/kb/en/data-at-rest-encryption-overview/["Übersicht über die Verschlüsselung ruhender Daten"^]
+
++
+link:https://www.mysql.com/products/enterprise/tde.html["MySQL Enterprise Transparent Data Encryption (TDE)"^]
+
+* Sichern Sie die Vault-Installation
++
+link:https://developer.hashicorp.com/vault/tutorials/operations/production-hardening/["Produktionshärtung"^]
+
 
 
 
@@ -69,9 +240,13 @@ NOTE: Sie sollten nur einen MetroCluster Tiebreaker Monitor pro MetroCluster-Kon
 Sie müssen einen MySQL- oder MariaDB-Server je nach dem Linux-Betriebssystem, das Ihr Host ist, installieren, bevor Sie die Tiebreaker-Software installieren oder aktualisieren.
 
 .Schritte
-. Installieren Sie Java Runtime Environment.
+. Installieren Sie JRE.
 +
-<<install-java-1-8,Installation Von Java Runtime Environment 1.8>>
+<<install-java-1-8,Installieren Sie JRE>>
+
+. Installieren und konfigurieren Sie Vault.
++
+<<install-vault,Installieren und konfigurieren Sie Vault>>
 
 . MySQL oder MariaDB Server installieren:
 +
@@ -103,12 +278,12 @@ Installieren Sie MariaDB
 
 
 
-=== Installation Von Java Runtime Environment 1.8
+=== Installieren Sie JRE
 
-Sie müssen Java Runtime Environment 1.8 auf Ihrem Hostsystem installieren, bevor Sie die Tiebreaker Software installieren oder aktualisieren.
+Sie müssen JRE auf Ihrem Host-System installieren, bevor Sie die Tiebreaker Software installieren oder aktualisieren. Führen Sie für Systeme mit Tiebreaker 1.4 und früheren Versionen JRE 8 aus. Führen Sie für Systeme mit Tiebreaker 1.5 und höher OpenJDK 17, 18 oder 19 aus. Die Ausgaben im Beispiel zeigen JRE 1.8.0. (JRE 8).
 
 .Schritte
-. Melden Sie sich als an `root` Zum Hostsystem.
+. Melden Sie sich als „root“-Benutzer oder als sudo-Benutzer an, der in den erweiterten Berechtigungsmodus wechseln kann.
 +
 [listing]
 ----
@@ -117,9 +292,9 @@ login as: root
 root@mcctb's password:
 Last login: Fri Jan  8 21:33:00 2017 from host.domain.com
 ----
-. Installation Von Java Runtime Environment 1.8:
+. Installieren Sie JRE.
 +
-`[root@mcctb ~]# yum install java-1.8.0-openjdk.x86_64`
+`yum install java-1.8.0-openjdk.x86_64`
 
 +
 ....
@@ -151,12 +326,277 @@ Complete!
 
 
 
+=== Installieren und konfigurieren Sie Vault
+
+Wenn Sie den lokalen Vault-Server nicht verwenden möchten oder haben, müssen Sie Vault installieren. Sie können diese Standardanleitung für die Installation von Vault verwenden oder alternative Richtlinien in der Hashicorp-Installationsanleitung nachlesen.
+
+
+NOTE: Wenn sich in Ihrem Netzwerk ein Vault-Server befindet, können Sie den MetroCluster Tiebreaker Host für die Verwendung dieser Vault-Installation konfigurieren. In diesem Fall müssen Sie Vault nicht auf dem Host installieren.
+
+.Schritte
+. Laden Sie die Vault-ZIP-Datei herunter.
++
+[listing]
+----
+[root@mcctb /bin]#  curl -sO https://releases.hashicorp.com/vault/1.12.2/vault_1.12.2_linux_amd64.zip
+----
+. Entpacken Sie die Vault-Datei.
++
+[listing]
+----
+[root@mcctb /bin]# unzip vault_1.12.2_linux_amd64.zip
+Archive:  vault_1.12.2_linux_amd64.zip
+  inflating: vault
+----
+. Überprüfen Sie die Installation.
++
+[listing]
+----
+[root@mcctb /bin]# vault -version
+Vault v1.12.2 (415e1fe3118eebd5df6cb60d13defdc01aa17b03), built 2022-11-23T12:53:46Z
+----
+. Erstellen Sie eine Vault-Konfigurationsdatei, und stellen Sie sicher, dass die Konfigurationsdatei im Verzeichnis „/root“ erstellt wird.
++
+
+NOTE: Um die Kommunikation mit Vault zu sichern, sollten Sie TLS verwenden.
+
++
+[listing]
+----
+[root@mcctb ~]# cat > config.hcl
+ storage "file" {
+  address = "127.0.0.1:8500"
+  path    = "/mcctb_vdata/data"
+ }
+ listener "tcp" {
+   address     = "127.0.0.1:8200"
+   tls_disable = 1
+ }
+----
+. Starten Sie den Vault-Server: `vault server -config config.hcl &`
++
+[listing]
+----
+[root@mcctb ~] vault server -config config.hcl
+----
+. Exportieren Sie die Vault-Adresse.
++
+Wählen Sie die richtige Option, je nachdem, ob Sie TLS verwenden.
+
++
+[role="tabbed-block"]
+====
+.Option 1. Bei Verwendung von TLS
+--
+[listing]
+----
+[root@mcctb ~]# export VAULT_ADDR=’https://127.0.0.1:8300'
+----
+--
+.Option 2. Wenn TLS nicht verwendet wird
+--
+[listing]
+----
+[root@mcctb ~]# export VAULT_ADDR="http://127.0.0.1:8200"
+----
+--
+====
+. Vault Initialisieren.
++
+[listing]
+----
+[root@mcctb ~]# vault operator init
+2022-12-15T14:57:22.113+0530 [INFO]  core: security barrier not initialized
+2022-12-15T14:57:22.113+0530 [INFO]  core: seal configuration missing, not initialized
+2022-12-15T14:57:22.114+0530 [INFO]  core: security barrier not initialized
+2022-12-15T14:57:22.116+0530 [INFO]  core: security barrier initialized: stored=1 shares=5 threshold=3
+2022-12-15T14:57:22.118+0530 [INFO]  core: post-unseal setup starting
+2022-12-15T14:57:22.137+0530 [INFO]  core: loaded wrapping token key
+2022-12-15T14:57:22.137+0530 [INFO]  core: Recorded vault version: vault version=1.12.2 upgrade time="2022-12-15 09:27:22.137200412 +0000 UTC" build date=2022-11-23T12:53:46Z
+2022-12-15T14:57:22.137+0530 [INFO]  core: successfully setup plugin catalog: plugin-directory=""
+2022-12-15T14:57:22.137+0530 [INFO]  core: no mounts; adding default mount table
+2022-12-15T14:57:22.143+0530 [INFO]  core: successfully mounted backend: type=cubbyhole version="" path=cubbyhole/
+2022-12-15T14:57:22.144+0530 [INFO]  core: successfully mounted backend: type=system version="" path=sys/
+2022-12-15T14:57:22.144+0530 [INFO]  core: successfully mounted backend: type=identity version="" path=identity/
+2022-12-15T14:57:22.148+0530 [INFO]  core: successfully enabled credential backend: type=token version="" path=token/ namespace="ID: root. Path: "
+2022-12-15T14:57:22.149+0530 [INFO]  rollback: starting rollback manager
+2022-12-15T14:57:22.149+0530 [INFO]  core: restoring leases
+2022-12-15T14:57:22.150+0530 [INFO]  expiration: lease restore complete
+2022-12-15T14:57:22.150+0530 [INFO]  identity: entities restored
+2022-12-15T14:57:22.150+0530 [INFO]  identity: groups restored
+2022-12-15T14:57:22.151+0530 [INFO]  core: usage gauge collection is disabled
+2022-12-15T14:57:23.385+0530 [INFO]  core: post-unseal setup complete
+2022-12-15T14:57:23.387+0530 [INFO]  core: root token generated
+2022-12-15T14:57:23.387+0530 [INFO]  core: pre-seal teardown starting
+2022-12-15T14:57:23.387+0530 [INFO]  rollback: stopping rollback manager
+2022-12-15T14:57:23.387+0530 [INFO]  core: pre-seal teardown complete
+Unseal Key 1: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+Unseal Key 2: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+Unseal Key 3: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+Unseal Key 4: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+Unseal Key 5: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+Initial Root Token: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+
+Vault initialized with 5 key shares and a key threshold of 3. Please securely
+distribute the key shares printed above. When the Vault is re-sealed,
+restarted, or stopped, you must supply at least 3 of these keys to unseal it
+before it can start servicing requests.
+
+Vault does not store the generated root key. Without at least 3 keys to
+reconstruct the root key, Vault will remain permanently sealed!
+
+It is possible to generate new unseal keys, provided you have a quorum of
+existing unseal keys shares. See "vault operator rekey" for more information.
+----
+. Exportieren Sie das Vault-Root-Token.
++
+[listing]
+----
+[root@mcctb ~]#  export VAULT_TOKEN="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+----
+. Heben Sie die Versiegelung des Tresors mit einem der drei erstellten Schlüssel auf.
++
+[listing]
+----
+
+[root@mcctb ~]# vault operator unseal
+Unseal Key (will be hidden):
+Key                Value
+---                -----
+Seal Type          shamir
+Initialized        true
+Sealed             true
+Total Shares       5
+Threshold          3
+Unseal Progress    1/3
+Unseal Nonce       d45a3848-8338-febc-2e0b-b72b76ef3394
+Version            1.12.2
+Build Date         2022-11-23T12:53:46Z
+Storage Type       file
+HA Enabled         false
+[root@mcctb ~]# vault operator unseal
+Unseal Key (will be hidden):
+Key                Value
+---                -----
+Seal Type          shamir
+Initialized        true
+Sealed             true
+Total Shares       5
+Threshold          3
+Unseal Progress    2/3
+Unseal Nonce       d45a3848-8338-febc-2e0b-b72b76ef3394
+Version            1.12.2
+Build Date         2022-11-23T12:53:46Z
+Storage Type       file
+HA Enabled         false
+[root@mcctb ~]# vault operator unseal
+Unseal Key (will be hidden):
+2022-12-15T15:15:00.980+0530 [INFO]  core.cluster-listener.tcp: starting listener: listener_address=127.0.0.1:8201
+2022-12-15T15:15:00.980+0530 [INFO]  core.cluster-listener: serving cluster requests: cluster_listen_address=127.0.0.1:8201
+2022-12-15T15:15:00.981+0530 [INFO]  core: post-unseal setup starting
+2022-12-15T15:15:00.981+0530 [INFO]  core: loaded wrapping token key
+2022-12-15T15:15:00.982+0530 [INFO]  core: successfully setup plugin catalog: plugin-directory=""
+2022-12-15T15:15:00.983+0530 [INFO]  core: successfully mounted backend: type=system version="" path=sys/
+2022-12-15T15:15:00.984+0530 [INFO]  core: successfully mounted backend: type=identity version="" path=identity/
+2022-12-15T15:15:00.984+0530 [INFO]  core: successfully mounted backend: type=cubbyhole version="" path=cubbyhole/
+2022-12-15T15:15:00.986+0530 [INFO]  core: successfully enabled credential backend: type=token version="" path=token/ namespace="ID: root. Path: "
+2022-12-15T15:15:00.986+0530 [INFO]  rollback: starting rollback manager
+2022-12-15T15:15:00.987+0530 [INFO]  core: restoring leases
+2022-12-15T15:15:00.987+0530 [INFO]  expiration: lease restore complete
+2022-12-15T15:15:00.987+0530 [INFO]  identity: entities restored
+2022-12-15T15:15:00.987+0530 [INFO]  identity: groups restored
+2022-12-15T15:15:00.988+0530 [INFO]  core: usage gauge collection is disabled
+2022-12-15T15:15:00.989+0530 [INFO]  core: post-unseal setup complete
+2022-12-15T15:15:00.989+0530 [INFO]  core: vault is unsealed
+Key             Value
+---             -----
+Seal Type       shamir
+Initialized     true
+Sealed          false
+Total Shares    5
+Threshold       3
+Version         1.12.2
+Build Date      2022-11-23T12:53:46Z
+Storage Type    file
+Cluster Name    vault-cluster-2d3ed3b4
+Cluster ID      fc47f0fd-135d-39a1-7a7c-97c7c4710166
+HA Enabled      false
+----
+. Vergewissern Sie sich, dass der Status „Vault Sealed“ falsch ist.
++
+[listing]
+----
+[root@mcctb ~]# vault status
+Key             Value
+---             -----
+Seal Type       shamir
+Initialized     true
+Sealed          false
+Total Shares    5
+Threshold       3
+Version         1.12.2
+Build Date      2022-11-23T12:53:46Z
+Storage Type    file
+Cluster Name    vault-cluster-2d3ed3b4
+Cluster ID      fc47f0fd-135d-39a1-7a7c-97c7c4710166
+HA Enabled      false
+----
+. Überprüfen Sie, ob der Vault-Dienst beim Booten auf dem Host gestartet wird.
++
+.. Führen Sie den folgenden Befehl aus: `cd /etc/systemd/`
++
+[listing]
+----
+[root@mcctb ~]#  cd /etc/systemd/
+----
+.. Führen Sie den folgenden Befehl aus: `cat > vault.service`
++
+[listing]
+----
+[root@mcctb system]# cat > vault.service
+[Unit]
+Description=Vault Service
+After=mariadb.service
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/vault server -config /root/config.hcl &
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+----
+.. Führen Sie den folgenden Befehl aus: `systemctl daemon-reload`
++
+[listing]
+----
+[root@mcctb system]#  systemctl daemon-reload
+----
+.. Führen Sie den folgenden Befehl aus: `systemctl enable vault.service`
++
+[listing]
+----
+[root@mcctb system]#  systemctl enable vault.service
+Created symlink /etc/systemd/system/multi-user.target.wants/vault.service → /etc/systemd/system/vault.service.
+----
+
+
++
+
+NOTE: Sie werden während der Installation von MetroCluster Tiebreaker aufgefordert, diese Funktion zu verwenden. Wenn Sie die Methode zum Entsiegeln von Tresor ändern möchten, müssen Sie die MetroCluster Tiebreaker Software deinstallieren und neu installieren.
+
+
+
+
+
 === Installieren von MySQL Server 5.5.30 oder höher und 5.6.x Versionen unter Red hat Enterprise Linux 7 oder CentOS 7
 
 Sie müssen MySQL Server 5.5.30 oder höher und 5.6.x-Version auf Ihrem Hostsystem installieren, bevor Sie die Tiebreaker-Software installieren oder aktualisieren.
 
 .Schritte
-. Melden Sie sich als an `root` Zum Hostsystem.
+. Melden Sie sich als Root-Benutzer oder sudo-Benutzer an, der in den erweiterten Berechtigungsmodus wechseln kann.
 +
 [listing]
 ----
@@ -170,7 +610,8 @@ Last login: Fri Jan  8 21:33:00 2016 from host.domain.com
 `[root@mcctb ~]# yum localinstall \https://dev.mysql.com/get/mysql57-community-release-el6-11.noarch.rpm`
 
 +
-....
+[listing]
+----
 
 Loaded plugins: product-id, refresh-packagekit, security, subscription-manager
 Setting up Local Package Process
@@ -204,12 +645,12 @@ Running Transaction
 Installed:
   mysql-community-release.noarch 0:el6-5
 Complete!
-....
-. Deaktivieren Sie das mysql 57-Repository:
+----
+. Deaktivieren Sie das MySQL 57-Repository:
 +
 `[root@mcctb ~]# yum-config-manager --disable mysql57-community`
 
-. Aktivieren Sie das mysql 56-Repository:
+. Aktivieren Sie das MySQL 56-Repository:
 +
 `[root@mcctb ~]# yum-config-manager --enable mysql56-community`
 
@@ -218,12 +659,13 @@ Complete!
 `[root@mcctb ~]# yum repolist enabled | grep "mysql.*-community.*"`
 
 +
-....
+[listing]
+----
 
 mysql-connectors-community           MySQL Connectors Community            21
 mysql-tools-community                MySQL Tools Community                 35
 mysql56-community                    MySQL 5.6 Community Server           231
-....
+----
 . Installieren Sie den MySQL Community Server:
 +
 `[root@mcctb ~]# yum install mysql-community-server`
@@ -305,7 +747,8 @@ Complete!
 `[root@mcctb ~]# service mysqld start`
 
 +
-....
+[listing]
+----
 
 Initializing MySQL database:  2016-04-05 19:44:38 0 [Warning] TIMESTAMP
 with implicit DEFAULT value is deprecated. Please use
@@ -340,7 +783,7 @@ If you do not want to use this, either remove it, or use the
 
                                                            [  OK  ]
 Starting mysqld:                                           [  OK  ]
-....
+----
 . Bestätigen Sie, dass MySQL-Server ausgeführt wird:
 +
 `[root@mcctb ~]# service mysqld status`
@@ -356,7 +799,8 @@ mysqld (pid  2739) is running...
 `[root@mcctb ~]# mysql_secure_installation`
 
 +
-....
+[listing]
+----
 
 NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MySQL
        SERVERS IN PRODUCTION USE!  PLEASE READ EACH STEP CAREFULLY!
@@ -419,14 +863,14 @@ NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MySQL
  Thanks for using MySQL!
 
  Cleaning up...
-....
+----
 . Überprüfen Sie, ob die MySQL-Anmeldung funktioniert:
 +
 `[root@mcctb ~]# mysql -u root –p`
 
 +
-....
-
+[listing]
+----
 Enter password: <configured_password>
 Welcome to the MySQL monitor.  Commands end with ; or \g.
 Your MySQL connection id is 17
@@ -440,7 +884,7 @@ owners.
 
 Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 mysql>
-....
+----
 +
 Wenn der MySQL-Login funktioniert, endet die Ausgabe am `mysql>` Eingabeaufforderung:
 
@@ -450,7 +894,7 @@ Wenn der MySQL-Login funktioniert, endet die Ausgabe am `mysql>` Eingabeaufforde
 
 ==== Aktivieren der Einstellung Autostart von MySQL
 
-Stellen Sie sicher, dass die Autostart-Funktion für den MySQL-Deamon eingeschaltet ist. Durch Aktivieren des MySQL-Daemon wird MySQL automatisch neu gestartet, wenn das System, auf dem die MetroCluster Tiebreaker Software ausgeführt wird, neu gestartet wird. Wenn der MySQL-Daemon nicht ausgeführt wird, wird die Tiebreaker-Software weiterhin ausgeführt, kann aber nicht neu gestartet werden und Konfigurationsänderungen können nicht vorgenommen werden.
+Sie sollten überprüfen, ob die Autostart-Funktion für den MySQL-Daemon aktiviert ist. Durch Aktivieren des MySQL-Daemon wird MySQL automatisch neu gestartet, wenn das System, auf dem die MetroCluster Tiebreaker Software ausgeführt wird, neu gestartet wird. Wenn der MySQL-Daemon nicht ausgeführt wird, wird die Tiebreaker-Software weiterhin ausgeführt, kann aber nicht neu gestartet werden und Konfigurationsänderungen können nicht vorgenommen werden.
 
 .Schritt
 . Vergewissern Sie sich, dass MySQL beim Starten automatisch gestartet wird:
@@ -458,12 +902,13 @@ Stellen Sie sicher, dass die Autostart-Funktion für den MySQL-Deamon eingeschal
 `[root@mcctb ~]# systemctl list-unit-files mysqld.service`
 
 +
-....
+[listing]
+----
 UNIT FILE          State
 ------------------ ----------
 mysqld.service     enabled
 
-....
+----
 +
 Wenn MySQL beim Starten nicht aktiviert ist, lesen Sie die MySQL-Dokumentation, um die Autostart-Funktion für Ihre Installation zu aktivieren.
 
@@ -479,20 +924,22 @@ Sie müssen MariaDB Server auf Ihrem Hostsystem installieren, bevor Sie die Tieb
 Ihr Hostsystem muss unter Red hat Enterprise Linux (RHEL) 8 ausgeführt werden.
 
 .Schritte
-. Melden Sie sich als an `root` Zum Hostsystem.
+. Melden Sie sich als an `root` Benutzer oder ein Benutzer, der in den erweiterten Berechtigungsmodus wechseln kann.
 +
-....
+[listing]
+----
 
 login as: root
 root@mcctb's password:
 Last login: Fri Jan  8 21:33:00 2017 from host.domain.com
-....
+----
 . MariaDB-Server installieren:
 +
 `[root@mcctb ~]# yum install mariadb-server.x86_64`
 
 +
-....
+[listing]
+----
  [root@mcctb ~]# yum install mariadb-server.x86_64
 Loaded plugins: fastestmirror, langpacks
 ...
@@ -539,7 +986,7 @@ perl-PlRPC.noarch 0:0.2020-14.el7
 Dependency Updated:
   mariadb-libs.x86_64 1:5.5.56-2.el7
 Complete!
-....
+----
 . MariaDB-Server starten:
 +
 `[root@mcctb ~]# systemctl start mariadb`
@@ -567,7 +1014,8 @@ NOTE: Stellen Sie sicher, dass die Einstellung „Autostart aktivieren“ für M
 `[root@mcctb ~]# mysql_secure_installation`
 
 +
-....
+[listing]
+----
 
 [root@mcctb ~]# mysql_secure_installation
 NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MariaDB
@@ -593,14 +1041,14 @@ Cleaning up...
 All done! If you've completed all of the above steps, your MariaDB
 installation should now be secure.
 Thanks for using MariaDB!
-....
+----
 
 
 
 
 ==== Aktivieren der Einstellung Autostart für die MariaDB
 
-Stellen Sie sicher, dass die Autostart-Funktion für die MariaDB aktiviert ist. Wenn Sie die Autostart-Funktion nicht aktivieren und das System, auf dem sich die MetroCluster Tiebreaker Software befindet, neu gestartet werden muss, wird die Tiebreaker Software ausgeführt, der MariaDB-Service kann jedoch nicht neu gestartet werden und Konfigurationsänderungen können nicht vorgenommen werden.
+Überprüfen Sie, ob die Autostart-Funktion für die MariaDB aktiviert ist. Wenn Sie die Autostart-Funktion nicht aktivieren und das System, auf dem sich die MetroCluster Tiebreaker Software befindet, neu gestartet werden muss, wird die Tiebreaker Software ausgeführt, der MariaDB-Service kann jedoch nicht neu gestartet werden und Konfigurationsänderungen können nicht vorgenommen werden.
 
 .Schritte
 . Aktivieren des Autostart-Dienstes:
@@ -612,12 +1060,12 @@ Stellen Sie sicher, dass die Autostart-Funktion für die MariaDB aktiviert ist. 
 `[root@mcctb ~]# systemctl list-unit-files mariadb.service`
 
 +
-....
+[listing]
+----
 UNIT FILE          State
 ------------------ ----------
 mariadb.service    enabled
-
-....
+----
 
 
 
@@ -627,94 +1075,200 @@ mariadb.service    enabled
 Sie müssen die MetroCluster Tiebreaker Software auf Ihrem lokalen Computer installieren oder aktualisieren, um MetroCluster Konfigurationen zu überwachen.
 
 * Ihr Storage-System muss ONTAP 8.3.x oder höher ausgeführt werden.
-* Sie müssen OpenJDK mithilfe der installiert haben `yum install java-1.8.0-openjdk` Befehl.
+* Sie müssen OpenJDK mithilfe der installiert haben `yum install java-x.x.x-openjdk` Befehl. Führen Sie für Systeme mit Tiebreaker 1.4 und früheren Versionen JRE 8 aus. Führen Sie für Systeme mit Tiebreaker 1.5 und höher OpenJDK 17, 18 oder 19 aus. Die Ausgaben im Beispiel zeigen JRE 1.8.0. (JRE 8).
+* Sie können MetroCluster Tiebreaker als Benutzer ohne Root installieren, der über ausreichende Administratorrechte verfügt, um die Tiebreaker Installation durchzuführen, Tabellen und Benutzer zu erstellen und das Benutzerpasswort usw. festzulegen
 
 
 .Schritte
-. Laden Sie die neueste Version der MetroCluster Tiebreaker Software herunter. In diesem Beispiel wird die Version 1.21P3-1 verwendet.
+. Laden Sie die neueste Version der MetroCluster Tiebreaker Software herunter. In diesem Beispiel wird Version 1.5 verwendet.
 +
-https://mysupport.netapp.com/site/["NetApp Support"]
+https://mysupport.netapp.com/site/["NetApp Support"^]
 
 . Melden Sie sich beim Host als Root-Benutzer an.
-. Installation oder Upgrade der Tiebreaker Software:
+. Überprüfen Sie die RPM-Datei.
 +
-[cols="20,80"]
-|===
+.. Laden Sie die RPM-Schlüsseldatei herunter, und importieren Sie sie:
++
+[listing]
+----
+[root@mcctb ~]# rpm --import MetroCluster_Tiebreaker_RPM_GPG.key
+----
+.. Überprüfen Sie, ob der richtige Schlüssel importiert wurde, indem Sie den Fingerabdruck überprüfen.
++
+Das folgende Beispiel zeigt einen korrekten Schlüsselfinger:
+
++
+[listing]
+----
+root@mcctb:~/signing/mcctb-rpms# gpg --show-keys --with-fingerprint MetroCluster_Tiebreaker_RPM_GPG.key
+pub   rsa3072 2022-11-17 [SCEA] [expires: 2025-11-16]
+      65AC 1562 E28A 1497 7BBD  7251 2855 EB02 3E77 FAE5
+uid                      MCCTB-RPM (mcctb RPM production signing) <mcctb-rpm@netapp.com>
+----
+.. Überprüfen Sie die Signatur: `rpm --checksig NetApp-MetroCluster-Tiebreaker-Software-1.5-1.x86_64.rpm`
++
+[listing]
+----
+NetApp-MetroCluster-Tiebreaker-Software-1.5-1.x86_64.rpm: digests OK
+----
++
+
+NOTE: Sie dürfen mit der Installation erst fortfahren, nachdem Sie die Signatur erfolgreich verifiziert haben.
 
 
-| Ihr Unternehmen | Geben Sie diesen Befehl aus... 
 
+. [[install-Tiebreaker]]Installieren oder aktualisieren Sie die Tiebreaker Software:
++
 
- a| 
-Durchführen einer neuen Installation
- a| 
-`rpm -ivh NetApp-MetroCluster-Tiebreaker-Software-1.21P3-1x86_64.rpm`
+NOTE: Ein Upgrade auf Tiebreaker Version 1.5 ist nur möglich, wenn Sie ein Upgrade von Tiebreaker Version 1.4 durchführen. Ein Upgrade von früheren Versionen auf Tiebreaker 1.5 wird nicht unterstützt.
 
++
+Wählen Sie das richtige Verfahren aus der folgenden Liste aus, je nachdem, ob Sie eine neue Installation durchführen oder eine vorhandene Installation aktualisieren.
+
++
+[role="tabbed-block"]
+====
+.Führen Sie eine neue Installation durch
+--
+.. Führen Sie den Befehl aus:
+`rpm -ivh NetApp-MetroCluster-Tiebreaker-Software-1.5-1.x86_64.rpm`
++
 Das System zeigt die folgende Ausgabe für eine erfolgreiche Installation an:
 
-....
++
+[listing]
+----
+
 Verifying...                          ################################# [100%]
 Preparing...                          ################################# [100%]
 Updating / installing...
    1:NetApp-MetroCluster-Tiebreaker-So################################# [100%]
-Post installation start Wed Oct 20 09:59:19 EDT 2021
-Enter MetroCluster Tiebreaker user password:
-
-Please enter mysql root password when prompted
+Enter the absolute path for Java : /usr/lib/jvm/java-19-openjdk-19.0.0.0.36-2.rolling.el8.x86_64/bin/java
+Verifying if Java exists...
+Found Java. Proceeding with the installation.
+Enter host user account to use for the installation:
+mcctbuser1
+User account mcctbuser1 found. Proceeding with the installation
+Enter database user name:
+root
+Please enter database password for root
 Enter password:
+Sealed          false
+Do you wish to auto unseal vault(y/n)?y
+Enter the key1:
+Enter the key2:
+Enter the key3:
+Success! Uploaded policy: mcctb-policy
+Error enabling approle auth: Error making API request.
+URL: POST http://127.0.0.1:8200/v1/sys/auth/approle
+Code: 400. Errors:
+* path is already in use at approle/
+Success! Enabled the kv secrets engine at: mcctb/
+Success! Data written to: auth/approle/role/mcctb-app
+Password updated successfully in the vault.
 Synchronizing state of netapp-metrocluster-tiebreaker-software.service with SysV service script with /usr/lib/systemd/systemd-sysv-install.
 Executing: /usr/lib/systemd/systemd-sysv-install enable netapp-metrocluster-tiebreaker-software
 Created symlink /etc/systemd/system/multi-user.target.wants/netapp-metrocluster-tiebreaker-software.service → /etc/systemd/system/netapp-metrocluster-tiebreaker-software.service.
 Attempting to start NetApp MetroCluster Tiebreaker software services
 Started NetApp MetroCluster Tiebreaker software services
-Enabled autostart of NetApp MetroCluster Tiebreaker software daemon during boot
-Created symbolic link for NetApp MetroCluster Tiebreaker software CLI
-Post installation end Wed Oct 20 09:59:28 EDT 2021
-Successfully installed NetApp MetroCluster Tiebreaker software version 1.21P3.
-....
+Successfully installed NetApp MetroCluster Tiebreaker software version 1.5.
+
+----
 
 
- a| 
-Aktualisierung einer vorhandenen Installation
- a| 
-`rpm -Uvh NetApp-MetroCluster-Tiebreaker-Software-1.21P3-1.x86_64.rpm`
+--
+.Aktualisierung einer vorhandenen Installation
+--
+.. Überprüfen Sie, ob eine unterstützte Version von OpenJDK installiert ist und die aktuelle Java-Version auf dem Host ist.
++
 
+NOTE: Für Upgrades auf Tiebreaker 1.5 müssen Sie entweder OpenJDK Version 17, 18 oder 19 installieren.
+
++
+[listing]
+----
+[root@mcctb ~]# readlink -f /usr/bin/java
+/usr/lib/jvm/java-19-openjdk-19.0.0.0.36-2.rolling.el8.x86_64/bin/java
+----
+.. Überprüfen Sie, ob der Vault-Dienst entsiegelt ist und ausgeführt wird: `vault status`
++
+[listing]
+----
+[root@mcctb ~]# vault status
+Key             Value
+---             -----
+Seal Type       shamir
+Initialized     true
+Sealed          false
+Total Shares    5
+Threshold       3
+Version         1.12.2
+Build Date      2022-11-23T12:53:46Z
+Storage Type    file
+Cluster Name    vault-cluster-2d3ed3b4
+Cluster ID      fc47f0fd-135d-39a1-7a7c-97c7c4710166
+HA Enabled      false
+----
+.. Upgrade der Tiebreaker Software
++
+[listing]
+----
+[root@mcctb ~]# rpm -Uvh NetApp-MetroCluster-Tiebreaker-Software-1.5-1.x86_64.rpm
+----
++
 Das System zeigt die folgende Ausgabe für eine erfolgreiche Aktualisierung an:
 
-....
-
-MetroCluster-Tiebreaker-Software-1.21P3-1.x86_64.rpm
++
+[listing]
+----
 Verifying...                          ################################# [100%]
 Preparing...                          ################################# [100%]
-Upgrading NetApp MetroCluster Tiebreaker software....
-Stopping NetApp MetroCluster Tiebreaker software services before upgrade.
 Updating / installing...
    1:NetApp-MetroCluster-Tiebreaker-So################################# [ 50%]
-Post installation start Wed Oct 20 09:57:49 EDT 2021
+Enter the absolute path for Java : /usr/lib/jvm/java-19-openjdk-19.0.0.0.36-2.rolling.el8.x86_64/bin/java
+Verifying if Java exists...
+Found Java. Proceeding with the installation.
+Enter host user account to use for the installation:
+mcctbuser1
+User account mcctbuser1 found. Proceeding with the installation
+Sealed          false
+Do you wish to auto unseal vault(y/n)?y
+Enter the key1:
+Enter the key2:
+Enter the key3:
+Success! Uploaded policy: mcctb-policy
+Error enabling approle auth: Error making API request.
+URL: POST http://127.0.0.1:8200/v1/sys/auth/approle
+Code: 400. Errors:
+* path is already in use at approle/
+Success! Enabled the kv secrets engine at: mcctb/
+Success! Data written to: auth/approle/role/mcctb-app
+Enter database user name : root
+Please enter database password for root
+Enter password:
+Password updated successfully in the database.
+Password updated successfully in the vault.
 Synchronizing state of netapp-metrocluster-tiebreaker-software.service with SysV service script with /usr/lib/systemd/systemd-sysv-install.
 Executing: /usr/lib/systemd/systemd-sysv-install enable netapp-metrocluster-tiebreaker-software
-Created symlink /etc/systemd/system/multi-user.target.wants/netapp-metrocluster-tiebreaker-software.service → /etc/systemd/system/netapp-metrocluster-tiebreaker-software.service.
 Attempting to start NetApp MetroCluster Tiebreaker software services
-Starting NetApp MetroCluster Tiebreaker software services. Retry: 1
 Started NetApp MetroCluster Tiebreaker software services
-Enabled autostart of NetApp MetroCluster Tiebreaker software daemon during boot
-Created symbolic link for NetApp MetroCluster Tiebreaker software CLI
-Post upgrade end Wed Oct 20 09:57:52 EDT 2021
-Successfully upgraded NetApp MetroCluster Tiebreaker software to version 1.21P3.
+Successfully upgraded NetApp MetroCluster Tiebreaker software to version 1.5.
 Cleaning up / removing...
    2:NetApp-MetroCluster-Tiebreaker-So################################# [100%]
+----
 
-....
-|===
+
+--
+====
 +
 
 NOTE: Wenn Sie das falsche MySQL-Root-Passwort eingeben, zeigt die Tiebreaker Software an, dass sie erfolgreich installiert wurde, zeigt aber „Access Denied“-Meldungen an. Um das Problem zu lösen, müssen Sie die Tiebreaker Software mit verwenden `rpm -e` Führen Sie einen Befehl aus, und installieren Sie dann die Software mit dem richtigen MySQL-Root-Passwort neu.
 
-. Überprüfen Sie die Tiebreaker Konnektivität mit der MetroCluster Software, indem Sie eine SSH-Verbindung vom Tiebreaker Host über jede der Node-Management-LIFs und Cluster-Management-LIFs öffnen.
+. Prüfen Sie die Tiebreaker Konnektivität zur MetroCluster Software, indem Sie über den Tiebreaker Host eine SSH-Verbindung zu jedem Node-Management-LIFs und Cluster-Management-LIFs öffnen.
 
 
 .Verwandte Informationen
-https://mysupport.netapp.com/site/["NetApp Support"]
+https://mysupport.netapp.com/site/["NetApp Support"^]
 
 
 
@@ -728,7 +1282,8 @@ Sie können den Host, auf dem der Tiebreaker Monitor läuft, mit minimaler Unter
 `monitor show –status`
 
 +
-....
+[listing]
+----
 NetApp MetroCluster Tiebreaker:> monitor show -status
 MetroCluster: cluster_A
     Disaster: false
@@ -758,12 +1313,13 @@ MetroCluster: cluster_A
                 Reachable: true
                 All-Links-Severed: FALSE
                 State: normal
-....
+----
 . Wechseln Sie alle Monitore in den Beobachtermodus.
 +
-....
-NetApp MetroCluster Tiebreaker :> monitor modify -monitor-name _monitor_name_ -observer-mode true
-....
+[listing]
+----
+NetApp MetroCluster Tiebreaker :> monitor modify -monitor-name monitor_name -observer-mode true
+----
 . Führen Sie zum Upgrade des Tiebreaker Hosts alle Schritte durch:
 +
 <<install-upgrade-sw-pkg,Installieren oder Aktualisieren des Softwarepakets>>
@@ -772,7 +1328,7 @@ NetApp MetroCluster Tiebreaker :> monitor modify -monitor-name _monitor_name_ -o
 +
 [listing]
 ----
-NetApp MetroCluster Tiebreaker :> monitor modify -monitor-name _monitor_name_ -observer-mode false
+NetApp MetroCluster Tiebreaker :> monitor modify -monitor-name monitor_name -observer-mode false
 ----
 
 
