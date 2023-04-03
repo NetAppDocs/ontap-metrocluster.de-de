@@ -19,11 +19,11 @@ Die Portnutzung in einer MetroCluster IP-Konfiguration hängt vom Switch-Modell 
 
 Folgende Plattformen werden aktuell unterstützt:
 
-* FAS500f/AFF A250
-* FAS8300/AFF A400
+* FAS500f / AFF C250 / AFF A250
+* FAS8300 / AFF C400 / AFF A400
 * FAS8700
 * FAS9000/AFF A700
-* AFF A800
+* AFF C800/AFF A800
 
 
 Die folgenden Plattformen und Konfigurationen werden derzeit nicht unterstützt:
@@ -35,34 +35,22 @@ Die folgenden Plattformen und Konfigurationen werden derzeit nicht unterstützt:
 .Lesen Sie diese Überlegungen durch, bevor Sie die Konfigurationstabellen verwenden
 Wenn Sie mehrere MetroCluster-Konfigurationen verkabeln, folgen Sie dann der entsprechenden Tabelle. Beispiel:
 
-* Wenn Sie zwei MetroCluster Konfigurationen mit vier Nodes des Typs AFF A700 verkabeln, verbinden Sie dann die erste MetroCluster mit dem Namen „MetroCluster 1“ und die zweite MetroCluster (MetroCluster 2) in der Tabelle „AFF A700“.
+* Wenn Sie zwei MetroCluster-Konfigurationen des Typs AFF A700 mit vier Nodes verkabeln, verbinden Sie die erste MetroCluster, die als „MetroCluster 1“ angezeigt wird, und die zweite MetroCluster, die in der AFF A700 Tabelle als „MetroCluster 2“ dargestellt ist.
 
 
 
-NOTE: Die Ports 13 und 14 können im nativen Geschwindigkeitsmodus mit Unterstützung von 40 Gbit/s und 100 Gbit/s oder im Breakout-Modus zur Unterstützung von 4 × 25 Gbit/s oder 4 × 10 Gbit/s verwendet werden. Wenn sie den nativen Geschwindigkeitsmodus verwenden, werden sie als Port 13 und 14 dargestellt. Wenn sie Breakout-Modus verwenden, entweder 4 × 25 Gbps oder 4 × 10 Gbps, dann werden sie als 13s0-3 und 14s0-3 dargestellt.
+NOTE: Die Ports 13 und 14 können im nativen Geschwindigkeitsmodus mit Unterstützung von 40 Gbit/s und 100 Gbit/s oder im Breakout-Modus zur Unterstützung von 4 × 25 Gbit/s oder 4 × 10 Gbit/s verwendet werden. Wenn sie den einheitlichen Geschwindigkeitsmodus verwenden, werden sie als Ports 13 und 14 dargestellt. Wenn sie den Breakout-Modus verwenden, entweder 4 × 25 Gbit/s oder 4 × 10 Gbit/s, dann werden sie als Ports 13s0-3 und 14s0-3 dargestellt.
 
 In den folgenden Abschnitten wird die Beschreibung der physischen Verkabelung beschrieben. Sie können auch auf die verweisen https://mysupport.netapp.com/site/tools/tool-eula/rcffilegenerator["RCfFileGenerator"] Für detaillierte Informationen zur Verkabelung.
 
 
 
-== Verwendung der Switch-Ports für AFF A250 oder FAS500f-Systeme
+== Verwendung von Switch-Ports für FAS500f, AFF C250 oder AFF A250
 
-image::../media/mcc_ip_cabling_A250_MSN2100.png[mcc ip-Verkabelung A250 MSN2100]
-
-
-
-== Switch-Port-Verwendung für AFF A400-, FAS8300- oder FAS8700-Systeme
-
-image::../media/mcc_ip_cabling_A400_MSN2100.png[mcc ip-Verkabelung A400 MSN2100]
+image::../media/mcc_ip_cabling_A250_C250_MSN2100.png[mcc-ip-Verkabelung A250 C250 MSN2100]
 
 
 
-== Verwendung des Switch-Ports für AFF A700 oder FAS9000
+== Verwendung von Switch Port für AFF C400, AFF A400, AFF A700 oder FAS9000, FAS8300 oder FAS8700 AFF A800
 
-image::../media/mcc_ip_cabling_A700_MSN2100.png[mcc ip-Verkabelung A700 MSN2100]
-
-
-
-== Verwendung von Switch-Ports für AFF A800
-
-image::../media/mcc_ip_cabling_A800_MSN2100.png[mcc ip-Verkabelung A800 MSN2100]
+image::../media/mcc_ip_cabling_aff250_400_700_800_cseriesMSN2100.png[mcc ip-Verkabelung aff250 400 700 800 cseriesMSN2100]
