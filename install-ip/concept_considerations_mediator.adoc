@@ -46,7 +46,7 @@ Es ist nicht möglich, Applikationen oder Appliances von Drittanbietern zu verwe
 
 == Wie der ONTAP Mediator die automatische ungeplante Umschaltung unterstützt
 
-Der ONTAP Mediator speichert Zustandsdaten zu den MetroCluster-Knoten in Mailboxen auf dem Mediator-Host. MetroCluster Nodes können diese Informationen nutzen, um den Zustand ihrer DR-Partner zu überwachen und bei einem Ausfall eine automatische, ungeplante Umschaltung (Mediator-Assisted Automatic ungeplante Switchover, MAUSO) zu implementieren.
+Der ONTAP Mediator speichert Zustandsdaten zu den MetroCluster-Knoten in Mailboxen auf dem Mediator-Host. Die MetroCluster Knoten können diese Informationen nutzen, um den Status ihrer DR Partner zu überwachen und einen MAUSO bei einem Ausfall zu implementieren.
 
 Wenn ein Node einen Standortausfall erkennt, der ein Switchover erfordert, so wird nur schrittweise bestätigt, dass die Umschaltung angemessen ist und falls ja, auch die Umschaltung durchgeführt wird.
 
@@ -54,10 +54,9 @@ Ein MAUSO wird nur in den folgenden Szenarien initiiert:
 
 * Zum Zeitpunkt des Ausfalls werden sowohl SyncMirror-Spiegelung als auch DR-Spiegelung des nichtflüchtigen Cache jedes Node ausgeführt. Die Caches und Spiegelungen werden synchronisiert.
 * Keiner der Knoten am noch verbleibenden Standort befindet sich im Übernahmemodus.
+* Bei einem Standortausfall. Ein Standortunfall ist ein Ausfall von *allen* Knoten am selben Standort.
+* Ab ONTAP 9.13.1 initiiert, wenn die oben genannten Bedingungen erfüllt sind und ein Lüfter- oder Hardware-Ausfall eine Abschaltung, z. B. ein Netzteil, eine NVRAM-Batterie oder ein Heartbeat-Ausfall des Service-Prozessors oder eine hohe oder niedrige Temperatur.
 
-
-
-IMPORTANT: Ein MAUSO wird nur dann initiiert, wenn ein Standortausfall auftritt. Eine Standortkatastrophe ist ein Ausfall von *allen* Nodes am selben Standort; es gibt jedoch einige Ausnahmen.
 
 Ein MAUSO wird in den folgenden Shutdown-Szenarien *nicht* gestartet:
 
@@ -67,5 +66,4 @@ Ein MAUSO wird in den folgenden Shutdown-Szenarien *nicht* gestartet:
 ** Die Nodes neu booten
 
 
-* Ein Lüfter- oder Komponentenausfall initiiert einen Shutdown (Herunterfahren der Umgebung).
 

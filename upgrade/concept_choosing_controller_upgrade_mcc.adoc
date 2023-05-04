@@ -29,20 +29,24 @@ Wählen Sie Ihre aktuelle Plattform aus der unten stehenden FC- oder IP-Tabelle 
 
 === Unterstützte MetroCluster IP-Controller-Upgrades
 
-image::../media/metrocluster_ip_upgrade_table_yellowdogdp1.PNG[MetroCluster ip-Upgrade-Tabelle yellowdogdp1]
+Wenn Ihre Plattform nicht aufgeführt ist, gibt es keine unterstützte Kombination für Controller-Upgrades.
+
+image::../media/metrocluster_ip_upgrade_table_9_13_1.PNG[MetroCluster ip-Upgrade-Tabelle 9 13 1]
 
 * Hinweis 1: Verwenden Sie für dieses Upgrade das Verfahren link:task_upgrade_A700_to_A900_in_a_four_node_mcc_ip_us_switchover_and_switchback.html["Controller-Upgrade von AFF A700/FAS9000 auf AFF A900/FAS9500 in einer MetroCluster IP-Konfiguration mit Switchover und Switchback (ONTAP 9.10.1 oder höher)"]
+* Hinweis 2: Controller-Upgrades werden auf Systemen mit ONTAP 9.13.1 oder höher unterstützt.
 
 
 
 
 === Unterstützte MetroCluster FC-Controller-Upgrades
 
-image::../media/metrocluster_fc_upgrade_table_yellowdogp1.PNG[MetroCluster fc Upgrade-Tabelle yellowdogp1]
+image::../media/metrocluster_fc_upgrade_table_p_13_1.PNG[MetroCluster fc-Upgrade-Tabelle p 13 1]
 
 * Hinweis 1: Für das Upgrade von Controllern, wenn FCVI-Verbindungen auf vorhandenen FAS8020 oder AFF8020 Nodes die Ports 1c und 1d verwenden, lesen Sie Folgendeshttps://kb.netapp.com/Advice_and_Troubleshooting/Data_Protection_and_Security/MetroCluster/Upgrading_controllers_when_FCVI_connections_on_existing_FAS8020_or_AFF8020_nodes_use_ports_1c_and_1d["Knowledge Base-Artikel"^].
 * Hinweis 2: Controller-Upgrades von AFF A300 oder FAS8200 Plattformen mit integrierten Ports 0e und 0f als FC-VI-Verbindungen werden nur auf Systemen mit ONTAP 9.9 unterstützt. Oder früher. Weitere Informationen finden Sie im link:https://mysupport.netapp.com/site/bugs-online/product/ONTAP/BURT/1507088["Öffentlicher Bericht"^].
 * Hinweis 3: Für dieses Upgrade siehe link:task_upgrade_A700_to_A900_in_a_four_node_mcc_fc_us_switchover_and_switchback.html["Controller-Upgrade von AFF A700/FAS9000 auf AFF A900/FAS9500 in einer MetroCluster FC-Konfiguration mittels Umschaltung und Switchback (ONTAP 9.10.1 oder höher)"]
+* Hinweis 4: Controller-Upgrades werden auf Systemen mit ONTAP 9.13.1 oder höher unterstützt.
 
 
 [cols="2,1,1,2"]
@@ -50,6 +54,17 @@ image::../media/metrocluster_fc_upgrade_table_yellowdogp1.PNG[MetroCluster fc Up
 
 
 | MetroCluster-Typ | Upgrade-Methode | ONTAP-Version | Verfahren 
+
+
+ a| 
+IP
+ a| 
+Upgrade mit Befehlen zum Ersetzen des System-Controllers
+ a| 
+9.13.1 und höher
+ a| 
+link:task_upgrade_controllers_system_control_commands_in_a_four_node_mcc_ip.html["Link zum Verfahren"]
+
 
 
  a| 

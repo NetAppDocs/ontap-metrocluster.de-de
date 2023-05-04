@@ -697,7 +697,7 @@ Der SP sendet und empfängt SNMP-Datenverkehr an und von seinem DR-Partner, um s
 
 ==== Ändern der AUSO-Einstellung in MetroCluster FC-Konfigurationen
 
-AUSO ist standardmäßig auf „`auso-on-Cluster-Disaster`“ eingestellt. Sein Status kann im befehl MetroCluster show angezeigt werden.
+AUSO ist standardmäßig auf „auso-on-Cluster-Disaster“ eingestellt. Der Status kann im angezeigt werden `metrocluster show` Befehl.
 
 
 NOTE: Die AUSO-Einstellung gilt nicht für MetroCluster-IP-Konfigurationen.
@@ -727,6 +727,10 @@ link:task_perform_switchover_for_tests_or_maintenance.html["Umschaltung für Tes
 === Mediator-gestützte automatische, ungeplante Umschaltung in MetroCluster IP-Konfigurationen
 
 In MetroCluster IP-Konfigurationen kann das System mit dem ONTAP Mediator Fehler erkennen und eine Mediator-gestützte automatische ungeplante Umschaltung (MAUSO) durchführen.
+
+Ab ONTAP 9.13.1 ist der Standardwert für den AUSO-Status in einer MetroCluster IP-Konfiguration auf „auso-on-dr-Group“ gesetzt. Bei ONTAP 9.12.1 und älteren Versionen ist der Standardwert „auso-on-Cluster-Disaster“. In einer MetroCluster IP-Konfiguration mit acht Nodes löst diese Option einen AUSO aus, wenn beide Nodes eines HA-Paars ausfallen.
+
+Sie können die AUSO-Domäne mit der in die Domäne „auso-on-Cluster-Disaster“ ändern `metrocluster modify -auto-switchover-failure-domain auso-on-cluster-disaster` Befehl.
 
 
 NOTE: MAUSO wird in MetroCluster FC-Konfigurationen nicht unterstützt.

@@ -2,7 +2,7 @@
 permalink: transition/concept_nondisruptively_transitioning_from_a_four_node_mcc_fc_to_a_mcc_ip_configuration.html 
 sidebar: sidebar 
 keywords: nondisruptive, transition, fc, ip 
-summary: Ab ONTAP 9.8 wird der unterbrechungsfreie Übergang von Workloads und Daten von einer bestehenden MetroCluster FC Konfiguration mit vier Nodes in eine neue MetroCluster IP Konfiguration unterstützt. 
+summary: Ab ONTAP 9.13.1 lassen sich Workloads und Daten unterbrechungsfrei von einer bestehenden MetroCluster FC Konfiguration mit acht Nodes auf eine neue MetroCluster IP Konfiguration übertragen. 
 ---
 = Unterbrechungsfreier Übergang von einer MetroCluster FC- zu einer MetroCluster IP-Konfiguration (ONTAP 9.8 und höher)
 :allow-uri-read: 
@@ -11,16 +11,20 @@ summary: Ab ONTAP 9.8 wird der unterbrechungsfreie Übergang von Workloads und D
 
 
 [role="lead"]
-Ab ONTAP 9.8 wird der unterbrechungsfreie Übergang von Workloads und Daten von einer bestehenden MetroCluster FC Konfiguration mit vier Nodes in eine neue MetroCluster IP Konfiguration unterstützt.
+Sie können unterbrechungsfreie Übergänge von Workloads und Daten von einer bestehenden MetroCluster FC Konfiguration in eine neue MetroCluster IP Konfiguration durchführen.
 
-* Dieses Verfahren wird auf Systemen mit ONTAP 9.8 und höher unterstützt.
+Ab ONTAP 9.13.1 lassen sich Workloads und Daten unterbrechungsfrei von einer bestehenden MetroCluster FC Konfiguration mit acht Nodes auf eine neue MetroCluster IP Konfiguration übertragen.
+
+Ab ONTAP 9.8 lassen sich unterbrechungsfreie Workloads und Daten von einer bestehenden MetroCluster FC Konfiguration mit vier Nodes auf eine neue MetroCluster IP Konfiguration übertragen.
+
 * Dieses Verfahren ist unterbrechungsfrei.
 +
 Die MetroCluster Konfiguration kann während des Vorgangs weiterhin Daten bereitstellen.
 
-* Dieses Verfahren gilt nur für MetroCluster FC-Konfigurationen mit vier Nodes.
+* Dieses Verfahren gilt nur für MetroCluster FC-Konfigurationen mit vier und acht Nodes.
 +
 Wenn Sie über eine MetroCluster-FC-Konfiguration mit zwei Nodes verfügen, finden Sie Informationen unter link:concept_choosing_your_transition_procedure_mcc_transition.html["Auswahl des Migrationsverfahrens"].
 
+* In diesem Verfahren werden die Schritte beschrieben, die für den Übergang einer FC-DR-Gruppe mit vier Nodes erforderlich sind. Wenn Sie über eine Konfiguration mit acht Nodes (zwei FC DR-Gruppen) verfügen, müssen Sie den gesamten Vorgang für jede FC DR-Gruppe wiederholen.
 * Sie müssen alle Anforderungen erfüllen und alle Schritte des Verfahrens befolgen.
 

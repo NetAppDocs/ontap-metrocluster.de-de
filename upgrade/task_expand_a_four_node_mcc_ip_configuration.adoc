@@ -4,17 +4,22 @@ sidebar: sidebar
 keywords: metrocluster, upgrade, refresh, four, node, ip, configuration, add, autosupport 
 summary: Sie können der MetroCluster IP-Konfiguration vier neue Nodes als zweite DR-Gruppe hinzufügen. Dadurch wird eine MetroCluster-Konfiguration mit acht Nodes erstellt. 
 ---
-= Erweitern einer MetroCluster IP-Konfiguration mit vier Nodes auf eine Konfiguration mit acht Nodes
+= Erweitern einer MetroCluster IP-Konfiguration
 :allow-uri-read: 
 :icons: font
 :imagesdir: ../media/
 
 
 [role="lead"]
+Je nach ONTAP Version können Sie Ihre MetroCluster IP-Konfiguration erweitern, indem Sie vier neue Nodes als neue DR-Gruppe hinzufügen.
+
+Ab ONTAP 9.13.1 können der MetroCluster IP-Konfiguration als dritte DR-Gruppe vier neue Nodes hinzugefügt werden. Dadurch wird eine MetroCluster Konfiguration mit zwölf Nodes erstellt.
+
 Ab ONTAP 9.9 können Sie der MetroCluster IP-Konfiguration vier neue Nodes als zweite DR-Gruppe hinzufügen. Dadurch wird eine MetroCluster-Konfiguration mit acht Nodes erstellt.
 
 .Bevor Sie beginnen
 * Die alten und neuen Nodes müssen dieselbe Version von ONTAP ausführen.
+* In diesem Verfahren werden die Schritte beschrieben, die zum erweitern einer DR-Gruppe mit vier Nodes erforderlich sind. Wenn Sie über eine Konfiguration mit acht Nodes (zwei DR-Gruppen) verfügen, müssen Sie den gesamten Vorgang für jede DR-Gruppe wiederholen.
 * Sie müssen sicherstellen, dass die alten und neuen Plattformmodelle für die Plattformmischung unterstützt werden.
 +
 https://hwu.netapp.com["NetApp Hardware Universe"^]
@@ -64,6 +69,26 @@ dr_Group_2-neu
 
 
 |===
+
+
+== Unterstützte Plattformkombinationen beim Hinzufügen einer zweiten DR-Gruppe
+
+In der folgenden Tabelle sind die unterstützten Plattformkombinationen für IP-Konfigurationen mit acht Nodes aufgeführt.
+
+[IMPORTANT]
+====
+* Die Kombinationen in dieser Tabelle gelten nur für reguläre oder permanente Konfigurationen mit 8 Nodes.
+* Die Plattformkombinationen in dieser Tabelle *nicht* gelten, wenn Sie die Umstiegs- oder Aktualisierungsverfahren verwenden.
+* Alle Nodes in einer DR-Gruppe müssen vom gleichen Typ und von derselben Konfiguration sein.
+
+
+====
+image::../media/8node_comb_ip.png[Plattformkombinationen für 8 Node-Konfigurationen]
+
+* *Hinweis 1*: Für diese Kombinationen ist ONTAP 9.9.1 oder höher (oder die minimale ONTAP-Version, die auf der Plattform unterstützt wird) erforderlich.
+* *Hinweis 2*: Für diese Kombinationen ist ONTAP 9.13.1 oder höher (oder die minimale ONTAP-Version, die auf der Plattform unterstützt wird) erforderlich.
+
+
 
 
 == Senden einer benutzerdefinierten AutoSupport Meldung vor der Wartung

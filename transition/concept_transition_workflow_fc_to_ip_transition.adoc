@@ -11,7 +11,15 @@ summary: Um einen erfolgreichen unterbrechungsfreien Übergang zu gewährleisten
 
 
 [role="lead"]
-Um einen erfolgreichen unterbrechungsfreien Übergang zu gewährleisten, müssen Sie die jeweiligen Workflows beachten.
+Um einen erfolgreichen unterbrechungsfreien Übergang zu gewährleisten, müssen Sie die jeweiligen Workflows beachten. Wählen Sie den Workflow für Ihre Konfiguration aus:
+
+* <<Workflow zur Migration der FC-Konfiguration mit vier Nodes>>
+* <<Workflow zur Migration der FC-Konfiguration mit acht Nodes>>
+
+
+
+
+== Workflow zur Migration der FC-Konfiguration mit vier Nodes
 
 Der Umstellungsprozess beginnt mit einer soliden MetroCluster FC-Konfiguration mit vier Nodes.
 
@@ -24,6 +32,37 @@ image::../media/transition_dr_groups_fc_and_ip.png[DR-Gruppen fc und ip umstelle
 Die Daten werden von der alten DR-Gruppe zur neuen DR-Gruppe übertragen, gefolgt von den alten Nodes und ihrem Storage werden aus der Konfiguration entfernt und stillgelegt. Der Prozess endet mit einer MetroCluster IP-Konfiguration mit vier Nodes.
 
 image::../media/transition_dr_group_2_ip.png[DR-Gruppe 2-ip umstellen]
+
+
+
+== Workflow zur Migration der FC-Konfiguration mit acht Nodes
+
+Der Wechsel beginnt mit einer funktionierenden MetroCluster FC-Konfiguration mit acht Nodes.
+
+image::../media/mcc_dr_group_c1.png[mcc dr-Gruppe c1]
+
+Die neuen MetroCluster IP Nodes werden als dritte DR-Gruppe hinzugefügt.
+
+image::../media/mcc_dr_group_c2.png[mcc dr-Gruppe c2]
+
+Die Daten werden von DR_Group_1-FC zu DR_Group_1-IP übertragen und anschließend die alten Knoten und deren Speicher aus der Konfiguration entfernt und außer Betrieb genommen.
+
+
+NOTE: Wenn Sie von einer FC-Konfiguration mit acht Knoten auf eine IP-Konfiguration mit vier Knoten umstellen möchten, müssen Sie alle Daten in DR_Group_1-FC und DR_Group_2-FC auf die neue IP DR-Gruppe (DR_Group_1-IP) übertragen. Sie können dann beide FC DR-Gruppen außer Betrieb nehmen. Nachdem die FC DR-Gruppen entfernt wurden, endet der Prozess mit einer MetroCluster IP Konfiguration mit vier Nodes.
+
+image::../media/mcc_dr_group_c8.png[mcc dr-Gruppe c8]
+
+Fügen Sie der vorhandenen MetroCluster-Konfiguration die verbleibenden MetroCluster IP-Nodes hinzu. Wiederholen Sie den Vorgang, um Daten von den DR_Group_2-FC-Nodes auf die DR_Group_2-IP-Nodes zu übertragen.
+
+image::../media/mcc_dr_group_c7.png[mcc dr-Gruppe c7]
+
+Nach dem Entfernen von DR_Group_2-FC endet der Prozess mit einer MetroCluster IP-Konfiguration mit acht Knoten.
+
+image::../media/mcc_dr_group_c6.png[mcc dr-Gruppe c6]
+
+
+
+== Workflow für den Umstellungsprozess
 
 Sie verwenden den folgenden Workflow, um die MetroCluster Konfiguration zu wechseln.
 

@@ -1,0 +1,32 @@
+= 
+:allow-uri-read: 
+
+
+Sie müssen den HA-Status der Controller und des Chassis überprüfen. Bei Bedarf müssen Sie den Status entsprechend Ihrer Systemkonfiguration aktualisieren.
+
+.Schritte
+. Zeigen Sie im Wartungsmodus den HA-Status des Controller-Moduls und des Chassis an:
++
+`ha-config show`
+
++
+Der HA-Status für alle Komponenten sollte sein `mccip`.
+
+. Wenn der angezeigte Systemzustand des Controllers oder Chassis nicht korrekt ist, setzen Sie den HA-Status ein:
++
+`ha-config modify controller mccip`
+
++
+`ha-config modify chassis mccip`
+
+. Stoppen Sie den Knoten: `halt`
++
+Der Node sollte am anhalten `LOADER>` Eingabeaufforderung:
+
+. Überprüfen Sie auf jedem Node das Systemdatum, die Uhrzeit und die Zeitzone: `show date`
+. Stellen Sie bei Bedarf das Datum in UTC oder GMT ein: `set date <mm/dd/yyyy>`
+. Überprüfen Sie die Zeit mit dem folgenden Befehl an der Eingabeaufforderung der Boot-Umgebung: `show time`
+. Stellen Sie bei Bedarf die Uhrzeit in UTC oder GMT ein: `set time <hh:mm:ss>`
+. Einstellungen speichern: `saveenv`
+. Umgebungsvariablen erfassen: `printenv`
+
