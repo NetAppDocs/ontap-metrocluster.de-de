@@ -17,7 +17,7 @@ Sie können diese geführte automatische MetroCluster-Umschaltung verwenden, um 
 
 == Unterstützte Plattformkombinationen
 
-Dieses Verfahren unterstützt Controller-Upgrades von FAS8200 auf FAS9500 und AFF A300 auf AFF A900.
+Dieses Verfahren unterstützt nur Controller-Upgrades von AFF A300 auf AFF A900.
 
 Weitere Informationen zu Kombinationen von Plattformupgrades finden Sie in der Tabelle MetroCluster IP-Upgrade in link:concept_choosing_controller_upgrade_mcc.html#supported-metrocluster-ip-controller-upgrades["Wählen Sie ein Controller-Upgrade-Verfahren"].
 
@@ -88,7 +88,7 @@ Folgende Beispielnamen werden in diesem Verfahren verwendet:
 
 Zur Vorbereitung auf das Controller Upgrade müssen Sie die System-Vorabprüfungen durchführen und die Konfigurationsinformationen erfassen.
 
-Wenn der ONTAP Mediator installiert ist, wird er vor Beginn der Vorabprüfungen automatisch erkannt und entfernt. Um das Entfernen zu bestätigen, werden Sie aufgefordert, einen Benutzernamen und ein Passwort einzugeben. Wenn Sie das Upgrade abgeschlossen haben oder die Vorabprüfungen fehlschlagen oder Sie das Upgrade nicht fortsetzen möchten, müssen Sie dies tun link:task_upgrade_controllers_system_control_commands_in_a_four_node_mcc_ip.html#reconfigure-ontap-mediator["Konfigurieren Sie ONTAP Mediator manuell neu"].
+Wenn der ONTAP Mediator installiert ist, wird er vor Beginn der Vorabprüfungen automatisch erkannt und entfernt. Um das Entfernen zu bestätigen, werden Sie aufgefordert, einen Benutzernamen und ein Passwort einzugeben. Wenn Sie das Upgrade abgeschlossen haben oder die Vorabprüfungen fehlschlagen oder Sie das Upgrade nicht fortsetzen möchten, müssen Sie dies tun <<man_reconfig_mediator,Konfigurieren Sie ONTAP Mediator manuell neu>>.
 
 Während des Upgrades können Sie die ausführen `system controller replace show` Oder `system controller replace show-details` Befehl von Standort A, um den Status zu überprüfen. Wenn die Befehle eine leere Ausgabe zurückgeben, warten Sie einige Minuten, und führen Sie den Befehl erneut aus.
 
@@ -282,7 +282,7 @@ Um sicherzustellen, dass das Netzwerk auf den neuen Controllern ordnungsgemäß 
 
 .Über diese Aufgabe
 * Diese Aufgabe muss an jedem der alten Knoten ausgeführt werden.
-* Sie verwenden die in erfassten Informationen <<Vorbereitung auf das Upgrade>>.
+* Sie verwenden die in erfassten Informationen <<Bereiten Sie sich auf das Upgrade vor>>.
 
 
 .Schritte
