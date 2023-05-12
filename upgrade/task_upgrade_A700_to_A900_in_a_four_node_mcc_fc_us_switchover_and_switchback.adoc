@@ -27,7 +27,7 @@ Sie können keine anderen Komponenten in der Konfiguration, wie Storage Shelfs o
 NOTE: Das AFF A900 System wird nur ab ONTAP 9.10.1 unterstützt.
 
 +
-https://hwu.netapp.com/["NetApp Hardware Universe"^]
+https://["NetApp Hardware Universe"^]
 
 
 
@@ -62,7 +62,7 @@ In der folgenden Tabelle ist die unterstützte Modellmatrix für das Controller-
 |===
 * Während des Upgrade-Verfahrens müssen Sie die MetroCluster Fabric ändern, einschließlich RCF und physischen Kabeländerungen. Sie können die RCF- und Verkabelungsänderungen durchführen, bevor Sie die Controller-Aktualisierung durchführen.
 * Für dieses Upgrade sind keine Änderungen der Storage-, FC- und Ethernet-Verbindungen zwischen den ursprünglichen Nodes und den neuen Nodes erforderlich.
-* Während des Upgrades sollten Sie keine anderen Karten zum AFF A700 oder FAS9000 System hinzufügen oder entfernen. Weitere Informationen finden Sie im https://hwu.netapp.com/["NetApp Hardware Universe"^]
+* Während des Upgrades sollten Sie keine anderen Karten zum AFF A700 oder FAS9000 System hinzufügen oder entfernen. Weitere Informationen finden Sie im https://["NetApp Hardware Universe"^]
 
 
 Folgende Beispielnamen werden in Beispielen und Grafiken in diesem Verfahren verwendet:
@@ -195,7 +195,7 @@ Sie sollten diesen Befehl für jedes Cluster ausgeben.
 +
 .. Laden Sie Config Advisor herunter und führen Sie sie aus.
 +
-https://mysupport.netapp.com/site/tools/tool-eula/activeiq-configadvisor["NetApp Downloads: Config Advisor"^]
+https://["NetApp Downloads: Config Advisor"^]
 
 .. Überprüfen Sie nach dem Ausführen von Config Advisor die Ausgabe des Tools und befolgen Sie die Empfehlungen in der Ausgabe, um die erkannten Probleme zu beheben.
 
@@ -208,7 +208,7 @@ https://mysupport.netapp.com/site/tools/tool-eula/activeiq-configadvisor["NetApp
 
 Für die AFF A900 oder FAS9500 Fabric MetroCluster sind zwei FC-VI-Adapter mit vier Ports pro Node erforderlich, im Vergleich zu einem FC-VI-Adapter mit vier Ports, den eine AFF A700 benötigt. Bevor Sie das Controller-Upgrade auf den AFF A900 oder FAS9500 Controller starten, müssen Sie die Fabric Switch RCF-Dateien ändern, um die AFF A900 oder FAS9500 Verbindungstopologie zu unterstützen.
 
-. Von https://mysupport.netapp.com/site/products/all/details/metrocluster-rcf/downloads-tab["Download-Seite für MetroCluster RCF-Dateien"^], Laden Sie die korrekte RCF-Datei für ein AFF A900 oder FAS9500 Fabric MetroCluster sowie das Switch-Modell herunter, das in der AFF A700 oder FAS9000 Konfiguration verwendet wird.
+. Von https://["Download-Seite für MetroCluster RCF-Dateien"^], Laden Sie die korrekte RCF-Datei für ein AFF A900 oder FAS9500 Fabric MetroCluster sowie das Switch-Modell herunter, das in der AFF A700 oder FAS9000 Konfiguration verwendet wird.
 . [[Update-RCF]]Aktualisieren Sie die RCF-Datei auf den Fabric-A-Schaltern, wechseln Sie A1 und wechseln Sie B1, indem Sie die Schritte unter befolgen link:../disaster-recovery/task_cfg_switches_mcfc.html["Konfigurieren der FC-Switches"].
 +
 
@@ -317,7 +317,7 @@ Sie sollten diesen Befehl für jedes Cluster ausgeben.
 +
 .. Laden Sie Config Advisor herunter und führen Sie sie aus.
 +
-https://mysupport.netapp.com/site/tools/tool-eula/activeiq-configadvisor["NetApp Downloads: Config Advisor"^]
+https://["NetApp Downloads: Config Advisor"^]
 
 .. Überprüfen Sie nach dem Ausführen von Config Advisor die Ausgabe des Tools und befolgen Sie die Empfehlungen in der Ausgabe, um die erkannten Probleme zu beheben.
 
@@ -406,7 +406,7 @@ Sie sollten die Ausgabe der folgenden Befehle erfassen:
 
 . Wenn die MetroCluster Nodes Verschlüsselung für Volumes oder Aggregate nutzen, kopieren Sie Informationen zu Schlüsseln und Passphrases.
 +
-Weitere Informationen finden Sie unter https://docs.netapp.com/us-en/ontap/encryption-at-rest/backup-key-management-information-manual-task.html["Manuelles Backup der integrierten Verschlüsselungsmanagementinformationen"^].
+Weitere Informationen finden Sie unter https://["Manuelles Backup der integrierten Verschlüsselungsmanagementinformationen"^].
 
 +
 .. Wenn Onboard Key Manager konfiguriert ist:
@@ -629,9 +629,13 @@ image:../media/drw_a900_move-remove_NVRAM_module.png["NVS-Modul"]
 
 
 
+[NOTE]
+====
+* Übertragen Sie keine Add-On-Module, die als Coredump-Geräte auf dem nichtflüchtigen Speichermodul AFF A700 in Steckplatz 6 verwendet werden, auf das AFF A900 NVS-Modul. Übertragen Sie keine Teile vom AFF A700-Controller und NVS-Modulen auf das AFF A900-Controller-Modul.
+* Bei Upgrades von FAS9000 zu FAS9500 sollten Sie Flash Cache Module des FAS9000 NVS-Moduls nur in das FAS9500 NVS-Modul übertragen. Übertragen Sie keine anderen Teile vom FAS9000 Controller und NVS-Modulen auf das FAS9500 Controller-Modul.
 
-NOTE: Sollten zusätzliche Module als Coredump-Geräte auf dem nicht flüchtigen AFF A700 oder dem FAS9000 Storage-Modul verwendet werden, übertragen Sie diese nicht auf den AFF A900 oder FAS9500 NVS. Übertragen Sie keine Teile vom AFF A700 oder A900 Controller-Modul und NVS auf das AFF A900 oder FAS9500 Controller-Modul.
 
+====
 
 
 == Installieren Sie das AFF A900 oder FAS9500 NVS und das Controller-Modul
@@ -770,7 +774,7 @@ Selection (1-11)?
 
 NOTE: Ignorieren Sie die folgende Meldung: `This procedure is not supported for Non-Disruptive Upgrade on an HA pair.` Dieser Hinweis gilt für unterbrechungsfreie ONTAP Software-Upgrades und nicht für Controller-Upgrades. Aktualisieren Sie den neuen Node immer als Netzboot auf das gewünschte Image. Wenn Sie eine andere Methode zur Installation des Images auf dem neuen Controller verwenden, wird möglicherweise das falsche Image installiert. Dieses Problem gilt für alle ONTAP Versionen.
 
-. Wenn Sie aufgefordert werden, den Vorgang fortzusetzen, geben Sie ein `y`, Und wenn Sie zur Eingabe des Pakets aufgefordert werden, geben Sie die URL ein:http://<web_server_ip/path_to_web-accessible_directory>/<ontap_version>_image.tgz[]
+. Wenn Sie aufgefordert werden, den Vorgang fortzusetzen, geben Sie ein `y`, Und wenn Sie zur Eingabe des Pakets aufgefordert werden, geben Sie die URL ein:http://[]
 . Führen Sie die folgenden Teilschritte durch, um das Controller-Modul neu zu booten:
 +
 .. Eingabe `n` So überspringen Sie die Backup-Recovery, wenn folgende Eingabeaufforderung angezeigt wird:
@@ -1353,6 +1357,17 @@ Diese Aufgabe kann auf jedem Node der MetroCluster Konfiguration ausgeführt wer
 .. Ergebnisse der MetroCluster-Prüfung anzeigen:
 +
 `metrocluster check show`
+
++
+Nach dem Ausführen des `metrocluster check run` Und `metrocluster check show` Zeigt möglicherweise einen Fehler an, der dem folgenden Beispiel ähnelt:
+
++
+[listing]
+----
+Cluster_A:: node_A_1 (non-overridable veto): DR partner NVLog mirroring is not online. Make sure that the links between the two sites are healthy and properly configured.
+----
++
+Dieser Fehler tritt auf, weil der Controller während des Upgrades nicht stimmt. Sie können den Fehler ohne Bedenken ignorieren und mit dem Upgrade der Nodes auf Site_A fortfahren
 
 
 

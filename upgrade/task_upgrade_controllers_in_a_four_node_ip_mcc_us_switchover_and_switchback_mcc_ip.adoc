@@ -24,7 +24,7 @@ Mit ONTAP 9.8 ermöglicht die MetroCluster Umschaltung unterbrechungsfreien Serv
 +
 ** Informationen darüber, welche Kombinationen von Plattform-Upgrades unterstützt werden, finden Sie in der MetroCluster IP-Upgrade-Tabelle unter link:concept_choosing_controller_upgrade_mcc.html["Wählen Sie ein Controller-Upgrade-Verfahren"].
 +
-Siehe https://docs.netapp.com/us-en/ontap-metrocluster/upgrade/concept_choosing_controller_upgrade_mcc.html#choosing-a-procedure-that-uses-the-switchover-and-switchback-process["Wahl einer Upgrade- oder Aktualisierungsmethode"] Für zusätzliche Verfahren.
+Siehe https://["Wahl einer Upgrade- oder Aktualisierungsmethode"] Für zusätzliche Verfahren.
 
 
 
@@ -42,7 +42,7 @@ Das Ausführen der MetroCluster-Konfiguration mit unterschiedlichen Controller-T
 * Auf den IP-Switches muss eine unterstützte Firmware-Version ausgeführt werden.
 * Wenn die neue Plattform weniger Steckplätze als das ursprüngliche System besitzt oder weniger oder unterschiedliche Ports vorhanden sind, müssen Sie dem neuen System möglicherweise einen Adapter hinzufügen.
 +
-Weitere Informationen finden Sie im https://hwu.netapp.com/["NetApp Hardware Universe"].
+Weitere Informationen finden Sie im https://["NetApp Hardware Universe"].
 
 * Auf den neuen Plattformen werden die IP-Adressen, Netmasken und Gateways der ursprünglichen Plattformen wiederverwendet.
 * Folgende Beispielnamen werden in diesem Verfahren verwendet:
@@ -383,7 +383,7 @@ Nachdem Sie die neuen Nodes installiert haben, müssen Sie als Netzboot fahren, 
 .Schritte
 . Netzboot der neuen Controller:
 +
-.. Auf das zugreifen https://mysupport.netapp.com/site/["NetApp Support Website"] Zum Herunterladen der Dateien zum Ausführen des Netzboots des Systems.
+.. Auf das zugreifen https://["NetApp Support Website"] Zum Herunterladen der Dateien zum Ausführen des Netzboots des Systems.
 .. Laden Sie die entsprechende ONTAP Software im Bereich Software Downloads auf der NetApp Support Website herunter und speichern Sie die `ontap-version_image.tgz` Datei in einem webbasierten Verzeichnis.
 .. Wechseln Sie in das Verzeichnis für den Zugriff über das Internet, und stellen Sie sicher, dass die benötigten Dateien verfügbar sind.
 +
@@ -603,7 +603,7 @@ Sie sollten diesen Befehl für jedes Cluster ausgeben. Sie können das verwenden
 +
 .. Laden Sie Config Advisor herunter und führen Sie sie aus.
 +
-https://mysupport.netapp.com/site/tools/tool-eula/activeiq-configadvisor["NetApp Downloads: Config Advisor"]
+https://["NetApp Downloads: Config Advisor"]
 
 .. Überprüfen Sie nach dem Ausführen von Config Advisor die Ausgabe des Tools und befolgen Sie die Empfehlungen in der Ausgabe, um die erkannten Probleme zu beheben.
 
@@ -732,7 +732,7 @@ Sie sollten die Ausgabe der folgenden Befehle erfassen:
 
 . Wenn die MetroCluster Nodes Verschlüsselung für Volumes oder Aggregate nutzen, kopieren Sie Informationen zu Schlüsseln und Passphrases.
 +
-Weitere Informationen finden Sie unter https://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-nve/GUID-1677AE0A-FEF7-45FA-8616-885AA3283BCF.html["Manuelles Backup der integrierten Verschlüsselungsmanagementinformationen"].
+Weitere Informationen finden Sie unter https://["Manuelles Backup der integrierten Verschlüsselungsmanagementinformationen"].
 
 +
 .. Wenn Onboard Key Manager konfiguriert ist: +
@@ -791,7 +791,7 @@ Vor dem Aktualisieren der Plattformen müssen Sie die Überwachung entfernen, we
  a| 
 Tiebreaker
  a| 
-http://docs.netapp.com/ontap-9/topic/com.netapp.doc.hw-metrocluster-tiebreaker/GUID-34C97A45-0BFF-46DD-B104-2AB2805A983D.html["Entfernen von MetroCluster-Konfigurationen"] Im Installations- und Konfigurationshandbuch _MetroCluster Tiebreaker_
+http://["Entfernen von MetroCluster-Konfigurationen"] Im Installations- und Konfigurationshandbuch _MetroCluster Tiebreaker_
 
 
 
@@ -908,7 +908,7 @@ Alle Daten-LIFS einschließlich SAN und NAS befinden sich in Betrieb, da sie sic
 e0d ist zum Beispiel ein physischer Port auf den alten Controllern und ist auch auf neuen Controllern vorhanden. e0d wird nicht als Cluster-Port oder anderweitig auf den neuen Controllern verwendet.
 
 +
-Informationen zur Portnutzung von Plattformmodellen finden Sie im https://hwu.netapp.com/["NetApp Hardware Universe"]
+Informationen zur Portnutzung von Plattformmodellen finden Sie im https://["NetApp Hardware Universe"]
 
 .. Ändern Sie alle Daten-LIFS, um den gemeinsamen Port als Startport zu verwenden: +
 `network interface modify -vserver _svm-name_ -lif _data-lif_ -home-port _port-id_`
@@ -1028,7 +1028,7 @@ Der Rack-Platz hängt vom Plattformmodell der Controller-Module, den Switch-Type
 . Richtig gemahlen.
 . Installieren Sie die Controller-Module im Rack oder Schrank.
 +
-https://docs.netapp.com/platstor/index.jsp["AFF and FAS Documentation Center"]
+https://["AFF and FAS Documentation Center"]
 
 . Verbinden Sie die Controller mit den IP-Switches, wie in beschrieben link:../install-ip/concept_considerations_differences.html["Installation und Konfiguration von MetroCluster IP"].
 +
@@ -1573,7 +1573,7 @@ Integriertes Verschlüsselungsmanagement
  a| 
 `security key-manager onboard sync`
 
-Weitere Informationen finden Sie unter https://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-nve/GUID-E4AB2ED4-9227-4974-A311-13036EB43A3D.html["Wiederherstellung der integrierten Schlüssel für das Verschlüsselungsmanagement"].
+Weitere Informationen finden Sie unter https://["Wiederherstellung der integrierten Schlüssel für das Verschlüsselungsmanagement"].
 
 
 
@@ -1582,7 +1582,7 @@ Externes Verschlüsselungskeymanagement
  a| 
 `security key-manager external restore -vserver _SVM_ -node _node_ -key-server _host_name|IP_address:port_ -key-id key_id -key-tag key_tag _node-name_`
 
-Weitere Informationen finden Sie unter https://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-nve/GUID-32DA96C3-9B04-4401-92B8-EAF323C3C863.html["Wiederherstellen der externen Schlüssel für das Verschlüsselungsmanagement"].
+Weitere Informationen finden Sie unter https://["Wiederherstellen der externen Schlüssel für das Verschlüsselungsmanagement"].
 
 |===
 . Vergewissern Sie sich, dass sich alle Ports in einer Broadcast-Domäne befinden:
@@ -1593,17 +1593,17 @@ Weitere Informationen finden Sie unter https://docs.netapp.com/ontap-9/topic/com
 
 .. Fügen Sie bei Bedarf beliebige Ports zu einer Broadcast-Domäne hinzu.
 +
-https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-nmg/GUID-003BDFCD-58A3-46C9-BF0C-BA1D1D1475F9.html["Hinzufügen oder Entfernen von Ports aus einer Broadcast-Domäne"]
+https://["Hinzufügen oder Entfernen von Ports aus einer Broadcast-Domäne"]
 
 .. VLANs und Schnittstellengruppen nach Bedarf neu erstellen.
 +
 VLAN und Interface Group Mitgliedschaft können sich von der des alten Node unterscheiden.
 
 +
-https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-nmg/GUID-8929FCE2-5888-4051-B8C0-E27CAF3F2A63.html["Erstellen eines VLANs"]
+https://["Erstellen eines VLANs"]
 
 +
-https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-nmg/GUID-DBC9DEE2-EAB7-430A-A773-4E3420EE2AA1.html["Verbinden von physischen Ports zum Erstellen von Schnittstellengruppen"]
+https://["Verbinden von physischen Ports zum Erstellen von Schnittstellengruppen"]
 
 
 

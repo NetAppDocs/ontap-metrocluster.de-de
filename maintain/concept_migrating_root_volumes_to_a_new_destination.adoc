@@ -17,20 +17,20 @@ Unter Umständen müssen Sie Root-Volumes in ein anderes Root-Aggregat innerhalb
 
 == Migration von Root-Volumes innerhalb einer MetroCluster Konfiguration mit zwei Nodes
 
-Informationen zur Migration von Root-Volumes zu einem neuen Root-Aggregat innerhalb einer MetroCluster-Konfiguration mit zwei Nodes finden Sie unter https://kb.netapp.com/Advice_and_Troubleshooting/Data_Protection_and_Security/MetroCluster/How_to_move_mroot_to_a_new_root_aggregate_in_a_2-node_Clustered_MetroCluster_with_Switchover["Verschieben von mroot zu einem neuen Root-Aggregat in einem Clustered MetroCluster mit 2 Nodes mit Switchover"]. Dieses Verfahren zeigt Ihnen, wie Sie die Root-Volumes während einer MetroCluster-Umschaltung unterbrechungsfrei migrieren. Dieses Verfahren unterscheidet sich leicht von dem Verfahren, das in einer Konfiguration mit vier Nodes verwendet wird.
+Informationen zur Migration von Root-Volumes zu einem neuen Root-Aggregat innerhalb einer MetroCluster-Konfiguration mit zwei Nodes finden Sie unter https://["Verschieben von mroot zu einem neuen Root-Aggregat in einem Clustered MetroCluster mit 2 Nodes mit Switchover"]. Dieses Verfahren zeigt Ihnen, wie Sie die Root-Volumes während einer MetroCluster-Umschaltung unterbrechungsfrei migrieren. Dieses Verfahren unterscheidet sich leicht von dem Verfahren, das in einer Konfiguration mit vier Nodes verwendet wird.
 
 
 
 == Migration von Root-Volumes innerhalb einer MetroCluster Konfiguration mit vier Nodes
 
-Um Root-Volumes innerhalb einer MetroCluster Konfiguration mit vier Nodes auf ein neues Root-Aggregat zu migrieren, können Sie das verwenden http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-cmpr-930/system%5F%5Fnode%5F%5Fmigrate-root.html["System-Node-Migration-Root"] Befehl und Erfüllung der folgenden Anforderungen.
+Um Root-Volumes innerhalb einer MetroCluster Konfiguration mit vier Nodes auf ein neues Root-Aggregat zu migrieren, können Sie das verwenden http://["System-Node-Migration-Root"] Befehl und Erfüllung der folgenden Anforderungen.
 
 * Mit System Node Migration-Root können Root-Aggregate in einer MetroCluster Konfiguration mit vier Nodes verschoben werden.
 * Alle Root-Aggregate müssen gespiegelt werden.
 * Sie können neue Shelves auf beiden Seiten mit kleineren Laufwerken hinzufügen, um das Root-Aggregat zu hosten.
 * Vor dem Anschließen neuer Laufwerke müssen Sie die von der Plattform unterstützten Laufwerksgrenzen überprüfen.
 +
-https://hwu.netapp.com["NetApp Hardware Universe"]
+https://["NetApp Hardware Universe"]
 
 * Wenn Sie das Root-Aggregat auf kleinere Laufwerke verschieben, müssen Sie die minimale Root-Volume-Größe der Plattform berücksichtigen, um sicherzustellen, dass alle Kerndateien gespeichert werden.
 

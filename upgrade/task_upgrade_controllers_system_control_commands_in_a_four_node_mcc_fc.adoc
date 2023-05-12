@@ -20,7 +20,7 @@ Mithilfe dieses geführten automatisierten MetroCluster-Switchover-Vorgangs läs
 * Informationen zu den unterstützten Kombinationen aus Plattform-Upgrades finden Sie in der MetroCluster FC-Upgrade-Tabelle in link:concept_choosing_controller_upgrade_mcc.html#metrocluster-fc-controller-upgrades["Wählen Sie ein Controller-Upgrade-Verfahren"].
 
 
-Siehe https://docs.netapp.com/us-en/ontap-metrocluster/upgrade/concept_choosing_an_upgrade_method_mcc.html["Wahl einer Upgrade- oder Aktualisierungsmethode"] Für zusätzliche Verfahren.
+Siehe https://["Wahl einer Upgrade- oder Aktualisierungsmethode"] Für zusätzliche Verfahren.
 
 
 
@@ -33,9 +33,9 @@ Andere Komponenten in der Konfiguration, wie z. B. Storage Shelfs oder Switches,
 * Dieses Verfahren gilt für Controller-Module in einer MetroCluster FC-Konfiguration mit vier Nodes.
 * Die Plattformen müssen ONTAP 9.10.1 oder höher ausführen.
 +
-https://hwu.netapp.com["NetApp Hardware Universe"^]
+https://["NetApp Hardware Universe"^]
 
-* Mit diesem Verfahren können Controller in einer MetroCluster FC-Konfiguration mit vier Nodes mithilfe von NSO basierter, automatisierter Umschaltung und zurückwechseln. Wenn Sie ein Controller-Upgrade mithilfe von Aggregate Relocation (ARL) durchführen möchten, lesen Sie https://docs.netapp.com/us-en/ontap-systems-upgrade/upgrade-arl-auto-app/["Verwenden Sie „System Controller Replace“-Befehle, um das Upgrade der Controller Hardware mit ONTAP 9.8 oder höher durchzuführen"]. Es wird empfohlen, das NSO-basierte automatische Verfahren zu verwenden.
+* Mit diesem Verfahren können Controller in einer MetroCluster FC-Konfiguration mit vier Nodes mithilfe von NSO basierter, automatisierter Umschaltung und zurückwechseln. Wenn Sie ein Controller-Upgrade mithilfe von Aggregate Relocation (ARL) durchführen möchten, lesen Sie https://["Verwenden Sie „System Controller Replace“-Befehle, um das Upgrade der Controller Hardware mit ONTAP 9.8 oder höher durchzuführen"]. Es wird empfohlen, das NSO-basierte automatische Verfahren zu verwenden.
 * Wenn sich die MetroCluster Standorte physisch an zwei verschiedenen Standorten befinden, sollten Sie das automatische NSO Controller-Upgrade-Verfahren einsetzen, um die Controller an beiden Standorten nacheinander zu aktualisieren.
 * Durch dieses automatische NSO-basierte Controller-Upgrade-Verfahren können Sie den Controller-Ersatz an einen MetroCluster Disaster Recovery (DR)-Standort initiieren. Sie können jeweils nur einen Controller-Austausch an einem Standort initiieren.
 * Um an Standort A einen Controller-Austausch zu initiieren, müssen Sie den Startbefehl für den Controller-Austausch von Standort B ausführen Der Vorgang leitet Sie weiter, Controller beider Nodes nur an Standort A zu ersetzen. Um die Controller an Standort B zu ersetzen, müssen Sie den Startbefehl für den Controller-Ersatz von Standort A ausführen Es wird eine Meldung angezeigt, in der der Standort identifiziert wird, an dem die Controller ersetzt werden.
@@ -209,7 +209,7 @@ Sie sollten die Ausgabe der folgenden Befehle erfassen:
 
 . Wenn die MetroCluster Nodes Verschlüsselung für Volumes oder Aggregate nutzen, kopieren Sie Informationen zu Schlüsseln und Passphrases.
 +
-Weitere Informationen finden Sie unter https://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-nve/GUID-1677AE0A-FEF7-45FA-8616-885AA3283BCF.html["Manuelles Backup der integrierten Verschlüsselungsmanagementinformationen"^].
+Weitere Informationen finden Sie unter https://["Manuelles Backup der integrierten Verschlüsselungsmanagementinformationen"^].
 
 +
 .. Wenn Onboard Key Manager konfiguriert ist:
@@ -241,7 +241,7 @@ Sie benötigen die Passphrase später im Upgrade-Verfahren.
 Wenn die vorhandene Konfiguration mit der MetroCluster Tiebreaker Konfiguration oder anderen Applikationen von Drittanbietern (z. B. ClusterLion) überwacht wird, die eine Umschaltung initiieren können, müssen Sie die MetroCluster Konfiguration über den Tiebreaker oder eine andere Software entfernen, bevor der alte Controller ersetzt wird.
 
 .Schritte
-. http://docs.netapp.com/ontap-9/topic/com.netapp.doc.hw-metrocluster-tiebreaker/GUID-34C97A45-0BFF-46DD-B104-2AB2805A983D.html["Entfernen der vorhandenen MetroCluster-Konfiguration"^] Über die Tiebreaker Software.
+. http://["Entfernen der vorhandenen MetroCluster-Konfiguration"^] Über die Tiebreaker Software.
 . Entfernen Sie die vorhandene MetroCluster Konfiguration von jeder Anwendung eines Drittanbieters, die eine Umschaltung initiieren kann.
 +
 Informationen zur Anwendung finden Sie in der Dokumentation.
@@ -290,7 +290,7 @@ Alle Daten-LIFS einschließlich SAN und NAS sind admin „`up`“ und betrieblic
 „`e0d`“ ist zum Beispiel ein physischer Port an alten Controllern und ist auch auf neuen Controllern vorhanden. „`e0d`“ wird nicht als Cluster-Port oder anderweitig auf den neuen Controllern verwendet.
 
 +
-Informationen zur Portnutzung von Plattformmodellen finden Sie im https://hwu.netapp.com/["NetApp Hardware Universe"^]
+Informationen zur Portnutzung von Plattformmodellen finden Sie im https://["NetApp Hardware Universe"^]
 
 .. Ändern Sie alle Daten-LIFS, um den gemeinsamen Port als Home-Port zu verwenden:
 +
@@ -375,7 +375,7 @@ Der Rack-Platz hängt vom Plattformmodell der Controller-Module, den Switch-Type
 . Richtig gemahlen.
 . Installieren Sie die Controller-Module im Rack oder Schrank.
 +
-https://docs.netapp.com/platstor/index.jsp["AFF and FAS Documentation Center"^]
+https://["AFF and FAS Documentation Center"^]
 
 . Wenn die neuen Controller-Module nicht eigene FC-VI-Karten enthalten und FC-VI-Karten von alten Controllern mit neuen Controllern kompatibel sind, tauschen Sie FC-VI-Karten aus und installieren Sie diese in den richtigen Steckplätzen.
 +
@@ -386,7 +386,7 @@ Siehe link:https://hwu.netapp.com["NetApp Hardware Universe"^] Für Slot-Informa
 Schließen Sie derzeit keine anderen Kabel an, die von den alten Controllern getrennt wurden.
 
 +
-https://docs.netapp.com/platstor/index.jsp["AFF and FAS Documentation Center"^]
+https://["AFF and FAS Documentation Center"^]
 
 . Schalten Sie die neuen Nodes ein, und drücken Sie bei der Eingabeaufforderung Strg-C, um die LOADER-Eingabeaufforderung anzuzeigen.
 
@@ -400,7 +400,7 @@ Nachdem Sie die neuen Nodes installiert haben, müssen Sie als Netzboot fahren, 
 Diese Aufgabe wird an jedem der neuen Controller-Module durchgeführt.
 
 .Schritte
-. Auf das zugreifen https://mysupport.netapp.com/site/["NetApp Support Website"^] Zum Herunterladen der Dateien zum Ausführen des Netzboots des Systems.
+. Auf das zugreifen https://["NetApp Support Website"^] Zum Herunterladen der Dateien zum Ausführen des Netzboots des Systems.
 . Laden Sie die entsprechende ONTAP Software aus dem Abschnitt zum Software-Download der NetApp Support-Website herunter und speichern Sie die Datei ontap-Version_image.tgz in einem über Web zugänglichen Verzeichnis.
 . Rufen Sie das Verzeichnis mit Webzugriff auf, und stellen Sie sicher, dass die benötigten Dateien verfügbar sind.
 +
@@ -823,7 +823,7 @@ Wenn sich einer der beiden Nodes im Übernahmemodus befindet, geben Sie sie mith
 
 .. Fügen Sie bei Bedarf beliebige Ports zu einer Broadcast-Domäne hinzu.
 +
-https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-nmg/GUID-003BDFCD-58A3-46C9-BF0C-BA1D1D1475F9.html["Hinzufügen oder Entfernen von Ports aus einer Broadcast-Domäne"^]
+https://["Hinzufügen oder Entfernen von Ports aus einer Broadcast-Domäne"^]
 
 .. Fügen Sie den physischen Port hinzu, der die Intercluster LIFs der entsprechenden Broadcast-Domäne hostet.
 .. Ändern Sie Intercluster LIFs, um den neuen physischen Port als Home-Port zu verwenden.
@@ -839,10 +839,10 @@ link:../install-fc/concept_configure_the_mcc_software_in_ontap.html#peering-the-
 VLAN und Interface Group Mitgliedschaft können sich von der des alten Node unterscheiden.
 
 +
-https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-nmg/GUID-8929FCE2-5888-4051-B8C0-E27CAF3F2A63.html["Erstellen eines VLANs"^]
+https://["Erstellen eines VLANs"^]
 
 +
-https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-nmg/GUID-DBC9DEE2-EAB7-430A-A773-4E3420EE2AA1.html["Verbinden von physischen Ports zum Erstellen von Schnittstellengruppen"^]
+https://["Verbinden von physischen Ports zum Erstellen von Schnittstellengruppen"^]
 
 .. Überprüfen Sie, ob das Partner-Cluster erreichbar ist und ob die Konfiguration auf dem Partner-Cluster erfolgreich resynchronisiert ist:
 +
@@ -863,7 +863,7 @@ Integriertes Verschlüsselungsmanagement
  a| 
 `security key-manager onboard sync`
 
-Weitere Informationen finden Sie unter https://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-nve/GUID-E4AB2ED4-9227-4974-A311-13036EB43A3D.html["Wiederherstellung der integrierten Schlüssel für das Verschlüsselungsmanagement"^].
+Weitere Informationen finden Sie unter https://["Wiederherstellung der integrierten Schlüssel für das Verschlüsselungsmanagement"^].
 
 
 
@@ -872,7 +872,7 @@ Externes Verschlüsselungskeymanagement
  a| 
 `security key-manager external restore -vserver _SVM_ -node _node_ -key-server _host_name|IP_address:port_ -key-id key_id -key-tag key_tag _node-name_`
 
-Weitere Informationen finden Sie unter https://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-nve/GUID-32DA96C3-9B04-4401-92B8-EAF323C3C863.html["Wiederherstellen der externen Schlüssel für das Verschlüsselungsmanagement"^].
+Weitere Informationen finden Sie unter https://["Wiederherstellen der externen Schlüssel für das Verschlüsselungsmanagement"^].
 
 |===
 . Bevor Sie den Vorgang fortsetzen, überprüfen Sie, ob die MetroCluster ordnungsgemäß konfiguriert ist. Prüfen Sie den Knoten-Status:
@@ -921,5 +921,5 @@ Wenn bei den Prüfungen nach der Aktualisierung keine Fehler gemeldet wurden, is
 
 Wenn die MetroCluster Konfiguration zuvor für das Monitoring über die Tiebreaker Software konfiguriert war, können Sie die Tiebreaker Verbindung wiederherstellen.
 
-. Verwenden Sie die Schritte in http://docs.netapp.com/ontap-9/topic/com.netapp.doc.hw-metrocluster-tiebreaker/GUID-7259BCA4-104C-49C6-BAD0-1068CA2A3DA5.html["Hinzufügen von MetroCluster Konfigurationen"].
+. Verwenden Sie die Schritte in http://["Hinzufügen von MetroCluster Konfigurationen"].
 

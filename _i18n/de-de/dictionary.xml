@@ -2154,7 +2154,6 @@
   <block id="685fd8e4740bc36c11367ec44db4636f" category="paragraph">Nach der Umschaltung werden SVMs „vs1-mc“ und „vs2-mc“ am Partner-Standort (Site_B) aktiviert. Sie müssen manuell aufgehoben werden, damit FlexCache mit dem arbeiten kann<block ref="73ef473578e305fb86ebd8db4a77897c" prefix=" " category="inline-code"></block> Befehl.</block>
   <block id="bf9ed55fade58e6d12b08126597ad127" category="list-text">Ein Ende der FlexCache (Cache_1 auf vs1) befindet sich auf MetroCluster Site_A.</block>
   <block id="6e9ffd16aec825895cde46ff6fe91ad0" category="list-text">Das andere Ende der FlexCache (Origin_1 auf vs2) befindet sich auf site_C (nicht in der MetroCluster-Konfiguration).</block>
-  <block id="e12b7ce615b4c57da01f7f573c2a5a1f" category="paragraph">Informationen zur Verwendung von FabricPool finden Sie in<block ref="02623f162960bb96fdc9b7c3d9989219" category="inline-link-rx"></block></block>
   <block id="9f437bd3f304cff4e9dd7b48cc5a9500" category="paragraph">Dies kann der standardmäßige IP-Speicherplatz oder ein IP-Speicherplatz sein, den eine Verwaltung erstellt hat. Dieser IPspace wird für die Konfiguration des FabricPool-Objektspeichers verwendet.</block>
   <block id="302236925d66f4e5011613180b9839b1" category="admonition">Bevor Sie das Aggregat konfigurieren, müssen Sie in den Objektspeichern wie unter „Einrichten von Objektspeichern für FabricPool in einer MetroCluster-Konfiguration“ beschrieben einrichten<block ref="6ca1f1c4f557736e9b169b0bb2581c65" category="inline-link-rx"></block></block>
   <block id="99dc2e42eb5cbad5dfa0fe00d5193924" category="list-text">Erstellen Sie die FabricPool Spiegelung mit dem Aggregat, wie im beschrieben<block ref="d80da76762d0e5fadaefb2c12eee2740" category="inline-link-rx"></block></block>
@@ -2889,7 +2888,6 @@
   <block id="f96aff9bb92f47a99bb9e80c8aefd182" category="list-text"><block ref="0ce177c637860f04ef435f1d4df8c7a1" category="inline-xref-macro-rx"></block></block>
   <block id="80f5aa2c1fd8d40ec861adc9b8554601" category="inline-xref">Einrichten von ONTAP in einer MetroCluster Konfiguration mit acht oder vier Nodes</block>
   <block id="9b21ad21eb9282dd4e397a5ca93023dc" category="list-text"><block ref="07c1a2d7d8220345e0719327013f6d09" category="inline-xref-macro-rx"></block></block>
-  <block id="53859114136088fdcd8566623bb6df02" category="paragraph">Weitere allgemeine Informationen zum Einrichten von ONTAP finden Sie im<block ref="b6819648fd16f3919c90cb1d213b3480" category="inline-link-rx"></block></block>
   <block id="6cf5d5492a2e7185b3efc5a5df46334b" category="list-text">Nachdem Sie den *Cluster Setup*-Assistenten abgeschlossen und beendet haben, überprüfen Sie, ob der Cluster aktiv ist und der erste Knoten ordnungsgemäß ist: `</block>
   <block id="b2ede78eeadccf7a2964d2eb92cebe8b" category="list-text">Aktivieren des Cluster-Modus ohne Switches:</block>
   <block id="dd8c5249263ec9d9387eb89d479386db" category="list-text"><block ref="411c2872850deed59c904124c3df5b0e" category="inline-xref-macro-rx"></block></block>
@@ -2909,7 +2907,6 @@
   <block id="d93f79a987bba3304695b6a783f4a705" category="paragraph">Das folgende Beispiel erstellt eine Cluster-Peer-Beziehung zum Remote-Cluster bei intercluster LIF IP-Adressen „192.168.2.201“ und „192.168.2.202“:</block>
   <block id="7775c1757d41f1e18ee45e04fab5a916" category="paragraph">Im folgenden Beispiel wird der lokale Cluster an den Remote-Cluster unter LIF-IP-Adressen „192.140.112.203“ und „192.140.112.204“ authentifiziert:</block>
   <block id="bc79ba4747158e531dea5a77e367aa47" category="paragraph"><block ref="7f695d7707adb19e4debbe54a36060b1" prefix="" category="inline-code"></block></block>
-  <block id="d2b0d40b2282002fc4ed782c5f9ebc52" category="list-text">Aggregatnamen sollten dem Benennungsschema entsprechen, das Sie beim Planen Ihrer MetroCluster-Konfiguration ermittelt haben. Siehe<block ref="bdfdc55438d1bd89079bcd52bcc353e7" category="inline-link-rx"></block>.</block>
   <block id="3f2e8b786a2072dd4bd108ff8d047526" category="admonition">In der minimal unterstützten Konfiguration, bei der eine begrenzte Anzahl von Laufwerken verfügbar ist, müssen Sie den verwenden<block ref="14ddd67cae04b4c4dcfaa7963f01da30" prefix=" " category="inline-code"></block> Option zum Erstellen eines RAID-DP Aggregats mit drei Festplatten.</block>
   <block id="a6dc0a04536717d4478be204a9eedac4" category="admonition">Wenn Sie ein einzelnes gespiegeltes Datenaggregat verwenden möchten, finden Sie weitere Informationen unter <block ref="68dbb28d16b2f5ad0b139d60008a1b90" category="inline-xref-macro-rx"></block> Weitere Anweisungen.</block>
   <block id="909bcad662bf67b01f5028f61e1ca6f4" category="list-text">Der HA-Konfigurationsstatus der Controller und des Chassis muss „mcc“ sein.</block>
@@ -2924,7 +2921,6 @@
   <block id="046a4dbe28831449e896740fded1c064" category="paragraph">Sie sollten auch Passwörter für nicht verwendete Konten festlegen, um diese zu sichern und die beste in Ihrer ONTAP-Version verfügbare Verschlüsselung zu verwenden.</block>
   <block id="220a5f3f86ae97f0476676c92a412f16" category="paragraph">Nach der Erstkonfiguration und nach sämtlichen Änderungen an der MetroCluster-Konfiguration sollten Sie einen Check durchführen. Sie sollten auch vor einer ausgehandelten (geplanten) Umschaltung oder einem Switchback prüfen.</block>
   <block id="ac8270e817c97c45a74fde32ae003705" category="paragraph">Wenn der<block ref="c2966f2f3bfc7e81dae5df7c44ce66ea" prefix=" " category="inline-code"></block> Befehl wird zweimal innerhalb kürzester Zeit auf einem oder beiden Clustern ausgegeben. Ein Konflikt kann auftreten, und der Befehl erfasst möglicherweise nicht alle Daten. Danach<block ref="da68e7539bf844a8366ded5d17b246d7" prefix=" " category="inline-code"></block> Befehle, dann wird die erwartete Ausgabe nicht angezeigt.</block>
-  <block id="25f7dc38caaf02e2f9a5b9e898eed532" category="paragraph"><block ref="25f7dc38caaf02e2f9a5b9e898eed532" category="inline-link-rx"></block></block>
   <block id="06eff1ae70df860b6c817c9ab3858d3d" category="list-text">Verwenden Sie die im genannten Verfahren für die ausgehandelte Umschaltung, die Reparatur und den Wechsel zurück<block ref="6d6ef49fcb406c2ba2bda06977913f53" category="inline-link-rx"></block>.</block>
   <block id="267f48079d5a0c20b3bac37bdeae2c4e" category="paragraph"><block ref="44b2f25d75b18863833dc90317518de4" prefix="" category="inline-code"></block></block>
   <block id="8c9ca8086755018358ea4d5d0c638cf9" category="paragraph">Sie können die Management-Ports des Controllers und des Cluster Switches mit vorhandenen Switches im Netzwerk oder mit neuen dedizierten Netzwerk-Switches wie den NetApp CN1601 Cluster Management Switches verbinden.</block>
@@ -4666,11 +4662,8 @@
   <block id="088f906179e95184476cce093f9c4729" category="list-text">Das andere Ende der FlexCache (Origin_1 auf vs2) befindet sich auf site_C (nicht in der MetroCluster-Konfiguration)</block>
   <block id="05997981cacb7abc8efa68a4cb489aaa" category="paragraph">Wenn die Umschaltung ausgelöst wird und wenn Site_A und site_C nicht verbunden sind, müssen Sie die SVMs On site_B (das Switchover-Cluster) und site_C nach der Umschaltung manuell mit dem vserver Peer-Repeer-Befehl aufheben.</block>
   <block id="64ffde0294a1e95d407067a972556182" category="paragraph">Wenn ein Wechsel zurück durchgeführt wird, müssen Sie die SVMs on site_A (das ursprüngliche Cluster) und site_C. erneut aufheben</block>
-  <block id="ecea9649650e61f80fa7e4d035f5052f" category="inline-link">Management von FlexCache Volumes</block>
-  <block id="ab3bedf5b2bac1f18aa979a42fb1871b" category="paragraph"><block ref="ab3bedf5b2bac1f18aa979a42fb1871b" category="inline-link-rx"></block></block>
   <block id="0513c77713bdaca92c899d67245d714a" category="section-title">FabricPool-Unterstützung in MetroCluster-Konfigurationen</block>
   <block id="64df84e5dd9457f7ff6fca59541532f7" category="paragraph">Ab ONTAP 9.7 unterstützen MetroCluster Konfigurationen FabricPool Storage Tiers.</block>
-  <block id="43a384668d02383bb19c7b1d54761855" category="paragraph">Allgemeine Informationen zur Verwendung von FabricPool finden Sie unter<block ref="46a180d322a34c1f2719942dadd3e4fb" category="inline-link-rx"></block>.</block>
   <block id="4096949315fbb0590283002717421da7" category="section-title">Überlegungen bei der Verwendung von FabricPool</block>
   <block id="cb2882d39ecc345874a2172a679345a0" category="list-text">Die Cluster müssen über FabricPool-Lizenzen mit entsprechenden Kapazitätslimits verfügen.</block>
   <block id="da1d8a158d031df0c087914bc717f807" category="list-text">Die Cluster müssen IPspaces mit übereinstimmenden Namen haben.</block>
@@ -5347,8 +5340,6 @@
   <block id="529c1647bb7154274999ead05402d316" category="list-text">Aktivieren Sie das Speicherausfallschutz, und richten Sie den Knoten ein, indem Sie auf die Eingabeaufforderungen antworten.</block>
   <block id="b842db396e001f50d74b654f1314df5d" category="list-text">Die Konfiguration des Node abschließen, jedoch keine Datenaggregate erstellen.</block>
   <block id="3dda58d6d9375a71c538f50ab53299f6" category="paragraph">Sie können ONTAP System Manager verwenden und im Webbrowser die Cluster-Management-IP-Adresse aufrufen <block ref="a014d2689df7be806072ba0665b78ca6" category="inline-link-rx"></block>.</block>
-  <block id="66b81db08cfd6dc65c91f43c33637ff2" category="inline-link">Cluster-Management mit System Manager (Versionen 9.0 bis 9.6)</block>
-  <block id="02cd0671731ab4d34407ccdb1bd2c455" category="paragraph"><block ref="02cd0671731ab4d34407ccdb1bd2c455" category="inline-link-rx"></block></block>
   <block id="a20a27311b456fc6207eda19880125cd" category="inline-link">ONTAP System Manager (Version 9.7 und höher)</block>
   <block id="1ca0d9647eb663a44ff0a5fef980ff52" category="paragraph"><block ref="1ca0d9647eb663a44ff0a5fef980ff52" category="inline-link-rx"></block></block>
   <block id="cbb4f42385447257b0524c80bc88c203" category="list-text">Booten Sie den nächsten Controller, und verbinden Sie ihn mit den Aufforderungen zum Cluster.</block>
@@ -5800,7 +5791,6 @@
   <block id="37c43c60431d0988dbc66af885d529aa" category="paragraph">Wenn der Erweiterungsvorgang abgeschlossen ist, wird die Konfiguration wie in der folgenden Abbildung dargestellt angezeigt:</block>
   <block id="82100af698d65aee7d8eee88a9f650ea" category="image-alt">mcc dr-Gruppe b</block>
   <block id="8bcdf2e6243e634b6f778a006ca38abf" category="list-text">Verschieben Sie die CRS-Volumes.</block>
-  <block id="236eeda4c8d48fc292788d239a772b52" category="paragraph">Führen Sie die Schritte unter aus<block ref="56fddf2b85ee23d29212804ee4b58ff1" category="inline-link-rx"></block>.</block>
   <block id="0bae9da7e045b91539ca2636147550a9" category="inline-link">Andere Plattform-Verfahren: Controller Hardware Upgrade Express</block>
   <block id="074e456fb5fc2d75c702ca853d7ff4a7" category="list-text">Verschieben Sie die Daten von den alten Nodes zu den neuen Nodes mithilfe der folgenden Verfahren von<block ref="c8d46be4ca27ce42222e434f46ed9bd4" category="inline-link-rx"></block>.</block>
   <block id="863335fd52f3c5bd2f7a9a78319bbe9c" category="inline-link">Erstellung eines Aggregats und Verschiebung von Volumes zu den neuen Nodes</block>
@@ -6443,7 +6433,6 @@
   <block id="0cee66e2a9015b2699c62369e0e932d9" category="doc">Vorbereiten von Cluster-Ports auf einem vorhandenen Controller-Modul</block>
   <block id="eb97bd7738a2e49c0128943fae2ec5de" category="paragraph">Wenn Sie einen 2-Node-Cluster ohne Switches erstellen (ohne Cluster-Netzwerk-Switches), müssen Sie den Switch-freien Cluster-Netzwerkmodus aktivieren.</block>
   <block id="9dc1904e0c3ace141704b477cd9b345d" category="inline-link-macro">Netzwerkmanagement</block>
-  <block id="a329e8bb19b80d658f071e8e3a9b43df" category="paragraph">Ausführliche Informationen zur Port-, LIF- und Netzwerkkonfiguration in ONTAP finden Sie unter <block ref="b7287c70d2b20ddb4e9eda3d1f5462cf" category="inline-link-macro-rx"></block>.</block>
   <block id="fe80ac998af50b061220368247fabb21" category="list-text">Legen Sie fest, welche Ports als Cluster-Ports des Node verwendet werden sollen.</block>
   <block id="da160308e3b4b4a80bf1b72b5bdbedb8" category="inline-link">Hardware Universe</block>
   <block id="84c335ab98bb834a85c89e20e223e638" category="paragraph">Eine Liste der Standard-Portrollen für Ihre Plattform finden Sie im<block ref="a9613e1dbacf145285c45df4264fe797" category="inline-link-rx"></block></block>
@@ -6536,7 +6525,6 @@
   <block id="f2bf546b53e3f6cc54f274876ab2cb36" category="list-text">Der<block ref="4adce10a097546797e77202c6d30906e" prefix=" " category="inline-code"></block> Befehl wird nur auf ONTAP 9.8 und höher unterstützt.</block>
   <block id="cdfb112bdd5ad036d9715bddf30e7912" category="list-text">Bereiten Sie sich auf das Entfernen der DR-Gruppe vor, falls noch nicht.</block>
   <block id="95e7c6b72cfdf5397dbe8a6653bdc7c1" category="list-text">Verschieben Sie alle Daten-Volumes in eine andere DR-Gruppe.</block>
-  <block id="5aba19facd12672131c8ed9f8c19d6c3" category="list-text">Verschieben Sie alle MDV_CRS-Metadaten-Volumes in eine andere DR-Gruppe. Gehen Sie wie folgt vor:<block ref="56fddf2b85ee23d29212804ee4b58ff1" category="inline-link-rx"></block></block>
   <block id="25898a6422d7ded47f2936026a1df6c1" category="list-text">Löschen Sie alle MDV_aud-Metadaten-Volumes, die in der zu entfernenden DR-Gruppe vorhanden sein könnten.</block>
   <block id="92cccd899142da5e06923ac8991bc5fc" category="list-text">Löschen Sie alle Datenaggregate in der DR-Gruppe, die entfernt werden sollen, wie im folgenden Beispiel gezeigt:</block>
   <block id="73f68d9b46d6064cae47a18da8004723" category="admonition">Root-Aggregate werden nicht gelöscht.</block>
@@ -7243,7 +7231,6 @@
   <block id="771fe3d405626b11981b56d013399632" category="list-text">Drücken Sie die Taste mit der Nummerierung und dem Buchstaben. Die Nockentaste bewegt sich vom Gehäuse weg.</block>
   <block id="dd1cfa8d899a8ddd6f4a00978117e5f0" category="inline-image-macro">NVS-Modul</block>
   <block id="20d7cafa77ced4deb94fb09d7a230ff9" category="paragraph"><block ref="20d7cafa77ced4deb94fb09d7a230ff9" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="f54a1f359c3619ec4b54a5cbaf5a1d68" category="admonition">Sollten zusätzliche Module als Coredump-Geräte auf dem nicht flüchtigen AFF A700 oder dem FAS9000 Storage-Modul verwendet werden, übertragen Sie diese nicht auf den AFF A900 oder FAS9500 NVS. Übertragen Sie keine Teile vom AFF A700 oder A900 Controller-Modul und NVS auf das AFF A900 oder FAS9500 Controller-Modul.</block>
   <block id="147bc4d2dafd157a0f974f42f685692c" category="section-title">Installieren Sie das AFF A900 oder FAS9500 NVS und das Controller-Modul</block>
   <block id="d0cf791b8d9197d3aeb94c14818053cb" category="paragraph">Sie müssen das AFF A900 oder FAS9500 NVS und das Controller-Modul aus dem Upgrade-Kit auf beiden Knoten in Site_B. installieren Verschieben Sie das coredump-Gerät nicht vom AFF A700 oder FAS9000 NVS-Modul in das AFF A900 oder FAS9500 NVS Modul.</block>
   <block id="f92e6303c5bbd6720b3a3c23e3e7d624" category="paragraph">Gehen Sie wie folgt vor, um den AFF A900 oder FAS9500 NVS in Steckplatz 6 beider Nodes an Site_B zu installieren</block>
@@ -8433,7 +8420,6 @@
   <block id="37458c869049da196f1df7bf07fb1855" category="list-text">Deaktivieren Sie gegebenenfalls AUSO, indem Sie die AUSO-Fehlerdomäne in ändern</block>
   <block id="b31a46a4ba6004f2ed3fd6632565a448" category="admonition">In einer MetroCluster-IP-Konfiguration ist die AUSO-Fehlerdomäne bereits auf „deaktiviert“ gesetzt, es sei denn, die Konfiguration ist mit dem ONTAP-Mediator konfiguriert.</block>
   <block id="f30bf82bc8eafa66c54fa40dcf42ea44" category="paragraph"><block ref="64741aee0c87a08ef7b37e6ec6fee1b9" prefix="" category="inline-code"></block></block>
-  <block id="9e94d7eb41fe7e730da1976b7ad41884" category="list-text">Warten Sie dreißig Minuten, und schalten Sie dann alle Controller ein.</block>
   <block id="d8f5cfa1e2b640efbc8b1299e66d821b" category="summary">Wenn Sie einen Cluster in einer MetroCluster-Konfiguration umbenennen, müssen die Änderungen vorgenommen und dann sowohl auf den lokalen als auch auf den Remote-Clustern überprüft werden, ob die Änderung ordnungsgemäß wirksam wurde.</block>
   <block id="c1bbd43ec5d8c7bae25f88e103b60b65" category="doc">Umbenennen eines Clusters in MetroCluster-Konfigurationen</block>
   <block id="0751ec8964d995036d34eb4a1c50f1db" category="list-text">Zeigen Sie die Cluster-Namen mit an</block>
@@ -11175,7 +11161,6 @@
   <block id="ba3155b2eee7dd77b4d768db3a304754" category="paragraph"><block ref="446d7b6a6ba0d26f3a80e1425f522034" prefix="" category="inline-code"></block></block>
   <block id="1c6294eb77701485d2ae327b46b59539" category="section-title">Einrichten von Daten-LIFs auf den neuen Nodes</block>
   <block id="8345c96812842070f55253a68a64d332" category="paragraph">Sie müssen Daten-LIFs auf den neuen Nodes konfigurieren, Node_A_2-IP und Node_B_2-IP.</block>
-  <block id="011567f6ce64681304cb07cf8a11db65" category="paragraph">Sie müssen neue, auf neuen Controllern verfügbare Ports einer Broadcast-Domäne hinzufügen, wenn diese nicht bereits einem zugewiesen ist. Erstellen Sie bei Bedarf VLANs oder Schnittstellengruppen auf den neuen Ports. Siehe<block ref="b067056c82d13ccc87c33c109530910b" category="inline-link-rx"></block></block>
   <block id="81cd4f21303da57c00dcdd0182de6982" category="list-text">Identifizieren der aktuellen Port-Nutzung und der Broadcast-Domänen:</block>
   <block id="eb869cc92fc810234bdd576228fb926f" category="paragraph"><block ref="d40d2b7379b1bc42a5d74cbda8491f70" prefix="" category="inline-code"></block></block>
   <block id="b6dbbb02ae906a0c16e5c721f83e7d1c" category="list-text">Fügen Sie bei Bedarf Ports zu Broadcast-Domänen und VLANs hinzu.</block>
@@ -13188,4 +13173,30 @@
   <block id="f60298ca20150ed82728ebbcf934dcdd" category="paragraph">Wenn der ONTAP Mediator installiert ist, wird er vor Beginn der Vorabprüfungen automatisch erkannt und entfernt. Um das Entfernen zu bestätigen, werden Sie aufgefordert, einen Benutzernamen und ein Passwort einzugeben. Wenn Sie das Upgrade abgeschlossen haben oder die Vorabprüfungen fehlschlagen oder Sie das Upgrade nicht fortsetzen möchten, müssen Sie dies tun <block ref="27c582b1d219a53bd62704e35b9572aa" category="inline-xref-macro-rx"></block>.</block>
   <block id="cf26e00f9d9d62aac6ab045ca55c7c29" category="list-text">Sie verwenden die in erfassten Informationen <block ref="4349c160b4ba85d15c9d1b99e7fab03e" category="inline-xref-macro-rx"></block>.</block>
   <block id="a6d521ed969131c6ad881b1c930a769c" category="list-text">Wenn Sie neue Schalter verwenden, schalten Sie den alten Schalter aus, entfernen Sie die Kabel, und entfernen Sie den alten Schalter.</block>
+  <block id="3e49e5936cffd2e96856c25fa0417df2" category="inline-link-macro">Netzwerkmanagement</block>
+  <block id="a4c47e03a7d497b0826db4991d94d6d6" category="paragraph">Sie müssen neue, auf neuen Controllern verfügbare Ports einer Broadcast-Domäne hinzufügen, wenn diese nicht bereits einem zugewiesen ist. Erstellen Sie bei Bedarf VLANs oder Schnittstellengruppen auf den neuen Ports. Siehe <block ref="1c21ab35e530b06d4d331f67f55dccef" category="inline-link-macro-rx"></block></block>
+  <block id="9e0b4796d1405bd6e331c19494270494" category="paragraph"><block ref="9e0b4796d1405bd6e331c19494270494" category="inline-link-macro-rx"></block></block>
+  <block id="a6facdfa8cf4a377f1f75c53c09e707a" category="inline-link-macro">ONTAP einrichten</block>
+  <block id="c9f409d76d5cc24dd25ab0f887c5a174" category="paragraph">Weitere allgemeine Informationen zum Einrichten von ONTAP finden Sie unter <block ref="d97ab501661fbbca35d40c80c06f0e45" category="inline-link-macro-rx"></block>.</block>
+  <block id="c1a14ef4c1320caf80e81dff4161eb9b" category="inline-link-macro">Logisches Storage-Management mit der CLI</block>
+  <block id="23806251831778e9042b7dc8e04e42d9" category="paragraph"><block ref="23806251831778e9042b7dc8e04e42d9" category="inline-link-macro-rx"></block></block>
+  <block id="2352ff1ae19f26a07b1327f9c16fc49b" category="list-text">Aggregatnamen sollten dem Benennungsschema entsprechen, das Sie beim Planen Ihrer MetroCluster-Konfiguration ermittelt haben. Siehe <block ref="0b0765834489040687dfd80e9c9de26e" category="inline-link-macro-rx"></block>.</block>
+  <block id="48cc474587952d5ed9e7d5ac09cd9721" category="inline-link-macro">Festplatten- und Tier-Management (Aggregat)</block>
+  <block id="4795213e623b148f220cf084c6476c34" category="paragraph"><block ref="4795213e623b148f220cf084c6476c34" category="inline-link-macro-rx"></block></block>
+  <block id="ec27418ec1f48cdc9bf22eaf5b14b004" category="paragraph"><block ref="ec27418ec1f48cdc9bf22eaf5b14b004" category="inline-link-macro-rx"></block></block>
+  <block id="0f1853ecc95d28b4e20f71e016846751" category="paragraph">In MetroCluster-Konfigurationen mit acht oder vier Nodes müssen Sie die Cluster-Verbindung zwischen den lokalen Controller-Modulen an jedem Standort verkabeln.</block>
+  <block id="628016d3218c797c356699f3b0303679" category="inline-link-macro">Management von FlexCache Volumes mit der CLI</block>
+  <block id="448f267d686472e9454713b7d3e7c668" category="paragraph"><block ref="448f267d686472e9454713b7d3e7c668" category="inline-link-macro-rx"></block></block>
+  <block id="82cd62f837d53c3bc3323448e9f22eee" category="paragraph">Allgemeine Informationen zur Verwendung von FabricPool finden Sie unter <block ref="4795213e623b148f220cf084c6476c34" category="inline-link-macro-rx"></block>.</block>
+  <block id="72e662b10113513ea641d5b3354b185d" category="inline-link">Cluster-Management mithilfe von System Manager (ONTAP 9.7 und früher)</block>
+  <block id="30ff87be8b58b0ba65f6add20f9047e8" category="paragraph"><block ref="30ff87be8b58b0ba65f6add20f9047e8" category="inline-link-rx"></block></block>
+  <block id="f7bfc5eb5d8ec63be63bd6bba0125d51" category="paragraph">Allgemeine Informationen zur Verwendung von FabricPool finden Sie unter<block ref="966068e36a5307fcc960e1ebcf3ade1b" category="inline-link-rx"></block>.</block>
+  <block id="9573102a4ce6d4f101cdb2919ff28999" category="list-text">Übertragen Sie keine Add-On-Module, die als Coredump-Geräte auf dem nichtflüchtigen Speichermodul AFF A700 in Steckplatz 6 verwendet werden, auf das AFF A900 NVS-Modul. Übertragen Sie keine Teile vom AFF A700-Controller und NVS-Modulen auf das AFF A900-Controller-Modul.</block>
+  <block id="8c2906d7fe83e39ba6743c6a9583efe2" category="list-text">Bei Upgrades von FAS9000 zu FAS9500 sollten Sie Flash Cache Module des FAS9000 NVS-Moduls nur in das FAS9500 NVS-Modul übertragen. Übertragen Sie keine anderen Teile vom FAS9000 Controller und NVS-Modulen auf das FAS9500 Controller-Modul.</block>
+  <block id="3eab0c13bca99d4dd3b66f80ccacdb36" category="paragraph">Nach dem Ausführen des<block ref="c2966f2f3bfc7e81dae5df7c44ce66ea" prefix=" " category="inline-code"></block> Und<block ref="da68e7539bf844a8366ded5d17b246d7" prefix=" " category="inline-code"></block> Zeigt möglicherweise einen Fehler an, der dem folgenden Beispiel ähnelt:</block>
+  <block id="4b6b157113ce170877f5d11a96afff8a" category="paragraph">Dieser Fehler tritt auf, weil der Controller während des Upgrades nicht stimmt. Sie können den Fehler ohne Bedenken ignorieren und mit dem Upgrade der Nodes auf Site_A fortfahren</block>
+  <block id="1acf191212a145fa4d362e381005b820" category="paragraph">Führen Sie die Schritte unter aus <block ref="9273ba8e8bd1c5c1cc0cd85662f27754" category="inline-link-macro-rx"></block>.</block>
+  <block id="f624129c4d6772a2f62200de12382ad0" category="list-text">Verschieben Sie alle MDV_CRS-Metadaten-Volumes in eine andere DR-Gruppe, indem Sie die befolgen <block ref="9273ba8e8bd1c5c1cc0cd85662f27754" category="inline-link-macro-rx"></block> Verfahren.</block>
+  <block id="112564590ec1ae4e651904cd571ed9d4" category="paragraph">Ausführliche Informationen zur Port-, LIF- und Netzwerkkonfiguration in ONTAP finden Sie unter <block ref="378e9004462b7ecfad8256f25b57fbf6" category="inline-link-macro-rx"></block>.</block>
+  <block id="347bde5f3be96b6c3eab8b4a360b9028" category="list-text">Warten Sie dreißig Minuten, und schalten Sie dann alle Storage Shelfs, MetroCluster IP Switches und Storage-Controller ein.</block>
 </blocks>

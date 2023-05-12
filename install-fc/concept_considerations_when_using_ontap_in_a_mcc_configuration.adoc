@@ -68,7 +68,7 @@ Wenn die Umschaltung ausgelöst wird und keine Verbindung zwischen Site_A und Si
 Wenn ein Wechsel zurück durchgeführt wird, müssen Sie die SVMs on site_A (das ursprüngliche Cluster) und site_C. erneut aufheben
 
 .Verwandte Informationen
-http://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-fc-mgmt/home.html["Management von FlexCache Volumes"^]
+link:https://docs.netapp.com/us-en/ontap/flexcache/index.html["Management von FlexCache Volumes mit der CLI"^]
 
 
 
@@ -76,7 +76,7 @@ http://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-fc-mgmt/home.html["Manag
 
 Ab ONTAP 9.7 unterstützen MetroCluster Konfigurationen FabricPool Storage Tiers.
 
-Informationen zur Verwendung von FabricPool finden Sie in https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-psmg/home.html["Festplatten- und Aggregatmanagement"^]
+Allgemeine Informationen zur Verwendung von FabricPool finden Sie unter link:https://docs.netapp.com/us-en/ontap/disks-aggregates/index.html["Festplatten- und Tier-Management (Aggregat)"^].
 
 
 
@@ -95,14 +95,14 @@ Dies kann der standardmäßige IP-Speicherplatz oder ein IP-Speicherplatz sein, 
 === Konfigurieren eines Aggregats zur Verwendung in einer gespiegelten FabricPool
 
 
-NOTE: Bevor Sie das Aggregat konfigurieren, müssen Sie in den Objektspeichern wie unter „Einrichten von Objektspeichern für FabricPool in einer MetroCluster-Konfiguration“ beschrieben einrichtenhttps://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-psmg/home.html["Festplatten- und Aggregatmanagement"]
+NOTE: Bevor Sie das Aggregat konfigurieren, müssen Sie in den Objektspeichern wie unter „Einrichten von Objektspeichern für FabricPool in einer MetroCluster-Konfiguration“ beschrieben einrichtenhttps://["Festplatten- und Aggregatmanagement"]
 
 .Schritte
 So konfigurieren Sie ein Aggregat für die Verwendung in einem FabricPool:
 
 . Erstellen Sie das Aggregat oder wählen Sie ein vorhandenes Aggregat aus.
 . Spiegeln Sie das Aggregat als ein typisches gespiegeltes Aggregat innerhalb der MetroCluster Konfiguration.
-. Erstellen Sie die FabricPool Spiegelung mit dem Aggregat, wie im beschrieben https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-psmg/home.html["Festplatten- und Aggregatmanagement"]
+. Erstellen Sie die FabricPool Spiegelung mit dem Aggregat, wie im beschrieben https://["Festplatten- und Aggregatmanagement"]
 +
 .. Hängen Sie einen primären Objektspeicher an.
 +
@@ -126,7 +126,7 @@ Ab ONTAP 9.6 unterstützen MetroCluster Konfigurationen FlexGroup Volumes.
 
 == Unterstützung von Konsistenzgruppen in MetroCluster Konfigurationen
 
-Ab ONTAP 9.11.1 https://docs.netapp.com/us-en/ontap/consistency-groups/index.html["Konsistenzgruppen"^] Werden in MetroCluster-Konfigurationen unterstützt.
+Ab ONTAP 9.11.1 https://["Konsistenzgruppen"^] Werden in MetroCluster-Konfigurationen unterstützt.
 
 
 
@@ -158,7 +158,7 @@ Eine auf einer Storage Virtual Machine (SVM) auf einem lokalen Cluster erstellte
 Sie sollten beachten, wie in einer MetroCluster Konfiguration LIFs erstellt und repliziert werden. Außerdem müssen Sie über die Notwendigkeit der Konsistenz Bescheid wissen, damit Sie bei der Konfiguration Ihres Netzwerks richtige Entscheidungen treffen können.
 
 .Verwandte Informationen
-* https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-nmg/home.html["Netzwerk- und LIF-Management"]
+* https://["Netzwerk- und LIF-Management"]
 * Sie sollten die Anforderungen für das Replizieren von IPspace-Objekten in das Partner-Cluster sowie für die Konfiguration von Subnetzen und IPv6 in einer MetroCluster-Konfiguration kennen.
 +
 <<ipspace_obj_rep,Anforderungen für die Replikation von IPspace-Objekten und die Subnetz-Konfiguration>>

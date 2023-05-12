@@ -17,7 +17,7 @@ Dieses Verfahren wird unter ONTAP 9.8 und höher unterstützt. Informationen zu 
 
 link:https://kb.netapp.com/Advice_and_Troubleshooting/Data_Protection_and_Security/MetroCluster/How_to_remove_a_DR-Group_from_a_MetroCluster["So entfernen Sie eine DR-Gruppe aus einer MetroCluster-Konfiguration"]
 
-https://mysupport.netapp.com/site/global/dashboard["NetApp Support"]
+https://["NetApp Support"]
 
 Eine Konfiguration mit acht Nodes umfasst acht Nodes, die als zwei DR-Gruppen mit vier Nodes organisiert sind.
 
@@ -37,7 +37,7 @@ image::../media/mcc_dr_groups_4_node.gif[mcc dr Gruppen 4 Knoten]
 .. Bereiten Sie sich auf das Entfernen der DR-Gruppe vor, falls noch nicht.
 +
 ... Verschieben Sie alle Daten-Volumes in eine andere DR-Gruppe.
-... Verschieben Sie alle MDV_CRS-Metadaten-Volumes in eine andere DR-Gruppe. Gehen Sie wie folgt vor: https://docs.netapp.com/ontap-9/topic/com.netapp.doc.hw-metrocluster-service/task_move_a_metadata_volume_in_mcc_configurations.html["Verschieben eines Metadaten-Volumes in MetroCluster Konfigurationen"]
+... Verschieben Sie alle MDV_CRS-Metadaten-Volumes in eine andere DR-Gruppe, indem Sie die befolgen link:https://docs.netapp.com/us-en/ontap-metrocluster/upgrade/task_move_a_metadata_volume_in_mcc_configurations.html["Verschieben eines Metadaten-Volumes in MetroCluster Konfigurationen"] Verfahren.
 ... Löschen Sie alle MDV_aud-Metadaten-Volumes, die in der zu entfernenden DR-Gruppe vorhanden sein könnten.
 ... Löschen Sie alle Datenaggregate in der DR-Gruppe, die entfernt werden sollen, wie im folgenden Beispiel gezeigt:
 +
