@@ -13,12 +13,34 @@ summary: 'Ab ONTAP 9.4 unterstützen MetroCluster IP-Konfigurationen neue Instal
 [role="lead"]
 Ab ONTAP 9.4 unterstützen MetroCluster IP-Konfigurationen neue Installationen mit AFF-Systemen mithilfe von ADP (Advanced Drive Partitioning). In den meisten Konfigurationen erfolgt die Partitionierung und Festplattenzuordnung automatisch während der Erstkonfiguration der MetroCluster-Standorte.
 
-ONTAP 9.4 und neuere Versionen beinhalten die folgenden Änderungen für ADP-Unterstützung:
+ONTAP 9.4 und höher umfasst die folgenden Änderungen für die ADP-Unterstützung:
 
 * Pool 0-Festplattenzuordnungen werden werkseitig ausgeführt.
 * Die unverspiegelte Root wird werkseitig erstellt.
 * Die Zuweisung der Daten erfolgt während des Setups am Standort des Kunden.
 * In den meisten Fällen erfolgt die Laufwerkszuweisung und -Partitionierung automatisch während des Setup-Verfahrens.
+* Eine Festplatte und alle Partitionen müssen im Besitz von Nodes in demselben HA-Paar (Hochverfügbarkeit) sein. Die Partitionen oder Laufwerkseigentümer innerhalb eines einzelnen Laufwerks können nicht zwischen dem lokalen HA-Paar und dem Disaster Recovery-Partner (DR) oder dem DR-Zusatzpartner gemischt werden.
++
+Beispiel einer unterstützten Konfiguration:
+
++
+|===
+
+
+| Laufwerk/Partition | Eigentümer 
+
+
+| Laufwerk: | `ClusterA-Node01` 
+
+
+| Partition 1: | `ClusterA-Node01` 
+
+
+| Partition 2: | `ClusterA-Node02` 
+
+
+| Partition 3: | `ClusterA-Node01` 
+|===
 
 
 
@@ -31,7 +53,9 @@ NOTE: Beim Upgrade von ONTAP 9.4 auf 9.5 erkennt das System die vorhandenen Fest
 ADP wird bei der Erstkonfiguration der Plattform automatisch durchgeführt.
 
 
-NOTE: Ab ONTAP 9.5 muss die automatische Zuweisung von Festplatten mit dem Befehl aktiviert werden `storage disk option modify -autoassign on`.
+NOTE: Ab ONTAP 9.5 muss die automatische Festplattenzuordnung mit dem aktiviert werden `storage disk option modify -autoassign on` Befehl.
+
+Sie müssen den ha-config-Status auf festlegen `mccip` Vor der automatischen Bereitstellung, um sicherzustellen, dass die richtigen Partitionsgrößen ausgewählt sind, um eine entsprechende Root-Volume-Größe zu ermöglichen. Weitere Informationen finden Sie unter link:https://docs.netapp.com/us-en/ontap-metrocluster/install-ip/task_sw_config_verify_haconfig.html["Überprüfen des HA-Konfigurationsstatus von Komponenten"].
 
 Bis zu 96 Laufwerke können während der Installation automatisch partitioniert werden. Nach der Erstinstallation können Sie zusätzliche Laufwerke hinzufügen.
 
