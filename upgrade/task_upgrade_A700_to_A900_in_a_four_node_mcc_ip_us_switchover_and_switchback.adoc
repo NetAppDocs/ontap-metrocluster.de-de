@@ -199,7 +199,7 @@ Sie sollten diesen Befehl für jedes Cluster ausgeben. Sie können das verwenden
 +
 .. Laden Sie Config Advisor herunter und führen Sie sie aus.
 +
-https://["NetApp Downloads: Config Advisor"^]
+https://mysupport.netapp.com/site/tools/tool-eula/activeiq-configadvisor["NetApp Downloads: Config Advisor"^]
 
 .. Überprüfen Sie nach dem Ausführen von Config Advisor die Ausgabe des Tools und befolgen Sie die Empfehlungen in der Ausgabe, um die erkannten Probleme zu beheben.
 
@@ -316,7 +316,7 @@ Sie sollten die Ausgabe der folgenden Befehle erfassen:
 
 . Wenn das Root-Volume verschlüsselt ist, erfassen und speichern Sie die für das Schlüsselmanagement verwendete Passphrase:
 `security key-manager backup show`
-. Wenn die MetroCluster Nodes Verschlüsselung für Volumes oder Aggregate nutzen, kopieren Sie Informationen zu Schlüsseln und Passphrases. Weitere Informationen finden Sie unter https://["Manuelles Backup der integrierten Verschlüsselungsmanagementinformationen"^].
+. Wenn die MetroCluster Nodes Verschlüsselung für Volumes oder Aggregate nutzen, kopieren Sie Informationen zu Schlüsseln und Passphrases. Weitere Informationen finden Sie unter https://docs.netapp.com/us-en/ontap/encryption-at-rest/backup-key-management-information-manual-task.html["Manuelles Backup der integrierten Verschlüsselungsmanagementinformationen"^].
 +
 .. Wenn Onboard Key Manager konfiguriert ist: `security key-manager onboard show-backup`+ Sie benötigen die Passphrase später im Upgrade-Verfahren.
 .. Wenn das Enterprise-Verschlüsselungsmanagement (KMIP) konfiguriert ist, geben Sie die folgenden Befehle ein:
@@ -614,7 +614,7 @@ Nach Austausch des AFF A900 oder FAS9500 Controller-Moduls und der NVS müssen S
 Wenn die installierte ONTAP Version nicht mit der auf den ursprünglichen Controllern installierten Version identisch ist, müssen Sie die neuen Controller als Netzboot ausführen. Nachdem Sie jeden neuen Controller installiert haben, starten Sie das System über das auf dem Webserver gespeicherte ONTAP 9-Image. Anschließend können Sie die richtigen Dateien auf das Boot-Medium herunterladen, um später das System zu booten.
 
 .Schritte
-. Auf das zugreifen https://["NetApp Support Website"^] Zum Herunterladen der Dateien zum Ausführen des Netzboots des Systems.
+. Auf das zugreifen https://mysupport.netapp.com/site/["NetApp Support Website"^] Zum Herunterladen der Dateien zum Ausführen des Netzboots des Systems.
 . [[Schritt2-Download-Software]]Laden Sie die entsprechende ONTAP Software im Software Download Bereich der NetApp Support Site herunter und speichern Sie die `ontap-version_image.tgz` Datei in einem webbasierten Verzeichnis.
 . Wechseln Sie in das Verzeichnis für den Zugriff über das Internet, und stellen Sie sicher, dass die benötigten Dateien verfügbar sind.
 . Ihre Verzeichnisliste sollte <ontap_version>\_image.tgz enthalten.
@@ -1237,7 +1237,7 @@ Integriertes Verschlüsselungsmanagement
  a| 
 `security key-manager onboard sync`
 
-Weitere Informationen finden Sie unter https://["Wiederherstellung der integrierten Schlüssel für das Verschlüsselungsmanagement"^].
+Weitere Informationen finden Sie unter https://docs.netapp.com/us-en/ontap/encryption-at-rest/restore-onboard-key-management-encryption-keys-task.html["Wiederherstellung der integrierten Schlüssel für das Verschlüsselungsmanagement"^].
 
 
 
@@ -1246,7 +1246,7 @@ Externes Verschlüsselungskeymanagement
  a| 
 `security key-manager external restore -vserver _SVM_ -node _node_ -key-server _host_name|IP_address:port_ -key-id key_id -key-tag key_tag _node-name_`
 
-Weitere Informationen finden Sie unter https://["Wiederherstellen der externen Schlüssel für das Verschlüsselungsmanagement"^].
+Weitere Informationen finden Sie unter https://docs.netapp.com/us-en/ontap/encryption-at-rest/restore-external-encryption-keys-93-later-task.html["Wiederherstellen der externen Schlüssel für das Verschlüsselungsmanagement"^].
 
 |===
 . Vergewissern Sie sich, dass sich alle Ports in einer Broadcast-Domäne befinden:
@@ -1257,17 +1257,17 @@ Weitere Informationen finden Sie unter https://["Wiederherstellen der externen S
 
 .. Fügen Sie bei Bedarf beliebige Ports zu einer Broadcast-Domäne hinzu.
 +
-https://["Hinzufügen oder Entfernen von Ports aus einer Broadcast-Domäne"^]
+https://docs.netapp.com/us-en/ontap/networking/add_or_remove_ports_from_a_broadcast_domain97.html["Hinzufügen oder Entfernen von Ports aus einer Broadcast-Domäne"^]
 
 .. VLANs und Schnittstellengruppen nach Bedarf neu erstellen.
 +
 VLAN und Interface Group Mitgliedschaft können sich von der des alten Node unterscheiden.
 
 +
-https://["Erstellen eines VLANs"^]
+https://docs.netapp.com/us-en/ontap/networking/configure_vlans_over_physical_ports.html#create-a-vlan["Erstellen eines VLANs"^]
 
 +
-https://["Verbinden von physischen Ports zum Erstellen von Schnittstellengruppen"^]
+https://docs.netapp.com/us-en/ontap/networking/combine_physical_ports_to_create_interface_groups.html["Verbinden von physischen Ports zum Erstellen von Schnittstellengruppen"^]
 
 
 
