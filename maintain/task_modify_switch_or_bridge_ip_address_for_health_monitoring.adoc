@@ -1,0 +1,85 @@
+---
+permalink: maintain/task_modify_switch_or_bridge_ip_address_for_health_monitoring.html 
+sidebar: sidebar 
+keywords: metrocluster, atto, fc, switches, bridges, modify, IP, address 
+summary: Ersetzen Sie alte IP-Adressen für die Integritätsüberwachung, nachdem Sie die IP-Adressen von MetroCluster FC-Back-End-Switches oder ATTO-Bridges geändert haben. 
+---
+= Ändern Sie eine Switch- oder ATTO Bridge-IP-Adresse für die Statusüberwachung
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Nachdem Sie die IP-Adressen von MetroCluster FC-Back-End-Switches und ATTO-Bridges geändert haben, müssen Sie die alten IP-Adressen für die Integritätsüberwachung durch die neuen Werte ersetzen.
+
+* <<Ändern Sie eine Switch-IP-Adresse>>
+* <<Ändern Sie eine ATTO Bridge-IP-Adresse>>
+
+
+
+
+== Ändern Sie eine Switch-IP-Adresse
+
+Ersetzen Sie die alte IP-Adresse für die Statusüberwachung eines MetroCluster FC-Back-End-Switches.
+
+.Bevor Sie beginnen
+Informationen zum Ändern der IP-Adresse auf dem Switch finden Sie in der Dokumentation des Switch-Anbieters für Ihr Switch-Modell, bevor Sie die IP-Adresse für die Integritätsüberwachung ändern.
+
+.Schritte
+. Führen Sie die aus `::> storage switch show` Und notieren Sie sich in der Ausgabe die Switches, die Fehler melden.
+. Entfernen Sie die Switch-Einträge mit alten IP-Adressen:
++
+`::> storage switch remove -name _switch_name_`
+
+. Fügen Sie die Switches mit neuen IP-Adressen hinzu:
++
+`::> storage switch add -name _switch_name_ -address _new_IP_address_ -managed-by in-band`
+
+. Überprüfen Sie die neuen IP-Adressen, und vergewissern Sie sich, dass keine Fehler vorliegen:
++
+`::> storage switch show`
+
+. Aktualisieren Sie bei Bedarf die Einträge:
++
+`::> set advanced`
+
++
+`::*> storage switch refresh`
+
++
+`::*> set admin`
+
+
+
+
+
+== Ändern Sie eine ATTO Bridge-IP-Adresse
+
+Ersetzen Sie die alte IP-Adresse der Integritätsüberwachung einer ATTO Bridge.
+
+.Schritte
+. Führen Sie die aus `::> storage bridge show` Beachte in der Ausgabe und die ATTO-Bridges, die Fehler melden.
+. Entfernen Sie die ATTO Bridge-Einträge mit alten IP-Adressen:
++
+`::> storage bridge remove -name _ATTO_bridge_name_`
+
+. Fügen Sie die ATTO-Bridges mit neuen IP-Adressen hinzu:
++
+`::> storage bridge add -name _ATTO_bridge_name_ -address _new_IP_address_ -managed-by in-band`
+
+. Überprüfen Sie die neuen IP-Adressen, und vergewissern Sie sich, dass keine Fehler vorliegen:
++
+`::> storage bridge show`
+
+. Aktualisieren Sie bei Bedarf die Einträge:
++
+`::> set advanced`
+
++
+`::*> storage bridge refresh`
+
++
+`::*> set admin`
+
+
