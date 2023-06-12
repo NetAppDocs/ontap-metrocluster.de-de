@@ -80,8 +80,19 @@ Die Enterprise-Lizenz umfasst Brocade Network Advisor und alle Lizenzen, mit Aus
 .Schritt
 . Vergewissern Sie sich, dass die Lizenzen installiert sind:
 +
-`licenseshow`
+[role="tabbed-block"]
+====
+.Für Fabric OS 8.2.x und früher
+--
+Führen Sie den Befehl aus `licenseshow`.
 
+--
+.Für Fabric OS 9.0 und höher
+--
+Führen Sie den Befehl aus `license --show`.
+
+--
+====
 +
 Wenn Sie diese Lizenzen nicht besitzen, wenden Sie sich an Ihren Vertriebsmitarbeiter, bevor Sie fortfahren.
 
@@ -267,22 +278,14 @@ FC_switch_B_1:admin> fosconfig --disable vf
 ----
 . Löschen Sie die Administrator-Domänenkonfiguration (AD):
 +
-`ad options`
-
-+
 Im folgenden Beispiel werden die Befehle an FC_Switch_A_1 angezeigt:
 
 +
 [listing]
 ----
-FC_switch_A_1:admin> switch:admin> ad --select AD0
 FC_switch_A_1:> defzone --noaccess
 FC_switch_A_1:> cfgsave
 FC_switch_A_1:> exit
-FC_switch_A_1:admin> ad --clear -f
-FC_switch_A_1:admin> ad --apply
-FC_switch_A_1:admin> ad --save
-FC_switch_A_1:admin> exit
 ----
 +
 Im folgenden Beispiel werden die Befehle an FC_Switch_B_1 angezeigt:
@@ -290,14 +293,9 @@ Im folgenden Beispiel werden die Befehle an FC_Switch_B_1 angezeigt:
 +
 [listing]
 ----
-FC_switch_B_1:admin> switch:admin> ad --select AD0
 FC_switch_A_1:> defzone --noaccess
 FC_switch_A_1:> cfgsave
 FC_switch_A_1:> exit
-FC_switch_B_1:admin> ad --clear -f
-FC_switch_B_1:admin> ad --apply
-FC_switch_B_1:admin> ad --save
-FC_switch_B_1:admin> exit
 ----
 . Starten Sie den Switch neu:
 +
@@ -481,20 +479,31 @@ https://docs.netapp.com/us-en/ontap-metrocluster/install-fc/concept_configure_th
 +
 .. Führen Sie den Lizenzbefehl aus:
 +
+[role="tabbed-block"]
+====
+.Für Fabric OS 8.2.x und früher
 --
-`licensePort --show`
+Führen Sie den Befehl aus `licenseport --show`.
 
+--
+.Für Fabric OS 9.0 und höher
+--
+Führen Sie den Befehl aus `license --show -port`.
+
+--
+====
++
 [listing]
 ----
-FC_switch_A_1:admin> licenseport -show
+FC_switch_A_1:admin> license --show -port
 24 ports are available in this switch
 Full POD license is installed
 Dynamic POD method is in use
 ----
++
 
 NOTE: Brocade FabricPool Versionen vor 8.0 führen die folgenden Befehle als Administrator und Version 8.0 aus und führen sie später als „root“ aus.
 
---
 .. Aktivieren Sie den Root-Benutzer.
 +
 Wenn der Root-Benutzer bereits von Brocade deaktiviert ist, aktivieren Sie den Root-Benutzer wie im folgenden Beispiel dargestellt:
@@ -507,23 +516,19 @@ FC_switch_A_1:admin> rootaccess --set consoleonly
 ----
 .. Führen Sie den Lizenzbefehl aus:
 +
-`licensePort --show`
+`license --show -port`
 
 +
 [listing]
 ----
-FC_switch_A_1:root> licenseport -show
+FC_switch_A_1:root> license --show -port
 24 ports are available in this switch
 Full POD license is installed
 Dynamic POD method is in use
 ----
-.. Ändern Sie die Lizenzmethode in dynamisch:
+.. Wenn Sie Fabric OS 8.2.x und eine frühere Version verwenden, müssen Sie die Lizenzmethode in „dynamisch“ ändern:
 +
 `licenseport --method dynamic`
-
-+
-
-NOTE: Wenn die dynamische Lizenzmethode nicht verwendet wird (wenn die Methode statisch ist), müssen Sie die Lizenzmethode in dynamisch ändern. Überspringen Sie diesen Schritt, wenn die dynamische Lizenzmethode verwendet wird.
 
 +
 [listing]
@@ -532,6 +537,10 @@ FC_switch_A_1:admin> licenseport --method dynamic
 The POD method has been changed to dynamic.
 Please reboot the switch now for this change to take effect
 ----
++
+
+NOTE: In Fabric OS 9.0 und höher ist die Lizenzmethode standardmäßig dynamisch. Die statische Lizenzmethode wird nicht unterstützt.
+
 
 
 . Aktivieren Sie Trap für T11-FC-ZONE-SERVER-MIB für die erfolgreiche Integritätsüberwachung der Switches in ONTAP:
