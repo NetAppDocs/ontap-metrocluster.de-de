@@ -13,9 +13,13 @@ summary: Sie müssen die gesamte MetroCluster FC-Konfiguration und alle Geräte 
 [role="lead"]
 Sie müssen die gesamte MetroCluster FC-Konfiguration und alle Geräte ausschalten, bevor die Wartungsarbeiten oder Standortwechsel beginnen können.
 
+.Über diese Aufgabe
+Sie müssen die in diesem Verfahren beschriebenen Schritte von beiden Standorten aus gleichzeitig ausführen.
+
 
 NOTE: Ab ONTAP 9.8 beginnt der `*storage switch*` Befehl wird durch ersetzt `*system switch*`. Die folgenden Schritte zeigen das `*storage switch*` Befehl, aber wenn Sie ONTAP 9.8 oder höher ausführen, der `*system switch*` Befehl ist bevorzugt.
 
+.Schritte
 . Überprüfen Sie die MetroCluster Konfiguration von beiden Standorten in der MetroCluster Konfiguration.
 +
 .. Bestätigen Sie die MetroCluster-Konfiguration und den normalen Betriebsmodus. +
@@ -63,12 +67,11 @@ cluster_A_site_A::*>metrocluster modify -auto-switchover-failure-domain auso-dis
 . Beenden Sie die Knoten mit folgendem Befehl:
 `*halt*`
 +
-** Verwenden Sie für eine MetroCluster Konfiguration mit vier oder acht Nodes den Parameter:
-`*inhibit-takeover*`
+** Verwenden Sie für eine MetroCluster-Konfiguration mit vier oder acht Nodes die `*inhibit-takeover*` Und `*skip-lif-migration-before-shutdown*` Parameter:
 +
 [listing]
 ----
-system node halt -node node1_SiteA -inhibit-takeover true -ignore-quorum-warnings true
+system node halt -node node1_SiteA -inhibit-takeover true -ignore-quorum-warnings true -skip-lif-migration-before-shutdown true
 ----
 ** Verwenden Sie für eine MetroCluster-Konfiguration mit zwei Nodes den Befehl:
 +

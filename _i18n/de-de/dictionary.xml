@@ -8305,7 +8305,6 @@
   <block id="2021d03f97e8529efb1b76bbd7c4a674" category="list-text">Die Änderung wird mit dem Befehl überprüft</block>
   <block id="183cbc2c0b8779013e355a482aba5c4d" category="paragraph"><block ref="12ff466e31106ead3e1afcdd8bb79114" prefix="" category="inline-code"></block></block>
   <block id="17a482b02d43109c8b8a1497839ff0b4" category="list-text">Beenden Sie die Knoten mit folgendem Befehl:<block ref="64741aee0c87a08ef7b37e6ec6fee1b9" prefix=" " category="inline-code"></block></block>
-  <block id="fad9503a100b92ad7c54437a9309f256" category="list-text">Verwenden Sie für eine MetroCluster Konfiguration mit vier oder acht Nodes den Parameter:<block ref="1f019d491fcfc3956d780ccfd54601ba" prefix=" " category="inline-code"></block></block>
   <block id="93081236e78e8a13aff59ffaa04927e9" category="list-text">Verwenden Sie für eine MetroCluster-Konfiguration mit zwei Nodes den Befehl:</block>
   <block id="a58d52a12cc22d2e3c3b60974ce27273" category="list-text">Schalten Sie die folgenden Geräte am Standort aus:</block>
   <block id="63e64e288714d32cded7a6ed8dfec32c" category="list-text">MetroCluster FC-Switches (wenn verwendet und die Konfiguration keine Stretch-Konfiguration mit zwei Nodes bietet)</block>
@@ -8971,13 +8970,11 @@
   <block id="1955e717f4bb477aa7ae7178061ec338" category="list-text">Bestätigen Sie die MetroCluster-Konfiguration und den normalen Betriebsmodus: +<block ref="0a45ea7da7722e7946b8d5a55f1dac66" prefix=" " category="inline-code"></block></block>
   <block id="b89cf110ea8b5ed4171ed25b36885fc7" category="list-text">Überprüfen Sie, ob auf den Switches Zustandswarnmeldungen angezeigt werden (falls vorhanden): +<block ref="3e23026a2bd29e421f319572a9111881" prefix=" " category="inline-code"></block></block>
   <block id="731fc5b1636f5c65eac29b007b77ca9d" category="list-text">Warten Sie 15 Minuten, bevor Sie diesen Vorgang für das zweite Switch-Fabric wiederholen.</block>
-  <block id="0ddbccff2e33cdad7e25875f8ed5047b" category="summary">Sie können einen Stack von SAS-Platten-Shelves zu einem vorhandenen FibreBridge 7500N-Paar mit verfügbaren Ports im laufenden Betrieb hinzufügen.</block>
   <block id="df54bbed28c805d5ed5ce92b8e5ce3ee" category="doc">Hot-Adding eines SAS-Festplatten-Shelfs zu einem vorhandenen FibreBridge 7500N-Paar</block>
   <block id="695e87d61d65625619e3a56919865a2c" category="list-text">Sie müssen die neueste Festplatten- und Festplatten-Shelf-Firmware heruntergeladen haben.</block>
   <block id="8b82688b3d28b8ce8fbcbb8c09b13ce3" category="list-text">Auf allen Festplatten-Shelfs in der MetroCluster-Konfiguration (vorhandene Shelfs) muss dieselbe Firmware-Version ausgeführt werden. Wenn auf einer oder mehreren Festplatten oder Shelfs nicht die neueste Firmware-Version ausgeführt wird, aktualisieren Sie die Firmware, bevor Sie die neuen Festplatten oder Shelfs anschließen.</block>
   <block id="10df5509416416659fe58fd40c64d2ec" category="paragraph"><block ref="10df5509416416659fe58fd40c64d2ec" category="inline-link-rx"></block></block>
   <block id="585e085c167dffb4091a9c937b46294a" category="paragraph"><block ref="585e085c167dffb4091a9c937b46294a" category="inline-link-rx"></block></block>
-  <block id="86c77fb0de5bbd53bda91b1946b5e7d6" category="list-text">Die FibreBridge 7500N-Brücken müssen angeschlossen sein und über verfügbare SAS-Ports verfügen.</block>
   <block id="3bdb5b94e9e047f350ef916e04de48b0" category="paragraph">Dieses Verfahren wird mit der Annahme geschrieben, dass Sie die empfohlenen Bridge Management-Schnittstellen verwenden: Die ATTO ExpressNAV GUI und das ATTO Quicknav Dienstprogramm.</block>
   <block id="8d372617f83f8c0b84203a0c342601a0" category="paragraph">Sie können die ATTO ExpressNAV GUI verwenden, um eine Bridge zu konfigurieren und zu verwalten und die Bridge-Firmware zu aktualisieren. Sie können das Dienstprogramm ATTO Quicknav verwenden, um den Bridge Ethernet Management 1 Port zu konfigurieren.</block>
   <block id="a3d9a1252fb80a064155cc8c80974390" category="inline-link-macro">Anderen Bridge-Managementschnittstellen</block>
@@ -11389,7 +11386,6 @@
   <block id="ae4bcbe3a4d8a4dd251ebc90c0689dc3" category="paragraph">Vier Nodes</block>
   <block id="b8910962b1d031cc1eb8e8ad588c4c48" category="paragraph">Unterbrechungsfrei</block>
   <block id="b1967383562a98a66ed0eff3ea640595" category="paragraph">Unterstützung neuer Storage Shelfs auf neuen Plattformen</block>
-  <block id="7fcdce91feb430306391667c0a012cd7" category="paragraph"><block ref="7fcdce91feb430306391667c0a012cd7" category="inline-link-macro-rx"></block></block>
   <block id="5c85f685c62c106f7c5565f5f9efa724" category="paragraph">Zwei Nodes</block>
   <block id="fb36a3d5cdf2e3b5ecef9b3c9fbab504" category="paragraph">Unterbrechungen</block>
   <block id="8377dec7f2f76b3e412145b87daa08da" category="paragraph">Neue Storage Shelves werden sowohl auf ursprünglichen als auch auf neuen Plattformen unterstützt.</block>
@@ -13240,4 +13236,12 @@
   <block id="1ad5a70ead9bdd722df6000495e21c24" category="list-text">Wenn Sie Fabric OS 8.2.x und eine frühere Version verwenden, müssen Sie die Lizenzmethode in „dynamisch“ ändern:</block>
   <block id="7fafa568d6f3c9a0ee98323f64b1c01c" category="admonition">In Fabric OS 9.0 und höher ist die Lizenzmethode standardmäßig dynamisch. Die statische Lizenzmethode wird nicht unterstützt.</block>
   <block id="0b6c4085e3a8dba280dd11e4bbbbeee1" category="paragraph">Mit dem Befehl 'license' können Sie überprüfen, ob die Lizenzen installiert sind.</block>
+  <block id="6c05b41ac12af301a1c1201b16997220" category="paragraph">Sie müssen die in diesem Verfahren beschriebenen Schritte von beiden Standorten aus gleichzeitig ausführen.</block>
+  <block id="a934aebb7868eacad4999d15212ac85f" category="list-text">Verwenden Sie für eine MetroCluster-Konfiguration mit vier oder acht Nodes die<block ref="1f019d491fcfc3956d780ccfd54601ba" prefix=" " category="inline-code"></block> Und<block ref="6c99881ddd2f188436900ed8d41d99ba" prefix=" " category="inline-code"></block> Parameter:</block>
+  <block id="28289de886d4bf23487d962fb6a696a3" category="summary">Sie können einem vorhandenen Paar FibreBridge 7600N- oder 7500N-Bridges mit verfügbaren Ports im laufenden Betrieb einen Stack aus SAS-Platten-Shelfs hinzufügen.</block>
+  <block id="2e53212ba8ca8b35cbf4ed2b9eb52b0c" category="doc">Hinzufügen eines Stacks aus SAS-Platten-Shelfs während des laufenden Betrieb zu einem vorhandenen Paar FibreBridge 7600N- oder 7500N-Bridges</block>
+  <block id="e3e17f353727a0bf80bc5f781fadd978" category="list-text">Die FibreBridge 7600N- oder 7500N-Brücken müssen angeschlossen sein und über verfügbare SAS-Ports verfügen.</block>
+  <block id="7ec840edd23c7b1a5bd3b9167d726942" category="list-text">Prüfen Sie nach dem Hinzufügen der neuen Stacks auf Integritätswarnungen auf den Bridges:</block>
+  <block id="4aa202a3c65f2813f56a71404d4e0d9f" category="paragraph">Acht Nodes</block>
+  <block id="74c873abf18bb043c43561d25adce539" category="paragraph"><block ref="74c873abf18bb043c43561d25adce539" category="inline-link-macro-rx"></block></block>
 </blocks>
