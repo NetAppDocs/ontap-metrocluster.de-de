@@ -35,8 +35,7 @@ https://hwu.netapp.com/["NetApp Hardware Universe"^]
 +
 In der folgenden Tabelle ist die unterstützte Modellmatrix für das Controller-Upgrade aufgeführt.
 
-
-
++
 |===
 
 
@@ -44,19 +43,19 @@ In der folgenden Tabelle ist die unterstützte Modellmatrix für das Controller-
 
 
  a| 
-* AFF A700
+** AFF A700
 
  a| 
-* AFF A900
+** AFF A900
 
 
 
 
  a| 
-* FAS9000
+** FAS9000
 
  a| 
-* FAS9500
+** FAS9500
 
 
 |===
@@ -336,7 +335,7 @@ Wenn die AFF A700 oder FAS9000 Controller über eine Karte in Steckplatz 7 verf�
 
 === Sammeln Sie vor dem Upgrade Informationen
 
-Vor dem Upgrade müssen Informationen für alle Nodes gesammelt und bei Bedarf die Netzwerk-Broadcast-Domänen angepasst, beliebige VLANs und Schnittstellengruppen entfernt und Verschlüsselungsinformationen gesammelt werden.
+Vor der Aktualisierung müssen Sie Informationen für jeden der alten Knoten erfassen und bei Bedarf die Netzwerk-Broadcast-Domänen anpassen, VLANs und Schnittstellengruppen entfernen und Verschlüsselungsinformationen sammeln.
 
 .Über diese Aufgabe
 Diese Aufgabe wird für die vorhandene MetroCluster FC-Konfiguration ausgeführt.
@@ -347,7 +346,7 @@ Diese Aufgabe wird für die vorhandene MetroCluster FC-Konfiguration ausgeführt
 `metrocluster node show -fields node-systemid,dr-partner-systemid`
 
 +
-Während des Austauschvorgangs ersetzen Sie diese System-IDs durch die System-IDs der Controller-Module.
+Während der Aktualisierung ersetzen Sie diese alten System-IDs durch die System-IDs der Controller-Module.
 
 +
 In diesem Beispiel für eine MetroCluster FC-Konfiguration mit vier Nodes werden die folgenden alten System-IDs abgerufen:
@@ -372,7 +371,7 @@ dr-group-id cluster    node           node-systemid ha-partner-systemid dr-partn
 
 4 entries were displayed.
 ----
-. Erfassen von Port- und LIF-Informationen für jeden Node
+. Sammeln von Port- und LIF-Informationen zu jedem alten Node
 +
 Sie sollten die Ausgabe der folgenden Befehle für jeden Node erfassen:
 

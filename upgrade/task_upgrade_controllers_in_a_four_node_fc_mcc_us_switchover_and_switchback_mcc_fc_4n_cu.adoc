@@ -389,7 +389,7 @@ Intercluster-Port
 
 === Sammeln von Informationen vor dem Upgrade
 
-Vor dem Upgrade müssen Informationen für alle Nodes gesammelt und bei Bedarf die Netzwerk-Broadcast-Domänen angepasst, beliebige VLANs und Schnittstellengruppen entfernt und Verschlüsselungsinformationen gesammelt werden.
+Vor der Aktualisierung müssen Sie Informationen für jeden der alten Knoten erfassen und bei Bedarf die Netzwerk-Broadcast-Domänen anpassen, VLANs und Schnittstellengruppen entfernen und Verschlüsselungsinformationen sammeln.
 
 .Über diese Aufgabe
 Diese Aufgabe wird für die vorhandene MetroCluster FC-Konfiguration ausgeführt.
@@ -401,7 +401,7 @@ Diese Aufgabe wird für die vorhandene MetroCluster FC-Konfiguration ausgeführt
 `metrocluster node show -fields node-systemid,dr-partner-systemid`
 
 +
-Während des Austauschverfahrens ersetzen Sie diese System-IDs durch die System-IDs der neuen Controller-Module.
+Während der Aktualisierung ersetzen Sie diese alten System-IDs durch die System-IDs der neuen Controller-Module.
 
 +
 In diesem Beispiel für eine MetroCluster FC-Konfiguration mit vier Nodes werden die folgenden alten System-IDs abgerufen:
@@ -441,7 +441,7 @@ dr-group-id cluster    node      node-systemid dr-partner-systemid
 1           Cluster_B  node_B_1-old  -             -
 2 entries were displayed.
 ----
-. Erfassen von Port- und LIF-Informationen für jeden Node
+. Sammeln von Port- und LIF-Informationen zu jedem alten Node
 +
 Sie sollten die Ausgabe der folgenden Befehle für jeden Node erfassen:
 
@@ -1182,8 +1182,12 @@ Diese Aufgabe muss für alle neuen Controller ausgeführt werden.
 
 . Wenn Sie die Stammverschlüsselung verwenden, wählen Sie je nach der verwendeten ONTAP-Version die Startmenü-Option oder geben Sie den Startmenü-Befehl für Ihre Konfiguration für die Schlüsselverwaltung aus.
 +
-** Ab ONTAP 9.8 wählen Sie die Startmenü-Option.
-+
+[role="tabbed-block"]
+====
+.ONTAP 9.8 und höher
+--
+Ab ONTAP 9.8 wählen Sie die Startmenü-Option.
+
 |===
 
 
@@ -1207,8 +1211,11 @@ Option „`11`“
 Befolgen Sie die Anweisungen, um die erforderlichen Eingaben zur Wiederherstellung und Wiederherstellung der Schlüsselmanager-Konfiguration bereitzustellen.
 
 |===
-** Geben Sie in ONTAP 9.7 und früher den Startmenü-Befehl ein.
-+
+--
+.ONTAP 9.7 und frühere Versionen
+--
+Geben Sie bei ONTAP 9.7 und früheren Versionen den Befehl des Startmenüs ein.
+
 |===
 
 
@@ -1228,8 +1235,8 @@ Externes Verschlüsselungskeymanagement
 `recover_external_keymanager`
 
 |===
-
-
+--
+====
 . Wenn Autoboot aktiviert ist, unterbrechen Sie den Autoboot, indem Sie STRG-C. drücken
 . Führen Sie im Startmenü die Option „`6`“ aus.
 +
@@ -1258,8 +1265,12 @@ Falls Partner-sysid nicht richtig ist, stellen Sie es fest:
 
 . Wenn Sie die Stammverschlüsselung verwenden, wählen Sie je nach der verwendeten ONTAP-Version die Startmenü-Option oder geben Sie den Startmenü-Befehl für Ihre Konfiguration für das Verschlüsselungsmanagement erneut aus.
 +
-** Ab ONTAP 9.8 wählen Sie die Startmenü-Option.
-+
+[role="tabbed-block"]
+====
+.ONTAP 9.8 und höher
+--
+Ab ONTAP 9.8 wählen Sie die Startmenü-Option.
+
 |===
 
 
@@ -1283,11 +1294,13 @@ Option „`11`“
 Befolgen Sie die Anweisungen, um die erforderlichen Eingaben zur Wiederherstellung und Wiederherstellung der Schlüsselmanager-Konfiguration bereitzustellen.
 
 |===
-+
 Führen Sie je nach Einstellung des Schlüsselmanagers den Wiederherstellungsvorgang durch, indem Sie die Option „`10`“ oder die Option „`11`“ wählen, gefolgt von der ersten Eingabeaufforderung im Startmenü die Option „`6`“. Um die Knoten vollständig zu booten, müssen Sie möglicherweise den Wiederherstellungsvorgang mit Option „`1`“ (normaler Start) wiederholen.
 
-** Geben Sie in ONTAP 9.7 und früher den Startmenü-Befehl ein.
-+
+--
+.ONTAP 9.7 und frühere Versionen
+--
+Geben Sie bei ONTAP 9.7 und früheren Versionen den Befehl des Startmenüs ein.
+
 |===
 
 
@@ -1307,11 +1320,10 @@ Externes Verschlüsselungskeymanagement
 `recover_external_keymanager`
 
 |===
-+
 Möglicherweise müssen Sie die ausgeben `recover_xxxxxxxx_keymanager` Befehl wird mehrmals am Boot-Menü angezeigt, bis die Nodes vollständig gebootet werden.
 
-
-
+--
+====
 . Starten der Knoten:
 +
 `boot_ontap`
