@@ -42,18 +42,6 @@ Password: <user input>
 +
 Nach Eingabe Ihres Kennworts lädt der Switch die Konfigurationsdatei herunter und führt sie aus.
 
-. Dauerhaft aktivieren Sie den Switch:
-+
-`switchcfgpersistentenable`
-
-+
-Das Beispiel zeigt, wie FC Switch_A_1 dauerhaft aktiviert werden kann.
-
-+
-[listing]
-----
-FC_switch_A_1:admin> switchcfgpersistentenable
-----
 . Vergewissern Sie sich, dass die Konfigurationsdatei die Switch-Domäne eingestellt hat:
 +
 `switchShow`
@@ -161,6 +149,18 @@ Beispiel: LE
 [listing]
 ----
 FC_switch_A_1:admin> portcfglongdistance 21 LE 1
+----
+. Dauerhaft aktivieren Sie den Switch:
++
+`switchcfgpersistentenable`
+
++
+Das Beispiel zeigt, wie FC Switch_A_1 dauerhaft aktiviert werden kann.
+
++
+[listing]
+----
+FC_switch_A_1:admin> switchcfgpersistentenable
 ----
 . Überprüfen Sie, ob die IP-Adresse richtig eingestellt ist:
 +
