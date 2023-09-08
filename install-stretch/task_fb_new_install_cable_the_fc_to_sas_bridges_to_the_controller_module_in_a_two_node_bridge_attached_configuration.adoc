@@ -105,7 +105,7 @@ link:task_fb_new_install_cabl.html["Verkabelung von Platten-Shelves zu den Bridg
 .. FC-Port 1 der Bridge mit einem FC-Port am Controller-Modul in Cluster_A verkabeln
 .. Verkabeln Sie den FC-Port 2 der Bridge mit einem FC-Port am Controller-Modul in Cluster_B.
 +
-Wenn das Controller-Modul mit einem Quad-Port FC-Adapter konfiguriert ist, stellen Sie sicher, dass die Storage-Stacks mit zwei FC-Ports auf demselben ASIC verbunden sind. Port A und Port b teilen sich denselben ASIC, und Port c und Port d verwenden denselben ASIC. Schließen Sie keinen Stapel von Shelfs an Port A und Port B. an Verwenden Sie stattdessen Port A und Port c oder verwenden Sie Port b und Port d, um einen Single Point of Failure zu vermeiden, wenn ein ASIC ausfällt.
+Wenn das Controller-Modul mit einem FC-Adapter mit vier Ports konfiguriert ist, überprüfen Sie, ob die Speicher-Stacks nicht mit zwei FC-Ports auf demselben ASIC verbunden sind. Port A und Port b teilen sich denselben ASIC, und Port c und Port d verwenden denselben ASIC. Schließen Sie keinen Stapel von Shelfs an Port A und Port B. an Verwenden Sie stattdessen Port A und Port c oder verwenden Sie Port b und Port d, um einen Single Point of Failure zu vermeiden, wenn ein ASIC ausfällt.
 
 +
 Wenn das Controller-Modul mit mehr als einem FC-Adapter konfiguriert ist, verkabeln Sie nicht beide Bridge-Ports mit demselben Adapter. Sie sollten den FC-Port 1 an Adapter A und FC-Port 2 an Adapter B verteilen, um einen Single Point of Failure zu vermeiden.

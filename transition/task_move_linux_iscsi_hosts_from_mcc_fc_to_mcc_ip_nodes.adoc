@@ -56,7 +56,7 @@ vsa_1 iscsi_lf__n2_p1_ 4 iqn.2020-01.com.netapp.englab.gdl:scspr1789621001 00:02
 
 2 entries were displayed.
 ----
-. Liste der iscsi-Schnittstellen in ONTAP für die SVM, die die Schnittstellen enthalten: `iscsi interface show -vserver svm-name`
+. Führen Sie die iSCSI-Schnittstellen in ONTAP für die SVM auf, die die Schnittstellen enthält: `iscsi interface show -vserver svm-name`
 +
 [listing]
 ----
@@ -210,7 +210,8 @@ vsa_1 /vol/vsa_1_vol1/lun_linux_3 igroup_linux node_A_1-FC,node_A_2-FC,node_A_1-
 
 12 entries were displayed.
 ----
-. Geben Sie am Host den folgenden Befehl ein, um den scsi-Bus erneut auf dem Host zu lesen und die neu hinzugefügten Pfade zu entdecken:``/usr/bin/rescan-scsi-bus.sh -a``
+. Überprüfen Sie das `sg3-utils` Das Paket wird auf dem Linux-Host installiert. Dies vermeidet ein `rescan-scsi-bus.sh utility not found` Fehler beim erneuten Scannen des Linux-Hosts für die neu zugeordneten LUNs mithilfe des `rescan-scsi-bus` Befehl.
+. Geben Sie auf dem Host den folgenden Befehl ein, um den SCSI-Bus auf dem Host erneut zu scannen und die neu hinzugefügten Pfade zu ermitteln: `/usr/bin/rescan-scsi-bus.sh -a`
 +
 [listing]
 ----
@@ -331,7 +332,8 @@ vsa_1 /vol/vsa_1_vol2/lun_linux_4   group_linux   node_A_1-IP,node_A_2-IP
 
 12 entries were displayed.
 ----
-. Prüfen Sie auf dem iSCSI-Host den scsi-Bus erneut: `/usr/bin/rescan-scsi-bus.sh -r`
+. Überprüfen Sie das `sg3-utils` Das Paket wird auf dem Linux-Host installiert. Dies vermeidet ein `rescan-scsi-bus.sh utility not found` Fehler beim erneuten Scannen des Linux-Hosts für die neu zugeordneten LUNs mithilfe des `rescan-scsi-bus` Befehl.
+. Scannen Sie auf dem iSCSI-Host den SCSI-Bus erneut: `/usr/bin/rescan-scsi-bus.sh -r`
 +
 Die Pfade, die entfernt werden, sind die Pfade von FC Nodes.
 

@@ -17,9 +17,9 @@ Für den unterbrechungsfreien Wechsel von MetroCluster FC zu IP Nodes müssen Si
 +
 .. Ändern Sie bei MetroCluster IP-Nodes gegebenenfalls FC-Ports, die für die Client-Verbindung zu FC-Zielpersönlichkeit verwendet werden sollen.
 +
-Dieser Vorgang kann einen Neustart der Nodes erforderlich machen.
+Hierfür ist möglicherweise ein Neustart der Nodes erforderlich.
 
-.. Erstellung von FC-LIFS/Schnittstellen an IP-Nodes für alle SAN-vserver Überprüfen Sie optional, ob die WWPNs von neu erstellten FC-LIFs beim FC SAN-Switch angemeldet sind
+.. FC-LIFS/Schnittstellen auf IP-Nodes für alle SAN SVMs erstellen Optional können Sie überprüfen, ob die WWPNs von neu erstellten FC LIFs am FC SAN-Switch angemeldet sind
 
 
 . Aktualisieren Sie die SAN-Zoning-Konfiguration für neu hinzugefügte FC LIFs auf MetroCluster IP Nodes.
@@ -34,7 +34,7 @@ Um die Verschiebung von Volumes zu vereinfachen, in denen LUNs aktiv Daten für 
 Derzeit sollte der Client sehen und bei den FC-Schnittstellen sowohl auf den MetroCluster-FC- als auch auf den MetroCluster-IP-Nodes angemeldet sein. LUNs und Volumes werden weiterhin physisch auf den MetroCluster FC-Nodes gehostet.
 
 +
-Da LUNs nur auf MetroCluster FC Node-Schnittstellen gemeldet werden, zeigt der Client nur Pfade über FC Nodes an. Dies ist bei der Ausgabe der sanlun lun show -p und Multipath -ll -d Befehle zu sehen.
+Da LUNs nur auf MetroCluster FC Node-Schnittstellen gemeldet werden, zeigt der Client nur Pfade über FC Nodes an. Dies kann in der Ausgabe des angezeigt werden `sanlun lun show -p` Und `multipath -ll -d` Befehle.
 
 +
 [listing]
@@ -117,7 +117,8 @@ vsa_1   /vol/vsa_1_vol3/lun_linux_7   igroup_linux    A_1,A_2,B_1,B_2
 
 12 entries were displayed.
 ----
-.. Überprüfen Sie den scsi-Bus auf dem Host erneut, um die neu hinzugefügten Pfade zu entdecken: `/usr/bin/rescan-scsi-bus.sh -a`
+.. Überprüfen Sie das `sg3-utils` Das Paket wird auf dem Linux-Host installiert. Dies vermeidet ein `rescan-scsi-bus.sh utility not found` Fehler beim erneuten Scannen des Linux-Hosts für die neu zugeordneten LUNs mithilfe des `rescan-scsi-bus` Befehl.
+.. Scannen Sie den SCSI-Bus auf dem Host erneut, um die neu hinzugefügten Pfade zu erkennen: `/usr/bin/rescan-scsi-bus.sh -a`
 +
 [listing]
 ----
@@ -234,7 +235,7 @@ vsa_1 /vol/vsa_1_vol2/lun_linux_4 igroup_linux B_1,B_2
 
 12 entries were displayed.
 ----
-.. Prüfen Sie den scsi-Bus auf dem Client erneut: `/usr/bin/rescan-scsi-bus.sh -r`
+.. SCSI-Bus auf dem Client erneut scannen: `/usr/bin/rescan-scsi-bus.sh -r`
 +
 Die Pfade aus den MetroCluster FC-Knoten werden entfernt:
 
