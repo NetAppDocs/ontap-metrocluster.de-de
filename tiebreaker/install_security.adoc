@@ -1,0 +1,175 @@
+---
+permalink: tiebreaker/install_security.html 
+sidebar: sidebar 
+keywords: install, tiebreaker, software, monitor, capabilities, capability, cluster, storage, environment, snmp, notification, event, node, connectivity, issue, site, disaster, system, install, upgrade, upgrading, software, dependencies, dependency, package, ntp, requirements, requirements for tiebreaker, tiebreaker requirements, mysql, mariadb, autostart, database 
+summary: Die Tiebreaker Software bietet Monitoring-Funktionen für eine Clustered Storage-Umgebung. Außerdem sendet er SNMP-Benachrichtigungen, wenn Probleme mit der Node-Konnektivität oder im Falle eines Standortnotfalls auftreten. 
+---
+= Sicherung der Tiebreaker Host- und Datenbankinstallation
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Bei Konfigurationen mit MetroCluster Tiebreaker 1.5 und höher können Sie das Host-Betriebssystem und die Datenbank sichern und absichern.
+
+
+
+== Sichern Sie den Host
+
+Die folgenden Richtlinien zeigen Ihnen, wie Sie den Host sichern, auf dem die Tiebreaker Software installiert ist.
+
+
+
+=== Empfehlungen für das Benutzermanagement
+
+* Beschränken Sie den Zugriff des „root“-Benutzers.
++
+** Sie können Benutzer verwenden, die über Root-Zugriff verfügen, um die Tiebreaker Software zu installieren und zu verwalten. link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_basic_system_settings/managing-sudo-access_configuring-basic-system-settings["Verwalten des Sudo-Zugriffs"^]
+** Sie können Benutzer verwenden, die nicht in der Lage sind, den Root-Zugriff zu erhöhen, um Tiebreaker Software zu verwalten.
+** Während der Installation müssen Sie eine Gruppe namens „mcctbgrp“ erstellen. Der Host-Root-Benutzer und der Benutzer, der während der Installation erstellt wurde, müssen beide Mitglieder sein. Nur Mitglieder dieser Gruppe können die Tiebreaker Software vollständig verwalten.
++
+
+NOTE: Benutzer, die nicht Mitglied dieser Gruppe sind, können nicht auf die Tiebreaker Software oder CLI zugreifen. Sie können zusätzliche Benutzer auf dem Host erstellen und sie zu Mitgliedern der Gruppe machen. Diese zusätzlichen Mitglieder können die Tiebreaker Software nicht vollständig verwalten. Sie haben Lesezugriff und können keine Monitore hinzufügen, ändern oder löschen.
+
+** Führen Sie Tiebreaker nicht als Root-Benutzer aus. Verwenden Sie ein dediziertes, nicht privilegiertes Servicekonto, um Tiebreaker auszuführen.
+
+
+* Ändern Sie die Standard-Community-Zeichenfolge in der Datei „/etc/snmp/snmpd.conf“.
+* Minimale Schreibberechtigungen zulassen. Das unprivilegierte Tiebreaker-Dienstkonto sollte keinen Zugriff haben, um seine ausführbare Binärdatei oder Konfigurationsdateien zu überschreiben. Nur Verzeichnisse und Dateien für lokalen Tiebreaker Storage (z. B. für integrierten Back-End Storage) oder Audit-Protokolle sollten vom Tiebreaker Benutzer beschreibbar sein.
+* Erlauben Sie anonyme Benutzer nicht.
++
+** Setzen Sie AllowTcpForwarding auf „Nein“ oder verwenden Sie die Anweisung „Match“, um anonyme Benutzer zu beschränken.
+
+
+
+
+.Verwandte Informationen
+* Benutzer- und Account-Management
++
+link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_basic_system_settings/assembly_getting-started-with-managing-user-accounts_configuring-basic-system-settings["Erste Schritte mit der Verwaltung von Benutzerkonten"^]
+
++
+link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_basic_system_settings/introduction-to-managing-user-and-group-accounts_configuring-basic-system-settings["Einführung in die Verwaltung von Benutzer- und Gruppenkonten"^]
+
+* Verwalten von Benutzern und Gruppen über die Webkonsole oder die CLI
++
+link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_basic_system_settings/managing-user-accounts-in-the-web-console-new_configuring-basic-system-settings["Verwalten von Benutzerkonten in der Webkonsole"^]
+
++
+link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_basic_system_settings/managing-users-from-the-command-line_configuring-basic-system-settings["Verwalten von Benutzern über die Befehlszeile"^]
+
++
+link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_basic_system_settings/editing-user-groups-using-the-command-line_configuring-basic-system-settings["Bearbeiten von Benutzergruppen über die Befehlszeile"^]
+
+* Verwalten des Root-Passworts
++
+link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_basic_system_settings/changing-and-resetting-the-root-password-from-the-command-line_configuring-basic-system-settings["Verwalten und Zurücksetzen des Root-Passworts"^]
+
+
+
+
+
+=== Grundlegende Empfehlungen für die Host-Sicherheit
+
+* Verwenden Sie Festplattenverschlüsselung
++
+** Sie können die Festplattenverschlüsselung aktivieren. Dabei kann es sich um FullDiskEncryption (Hardware) oder Verschlüsselung durch Hostos (Software) oder durch den SVM-Host handeln.
+
+
+* Deaktivieren Sie nicht verwendete Dienste, die eingehende Verbindungen zulassen. Sie können jeden Dienst deaktivieren, der nicht verwendet wird. Die Tiebreaker Software erfordert keinen Service für eingehende Verbindungen, da alle Verbindungen aus der Tiebreaker Installation abgehend sind. Folgende Dienste können standardmäßig aktiviert und deaktiviert werden:
++
+** HTTP/HTTPS-Server
+** FTP-Server
+** Telnet, RSH, rlogin
+** NFS-, CIFS- und anderer Protokollzugriff
+** RDP (RemoteDesktopProtocol), X11 Server, VNC oder andere Remote-Service-Provider für Desktop-PCs.
++
+
+NOTE: Sie müssen entweder den seriellen Konsolenzugriff (falls unterstützt) oder mindestens ein Protokoll aktivieren, um den Host Remote zu verwalten. Wenn Sie alle Protokolle deaktivieren, benötigen Sie physischen Zugriff auf den Host für die Administration.
+
++
+link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_basic_system_settings/managing-system-services-with-systemctl_configuring-basic-system-settings["Erfahren Sie mehr über die Verwaltung von Systemdiensten mit systemctl"^]
+
+
+
+* Sicherung des Hosts über FIPS
++
+** Sie können das Host-Betriebssystem im FIPS-konformen Modus installieren und dann Tiebreaker installieren.
++
+
+NOTE: OpenJDK 19 überprüft beim Start, ob der Host im FIPS-Modus installiert ist. Es sollten keine manuellen Änderungen erforderlich sein.
+
++
+Weitere Informationen finden Sie unter link:https://access.redhat.com/documentation/ru-ru/openjdk/8/html/configuring_openjdk_8_on_rhel_with_fips/openjdk-default-fips-configuration["Standard-FIPS-Konfiguration in OpenJDK 8"^]
+
+** Wenn Sie den Host sichern, müssen Sie sicherstellen, dass der Host ohne Benutzereingriff starten kann. Wenn ein Benutzereingriff erforderlich ist, ist die Tiebreaker-Funktion möglicherweise nicht verfügbar, wenn der Host unerwartet neu startet. In diesem Fall ist die Tiebreaker-Funktion nur nach dem manuellen Eingriff und nach dem vollständigen Booten des Hosts verfügbar.
+
+
+* Shell-Befehlsverlauf Deaktivieren.
+* Aktualisieren Sie häufig. Tiebreaker wird aktiv weiterentwickelt. Regelmäßige Aktualisierungen sind wichtig, um Sicherheitfixes und alle Änderungen an Standardeinstellungen wie Schlüssellängen oder Chiffre Suites zu integrieren.
+* Abonnieren Sie die HashiCorp Announcement Mailing-Liste, um Ankündigungen über neue Versionen zu erhalten, und besuchen Sie das Tiebreaker CHANGELOG, um weitere Informationen über aktuelle Updates für neue Versionen zu erhalten.
+* Verwenden Sie die richtigen Dateiberechtigungen. Stellen Sie immer sicher, dass die erforderlichen Berechtigungen auf Dateien angewendet werden, bevor Sie die Tiebreaker Software starten, insbesondere auf Dateien mit vertraulichen Informationen.
+* Die Multi-Faktor-Authentifizierung (MFA) erhöht die Sicherheit Ihres Unternehmens, da Administratoren mehr als nur einen Benutzernamen und ein Kennwort verwenden müssen, um sich selbst zu identifizieren. Obwohl wichtig, sind Benutzernamen und Passwörter anfällig für Brute-Force-Angriffe und können von Dritten gestohlen werden. link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/security_hardening/index["Erfahren Sie mehr über die Erhöhung der Sicherheit"^]
++
+** Red hat Enterprise Linux 8 bietet MFA, bei dem Benutzer mehr als eine Information bereitstellen müssen, um sich erfolgreich bei einem Konto oder Linux-Host zu authentifizieren. Die zusätzlichen Informationen können ein Einmalpasswort sein, das per SMS an Ihr Mobiltelefon gesendet wird, oder Anmeldedaten von einer App wie Google Authenticator, Twilio Authy oder FreeOTP. link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/securing_networks/index["Erfahren Sie mehr über die Sicherung von Netzwerken"^]
+
+
+
+
+
+
+== Sichern Sie die Datenbankinstallation
+
+Die folgenden Richtlinien zeigen, wie Sie die MariaDB 10.x Datenbankinstallation sichern und absichern können.
+
+* Beschränken Sie den Zugriff des „root“-Benutzers.
++
+** Tiebreaker verwendet ein dediziertes Konto. Das Konto und die Tabellen zum Speichern von (Konfigurations-)Daten werden während der Installation von Tiebreaker erstellt. Nur während der Installation ist ein erhöhter Zugriff auf die Datenbank erforderlich.
+
+
+* Während der Installation sind folgende Zugriffsrechte und Berechtigungen erforderlich:
++
+** Die Fähigkeit, eine Datenbank und Tabellen zu erstellen
+** Die Fähigkeit, globale Optionen zu erstellen
+** Die Möglichkeit, einen Datenbankbenutzer zu erstellen und das Kennwort festzulegen
+** Die Möglichkeit, den Datenbankbenutzer mit der Datenbank und den Tabellen zu verknüpfen und Zugriffsrechte zuzuweisen
++
+
+NOTE: Das Benutzerkonto, das Sie während der Tiebreaker-Installation angeben, muss über alle diese Berechtigungen verfügen. Die Verwendung mehrerer Benutzerkonten für die verschiedenen Aufgaben wird nicht unterstützt.
+
+
+
+* Verwenden Sie die Verschlüsselung der Datenbank
++
+** Die Verschlüsselung ruhender Daten wird unterstützt. link:https://mariadb.com/kb/en/data-at-rest-encryption-overview/["Weitere Informationen zur Verschlüsselung ruhender Daten"^]
+** Die aktiven Daten sind nicht verschlüsselt. Die Daten im Flug verwenden eine lokale „SOCKS“-Dateiverbindung.
+** FIPS-Konformität für MariaDB -- die FIPS-Konformität der Datenbank muss nicht aktiviert werden. Die Installation des Hosts im FIPS-konformen Modus reicht aus.
++
+link:https://www.mysql.com/products/enterprise/tde.html["Weitere Informationen zu MySQL Enterprise Transparent Data Encryption (TDE)"^]
+
++
+
+NOTE: Die Verschlüsselungseinstellungen müssen vor der Installation der Tiebreaker Software aktiviert sein.
+
+
+
+
+
+.Verwandte Informationen
+* Benutzerverwaltung der Datenbank
++
+link:https://dev.mysql.com/doc/refman/8.0/en/access-control.html["Zugriffssteuerung und Account-Management"^]
+
+* Sichern Sie die Datenbank
++
+link:https://dev.mysql.com/doc/refman/8.0/en/security-against-attack.html["MySQL Secure gegen Angreifer"^]
+
++
+link:https://mariadb.com/kb/en/securing-mariadb/["Sicherung von MariaDB"^]
+
+* Sichern Sie die Vault-Installation
++
+link:https://developer.hashicorp.com/vault/tutorials/operations/production-hardening/["Produktionshärtung"^]
+
+

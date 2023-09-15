@@ -3045,14 +3045,7 @@
   <block id="fb22c4a7b5c0395bdf46487a4665275e" category="list-text">Überprüfen Sie, ob die MetroCluster-Konfiguration ordnungsgemäß mithilfe der Tiebreaker CLI entfernt wird<block ref="7f09554f3b428339c3f534ff2c033739" prefix=" " category="inline-code"></block> Befehl.</block>
   <block id="456a31391b752801562536d0f9695aad" category="paragraph">© 2020 NetApp. Alle Rechte vorbehalten. Gedruckt in den USA</block>
   <block id="d5e32abfbd3e5376cc7d90c1003b3516" category="summary">Die Tiebreaker Software bietet Monitoring-Funktionen für eine Clustered Storage-Umgebung. Außerdem sendet er SNMP-Benachrichtigungen, wenn Probleme mit der Node-Konnektivität oder im Falle eines Standortnotfalls auftreten.</block>
-  <block id="1e03abc52b8015d8bfda380a49a74d3d" category="doc">Installation der Tiebreaker Software</block>
-  <block id="dfecead04927b98b4718817e8ee72b45" category="section-title">Systemanforderungen für die Installation oder Aktualisierung der Tiebreaker Software</block>
   <block id="995e564ca3c05e931e1da79c841f6b29" category="paragraph">Die Tiebreaker Software wird auf einem dritten Standort installiert, wodurch die Software zwischen einem Switch-Link- (ISL)-Fehler (wenn Verbindungen zwischen den Standorten ausgefallen sind) und einem Standortausfall unterscheiden kann. Ihr Hostsystem muss bestimmte Anforderungen erfüllen, bevor Sie die Tiebreaker Software auf Ihrem lokalen Computer installieren oder aktualisieren können, um die MetroCluster-Konfiguration zu überwachen.</block>
-  <block id="41cf1c389a424db4cc6188d92f8873e1" category="paragraph">Die MetroCluster Tiebreaker Software verfügt über folgende Monitoring-Funktionen und Anforderungen:</block>
-  <block id="fa16f1eaa9378fa31cb55f8791abfbc4" category="list-text">Monitoring-Funktionen für bis zu 15 MetroCluster-Konfigurationen gleichzeitig.</block>
-  <block id="74c24f77157a44b3d1b75c7a631b2f1a" category="list-text">Unterstützung für eine Kombination aus MetroCluster IP, MetroCluster FC und Stretch MetroCluster Konfigurationen.</block>
-  <block id="0051a43c14e5ca151dedc81a1b8f3b8e" category="list-text">Hardware und Software:</block>
-  <block id="cbb84028bf466aea1ee153b79bbe1a90" category="list-text">Red hat Enterprise Linux 7 bis 7.9 oder CentOS 7 bis 7.9 64 Bit (physische Installation oder virtuelle Maschine)</block>
   <block id="1622cddcc8d92c2f521cf45ebeeb83b0" category="list-text">MariaDB 5.5.52.x/MySQL Server 5.6x</block>
   <block id="f211a801e18d8052b211fd5a87a83253" category="list-text">4 GB RAM</block>
   <block id="af5c7720c35a6c5bbdbd9a0118f9b86a" category="list-text">MariaDB 10.x (verwenden Sie die Standardversion, die mit "yum install mariadb-Server.x86_64" installiert wird)</block>
@@ -3061,7 +3054,6 @@
   <block id="3c78850f45b6edfc4af8ec0a93a2a1ab" category="list-text">Direkter Zugriff zum Einrichten von AutoSupport Meldungen</block>
   <block id="cde2b4acd898c32670d230559bc6a550" category="list-text">SSH (Port 22/TCP), HTTPS (Port 443/TCP) und Ping (ICMP)</block>
   <block id="d622b09f9e4518b80b223d0f3d83f9cd" category="section-title">Installation der MetroCluster Tiebreaker Abhängigkeiten</block>
-  <block id="c484a86c621669bc61d7e0ad166de57f" category="paragraph">Sie müssen einen MySQL- oder MariaDB-Server je nach dem Linux-Betriebssystem, das Ihr Host ist, installieren, bevor Sie die Tiebreaker-Software installieren oder aktualisieren.</block>
   <block id="b56e6f0af6a9b1b27daa95d4a36afdc4" category="list-text">MySQL oder MariaDB Server installieren:</block>
   <block id="6d3e1ad458b8305490e7f3f555ee8c93" category="cell">Wenn der Linux-Host lautet</block>
   <block id="bbc93c3b548f7e6b61051cdcdda436b9" category="paragraph">Red hat Enterprise Linux 7/CentOS 7</block>
@@ -3096,13 +3088,11 @@
   <block id="6b78bf98fe8a405df5e22ad1b5b3a1ba" category="paragraph">Wenn MySQL beim Starten nicht aktiviert ist, lesen Sie die MySQL-Dokumentation, um die Autostart-Funktion für Ihre Installation zu aktivieren.</block>
   <block id="42effa8417ecaca249eb75ef3af93551" category="paragraph">Sie müssen MariaDB Server auf Ihrem Hostsystem installieren, bevor Sie die Tiebreaker Software installieren oder aktualisieren.</block>
   <block id="f514e222790761ef9b22f805623d3f36" category="paragraph">Ihr Hostsystem muss unter Red hat Enterprise Linux (RHEL) 8 ausgeführt werden.</block>
-  <block id="6dba822f853f76701715a4f97696a53a" category="list-text">MariaDB-Server installieren:</block>
   <block id="cef7dfc261d8a8420d1938a361c69aa9" category="paragraph"><block ref="e93b5e30c952d4c20a70eb34961e237a" prefix="" category="inline-code"></block></block>
   <block id="60d8aee94c480f814db37523f4bf4e7c" category="list-text">MariaDB-Server starten:</block>
   <block id="5dfdc749670b1b02e69d44bfaebcca7a" category="paragraph"><block ref="dc08a4bfb31a37d0dbc192f3731411f7" prefix="" category="inline-code"></block></block>
   <block id="3d17e319e9e36197217af282fa99978d" category="paragraph"><block ref="032894fe2e8da3edf69f6b0c7494bc9a" prefix="" category="inline-code"></block></block>
   <block id="937a7baab3806f1c4b9f6865102b0452" category="list-text">Konfigurieren Sie die Sicherheits- und Kennworteinstellungen:</block>
-  <block id="a6a94dd70978b2b80d52534ad2ff0763" category="section-title">Aktivieren der Einstellung Autostart für die MariaDB</block>
   <block id="3a792898663e436585860dc61b16ebbe" category="list-text">Aktivieren des Autostart-Dienstes:</block>
   <block id="702b74d571398b97d529b92567ce42a7" category="paragraph"><block ref="959024f82f9822563ef022b5e68f1bb8" prefix="" category="inline-code"></block></block>
   <block id="5c77e1603fd1c29c92901cf08deda7ef" category="list-text">Vergewissern Sie sich, dass MariaDB beim Starten automatisch gestartet wird:</block>
@@ -3116,15 +3106,11 @@
   <block id="dbe9b345ce63b9fd500e311eff185188" category="paragraph">Das System zeigt die folgende Ausgabe für eine erfolgreiche Aktualisierung an:</block>
   <block id="669f62b51efaf771cdc56bbd948e67a7" category="admonition">Wenn Sie das falsche MySQL-Root-Passwort eingeben, zeigt die Tiebreaker Software an, dass sie erfolgreich installiert wurde, zeigt aber „Access Denied“-Meldungen an. Um das Problem zu lösen, müssen Sie die Tiebreaker Software mit verwenden<block ref="55afd34cc17c2c45c147636931e92977" prefix=" " category="inline-code"></block> Führen Sie einen Befehl aus, und installieren Sie dann die Software mit dem richtigen MySQL-Root-Passwort neu.</block>
   <block id="35a8ad649b3194dfec4cd801fff9f656" category="section-title">Aktualisieren des Hosts, auf dem der Tiebreaker Monitor ausgeführt wird</block>
-  <block id="742dc42b1fe2cbc56c22d6c1ccda0d88" category="paragraph">Sie können den Host, auf dem der Tiebreaker Monitor läuft, mit minimaler Unterbrechung aktualisieren, wenn Sie die Monitore vor dem Upgrade in den Beobachtermodus schalten.</block>
   <block id="c1b20466030a9b3540d83155ad9678ce" category="list-text">Überprüfen Sie, ob sich die Monitore im Beobachtermodus befinden:</block>
   <block id="01e2bc057f0d0c9226b9b72fe02073dc" category="paragraph"><block ref="24dbc7aebdd464be7a23b360f1825695" prefix="" category="inline-code"></block></block>
   <block id="dd369bd80b51fade2a8040849d0cdfb3" category="list-text">Wechseln Sie alle Monitore in den Beobachtermodus.</block>
   <block id="364ba5b8b3d13bcb103f29814c8bdc8b" category="list-text">Führen Sie zum Upgrade des Tiebreaker Hosts alle Schritte durch:</block>
-  <block id="62d21575da14f82a5429be44997ffec0" category="paragraph"><block ref="2d12f9e136c597ced9bd3fed196a9a6b" category="inline-xref-macro-rx"></block></block>
   <block id="3e3282862342655e70b0b4d411fbb78b" category="list-text">Deaktivieren Sie den Beobachtermodus, um alle Monitore wieder in den Online-Modus zu verschieben.</block>
-  <block id="3da068989b58a6354f99f0db984b6df2" category="section-title">Auswählen der NTP-Quelle für die Tiebreaker Software</block>
-  <block id="ce5425c2550b256ea43d516197da426d" category="paragraph">Sie sollten für die Tiebreaker Software eine lokale NTP-Quelle (Network Time Protocol) verwenden. Es sollte nicht die gleiche Quelle wie die MetroCluster Sites verwenden, die die Tiebreaker Software überwacht.</block>
   <block id="9fb038c9fc985f95a364fbc284e66009" category="summary">Um SNMP mit der Tiebreaker Software zu verwenden, müssen Sie SNMP-Einstellungen konfigurieren.</block>
   <block id="42c78bfa01522453fc42980157ef4a55" category="doc">Konfigurieren von SNMP-Einstellungen für Tiebreaker Software</block>
   <block id="8891488ccf0af3b6c4a946824e6f0cdc" category="admonition">Derzeit wird nur ein SNMP-Trap-Host unterstützt.</block>
@@ -4923,8 +4909,6 @@
   <block id="e0a63c2d875daa748729bbc9b043b578" category="list-text">Legen Sie den Berechtigungsmodus auf erweitert fest:</block>
   <block id="248f892426f89c07bc5999439096f3e0" category="paragraph"><block ref="8a76e05712367753ebfcc59ac22c3fed" prefix="" category="inline-code"></block></block>
   <block id="1b3b2eb3ea38d6c2916cd4e043a581a0" category="list-text">Anzeigen der Initiatoren, die als Mediator bezeichnet werden:</block>
-  <block id="2c697c75c3912edd44d925cbf3b6566c" category="list-text">Wenn Sie die automatische erzwungene MetroCluster-Umschaltung konfigurieren möchten, führen Sie den folgenden Befehl aus:<block ref="956c336644e4861eddad733e8ae9f18c" prefix=" " category="inline-code"></block></block>
-  <block id="4830d0eb35b6c7bd558e3bba215a9a3f" category="paragraph">Bevor Sie diese Funktion aktivieren, überprüfen Sie diese <block ref="a3a7e72ce1f5f993a44ac5e44397056b" category="inline-link-macro-rx"></block>.</block>
   <block id="6016a2b341113bf496b719905398ecd2" category="summary">Urheberrecht</block>
   <block id="e10b5b38785c3a24ec75723ab75b4360" category="paragraph">© 2021 NetApp. Alle Rechte vorbehalten. Gedruckt in den USA</block>
   <block id="2275e007ee598cef266c877f9c52ee25" category="paragraph">Dieses urheberrechtlich geschützte Dokument darf ohne die vorherige schriftliche Genehmigung des Urheberrechtsinhabers in keiner Form und durch keine Mittel- weder grafische noch elektronische oder mechanische, einschließlich Fotokopieren, Aufnehmen, Verkleben oder Speichern in einem elektronischen Abrufsystem - ohne vorherige schriftliche Genehmigung des Urheberrechtsinhabers.</block>
@@ -9158,7 +9142,6 @@
   <block id="4fcb10feecff8bf153e2155f987003d3" category="paragraph">13*</block>
   <block id="6d8c2a2025c082966f6b8171ae6d840e" category="paragraph">14*</block>
   <block id="f5edf414716a52037ee3226c67a63760" category="paragraph">15*</block>
-  <block id="e4099d7825368082bd4b43f083cb9213" category="paragraph">&amp;Ast; die Ports 12 bis 15 sind für die zweite MetroCluster oder DR-Gruppe auf dem Brocade 7840 Switch reserviert.</block>
   <block id="58a6d226fae48ef8f89925466eabd9b3" category="admonition">Zusätzliche Brücken können mit den Ports 16, 17, 20 und 21 bei den Switches G620, G630, G620-1 und G630-1 verkabelt werden.</block>
   <block id="19ca14e7ea6328a42e0eb13d585e4c22" category="paragraph">36</block>
   <block id="072b030ba126b2f4b2374f342be9ed44" category="paragraph">60</block>
@@ -12718,20 +12701,13 @@
   <block id="928cee617936aa2a4fa44c397f9242d0" category="paragraph">Die Tiebreaker Software muss installiert und konfiguriert sein.</block>
   <block id="2cdf4d361a0254ca58a3bec3a13f4c97" category="admonition">Sie müssen über „Root“-Berechtigungen verfügen, um die MetroCluster Tiebreaker Software und die abhängigen Pakete zu installieren.</block>
   <block id="08821d58a0ccf55fa3dc84c09844d2be" category="admonition">Sie können pro MetroCluster-Konfiguration nur einen MetroCluster Tiebreaker Monitor verwenden, um Konflikte mit mehreren Tiebreaker Monitoren zu vermeiden.</block>
-  <block id="32c7669c4b727c3dd30ff98a0c602bff" category="list-text">ONTAP 8.3.x, 9.0, 9.1, 9.2, 9.3 9.4, 9.5, 9.6, 9.7, 9.8, 9.9.1, 9.10.1, 9.11.1 oder 9.12.1</block>
-  <block id="c332d926b941e2e435266f227d47f710" category="admonition">Nur MetroCluster Tiebreaker 1.4 ist mit den RHEL-Versionen 7-7.9 kompatibel.</block>
   <block id="589527a6e982279d79d4094b9cb6a17d" category="list-text">Öffnen Sie JRE 8</block>
   <block id="b54b2f8d3b7da844c5372449a2f2e34b" category="list-text">Red hat Enterprise Linux 8.1 bis 8.7</block>
-  <block id="b4405cee9bd65889bb2683ee9723f1a6" category="paragraph">Führen Sie für Systeme mit Tiebreaker 1.4 und früheren Versionen JRE 8 aus. Führen Sie für Systeme mit Tiebreaker 1.5 und höher OpenJDK 17, 18 oder 19 aus.</block>
-  <block id="df3d50023ef4040e27c74e460fb82c76" category="section-title">Sichern Sie die Host- und Datenbankinstallation</block>
   <block id="a70255bc79978e30e2226102ec52a8b4" category="paragraph">Bei Konfigurationen mit MetroCluster Tiebreaker 1.5 und höher können Sie das Host-Betriebssystem und die Datenbank sichern und absichern.</block>
   <block id="fb42bff9ef98fcd52bf0394e5b82dbc4" category="section-title">Sichern Sie den Host</block>
   <block id="ba55431ffbe07990825776e0189349f9" category="paragraph">Die folgenden Richtlinien zeigen Ihnen, wie Sie den Host sichern, auf dem die Tiebreaker Software installiert ist.</block>
   <block id="77af0d306f63f871aed8775a2fee284e" category="list-text">Beschränken Sie den Zugriff des „root“-Benutzers.</block>
-  <block id="61f7733093f25bb223a42607ca2406c1" category="list-text">Sie können Benutzer verwenden, die über Root-Zugriff verfügen, um die Tiebreaker Software zu installieren und zu verwalten.</block>
   <block id="30550ee0195aa8c918aee8678daf6dc8" category="list-text">Sie können Benutzer verwenden, die nicht in der Lage sind, den Root-Zugriff zu erhöhen, um Tiebreaker Software zu verwalten.</block>
-  <block id="33e6988813e236adab8df9d5f7902aa5" category="admonition">Während der Installation sollten Sie eine Gruppe namens "mcctbgrp" erstellen. Der Host-Root-Benutzer und der Benutzer, der während der Installation erstellt wurde, sind beide Mitglieder. Nur Mitglieder dieser Gruppe können die Tiebreaker Software vollständig verwalten.</block>
-  <block id="4c57532a7794b3dceffcfaa9c83555c3" category="list-text">Benutzer, die nicht Mitglied dieser Gruppe sind, können nicht auf die Tiebreaker Software oder CLI zugreifen. Sie können zusätzliche Benutzer auf dem Host erstellen und sie zu Mitgliedern der Gruppe machen. Diese zusätzlichen Mitglieder können die Tiebreaker-Software nicht vollständig verwalten – sie haben Lesezugriff und können keine Monitore hinzufügen, ändern oder löschen.</block>
   <block id="c1f8ac8c1a56ebb5dd571d1786563ed6" category="list-text">Verwenden Sie Festplattenverschlüsselung</block>
   <block id="b0c14dc494b591e529b0b6c13cfbd8dd" category="list-text">Sie können die Festplattenverschlüsselung aktivieren. Dabei kann es sich um FullDiskEncryption (Hardware) oder Verschlüsselung durch Hostos (Software) oder durch den SVM-Host handeln.</block>
   <block id="6b1d6ed0d8e28b63b51388bb7b60fd63" category="list-text">Deaktivieren Sie nicht verwendete Dienste, die eingehende Verbindungen zulassen. Sie können jeden Dienst deaktivieren, der nicht verwendet wird. Die Tiebreaker Software erfordert keinen Service für eingehende Verbindungen, da alle Verbindungen aus der Tiebreaker Installation abgehend sind. Folgende Dienste können standardmäßig aktiviert und deaktiviert werden:</block>
@@ -12744,20 +12720,15 @@
   <block id="0b188830f4d45166fb7cb045426789cd" category="list-text">Sicherung des Hosts über FIPS</block>
   <block id="94591c4a627b8be3a77cc91a7b0c39ed" category="list-text">Sie können das Host-Betriebssystem im FIPS-konformen Modus installieren und dann Tiebreaker installieren.</block>
   <block id="3e91f62daa13f5b54cc2bbf0a5356d5c" category="admonition">OpenJDK 19 überprüft beim Start, ob der Host im FIPS-Modus installiert ist. Es sollten keine manuellen Änderungen erforderlich sein.</block>
-  <block id="dd3533624ea6d478890db012d2a96e07" category="list-text">Grundlegende Empfehlungen</block>
   <block id="28f1a9422a1c43b899dff40ac21f8195" category="list-text">Führen Sie Tiebreaker nicht als Root-Benutzer aus. Verwenden Sie ein dediziertes, nicht privilegiertes Servicekonto, um Tiebreaker auszuführen.</block>
   <block id="34b38a81712963f8bc96b575fb9e9d63" category="list-text">Ändern Sie die Standard-Community-Zeichenfolge in der Datei „/etc/snmp/snmpd.conf“.</block>
   <block id="22792bff9ca0a70da01bbf3a534fb0a8" category="list-text">Minimale Schreibberechtigungen zulassen. Das unprivilegierte Tiebreaker-Dienstkonto sollte keinen Zugriff haben, um seine ausführbare Binärdatei oder Konfigurationsdateien zu überschreiben. Nur Verzeichnisse und Dateien für lokalen Tiebreaker Storage (z. B. für integrierten Back-End Storage) oder Audit-Protokolle sollten vom Tiebreaker Benutzer beschreibbar sein.</block>
-  <block id="78e2f9fbccdc78c822a630b60fdb45d2" category="list-text">End-to-End-TLS (Transport Layer Security). Tiebreaker sollte immer mit TLS verwendet werden. Wenn für Tiebreaker Zwischenlastverteiler oder Reverse-Proxys verwendet werden, sollten Sie TLS für alle Netzwerkverbindungen zwischen allen Komponenten des Systems (einschließlich Backend-Storage) verwenden, um sicherzustellen, dass der gesamte Datenverkehr während der Übertragung von und nach Tiebreaker verschlüsselt wird. Wenn möglich, sollten Sie den HTTP Strict Transport Security (HSTS)-Header mithilfe der benutzerdefinierten Antwortheader-Funktion von Tiebreaker festlegen.</block>
-  <block id="d793625b2b0dd5dc51e94311cfc93a64" category="list-text">Sie müssen die neueste Version von OpenSSH installieren und ausführen.</block>
   <block id="ce7f15a2d18ae2db0c61e3bd34a36461" category="list-text">Erlauben Sie anonyme Benutzer nicht.</block>
   <block id="8e69b78393ea997402c47bcf5e3dc234" category="list-text">Setzen Sie AllowTcpForwarding auf „Nein“ oder verwenden Sie die Anweisung „Match“, um anonyme Benutzer zu beschränken.</block>
   <block id="126a7d9f821252d114afe5a3bd55d49a" category="list-text">Shell-Befehlsverlauf Deaktivieren.</block>
   <block id="98789e20ad857b904690ce90333052d6" category="list-text">Aktualisieren Sie häufig. Tiebreaker wird aktiv weiterentwickelt. Regelmäßige Aktualisierungen sind wichtig, um Sicherheitfixes und alle Änderungen an Standardeinstellungen wie Schlüssellängen oder Chiffre Suites zu integrieren.</block>
   <block id="59c35ef819d1dde06d960624fd6fafd1" category="list-text">Abonnieren Sie die HashiCorp Announcement Mailing-Liste, um Ankündigungen über neue Versionen zu erhalten, und besuchen Sie das Tiebreaker CHANGELOG, um weitere Informationen über aktuelle Updates für neue Versionen zu erhalten.</block>
   <block id="43a32642c83792b717745d6ba0b8ce88" category="list-text">Verwenden Sie die richtigen Dateiberechtigungen. Stellen Sie immer sicher, dass die erforderlichen Berechtigungen auf Dateien angewendet werden, bevor Sie die Tiebreaker Software starten, insbesondere auf Dateien mit vertraulichen Informationen.</block>
-  <block id="1aeb0f3005db6ba70bd420bae561dc5d" category="list-text">Die Multi-Faktor-Authentifizierung (MFA) erhöht die Sicherheit Ihres Unternehmens, da Administratoren mehr als nur einen Benutzernamen und ein Kennwort verwenden müssen, um sich selbst zu identifizieren. Obwohl wichtig, sind Benutzernamen und Passwörter anfällig für Brute-Force-Angriffe und können von Dritten gestohlen werden. RHEL 8 bietet MFA, bei dem Benutzer mehr als eine Informationskomponente bereitstellen müssen, um sich erfolgreich bei einem Konto oder Linux-Host zu authentifizieren. Die zusätzlichen Informationen können ein Einmalpasswort sein, das per SMS an Ihr Mobiltelefon gesendet wird, oder Anmeldedaten von einer App wie Google Authenticator, Twilio Authy oder FreeOTP.</block>
-  <block id="92726ab5faeb2cb9208eaac9af0346bd" category="paragraph-title">Benutzerverwaltung</block>
   <block id="29e7446bddd5d43e5b134b0195974dc4" category="inline-link-macro">Erste Schritte mit der Verwaltung von Benutzerkonten</block>
   <block id="e7093675e4f7ff464368a2c6885c0eff" category="paragraph"><block ref="e7093675e4f7ff464368a2c6885c0eff" category="inline-link-macro-rx"></block></block>
   <block id="65c86c5fc3a334e5116b9bb178b8f05f" category="inline-link-macro">Einführung in die Verwaltung von Benutzer- und Gruppenkonten</block>
@@ -12769,20 +12740,9 @@
   <block id="11e979f92d60857c96e7cef79b2098cd" category="inline-link-macro">Bearbeiten von Benutzergruppen über die Befehlszeile</block>
   <block id="5182eba1834da91a1e9b917f0ba52913" category="paragraph"><block ref="5182eba1834da91a1e9b917f0ba52913" category="inline-link-macro-rx"></block></block>
   <block id="b063c000eb4fba48d6e75b79adf42a9d" category="inline-link-macro">Verwalten des Sudo-Zugriffs</block>
-  <block id="9d11eb8265b20d1b5cc3258afeee0197" category="paragraph"><block ref="9d11eb8265b20d1b5cc3258afeee0197" category="inline-link-macro-rx"></block></block>
   <block id="c5d7be9e703097d4676ec00c2b6b552e" category="inline-link-macro">Verwalten und Zurücksetzen des Root-Passworts</block>
   <block id="6bff5b8adae91af0fd158a7e1d80c4fd" category="paragraph"><block ref="6bff5b8adae91af0fd158a7e1d80c4fd" category="inline-link-macro-rx"></block></block>
-  <block id="addb25ae677e0b8a55734ab57c09d585" category="inline-link-macro">Verstärkte Sicherheit</block>
-  <block id="77948500a8ac32e65224ff3e88f584f7" category="paragraph"><block ref="77948500a8ac32e65224ff3e88f584f7" category="inline-link-macro-rx"></block></block>
-  <block id="7e6eb8a8fac82fdcaf2a5595f008d4f8" category="inline-link-macro">Sicherung von Netzwerken</block>
-  <block id="e987f366c618f88054ad128bd499b7ee" category="paragraph"><block ref="e987f366c618f88054ad128bd499b7ee" category="inline-link-macro-rx"></block></block>
-  <block id="48bf78646325b8dac0d057af95860a05" category="inline-link-macro">Verwalten von Systemdiensten mit systemctl</block>
-  <block id="47bfa795f3168c6e7510c4c9ad03c05a" category="paragraph"><block ref="47bfa795f3168c6e7510c4c9ad03c05a" category="inline-link-macro-rx"></block></block>
-  <block id="48ff390f0fb64944dc24e6b219359ffe" category="inline-link-macro">RHEL 8-Dokumentation</block>
-  <block id="810a71e7a8ed8d9a40260fe78cf59339" category="paragraph"><block ref="810a71e7a8ed8d9a40260fe78cf59339" category="inline-link-macro-rx"></block></block>
   <block id="a0b41d356b93c9dfaa68be7187603656" category="inline-link-macro">Standard-FIPS-Konfiguration in OpenJDK 8</block>
-  <block id="afa39d1513aaa715d473b01160b979a5" category="paragraph"><block ref="afa39d1513aaa715d473b01160b979a5" category="inline-link-macro-rx"></block></block>
-  <block id="da450a003a78f5bc0db625b903ebe4df" category="admonition">Wenn Sie den Host sichern, müssen Sie sicherstellen, dass der Host ohne Benutzereingriff starten kann. Wenn ein Benutzereingriff erforderlich ist, ist die Tiebreaker-Funktion möglicherweise nicht verfügbar, falls der Host unerwartet neu startet. In diesem Fall ist die Tiebreaker-Funktion nur nach dem manuellen Eingriff und nach dem vollständigen Booten des Hosts verfügbar.</block>
   <block id="c22cb96c998e3ef3a46e95e20b46cc25" category="section-title">Sichern Sie die Datenbankinstallation</block>
   <block id="dde18c163a52fbc5fd51944f7a5cc78a" category="paragraph">Die folgenden Richtlinien zeigen, wie Sie die MariaDB 10.x Datenbankinstallation sichern und absichern können.</block>
   <block id="72cc9b23ef9181d84a5d1574a7d6b0fa" category="list-text">Beschränken Sie den Zugriff des „root“-Benutzers.</block>
@@ -12794,10 +12754,8 @@
   <block id="35217fef3323400eef6c43eae284fa4f" category="list-text">Die Möglichkeit, den Datenbankbenutzer mit der Datenbank und den Tabellen zu verknüpfen und Zugriffsrechte zuzuweisen</block>
   <block id="60353b50c7233098e0964ca219364fc6" category="admonition">Das Benutzerkonto, das Sie während der Tiebreaker-Installation angeben, muss über alle diese Berechtigungen verfügen. Die Verwendung mehrerer Benutzerkonten für die verschiedenen Aufgaben wird nicht unterstützt.</block>
   <block id="9dc09eec2f0b114fc44ada1400453e18" category="list-text">Verwenden Sie die Verschlüsselung der Datenbank</block>
-  <block id="9061f04f4bcdcda1f9e55b752788fb3d" category="list-text">Wir unterstützen die Verschlüsselung ruhender Daten</block>
   <block id="aa6d61e03c8f89f9d032024a34407fc4" category="list-text">Die aktiven Daten sind nicht verschlüsselt. Die Daten im Flug verwenden eine lokale „SOCKS“-Dateiverbindung.</block>
   <block id="247b92755de52d8ede5f08728ea55244" category="list-text">FIPS-Konformität für MariaDB -- die FIPS-Konformität der Datenbank muss nicht aktiviert werden. Die Installation des Hosts im FIPS-konformen Modus reicht aus.</block>
-  <block id="853fa7832b3e31e56f9427d88404dee9" category="admonition">Wenn Sie eine Verschlüsselung benötigen, müssen die Verschlüsselungseinstellungen vor der Installation der Tiebreaker Software aktiviert sein.</block>
   <block id="26f428eaa625d88e18348654825b4df2" category="list-text">Benutzerverwaltung der Datenbank</block>
   <block id="65c931ac7059c8d8027b5347a2bc458a" category="inline-link-macro">Zugriffssteuerung und Account-Management</block>
   <block id="6e668ee7d7022baf28de7345f448095c" category="paragraph"><block ref="6e668ee7d7022baf28de7345f448095c" category="inline-link-macro-rx"></block></block>
@@ -12806,11 +12764,6 @@
   <block id="529e037a8731bcfd360d39247cd9009f" category="paragraph"><block ref="529e037a8731bcfd360d39247cd9009f" category="inline-link-macro-rx"></block></block>
   <block id="6c64c3998d1974786fb6c7319be77e44" category="inline-link-macro">Sicherung von MariaDB</block>
   <block id="85909cec38d8e32308f892163433f22f" category="paragraph"><block ref="85909cec38d8e32308f892163433f22f" category="inline-link-macro-rx"></block></block>
-  <block id="f460d5928c4cc0c85aa0f4f16edeefb7" category="list-text">Verschlüsselung für Daten im Ruhezustand</block>
-  <block id="a39641b0bac8191fa991bd279a1cb8aa" category="inline-link-macro">Übersicht über die Verschlüsselung ruhender Daten</block>
-  <block id="481b20702b29a344c7e3fbc0ed5c8cd2" category="paragraph"><block ref="481b20702b29a344c7e3fbc0ed5c8cd2" category="inline-link-macro-rx"></block></block>
-  <block id="1d262274bf6315ede4b316f1c1ac7294" category="inline-link-macro">MySQL Enterprise Transparent Data Encryption (TDE)</block>
-  <block id="c738467feabecf5154d502220ea938b4" category="paragraph"><block ref="c738467feabecf5154d502220ea938b4" category="inline-link-macro-rx"></block></block>
   <block id="c212b56e6344256b819057aa0ff26e93" category="list-text">Sichern Sie die Vault-Installation</block>
   <block id="adfa274b93101556376a5c1c110a25b1" category="inline-link-macro">Produktionshärtung</block>
   <block id="3de794741da4d53ee89d2cfb65848ddb" category="paragraph"><block ref="3de794741da4d53ee89d2cfb65848ddb" category="inline-link-macro-rx"></block></block>
@@ -12820,28 +12773,15 @@
   <block id="6641dbbe07c8e6fe53f1f58917a97776" category="list-text">Installieren und konfigurieren Sie Vault.</block>
   <block id="f798a783218170fc044aaf03491e8c63" category="inline-xref">Installieren und konfigurieren Sie Vault</block>
   <block id="ef1f1252873864d80f380df4f260b300" category="paragraph"><block ref="11cd3d25aa255f8670dd0bfb1bb1d11c" category="inline-xref-macro-rx"></block></block>
-  <block id="4f98b9e93c5515ca7d85806f3a0879e7" category="paragraph">Sie müssen JRE auf Ihrem Host-System installieren, bevor Sie die Tiebreaker Software installieren oder aktualisieren. Führen Sie für Systeme mit Tiebreaker 1.4 und früheren Versionen JRE 8 aus. Führen Sie für Systeme mit Tiebreaker 1.5 und höher OpenJDK 17, 18 oder 19 aus. Die Ausgaben im Beispiel zeigen JRE 1.8.0. (JRE 8).</block>
   <block id="037b7d55a30f474064c10ac0edbaf6d3" category="list-text">Melden Sie sich als „root“-Benutzer oder als sudo-Benutzer an, der in den erweiterten Berechtigungsmodus wechseln kann.</block>
-  <block id="a5bdeb77664eccd64392e790b5c620a8" category="paragraph"><block ref="350a7ebb397b46f12bb07dab4792547e" prefix="" category="inline-code"></block></block>
   <block id="75c3358765861dfefd4446691eccaebc" category="paragraph">Wenn Sie den lokalen Vault-Server nicht verwenden möchten oder haben, müssen Sie Vault installieren. Sie können diese Standardanleitung für die Installation von Vault verwenden oder alternative Richtlinien in der Hashicorp-Installationsanleitung nachlesen.</block>
-  <block id="ae861828484d4409805ec1edb73c2ede" category="admonition">Wenn sich in Ihrem Netzwerk ein Vault-Server befindet, können Sie den MetroCluster Tiebreaker Host für die Verwendung dieser Vault-Installation konfigurieren. In diesem Fall müssen Sie Vault nicht auf dem Host installieren.</block>
   <block id="6ab2b19db2409ff46893b7cf13d70d9d" category="list-text">Laden Sie die Vault-ZIP-Datei herunter.</block>
   <block id="67445ff9dcb93ae0c427e0999e64cf35" category="list-text">Entpacken Sie die Vault-Datei.</block>
   <block id="17ddf110eb6e52617c8b7cf887babcb0" category="list-text">Überprüfen Sie die Installation.</block>
-  <block id="cc99362ed38d28fc7af6e2036222f681" category="list-text">Erstellen Sie eine Vault-Konfigurationsdatei, und stellen Sie sicher, dass die Konfigurationsdatei im Verzeichnis „/root“ erstellt wird.</block>
-  <block id="2a87ce89d72e3f90bd878edd443d805c" category="admonition">Um die Kommunikation mit Vault zu sichern, sollten Sie TLS verwenden.</block>
-  <block id="e8ab497790f83f5fc3740edafdb6d723" category="list-text">Starten Sie den Vault-Server:<block ref="853dbf1e30ce9caf7a28a537403dabef" prefix=" " category="inline-code"></block></block>
   <block id="c3fa5062efbe5addb0b829217e486e9a" category="list-text">Exportieren Sie die Vault-Adresse.</block>
-  <block id="4de432bd9c82befd87621d345b19046d" category="paragraph">Wählen Sie die richtige Option, je nachdem, ob Sie TLS verwenden.</block>
-  <block id="3279d9dbec65a434bbbaf6075818c7c5" category="open-title">Option 1. Bei Verwendung von TLS</block>
-  <block id="3f8c35444ffef5a5d567e66fe6a43370" category="open-title">Option 2. Wenn TLS nicht verwendet wird</block>
   <block id="91e6f0d9d3028913e9b2e534b86ef446" category="list-text">Vault Initialisieren.</block>
   <block id="4c540f118761cf389d03c5408a7163e8" category="list-text">Exportieren Sie das Vault-Root-Token.</block>
-  <block id="30a9676a23282e273d7f6cbe1022a6eb" category="list-text">Heben Sie die Versiegelung des Tresors mit einem der drei erstellten Schlüssel auf.</block>
   <block id="4abdc80f31b6532d800862a32fe8ed41" category="list-text">Vergewissern Sie sich, dass der Status „Vault Sealed“ falsch ist.</block>
-  <block id="6244f17ea488fb3773f5740fe78c9df2" category="list-text">Überprüfen Sie, ob der Vault-Dienst beim Booten auf dem Host gestartet wird.</block>
-  <block id="cb6b0d7f9ede942a2b4f800a3fcfa03e" category="list-text">Führen Sie den folgenden Befehl aus:<block ref="df6090330d99fecb3392520a0dd713fe" prefix=" " category="inline-code"></block></block>
-  <block id="bccb0874ce0428092d8ca432cf7ff3dc" category="list-text">Führen Sie den folgenden Befehl aus:<block ref="1ff331fe1baeee901f4e0e0790fc6fc3" prefix=" " category="inline-code"></block></block>
   <block id="b25f8301169ab26c8100b788b5a04f1f" category="list-text">Führen Sie den folgenden Befehl aus:<block ref="269b117015efb12595eebf74692e5cbc" prefix=" " category="inline-code"></block></block>
   <block id="fe78cd97d75c844b841d778a0e4b605e" category="list-text">Führen Sie den folgenden Befehl aus:<block ref="cbf0dd11767a9f63b03243350db0a86e" prefix=" " category="inline-code"></block></block>
   <block id="df9fc85b72713a8a0de9939c26c83353" category="admonition">Sie werden während der Installation von MetroCluster Tiebreaker aufgefordert, diese Funktion zu verwenden. Wenn Sie die Methode zum Entsiegeln von Tresor ändern möchten, müssen Sie die MetroCluster Tiebreaker Software deinstallieren und neu installieren.</block>
@@ -12851,8 +12791,6 @@
   <block id="c74f17ce72c64bc3a5d3eacc0affa867" category="paragraph">Sie sollten überprüfen, ob die Autostart-Funktion für den MySQL-Daemon aktiviert ist. Durch Aktivieren des MySQL-Daemon wird MySQL automatisch neu gestartet, wenn das System, auf dem die MetroCluster Tiebreaker Software ausgeführt wird, neu gestartet wird. Wenn der MySQL-Daemon nicht ausgeführt wird, wird die Tiebreaker-Software weiterhin ausgeführt, kann aber nicht neu gestartet werden und Konfigurationsänderungen können nicht vorgenommen werden.</block>
   <block id="7b21144e83a2d9bef049269b16711fb4" category="list-text">Melden Sie sich als an<block ref="63a9f0ea7bb98050796b649e85481845" prefix=" " category="inline-code"></block> Benutzer oder ein Benutzer, der in den erweiterten Berechtigungsmodus wechseln kann.</block>
   <block id="a85ec808ef0cc8f00cfefb33625bee2e" category="list-text">Überprüfen Sie, ob der MariaDB-Server gestartet wurde:</block>
-  <block id="39082d88e748813ca7c4289ec8bb91b8" category="admonition">Stellen Sie sicher, dass die Einstellung „Autostart aktivieren“ für MariaDB aktiviert ist. Siehe <block ref="357a9b2b77cd4c5da8d2b51300246283" category="inline-xref-macro-rx"></block>.</block>
-  <block id="516012473dc0564d6ae8f1bb21c934d0" category="paragraph">Überprüfen Sie, ob die Autostart-Funktion für die MariaDB aktiviert ist. Wenn Sie die Autostart-Funktion nicht aktivieren und das System, auf dem sich die MetroCluster Tiebreaker Software befindet, neu gestartet werden muss, wird die Tiebreaker Software ausgeführt, der MariaDB-Service kann jedoch nicht neu gestartet werden und Konfigurationsänderungen können nicht vorgenommen werden.</block>
   <block id="fe62eeb322eff90b81676630826cee46" category="list-text">Sie müssen OpenJDK mithilfe der installiert haben<block ref="366f2699f7c6384b966350ad31d76b9d" prefix=" " category="inline-code"></block> Befehl. Führen Sie für Systeme mit Tiebreaker 1.4 und früheren Versionen JRE 8 aus. Führen Sie für Systeme mit Tiebreaker 1.5 und höher OpenJDK 17, 18 oder 19 aus. Die Ausgaben im Beispiel zeigen JRE 1.8.0. (JRE 8).</block>
   <block id="8043dd95e39830a755744f552dcbfe87" category="list-text">Sie können MetroCluster Tiebreaker als Benutzer ohne Root installieren, der über ausreichende Administratorrechte verfügt, um die Tiebreaker Installation durchzuführen, Tabellen und Benutzer zu erstellen und das Benutzerpasswort usw. festzulegen</block>
   <block id="9e60d73d0ca4d4a89597b4e9640c5dab" category="list-text">Laden Sie die neueste Version der MetroCluster Tiebreaker Software herunter. In diesem Beispiel wird Version 1.5 verwendet.</block>
@@ -12867,7 +12805,6 @@
   <block id="fe5c4e6d23d7df5197bb3306f0890eba" category="admonition">Ein Upgrade auf Tiebreaker Version 1.5 ist nur möglich, wenn Sie ein Upgrade von Tiebreaker Version 1.4 durchführen. Ein Upgrade von früheren Versionen auf Tiebreaker 1.5 wird nicht unterstützt.</block>
   <block id="f02f0088b75e56893084f3c6d0e11382" category="paragraph">Wählen Sie das richtige Verfahren aus der folgenden Liste aus, je nachdem, ob Sie eine neue Installation durchführen oder eine vorhandene Installation aktualisieren.</block>
   <block id="53a3299075fc91e0efbd249fca6a3b62" category="open-title">Führen Sie eine neue Installation durch</block>
-  <block id="40459a63d8595edf157d373070798f30" category="list-text">Führen Sie den Befehl aus:<block ref="03b215d9ee73daa38b9c74b25129b68a" prefix=" " category="inline-code"></block></block>
   <block id="d0797ac7be86e76f779b0cdc4f75e306" category="list-text">Überprüfen Sie, ob eine unterstützte Version von OpenJDK installiert ist und die aktuelle Java-Version auf dem Host ist.</block>
   <block id="bf9295a397fc51fb6414b02eb7dce4e7" category="admonition">Für Upgrades auf Tiebreaker 1.5 müssen Sie entweder OpenJDK Version 17, 18 oder 19 installieren.</block>
   <block id="ee7ebb7261a4f55ecf1a40b55f7ec926" category="list-text">Überprüfen Sie, ob der Vault-Dienst entsiegelt ist und ausgeführt wird:<block ref="95a8292a01bd6ac4b1373bf95faab177" prefix=" " category="inline-code"></block></block>
@@ -13271,4 +13208,114 @@
   <block id="7162464dfaefdef75b18029dcb1bb1f1" category="list-text">Scannen Sie den SCSI-Bus auf dem Host erneut, um die neu hinzugefügten Pfade zu erkennen:<block ref="9e65638d5d13acb691c4bec2ede5a483" prefix=" " category="inline-code"></block></block>
   <block id="9b3bd2afae038f8967e9373560a3b6d2" category="list-text">SCSI-Bus auf dem Client erneut scannen:<block ref="06653a48f6165608045bd55ec32d95fb" prefix=" " category="inline-code"></block></block>
   <block id="77139d079fd912afd88e4ca7f5623393" category="paragraph">Wenn das Controller-Modul mit einem FC-Adapter mit vier Ports konfiguriert ist, überprüfen Sie, ob die Speicher-Stacks nicht mit zwei FC-Ports auf demselben ASIC verbunden sind. Port A und Port b teilen sich denselben ASIC, und Port c und Port d verwenden denselben ASIC. Schließen Sie keinen Stapel von Shelfs an Port A und Port B. an Verwenden Sie stattdessen Port A und Port c oder verwenden Sie Port b und Port d, um einen Single Point of Failure zu vermeiden, wenn ein ASIC ausfällt.</block>
+  <block id="9df52fd51f68e1f0a1c54d87fbcf2d9f" category="paragraph">Sie benötigen die Tiebreaker Software nur, wenn zwei Cluster und der Konnektivitätsstatus zwischen ihnen von einem dritten Standort aus überwacht werden soll. Die Tiebreaker Software befindet sich auf einem Linux Host am dritten Standort, sodass jeder Partner in einem Cluster bei einem Standortausfall zwischen einem ISL-Ausfall und einem Standortausfall unterscheiden kann.</block>
+  <block id="776aa0db93dc60ccb39a1a2bac58edd0" category="paragraph">Die Tiebreaker Software überwacht bis zu 15 MetroCluster Konfigurationen gleichzeitig. Die Lösung unterstützt eine Kombination aus MetroCluster IP, MetroCluster FC und Stretch MetroCluster Konfigurationen.</block>
+  <block id="2c6d3f6cb9e7e0273e71c2ee07e103ef" category="paragraph">Abhängig von Ihrem Linux-Host-Betriebssystem müssen Sie einen MySQL- oder MariaDB-Server installieren, bevor Sie die Tiebreaker Software installieren oder aktualisieren.</block>
+  <block id="8844126d289515e2e309c080e84ee43c" category="paragraph">Sie müssen JRE auf Ihrem Host-System installieren, bevor Sie die Tiebreaker Software installieren oder aktualisieren. Führen Sie für Systeme mit Tiebreaker 1.4 und früheren Versionen JRE 8 aus. Führen Sie für Systeme mit Tiebreaker 1.5 und höher OpenJDK 17, 18 oder 19 aus.</block>
+  <block id="b5331b4efb390ddc30f3887a25420519" category="admonition">Die Ausgaben im folgenden Beispiel zeigen JRE 1.8.0. (JRE 8).</block>
+  <block id="154b8d6790ee60fd4d75865b3817482f" category="list-text">Prüfen Sie auf verfügbare JRE-Versionen:</block>
+  <block id="7865dda488c185a7d613d74e7df3f15e" category="paragraph"><block ref="a99f9b32ea34805f9efcc4f331f10afc" prefix="" category="inline-code"></block></block>
+  <block id="dbdea63ff1558fc908b06e926327423d" category="list-text">Installieren Sie eine geeignete JRE-Version für die Version von Tiebreaker, die Sie installieren:</block>
+  <block id="27ed5e7119f96428586081a25adfe698" category="paragraph"><block ref="2ca50315d5ef6249cb28806653cc3bfe" prefix="" category="inline-code"></block></block>
+  <block id="b90b751e14131dd4f7b6cf9757e8e97a" category="admonition">Wenn sich in Ihrem Netzwerk ein Vault-Server befindet, können Sie den MetroCluster Tiebreaker Host für die Verwendung dieser Vault-Installation konfigurieren. Wenn Sie dies tun, müssen Sie Vault nicht auf dem Host installieren.</block>
+  <block id="5ecbe9b96b4eb8694b1debe91d9978db" category="list-text">Navigieren Sie zum<block ref="1e80cb7e0fbfc9f5c0509a465ecdf6cf" prefix=" " category="inline-code"></block> Verzeichnis:</block>
+  <block id="2cfe406f28049c6dd9fc09b125ac017c" category="list-text">Navigieren Sie zum<block ref="887904812217cca9bc2b9adb875daf42" prefix=" " category="inline-code"></block> Verzeichnis:</block>
+  <block id="e5fed78390db14651df11502997eefc1" category="list-text">Erstellen Sie eine Vault-Konfigurationsdatei unter<block ref="887904812217cca9bc2b9adb875daf42" prefix=" " category="inline-code"></block> Verzeichnis.</block>
+  <block id="77ee658d0da12a583d90f46142713a70" category="paragraph">Am<block ref="0f15246aac8ee03cc7aa24924035fc47" prefix=" " category="inline-code"></block> Um den zu erstellen, kopieren Sie den folgenden Befehl, und führen Sie ihn aus<block ref="c26ec7c333d6f205a8a1e455e5b63152" prefix=" " category="inline-code"></block> Datei:</block>
+  <block id="af2f867cdde590f904b311cec9ffb55f" category="list-text">Starten Sie den Vault-Server:</block>
+  <block id="50e00d7db9933bcd338f8ad7584b9a82" category="admonition">Sie müssen die Schlüssel-IDs und das erste Root-Token an einem sicheren Ort aufzeichnen und speichern, um es später in dem Verfahren verwenden zu können.</block>
+  <block id="fad6f3fe2d13976932c4de2f7321158a" category="list-text">Heben Sie die Versiegelung des Tresors auf, indem Sie drei der fünf erstellten Schlüssel verwenden.</block>
+  <block id="bf66ee77a260c1d89b48aa7abc777a2c" category="paragraph">Sie müssen den ausführen<block ref="6f00b3924e35d47234f86b6ffaa53f3d" prefix=" " category="inline-code"></block> Befehl für jeden der drei Tasten:</block>
+  <block id="8c927363df00bd6b4c2576cf88ba5638" category="list-text">Lösen Sie den Tresor mit dem ersten Schlüssel:</block>
+  <block id="bf04d903c71e68612d3567de44b27f15" category="list-text">Lösen Sie den Tresor mit dem zweiten Schlüssel:</block>
+  <block id="a4eba1eb7596f334db828f94b10645a6" category="list-text">Lösen Sie den Tresor mit dem dritten Schlüssel:</block>
+  <block id="d1c2865b61def39472f4abfd355046b1" category="list-text">Konfigurieren Sie den Vault-Dienst für den Start beim Booten.</block>
+  <block id="edf98314f5da2615b0c5d3b4b5e0b9b4" category="list-text">Führen Sie den folgenden Befehl aus:<block ref="8c9e9c1b15b194b39e4608bcfd2378bb" prefix=" " category="inline-code"></block></block>
+  <block id="e03f788bbf29419e636a27e1f472e11a" category="list-text">Am<block ref="8a496517030fe431ec5836d0c8ae9ba7" prefix=" " category="inline-code"></block> Um die Vault-Dienstdatei zu erstellen, kopieren Sie den folgenden Befehl, und führen Sie ihn aus.</block>
+  <block id="9b064180fbc505f7486a763d137edca1" category="list-text">Installieren Sie den MariaDB-Server:</block>
+  <block id="6b79acfbbc5bbc131d2f2f0095452588" category="admonition">Wenn Sie zur Eingabe des Root-Passworts aufgefordert werden, lassen Sie es leer, und drücken Sie die EINGABETASTE, um mit der Konfiguration der Sicherheits- und Kennworteinstellungen fortzufahren.</block>
+  <block id="6f176c8a2e23e14b4e6fbf22deaea7f1" category="section-title">Aktivieren der Autostart-Einstellung für den MariaDB-Server</block>
+  <block id="b0d6d2175ecec830760ddc378a14c197" category="paragraph">Überprüfen Sie, ob die Autostart-Funktion für den MariaDB-Server aktiviert ist. Wenn Sie die Autostart-Funktion nicht aktivieren und das System, auf dem sich die MetroCluster Tiebreaker Software befindet, neu gestartet werden muss, wird die Tiebreaker Software ausgeführt, der MariaDB-Service kann jedoch nicht neu gestartet werden und Konfigurationsänderungen können nicht vorgenommen werden.</block>
+  <block id="457e8f6231f529b8a11028ebae92d27b" category="doc">Sicherung der Tiebreaker Host- und Datenbankinstallation</block>
+  <block id="e97506311a4625245b4c7a4b57176ce3" category="section-title">Empfehlungen für das Benutzermanagement</block>
+  <block id="3232523ff4a40d267f68a13bbb03df0c" category="list-text">Sie können Benutzer verwenden, die über Root-Zugriff verfügen, um die Tiebreaker Software zu installieren und zu verwalten. <block ref="9d11eb8265b20d1b5cc3258afeee0197" category="inline-link-macro-rx"></block></block>
+  <block id="5e5b4bcd476f7fe9e363a188ab99443b" category="list-text">Während der Installation müssen Sie eine Gruppe namens „mcctbgrp“ erstellen. Der Host-Root-Benutzer und der Benutzer, der während der Installation erstellt wurde, müssen beide Mitglieder sein. Nur Mitglieder dieser Gruppe können die Tiebreaker Software vollständig verwalten.</block>
+  <block id="0dcb0b0233e3f2356aaca0e848f12cc4" category="admonition">Benutzer, die nicht Mitglied dieser Gruppe sind, können nicht auf die Tiebreaker Software oder CLI zugreifen. Sie können zusätzliche Benutzer auf dem Host erstellen und sie zu Mitgliedern der Gruppe machen. Diese zusätzlichen Mitglieder können die Tiebreaker Software nicht vollständig verwalten. Sie haben Lesezugriff und können keine Monitore hinzufügen, ändern oder löschen.</block>
+  <block id="fe59497b414fc467e4ab9b4b2fd0be66" category="list-text">Benutzer- und Account-Management</block>
+  <block id="7f727428c803270e583eaddeb013aca4" category="list-text">Verwalten von Benutzern und Gruppen über die Webkonsole oder die CLI</block>
+  <block id="e61515ae08809701bf1ead416820c29d" category="list-text">Verwalten des Root-Passworts</block>
+  <block id="88ab4db9318fd99a5973f7836c0a8ee2" category="section-title">Grundlegende Empfehlungen für die Host-Sicherheit</block>
+  <block id="061515bf7de72fb94353317af70f32a5" category="inline-link-macro">Erfahren Sie mehr über die Verwaltung von Systemdiensten mit systemctl</block>
+  <block id="04c83df2471b53349a1380d6594a6dfb" category="paragraph"><block ref="04c83df2471b53349a1380d6594a6dfb" category="inline-link-macro-rx"></block></block>
+  <block id="cf4ea178c9802758c291b6fe04a80105" category="paragraph">Weitere Informationen finden Sie unter <block ref="afa39d1513aaa715d473b01160b979a5" category="inline-link-macro-rx"></block></block>
+  <block id="f6167fc25dca4237241452d4c50ff80f" category="list-text">Wenn Sie den Host sichern, müssen Sie sicherstellen, dass der Host ohne Benutzereingriff starten kann. Wenn ein Benutzereingriff erforderlich ist, ist die Tiebreaker-Funktion möglicherweise nicht verfügbar, wenn der Host unerwartet neu startet. In diesem Fall ist die Tiebreaker-Funktion nur nach dem manuellen Eingriff und nach dem vollständigen Booten des Hosts verfügbar.</block>
+  <block id="627c400de9f499aced07d42c09563122" category="inline-link-macro">Erfahren Sie mehr über die Erhöhung der Sicherheit</block>
+  <block id="cd1ebc5ab6a9193c3eccbb08b0b7ed73" category="list-text">Die Multi-Faktor-Authentifizierung (MFA) erhöht die Sicherheit Ihres Unternehmens, da Administratoren mehr als nur einen Benutzernamen und ein Kennwort verwenden müssen, um sich selbst zu identifizieren. Obwohl wichtig, sind Benutzernamen und Passwörter anfällig für Brute-Force-Angriffe und können von Dritten gestohlen werden. <block ref="e9290f469c98ab9e8674920b93043758" category="inline-link-macro-rx"></block></block>
+  <block id="f49bc52f11d809c3633742c41eeec0a7" category="inline-link-macro">Erfahren Sie mehr über die Sicherung von Netzwerken</block>
+  <block id="29a308883ebb4a95b6ddf165b75bed02" category="list-text">Red hat Enterprise Linux 8 bietet MFA, bei dem Benutzer mehr als eine Information bereitstellen müssen, um sich erfolgreich bei einem Konto oder Linux-Host zu authentifizieren. Die zusätzlichen Informationen können ein Einmalpasswort sein, das per SMS an Ihr Mobiltelefon gesendet wird, oder Anmeldedaten von einer App wie Google Authenticator, Twilio Authy oder FreeOTP. <block ref="963efb6e18c87b850ef6a75fe996325a" category="inline-link-macro-rx"></block></block>
+  <block id="0c1569b269fb49dcb3a19e461599f8b2" category="inline-link-macro">Weitere Informationen zur Verschlüsselung ruhender Daten</block>
+  <block id="d037eff76ce863bc8073ee65a4d7aa0f" category="list-text">Die Verschlüsselung ruhender Daten wird unterstützt. <block ref="b9ec4fd69d69350fd85a6abd4005da82" category="inline-link-macro-rx"></block></block>
+  <block id="8fdb4169cdca0d0e1f02d4b06965140f" category="inline-link-macro">Weitere Informationen zu MySQL Enterprise Transparent Data Encryption (TDE)</block>
+  <block id="8d9f6f71afbbb7fa07ef3e65a4faa015" category="paragraph"><block ref="8d9f6f71afbbb7fa07ef3e65a4faa015" category="inline-link-macro-rx"></block></block>
+  <block id="287230691bdd80a939d056f48b82a01a" category="admonition">Die Verschlüsselungseinstellungen müssen vor der Installation der Tiebreaker Software aktiviert sein.</block>
+  <block id="74ca9f2037f85f9bee172d20503c7375" category="paragraph"><block ref="74ca9f2037f85f9bee172d20503c7375" category="inline-link-rx"></block></block>
+  <block id="6d4aa18fe97585a33f001d298b030e6f" category="list-text">Laden Sie die herunter<block ref="24c30cbfcff7f858d1a30b6193122a01" prefix=" " category="inline-code"></block> Schlüssel:</block>
+  <block id="bf23d230569e17dc83fe9974217175d4" category="list-text">Erstellen Sie einen Benutzer, der kein Root-Benutzer ist, und den<block ref="d5a9c5909d563fb968e1c3dc3e45cd64" prefix=" " category="inline-code"></block> Gruppieren.</block>
+  <block id="38197215de6dcb136775c6796090b013" category="list-text">Erstellen Sie einen Benutzer, der kein Root-Benutzer ist, und legen Sie das Passwort fest.</block>
+  <block id="da3c3579b3acc10ce03265f6ec0f662b" category="paragraph">Mit den folgenden Beispielbefehlen wird ein nicht-root-Benutzer mit dem Namen erstellt<block ref="9a0193f01098d3db3f929747ecaa2bda" prefix=" " category="inline-code"></block>:</block>
+  <block id="d7bb77ecb3c540f6987ab2f507fe3866" category="list-text">Erstellen Sie eine Gruppe mit dem Namen<block ref="d5a9c5909d563fb968e1c3dc3e45cd64" prefix=" " category="inline-code"></block>:</block>
+  <block id="43a9e8daa1ed87294695ca1cc6c44bfb" category="paragraph"><block ref="d41ee33fcac5b73ea8ab475ee787f3dc" prefix="" category="inline-code"></block></block>
+  <block id="244e7509a99f4be8215251e45f757157" category="list-text">Fügen Sie den nicht-Root-Benutzer, den Sie erstellt haben, zum hinzu<block ref="d5a9c5909d563fb968e1c3dc3e45cd64" prefix=" " category="inline-code"></block> Gruppieren.</block>
+  <block id="4a2e3179b016527d95a95ddbfdbbfb52" category="paragraph">Mit dem folgenden Befehl wird hinzugefügt<block ref="9a0193f01098d3db3f929747ecaa2bda" prefix=" " category="inline-code"></block> Bis zum<block ref="d5a9c5909d563fb968e1c3dc3e45cd64" prefix=" " category="inline-code"></block> Gruppe:</block>
+  <block id="918fd9b3587bd491716d7f8d146e2977" category="paragraph"><block ref="4e4bd83892276983ed037073ae5e4a67" prefix="" category="inline-code"></block></block>
+  <block id="c59388cc8762bb4b6aadfd611484625f" category="paragraph">Führen Sie die folgenden Teilschritte aus dem Verzeichnis mit dem RPM-Schlüssel aus.</block>
+  <block id="a41a029b875096344ffc788be91b9870" category="list-text">Abrufen und Aufzeichnen des absoluten Pfads für Java:</block>
+  <block id="bf2a1a18c2c6398b764f31d46e296f2f" category="list-text">Führen Sie den folgenden Befehl aus:<block ref="03b215d9ee73daa38b9c74b25129b68a" prefix=" " category="inline-code"></block></block>
+  <block id="3ac11446b528739d814fa9e6668fa288" category="admonition">Wenn Sie während der Installation dazu aufgefordert werden, geben Sie den nicht-Root-Benutzer an, den Sie zuvor erstellt und dem zugewiesen haben<block ref="d5a9c5909d563fb968e1c3dc3e45cd64" prefix=" " category="inline-code"></block> Gruppieren.</block>
+  <block id="2d0e9a7694bf5bc701c3af145a6bba71" category="doc">Prüfen Sie die Anforderungen</block>
+  <block id="7ddb33edf227a18eb76201fcb9e2c9db" category="section-title">Softwareanforderungen</block>
+  <block id="652ef26e1fed1ab97fdc4a6c15b02207" category="paragraph">Je nach der zu installierenden Version von Tiebreaker müssen Sie die folgenden Softwareanforderungen erfüllen:</block>
+  <block id="7756d8f2d40ed781cebba0f1c1f2b14d" category="cell">ONTAP Tiebreaker Version</block>
+  <block id="eae7ed824c301543a7e09d88d74d7b19" category="cell">Unterstützte ONTAP-Versionen</block>
+  <block id="7086defea73bc85dfa4588f2db92a805" category="cell">Unterstützte Linux-Versionen</block>
+  <block id="15ba8037db400229bb5f51956efd5111" category="cell">Java/MariaDB-Anforderungen</block>
+  <block id="64b48b15797ae9ce8dde94af89070b3d" category="paragraph">Mit Red hat Enterprise Linux 8.1 bis 8.7:</block>
+  <block id="389dbd9d6deb8eabbab651256bf77680" category="list-text">OpenJDK 17, 18 oder 19</block>
+  <block id="9e605ce3bb6ad134bb55c54d861ceb6a" category="paragraph">1.4</block>
+  <block id="d1b3737d5bc8f98b3241666f4d0cd1cf" category="paragraph">ONTAP 9.2 und höher</block>
+  <block id="09eecd50480033ff43835a86efed6607" category="list-text">Red hat Enterprise Linux 7 bis 7.9</block>
+  <block id="ae1dfcc629f4542382fd6286dbfe5a0d" category="list-text">CentOS 7 auf 7.9 64 Bit</block>
+  <block id="3f4ac8596d411de0ef0ad341cbeb82aa" category="paragraph">Mit CentOS:</block>
+  <block id="66df7c0e2a0c107715ece74d340b7499" category="paragraph">*MariaDB 10.x (verwenden Sie die Standardversion, die mit "yum install mariadb-Server.x86_64" installiert ist)
+*JRE 8</block>
+  <block id="024464eb7b3fd909a9746dff88c6b9c9" category="section-title">Zusätzlichen Anforderungen</block>
+  <block id="4b0a6058e6a6f2eafcc1db1a3a9573fb" category="paragraph">Sie müssen die folgenden zusätzlichen Anforderungen kennen:</block>
+  <block id="64f896c377dcdc9e0d5ae4809d1c3a73" category="list-text">Wenn Sie die NTP-Quelle (Network Time Protocol) für die Tiebreaker Software auswählen, müssen Sie eine lokale NTP-Quelle verwenden. Die Tiebreaker Software sollte nicht dieselbe Quelle wie die MetroCluster Standorte verwenden, die von der Tiebreaker Software überwacht werden.</block>
+  <block id="490414e0366b091220802d406e52c076" category="doc">Was ist neu</block>
+  <block id="f68e01d366d2b521019205564511ae77" category="paragraph">Jede Version bietet Verbesserungen am MetroCluster Tiebreaker. Die aktuellen Versionen von MetroCluster Tiebreak enthalten alle Neuigkeiten.</block>
+  <block id="c1748037d10cffabb8e95e4ccf77c613" category="section-title">Vorgestellt Werden</block>
+  <block id="6a2fab1a92eaec5f3c3d9b2d28d580c4" category="list-text">Aktualisierung der unterstützenden Bibliotheken</block>
+  <block id="5f6c185eb38c56187fc699dfbe62654b" category="list-text">Verbesserte Sicherheit</block>
+  <block id="d278aad9be542d15b42d2b30e3ac0701" category="section-title">OS Support-Matrix</block>
+  <block id="bc66e40e6d2b679666709d4696a3e3a0" category="cell">Tiebreaker Version</block>
+  <block id="2ff01ce7887ede183a0dcb4bf579a040" category="cell">CentOS 7 - 7.9</block>
+  <block id="afdc9e833dc368813fa4f4ad3b6ff344" category="cell">Redhat 7 - 7.9</block>
+  <block id="a3d07f12ac6e702822c54bd39beca7e2" category="cell">Redhat 8.1 - 8.7</block>
+  <block id="f3bda6ae20e6fe147fffa682501d3941" category="paragraph">Wenn Sie die Monitore vor dem Upgrade in den Observer versetzen, können Sie den Host, auf dem der Tiebreaker Monitor ausgeführt wird, mit minimaler Unterbrechung aktualisieren.</block>
+  <block id="41d2ed82aa95a99454a02273bf71db16" category="inline-link-macro">Installieren oder aktualisieren Sie das Tiebreaker Paket</block>
+  <block id="4df70720c02e1beb11cbc3ae87370ddf" category="paragraph"><block ref="4df70720c02e1beb11cbc3ae87370ddf" category="inline-link-macro-rx"></block></block>
+  <block id="e409cbaf30133c40afd8ba79b71e06ee" category="paragraph">#42; Anschlüsse 12 bis 15 sind für die zweite MetroCluster- oder DR-Gruppe auf dem Brocade 7840-Switch reserviert.</block>
+  <block id="2a8e60d3a0b3d603c27fa9c4562178bf" category="summary">NetApp MetroCluster-Konfigurationen kombinieren Array-basiertes Clustering mit synchroner Replizierung und bieten so kontinuierliche Verfügbarkeit. Alle geschäftskritischen Daten werden Transaktion für Transaktion sofort dupliziert.</block>
+  <block id="99d7ea00899cf98fde6ae4bd7a763fe6" category="list-text">Überprüfen Sie den Status der AUSO-Fehlerdomäne (Automatic Unplanmäßigen Switchover):</block>
+  <block id="914c0f805af7b6a979c9b14a8fca637d" category="admonition">Die folgende Beispielausgabe gilt für ONTAP 9.13.1 und höher. Bei ONTAP 9.12.1 und älteren Versionen sollte der Status der AUSO-Fehlerdomäne sein<block ref="8371e13c4fc64771e634f39be50ec198" prefix=" " category="inline-code"></block>.</block>
+  <block id="1d2738c61f2ddb3b312cabca3378259b" category="list-text">Optional können Sie die automatische erzwungene Umschaltung von MetroCluster konfigurieren.</block>
+  <block id="09bb2a0904755eb985fc0c00a8eaeb29" category="paragraph">Sie können den folgenden Befehl nur auf der erweiterten Berechtigungsebene verwenden.</block>
+  <block id="142e30c0e2bc40260b6bba783159349f" category="admonition">Bevor Sie diesen Befehl verwenden, überprüfen Sie die <block ref="a3a7e72ce1f5f993a44ac5e44397056b" category="inline-link-macro-rx"></block>.</block>
+  <block id="626946adf45b7bb7ff18b4ffcb520404" category="paragraph"><block ref="c3c9b152afaa4bfa0aa390b3e2063a6d" prefix="" category="inline-code"></block></block>
+  <block id="33871b6190a8d5adbe8b15282054766c" category="sidebar">Was ist neu</block>
+  <block id="f76aaf3aaa7b30238e7a3e2b1a04493b" category="sidebar">Installation vorbereiten</block>
+  <block id="bbce41d7b43eef36d5db9bed94db0495" category="sidebar">Abhängigkeiten installieren</block>
+  <block id="9adb8eb34f7ed5a25405fe6af3b01c0a" category="sidebar">Sichern Sie die Installation</block>
+  <block id="357559d73c5bb22e54ab3aeafca1013b" category="sidebar">Installieren Sie das Softwarepaket</block>
+  <block id="3689ab983cde586722e4881cdbf1822a" category="sidebar">Aktualisieren Sie den Host</block>
 </blocks>

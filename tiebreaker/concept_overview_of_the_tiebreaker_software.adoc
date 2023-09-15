@@ -17,9 +17,11 @@ Es ist hilfreich zu verstehen, was die NetApp MetroCluster Tiebreaker Software i
 
 == Erkennen von Ausfällen mit der NetApp MetroCluster Tiebreaker Software
 
-Sie wird auf einem Linux-Host ausgeführt. Sie benötigen die Tiebreaker Software nur, wenn zwei Cluster und der Konnektivitätsstatus zwischen ihnen von einem dritten Standort aus überwacht werden soll. Wenn dann die Verbindung zwischen den Standorten ausfällt, kann jeder Partner in einem Cluster zwischen einem ISL-Fehler und einem Standortausfall unterscheiden.
+Sie benötigen die Tiebreaker Software nur, wenn zwei Cluster und der Konnektivitätsstatus zwischen ihnen von einem dritten Standort aus überwacht werden soll. Die Tiebreaker Software befindet sich auf einem Linux Host am dritten Standort, sodass jeder Partner in einem Cluster bei einem Standortausfall zwischen einem ISL-Ausfall und einem Standortausfall unterscheiden kann.
 
 Nachdem Sie die Tiebreaker Software auf einem Linux-Host installiert haben, können Sie die Cluster in einer MetroCluster-Konfiguration konfigurieren, um auf Notfälle zu überwachen.
+
+Die Tiebreaker Software überwacht bis zu 15 MetroCluster Konfigurationen gleichzeitig. Die Lösung unterstützt eine Kombination aus MetroCluster IP, MetroCluster FC und Stretch MetroCluster Konfigurationen.
 
 
 
