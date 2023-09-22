@@ -11,7 +11,7 @@ summary: 'Ab ONTAP 9.4 unterstützen MetroCluster IP-Konfigurationen neue Instal
 
 
 [role="lead"]
-Ab ONTAP 9.4 unterstützen MetroCluster IP-Konfigurationen neue Installationen mit AFF-Systemen mithilfe von ADP (Advanced Drive Partitioning). In den meisten Konfigurationen erfolgt die Partitionierung und Festplattenzuordnung automatisch während der Erstkonfiguration der MetroCluster-Standorte.
+Ab ONTAP 9.4 unterstützen MetroCluster IP-Konfigurationen neue Installationen mit ADP (Advanced Drive Partitioning). In den meisten Konfigurationen erfolgt die Partitionierung und Festplattenzuordnung automatisch während der Erstkonfiguration der MetroCluster-Standorte.
 
 ONTAP 9.4 und höher umfasst die folgenden Änderungen für die ADP-Unterstützung:
 
@@ -306,7 +306,7 @@ Jedes der beiden Plexe im Root-Aggregat enthält die folgenden Partitionen:
 |===
 
 
-=== ADP und Festplattenzuordnung auf AFF C250 und AFF A250 Systemen
+=== ADP- und Festplattenzuweisung auf AFF C250, AFF A250 und FAS500f Systemen
 
 |===
 
@@ -624,33 +624,8 @@ Keine Angabe
 
 === Festplattenzuordnung auf FAS500f Systemen
 
-|===
+Für FAS500f Systeme gelten die gleichen Richtlinien und Regeln für die Festplattenzuordnung bei AFF C250 und AFF A250 Systemen. Informationen zur Festplattenzuordnung bei FAS500f Systemen finden Sie im <<ADP_FAS500f>> Tabelle:
 
-
-| Richtlinie | Laufwerke pro Standort | Zuweisungsregeln für Laufwerke | ADP-Layout für Root-Partition 
-
-
- a| 
-Minimal empfohlene Laufwerke (pro Standort)
- a| 
-48 Laufwerke
- a| 
-Laufwerke werden automatisch Shelf-für-Shelf zugewiesen.
- a| 
-Keine Angabe
-
-
-
- a| 
-Mindestens unterstützte Laufwerke (pro Standort)
- a| 
-24 Laufwerke
- a| 
-Die Laufwerke sind in vier gleiche Gruppen unterteilt. Jedes Quartals-Shelf wird automatisch einem separaten Pool zugewiesen.
- a| 
-Keine Angabe
-
-|===
 
 
 === Festplattenzuordnung bei FAS9000 Systemen
