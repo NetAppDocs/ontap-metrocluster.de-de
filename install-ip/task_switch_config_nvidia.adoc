@@ -344,3 +344,56 @@ Running Step 24: Final reboot of the switch
 ... The switch will reboot if all steps applied successfully ...
 ----
 
+
+
+
+== Deaktivieren Sie nicht verwendete ISL-Ports und Port-Kanäle
+
+NetApp empfiehlt, nicht verwendete ISL-Ports und Port-Kanäle zu deaktivieren, um unnötige Integritätswarnungen zu vermeiden.
+
+. Identifizieren Sie die nicht verwendeten ISL-Ports und Port-Kanäle mithilfe des RCF-Datei-Banners:
++
+
+NOTE: Wenn sich der Port im Breakout-Modus befindet, kann der im Befehl angegebene Portname von dem im RCF-Banner angegebenen Namen abweichen. Sie können auch die RCF-Verkabelungsdateien verwenden, um den Portnamen zu finden.
+
++
+`net show interface`
+
+. Deaktivieren Sie die nicht verwendeten ISL-Ports und Port-Kanäle mithilfe der RCF-Datei.
++
+[listing]
+----
+cumulus@mcc1-integrity-a1:mgmt:~$ sudo python3 SN2100_v2.0_IP_Switch-A1.py runCmd
+[sudo] password for cumulus:
+    Running cumulus version  : 5.4.0
+    Running RCF file version : v2.0
+Help for runCmd:
+    To run a command execute the RCF script as follows:
+    sudo python3 <script> runCmd <option-1> <option-2> <option-x>
+    Depending on the command more or less options are required. Example to 'up' port 'swp1'
+        sudo python3 SN2100_v2.0_IP_Switch-A1.py runCmd swp1 up
+    Available commands:
+        UP / DOWN the switchport
+            sudo python3 SN2100_v2.0_IP_Switch-A1.py runCmd <switchport> state <up | down>
+        Set the switch port speed
+            sudo python3 SN2100_v2.0_Switch-A1.py runCmd <switchport> speed <10 | 25 | 40 | 100 | AN>
+        Set the fec mode on the switch port
+            sudo python3 SN2100_v2.0_Switch-A1.py runCmd <switchport> fec <default | auto | rs | baser | off>
+        Set the [localISL | remoteISL] to 'UP' or 'DOWN' state
+            sudo python3 SN2100_v2.0_Switch-A1.py runCmd [localISL | remoteISL] state [up | down]
+        Set the option on the port to support DAC cables. This option does not support port ranges.
+            You must reload the switch after changing this option for the required ports. This will disrupt traffic.
+            This setting requires Cumulus 5.4 or a later 5.x release.
+            sudo python3 SN2100_v2.0_Switch-A1.py runCmd <switchport> DacOption [enable | disable]
+cumulus@mcc1-integrity-a1:mgmt:~$
+----
++
+Mit dem folgenden Beispielbefehl wird der Port „swp14“ deaktiviert:
+
++
+`sudo python3 SN2100_v2.0_Switch-A1.py runCmd swp14 state down`
+
++
+Wiederholen Sie diesen Schritt für jeden identifizierten nicht verwendeten Port oder Port-Kanal.
+
+

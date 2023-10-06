@@ -784,7 +784,6 @@
   <block id="b70216f5078d65c8860a010a7ccdbdd8" category="list-text">FibreBridge 7600N oder 7500N-Brücken unterstützen bis zu vier SAS-Stacks.</block>
   <block id="520e16a62f58f9e73a16fda005e8fe2f" category="list-text">Jeder Stack kann verschiedene IOM-Modelle verwenden.</block>
   <block id="8db51e2a7c564cc042e840346cc8e77f" category="paragraph">Unterstützte IOM-Module hängen von der Version der ONTAP ab, die Sie ausführen.</block>
-  <block id="5400fbe37f724313e0008bfdb06f2ae6" category="paragraph">Die vorgeschlagenen Namen, die in diesem Handbuch als Beispiele verwendet werden, identifizieren das Controller-Modul und den Stapel, mit dem die Bridge verbunden wird, wie unten gezeigt.</block>
   <block id="9df6f19f1ce5cd3044ae4a6c42240fb1" category="paragraph">Die MetroCluster-Konfiguration erfordert die Minimalkonfiguration an jedem Standort:</block>
   <block id="6b921594086cf3be722aefbdc64a10c1" category="paragraph">Bei einer MetroCluster-Konfiguration mit vier Nodes und zwei Nodes an jedem Standort sind beispielsweise an jedem Standort vier Pools erforderlich.</block>
   <block id="d963cd5338d788b5f26861ebd6ae6f27" category="paragraph">Weitere Informationen zum Regalmischvorgang finden Sie unter:<block ref="96c52bfd2d59063b848ae852888ce36d" category="inline-link-rx"></block></block>
@@ -2313,7 +2312,6 @@
   <block id="bad3a2380613a08cffd8b317771de374" category="list-text">Führen Sie das dienstprogramm fmc_dc aus, um sicherzustellen, dass das 7-Mode Fabric MetroCluster korrekt funktioniert.</block>
   <block id="f2a62a2226a776063a92a12ed167e429" category="paragraph">Sie können Fehler im Zusammenhang mit Traffic Isolation (TI) Zoning und Trunking ignorieren.</block>
   <block id="ee964d83d74573b3328048ead7b3c04e" category="list-text">Wiederholen Sie die Aufgaben für die zweite Switch-Fabric.</block>
-  <block id="9bc07042d75b92db9b8b24b372c11865" category="summary">Copyright-Informationen für die Installation und Konfiguration von Fabric-Attached MetroCluster.</block>
   <block id="81f0867bac9efadacfd599f0fb66c839" category="summary">Die MetroCluster Konfiguration unterstützt Installationen mit nativen (NetApp) Festplatten-Shelfs, nur mit Array LUNs oder mit einer Kombination aus beiden.</block>
   <block id="8e98ddf5c7184de31606d8ca05864c67" category="doc">Überlegungen für MetroCluster Konfigurationen mit nativen Festplatten-Shelfs oder Array-LUNs</block>
   <block id="b75a46fc53502d73a9aba497366b09e6" category="paragraph">AFF-Systeme unterstützen keine Array-LUNs.</block>
@@ -2444,7 +2442,6 @@
   <block id="0e4fdb537ab94dcc88ee68afa6872a59" category="paragraph">Sie müssen diese Aufgabe für jeden Controller in der MetroCluster-Konfiguration wiederholen.</block>
   <block id="213c74678d0f02b098b6031dd389187f" category="list-text">Spiegelung des nicht gespiegelten Root-Aggregats:</block>
   <block id="eab8b55bcdb4287e02366668fee8df5a" category="paragraph">Das Root-Aggregat wird mit Array-LUNs aus Pool1 gespiegelt.</block>
-  <block id="695e93d2cacba01cfb4c9024989cf992" category="summary">Copyright, Markenzeichen und maschinelle Übersetzung für die Fabric-Attached MetroCluster Installation und Konfiguration.</block>
   <block id="cf9793806e6e4a04213f68a860b2fd56" category="summary">Um einen Cisco FC-Switch zu konfigurieren, müssen Sie die Switch-Einstellungen auf die Werkseinstellungen zurücksetzen, die Switch-Software installieren und die Referenzkonfigurations- \(RCF\)-Dateien herunterladen und anwenden, die die vollständigen Switch-Einstellungen für bestimmte Konfigurationen bereitstellen.</block>
   <block id="64fb3fc78b6d09b80f739c2efaebdd9d" category="doc">Konfigurieren der Cisco FC-Switches mit RCF-Dateien</block>
   <block id="02043b3a3b802db01041709dec8e7509" category="paragraph">Um einen Cisco FC-Switch zu konfigurieren, müssen Sie die Switch-Einstellungen auf die Werkseinstellungen zurücksetzen, die Switch-Software installieren und die RCF-Dateien (Referenzkonfigurationsdateien) herunterladen und anwenden, die die vollständigen Switch-Einstellungen für bestimmte Konfigurationen bereitstellen.</block>
@@ -3043,7 +3040,6 @@
   <block id="f4dbec4fba91fd76923a46fea72e1333" category="list-text">Verwenden Sie die Tiebreaker CLI<block ref="161855cc256c10d662fda1f2b95f69a4" prefix=" " category="inline-code"></block> Befehl zum Entfernen der MetroCluster-Konfiguration.</block>
   <block id="b14e3e8182091f0f3afcf57db19efbce" category="paragraph">Im folgenden Beispiel wird „`Cluster_A`“ aus der Software entfernt:</block>
   <block id="fb22c4a7b5c0395bdf46487a4665275e" category="list-text">Überprüfen Sie, ob die MetroCluster-Konfiguration ordnungsgemäß mithilfe der Tiebreaker CLI entfernt wird<block ref="7f09554f3b428339c3f534ff2c033739" prefix=" " category="inline-code"></block> Befehl.</block>
-  <block id="456a31391b752801562536d0f9695aad" category="paragraph">© 2020 NetApp. Alle Rechte vorbehalten. Gedruckt in den USA</block>
   <block id="d5e32abfbd3e5376cc7d90c1003b3516" category="summary">Die Tiebreaker Software bietet Monitoring-Funktionen für eine Clustered Storage-Umgebung. Außerdem sendet er SNMP-Benachrichtigungen, wenn Probleme mit der Node-Konnektivität oder im Falle eines Standortnotfalls auftreten.</block>
   <block id="995e564ca3c05e931e1da79c841f6b29" category="paragraph">Die Tiebreaker Software wird auf einem dritten Standort installiert, wodurch die Software zwischen einem Switch-Link- (ISL)-Fehler (wenn Verbindungen zwischen den Standorten ausgefallen sind) und einem Standortausfall unterscheiden kann. Ihr Hostsystem muss bestimmte Anforderungen erfüllen, bevor Sie die Tiebreaker Software auf Ihrem lokalen Computer installieren oder aktualisieren können, um die MetroCluster-Konfiguration zu überwachen.</block>
   <block id="1622cddcc8d92c2f521cf45ebeeb83b0" category="list-text">MariaDB 5.5.52.x/MySQL Server 5.6x</block>
@@ -3117,7 +3113,6 @@
   <block id="69b040d4f8adaa4c34e437207036c73c" category="list-text">Vergewissern Sie sich, dass die SNMP-Einstellungen konfiguriert sind:</block>
   <block id="da82ec774885b0fd4ea7e17756ffc01b" category="paragraph"><block ref="7565cd8285a4a137102f1417e0a1dc93" prefix="" category="inline-code"></block></block>
   <block id="c4aa541ec1b33e5e76d09363d75995f8" category="paragraph">Das folgende Beispiel zeigt, dass die Tiebreaker Software einen SNMP Trap für den Event TEST_SNMP_CONFIG senden kann:</block>
-  <block id="f434e67fe7c948db94749474e31b44c4" category="summary">Copyright und Marke</block>
   <block id="a386c9fa441b3fe3c6e80b9d41240b0a" category="summary">Die MetroCluster Tiebreaker Software automatisiert den Recovery-Prozess, da Kunden damit den MetroCluster-Konfigurationsstatus überwachen, SNMP-Ereignisse und Traps bewerten, die an den NetApp Kunden-Support gesendet werden, und den Status von Monitoring-Vorgängen anzeigen können.</block>
   <block id="e549cde0735c7d730ee3af36acfff1f0" category="section-title">AutoSupport wird konfiguriert</block>
   <block id="eb3099718ccffb82108b52c3065d030e" category="paragraph">Standardmäßig werden AutoSupport-Meldungen eine Woche nach der Installation der Tiebreaker Software an NetApp gesendet. Ereignisse, die die AutoSupport-Benachrichtigung auslösen, sind eine Panik der Tiebreaker Software, die Erkennung von Ausfallszenarien für MetroCluster-Konfigurationen oder ein unbekannter MetroCluster-Konfigurationsstatus.</block>
@@ -4350,7 +4345,6 @@
   <block id="654b5ef83fa66dad8993f3654a8bebb5" category="inline-link">ONTAP-Konzepte</block>
   <block id="7dfe20145aba6940fab1b454b71d3786" category="paragraph"><block ref="7dfe20145aba6940fab1b454b71d3786" category="inline-link-rx"></block></block>
   <block id="4f0b7bb576d3c8fa91bf3496e68c038e" category="list-text">Funktionsweise der gespiegelten Aggregate</block>
-  <block id="b1ff5704b48e42d700d43961dd415064" category="summary">Marke</block>
   <block id="c4ce4761e466527d26b3e3d5ed1006fd" category="paragraph">NetApp, das NETAPP Logo und die auf der NetApp Markenseite aufgeführten Marken sind Marken von NetApp Inc. Andere Firmen- und Produktnamen können Marken der jeweiligen Eigentümer sein.</block>
   <block id="f99aa604031e5049799e73b5c3748a98" category="paragraph"><block ref="f99aa604031e5049799e73b5c3748a98" category="inline-link-rx"></block></block>
   <block id="e23227abfbbf3f39097241194ae51e5e" category="summary">Wenn Ihre Konfiguration nicht gespiegelte Aggregate umfasst, müssen potenzielle Zugriffsprobleme nach dem Switchover berücksichtigt werden.</block>
@@ -4856,9 +4850,6 @@
   <block id="9e93b10c56fcff9e0d1564e5ad629c03" category="doc">Konfigurieren der Switches</block>
   <block id="e3af9bb8aab2257a1ad4ff7a5c3ecd15" category="list-text"><block ref="e3af9bb8aab2257a1ad4ff7a5c3ecd15" category="inline-link-macro-rx"></block></block>
   <block id="72f9c6aaf4948fa7910f533f9d8355a5" category="list-text"><block ref="72f9c6aaf4948fa7910f533f9d8355a5" category="inline-link-macro-rx"></block></block>
-  <block id="6b6c87870bfc5260f4e7282bb5b52dd6" category="summary">Hier finden Sie wichtige Informationen zu den lokalisierten Inhalten: netapp.com.</block>
-  <block id="b4de17ead867a3cf0b9d11e57e562672" category="doc">Maschinelle Übersetzung</block>
-  <block id="db9bfd81e26275c9db26e2db3ac172c3" category="paragraph"><block ref="db9bfd81e26275c9db26e2db3ac172c3" category="inline-link-rx"></block></block>
   <block id="fdf0e783eca74a7abe3d6795a4f8efc9" category="doc">Überlegungen bei nicht gespiegelten Aggregaten</block>
   <block id="8e1b87e111c6a25dd28266989f14eb98" category="paragraph">Der Configuration Replication Service (CRS) Metadaten-Volume und Daten-SVM-Root-Volumes müssen sich in einem gespiegelten Aggregat befinden. Sie können diese Volumes nicht in ein nicht gespiegeltes Aggregat verschieben. Wenn sie sich auf einem nicht gespiegelten Aggregat befinden, sind über Switchover und Switchback-Vorgänge verhandelt es Vetos. Der Befehl` MetroCluster Check` gibt eine Warnung aus, wenn dies der Fall ist.</block>
   <block id="853e6bb3641c0d71f39b6809c0ac2110" category="paragraph">In älteren Versionen als ONTAP 9.9 sollte sich eine LUN nicht auf einem nicht gespiegelten Aggregat befinden. Das Konfigurieren einer LUN auf einem nicht gespiegelten Aggregat kann zu einem Switchover von mehr als 120 Sekunden bei einem Ausfall der Daten führen.</block>
@@ -4910,13 +4901,6 @@
   <block id="248f892426f89c07bc5999439096f3e0" category="paragraph"><block ref="8a76e05712367753ebfcc59ac22c3fed" prefix="" category="inline-code"></block></block>
   <block id="1b3b2eb3ea38d6c2916cd4e043a581a0" category="list-text">Anzeigen der Initiatoren, die als Mediator bezeichnet werden:</block>
   <block id="6016a2b341113bf496b719905398ecd2" category="summary">Urheberrecht</block>
-  <block id="e10b5b38785c3a24ec75723ab75b4360" category="paragraph">© 2021 NetApp. Alle Rechte vorbehalten. Gedruckt in den USA</block>
-  <block id="2275e007ee598cef266c877f9c52ee25" category="paragraph">Dieses urheberrechtlich geschützte Dokument darf ohne die vorherige schriftliche Genehmigung des Urheberrechtsinhabers in keiner Form und durch keine Mittel- weder grafische noch elektronische oder mechanische, einschließlich Fotokopieren, Aufnehmen, Verkleben oder Speichern in einem elektronischen Abrufsystem - ohne vorherige schriftliche Genehmigung des Urheberrechtsinhabers.</block>
-  <block id="ce4ad2236c56cc11a838f29c8c261bf7" category="paragraph">Software, die von urheberrechtlich geschütztem NetApp Material abgeleitet wird, unterliegt der folgenden Lizenz und dem folgenden Haftungsausschluss:</block>
-  <block id="b110bc9db113b3149cb9e2ed905d4c6c" category="paragraph">DIE VORLIEGENDE SOFTWARE WIRD IN DER VORLIEGENDEN FORM VON NETAPP ZUR VERFÜGUNG GESTELLT, D. H. OHNE JEGLICHE EXPLIZITE ODER IMPLIZITE GEWÄHRLEISTUNG, EINSCHLIESSLICH, JEDOCH NICHT BESCHRÄNKT AUF DER STILLSCHWEIGENDEN GEWÄHRLEISTUNG DER MARKTGÄNGIGKEIT UND EIGNUNG FÜR EINEN BESTIMMTEN ZWECK, DIE HIERMIT AUSGESCHLOSSEN WERDEN. NETAPP ÜBERNIMMT KEINERLEI HAFTUNG FÜR DIREKTE, INDIREKTE, ZUFÄLLIGE, BESONDERE ODER FOLGESCHÄDEN (EINSCHLIESSLICH, JEDOCH NICHT BESCHRÄNKT AUF DIE BESCHAFFUNG ODER DEN ERSATZ VON WAREN ODER DIENSTLEISTUNGEN, NUTZUNGS-, DATEN- ODER GEWINNVERLUST, ODER BETRIEBSUNTERBRECHUNG) JEDOCH VERURSACHT UND AUF JEDE ART VON HAFTUNG, OB VERTRAGLICH, STRENG HAFTBAR ODER SOFORT (EINSCHLIESSLICH FAHRLÄSSIGKEIT ODER AUF ANDERE WEISE), DIE IN IRGENDEINER WEISE AUS DER NUTZUNG DIESER SOFTWARE, AUCH WENN AUF DIE MÖGLICHKEIT EINES SOLCHEN SCHADENS HINGEWIESEN.</block>
-  <block id="4fc9b260d15698bbd988f76ca839c5b6" category="paragraph">NetApp behält sich das Recht vor, die hierin beschriebenen Produkte jederzeit und ohne Vorankündigung zu ändern. NetApp übernimmt keine Verantwortung oder Haftung für die Verwendung der hier beschriebenen Produkte, sofern nicht ausdrücklich in schriftlicher Form von NetApp angegeben. Die Verwendung oder der Erwerb dieses Produkts stellt keine Lizenzierung im Rahmen eines Patentrechts, Markenrechts oder eines anderen Rechts an geistigem Eigentum von NetApp dar.</block>
-  <block id="87bfcb691f34a9e3fdda83480f0acf78" category="paragraph">Das in diesem Handbuch beschriebene Produkt kann durch ein oder mehrere US-amerikanische Patente, ausländische Patente oder Patentanmeldungen geschützt sein.</block>
-  <block id="464821ce353b86f770de0d09b5f5aabe" category="paragraph">Die hierin enthaltenen Daten beziehen sich auf ein kommerzielles Produkt (wie in FAR 2.101 definiert) und sind Eigentum von NetApp, Inc. Die USA Regierung besitzt eine nicht ausschließliche, nicht übertragbare, nicht sublizenzierbare, weltweite, limitierte unwiderrufliche Lizenz, die Daten nur in Verbindung mit und ausgehend von den USA zu verwenden Regierung zu nutzen, in dessen Rahmen die Daten bereitgestellt wurden. Sofern in diesem Dokument nicht angegeben, dürfen die Daten nicht verwendet, offengelegt, reproduziert, geändert, ausgeführt, Oder angezeigt ohne vorherige schriftliche Genehmigung von NetApp Inc. Die Lizenzrechte der US-Regierung für das US-Verteidigungsministerium beschränken sich auf die Rechte, die in DFARS Absatz 252.227-7015(b) zu finden sind.</block>
   <block id="01fe01722f1775c1b67e7b20a14951de" category="summary">Ab ONTAP 9.9 können MetroCluster IP-Konfigurationen mit IP-Routing (Layer 3)-Backend-Verbindungen implementiert werden.</block>
   <block id="4b7a16d6d162a666fd84016cdf343a72" category="paragraph">Die Back-End-Switches von MetroCluster sind mit dem gerouteten IP-Netzwerk verbunden, entweder direkt mit Routern (wie im folgenden vereinfachten Beispiel dargestellt) oder über andere intervenierenden Switches.</block>
   <block id="39a69537fd3d24cb81ea2bc0e26adec5" category="image-alt">mcc layer3-Backend</block>
@@ -5330,7 +5314,6 @@
   <block id="cdf29de4c8a5a778670e597ff53bb862" category="list-text">Wiederholen Sie diese Schritte auf dem Partner-Cluster.</block>
   <block id="3f710cadb0123c693533da68aaf5b596" category="paragraph-title">Nächste Schritte</block>
   <block id="c5f6ae1a3a37c521928e14a692842c6b" category="paragraph">Kehren Sie zur ONTAP-Befehlszeilenschnittstelle zurück und führen Sie die MetroCluster-Konfiguration durch. Führen Sie dazu die folgenden Aufgaben aus.</block>
-  <block id="e9f56eb126455869bdb213c6b8827217" category="summary">Copyright, Markenrecht und maschinelle Übersetzung</block>
   <block id="a735c149377d586b0e9640f66438ba41" category="summary">Sie müssen die für Cluster-Peering, Management und Datenkonnektivität verwendeten Controller-Modul-Ports verkabeln.</block>
   <block id="c0eaee5f6423afe56bcfe7d71fa2dee6" category="doc">Verkabelung der Controller-Peering-, Daten- und Management-Ports</block>
   <block id="fab2d1136024b7f31159542f9304df3c" category="paragraph">Diese Aufgabe muss für jedes Controller-Modul der MetroCluster-Konfiguration ausgeführt werden.</block>
@@ -6610,7 +6593,6 @@
   <block id="ae93f8db79e804687f665cca18aeaf96" category="list-text">Netzwerkkabel des Clusters nach Bedarf verkabeln:</block>
   <block id="08d765882f3d558992e145feaf1e7b56" category="list-text">Identifizieren Sie die Ports auf dem Controller-Modul für die Cluster-Verbindungen.</block>
   <block id="71cce47db286c6aa128117deeafa4fa5" category="list-text">Wenn Sie ein Switch-Cluster konfigurieren, geben Sie die Ports an, die Sie auf den Cluster-Netzwerk-Switches verwenden möchten.</block>
-  <block id="9d568d2bce9df96d5cd0c80e9752fafc" category="paragraph">Je nach den verwendeten Switches finden Sie das Installationsleitfaden für Cisco Switches _Clustered Data ONTAP Switch Setup-Leitfaden für Cisco Switches_, _NetApp 10G Cluster-Mode Switch_ oder _NetApp 1G Cluster-Mode Switch Installationsanleitung_.</block>
   <block id="0ca1ffae445c35f0997cbf9bb3edfd18" category="list-text">Verbinden Sie die Kabel mit den Cluster-Ports:</block>
   <block id="ac9d5901ac51a7a9e98d7f8c6c0740f1" category="cell">Falls das Cluster...</block>
   <block id="fadb571b21e3b8d292a9bfb891aca2ba" category="paragraph">Zwei-Node-Cluster ohne Switches</block>
@@ -7325,7 +7307,6 @@
   <block id="8af994ab1dc202d685a253237ad12acd" category="list-text">Sie müssen sicherstellen, dass die alten und neuen Plattformmodelle für die Plattformmischung unterstützt werden.</block>
   <block id="b721d4593513d27cdfc55ebe6ceb044f" category="list-text">Sie müssen sicherstellen, dass die alten und neuen Plattformmodelle von den IP-Switches unterstützt werden.</block>
   <block id="2ee2465217913ae7b455ab4ef5e995e6" category="list-text">Die neuen Nodes müssen über genügend Storage verfügen, um die Daten der alten Nodes zusammen mit geeigneten Festplatten für Root-Aggregate und freie Festplatten unterzubringen.</block>
-  <block id="fe92f5934bf96194725b46db02f72324" category="list-text">Diese Prozedur wird nicht auf Systemen der FAS2750 oder der AFF A220 unterstützt.</block>
   <block id="1ba701b5ad5528986d9e0eb838638aae" category="section-title">Beispiel für die Benennung in diesem Verfahren</block>
   <block id="a9b1d4be69539e9b95a2c6672035550c" category="paragraph">Bei diesem Verfahren werden durchgängig Beispielnamen verwendet, um die involvierten DR-Gruppen, Nodes und Switches zu identifizieren.</block>
   <block id="739bd7bf43c07dc6334246bfc8c8ca54" category="cell">Cluster_A an Standort_A</block>
@@ -8215,7 +8196,6 @@
   <block id="620e5ae83bbcc366a09c7f2b1cddd13a" category="paragraph">Das Beispiel zeigt die Befehle, mit denen Plexe auf einen Controller platziert werden, auf dem cMode wieder online geschaltet wird.</block>
   <block id="b3c0c4fe077b345cb9de91466a5abe85" category="paragraph">Die Plexe beginnen sich zu resynchronisieren.</block>
   <block id="0603c73cf9470cfd549fa2ceb0683f8f" category="admonition">Sie können den Fortschritt der Neusynchronisierung mit dem überwachen<block ref="e3a5d3011561dd012ac46f3c31a6ec5c" prefix=" " category="inline-code"></block> Befehl.</block>
-  <block id="49f90e35c32b05006940aa496079571b" category="summary">Markeninformationen zur Wartung der MetroCluster-Komponenten.</block>
   <block id="fca3ec170ce9c71081fd6e6c37f432d0" category="summary">Bei einem Upgrade auf neue Brocade FC-Switches müssen Sie die Switches in der ersten Fabric ersetzen, die MetroCluster-Konfiguration vollständig funktionsfähig sein und die Switches in der zweiten Fabric ersetzen.</block>
   <block id="e47d25d316f8dd834533da4922fbfd3f" category="doc">Upgrade auf neue Brocade FC-Switches</block>
   <block id="472f5d690548311b55786731619a808b" category="list-text">Die MetroCluster-Konfiguration muss sich in einem ordnungsgemäßen Zustand und im normalen Betrieb befindet.</block>
@@ -8684,7 +8664,6 @@
   <block id="d7b12022bf276b2113771c05b8e93cd3" category="list-text">Überprüfen Sie, ob die Bridge hinzugefügt wurde und richtig konfiguriert ist: +<block ref="5612ed7a515d4278d578c100f6f1a976" prefix=" " category="inline-code"></block></block>
   <block id="6bec966647e1b9c8a03ddd277c8fe864" category="inline-link-macro">Teilerückgabe &amp;amp; Austausch</block>
   <block id="844f223d5d27d9ea92473e2d258ee969" category="list-text">Nach dem Austausch des Teils senden Sie das fehlerhafte Teil an NetApp zurück, wie in den mit dem Kit gelieferten RMA-Anweisungen beschrieben. Siehe <block ref="af64d870205b209887217377e716cd40" category="inline-link-macro-rx"></block> Seite für weitere Informationen.</block>
-  <block id="d9e400dd9ded7f29f3d83e3af80e5739" category="summary">Maschinelle Übersetzung für die Wartung der MetroCluster-Komponenten.</block>
   <block id="030887e8b58ec755fe20ef7fbcdc9495" category="summary">Wenn sich der Status eines Netzteilmoduls auf die Bridge ändert, können Sie das Netzteilmodul entfernen und installieren.</block>
   <block id="ff8f31b4f55a0b3e8f6ce5aaecf788eb" category="doc">Hot-Ersetzen eines fehlerhaften Netzteilmoduls</block>
   <block id="0ea60b406b044af50baf856e62b54dea" category="paragraph">Sie können den Status eines Netzteilmoduls über die LEDs auf der Bridge anzeigen. Sie können den Status der Stromversorgungsmodule auch über die ExpressNAV GUI und die Bridge-CLI, über serielle Schnittstelle oder per Telnet anzeigen.</block>
@@ -8885,7 +8864,6 @@
   <block id="72fef016a314fe19829bf53a238ef0d5" category="paragraph"><block ref="4a17c7fe0d64ac54ba1ec5e6a7dcbaa9" prefix="" category="inline-code"></block></block>
   <block id="4ee78dd22a95c5815f5b6e1e4acc364b" category="paragraph"><block ref="3e23026a2bd29e421f319572a9111881" prefix="" category="inline-code"></block></block>
   <block id="5d0aacff762759dbda6dfa013df2be6e" category="list-text">Wiederholen Sie diesen Vorgang für die zweite Switch-Struktur.</block>
-  <block id="aa9dd1542ced8b74553b49591df08b7f" category="summary">Copyright für die Wartung der MetroCluster-Komponenten.</block>
   <block id="6397abfc307e631ca1c862e2d899a88a" category="summary">Unter Umständen müssen ISL-Ports hinzugefügt, entfernt oder geändert werden. Sie können dedizierte ISL-Ports in gemeinsam genutzte ISL-Ports konvertieren oder die Geschwindigkeit der ISL-Ports auf einem Switch ändern. ISLs, die größere Entfernungen zurücklegen, erfordern möglicherweise geringere Geschwindigkeiten, um die Qualität zu verbessern. Möglicherweise müssen auch die Geschwindigkeit der ISL-Ports erhöht werden, um System-Upgrades zu nutzen und ISLs zu einem Cisco IP Switch hinzuzufügen, wenn Hardware hinzugefügt oder aktualisiert wird.</block>
   <block id="d10e49d0bde942d5917f6688f5e0de46" category="doc">ISL-Ports können unterbrechungsfrei hinzugefügt, entfernt oder geändert werden</block>
   <block id="d799c86ecf33c88c19b257919f3e1a0e" category="inline-link-macro">Voraussetzungen für gemeinsam genutzte ISL-Ports</block>
@@ -9350,7 +9328,6 @@
   <block id="3ad19859d634653cbfa49ce0ad1776eb" category="list-text">Schalten Sie die Netzteile ein und legen Sie die Shelf-ID für ein Hot-Add-On fest.</block>
   <block id="7e82b35d3a9c0624409fd7a684476b93" category="list-text">Verkabeln Sie das Hot-Added Festplatten-Shelf.</block>
   <block id="5c8b06614b34d1cc8bfcc4d0913c331c" category="list-text">Überprüfen Sie die SAS-Konnektivität.</block>
-  <block id="16573a1c176c6843c144993b6e9d5686" category="summary">Copyright, Marke und maschinelle Übersetzung für die Wartung der MetroCluster-Komponenten.</block>
   <block id="bd19bf00e1fbfd96fcc2339c755e0467" category="summary">Möglicherweise müssen Sie ISLs zu einem Switch hinzufügen, wenn Hardware wie zusätzliche oder schnellere Controller oder schnellere Switches hinzugefügt oder aktualisiert wird.</block>
   <block id="a6237977252c00c91d0b5db5336baec2" category="doc">Hinzufügen von lSLs zu einem Cisco Switch</block>
   <block id="23ccb323627c51faf14f36b4cb4ca713" category="paragraph">Schritte, die bei einem Switch ausgeführt werden, müssen ebenfalls auf dem anderen ausgeführt werden, um ISL-Konnektivität zu gewährleisten.</block>
@@ -9819,7 +9796,6 @@
   <block id="91bdff5df0a4d2a8dfa3b9c5b74ac20a" category="list-text">Verwenden Sie den folgenden Befehl, um einen Cisco-Switch dauerhaft zu deaktivieren:</block>
   <block id="888372be024925328ca6e321c9a44891" category="paragraph"><block ref="a12c4c47d34d50d24a8dc2dced33d567" prefix="" category="inline-code"></block></block>
   <block id="37e68b1ed6861ebdf386fc5e91c46ae5" category="list-text">Nutzung<block ref="df3a11b0f7b8977a7ee2ae6dd464c6cb" category="inline-link-rx"></block> Um das Verkabelungslayout für Ihren Switch-Typ zu bestimmen, verwenden Sie die Portnutzung für eine MetroCluster-Konfiguration mit acht Nodes.</block>
-  <block id="9846b9bd1d098858cca0855cc4e56c18" category="paragraph">Die Verwendung des FC-Switch-Ports muss mit der in der Anleitung beschriebenen Verwendung übereinstimmen, sodass die RCFs (Reference Configuration Files) verwendet werden können.</block>
   <block id="8c4c17369ebab47cd3919b9e6b1e8537" category="admonition">Verwenden Sie dieses Verfahren nicht, wenn die Verkabelung keine RCFs verwenden kann.</block>
   <block id="62f6cc0bf7eb35e158a953058ca74eca" category="section-title">Anwenden von RCF-Dateien und Neuverkabeln der Switches</block>
   <block id="240180de393c4a94b035628cb25892f2" category="paragraph">Sie müssen die entsprechenden RCF-Dateien (Referenzkonfigurationsdateien) anwenden, um Ihre Switches neu zu konfigurieren, damit die neuen Nodes berücksichtigt werden können. Nachdem Sie die RCF-Dateien angewendet haben, können Sie die Schalter neu auftragen.</block>
@@ -11580,16 +11556,10 @@
   <block id="3d5944fa43e1da5ff51a87653d645dda" category="list-text">Trennen Sie die MetroCluster FC-Controller-Module und Storage-Shelfs, und entfernen Sie sie.</block>
   <block id="e9c44bbfd795a5d63d74c6a77afee70d" category="summary">Rechtliche Hinweise ermöglichen den Zugriff auf Copyright-Erklärungen, Marken, Patente und mehr.</block>
   <block id="30d965eef5ba25c6b9998ae38270b43e" category="doc">Rechtliche Hinweise</block>
-  <block id="de6edae22bc37b97b38a15c7f8af62e2" category="paragraph"><block ref="de6edae22bc37b97b38a15c7f8af62e2" category="inline-link-rx"></block></block>
   <block id="126a02652da6de02962cf1b654fd6376" category="section-title">Marken</block>
-  <block id="a93bc0a57623c2facaa010825c808507" category="paragraph"><block ref="a93bc0a57623c2facaa010825c808507" category="inline-link-rx"></block></block>
   <block id="be89498d2f8a22ce47c02ba9795fe2af" category="section-title">Patente</block>
   <block id="d0b19d36be2c5f16e9aef46c8a452d3d" category="paragraph">Eine aktuelle Liste der NetApp Patente finden Sie unter:</block>
-  <block id="547ea2e305891e64d8e744949b0aca2c" category="paragraph"><block ref="547ea2e305891e64d8e744949b0aca2c" category="inline-link-rx"></block></block>
   <block id="56c34c6410dd45c5cec44149ad0ce037" category="section-title">Datenschutzrichtlinie</block>
-  <block id="50921fca0d376fca62102a5e608994e2" category="paragraph"><block ref="50921fca0d376fca62102a5e608994e2" category="inline-link-rx"></block></block>
-  <block id="dd3918c571093dff2b94f7cef5066d01" category="inline-link-macro">netapp.com</block>
-  <block id="5db028f960e19ec42098e3252e4fb1e3" category="paragraph">Hier finden Sie wichtige Informationen zu den lokalisierten Inhalten <block ref="7e89bb7928e951b6f80ad1dab5c58475" category="inline-link-macro-rx"></block></block>
   <block id="0c3fb4709273fb6106fd5d554214111c" category="summary">In dieser Information wird die Installation und Konfiguration der Hardware- und Softwarekomponenten von MetroCluster in einer Stretch-Konfiguration beschrieben \ (auch als optische SAS-MetroCluster-Konfiguration bezeichnet\).</block>
   <block id="6146d4abcde8b1c5aae9b49637ff7f5f" category="paragraph">In dieser Information wird beschrieben, wie Sie MetroCluster Hardware- und Softwarekomponenten in einer Stretch-Konfiguration installieren und konfigurieren (auch als SAS-optische MetroCluster-Konfiguration bezeichnet).</block>
   <block id="4a5a62259294d97a965d111d8cc932d9" category="paragraph">Diese Informationen sollten Sie unter den folgenden Umständen zur Planung, Installation und Konfiguration einer Stretch-MetroCluster-Konfiguration verwenden:</block>
@@ -12153,7 +12123,6 @@
   <block id="c0aba19592ccfed38799730fe622ca35" category="list-text">Detailliertere Ergebnisse anzeigen:</block>
   <block id="170c6a73ca1b8d1e73e7e0351dabb4a7" category="list-text">Verwenden Sie die im genannten Verfahren für die ausgehandelte Umschaltung, die Reparatur und den Wechsel zurück <block ref="254ad853feafba6ecd93b7da1cfc7daf" category="inline-link-macro-rx"></block>.</block>
   <block id="5af69ae57a9a4e104da0dc7bf9b476fe" category="paragraph">Der <block ref="717caad659837ead96fd39bedd8a12bf" category="inline-link-macro-rx"></block> Enthält zusätzliche Informationen unter dem Abschnitt _Verwalten von Konfigurations-Backups_.</block>
-  <block id="5621b41b86ecc6119cef6c570390e2c4" category="summary">Copyright-Informationen für die Installation und Konfiguration von Stretch MetroCluster.</block>
   <block id="00ba2d14b7be89e77994c1a63febf02b" category="summary">Active IQ Unified Manager und ONTAP System Manager können für das GUI-Management der Cluster und das Monitoring der Konfiguration verwendet werden.</block>
   <block id="88ff9d984c80d54e420fe8ed786e3bb0" category="doc">Mit Active IQ Unified Manager und ONTAP System Manager weitere Konfiguration und Monitoring</block>
   <block id="186047a757cb9863fcb93d32f5c0c989" category="paragraph">Active IQ Unified Manager und ONTAP System Manager können für das GUI-Management der Cluster und für das Monitoring der Konfiguration verwendet werden.</block>
@@ -12190,7 +12159,6 @@
   <block id="1447ee27cf944008f8e33d4ce56f25cb" category="paragraph"><block ref="1447ee27cf944008f8e33d4ce56f25cb" category="inline-link-macro-rx"></block></block>
   <block id="dddcbe39d238e711998c52c432aeaa31" category="summary">Für die Verkabelung Ihrer Platten-Shelves müssen die richtigen FC-to-SAS-Bridges verwendet werden.</block>
   <block id="d970522a2c535f4a798076f2c36b8af8" category="paragraph">Für die Verkabelung dieser Platten-Shelves müssen die richtigen FC-to-SAS-Bridges verwendet werden.</block>
-  <block id="a4cef338a5507901a886ba7a9f2c3930" category="summary">Copyright, Markenzeichen und maschinelle Übersetzung für die Stretch MetroCluster Installation und Konfiguration.</block>
   <block id="db7c7fcb177be4b76e7cfd3b25b6911b" category="summary">Sie sollten die Voraussetzungen und Richtlinien für die Konfiguration von MetroCluster Peering-Beziehungen kennen.</block>
   <block id="c9da011f9debc02fdab80f3b849d7f6e" category="summary">Nach der Konfiguration der Bridge können Sie mit der Verkabelung Ihres neuen Systems beginnen. Die FibreBridge 6500N nutzt QSFP-Anschlüsse.</block>
   <block id="1ff786282c561a059275f4f66fbb3c02" category="doc">Verkabelung einer FibreBridge 6500N Bridge mit Festplatten-Shelfs unter Verwendung von IOM6- oder IOM3-Modulen</block>
@@ -12476,7 +12444,6 @@
   <block id="1af99437570e0e0cef3934038e5fad74" category="list-text">Standort B ist der überlebende Standort.</block>
   <block id="5c48a867bdf31f5d8d03950298c4d6d1" category="list-text">Schalten Sie die Platten-Shelfs am Disaster Standort ein und stellen Sie sicher, dass alle Festplatten ausgeführt werden.</block>
   <block id="22cf71b4afc2e8b46729eed2988cdcf4" category="list-text">Schalten Sie die MetroCluster-IP-Switches ein, wenn sie nicht bereits aktiviert sind.</block>
-  <block id="abf5633c4666f2c2f9ee92883952b686" category="doc">Markeninformationen</block>
   <block id="0c8055e0791cc36196ae36911bd50891" category="summary">Sie müssen die MetroCluster-iSCSI-Initiator-Verbindungen von den noch intakten Nodes wiederherstellen.</block>
   <block id="38d34cbc1563089582d501fa33fc8431" category="doc">Wiederherstellen der Konnektivität von den noch intakten Nodes zum Disaster-Standort (MetroCluster IP-Konfigurationen)</block>
   <block id="36e6d0da6dd22d30492f26d039f7b332" category="paragraph">Dieses Verfahren ist nur bei MetroCluster IP-Konfigurationen erforderlich.</block>
@@ -12637,8 +12604,6 @@
   <block id="9c93bb389638277181f586c3dd49f836" category="summary">Verwenden Sie den Workflow für die Durchführung der Disaster Recovery.</block>
   <block id="51097e1b5f0307e291ad0936cb4d1694" category="doc">Workflow für Disaster Recovery</block>
   <block id="b783592c080ad8561662acaa3fca0b88" category="image-alt">Workflow Disaster Recovery</block>
-  <block id="00ff6cb65975cb5036856052734543f1" category="doc">Copyright-Informationen</block>
-  <block id="b8bf3a077651caf89f45b81a997cd4f8" category="paragraph">LEGENDE ZU „RESTRICTED RIGHTS“: Verwendung, Vervielfältigung oder Offenlegung durch die US-Regierung unterliegt den Einschränkungen gemäß Unterpunkt (c)(1)(ii) Klausel „Rights in Technical Data and Computer Software“ DFARS 252.277-7103 (Oktober 1988) und FAR 52-227-19 (Juni 1987).</block>
   <block id="4b61827e9a71021438f2a7dfd9d83e82" category="summary">Bei einem Ausfall müssen nach dem Switchover beide Schritte in Bezug auf das Disaster-Cluster und das noch funktionsfähige Cluster ausgeführt werden, um einen sicheren und kontinuierlichen Datenservice zu gewährleisten.</block>
   <block id="023ca374581f8fc3e6642cc15b4d7362" category="doc">Durchführen einer erzwungenen Umschaltung nach einem Ausfall</block>
   <block id="ee540970df1b201f83d6ab938879a19c" category="paragraph">Ermitteln, ob ein Notfall aufgetreten ist, erfolgt durch:</block>
@@ -13319,4 +13284,52 @@
   <block id="5801d3e28a980df8d84e60a3eea8469c" category="paragraph">Ab ONTAP 9.4 unterstützen MetroCluster IP-Konfigurationen neue Installationen mit ADP (Advanced Drive Partitioning). In den meisten Konfigurationen erfolgt die Partitionierung und Festplattenzuordnung automatisch während der Erstkonfiguration der MetroCluster-Standorte.</block>
   <block id="e6ca378bbb6d15fd110961cea50b2eb0" category="section-title">ADP- und Festplattenzuweisung auf AFF C250, AFF A250 und FAS500f Systemen</block>
   <block id="91d96627fcbee13a9d474587060d13f8" category="paragraph">Für FAS500f Systeme gelten die gleichen Richtlinien und Regeln für die Festplattenzuordnung bei AFF C250 und AFF A250 Systemen. Informationen zur Festplattenzuordnung bei FAS500f Systemen finden Sie im <block ref="62481755a241b3efc5c68e4e7dd00bb5" category="inline-xref-macro-rx"></block> Tabelle:</block>
+  <block id="d39fc122b5bc72857d3bc1cb28b2528b" category="summary">Möglicherweise müssen Sie den Anbieter eines FC-Switches (von Cisco zu Brocade oder umgekehrt) ändern, das Switch-Modell oder beides ändern.</block>
+  <block id="dc97a56f45d09eb47627be2f51eaacac" category="doc">Ändern Sie den Anbieter oder das Modell eines FC-Switch</block>
+  <block id="588f711b0852bf6ebac518663e6bf15c" category="paragraph">Möglicherweise müssen Sie den Anbieter eines FC Switch von Cisco zu Brocade wechseln oder umgekehrt, das Switch-Modell ändern oder beides ändern.</block>
+  <block id="34b3750efa9ad33069e758e1d20702b2" category="list-text">Dieses Verfahren gilt, wenn Sie NetApp Validated Switches verwenden.</block>
+  <block id="038dcdf6b816f0dea514171c0fbec340" category="list-text">Sie müssen die Schritte in diesem Verfahren für jeweils eine Fabric für beide Fabrics in der Konfiguration ausführen.</block>
+  <block id="12e792350f2f2a26f26efec238939f8c" category="list-text">[[Step_1,Step 1]]Überprüfen Sie den Zustand der Konfiguration.</block>
+  <block id="2aadc0e8757be310d2a25c139de10d8a" category="paragraph">Befolgen Sie die Schritte unter <block ref="71433a7a2e7b6001aee2288bc93568fd" category="inline-link-macro-rx"></block>.</block>
+  <block id="4b0b73acfce5119dcc60f2f7b6dac2c4" category="list-text">Trennen Sie die Verbindungen vom alten Schalter, indem Sie die Anschlüsse in der folgenden Reihenfolge entfernen:</block>
+  <block id="5ad31ba7150f9832a818c89539b6baa5" category="list-text">Trennen Sie die MetroCluster IP-Schnittstellen.</block>
+  <block id="66700e9b823419320bcf568412b3c8f5" category="list-text">Trennen Sie die MetroCluster-ISLs.</block>
+  <block id="c4f64a0c7e0a39b3f68c6c76b119f9b7" category="list-text">Schalten Sie den alten Schalter aus, entfernen Sie die Kabel, und ersetzen Sie den alten Schalter durch den neuen Schalter.</block>
+  <block id="39c4de53c442cd522fc67edfc4cc59c8" category="list-text">Verkabeln Sie die Schalter in der folgenden Reihenfolge:</block>
+  <block id="0f192214376d7c0e958d509a331b7c82" category="inline-link-macro">Installieren und verkabeln Sie die MetroCluster-Komponenten</block>
+  <block id="ca71188f7f4bbd1ad7fb2b3ac50145fa" category="paragraph">Sie müssen die Schritte unter befolgen <block ref="f09498c56b761bf8471aa49436b9c6b5" category="inline-link-macro-rx"></block>.</block>
+  <block id="d7c72b026579f98d6108723379befa5c" category="list-text">Schalten Sie den Switch ein.</block>
+  <block id="4c49ac5fd96c13efa7ddbce7575dd9e4" category="list-text">Wiederholen Sie die Schritte, um zu überprüfen, ob die MetroCluster-Konfiguration ordnungsgemäß ist <block ref="70a312d559ac5bac88a63c5c7c2e52d3" category="inline-xref-macro-rx"></block>.</block>
+  <block id="b81576b1956a4793e86cfb62d8774b3f" category="list-text">Wiederholen Sie Schritt 1 bis Schritt 7 für den zweiten Fabric in der Konfiguration.</block>
+  <block id="899dd799064eace0f16728f2bf38c96b" category="paragraph">Die Verwendung des FC-Switch-Ports muss mit der in der Dokumentation beschriebenen Verwendung übereinstimmen, damit die Referenzkonfigurationsdateien (RCFs, Reference Configuration Files) verwendet werden können.</block>
+  <block id="c1f9897c71a9ecfa3b9c9f7cf2180518" category="paragraph">Die als Beispiele in dieser Dokumentation vorgeschlagenen Namen identifizieren das Controller-Modul und den Stack, mit dem die Bridge verbunden ist, wie unten gezeigt.</block>
+  <block id="498655ab09377cb9366dc958acdc9ea7" category="section-title">Deaktivieren Sie nicht verwendete ISL-Ports und Port-Kanäle</block>
+  <block id="ff0ff0079f0279d8fee034046e8fa982" category="paragraph">NetApp empfiehlt, nicht verwendete ISL-Ports und Port-Kanäle zu deaktivieren, um unnötige Integritätswarnungen zu vermeiden.</block>
+  <block id="a9326d2f25aef48e5762f13385203981" category="list-text">Identifizieren Sie die nicht verwendeten ISL-Ports und Port-Kanäle:</block>
+  <block id="266e882d8921051df420c801a50fbf2b" category="list-text">Deaktivieren Sie die nicht verwendeten ISL-Ports und Port-Kanäle.</block>
+  <block id="88cd2a16d4b9522a6fbeb03c6848465d" category="paragraph">Sie müssen die folgenden Befehle für jeden identifizierten nicht verwendeten Port oder Port-Kanal ausführen.</block>
+  <block id="24b12e7bdbffc85f965324863b16c8be" category="list-text">Identifizieren Sie die nicht verwendeten ISL-Ports und Port-Kanäle mithilfe des RCF-Datei-Banners:</block>
+  <block id="1ebfefc73ecfb2ec17fba9f0880be790" category="admonition">Wenn sich der Port im Breakout-Modus befindet, kann der im Befehl angegebene Portname von dem im RCF-Banner angegebenen Namen abweichen. Sie können auch die RCF-Verkabelungsdateien verwenden, um den Portnamen zu finden.</block>
+  <block id="bb4c2363cad6592b2fa6d4a7007aaa06" category="open-title">Für Details zum ISL-Port</block>
+  <block id="53b57934da9ea1d512fc2c0741e756bc" category="paragraph">Führen Sie den Befehl aus<block ref="bb29d819162aea516f17802198f8faf7" prefix=" " category="inline-code"></block>.</block>
+  <block id="0c3fc93b330ba95bfe2bc5102d8089aa" category="open-title">Für Port-Channel-Details</block>
+  <block id="cd26d4b6b111806e4402f9e7eead62d5" category="paragraph">Führen Sie den Befehl aus<block ref="aedf88e4ada390daeb68da65170c0578" prefix=" " category="inline-code"></block>.</block>
+  <block id="4adfbc621db8b89083d474dee0f07c80" category="paragraph"><block ref="fba42a2ccc46f0a6204709f144e648ff" prefix="" category="inline-code"></block></block>
+  <block id="f9218f910e102c6bf49c5cfbc302c5ac" category="list-text">Deaktivieren Sie die nicht verwendeten ISL-Ports und Port-Kanäle mithilfe der RCF-Datei.</block>
+  <block id="68a72b41a8daefa7ca605b20a64500a8" category="paragraph">Mit dem folgenden Beispielbefehl wird der Port „swp14“ deaktiviert:</block>
+  <block id="b41a320410f2e03d4fb404dd5306d72d" category="paragraph"><block ref="1c2ab87af553dd288ec9c5432d9df972" prefix="" category="inline-code"></block></block>
+  <block id="82ba711aac35f0fb050f29204c66ad9b" category="paragraph">Wiederholen Sie diesen Schritt für jeden identifizierten nicht verwendeten Port oder Port-Kanal.</block>
+  <block id="aecfb0a1f8a6f4b14648ea2c18aae2ae" category="inline-link">Konfigurationsleitfaden für Clustered Data ONTAP Switches für Cisco Switches</block>
+  <block id="b1eca50e31d6909ea55f828a37711fa1" category="inline-link">^NetApp 10G Cluster-Mode-Switch Installationshandbuch</block>
+  <block id="96e98f400012e6584b81d57011c42c45" category="inline-link">Installationshandbuch für den NetApp 1G Cluster-Mode Switch</block>
+  <block id="1f11a3b40ac30c6144b635a5d93b7747" category="paragraph">Siehe<block ref="237aa47d8beba176e8d1fd03c40ee412" category="inline-link-rx"></block>,<block ref="972e67585606ce2e224f1c546c9d6041" category="inline-link-rx"></block> Oder<block ref="9fb6a12c499847b05bef27152fedb329" category="inline-link-rx"></block>, Je nachdem, welche Schalter Sie verwenden.</block>
+  <block id="52009bb7ee17227f566cd26a02caee56" category="inline-link-macro"><block ref="52009bb7ee17227f566cd26a02caee56" category="inline-link-rx"></block></block>
+  <block id="a1a9afcf552a769c282769271829889a" category="paragraph"><block ref="a1a9afcf552a769c282769271829889a" category="inline-link-macro-rx"></block></block>
+  <block id="5d545fe5152641e2ebe654e336e520e5" category="paragraph"><block ref="5d545fe5152641e2ebe654e336e520e5" category="inline-link-macro-rx"></block></block>
+  <block id="88e5eabd3917048b6927c42496b98f86" category="inline-link-macro"><block ref="88e5eabd3917048b6927c42496b98f86" category="inline-link-rx"></block></block>
+  <block id="dd38f906b37d412de7d1c1dcf4cbf31c" category="paragraph"><block ref="dd38f906b37d412de7d1c1dcf4cbf31c" category="inline-link-macro-rx"></block></block>
+  <block id="8acb58cbd50ef1b468a020ee0bd351d3" category="inline-link-macro"><block ref="8acb58cbd50ef1b468a020ee0bd351d3" category="inline-link-rx"></block></block>
+  <block id="2352c4e1f4d0024ade0869e00e6243f4" category="paragraph"><block ref="2352c4e1f4d0024ade0869e00e6243f4" category="inline-link-macro-rx"></block></block>
+  <block id="35c124f455f44a154eb3b514029ee58a" category="section-title">Sicherheitsinformationen und gesetzliche Hinweise</block>
+  <block id="a6518839a3ee2f900f136494094df3cf" category="paragraph"><block ref="a6518839a3ee2f900f136494094df3cf" category="inline-link-rx"></block></block>
 </blocks>
