@@ -224,6 +224,29 @@ Das folgende Beispiel zeigt die `sntp` Befehle, die IP-Adresse des SNTP-Servers 
 (Routing) (Config)#exit
 (Routing) (Config)#
 ----
++
+Verwenden Sie für EFOS Version 3.10.0.3 und höher den `ntp` Befehl, wie im folgenden Beispiel dargestellt:
+
++
+[listing]
+----
+> (Config)# ntp ?
+
+authenticate             Enables NTP authentication.
+authentication-key       Configure NTP authentication key.
+broadcast                Enables NTP broadcast mode.
+broadcastdelay           Configure NTP broadcast delay in microseconds.
+server                   Configure NTP server.
+source-interface         Configure the NTP source-interface.
+trusted-key              Configure NTP authentication key number for trusted time source.
+vrf                      Configure the NTP VRF.
+
+>(Config)# ntp server ?
+
+ip-address|ipv6-address|hostname  Enter a valid IPv4/IPv6 address or hostname.
+
+>(Config)# ntp server 10.99.99.5
+----
 . Konfigurieren Sie den Switch-Namen:
 +
 `hostname IP_switch_A_1`
