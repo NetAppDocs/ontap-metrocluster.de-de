@@ -4,7 +4,7 @@ sidebar: sidebar
 keywords: transition, metrocluster, node, fc, ip, iscsi, host, connection, moving, move, linux, set, up, add, report, removing, remove, rescan, path 
 summary: Nach der Umstellung Ihrer MetroCluster Nodes von FC zu IP müssen Sie eventuell Ihre iSCSI-Host-Verbindungen zu den neuen Nodes verschieben. 
 ---
-= Verschieben von Linux iSCSI-Hosts von MetroCluster-FC- zu MetroCluster-IP-Knoten
+= Verschieben Sie Linux iSCSI-Hosts von MetroCluster FC zu MetroCluster IP-Knoten
 :allow-uri-read: 
 :icons: font
 :imagesdir: ../media/
@@ -13,70 +13,83 @@ summary: Nach der Umstellung Ihrer MetroCluster Nodes von FC zu IP müssen Sie e
 [role="lead"]
 Nach der Umstellung Ihrer MetroCluster Nodes von FC zu IP müssen Sie eventuell Ihre iSCSI-Host-Verbindungen zu den neuen Nodes verschieben.
 
-In diesem Verfahren werden IPv4-Schnittstellen erstellt.
+.Über diese Aufgabe
+* IPv4-Schnittstellen werden beim Einrichten der neuen iSCSI-Verbindungen erstellt.
+* Die Host-Befehle und Beispiele sind spezifisch für Linux-Betriebssysteme.
+* Die MetroCluster FC-Nodes werden als alte Nodes bezeichnet und die MetroCluster IP-Nodes als neue Nodes bezeichnet.
 
-Die in diesen Verfahren angegebenen Host-Befehle und Beispiele sind für LINUX-Betriebssysteme spezifisch.
 
 
 
-== Einrichten neuer iSCSI-Verbindungen
+== Schritt 1: Einrichtung neuer iSCSI-Verbindungen
 
-[role="lead"]
-Zum Verschieben von iSCSI-Verbindungen müssen Sie neue iSCSI-Verbindungen zu den MetroCluster-IP-Knoten einrichten.
+Um die iSCSI-Verbindungen zu verschieben, richten Sie neue iSCSI-Verbindungen zu den neuen Knoten ein.
 
-. Erstellen Sie iSCSI-Schnittstellen auf den MetroCluster IP-Knoten, und überprüfen Sie Ping-Verbindungen von den iSCSI-Clients zu den neuen IP-Schnittstellen auf den MetroCluster IP-Knoten.
+.Schritte
+. Erstellen Sie iSCSI-Schnittstellen auf den neuen Knoten, und prüfen Sie die Ping-Verbindung zwischen den iSCSI-Hosts und den neuen Schnittstellen auf den neuen Knoten.
 +
-https://docs.netapp.com/us-en/ontap/networking/create_a_lif.html["Erstellen von Netzwerkschnittstellen"^]
+https://docs.netapp.com/us-en/ontap/networking/create_a_lif.html["Netzwerkschnittstellen erstellen"^]
 
 +
-Alle iSCSI-Schnittstellen der SVM sollten über den iSCSI-Client erreichbar sein.
+Alle iSCSI-Schnittstellen der SVM sollten vom iSCSI-Host erreichbar sein.
 
-. Identifizieren Sie auf dem iSCSI-Host oder -Client die vorhandenen iSCSI-Verbindungen vom Host zum MetroCluster-FC-Node: `iscsiadm -m session`
+. Identifizieren Sie auf dem iSCSI-Host die vorhandenen iSCSI-Verbindungen vom Host zum alten Knoten:
++
+[source, cli]
+----
+iscsiadm -m session
+----
 +
 [listing]
 ----
 [root@scspr1789621001 ~]# iscsiadm -m session
-
 tcp: [1] 10.230.68.236:3260,1156 iqn.1992-08.com.netapp:sn.58d7f6df2cc611eaa9c500a098a71638:vs.6 (non-flash)
-
 tcp: [2] 10.230.68.237:3260,1158 iqn.1992-08.com.netapp:sn.58d7f6df2cc611eaa9c500a098a71638:vs.6 (non-flash)
 ----
-. Überprüfen Sie die Verbindungen vom MetroCluster-IP-Knoten: `iscsi session show -vserver svm-name`
+. Überprüfen Sie auf dem neuen Node die Verbindungen vom neuen Node:
++
+[source, cli]
+----
+iscsi session show -vserver <svm-name>
+----
 +
 [listing]
 ----
-node_A_1-IP::*> iscsi session show -vserver vsa_1
-
+node_A_1-new::*> iscsi session show -vserver vsa_1
  Tpgroup Initiator Initiator
-
 Vserver Name TSIH Name ISID Alias
 --------- ------- ---- ------------------------ --------- ---------------------
 vsa_1 iscsi_lf__n1_p1_ 4 iqn.2020-01.com.netapp.englab.gdl:scspr1789621001 00:02:3d:00:00:01 scspr1789621001.gdl.englab.netapp.com
 vsa_1 iscsi_lf__n2_p1_ 4 iqn.2020-01.com.netapp.englab.gdl:scspr1789621001 00:02:3d:00:00:02 scspr1789621001.gdl.englab.netapp.com
-
 2 entries were displayed.
 ----
-. Führen Sie die iSCSI-Schnittstellen in ONTAP für die SVM auf, die die Schnittstellen enthält: `iscsi interface show -vserver svm-name`
+. Führen Sie auf dem neuen Node die iSCSI-Schnittstellen in ONTAP für die SVM auf, die die Schnittstellen enthält:
++
+[source, cli]
+----
+iscsi interface show -vserver <svm-name>
+----
 +
 [listing]
 ----
 sti8200mcchtp001htp_siteA::*> iscsi interface show -vserver vsa_1
-
  Logical Status Curr Curr
-
-Vserver    Interface  TPGT Admin/Oper IP Address Node Port Enabled
----------- ---------- ---- ---------- --------------- ----------- ---- -------
-
+Vserver Interface  TPGT Admin/Oper IP Address Node Port Enabled
+------- ---------- ---- ---------- --------------- ----------- ---- -------
 vsa_1 iscsi_lf__n1_p1_ 1156 up/up 10.230.68.236 sti8200mcc-htp-001 e0g true
 vsa_1 iscsi_lf__n1_p2_ 1157 up/up fd20:8b1e:b255:805e::78c9 sti8200mcc-htp-001 e0h true
 vsa_1 iscsi_lf__n2_p1_ 1158 up/up 10.230.68.237 sti8200mcc-htp-002 e0g true
 vsa_1 iscsi_lf__n2_p2_ 1159 up/up fd20:8b1e:b255:805e::78ca sti8200mcc-htp-002 e0h true
 vsa_1 iscsi_lf__n3_p1_ 1183 up/up 10.226.43.134 sti8200mccip-htp-005 e0c true
 vsa_1 iscsi_lf__n4_p1_ 1188 up/up 10.226.43.142 sti8200mccip-htp-006 e0c true
-
 6 entries were displayed.
 ----
-. Führen Sie auf dem iSCSI-Client die Erkennung auf einer der iSCSI-IP-Adressen der SVM durch, um die neuen Ziele zu ermitteln: `iscsiadm -m discovery -t sendtargets -p iscsi-ip-address`
+. Führen Sie auf dem iSCSI-Host die Ermittlung auf einer der iSCSI-IP-Adressen auf der SVM aus, um die neuen Ziele zu ermitteln:
++
+[source, cli]
+----
+iscsiadm -m discovery -t sendtargets -p iscsi-ip-address
+----
 +
 Die Erkennung kann mit jeder beliebigen IP-Adresse der SVM ausgeführt werden, einschließlich nicht-iSCSI-Schnittstellen.
 
@@ -84,55 +97,65 @@ Die Erkennung kann mit jeder beliebigen IP-Adresse der SVM ausgeführt werden, e
 [listing]
 ----
 [root@scspr1789621001 ~]# iscsiadm -m discovery -t sendtargets -p 10.230.68.236:3260
-
 10.230.68.236:3260,1156 iqn.1992-08.com.netapp:sn.58d7f6df2cc611eaa9c500a098a71638:vs.6
 10.226.43.142:3260,1188 iqn.1992-08.com.netapp:sn.58d7f6df2cc611eaa9c500a098a71638:vs.6
 10.226.43.134:3260,1183 iqn.1992-08.com.netapp:sn.58d7f6df2cc611eaa9c500a098a71638:vs.6
 10.230.68.237:3260,1158 iqn.1992-08.com.netapp:sn.58d7f6df2cc611eaa9c500a098a71638:vs.6
 ----
-. Melden Sie sich auf dem iSCSI-Client bei allen erkannten Adressen an: `iscsiadm -m node -L all -T node-address -p portal-address -l`
+. Melden Sie sich auf dem iSCSI-Host bei allen erkannten Adressen an:
++
+[source, cli]
+----
+iscsiadm -m node -L all -T node-address -p portal-address -l
+----
 +
 [listing]
 ----
 [root@scspr1789621001 ~]# iscsiadm -m node -L all -T iqn.1992-08.com.netapp:sn.58d7f6df2cc611eaa9c500a098a71638:vs.6 -p 10.230.68.236:3260 -l
-
 Logging in to [iface: default, target: iqn.1992-08.com.netapp:sn.58d7f6df2cc611eaa9c500a098a71638:vs.6, portal: 10.226.43.142,3260] (multiple)
 Logging in to [iface: default, target: iqn.1992-08.com.netapp:sn.58d7f6df2cc611eaa9c500a098a71638:vs.6, portal: 10.226.43.134,3260] (multiple)
 Login to [iface: default, target: iqn.1992-08.com.netapp:sn.58d7f6df2cc611eaa9c500a098a71638:vs.6, portal: 10.226.43.142,3260] successful.
 Login to [iface: default, target: iqn.1992-08.com.netapp:sn.58d7f6df2cc611eaa9c500a098a71638:vs.6, portal: 10.226.43.134,3260] successful.
 ----
-. Überprüfen Sie auf dem iSCSI-Client die Anmeldung und die Verbindungen: `iscsiadm -m session`
+. Überprüfen Sie auf dem iSCSI-Host die Anmeldung und Verbindungen:
++
+[source, cli]
+----
+iscsiadm -m session
+----
 +
 [listing]
 ----
 [root@scspr1789621001 ~]# iscsiadm -m session
-
 tcp: [1] 10.230.68.236:3260,1156 iqn.1992-08.com.netapp:sn.58d7f6df2cc611eaa9c500a098a71638:vs.6 (non-flash)
 tcp: [2] 10.230.68.237:3260,1158 iqn.1992-08.com.netapp:sn.58d7f6df2cc611eaa9c500a098a71638:vs.6 (non-flash)
 tcp: [3] 10.226.43.142:3260,1188 iqn.1992-08.com.netapp:sn.58d7f6df2cc611eaa9c500a098a71638:vs.6 (non-flash)
 ----
-. Überprüfen Sie vom MetroCluster-Knoten die Anmeldung und die Verbindung mit dem Client: `iscsi initiator show -vserver vsa_1`
+. Überprüfen Sie auf dem neuen Node die Anmeldung und die Verbindung mit dem Host:
++
+[source, cli]
+----
+iscsi initiator show -vserver <svm-name>
+----
 +
 [listing]
 ----
 sti8200mcchtp001htp_siteA::*> iscsi initiator show -vserver vsa_1
-
  Tpgroup Initiator
-
 Vserver Name             TSIH Name                  ISID              Igroup Name
 ------- --------         ---- --------------------- ----------------- -----------------
 vsa_1 iscsi_lf__n1_p1_ 4 iqn.2020-01.com.netapp.englab.gdl:scspr1789621001 00:02:3d:00:00:01 igroup_linux
 vsa_1 iscsi_lf__n2_p1_ 4 iqn.2020-01.com.netapp.englab.gdl:scspr1789621001 00:02:3d:00:00:02 igroup_linux
 vsa_1 iscsi_lf__n3_p1_ 1 iqn.2020-01.com.netapp.englab.gdl:scspr1789621001 00:02:3d:00:00:04 igroup_linux
 vsa_1 iscsi_lf__n4_p1_ 1 iqn.2020-01.com.netapp.englab.gdl:scspr1789621001 00:02:3d:00:00:03 igroup_linux
-
 4 entries were displayed.
 ----
 
 
-Am Ende dieser Aufgaben kann der Client alle iSCSI-Schnittstellen (auf den MetroCluster-FC- und MetroCluster-IP-Nodes) sehen und ist bei allen diesen Schnittstellen angemeldet.
+.Ergebnis
+Am Ende dieser Aufgabe kann der Host alle iSCSI-Schnittstellen sehen (auf den alten und neuen Knoten) und ist bei allen diesen Schnittstellen angemeldet.
 
-LUNs und Volumes werden weiterhin physisch auf FC-Nodes gehostet. Da LUNs nur auf MetroCluster FC Node-Schnittstellen gemeldet werden, zeigt der Client nur Pfade über MetroCluster FC Nodes an. Dies ist in den Ausgaben von sanlun lun show -p und Multipath -ll -d zu sehen. Im nächsten Schritt werden IP-Nodes als Reporting-Nodes hinzugefügt.
+LUNs und Volumes werden weiterhin physisch auf den alten Knoten gehostet. Da LUNs nur für die alten Node-Schnittstellen gemeldet werden, zeigt der Host nur Pfade über den alten Node an. Um dies zu sehen, führen Sie den aus `sanlun lun show -p` Und `multipath -ll -d` Befehle auf dem Host und überprüfen Sie die Befehlsausgaben.
 
 [listing]
 ----
@@ -144,14 +167,13 @@ ONTAP Path: vsa_1:/vol/vsa_1_vol6/lun_linux_12
  Host Device: 3600a098038304646513f4f674e52774b
  Multipath Policy: service-time 0
  Multipath Provider: Native
---------- ---------- ------- ------------ ----------------------------------------------
+--------- ---------- ------- ------------ -------------------
 host vserver
 path path /dev/ host vserver
-state     type       node     adapter     LIF
---------- ---------- ------- ------------ ----------------------------------------------
+state     type       node    adapter      LIF
+--------- ---------- ------- ------------ -------------------
 up        primary    sdk     host3        iscsi_lf__n2_p1_
 up        secondary  sdh     host2        iscsi_lf__n1_p1_
-
 [root@scspr1789621001 ~]# multipath -ll -d
 3600a098038304646513f4f674e52774b dm-5 NETAPP ,LUN C-Mode
 size=2.0G features='4 queue_if_no_path pg_init_retries 50 retain_attached_hw_handle' hwhandler='1 alua' wp=rw
@@ -162,56 +184,99 @@ size=2.0G features='4 queue_if_no_path pg_init_retries 50 retain_attached_hw_han
 ----
 
 
-== Hinzufügen der MetroCluster IP-Nodes als Reporting-Nodes
+== Schritt 2: Fügen Sie die neuen Knoten als Reporting-Knoten
 
-[role="lead"]
-Nachdem Sie die Verbindungen zu den neuen MetroCluster IP-Nodes eingerichtet haben, müssen Sie neue Reporting-Nodes hinzufügen.
+Nachdem Sie die Verbindungen zu den neuen Nodes eingerichtet haben, fügen Sie die neuen Nodes als Reporting-Nodes hinzu.
 
-. Führen Sie auf dem MetroCluster-Node die Reporting-Nodes für LUNs auf der SVM aus: `lun mapping show -vserver vsa_1 -fields reporting-nodes -ostype linux`
+.Schritte
+. Führen Sie auf dem neuen Node die Reporting-Nodes für LUNs auf der SVM auf:
 +
-Die folgenden Knoten sind lokale Nodes, da sich LUNs physisch auf FC Nodes Node_A_1-FC und Node_A_2-FC befinden.
+[source, cli]
+----
+lun mapping show -vserver <svm-name> -fields reporting-nodes -ostype linux
+----
++
+Die folgenden Nodes für die Berichterstellung sind lokale Nodes, da sich LUNs physisch auf den alten Knoten Node_A_1-old und Node_A_2-old befinden.
 
 +
 [listing]
 ----
-node_A_1-IP::*> lun mapping show -vserver vsa_1 -fields reporting-nodes -ostype linux
-
-vserver path igroup reporting-nodes
-------- --------------------------- ------------ -------------------------------------
-vsa_1 /vol/vsa_1_vol1/lun_linux_2 igroup_linux node_A_1-FC,node_A_2-FC
+node_A_1-new::*> lun mapping show -vserver vsa_1 -fields reporting-nodes -ostype linux
+vserver path                         igroup       reporting-nodes
+------- ---------------------------- ------------ ---------------------------
+vsa_1   /vol/vsa_1_vol1/lun_linux_2  igroup_linux node_A_1-old,node_A_2-old
 .
 .
 .
-vsa_1 /vol/vsa_1_vol9/lun_linux_19 igroup_linux node_A_1-FC,node_A_2-FC
+vsa_1   /vol/vsa_1_vol9/lun_linux_19 igroup_linux node_A_1-old,node_A_2-old
 12 entries were displayed.
 ----
-. Fügen Sie auf dem MetroCluster-Node Reporting-Nodes hinzu: `lun mapping add-reporting-nodes -vserver svm-name -path /vol/vsa_1_vol*/lun_linux_* -nodes node1,node2 -igroup igroup_linux`
+. Fügen Sie auf dem neuen Node Reporting-Nodes hinzu:
++
+[source, cli]
+----
+lun mapping add-reporting-nodes -vserver <svm-name> -path /vol/vsa_1_vol*/lun_linux_* -nodes node1,node2 -igroup <igroup_name>
+----
 +
 [listing]
 ----
-node_A_1-IP::*> lun mapping add-reporting-nodes -vserver vsa_1 -path /vol/vsa_1_vol*/lun_linux_* -nodes node_A_1-IP,node_A_2-IP
+node_A_1-new::*> lun mapping add-reporting-nodes -vserver vsa_1 -path /vol/vsa_1_vol*/lun_linux_* -nodes node_A_1-new,node_A_2-new
 -igroup igroup_linux
-
 12 entries were acted on.
 ----
-. Überprüfen Sie auf dem MetroCluster-Node, ob die neu hinzugefügten Nodes vorhanden sind: `lun mapping show -vserver svm-name -fields reporting-nodes -ostype linux vserver path igroup reporting-nodes`
+. Überprüfen Sie auf dem neuen Node, ob die neu hinzugefügten Nodes vorhanden sind:
++
+[source, cli]
+----
+lun mapping show -vserver <svm-name> -fields reporting-nodes -ostype linux vserver path igroup reporting-nodes
+----
 +
 [listing]
 ----
-
-node_A_1-IP::*> lun mapping show -vserver vsa_1 -fields reporting-nodes -ostype linux vserver path igroup reporting-nodes
+node_A_1-new::*> lun mapping show -vserver vsa_1 -fields reporting-nodes -ostype linux vserver path igroup reporting-nodes
 ------- --------------------------- ------------ -------------------------------------------------------------------------------
-
-vsa_1 /vol/vsa_1_vol1/lun_linux_2 igroup_linux node_A_1-FC,node_A_2-FC,node_A_1-IP,node_A_2-IP
-vsa_1 /vol/vsa_1_vol1/lun_linux_3 igroup_linux node_A_1-FC,node_A_2-FC,node_A_1-IP,node_A_2-IP.
+vsa_1 /vol/vsa_1_vol1/lun_linux_2 igroup_linux node_A_1-old,node_A_2-old,node_A_1-new,node_A_2-new
+vsa_1 /vol/vsa_1_vol1/lun_linux_3 igroup_linux node_A_1-old,node_A_2-old,node_A_1-new,node_A_2-new
 .
 .
 .
-
 12 entries were displayed.
 ----
-. Überprüfen Sie das `sg3-utils` Das Paket wird auf dem Linux-Host installiert. Dies vermeidet ein `rescan-scsi-bus.sh utility not found` Fehler beim erneuten Scannen des Linux-Hosts für die neu zugeordneten LUNs mithilfe des `rescan-scsi-bus` Befehl.
-. Geben Sie auf dem Host den folgenden Befehl ein, um den SCSI-Bus auf dem Host erneut zu scannen und die neu hinzugefügten Pfade zu ermitteln: `/usr/bin/rescan-scsi-bus.sh -a`
+. Der `sg3-utils` Das Paket muss auf dem Linux-Host installiert sein. Dies verhindert ein `rescan-scsi-bus.sh utility not found` Fehler beim erneuten Scannen des Linux-Hosts für die neu zugeordneten LUNs mithilfe des `rescan-scsi-bus` Befehl.
++
+Überprüfen Sie auf dem Host, ob der `sg3-utils` Paket ist installiert:
+
++
+--
+** Für eine Debian-basierte Distribution:
++
+[source, cli]
+----
+dpkg -l | grep sg3-utils
+----
+** Für eine Red hat basierte Distribution:
++
+[source, cli]
+----
+rpm -qa | grep sg3-utils
+----
+
+
+--
++
+Installieren Sie bei Bedarf den `sg3-utils` Paket auf dem Linux-Host:
+
++
+[source, cli]
+----
+sudo apt-get install sg3-utils
+----
+. Scannen Sie auf dem Host den SCSI-Bus erneut auf dem Host, und ermitteln Sie die neu hinzugefügten Pfade:
++
+[source, cli]
+----
+/usr/bin/rescan-scsi-bus.sh -a
+----
 +
 [listing]
 ----
@@ -231,7 +296,12 @@ OLD: Host: scsi5 Channel: 00 Id: 00 Lun: 09
 0 remapped or resized device(s) found.
 0 device(s) removed.
 ----
-. Geben Sie auf dem Host den folgenden Befehl ein, um die neu hinzugefügten Pfade aufzulisten: `sanlun lun show -p`
+. Führen Sie auf dem iSCSI-Host die neu hinzugefügten Pfade auf:
++
+[source, cli]
+----
+sanlun lun show -p
+----
 +
 Für jede LUN werden vier Pfade angezeigt.
 
@@ -246,32 +316,37 @@ ONTAP Path: vsa_1:/vol/vsa_1_vol6/lun_linux_12
  Host Device: 3600a098038304646513f4f674e52774b
  Multipath Policy: service-time 0
  Multipath Provider: Native
---------- ---------- ------- ------------ ----------------------------------------------
+------- ---------- ------- ----------- ---------------------
 host vserver
 path path /dev/ host vserver
-state type node adapter LIF
---------- ---------- ------- ------------ ----------------------------------------------
-up primary sdk host3 iscsi_lf__n2_p1_
-up secondary sdh host2 iscsi_lf__n1_p1_
-up secondary sdag host4 iscsi_lf__n4_p1_
-up secondary sdah host5 iscsi_lf__n3_p1_
+state   type       node    adapter     LIF
+------  ---------- ------- ----------- ---------------------
+up      primary    sdk      host3      iscsi_lf__n2_p1_
+up      secondary  sdh     host2       iscsi_lf__n1_p1_
+up      secondary  sdag    host4       iscsi_lf__n4_p1_
+up      secondary  sdah    host5       iscsi_lf__n3_p1_
 ----
-. Verschieben Sie auf der MetroCluster die Volumes/Volumes, die LUNs enthalten, von FC- auf IP-Nodes.
+. Verschieben Sie auf dem neuen Node das Volume/die Volumes, die LUNs enthalten, von den alten Nodes auf die neuen Nodes.
 +
 [listing]
 ----
-node_A_1-IP::*> vol move start -vserver vsa_1 -volume vsa_1_vol1 -destination-aggregate sti8200mccip_htp_005_aggr1
+node_A_1-new::*> vol move start -vserver vsa_1 -volume vsa_1_vol1 -destination-aggregate sti8200mccip_htp_005_aggr1
 [Job 1877] Job is queued: Move "vsa_1_vol1" in Vserver "vsa_1" to aggregate "sti8200mccip_htp_005_aggr1". Use the "volume move show -vserver
 vsa_1 -volume vsa_1_vol1" command to view the status of this operation.
-node_A_1-IP::*> vol move show
-Vserver    Volume     State       Move       Phase            Percent-Complete  Time-To-Complete
----------  ---------- --------    ---------- ---------------- ----------------  ----------------
-vsa_1     vsa_1_vol1  healthy                initializing     -                 -
+node_A_1-new::*> vol move show
+Vserver  Volume      State       Move       Phase            Percent-Complete  Time-To-Complete
+-------- ----------  --------    ---------- ---------------- ----------------  ----------------
+vsa_1    vsa_1_vol1  healthy                initializing     -                 -
 ----
-. Wenn die Verschiebung des Volumes abgeschlossen ist, können Sie im MetroCluster mit dem Befehl „Volume show“ bestätigen, dass das Volume oder die LUN online sind.
-. Die iSCSI-Schnittstellen auf den MetroCluster IP-Knoten, in denen sich die LUN jetzt befindet, werden als primäre Pfade aktualisiert. Wenn der primäre Pfad nach der Volume-Verschiebung nicht aktualisiert wird, führen Sie /usr/bin/rescan-scsi-bus.sh -A und Multipath -v3 aus oder warten Sie einfach, bis Multipath-Rescanning stattfindet.
+. Überprüfen Sie nach Abschluss der Verschiebung des Volume zu den neuen Nodes, ob das Volume online ist:
 +
-Im folgenden Beispiel ist der primäre Pfad ein LIF auf dem MetroCluster IP Node.
+[source, cli]
+----
+volume show -state
+----
+. Die iSCSI-Schnittstellen auf den neuen Nodes, auf denen sich die LUN jetzt befindet, werden als primäre Pfade aktualisiert. Wenn der primäre Pfad nach der Volume-Verschiebung nicht aktualisiert wird, führen Sie aus `/usr/bin/rescan-scsi-bus.sh -a` Und `multipath -v3` Auf dem Host oder warten Sie einfach, bis der Multipath-Rescanning stattfindet.
++
+Im folgenden Beispiel ist der primäre Pfad eine LIF auf dem neuen Node.
 
 +
 [listing]
@@ -298,44 +373,83 @@ up        secondary  sdah    host5        iscsi_lf__n3_p1_
 
 
 
-== Entfernen von Reporting-Knoten und Rescanning-Pfaden
+== Schritt 3: Entfernen Sie Reporting Nodes und scannen Sie Pfade neu
 
-[role="lead"]
 Sie müssen die Berichtsknoten entfernen und die Pfade erneut scannen.
 
-. Entfernen Sie vom MetroCluster IP-Knoten die Remote Reporting Nodes (die MetroCluster IP-Knoten) für die Linux-LUNs: `lun mapping remove-reporting-nodes -vserver vsa_1 -path * -igroup igroup_linux -remote-nodes true`
+.Schritte
+. Entfernen Sie auf dem neuen Knoten Remote-Reporting-Knoten (die neuen Knoten) für die Linux-LUNs:
 +
-In diesem Fall sind die Remote-Nodes FC-Nodes.
+[source, cli]
+----
+lun mapping remove-reporting-nodes -vserver <svm-name> -path * -igroup <igroup_name> -remote-nodes true
+----
++
+In diesem Fall sind die Remote-Knoten alte Knoten.
 
 +
 [listing]
 ----
-node_A_1-IP::*> lun mapping remove-reporting-nodes -vserver vsa_1 -path * -igroup igroup_linux -remote-nodes true
-
+node_A_1-new::*> lun mapping remove-reporting-nodes -vserver vsa_1 -path * -igroup igroup_linux -remote-nodes true
 12 entries were acted on.
 ----
-. Überprüfen Sie über den MetroCluster IP-Node die Reporting-Nodes für die LUNs: `lun mapping show -vserver vsa_1 -fields reporting-nodes -ostype linux`
+. Überprüfen Sie auf dem neuen Node die Reporting-Nodes für die LUNs:
++
+[source, cli]
+----
+lun mapping show -vserver <svm-name> -fields reporting-nodes -ostype linux
+----
 +
 [listing]
 ----
-node_A_1-IP::*> lun mapping show -vserver vsa_1 -fields reporting-nodes -ostype linux
-
-vserver  path                        igroup      reporting-nodes
-------- --------------------------- ------------ -----------------------------------------
-
-vsa_1 /vol/vsa_1_vol1/lun_linux_2   igroup_linux  node_A_1-IP,node_A_2-IP
-vsa_1 /vol/vsa_1_vol1/lun_linux_3   igroup_linux  node_A_1-IP,node_A_2-IP
-vsa_1 /vol/vsa_1_vol2/lun_linux_4   group_linux   node_A_1-IP,node_A_2-IP
+node_A_1-new::*> lun mapping show -vserver vsa_1 -fields reporting-nodes -ostype linux
+vserver  path                         igroup        reporting-nodes
+-------  ---------------------------  ------------  -------------------------
+vsa_1    /vol/vsa_1_vol1/lun_linux_2  igroup_linux  node_A_1-new,node_A_2-new
+vsa_1    /vol/vsa_1_vol1/lun_linux_3  igroup_linux  node_A_1-new,node_A_2-new
+vsa_1    /vol/vsa_1_vol2/lun_linux_4  group_linux   node_A_1-new,node_A_2-new
 .
 .
 .
-
 12 entries were displayed.
 ----
-. Überprüfen Sie das `sg3-utils` Das Paket wird auf dem Linux-Host installiert. Dies vermeidet ein `rescan-scsi-bus.sh utility not found` Fehler beim erneuten Scannen des Linux-Hosts für die neu zugeordneten LUNs mithilfe des `rescan-scsi-bus` Befehl.
-. Scannen Sie auf dem iSCSI-Host den SCSI-Bus erneut: `/usr/bin/rescan-scsi-bus.sh -r`
+. Der `sg3-utils` Das Paket muss auf dem Linux-Host installiert sein. Dies verhindert ein `rescan-scsi-bus.sh utility not found` Fehler beim erneuten Scannen des Linux-Hosts für die neu zugeordneten LUNs mithilfe des `rescan-scsi-bus` Befehl.
 +
-Die Pfade, die entfernt werden, sind die Pfade von FC Nodes.
+Überprüfen Sie auf dem Host, ob der `sg3-utils` Paket ist installiert:
+
++
+--
+** Für eine Debian-basierte Distribution:
++
+[source, cli]
+----
+dpkg -l | grep sg3-utils
+----
+** Für eine Red hat basierte Distribution:
++
+[source, cli]
+----
+rpm -qa | grep sg3-utils
+----
+
+
+--
++
+Installieren Sie bei Bedarf den `sg3-utils` Paket auf dem Linux-Host:
+
++
+[source, cli]
+----
+sudo apt-get install sg3-utils
+----
+. Scannen Sie auf dem iSCSI-Host den SCSI-Bus erneut:
++
+[source, cli]
+----
+/usr/bin/rescan-scsi-bus.sh -r
+----
++
+Die Pfade, die entfernt werden, sind die Pfade von den alten Knoten.
 
 +
 [listing]
@@ -362,15 +476,19 @@ OLD: Host: scsi5 Channel: 00 Id: 00 Lun: 09
 24 device(s) removed.
  [2:0:0:0]
  [2:0:0:1]
- .
+.
 .
 .
 ----
-. Vergewissern Sie sich auf dem iSCSI-Host, dass nur Pfade von den MetroCluster IP-Knoten sichtbar sind:
+. Überprüfen Sie auf dem iSCSI-Host, ob nur Pfade von den neuen Nodes sichtbar sind:
 +
-`sanlun lun show -p`
-
+[source, cli]
+----
+sanlun lun show -p
+----
 +
-`multipath -ll -d`
-
+[source, cli]
+----
+multipath -ll -d
+----
 
