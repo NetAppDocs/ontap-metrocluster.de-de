@@ -4615,9 +4615,6 @@
   <block id="38aab50f6d81fce560ddcd4349e66fc7" category="list-text">Die Disaster Recovery für SnapMirror SVMs wird nur auf MetroCluster Konfigurationen mit Versionen von ONTAP 9.5 oder höher unterstützt.</block>
   <block id="8aa8953fa014032d4074fce6f76630d4" category="section-title">MetroCluster-Vorgänge in ONTAP System Manager</block>
   <block id="a0e45cbea6afae054f370a0854ab9b4f" category="paragraph">Je nach ONTAP Version können einige MetroCluster spezifische Vorgänge mit ONTAP System Manager ausgeführt werden.</block>
-  <block id="ce54cea34e79331ac5a0d8398a0daeb2" category="list-text">Umschaltung und zurückwechseln in MetroCluster IP Konfigurationen (beginnend mit ONTAP 9.7).</block>
-  <block id="b9dc5407731afe77b8474622a7260199" category="list-text">Bereitstellung und Erweiterung von gespiegelten Aggregaten in den MetroCluster IP-Konfigurationen (ab ONTAP 9.8)</block>
-  <block id="dea75c52e73dcc7b5308af6dfbc8d3df" category="paragraph">Nicht gespiegelte Aggregate werden in System Manager nicht unterstützt.</block>
   <block id="89bbe5f6f49d96ef3219b3e3960c33d5" category="section-title">FlexCache-Unterstützung in einer MetroCluster-Konfiguration</block>
   <block id="0e0fb7c8f8c90679b6de81eb83cc9c05" category="paragraph">Ab ONTAP 9.7 werden FlexCache Volumes von MetroCluster Konfigurationen unterstützt. Sie sollten die Anforderungen für die manuelle Aufhebung nach dem Switchover oder Switchback-Betrieb kennen.</block>
   <block id="25f74bbacb558877b948827961d27de6" category="section-title">SVM wird nach der Umschaltung wieder aufgehoben, wenn sich die FlexCache Herkunft und der Cache innerhalb desselben Standorts befinden. MetroCluster</block>
@@ -11775,7 +11772,6 @@
   <block id="7c9eaf72100abb3448a96804d4b4eea7" category="list-text">IOM12 (DS460C) hinter einer 7500N bzw. 7600N Brücke mit ONTAP 9.2 und höher</block>
   <block id="7dfec405bf1e3b57bc2b7121ec1943b8" category="list-text">IOM12 (DS212C und DS224C) hinter einer 7500N oder 7600N Brücke mit ONTAP 9.1 und höher</block>
   <block id="e9b419acdf8a4773cab0cb0c79ea48cc" category="admonition">SAS-Shelves in MetroCluster-Konfigurationen unterstützen keine ACP-Verkabelung.</block>
-  <block id="f6fd567c32c1fb87872959aed0c80c2e" category="paragraph">Je nach ONTAP Version können einige für MetroCluster spezifische Vorgänge mit ONTAP System Manager ausgeführt werden.</block>
   <block id="e1a39a6f1b5c4c92045693ad6ebdd2a1" category="paragraph">Nach der Umschaltung werden SVMs vs1-mc und vs2-mc am Partner-Standort (Site_B) aktiviert. Sie müssen manuell aufgehoben werden, damit FlexCache mit dem arbeiten kann<block ref="73ef473578e305fb86ebd8db4a77897c" prefix=" " category="inline-code"></block> Befehl.</block>
   <block id="05b1987240de2b0227bb9f6af346a70e" category="paragraph">Bei FlexCache-Beziehungen zu einem Cluster außerhalb der MetroCluster-Konfiguration muss das Peering nach einem Switchover immer manuell neu konfiguriert werden, wenn die betroffenen Cluster während der Umschaltung in einem getrennten Modus sind.</block>
   <block id="3b4a0463df76b45385a0a18ebfbb5917" category="paragraph">Wenn die Umschaltung ausgelöst wird und keine Verbindung zwischen Site_A und Site_C besteht, müssen Sie die SVMs On Site_B (das Switchover-Cluster) und Site_C über die manuell aufheben<block ref="73ef473578e305fb86ebd8db4a77897c" prefix=" " category="inline-code"></block> Befehl nach der Umschaltung.</block>
@@ -13342,4 +13338,6 @@
   <block id="bd041cb07dda4e5f8fbcf9fc40cd8e53" category="open-title">Switch mit SNMPv3 hinzufügen:</block>
   <block id="1ec64a333712792d694f6485f208d7bf" category="paragraph"><block ref="6483c1c2c512d0e62f46ddc53b9d4638" prefix="" category="inline-code"></block></block>
   <block id="ebbf46e9806730b0f0c4ca0133de2d34" category="open-title">Switch mit SNMPv2 hinzufügen:</block>
+  <block id="10982c02dbedeb50373ef205f82ca3c8" category="inline-link-macro">Managen Sie MetroCluster Standorte mit System Manager</block>
+  <block id="53eaf367aa3b61105b8ddce45278ab85" category="paragraph">Weitere Informationen finden Sie im <block ref="eef6283454e42ed2d47fdb00a9ff3e0c" category="inline-link-macro-rx"></block> Dokumentation.</block>
 </blocks>
