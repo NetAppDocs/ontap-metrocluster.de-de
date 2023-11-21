@@ -19,12 +19,14 @@ Lesen Sie vor der Verwendung der Tabellen diese Überlegungen durch:
 * Die Switches können nicht mit Ports unterschiedlicher Geschwindigkeit konfiguriert werden (beispielsweise mit einer Mischung aus 100-Gbit/s-Ports und 40-Gbit/s-Ports).
 * Wenn Sie eine einzelne MetroCluster mit den Switches konfigurieren, verwenden Sie die Portgruppe *MetroCluster 1*.
 +
-Verfolgen Sie die MetroCluster-Portgruppe (MetroCluster 1, MetroCluster 2 oder MetroCluster 3). Sie benötigen sie, wenn Sie das RcfFileGenerator-Tool verwenden, wie später in diesem Konfigurationsvorgang beschrieben.
+Verfolgen Sie die MetroCluster-Portgruppe (MetroCluster 1, MetroCluster 2, MetroCluster 3 oder MetroCluster 4). Sie benötigen sie, wenn Sie das RcfFileGenerator-Tool verwenden, wie später in diesem Konfigurationsvorgang beschrieben.
 
 * Der RcfFileGenerator für MetroCluster IP bietet auch eine Übersicht über die Verkabelung pro Port für jeden Switch.
 +
 Verwenden Sie diese Verkabelungsübersicht, um Ihre Verkabelung zu überprüfen.
 
+* RCF-Dateiversion Version 2.10 oder höher ist für den 25G-Breakout-Modus für MetroCluster-ISLs erforderlich.
+* Für die Verwendung einer anderen Plattform als FAS8200 oder AFF A300 in der Gruppe „MetroCluster 4“ sind ONTAP 9.13.1 oder höher und RCF-Dateiversion 2.00 erforderlich.
 
 
 
@@ -35,24 +37,25 @@ Wenn Sie mehrere MetroCluster-Konfigurationen mit einem Cisco 3132Q-V Switch ver
 
 
 
-== Verkabelung von AFF A150, FAS2750, AFF A220, FAS500f, AFF C250 oder AFF A250 zu einem Cisco 3232C oder Cisco 9336-FX2C Switch
+== Verkabelung von AFF A150, ASA A150, FAS2750, AFF A220, FAS500f AFF C250, ASA C250, AFF A250 oder ASA A250 mit einem Cisco 3232C oder Cisco 9336-FX2C Switch
 
 image::../media/mcc_ip_cabling_a150_a220_a250_to_a_cisco_3232c_or_cisco_9336c_switch.png[mcc ip-Verkabelung a150 a220 a250 mit einem cisco 3232c- oder cisco 9336c-Switch]
 
 
 
-== Verkabelung einer FAS8200 oder einer AFF A300 mit einem Cisco 3232C oder Cisco 9336C Switch
+== Verkabelung eines FAS8200 oder AFF A300 Systems mit einem Cisco 3232C oder Cisco 9336C Switch
 
 image::../media/mcc_ip_cabling_a_aff_a300_or_fas8200_to_a_cisco_3232c_or_cisco_9336c_switch.png[mcc ip-Verkabelung – AFF a300 oder fas8200 – mit einem cisco 3232c oder cisco 9336c Switch]
 
+Wenn Sie ein Upgrade von älteren RCF-Dateien durchführen, verwendet die Verkabelungskonfiguration möglicherweise Ports in der Gruppe „MetroCluster 4“ (Ports 25/26 und 29/30).
 
 
-== Verkabelung einer AFF A320, FAS8300, AFF C400, AFF A400, FAS8700 FAS9000, AFF A700, AFF C800, AFF A800, FAS9500 oder AFF A900
+
+== Verkabelung einer AFF A320, FAS8300, AFF C400, ASA C400, AFF A400 ASA A400, FAS8700, FAS9000, AFF A700, AFF C800 ASA C800, AFF A800, ASA A800, FAS9500, AFF A900 oder ASA A900-System auf einen Cisco 3232C- oder Cisco 9336C-FX2-Switch
 
 image::../media/mcc_ip_cabling_a320_a400_a700_a800_a900 _cisco_3232C or_9336c_switch.png[mcc ip-Verkabelung a320 a400 a700 a800 a900 cisco 3232C- oder 9336c-Switch]
 
+*Hinweis 1*: Wenn Sie einen X91440A Adapter (40Gbps) verwenden, verwenden Sie entweder die Ports e4a und e4e oder e4a und e8a. Wenn Sie einen X91153A-Adapter (100 Gbit/s) verwenden, verwenden Sie entweder die Ports e4a und e4b oder e4a und e8a.
 
 
-== Verkabelung einer AFF A320, AFF C400, AFF A400, AFF A700, AFF C800 Oder AFF A800 zu einem Cisco 9336C-FX2 Shared-Switch
-
-image::../media/mcc_ip_cabling_aff_a320_c400_a400_a700_c800_a800_to_cisco_9336c_shared_switch_revised.png[mcc ip-Verkabelung AFF a320 c400 a400 a700 C800 a800 zu cisco 9336c Shared Switch überarbeitet]
+NOTE: Für die Verwendung von Ports in der Gruppe „MetroCluster 4“ ist ONTAP 9.13.1 oder höher erforderlich.

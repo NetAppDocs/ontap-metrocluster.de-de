@@ -17,12 +17,13 @@ Die folgende Tabelle zeigt die unterstützten Plattformkombinationen. Sie könne
 
 Beispielsweise wird der Wechsel von einer MetroCluster FC-Konfiguration aus AFF8060 Controller-Modulen zu einer IP-Konfiguration aus AFF A400 Controller-Modulen unterstützt.
 
-image::../media/metrocluster_fc_ip_transition_matrix_yellowdogp1.png[MetroCluster fc ip-Übergangsmatrix yellowdogp1]
+image::../media/metrocluster_fc_ip_transition_matrix_914.png[MetroCluster fc ip-Übergangsmatrix 914]
 
 * Hinweis 1: Diese Plattform erfordert ONTAP 9.11.1 oder höher.
 * Hinweis 2: Auf den FC-Nodes ist eine 40-GbE-Schnittstelle für die lokalen Cluster-Schnittstellen erforderlich. Diese Kombination aus dieser Plattform erfordert ONTAP 9.12.1 oder höher.
 * Hinweis 3: Auf FC-Nodes ist eine 100-GbE-Schnittstelle für die lokalen Cluster-Schnittstellen erforderlich. Diese Kombination aus dieser Plattform erfordert ONTAP 9.12.1 oder höher.
 * Für alle Umstiegsprozesse ist ONTAP 9.8 oder höher erforderlich, sofern in den Hinweisen oder den Voraussetzungen einer einzelnen Plattform nicht anders angegeben.
+* Auf allen Nodes in der MetroCluster-Konfiguration muss dieselbe ONTAP-Version ausgeführt werden. Wenn Sie beispielsweise über eine Konfiguration mit acht Nodes verfügen, müssen alle acht Nodes dieselbe ONTAP-Version ausführen.
 
 
 [NOTE]
@@ -100,10 +101,3 @@ Alte Storage-Shelves werden auf neuen Plattformen nicht unterstützt. Alte Stora
 link:task_disruptively_transition_when_exist_shelves_are_not_supported_on_new_controllers.html["Link zum Verfahren"]
 
 |===
-
-
-=== Wechsel zu einer gemeinsamen Switch-Konfiguration von Cisco 9336C-FX2
-
-Der Umstieg auf eine Cisco 9336C-FX2 Shared-Switch-Konfiguration wird nicht unterstützt. Eine _Shared Switch-Konfiguration_ ist eine Konfiguration, bei der die Switches sowohl die MetroCluster-Verbindungen als auch die Storage-Shelf-Verbindungen bereitstellen.
-
-Konfigurationen, bei denen der Cisco 9336C-FX2 Switch nur die MetroCluster-Verbindungen bereitstellt, werden unterstützt.
