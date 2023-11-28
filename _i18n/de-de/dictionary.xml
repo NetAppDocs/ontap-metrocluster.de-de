@@ -7280,8 +7280,6 @@
   <block id="b330eebf161ca27c703eccf6e8e36d29" category="summary">Sie können der MetroCluster IP-Konfiguration vier neue Nodes als zweite DR-Gruppe hinzufügen. Dadurch wird eine MetroCluster-Konfiguration mit acht Nodes erstellt.</block>
   <block id="a8307b4c5fa271005a1338d5b405ca1f" category="paragraph">Ab ONTAP 9.9 können Sie der MetroCluster IP-Konfiguration vier neue Nodes als zweite DR-Gruppe hinzufügen. Dadurch wird eine MetroCluster-Konfiguration mit acht Nodes erstellt.</block>
   <block id="44e7e75e628cd7549a2dac175d45b418" category="list-text">Die alten und neuen Nodes müssen dieselbe Version von ONTAP ausführen.</block>
-  <block id="8af994ab1dc202d685a253237ad12acd" category="list-text">Sie müssen sicherstellen, dass die alten und neuen Plattformmodelle für die Plattformmischung unterstützt werden.</block>
-  <block id="b721d4593513d27cdfc55ebe6ceb044f" category="list-text">Sie müssen sicherstellen, dass die alten und neuen Plattformmodelle von den IP-Switches unterstützt werden.</block>
   <block id="2ee2465217913ae7b455ab4ef5e995e6" category="list-text">Die neuen Nodes müssen über genügend Storage verfügen, um die Daten der alten Nodes zusammen mit geeigneten Festplatten für Root-Aggregate und freie Festplatten unterzubringen.</block>
   <block id="1ba701b5ad5528986d9e0eb838638aae" category="section-title">Beispiel für die Benennung in diesem Verfahren</block>
   <block id="a9b1d4be69539e9b95a2c6672035550c" category="paragraph">Bei diesem Verfahren werden durchgängig Beispielnamen verwendet, um die involvierten DR-Gruppen, Nodes und Switches zu identifizieren.</block>
@@ -13361,4 +13359,9 @@
   <block id="825d65b3b18d444d8008136946a33a99" category="list-text">Hinweis 5: Controller-Upgrades werden auf Systemen mit ONTAP 9.14.1 oder höher unterstützt.</block>
   <block id="50338c34cfec6d9e54eae1256352e18d" category="image-alt">MetroCluster fc-Technologieaktualisierung 914</block>
   <block id="94487339ee219de4122a1e81d3919b34" category="admonition">Root-Aggregat-Festplatten sind die einzigen Festplatten, die während des Controller-Upgrades neu zugewiesen werden müssen. Die Eigentumsrechte an Datenaggregaten werden im Rahmen des Switchover/Switchback-Vorgangs übernommen.</block>
+  <block id="67c0d618a712fed303dbbf2eaf09695a" category="list-text">Vergewissern Sie sich, dass auf den alten Knoten eine Standard-Broadcast-Domäne erstellt wurde.</block>
+  <block id="4fff770200a5d089fd8db4325afa94fc" category="inline-link">LIFs für das Node-Management, die auf neu hinzugefügten Nodes erstellt wurden und mit UUID-Namen generiert wurden</block>
+  <block id="fdf5e2eb479f201de0c9c62e9a32e769" category="paragraph">Wenn Sie einem vorhandenen Cluster neue Nodes ohne standardmäßige Broadcast-Domäne hinzufügen, werden für die neuen Nodes Node-Management-LIFs erstellt, die nicht die erwarteten Namen verwenden, sondern UIDs (Universal Unique Identifiers). Weitere Informationen finden Sie im Knowledge Base-Artikel<block ref="4808e3ddae1b3b2c14dc148b67bd36ea" category="inline-link-rx"></block>.</block>
+  <block id="f6410291c32fa961402f5a821c332f6c" category="list-text">Stellen Sie sicher, dass die alten und neuen Plattformmodelle für die gemeinsame Verwendung der Plattformen unterstützt werden.</block>
+  <block id="e220a628f1c5f8fb65824aaeb387520e" category="list-text">Überprüfen Sie, ob die alten und die neuen Plattformmodelle von den IP-Switches unterstützt werden.</block>
 </blocks>

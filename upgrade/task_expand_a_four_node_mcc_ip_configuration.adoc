@@ -20,15 +20,19 @@ Ab ONTAP 9.9 können Sie der MetroCluster IP-Konfiguration vier neue Nodes als z
 .Bevor Sie beginnen
 * Die alten und neuen Nodes müssen dieselbe Version von ONTAP ausführen.
 * In diesem Verfahren werden die Schritte beschrieben, die zum erweitern einer DR-Gruppe mit vier Nodes erforderlich sind. Wenn Sie über eine Konfiguration mit acht Nodes (zwei DR-Gruppen) verfügen, müssen Sie den gesamten Vorgang für jede DR-Gruppe wiederholen.
-* Sie müssen sicherstellen, dass die alten und neuen Plattformmodelle für die Plattformmischung unterstützt werden.
+* Stellen Sie sicher, dass die alten und neuen Plattformmodelle für die gemeinsame Verwendung der Plattformen unterstützt werden.
 +
 https://hwu.netapp.com["NetApp Hardware Universe"^]
 
-* Sie müssen sicherstellen, dass die alten und neuen Plattformmodelle von den IP-Switches unterstützt werden.
+* Überprüfen Sie, ob die alten und die neuen Plattformmodelle von den IP-Switches unterstützt werden.
 +
 https://hwu.netapp.com["NetApp Hardware Universe"^]
 
 * Die neuen Nodes müssen über genügend Storage verfügen, um die Daten der alten Nodes zusammen mit geeigneten Festplatten für Root-Aggregate und freie Festplatten unterzubringen.
+* Vergewissern Sie sich, dass auf den alten Knoten eine Standard-Broadcast-Domäne erstellt wurde.
++
+Wenn Sie einem vorhandenen Cluster neue Nodes ohne standardmäßige Broadcast-Domäne hinzufügen, werden für die neuen Nodes Node-Management-LIFs erstellt, die nicht die erwarteten Namen verwenden, sondern UIDs (Universal Unique Identifiers). Weitere Informationen finden Sie im Knowledge Base-Artikel https://kb.netapp.com/onprem/ontap/os/Node_management_LIFs_on_newly-added_nodes_generated_with_UUID_names["LIFs für das Node-Management, die auf neu hinzugefügten Nodes erstellt wurden und mit UUID-Namen generiert wurden"^].
+
 
 
 
