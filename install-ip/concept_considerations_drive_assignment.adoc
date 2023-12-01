@@ -11,10 +11,14 @@ summary: 'Ab ONTAP 9.4 unterstützen MetroCluster IP-Konfigurationen neue Instal
 
 
 [role="lead"]
-Ab ONTAP 9.4 unterstützen MetroCluster IP-Konfigurationen neue Installationen mit ADP (Advanced Drive Partitioning). In den meisten Konfigurationen erfolgt die Partitionierung und Festplattenzuordnung automatisch während der Erstkonfiguration der MetroCluster-Standorte.
+Ab ONTAP 9.4 unterstützen MetroCluster IP-Konfigurationen neue Installationen mit ADP (Advanced Drive Partitioning).
 
-ONTAP 9.4 und höher umfasst die folgenden Änderungen für die ADP-Unterstützung:
+Bei der Verwendung von ADP mit MetroCluster IP-Konfigurationen sollten Sie die folgenden Überlegungen beachten:
 
+* ONTAP 9.4 und höher ist für die Verwendung von ADP mit MetroCluster IP Konfigurationen erforderlich.
+* ADPv2 wird in MetroCluster IP-Konfigurationen unterstützt.
+* Das Root-Aggregat muss sich in Partition 3 für alle Knoten auf beiden Standorten befinden.
+* Die Partitionierung und Festplattenzuordnung erfolgt automatisch bei der Erstkonfiguration der MetroCluster Standorte.
 * Pool 0-Festplattenzuordnungen werden werkseitig ausgeführt.
 * Die unverspiegelte Root wird werkseitig erstellt.
 * Die Zuweisung der Daten erfolgt während des Setups am Standort des Kunden.
@@ -50,7 +54,7 @@ NOTE: Beim Upgrade von ONTAP 9.4 auf 9.5 erkennt das System die vorhandenen Fest
 
 == Automatische Partitionierung
 
-ADP wird bei der Erstkonfiguration der Plattform automatisch durchgeführt.
+ADP wird automatisch während der Erstkonfiguration des Systems durchgeführt.
 
 
 NOTE: Ab ONTAP 9.5 muss die automatische Festplattenzuordnung mit dem aktiviert werden `storage disk option modify -autoassign on` Befehl.
