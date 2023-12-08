@@ -9656,7 +9656,6 @@
   <block id="105fa3122987d45fae2de8b9e61228dc" category="list-text">Starten und Vorkonfigurieren des neuen Switches vor der physischen Installation:</block>
   <block id="e8097a3b165e180d56bd06e7a7f7df02" category="list-text">Schalten Sie den neuen Schalter ein, und lassen Sie ihn starten.</block>
   <block id="6f17ef717caa10c840154e66037357c2" category="list-text">Überprüfen Sie die Firmware-Version auf dem Switch, um sicherzustellen, dass sie mit der Version der anderen FC-Switches übereinstimmt:</block>
-  <block id="d258e50271440fd57b7ef2810c25e2d0" category="list-text">Konfigurieren Sie den neuen Switch, wie in _MetroCluster Installation und Konfiguration beschrieben, überspringen Sie jedoch das Verfahren „`Zoning auf Brocade FC Switches`“.</block>
   <block id="4980aa8a93c404e256f38b26e322faea" category="paragraph"><block ref="4980aa8a93c404e256f38b26e322faea" category="inline-link-rx"></block></block>
   <block id="b78f0a4f76dcc1e77900d332f928827a" category="paragraph">Später konfigurieren Sie das Zoning in diesem Verfahren.</block>
   <block id="b8e631780d1dd27b4f2d09d46aff4b4b" category="admonition">An diesem Punkt ist der neue Switch nicht mit der MetroCluster-Konfiguration verbunden.</block>
@@ -11252,8 +11251,6 @@
   <block id="d9599a6265b31306f6c79d760a47a9aa" category="paragraph">Die folgende Tabelle zeigt die unterstützten Plattformkombinationen. Sie können von Plattformen in der linken Spalte zu Plattformen wechseln, die in den Spalten unterstützt werden, nach rechts, wie durch die farbigen Tabellenzellen angegeben.</block>
   <block id="1799408ec992ed3e5561f7b04ccef0fe" category="paragraph">Beispielsweise wird der Wechsel von einer MetroCluster FC-Konfiguration aus AFF8060 Controller-Modulen zu einer IP-Konfiguration aus AFF A400 Controller-Modulen unterstützt.</block>
   <block id="421c8863e1f7223f216aacf99393b7dd" category="list-text">Hinweis 1: Diese Plattform erfordert ONTAP 9.11.1 oder höher.</block>
-  <block id="cbfda5b02caeddc103ebee1baa66d92c" category="list-text">Hinweis 2: Auf den FC-Nodes ist eine 40-GbE-Schnittstelle für die lokalen Cluster-Schnittstellen erforderlich. Diese Kombination aus dieser Plattform erfordert ONTAP 9.12.1 oder höher.</block>
-  <block id="55b44ccf6250ba590ce25f63cea8e958" category="list-text">Hinweis 3: Auf FC-Nodes ist eine 100-GbE-Schnittstelle für die lokalen Cluster-Schnittstellen erforderlich. Diese Kombination aus dieser Plattform erfordert ONTAP 9.12.1 oder höher.</block>
   <block id="9418f262fda4ce79d51366cacd6743b2" category="list-text">Für alle Umstiegsprozesse ist ONTAP 9.8 oder höher erforderlich, sofern in den Hinweisen oder den Voraussetzungen einer einzelnen Plattform nicht anders angegeben.</block>
   <block id="7f5e75bec56cf6f3abc06e985a4c745b" category="paragraph">Ein Migrationsverfahren ersetzt das Back-End FC Switch Fabric oder die FC-VI-Verbindung durch ein IP Switch-Netzwerk. Die genaue Vorgehensweise hängt von Ihrer Startkonfiguration ab.</block>
   <block id="2b600317ab6e960fcd1077af38eff1f1" category="paragraph">Die ursprünglichen Plattformen und FC Switches (falls vorhanden) werden am Ende des Umstiegsverfahrens außer Betrieb genommen.</block>
@@ -13371,4 +13368,7 @@
   <block id="aa71e3dcbe0cdabbe4cce28385ab2fd6" category="paragraph">Wenn Sie die ONTAP-Version oder die Switch-Firmware-Version ändern, sollten Sie überprüfen, ob eine RCF-Datei vorhanden ist, die für diese Version unterstützt wird. Wenn Sie den RCF-Generator verwenden, wird für Sie die richtige RCF-Datei generiert.</block>
   <block id="9f4a5b5c7a3f862c1d0ff77f72d3eea0" category="paragraph">Sie werden aufgefordert, den Benutzernamen und das Passwort für das Administratorkonto des ONTAP Mediators einzugeben.</block>
   <block id="c471c44c2f26c78f9327863d90427cb7" category="admonition">Wenn der ONTAP-Mediator ausgefallen ist, wird der angezeigt<block ref="1eafb93bfc40f298e60cf17e8a8c598c" prefix=" " category="inline-code"></block> Mit dem Befehl werden Sie dennoch aufgefordert, den Benutzernamen und das Passwort für das Administratorkonto des ONTAP Mediators einzugeben und den ONTAP Mediator-Dienst aus der MetroCluster-Konfiguration zu entfernen.</block>
+  <block id="1aa145ddf3cafc3bf77b04a1c7069f71" category="list-text">Konfigurieren Sie den neuen Switch wie in _MetroCluster-Installation und -Konfiguration_ beschrieben, überspringen Sie jedoch das Verfahren „`Zoning auf Brocade FC-Switches konfigurieren`“.</block>
+  <block id="21b5cf2db61fccc0ace8b80bac8b35b7" category="list-text">Hinweis 2: Auf den FC-Nodes ist eine 40-GbE-Schnittstelle für die lokalen Cluster-Schnittstellen erforderlich. Für diese Plattformkombination ist ONTAP 9.11.1 oder höher erforderlich.</block>
+  <block id="13cdbd43c145584bcad75658a29e498d" category="list-text">Hinweis 3: Auf FC-Nodes ist eine 100-GbE-Schnittstelle für die lokalen Cluster-Schnittstellen erforderlich. Für diese Plattformkombination ist ONTAP 9.11.1 oder höher erforderlich.</block>
 </blocks>
