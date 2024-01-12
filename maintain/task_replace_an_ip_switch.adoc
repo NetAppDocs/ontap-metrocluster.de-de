@@ -146,14 +146,16 @@ NOTE: Sie trennen nur Verbindungen, die nicht denselben Port in der alten und ne
 Entfernen Sie die Anschlüsse in der folgenden Reihenfolge:
 
 +
-** Wenn die lokalen Cluster-Schnittstellen mit einem Switch verbunden sind:
+.. Ändern Sie alle Cluster-LIFs, um die automatische Zurücksetzung zu deaktivieren:
 +
-*** Trennen Sie die lokalen Cluster-Schnittstellen
-*** Trennen Sie die lokalen Cluster-ISLs
-
-
-** Trennen Sie die MetroCluster IP-Schnittstellen
-** Trennen Sie die MetroCluster-ISLs
+[source, asciidoc]
+----
+net int modify -vserver <vserver_name> -lif <lif_name> -auto-revert false
+----
+.. Trennen Sie die lokalen Cluster-Schnittstellen
+.. Trennen Sie die lokalen Cluster-ISLs
+.. Trennen Sie die MetroCluster IP-Schnittstellen
+.. Trennen Sie die MetroCluster-ISLs
 +
 Im Beispiel <<port_usage_worksheet>>Die Schalter ändern sich nicht. Die MetroCluster-ISLs werden verschoben und müssen getrennt werden. Sie müssen die grün markierten Verbindungen auf dem Arbeitsblatt nicht trennen.
 
