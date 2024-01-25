@@ -120,13 +120,15 @@ In der folgenden Tabelle ist der Status (online oder offline) eines nicht gespie
 |===
 
 
-| Art der Umschaltung | Status 
+| Art der Umschaltung | Status der MetroCluster FC-Konfiguration | MetroCluster IP-Konfigurationsstatus 
 
 
  a| 
 Ausgehandelte Umschaltung (NSO)
  a| 
 Online
+ a| 
+Offline (Hinweis 1)
 
 
 
@@ -134,6 +136,8 @@ Online
 Automatische ungeplante Umschaltung (AUSO)
  a| 
 Online
+ a| 
+Offline (Hinweis 1)
 
 
 
@@ -143,8 +147,14 @@ Ungeplante Umschaltung (USO)
 * Wenn kein Speicher verfügbar ist: Offline
 * Wenn Speicher verfügbar ist: Online
 
+ a| 
+Offline (Hinweis 1)
 
 |===
+*Hinweis 1*: In MetroCluster IP-Konfigurationen können Sie nach Abschluss der Umschaltung die nicht gespiegelten Aggregate manuell online bringen.
+
+Weitere Informationen zu <<Unterschiede bei der Umschaltung zwischen MetroCluster FC- und IP-Konfigurationen>>.
+
 
 NOTE: Wenn sich das nicht gespiegelte Aggregat nach einer Umschaltung auf den DR-Partnerknoten befindet und ein Inter-Switch-Link-Ausfall (ISL) auftritt, kann ein lokaler Node ausfallen.
 

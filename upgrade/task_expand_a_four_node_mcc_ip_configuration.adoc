@@ -13,13 +13,13 @@ summary: Sie können der MetroCluster IP-Konfiguration vier neue Nodes als zweit
 [role="lead"]
 Je nach ONTAP Version können Sie Ihre MetroCluster IP-Konfiguration erweitern, indem Sie vier neue Nodes als neue DR-Gruppe hinzufügen.
 
-Ab ONTAP 9.13.1 können der MetroCluster IP-Konfiguration als dritte DR-Gruppe vier neue Nodes hinzugefügt werden. Dadurch wird eine MetroCluster Konfiguration mit zwölf Nodes erstellt.
+Ab ONTAP 9.13.1 können Sie eine MetroCluster Konfiguration mit acht Nodes vorübergehend erweitern, um die Controller und Storage zu aktualisieren. Siehe link:https://docs.netapp.com/us-en/ontap-metrocluster/upgrade/task_refresh_4n_mcc_ip.html["Aktualisieren einer MetroCluster IP-Konfiguration mit vier oder acht Nodes (ONTAP 9.8 und höher)"] Finden Sie weitere Informationen.
 
 Ab ONTAP 9.9 können Sie der MetroCluster IP-Konfiguration vier neue Nodes als zweite DR-Gruppe hinzufügen. Dadurch wird eine MetroCluster-Konfiguration mit acht Nodes erstellt.
 
 .Bevor Sie beginnen
 * Die alten und neuen Nodes müssen dieselbe Version von ONTAP ausführen.
-* In diesem Verfahren werden die Schritte beschrieben, die zum erweitern einer DR-Gruppe mit vier Nodes erforderlich sind. Wenn Sie über eine Konfiguration mit acht Nodes (zwei DR-Gruppen) verfügen, müssen Sie den gesamten Vorgang für jede DR-Gruppe wiederholen.
+* In diesem Verfahren werden die Schritte beschrieben, die erforderlich sind, um eine DR-Gruppe mit vier Nodes einer vorhandenen MetroCluster IP-Konfiguration hinzuzufügen. Wenn Sie eine Konfiguration mit acht Nodes aktualisieren, müssen Sie den gesamten Vorgang für jede DR-Gruppe wiederholen und nacheinander hinzufügen.
 * Stellen Sie sicher, dass die alten und neuen Plattformmodelle für die gemeinsame Verwendung der Plattformen unterstützt werden.
 +
 https://hwu.netapp.com["NetApp Hardware Universe"^]

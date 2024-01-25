@@ -613,7 +613,7 @@ Mehrere Datenaggregate
  a| 
 Konfigurieren Sie an der Eingabeaufforderung eines beliebigen Nodes MetroCluster:
 
-`metrocluster configure _node-name_`
+`metrocluster configure <node-name>`
 
 
 NOTE: Sie müssen ausführen `metrocluster configure` Und *nicht* `metrocluster configure -refresh true`
@@ -632,7 +632,7 @@ Sie müssen mit antworten `y` Wenn Sie aufgefordert werden, den erweiterten Modu
 
 .. Konfigurieren Sie die MetroCluster mit dem `-allow-with-one-aggregate true` Parameter:
 +
-`metrocluster configure -allow-with-one-aggregate true _node-name_`
+`metrocluster configure -allow-with-one-aggregate true -node-name <node-name>`
 
 .. Zurück zur Administratorberechtigungsebene:
 +
@@ -720,6 +720,13 @@ Do you want to continue? {y|n}: y
 
 cluster_A::>
 ....
+. Überprüfen Sie, ob alle Nodes im Cluster ordnungsgemäß sind:
++
+`cluster show`
+
++
+Die Ausgabe sollte angezeigt werden `true` Für das `health` Feld für alle Knoten.
+
 . Mit dem folgenden Befehl auf beiden Clustern bestätigen Sie, dass ein Takeover möglich ist und die Nodes verbunden sind:
 +
 `storage failover show`
@@ -736,6 +743,18 @@ Node_FC_2      Node_FC_1              true      Connected to Node_FC_1
 Node_IP_1      Node_IP_2              true      Connected to Node_IP_2
 Node_IP_2      Node_IP_1              true      Connected to Node_IP_1
 ----
+. Vergewissern Sie sich, dass alle Festplatten vorhanden sind, die mit den neu verbundenen MetroCluster-IP-Nodes verbunden sind:
++
+`disk show`
+
+. Überprüfen Sie den Systemzustand der MetroCluster-Konfiguration, indem Sie die folgenden Befehle ausführen:
++
+.. `metrocluster check run`
+.. `metrocluster check show`
+.. `metrocluster interconnect mirror show`
+.. `metrocluster interconnect adapter show`
+
+
 . Verschieben Sie die MDV_CRS-Volumes von den alten Knoten auf die neuen Knoten in der erweiterten Berechtigung.
 +
 .. Anzeigen der Volumes zur Identifizierung der MDV-Volumes:
