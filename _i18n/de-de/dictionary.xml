@@ -9588,7 +9588,6 @@
   <block id="e8097a3b165e180d56bd06e7a7f7df02" category="list-text">Schalten Sie den neuen Schalter ein, und lassen Sie ihn starten.</block>
   <block id="6f17ef717caa10c840154e66037357c2" category="list-text">Überprüfen Sie die Firmware-Version auf dem Switch, um sicherzustellen, dass sie mit der Version der anderen FC-Switches übereinstimmt:</block>
   <block id="4980aa8a93c404e256f38b26e322faea" category="paragraph"><block ref="4980aa8a93c404e256f38b26e322faea" category="inline-link-rx"></block></block>
-  <block id="b78f0a4f76dcc1e77900d332f928827a" category="paragraph">Später konfigurieren Sie das Zoning in diesem Verfahren.</block>
   <block id="b8e631780d1dd27b4f2d09d46aff4b4b" category="admonition">An diesem Punkt ist der neue Switch nicht mit der MetroCluster-Konfiguration verbunden.</block>
   <block id="44cc543a1a8236a9d069faa85442a84b" category="list-text">Deaktivieren Sie die FC-VI-, HBA- und Storage-Ports auf dem neuen Switch sowie die mit den FC-SAS-Bridges verbundenen Ports.</block>
   <block id="32d094a9a039fb0268cc6295ed9c3e91" category="list-text">Ersetzen Sie den Schalter physisch:</block>
@@ -13283,7 +13282,6 @@
   <block id="aa71e3dcbe0cdabbe4cce28385ab2fd6" category="paragraph">Wenn Sie die ONTAP-Version oder die Switch-Firmware-Version ändern, sollten Sie überprüfen, ob eine RCF-Datei vorhanden ist, die für diese Version unterstützt wird. Wenn Sie den RCF-Generator verwenden, wird für Sie die richtige RCF-Datei generiert.</block>
   <block id="9f4a5b5c7a3f862c1d0ff77f72d3eea0" category="paragraph">Sie werden aufgefordert, den Benutzernamen und das Passwort für das Administratorkonto des ONTAP Mediators einzugeben.</block>
   <block id="c471c44c2f26c78f9327863d90427cb7" category="admonition">Wenn der ONTAP-Mediator ausgefallen ist, wird der angezeigt<block ref="1eafb93bfc40f298e60cf17e8a8c598c" prefix=" " category="inline-code"></block> Mit dem Befehl werden Sie dennoch aufgefordert, den Benutzernamen und das Passwort für das Administratorkonto des ONTAP Mediators einzugeben und den ONTAP Mediator-Dienst aus der MetroCluster-Konfiguration zu entfernen.</block>
-  <block id="1aa145ddf3cafc3bf77b04a1c7069f71" category="list-text">Konfigurieren Sie den neuen Switch wie in _MetroCluster-Installation und -Konfiguration_ beschrieben, überspringen Sie jedoch das Verfahren „`Zoning auf Brocade FC-Switches konfigurieren`“.</block>
   <block id="21b5cf2db61fccc0ace8b80bac8b35b7" category="list-text">Hinweis 2: Auf den FC-Nodes ist eine 40-GbE-Schnittstelle für die lokalen Cluster-Schnittstellen erforderlich. Für diese Plattformkombination ist ONTAP 9.11.1 oder höher erforderlich.</block>
   <block id="13cdbd43c145584bcad75658a29e498d" category="list-text">Hinweis 3: Auf FC-Nodes ist eine 100-GbE-Schnittstelle für die lokalen Cluster-Schnittstellen erforderlich. Für diese Plattformkombination ist ONTAP 9.11.1 oder höher erforderlich.</block>
   <block id="646d7d5f93b4a6d7bbbc65acf5ac1077" category="inline-link">Dokumentation zu ONTAP Hardwaresystemen</block>
@@ -13388,4 +13386,36 @@
   <block id="94d0fc55d9356d3d18534836cae75c1d" category="doc">FC Switch-Konfiguration – Übersicht</block>
   <block id="67af9bc4271944d43da3bdca5451bf73" category="paragraph">Sie können Cisco- und Brocade-FC-Switches mithilfe von RCF-Dateien konfigurieren oder, falls erforderlich, die Switches manuell konfigurieren.</block>
   <block id="1399637937931de009069d1a13a152fb" category="paragraph">*Anmerkung 1:* Diese Kombination erfordert ONTAP 9.13.1 oder höher.</block>
+  <block id="9ae99044ddcd14d01b26630cedd8846d" category="list-text">Konfigurieren Sie den neuen Switch, indem Sie die Schritte unter ausführen <block ref="435cf525be06a494222aa18eba4f6000" category="inline-link-macro-rx"></block>.</block>
+  <block id="02d80d458a48a16bd927a203d6bb2c73" category="list-text">Überprüfen Sie die Zoning-Konfiguration:</block>
+  <block id="62c870995fe52ce6aa5f9fc71ef4da98" category="paragraph"><block ref="ed3badb92af3298762df5a811de2da80" prefix="" category="inline-code"></block></block>
+  <block id="79787dbf023f957de1bd4970858b26be" category="summary">Sie können die IP-Switches so konfigurieren, dass SNMPv3 für die Zustandsüberwachung verwendet wird.</block>
+  <block id="3a4aa5b142f66d14a43abf77cc49c599" category="doc">Konfigurieren Sie MetroCluster IP-Switches für die Zustandsüberwachung</block>
+  <block id="877caefa8e802eac248e66b46636c94b" category="paragraph">In MetroCluster IP-Konfigurationen können Sie SNMPv3 zur Überwachung des Funktionszustands von IP-Switches konfigurieren.</block>
+  <block id="b3d73929ddf74bb4c7d3cac6eeda8684" category="section-title">Schritt 1: Konfigurieren Sie den SNMPv3-Benutzer auf MetroCluster IP-Switches</block>
+  <block id="038fbd2fc792b1165c5e88791a09113a" category="paragraph">Führen Sie die folgenden Schritte aus, um den SNMPv3-Benutzer auf den MetroCluster IP-Switches zu konfigurieren.</block>
+  <block id="f1407eaef69e4aa9948574be11c0a49b" category="admonition">Sie müssen in den Befehlen sowohl die Authentifizierungs- als auch die Datenschutzprotokolle verwenden. Die Verwendung von Authentifizierung ohne Datenschutz wird nicht unterstützt.</block>
+  <block id="165237cf57452c2427f247f1c6589434" category="open-title">Für Broadcom IP-Switches</block>
+  <block id="8d09188a2cfea4cc57e0f38750b68c97" category="list-text">Wenn die Benutzergruppe „Network-admin“ nicht bereits vorhanden ist, erstellen Sie sie:</block>
+  <block id="0f3a15963e4657a9c97ab6b3db322d27" category="paragraph"><block ref="173ceda524dbc87af297f813b0f50cd8" prefix="" category="inline-code"></block></block>
+  <block id="ec714ba3bea7bae033524709c8ddb144" category="list-text">Bestätigen Sie, dass die Gruppe „Network-admin“ erstellt wurde:</block>
+  <block id="a24bdf92e7d1dc2d2e5714305a56e0eb" category="paragraph"><block ref="77aa57f376fe73c9581fb729ddeb38eb" prefix="" category="inline-code"></block></block>
+  <block id="6697365f2e46593a5513af21ee61a084" category="list-text">Konfigurieren Sie den SNMPv3-Benutzer auf Broadcom IP-Switches:</block>
+  <block id="3289ce0836654122a2c0d3bfd4fab942" category="paragraph">Sie müssen Anführungszeichen für die Authentifizierungs- und Datenschutzkennwörter verwenden, wie im folgenden Beispiel gezeigt:</block>
+  <block id="9253168d7e5e9b3b8152a8ff1870743f" category="open-title">Für Cisco IP-Switches</block>
+  <block id="4a2ec710ab28d8f45e2fdabacdc2dfc6" category="list-text">Führen Sie die folgenden Befehle aus, um den SNMPv3-Benutzer auf einem Cisco IP-Switch zu konfigurieren:</block>
+  <block id="a8b5c32b456efe8e0fcb23cd218c6b6c" category="list-text">Überprüfen Sie, ob der SNMPv3-Benutzer auf dem Switch konfiguriert ist:</block>
+  <block id="dcc1c100b3f25557081f2e0b39235331" category="paragraph"><block ref="b74f60eeed5179550ade1e96ba13e2f9" prefix="" category="inline-code"></block></block>
+  <block id="82551d68c685b978ef7462fc2759040f" category="paragraph">Das folgende Beispiel zeigt, dass der Benutzer<block ref="21232f297a57a5a743894a0e4a801fc3" prefix=" " category="inline-code"></block> Ist für SNMPv3 konfiguriert:</block>
+  <block id="54095e9794a9fd93e475a7911543f88e" category="section-title">Schritt 2: Konfigurieren Sie den SNMPv3-Benutzer in ONTAP</block>
+  <block id="584b7eab2aafafcbe01855419f896b21" category="paragraph">Führen Sie die folgenden Schritte aus, um den SNMPv3-Benutzer in ONTAP zu konfigurieren.</block>
+  <block id="1bff762b431027892d402682570d40ac" category="list-text">Konfigurieren Sie den SNMPv3-Benutzer in ONTAP:</block>
+  <block id="ddc11f6ac980cbb07f08bef9febcc0e7" category="paragraph"><block ref="d122104842549610cab7a5c1c6e791ab" prefix="" category="inline-code"></block></block>
+  <block id="c74135dc000c228de7018358eaf099e5" category="list-text">Konfigurieren Sie die Switch-Statusüberwachung, um den Switch mithilfe des neuen SNMPv3-Benutzers zu überwachen:</block>
+  <block id="19acda7cb8d15af8dcf62dcf74bcbe00" category="paragraph"><block ref="536a54b756351ba8978169ff37fc419d" prefix="" category="inline-code"></block></block>
+  <block id="102bc61adb74b49384536c35a485dea4" category="list-text">Überprüfen Sie, ob die Seriennummer des Geräts, die mit dem neu erstellten SNMPv3-Benutzer überwacht wird, korrekt ist:</block>
+  <block id="189afc0f727c57bbef41f18728ebe44a" category="list-text">Den Abfragezeitraum für die Überwachung des Switch-Funktionszustands anzeigen:</block>
+  <block id="4e8c2092c0a2bb40fde077763873c66c" category="paragraph"><block ref="c9e6cd6140c9d8677df821c7cce2aac1" prefix="" category="inline-code"></block></block>
+  <block id="b9035c5f27542cbf7fb14fced8e330ba" category="list-text">Führen Sie den folgenden Befehl aus, nachdem der Abfragezeitraum abgelaufen ist:</block>
+  <block id="20c4c39b07a94d810605541c0137f531" category="paragraph"><block ref="9214d4fe696fff6386a131ecee126bc4" prefix="" category="inline-code"></block></block>
 </blocks>
