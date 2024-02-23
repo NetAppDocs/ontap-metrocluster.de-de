@@ -2553,7 +2553,6 @@
   <block id="8c67eafd90e097bf6228c8d6f91f15cb" category="list-text"><block ref="8c67eafd90e097bf6228c8d6f91f15cb" category="inline-link-macro-rx"></block></block>
   <block id="5482b27fb601c9d5069a7533e0dd1b02" category="summary">Wenn Sie einen Brocade FC-Switch konfigurieren, können Sie die Switch-Konfigurationsdateien installieren, die die vollständigen Switch-Einstellungen für bestimmte Konfigurationen bereitstellen.</block>
   <block id="c2a1b1aaf420fd5fc4e694faa94de89f" category="doc">Installieren der RCF-Datei des Brocade FC-Switch</block>
-  <block id="40a501dacb79ddf4f770555994a4dbe9" category="paragraph">Diese Schritte müssen auf jedem der Brocade FC Switches in der MetroCluster Fabric-Konfiguration wiederholt werden.</block>
   <block id="2d6424f21b7898ba895ef0e70f5c13c8" category="list-text">Initiieren des Download- und Konfigurationsprozesses:</block>
   <block id="3ef73a7a519c5b4a03c363a138b097eb" category="paragraph"><block ref="087055abbdd65f4791f9e6ce913c7cc4" prefix="" category="inline-code"></block></block>
   <block id="d304e0e1a0c74d4f29c7bf97c9e6c845" category="paragraph">Beantworten Sie die Eingabeaufforderungen wie im folgenden Beispiel gezeigt.</block>
@@ -7214,7 +7213,6 @@
   <block id="b330eebf161ca27c703eccf6e8e36d29" category="summary">Sie können der MetroCluster IP-Konfiguration vier neue Nodes als zweite DR-Gruppe hinzufügen. Dadurch wird eine MetroCluster-Konfiguration mit acht Nodes erstellt.</block>
   <block id="a8307b4c5fa271005a1338d5b405ca1f" category="paragraph">Ab ONTAP 9.9 können Sie der MetroCluster IP-Konfiguration vier neue Nodes als zweite DR-Gruppe hinzufügen. Dadurch wird eine MetroCluster-Konfiguration mit acht Nodes erstellt.</block>
   <block id="44e7e75e628cd7549a2dac175d45b418" category="list-text">Die alten und neuen Nodes müssen dieselbe Version von ONTAP ausführen.</block>
-  <block id="2ee2465217913ae7b455ab4ef5e995e6" category="list-text">Die neuen Nodes müssen über genügend Storage verfügen, um die Daten der alten Nodes zusammen mit geeigneten Festplatten für Root-Aggregate und freie Festplatten unterzubringen.</block>
   <block id="1ba701b5ad5528986d9e0eb838638aae" category="section-title">Beispiel für die Benennung in diesem Verfahren</block>
   <block id="a9b1d4be69539e9b95a2c6672035550c" category="paragraph">Bei diesem Verfahren werden durchgängig Beispielnamen verwendet, um die involvierten DR-Gruppen, Nodes und Switches zu identifizieren.</block>
   <block id="739bd7bf43c07dc6334246bfc8c8ca54" category="cell">Cluster_A an Standort_A</block>
@@ -13297,7 +13295,6 @@
   <block id="44f3e9b14f204b411afdea78f7b0391c" category="doc">Versionshinweise zu MetroCluster</block>
   <block id="af8a69aa12393a4d9b6992e884f1c919" category="sidebar">MetroCluster Dokumentation</block>
   <block id="b8b5370c063dd2b4ce4021558a49ac07" category="paragraph">Bei MetroCluster Konfiguration mit ONTAP 9.8 und früher müssen bei einigen Verfahren für die Transition eines Upgrades eine zweite DR-Gruppe mit vier Nodes zur Konfiguration hinzugefügt werden, um eine temporäre Konfiguration mit acht Nodes zu erstellen.  Ab ONTAP 9.9 werden dauerhafte MetroCluster-Konfigurationen mit acht Nodes unterstützt.</block>
-  <block id="ff66d22d6ddbc0a6a59188599728f8d1" category="paragraph">Ab ONTAP 9.13.1 können Sie eine MetroCluster Konfiguration mit acht Nodes vorübergehend erweitern, um die Controller und Storage zu aktualisieren. Siehe <block ref="6e6fb56321b906b7bb3a671d5fc5dfc7" category="inline-link-macro-rx"></block> Finden Sie weitere Informationen.</block>
   <block id="0abe9117fda19697d2dbf1bd1d754e02" category="list-text">In diesem Verfahren werden die Schritte beschrieben, die erforderlich sind, um eine DR-Gruppe mit vier Nodes einer vorhandenen MetroCluster IP-Konfiguration hinzuzufügen. Wenn Sie eine Konfiguration mit acht Nodes aktualisieren, müssen Sie den gesamten Vorgang für jede DR-Gruppe wiederholen und nacheinander hinzufügen.</block>
   <block id="84d04e0c7f711ba6800f8d3bd5bc0847" category="inline-xref">Verwendung des Cisco 9132T-Ports in einer MetroCluster-Konfiguration mit ONTAP 9.4 oder höher</block>
   <block id="ccdfc130a534c248f558d6495323cb02" category="admonition">Informationen zu Cisco 9132T finden Sie unter <block ref="3db7a367aafc64164b814f36e8341eaa" category="inline-xref-macro-rx"></block>.</block>
@@ -13418,4 +13415,15 @@
   <block id="4e8c2092c0a2bb40fde077763873c66c" category="paragraph"><block ref="c9e6cd6140c9d8677df821c7cce2aac1" prefix="" category="inline-code"></block></block>
   <block id="b9035c5f27542cbf7fb14fced8e330ba" category="list-text">Führen Sie den folgenden Befehl aus, nachdem der Abfragezeitraum abgelaufen ist:</block>
   <block id="20c4c39b07a94d810605541c0137f531" category="paragraph"><block ref="9214d4fe696fff6386a131ecee126bc4" prefix="" category="inline-code"></block></block>
+  <block id="0ca1a0fce29aa8b27d10b5cf276a5a5c" category="list-text">Wenn Sie eine xWDM-Konfiguration verwenden, benötigen Sie möglicherweise zusätzliche Einstellungen für die ISLs. Weitere Informationen finden Sie in der xWDM-Herstellerdokumentation.</block>
+  <block id="e389e5759cd93883cfbee1a000ab0c47" category="list-text">Sie müssen diese Schritte auf jedem der Brocade FC-Switches in der MetroCluster-Fabric-Konfiguration wiederholen.</block>
+  <block id="9dc72cfc812a43dbca6ba4e6357b2b04" category="paragraph">Ab ONTAP 9.13.1 können Sie eine MetroCluster Konfiguration mit acht Nodes vorübergehend erweitern, um die Controller und Storage zu aktualisieren. Siehe <block ref="df5e6373f54c9330727709bb1055a079" category="inline-link-macro-rx"></block> Finden Sie weitere Informationen.</block>
+  <block id="e6f19b92e0e69fc5d74e94088b442a26" category="inline-link-macro">Aktualisieren einer MetroCluster-IP-Konfiguration mit vier oder acht Nodes</block>
+  <block id="ae236ebe2cd05ce4da7fe73d504f4946" category="list-text">Wenn Sie es sind <block ref="54f4a86aff0fc5aba4d6e37b225734c0" category="inline-link-macro-rx"></block>, Die neuen Knoten müssen über genügend Speicher verfügen, um die Daten der alten Knoten aufzunehmen, zusammen mit geeigneten Platten für Root-Aggregate und freie Platten.</block>
+  <block id="30db39dffca5d3a3ab759b48303153b1" category="list-text">Wenn die zu entfernende DR-Gruppe Spiegelvolumes mit der Lastverteilung enthält, können sie nicht verschoben werden.  Erstellen Sie alle Spiegelvolumes mit Lastenfreigabe in einer anderen DR-Gruppe erneut, und löschen Sie dann die Spiegelvolumes mit Lastenfreigabe in der zu entfernenden DR-Gruppe.</block>
+  <block id="0108924065f583138162139c8d2325c4" category="list-text">Führen Sie die Schritte jeweils an einem Schalter in der folgenden Reihenfolge aus: Switch_A_1, Switch_B_1, Switch_A_2, Switch_B_2.</block>
+  <block id="4c73c980356e24dbc4b9bfa823ff3540" category="inline-link-macro">Zurücksetzen des NVIDIA IP SN2100-Switch auf die Werkseinstellungen</block>
+  <block id="5ea045545da6545f166122f615c720c2" category="list-text"><block ref="5ea045545da6545f166122f615c720c2" category="inline-link-macro-rx"></block></block>
+  <block id="9d2a9152feb1a65b3472b15d2e557bca" category="inline-link-macro">Herunterladen und Installieren der NVIDIA IP RCF-Dateien</block>
+  <block id="3ebe02a815587b2ddedbada8c501d0ef" category="list-text"><block ref="3ebe02a815587b2ddedbada8c501d0ef" category="inline-link-macro-rx"></block></block>
 </blocks>
