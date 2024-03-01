@@ -124,7 +124,7 @@ Applikationen von Drittanbietern
 Siehe Produktdokumentation.
 
 |===
-. Führen Sie alle Schritte in aus link:../upgrade/task_expand_a_four_node_mcc_ip_configuration.html["Erweitern einer MetroCluster IP-Konfiguration"] Um die neuen Nodes und den neuen Storage zur Konfiguration hinzuzufügen.
+. Führen Sie alle Schritte in aus link:../upgrade/task_expand_a_four_node_mcc_ip_configuration.html["Erweitern einer MetroCluster IP-Konfiguration"^] Um die neuen Nodes und den neuen Storage zur Konfiguration hinzuzufügen.
 +
 Wenn die Erweiterung abgeschlossen ist, wird die temporäre Konfiguration wie in den folgenden Bildern dargestellt angezeigt:
 
@@ -154,16 +154,16 @@ Node_IP_2      Node_IP_1              true      Connected to Node_IP_1
 ----
 . Verschieben Sie die CRS-Volumes.
 +
-Führen Sie die Schritte unter aus link:../maintain/task_move_a_metadata_volume_in_mcc_configurations.html["Verschieben eines Metadaten-Volumes in MetroCluster Konfigurationen"].
+Führen Sie die Schritte unter aus link:../maintain/task_move_a_metadata_volume_in_mcc_configurations.html["Verschieben eines Metadaten-Volumes in MetroCluster Konfigurationen"^].
 
-. Verschieben Sie die Daten von den alten Nodes auf die neuen Nodes, indem Sie die folgenden Verfahren in ausführen link:https://docs.netapp.com/us-en/ontap-systems-upgrade/index.html["Dokumentation zu ONTAP Hardwaresystemen"^]
+. Verschieben Sie die Daten von den alten Knoten auf die neuen Knoten, indem Sie die folgenden Verfahren durchführen:
 +
-.. Führen Sie alle Schritte in aus http://docs.netapp.com/platstor/topic/com.netapp.doc.hw-upgrade-controller/GUID-AFE432F6-60AD-4A79-86C0-C7D12957FA63.html["Erstellung eines Aggregats und Verschiebung von Volumes zu den neuen Nodes"^].
+.. Führen Sie alle Schritte in aus https://docs.netapp.com/us-en/ontap-systems-upgrade/upgrade/upgrade-create-aggregate-move-volumes.html["Erstellung eines Aggregats und Verschiebung von Volumes zu den neuen Nodes"^].
 +
 
 NOTE: Sie könnten wählen, um das Aggregat zu spiegeln, wenn oder nachdem es erstellt wurde.
 
-.. Führen Sie alle Schritte in aus http://docs.netapp.com/platstor/topic/com.netapp.doc.hw-upgrade-controller/GUID-95CA9262-327D-431D-81AA-C73DEFF3DEE2.html["Die verschieben von LIFs für nicht-SAN-Daten und LIFs für das Cluster-Management auf die neuen Nodes"].
+.. Führen Sie alle Schritte in aus https://docs.netapp.com/us-en/ontap-systems-upgrade/upgrade/upgrade-move-lifs-to-new-nodes.html["Verschieben Sie nicht-SAN-Daten-LIFs und Cluster-Management-LIFs auf die neuen Nodes"^].
 
 
 . Ändern Sie die IP-Adresse für den Cluster-Peer der transitionierten Nodes für jedes Cluster:
