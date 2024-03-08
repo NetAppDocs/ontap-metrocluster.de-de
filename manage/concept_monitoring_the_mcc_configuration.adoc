@@ -312,8 +312,4 @@ Die Tiebreaker Software löst eine Warnmeldung aus, jedoch vetoes ONTAP diese Wa
 
 === Wie der ONTAP Mediator die automatische ungeplante Umschaltung unterstützt
 
-Der ONTAP Mediator speichert Zustandsdaten zu den MetroCluster-Knoten in Mailboxen auf dem Mediator-Host. MetroCluster Nodes können diese Informationen nutzen, um den Zustand ihrer DR-Partner zu überwachen und bei einem Ausfall eine automatische, ungeplante Umschaltung (Mediator-Assisted Automatic ungeplante Switchover, MAUSO) zu implementieren.
-
-Wenn ein Node einen Standortausfall erkennt, der ein Switchover erfordert, so wird nur schrittweise bestätigt, dass die Umschaltung angemessen ist und falls ja, auch die Umschaltung durchgeführt wird.
-
-MAUSO wird nur initiiert, wenn sowohl die SyncMirror-Spiegelung als auch die DR-Spiegelung des nichtflüchtigen Cache jedes Node funktioniert und die Caches und Spiegelungen zum Zeitpunkt des Ausfalls synchronisiert werden.
+link:../install-ip/concept-ontap-mediator-supports-automatic-unplanned-switchover.html["Erfahren Sie, wie der ONTAP Mediator die automatische ungeplante Umschaltung in MetroCluster IP-Konfigurationen unterstützt"].

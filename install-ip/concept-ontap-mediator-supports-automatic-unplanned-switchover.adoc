@@ -1,0 +1,74 @@
+---
+permalink: install-ip/concept-ontap-mediator-supports-automatic-unplanned-switchover.html 
+sidebar: sidebar 
+keywords: ontap, mediator, service, assist, metrocluster, ip, configuration, perform, automatic, unplan, switchover, physical, repository, status, information, configuring, configure, install, configuring, configure, forced 
+summary:  
+---
+= Wie der ONTAP Mediator die automatische ungeplante Umschaltung unterstützt
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Der ONTAP Mediator stellt Mailbox-LUNs zur Verfügung, um Statusinformationen über die MetroCluster IP-Knoten zu speichern. Diese LUNs befinden sich in Zusammenarbeit mit dem ONTAP Mediator, der physisch von den MetroCluster-Sites getrennt auf einem Linux-Host ausgeführt wird. Die MetroCluster IP-Knoten können die Mailbox-Informationen nutzen, um den Status ihrer Disaster Recovery (DR)-Partner zu überwachen und im Notfall eine Mediator-gestützte ungeplante Umschaltung (MAUSO) zu implementieren.
+
+
+NOTE: MAUSO wird in MetroCluster FC-Konfigurationen nicht unterstützt.
+
+Wenn ein Node einen Standortausfall erkennt, der ein Switchover erfordert, so wird nur schrittweise bestätigt, dass die Umschaltung angemessen ist und falls ja, auch die Umschaltung durchgeführt wird. Standardmäßig wird ein MAUSO für die folgenden Szenarien initiiert:
+
+* Zum Zeitpunkt des Ausfalls werden sowohl SyncMirror-Spiegelung als auch DR-Spiegelung des nichtflüchtigen Cache jedes Node ausgeführt. Die Caches und Spiegelungen werden synchronisiert.
+* Keiner der Knoten am noch verbleibenden Standort befindet sich im Übernahmemodus.
+* Bei einem Standortausfall. Ein Standortausfall ist ein Ausfall von _all_ Nodes am selben Standort.
+
+
+Ein MAUSO wird in den folgenden Shutdown-Szenarien _Not_ initiiert:
+
+* Sie initiieren ein Herunterfahren. Beispiel, wenn Sie:
++
+** Halten Sie die Nodes an
+** Booten Sie die Nodes neu
+
+
+
+
+Erfahren Sie mehr über die MAUSO-Funktionen, die mit jeder Version von ONTAP 9 verfügbar sind.
+
+[cols="1a,5a"]
+|===
+| Beginnt mit... | Beschreibung 
+
+
+ a| 
+ONTAP 9.13.1
+ a| 
+* Ein MAUSO wird initiiert, wenn ein <<default_scenarios,Standardszenario>> Tritt auf, und ein Lüfter- oder Hardwareausfall initiiert ein Herunterfahren der Umgebung. Beispiele für Hardwareausfälle sind eine hohe oder niedrige Temperatur, ein Netzteil, eine NVRAM-Batterie oder ein Heartbeat-Fehler des Service-Prozessors.
+* Der Standardwert für die Fehlerdomäne ist in einer MetroCluster IP-Konfiguration auf „aus-on-dr-Group“ gesetzt. Bei ONTAP 9.12.1 und älteren Versionen ist der Standardwert auf „auso-on-Cluster-Disaster“ eingestellt.
++
+In einer MetroCluster IP Konfiguration mit acht Nodes löst „auso-on-dr-Gruppe“ einen MAUSO aus, entweder beim Ausfall des Clusters oder bei einem HA-Paar in einer DR-Gruppe. Bei einem HA-Paar müssen beide Nodes gleichzeitig ausfallen.
+
++
+Optional können Sie die Einstellung der Fehlerdomäne in die Domäne „auso-on-Cluster-Disaster“ mit ändern `metrocluster modify -auto-switchover-failure-domain auso-on-cluster-disaster` Befehl zum Auslösen eines MAUSO nur, wenn in beiden DR-Gruppen ein HA-Node-Paar-Fehler vorhanden ist.
+
+* Sie können das Verhalten so ändern, dass ein MAUSO erzwungen wird, auch wenn der NVRAM zum Zeitpunkt des Fehlers nicht synchron ist.
+
+
+
+
+ a| 
+[[Mauso-9-12-1]] ONTAP 9.12.1
+ a| 
+Sie können die automatische erzwungene Umschaltung von MetroCluster in einer MetroCluster IP-Konfiguration mithilfe von aktivieren `metrocluster modify -allow-auto-forced-switchover true` Befehl.
+
+Umschaltung bei Erkennung eines Standortausfalls erfolgt automatisch, wenn die MetroCluster Funktion zur automatischen erzwungenen Umschaltung aktiviert wird. Diese Funktion ergänzt die MetroCluster IP Funktion zur automatischen Umschaltung.
+
+.Risiken und Einschränkungen bei der automatischen erzwungenen MetroCluster Umschaltung
+Wenn Sie zulassen, dass eine MetroCluster-IP-Konfiguration im automatischen Umschaltmodus betrieben wird, kann das folgende bekannte Problem zu Datenverlust führen:
+
+* Der nicht-flüchtige Speicher in den Storage Controllern wird nicht zum Remote-DR-Partner am Partnerstandort gespiegelt.
+
+
+*Achtung*: Es können Szenarien auftreten, die nicht erwähnt werden. NetApp ist nicht verantwortlich für Datenkorruption, Datenverlust oder andere Schäden, die durch die Aktivierung der automatischen erzwungenen MetroCluster Switchover-Funktion entstehen können. Verwenden Sie die Funktion zur automatischen erzwungenen Umschaltung nicht von MetroCluster, wenn das Risiko und die Einschränkungen für Sie nicht akzeptabel sind.
+
+|===

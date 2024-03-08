@@ -3447,11 +3447,7 @@
   <block id="18d0853d5e7ac8e89859a9c8915979f9" category="inline-link-macro">Tiebreaker Dokumentation</block>
   <block id="b268877da374fd4b7e106d3ffa6da9f8" category="list-text">Wenn Sie die Tiebreaker Software verwenden, lesen Sie die <block ref="62330c976dd51c7f2d31efa54ddec6c7" category="inline-link-macro-rx"></block>.</block>
   <block id="dda33fc9a3cc083db08123f7d7e692a8" category="doc">Risiken und Einschränkungen bei der automatischen erzwungenen MetroCluster Umschaltung</block>
-  <block id="d49fffd0ec397c8f5b53fbeb1bc93ee2" category="paragraph">Ab ONTAP 9.12.1 kann die Funktion zur automatischen erzwungenen Umschaltung von MetroCluster in einer MetroCluster IP Konfiguration aktiviert werden. Bei dieser Funktion handelt es sich um eine Erweiterung der MAUSO-Funktion (Mediator-Assisted ungeplante Switchover).</block>
   <block id="a6e62874574d6ae8ffc9dc6ea98c08e7" category="paragraph">Umschaltung bei Erkennung eines Standortausfalls erfolgt automatisch, wenn die MetroCluster Funktion zur automatischen erzwungenen Umschaltung aktiviert wird. Diese Funktion ergänzt die MetroCluster IP Funktion zur automatischen Umschaltung.</block>
-  <block id="64aca5dcd09842ce5e26c9c9f52a5c79" category="paragraph">Wenn eine MetroCluster IP-Konfiguration in einem automatischen erzwungenen Switchover-Modus betrieben werden kann, können die folgenden bekannten Probleme zu Datenverlust führen:</block>
-  <block id="432fccc7d25e83271acb25e6c686d22f" category="list-text">Der nicht-flüchtige Speicher in den Storage Controllern wird nicht auf den Remote Disaster Recovery (DR)-Partner am Partnerstandort gespiegelt.</block>
-  <block id="4e94608087f1df11aa020cbfe28a7876" category="admonition">Möglicherweise treten Szenarien auf, die nicht erwähnt werden. NetApp ist nicht verantwortlich für Datenkorruption, Datenverlust oder andere Schäden, die durch die Aktivierung der automatischen erzwungenen MetroCluster Switchover-Funktion entstehen können. Verwenden Sie die Funktion zur automatischen erzwungenen Umschaltung nicht von MetroCluster, wenn das Risiko und die Einschränkungen für Sie nicht akzeptabel sind.</block>
   <block id="744dd62dbddcfc9601b7e3e7d7cfc329" category="summary">Sie müssen die Cluster Peer, die Root-Aggregate spiegeln, ein gespiegeltes Datenaggregat erstellen und dann den Befehl zum Implementieren der MetroCluster Operationen ausgeben.</block>
   <block id="7b0d27454ef980cc3577cf44e3462c41" category="doc">Konfigurieren der Cluster in einer MetroCluster-Konfiguration</block>
   <block id="64cdec386f8cc50c2a2ec9316633b629" category="paragraph">Bevor Sie ausführen<block ref="3b3242ced99842a6c2c16f489b78e773" prefix=" " category="inline-code"></block>, HA-Modus und DR-Spiegelung sind nicht aktiviert und Sie können eine Fehlermeldung in Bezug auf dieses erwartete Verhalten sehen. Sie aktivieren später den HA-Modus und die DR-Spiegelung, wenn Sie den Befehl ausführen<block ref="3b3242ced99842a6c2c16f489b78e773" prefix=" " category="inline-code"></block> Um die Konfiguration zu implementieren.</block>
@@ -4772,13 +4768,11 @@
   <block id="853e6bb3641c0d71f39b6809c0ac2110" category="paragraph">In älteren Versionen als ONTAP 9.9 sollte sich eine LUN nicht auf einem nicht gespiegelten Aggregat befinden. Das Konfigurieren einer LUN auf einem nicht gespiegelten Aggregat kann zu einem Switchover von mehr als 120 Sekunden bei einem Ausfall der Daten führen.</block>
   <block id="a7413038d86d8757b33477e80819b54d" category="summary">Die verschiedenen MetroCluster Konfigurationen weisen wesentliche Unterschiede in den erforderlichen Komponenten auf.</block>
   <block id="9a7cf14a520bc88a1cb91bca39d69926" category="doc">Unterschiede zwischen ONTAP Mediator und MetroCluster Tiebreaker</block>
-  <block id="5dddfa582624b89f44517d6ff5b20963" category="paragraph">Ab ONTAP 9.7 können Sie entweder die ONTAP Mediator-gestützte automatische ungeplante Umschaltung (MAUSO) in der MetroCluster IP-Konfiguration verwenden oder die MetroCluster Tiebreaker Software verwenden. Nur einer der beiden Dienste kann mit der MetroCluster IP-Konfiguration verwendet werden.</block>
   <block id="0a5c3ac0f47ed8e3d45c2e4219d97b00" category="paragraph">Die verschiedenen MetroCluster Konfigurationen führen unter unterschiedlichen Umständen automatische Umschaltung durch:</block>
   <block id="aaa4db48fe39708ddc84c0b74e004845" category="list-text">*MetroCluster FC-Konfigurationen mit der AUSO-Fähigkeit (nicht in MetroCluster IP-Konfigurationen vorhanden)*</block>
   <block id="54b00572b4fb9c96346da414c5a1780b" category="paragraph">In diesen Konfigurationen wird AUSO initiiert, wenn Controller ausfallen, der Speicher (und ggf. Brücken) jedoch betriebsbereit bleiben.</block>
   <block id="f25509e4a4010e30eda740d9ef693bf9" category="list-text">*MetroCluster IP-Konfigurationen mit dem ONTAP Mediator Service (ONTAP 9.7 und höher)*</block>
   <block id="8a15f9f5afd6ffb27ec4a9af854624f7" category="paragraph">In diesen Konfigurationen wird MAUSO unter denselben Umständen wie AUSO wie oben beschrieben initiiert, aber auch nach einem kompletten Standortausfall (Controller, Storage und Switches).</block>
-  <block id="2464b025c8a02fc9a54a5cbe8a3b3041" category="admonition">MAUSO wird nur initiiert, wenn nichtflüchtige Cache-Spiegelung (_DR Spiegelung_) und SyncMirror Plex-Spiegelung zum Zeitpunkt des Ausfalls synchronisiert ist.</block>
   <block id="e5edd8dd9b2717b8f0d5e2c5e9c4563d" category="list-text">*MetroCluster IP- oder FC-Konfigurationen mit der Tiebreaker Software im aktiven Modus*</block>
   <block id="d252bbe03c515e14d80ddc7cae716a23" category="paragraph">Bei diesen Konfigurationen initiiert der Tiebreaker eine ungeplante Umschaltung nach einem vollständigen Standortausfall.</block>
   <block id="b935de63e2396f2d2fe997c9028969f7" category="inline-link-macro">Installation und Konfiguration der MetroCluster Tiebreaker Software</block>
@@ -4786,15 +4780,9 @@
   <block id="a7de0eeb62026c7c8a784a9e3a44a081" category="section-title">Interoperabilität von ONTAP Mediator mit anderen Anwendungen und Geräten</block>
   <block id="7fd453474071dccd50ff62492d227dec" category="paragraph">Es ist nicht möglich, Applikationen oder Appliances von Drittanbietern zu verwenden, die in Kombination mit ONTAP Mediator eine Umschaltung auslösen können. Darüber hinaus wird das Monitoring einer MetroCluster-Konfiguration mit MetroCluster Tiebreaker Software bei Verwendung des ONTAP Mediator nicht unterstützt.</block>
   <block id="b4a4356f509fb6c32e40ddbcc18b8a1a" category="section-title">Wie der ONTAP Mediator die automatische ungeplante Umschaltung unterstützt</block>
-  <block id="7480d239952f3388e1a45150c044ba8e" category="paragraph">Der ONTAP Mediator speichert Zustandsdaten zu den MetroCluster-Knoten in Mailboxen auf dem Mediator-Host. MetroCluster Nodes können diese Informationen nutzen, um den Zustand ihrer DR-Partner zu überwachen und bei einem Ausfall eine automatische, ungeplante Umschaltung (Mediator-Assisted Automatic ungeplante Switchover, MAUSO) zu implementieren.</block>
-  <block id="ad48fc5af22c71cdbcd7d9db9a44e632" category="paragraph">Wenn ein Node einen Standortausfall erkennt, der ein Switchover erfordert, so wird nur schrittweise bestätigt, dass die Umschaltung angemessen ist und falls ja, auch die Umschaltung durchgeführt wird.</block>
-  <block id="5c5abfeb23848eee7e1fb00c2a61db6c" category="paragraph">Ein MAUSO wird nur in den folgenden Szenarien initiiert:</block>
   <block id="d805df154de0ed954114c0b8a30d6cf0" category="list-text">Zum Zeitpunkt des Ausfalls werden sowohl SyncMirror-Spiegelung als auch DR-Spiegelung des nichtflüchtigen Cache jedes Node ausgeführt. Die Caches und Spiegelungen werden synchronisiert.</block>
   <block id="539aa46206b59c007151f02f46d35617" category="list-text">Keiner der Knoten am noch verbleibenden Standort befindet sich im Übernahmemodus.</block>
-  <block id="76febd606fc24a36395547ab83980f59" category="paragraph">Ein MAUSO wird in den folgenden Shutdown-Szenarien *nicht* gestartet:</block>
   <block id="1fb135b5dd970a96db5c2b3025ddcbf8" category="list-text">Sie initiieren ein Herunterfahren. Beispiel, wenn Sie:</block>
-  <block id="969ad1d775144c2dcc448c09e5467831" category="list-text">Halten Sie die Knoten an</block>
-  <block id="e417cabb8d771305beaa6b46cf7335e1" category="list-text">Die Nodes neu booten</block>
   <block id="c3294642ebc4a24320ba23b1a71d691f" category="summary">Der ONTAP Mediator-Dienst muss auf dem ONTAP-Knoten für die Verwendung in einer MetroCluster-IP-Konfiguration konfiguriert sein.</block>
   <block id="4a013e1601591220c48257d9b4f85901" category="doc">Konfigurieren Sie den ONTAP Mediator-Dienst über eine MetroCluster-IP-Konfiguration</block>
   <block id="e1e93a7a154af533c59fc4dcfb6cd4d3" category="list-text">Der ONTAP Mediator muss erfolgreich an einem Netzwerkstandort installiert worden sein, der von beiden MetroCluster-Standorten erreichbar ist.</block>
@@ -4803,7 +4791,6 @@
   <block id="7e2df0de08c4c32c4dc448510aced1c2" category="list-text">Sie müssen über die IP-Adresse des Hosts verfügen, auf dem der ONTAP Mediator-Dienst ausgeführt wird.</block>
   <block id="76fa3c63020c0f7cc5ffedb4c90cbdcb" category="list-text">Sie müssen den Benutzernamen und das Kennwort für den ONTAP Mediator-Dienst besitzen.</block>
   <block id="a21b356af516769ddf9586489a22e6f8" category="list-text">Alle Nodes der MetroCluster IP-Konfiguration müssen online sein.</block>
-  <block id="160ccce82c893f99e3f0614ca209899d" category="admonition">Ab ONTAP 9.12.1 kann die Funktion zur automatischen erzwungenen Umschaltung von MetroCluster in einer MetroCluster IP Konfiguration aktiviert werden. Diese Funktion ist eine Erweiterung der mediatorgestützten ungeplanten Umschaltung. Bevor Sie diese Funktion aktivieren, überprüfen Sie diese <block ref="a3a7e72ce1f5f993a44ac5e44397056b" category="inline-link-macro-rx"></block>.</block>
   <block id="5213788f29292b96ef1a650e5fce6938" category="list-text">Diese Aufgabe ermöglicht standardmäßig automatische ungeplante Umschaltung.</block>
   <block id="ada003c5d7b06ea1b392045334928823" category="list-text">Diese Aufgabe kann auf der ONTAP-Schnittstelle eines beliebigen Knotens der MetroCluster IP-Konfiguration ausgeführt werden.</block>
   <block id="8011c86f99772e8ed45b9d5da11cfad0" category="list-text">Eine einzelne Installation des ONTAP Mediator Service kann mit bis zu fünf MetroCluster IP-Konfigurationen konfiguriert werden.</block>
@@ -4926,14 +4913,6 @@
   <block id="eaf7309def7e7136bb09e5898743d18b" category="paragraph">Vorhandene MetroCluster IP Konfigurationen auf FAS Systemen können auf ONTAP 9.4 aktualisiert werden.</block>
   <block id="b8f6677db24add5f2af4be56aa22ea68" category="list-text">Ab ONTAP 9.5 werden neue MetroCluster IP-Installationen auf FAS Systemen unterstützt.</block>
   <block id="04be3a6c5ee416a84b497452ccd41ffd" category="list-text">Ab ONTAP 9.4 werden für ADP konfigurierte Controller-Module unterstützt.</block>
-  <block id="0a031333cf2c811fea7702892ed6eb5b" category="section-title">Controller-Modelle sind auf Konfigurationen mit vier Nodes beschränkt</block>
-  <block id="8f6fda81c2274384a4980cc38b8e45e7" category="paragraph">Diese Modelle sind in einer MetroCluster-Konfiguration auf vier begrenzt.</block>
-  <block id="725684805491a7e291f9f8b54091a2c1" category="paragraph">Beispielsweise werden die folgenden Konfigurationen nicht unterstützt:</block>
-  <block id="0a87be6cc036c9f0de1076a02a8b8f06" category="list-text">Eine Konfiguration mit acht Nodes, die aus acht AFF A250 Controllern besteht.</block>
-  <block id="f28dfecdb04d9fddcb6815412a00d65b" category="list-text">Eine Konfiguration mit acht Nodes, bestehend aus vier AFF 220 Controllern und vier FAS500f Controllern.</block>
-  <block id="b67dfd517d85d4d92bbb6924d9a50347" category="list-text">Zwei MetroCluster IP-Konfigurationen mit vier Nodes, die jeweils aus AFF A250 Controllern und denselben Back-End-Switches bestehen.</block>
-  <block id="66f9fb0d9e7258cc4fc93d0eb88c274d" category="list-text">Eine Konfiguration mit acht Nodes, bestehend aus DR Group 1 mit AFF A250 Controllern und DR-Gruppe 2 mit FAS9000 Controllern</block>
-  <block id="f30117279b81255a79cfd80114e6947b" category="paragraph">Sie können zwei separate MetroCluster IP-Konfigurationen mit vier Nodes mit denselben Back-End Switches konfigurieren, wenn im zweiten MetroCluster keine der oben genannten Modelle enthalten sind.</block>
   <block id="87b514f77df8f80e9ce684f94332fb57" category="section-title">Beispielnamen</block>
   <block id="b28d5f07ecc3e09cca01f61bcd89c642" category="paragraph">Die folgenden Beispielnamen werden in der Dokumentation verwendet:</block>
   <block id="ba7daf8fded06fad682c0b21342ef324" category="list-text">Controller_A_1</block>
@@ -5402,7 +5381,6 @@
   <block id="314397a966e69ed15a6dc4aef51251e3" category="paragraph">Schächte 12-17</block>
   <block id="c827f7df05c6916afe05fd36408cafb0" category="paragraph">Quartal 3: Buchten 24-35</block>
   <block id="93dcc09acf50956dd3f108153247603c" category="paragraph">Schächte 24-29</block>
-  <block id="fd4becc7ba4fbc457e46157c8cdbc213" category="paragraph">Quartal 4: Buchten 36-48</block>
   <block id="77c79465aa008b1bff68e784406b5273" category="paragraph">Schächte 36-41</block>
   <block id="a66208eb43ca07208dc54b23ce6f191c" category="paragraph">Wenn Sie an jedem Standort zwei Shelfs verwenden, werden Festplatten anhand einer halben Shelf-Richtlinie zugewiesen. Wenn die Shelfs nicht vollständig gefüllt sind, installieren Sie die Laufwerke an beiden Enden des Shelfs gleich.</block>
   <block id="dbaf1635e32fb5c1cc5e8aca3a390c3e" category="paragraph">Wenn Sie beispielsweise 12 Laufwerke in einem Shelf mit 24 Laufwerken installieren, installieren Sie Laufwerke in den Einschüben 0-5 und 18-23.</block>
@@ -5487,7 +5465,6 @@
   <block id="6f53d85533c3e60dad3733efac10ae04" category="paragraph">Das Root-Aggregat wird mit 12 Root-Partitionen auf dem internen Shelf erstellt.</block>
   <block id="982a2e1944b422fa6826f45f24630643" category="paragraph">Die internen Partitionen sind in vier gleiche Gruppen (Quartiere) unterteilt. Jedes Quartal wird automatisch einem separaten Pool zugewiesen.</block>
   <block id="f674c4dddbf3c8f5d8282775b8f64dfc" category="list-text">Eine Ersatzpartitionen</block>
-  <block id="ef312d32820f8cc7d4f38a6f5049b24d" category="section-title">ADP und Festplattenzuordnung auf AFF A900-Systemen</block>
   <block id="c62a718b8f06da8fda597def926b5514" category="cell">Shelves pro Standort</block>
   <block id="e544ed43da5fbe5f1ff53ed83f313e27" category="section-title">Festplattenzuordnung bei FAS2750 Systemen</block>
   <block id="348b34a8fc3bce6d3e74519d8b7e9ca3" category="paragraph">24 interne Laufwerke und 24 externe Laufwerke</block>
@@ -5686,7 +5663,6 @@
   <block id="9ae1fbeadb6e0efc4e024384fb8a4f8d" category="inline-link">Knowledge Base-Artikel</block>
   <block id="6bd20d1a4e5bd1d6bed1627ed32e934c" category="list-text">Hinweis 1: Für das Upgrade von Controllern, wenn FCVI-Verbindungen auf vorhandenen FAS8020 oder AFF8020 Nodes die Ports 1c und 1d verwenden, lesen Sie Folgendes<block ref="058c6692589b3956d6bd485ac9c6cea6" category="inline-link-rx"></block>.</block>
   <block id="80a030e3352fb989821aa7c6d15bcfad" category="inline-link-macro">Öffentlicher Bericht</block>
-  <block id="67be5a03851a4b6d9deae18ad49f328e" category="list-text">Hinweis 2: Controller-Upgrades von AFF A300 oder FAS8200 Plattformen mit integrierten Ports 0e und 0f als FC-VI-Verbindungen werden nur auf Systemen mit ONTAP 9.9 unterstützt. Oder früher. Weitere Informationen finden Sie im <block ref="54dac02f94a6488bb50eb2223b2531dc" category="inline-link-macro-rx"></block>.</block>
   <block id="6fc32e58ee37ceb6ca0bb1590e84ab08" category="inline-link-macro">Controller-Upgrade von AFF A700/FAS9000 auf AFF A900/FAS9500 in einer MetroCluster FC-Konfiguration mittels Umschaltung und Switchback (ONTAP 9.10.1 oder höher)</block>
   <block id="24e0de0a456339a0645a68e87b1bd30e" category="list-text">Hinweis 3: Für dieses Upgrade siehe <block ref="d4055a630aa0f5dfe07651f60a376ff8" category="inline-link-macro-rx"></block></block>
   <block id="75f7d2bcde6cf0fe3c3db259a2547dbc" category="cell">MetroCluster-Typ</block>
@@ -7867,7 +7843,6 @@
   <block id="5c4f1865e4bc1d73184e237f9959c388" category="list-text">Verwenden Sie den RCfFileGenerator 1.4a (oder höher), um die RCF-Dateien mit den Informationen zu erstellen, die Sie in Schritt 1 abgerufen haben. Die neue Version des RcfFileGenerators erstellt einen zusätzlichen Satz von CleanUpFiles, mit denen Sie einige Konfigurationen zurücksetzen und den Switch vorbereiten können, um eine neue RCF-Konfiguration anzuwenden.</block>
   <block id="65f306707f97b0e6528c632443da6ffa" category="list-text">Vergleichen Sie das Banner motd mit den derzeit verwendeten RCF-Dateien. Die Plattformtypen, der Switch-Typ, die Port- und die VLAN-Nutzung müssen identisch sein.</block>
   <block id="eeca5f39015a896c3fd153b273497470" category="admonition">Sie müssen die CleanUpFiles aus derselben Version wie die RCF-Datei und für die exakt gleiche Konfiguration verwenden. Die Verwendung von CleanUpFile funktioniert nicht und erfordert möglicherweise ein vollständiges Zurücksetzen des Switches.</block>
-  <block id="6d48f487507c57727138fae0e2a5e20d" category="admonition">Der Storage-Typ könnte anders sein - SAS-Storage oder Direct Storage.</block>
   <block id="f7f6e369dd85b855e692642fc45404d1" category="admonition">Die ONTAP-Version, für die die RCF-Datei erstellt wurde, ist nicht relevant. Es ist nur die RCF-Dateiversion wichtig.</block>
   <block id="5ac0010e09da0a19568a51f509b47c9e" category="admonition">Die RCF-Datei (auch die gleiche Version ist) könnte weniger oder mehr Plattformen auflisten. Stellen Sie sicher, dass Ihre Plattform aufgeführt ist.</block>
   <block id="b801f2818024b60718ab5b68f7b2eb23" category="open-title">Option 2: Erstellen Sie allgemeine CleanUpFiles</block>
@@ -10085,10 +10060,7 @@
   <block id="6466cdc759d3f24e72db990e82ef2e6e" category="inline-link-macro">Umschaltung für Tests oder Wartung</block>
   <block id="8d50f35507fbf2c3d543e72aaed82f75" category="paragraph"><block ref="8d50f35507fbf2c3d543e72aaed82f75" category="inline-link-macro-rx"></block></block>
   <block id="d570448dc17eb2b971433918f9fda788" category="section-title">Mediator-gestützte automatische, ungeplante Umschaltung in MetroCluster IP-Konfigurationen</block>
-  <block id="73e03c5be719fd40e437f5c019235422" category="paragraph">In MetroCluster IP-Konfigurationen kann das System mit dem ONTAP Mediator Fehler erkennen und eine Mediator-gestützte automatische ungeplante Umschaltung (MAUSO) durchführen.</block>
   <block id="e0dfacb7c32b66e9900ec804d3555a37" category="admonition">MAUSO wird in MetroCluster FC-Konfigurationen nicht unterstützt.</block>
-  <block id="bf1d205a4e5418512184787235e4b76b" category="paragraph">Der ONTAP Mediator stellt Mailbox-LUNs für die MetroCluster IP-Knoten bereit. Diese LUNs befinden sich in Zusammenarbeit mit dem ONTAP Mediator, der physisch von den MetroCluster-Sites getrennt auf einem Linux-Host ausgeführt wird.</block>
-  <block id="9065c339d0aefe8c01add4abec5c6525" category="paragraph">Die MetroCluster-Knoten verwenden die Postfachinformationen, um zu ermitteln, ob ein MAUSO erforderlich ist. MAUSO wird nicht initiiert, wenn der nicht-flüchtige Speicher (NVRAM oder NVMEM, je nach Plattformmodell) in den Storage-Controllern nicht zum Remote Disaster Recovery-Partner am Partnerstandort gespiegelt wird</block>
   <block id="aba053c292ccb0431a94f6b992f85614" category="section-title">Was geschieht während der Reparatur (MetroCluster FC-Konfigurationen)?</block>
   <block id="1316fded180310faa69facd0141e9243" category="paragraph">Bei der Reparatur von MetroCluster FC-Konfigurationen erfolgt die Resynchronisierung der gespiegelten Aggregate in einem phasenweisen Prozess, der die Nodes am reparierten Disaster Site für einen Switchback vorbereitet. Hierbei handelt es sich um ein geplantes Ereignis, wodurch Sie alle Schritte vollständig kontrollieren können, um die Ausfallzeiten zu minimieren. Die Reparatur ist ein zweistufiger Prozess, der im Storage- und im Controller-Bereich stattfindet.</block>
   <block id="55ed90f41949baae887193f4670caaa7" category="section-title">Reparatur von Daten-Aggregaten</block>
@@ -10274,7 +10246,6 @@
   <block id="283ac08265135875ca6923ff496eb23d" category="list-text">In einem Cluster, in dem alle Knoten am Katastrophenstandort ausgefallen sind, ein HA-Paar am überlebenden Standort ausgefallen und das Cluster auf der überlebenden Site weist den Status „AllLinksSevered“ auf</block>
   <block id="8fadaf170183e2d159ac833a6e692b87" category="paragraph">Die Tiebreaker Software löst eine Warnmeldung aus, jedoch vetoes ONTAP diese Warnmeldung aus. In dieser Situation ist auch ein manuelles Switchover vetoed vetoed</block>
   <block id="bad588a0ca9c6c83623a75c1cdf6d8a4" category="list-text">In jedem Szenario, in dem die Tiebreaker Software mindestens einen Node oder die Cluster-Schnittstelle am Disaster-Standort erreichen kann, kann der verbleibende Standort über FC (NV Interconnect und Storage) oder Intercluster Peering einen Node am Disaster-Standort erreichen</block>
-  <block id="32cbf293fe64d853582c8537f6165030" category="paragraph">MAUSO wird nur initiiert, wenn sowohl die SyncMirror-Spiegelung als auch die DR-Spiegelung des nichtflüchtigen Cache jedes Node funktioniert und die Caches und Spiegelungen zum Zeitpunkt des Ausfalls synchronisiert werden.</block>
   <block id="307c829821183af57a771843b84e8996" category="summary">Nachdem die Datenaggregate geheilt wurden, müssen Sie die Root-Aggregate heilen, um den Switchback-Betrieb zu ermöglichen.</block>
   <block id="441e2c394959c992487411f6f48b550c" category="doc">Heilen der Root-Aggregate nach ausgehandelter Umschaltung</block>
   <block id="aae0682b90e4231c83aeabe5d4f5beba" category="paragraph">Die Datenaggregationsphase des MetroCluster-Heilungsprozesses muss erfolgreich abgeschlossen sein.</block>
@@ -12613,19 +12584,12 @@
   <block id="2a077243240a3af8fdb5a2c53c8dfd93" category="sidebar">Aktivieren Sie Storage Failover auf beiden Controller-Modulen und aktivieren Sie Cluster HA</block>
   <block id="3ae2a51b967ff5379c07b5d59d9bb892" category="sidebar">Verkabeln Sie die neuen Controller-Module FC-VI- und HBA-Ports mit den FC-Switches</block>
   <block id="2ec9cf7fc01c78e918f2c1109d699ebd" category="sidebar">Konfiguration des Administratorzugriffs auf ONTAPI und SSH</block>
-  <block id="3ba18986907ef3401544960b244376ed" category="section-title">ADP- und Festplattenzuweisung auf AFF A150 und AFF A220 Systemen</block>
   <block id="3e0a52646b307379f47860044c088d60" category="paragraph">Die Laufwerke auf jedem externen Shelf werden in zwei gleiche Gruppen (Hälften) aufgeteilt. Jedes halbe Shelf wird automatisch einem separaten Pool zugewiesen.</block>
-  <block id="b244c220ca2f00fdc24e97de45456f82" category="section-title">ADP und Festplattenzuweisung auf AFF C400 und AFF A400 Systemen</block>
-  <block id="ba9bcbab50848c136d0007b25231ce1e" category="section-title">ADP und Festplattenzuweisung auf AFF C800 und AFF A800 Systemen</block>
   <block id="8e65b308ba381d7e7d885330e749b55d" category="list-text">Wenn Sie zwei MetroCluster-Konfigurationen des Typs AFF A700 mit vier Nodes verkabeln, verbinden Sie die erste MetroCluster, die als „MetroCluster 1“ angezeigt wird, und die zweite MetroCluster, die in der AFF A700 Tabelle als „MetroCluster 2“ dargestellt ist.</block>
   <block id="e5c3d25338f9cf52b0644af8df5dd491" category="admonition">Die Ports 13 und 14 können im nativen Geschwindigkeitsmodus mit Unterstützung von 40 Gbit/s und 100 Gbit/s oder im Breakout-Modus zur Unterstützung von 4 × 25 Gbit/s oder 4 × 10 Gbit/s verwendet werden. Wenn sie den einheitlichen Geschwindigkeitsmodus verwenden, werden sie als Ports 13 und 14 dargestellt. Wenn sie den Breakout-Modus verwenden, entweder 4 × 25 Gbit/s oder 4 × 10 Gbit/s, dann werden sie als Ports 13s0-3 und 14s0-3 dargestellt.</block>
   <block id="0995dd589b8b5229e4b9e28862db9b91" category="paragraph">Wenn Sie mehrere MetroCluster-Konfigurationen mit einem Cisco 3132Q-V Switch verkabeln, müssen Sie jede MetroCluster gemäß der entsprechenden Tabelle verkabeln. Beispiel: Wenn Sie eine FAS2750 und eine AFF A700 mit demselben Cisco 3132Q-V Switch verkabeln. Anschließend müssen Sie die FAS2750 gemäß „MetroCluster 1“ in Tabelle 1 und die AFF A700 gemäß „MetroCluster 2“ oder „MetroCluster 3“ in Tabelle 2 verkabeln. Die FAS2750 und die AFF A700 können nicht physisch als „MetroCluster 1“ verkabelt werden.</block>
   <block id="b1ae03d0492f9071184bcc685e4d9008" category="image-alt">mcc ip-Verkabelung a150 a220 a250 mit einem cisco 3232c- oder cisco 9336c-Switch</block>
   <block id="cf6033c90446afb2f2e4bf0a87384e97" category="image-alt">mcc ip-Verkabelung a320 a400 a700 a800 a900 cisco 3232C- oder 9336c-Switch</block>
-  <block id="4aa636d0c8e798111a1395c5cf44abef" category="paragraph">AFF A800, AFF C800</block>
-  <block id="76a3e9deef2a9133b01bc4b8aa5ad045" category="paragraph">FAS8300, AFF A400 und AFF C400</block>
-  <block id="2d24d8597140717b72521869e1b9643a" category="paragraph">FAS2750, AFF A150 und AFF A220</block>
-  <block id="f557196ec910f221f73585a5c481f240" category="paragraph">FAS500f, AFF A250 und AFF C250</block>
   <block id="52d00daf67aaaf387590e09043aff43a" category="list-text"><block ref="52d00daf67aaaf387590e09043aff43a" category="inline-link-macro-rx"></block></block>
   <block id="49cc90fa19d302674a7ac32a31b7a0c8" category="list-text"><block ref="49cc90fa19d302674a7ac32a31b7a0c8" category="inline-link-macro-rx"></block></block>
   <block id="566b66a4b36764e94944f56424f3b3ca" category="paragraph">Führen Sie den Befehl aus:<block ref="fdb848f6761ac46e0ea7678b5269bd3c" prefix=" " category="inline-code"></block></block>
@@ -12758,9 +12722,6 @@
   <block id="fdc1be4b61fa768dbfcc3e8f0dab2595" category="paragraph">In der folgenden Tabelle werden die unterstützten Plattformkombinationen für MetroCluster FC-Konfigurationen mit acht Nodes aufgeführt.</block>
   <block id="49782ec67fb4809f5d138aa07412fd9d" category="list-text">Die Kombinationen in dieser Tabelle gelten nur für normale oder permanente Konfigurationen mit acht Nodes.</block>
   <block id="ea95591996a43e78cc0b5f96cb4d8f1c" category="list-text">Die Plattformkombinationen in dieser Tabelle *nicht* gelten, wenn Sie die Umstiegs- oder Aktualisierungsverfahren verwenden.</block>
-  <block id="1251b37475039ca3d9d370458002ce7c" category="paragraph">Der ONTAP Mediator speichert Zustandsdaten zu den MetroCluster-Knoten in Mailboxen auf dem Mediator-Host. Die MetroCluster Knoten können diese Informationen nutzen, um den Status ihrer DR Partner zu überwachen und einen MAUSO bei einem Ausfall zu implementieren.</block>
-  <block id="8227e4d84dc1594bf85338cfe09f1747" category="list-text">Bei einem Standortausfall. Ein Standortunfall ist ein Ausfall von *allen* Knoten am selben Standort.</block>
-  <block id="792f2e5a1dddb8ed73154e39c1bf5e77" category="list-text">Ab ONTAP 9.13.1 initiiert, wenn die oben genannten Bedingungen erfüllt sind und ein Lüfter- oder Hardware-Ausfall eine Abschaltung, z. B. ein Netzteil, eine NVRAM-Batterie oder ein Heartbeat-Ausfall des Service-Prozessors oder eine hohe oder niedrige Temperatur.</block>
   <block id="08d29117f113494cf7bd34ddc0d0a7e0" category="doc">Ersetzen Sie einen IP-Switch oder ändern Sie die Verwendung vorhandener MetroCluster IP-Switches</block>
   <block id="2454620eb6c11598ab9b657181cc0f55" category="paragraph">Möglicherweise müssen Sie einen ausgefallenen Switch ersetzen, einen Switch aktualisieren oder herunterstufen oder die Verwendung vorhandener MetroCluster IP-Switches ändern.</block>
   <block id="057120c40cd4c9c1a072526b368d97f4" category="paragraph">Dieses Verfahren unterstützt die folgenden Konvertierungen:</block>
@@ -12824,8 +12785,6 @@
   <block id="2e782f3147ceef5a1435f26ba8fa7daa" category="inline-link-macro">Migrieren Sie mit der erneuten Nutzung der Storage-Switches von einer Konfiguration ohne Switches mit Switch-Attached Storage</block>
   <block id="a8a61fb8a898cbbd8809029f5f6b5dba" category="list-text"><block ref="a8a61fb8a898cbbd8809029f5f6b5dba" category="inline-link-macro-rx"></block></block>
   <block id="ba8871c06c0bd003e2160207049c17d5" category="paragraph">AUSO ist standardmäßig auf „auso-on-Cluster-Disaster“ eingestellt. Der Status kann im angezeigt werden<block ref="0d51371cbb850772d2130a36f4368df4" prefix=" " category="inline-code"></block> Befehl.</block>
-  <block id="c7f2465703040d1f77ba4f73cf6ce393" category="paragraph">Ab ONTAP 9.13.1 ist der Standardwert für den AUSO-Status in einer MetroCluster IP-Konfiguration auf „auso-on-dr-Group“ gesetzt. Bei ONTAP 9.12.1 und älteren Versionen ist der Standardwert „auso-on-Cluster-Disaster“. In einer MetroCluster IP-Konfiguration mit acht Nodes löst diese Option einen AUSO aus, wenn beide Nodes eines HA-Paars ausfallen.</block>
-  <block id="55e40c2e95a8c835a2e8ddca52499b33" category="paragraph">Sie können die AUSO-Domäne mit der in die Domäne „auso-on-Cluster-Disaster“ ändern<block ref="eabe864642c195f21f3f5dd17825dd14" prefix=" " category="inline-code"></block> Befehl.</block>
   <block id="d87d22ecaeaff0e5d4bd4030a9e08302" category="sidebar">Controller-Upgrades in MetroCluster IP mit vier Nodes mithilfe von Switchover und Switchback mit Befehlen, die den System-Controller ersetzen (ONTAP 9.13.1 und höher)</block>
   <block id="12651c133a2edc8c764efaddca32ca42" category="sidebar">Aktualisieren einer MetroCluster IP-Konfiguration mit vier oder acht Nodes (ONTAP 9.8 und höher)</block>
   <block id="f11af7573a10a71e1161a2099db36bcc" category="sidebar">Erweitern Sie eine MetroCluster IP-Konfiguration</block>
@@ -12924,7 +12883,6 @@
   <block id="5227f75c6a1f77d9623c7a089f1e3ea7" category="paragraph">Geben Sie bei ONTAP 9.7 und früheren Versionen den Befehl des Startmenüs ein.</block>
   <block id="3e3df3be76a18ca2c89904765d97f078" category="list-text">Mit dem folgenden Befehl auf beiden Clustern bestätigen Sie, dass ein Takeover möglich ist und die Nodes verbunden sind:</block>
   <block id="3963205d7c5d1cb2f000d61f16c10f1d" category="paragraph">24 interne Laufwerke</block>
-  <block id="d33f2a600ba4fe43084a26e95e4908c0" category="paragraph">*Verwandte Informationen*</block>
   <block id="7632b8724806890acaf96c668d641251" category="inline-link-macro">Erfahren Sie mehr über die automatische Laufwerkszuordnung und ADP-Systeme in MetroCluster IP-Konfigurationen</block>
   <block id="85488d881ebf03beb1eca3be4b5fda44" category="paragraph">Ihre Version von ONTAP muss Shelf-Mix unterstützen. Siehe<block ref="e78382cc6f841e7f00c97b18a2e30f41" category="inline-link-rx"></block> Um zu prüfen, ob Ihre Version von ONTAP Shelf-Mischungen unterstützt.</block>
   <block id="5fdc7ff67ace146413ecd7d44157aca4" category="paragraph">Weitere Informationen zum Anmischen von Regalen finden Sie unter<block ref="532c1f47a9370f9e21538610051f3830" category="inline-link-rx"></block></block>
@@ -13040,7 +12998,6 @@
   <block id="914c0f805af7b6a979c9b14a8fca637d" category="admonition">Die folgende Beispielausgabe gilt für ONTAP 9.13.1 und höher. Bei ONTAP 9.12.1 und älteren Versionen sollte der Status der AUSO-Fehlerdomäne sein<block ref="8371e13c4fc64771e634f39be50ec198" prefix=" " category="inline-code"></block>.</block>
   <block id="1d2738c61f2ddb3b312cabca3378259b" category="list-text">Optional können Sie die automatische erzwungene Umschaltung von MetroCluster konfigurieren.</block>
   <block id="09bb2a0904755eb985fc0c00a8eaeb29" category="paragraph">Sie können den folgenden Befehl nur auf der erweiterten Berechtigungsebene verwenden.</block>
-  <block id="142e30c0e2bc40260b6bba783159349f" category="admonition">Bevor Sie diesen Befehl verwenden, überprüfen Sie die <block ref="a3a7e72ce1f5f993a44ac5e44397056b" category="inline-link-macro-rx"></block>.</block>
   <block id="626946adf45b7bb7ff18b4ffcb520404" category="paragraph"><block ref="c3c9b152afaa4bfa0aa390b3e2063a6d" prefix="" category="inline-code"></block></block>
   <block id="33871b6190a8d5adbe8b15282054766c" category="sidebar">Was ist neu</block>
   <block id="bbce41d7b43eef36d5db9bed94db0495" category="sidebar">Abhängigkeiten installieren</block>
@@ -13048,7 +13005,6 @@
   <block id="357559d73c5bb22e54ab3aeafca1013b" category="sidebar">Installieren Sie das Softwarepaket</block>
   <block id="3689ab983cde586722e4881cdbf1822a" category="sidebar">Aktualisieren Sie den Host</block>
   <block id="3a234e68f5d62ce2d6b3d068c61605c3" category="paragraph">Jede Version enthält Erweiterungen der MetroCluster Tiebreaker Software. Die aktuellen Versionen von MetroCluster Tiebreak enthalten alle Neuigkeiten.</block>
-  <block id="e6ca378bbb6d15fd110961cea50b2eb0" category="section-title">ADP- und Festplattenzuweisung auf AFF C250, AFF A250 und FAS500f Systemen</block>
   <block id="91d96627fcbee13a9d474587060d13f8" category="paragraph">Für FAS500f Systeme gelten die gleichen Richtlinien und Regeln für die Festplattenzuordnung bei AFF C250 und AFF A250 Systemen. Informationen zur Festplattenzuordnung bei FAS500f Systemen finden Sie im <block ref="62481755a241b3efc5c68e4e7dd00bb5" category="inline-xref-macro-rx"></block> Tabelle:</block>
   <block id="d39fc122b5bc72857d3bc1cb28b2528b" category="summary">Möglicherweise müssen Sie den Anbieter eines FC-Switches (von Cisco zu Brocade oder umgekehrt) ändern, das Switch-Modell oder beides ändern.</block>
   <block id="dc97a56f45d09eb47627be2f51eaacac" category="doc">Ändern Sie den Anbieter oder das Modell eines FC-Switch</block>
@@ -13058,7 +13014,6 @@
   <block id="12e792350f2f2a26f26efec238939f8c" category="list-text">[[Step_1,Step 1]]Überprüfen Sie den Zustand der Konfiguration.</block>
   <block id="2aadc0e8757be310d2a25c139de10d8a" category="paragraph">Befolgen Sie die Schritte unter <block ref="71433a7a2e7b6001aee2288bc93568fd" category="inline-link-macro-rx"></block>.</block>
   <block id="4b0b73acfce5119dcc60f2f7b6dac2c4" category="list-text">Trennen Sie die Verbindungen vom alten Schalter, indem Sie die Anschlüsse in der folgenden Reihenfolge entfernen:</block>
-  <block id="5ad31ba7150f9832a818c89539b6baa5" category="list-text">Trennen Sie die MetroCluster IP-Schnittstellen.</block>
   <block id="66700e9b823419320bcf568412b3c8f5" category="list-text">Trennen Sie die MetroCluster-ISLs.</block>
   <block id="c4f64a0c7e0a39b3f68c6c76b119f9b7" category="list-text">Schalten Sie den alten Schalter aus, entfernen Sie die Kabel, und ersetzen Sie den alten Schalter durch den neuen Schalter.</block>
   <block id="39c4de53c442cd522fc67edfc4cc59c8" category="list-text">Verkabeln Sie die Schalter in der folgenden Reihenfolge:</block>
@@ -13231,10 +13186,6 @@
   <block id="a393732e5defe7b7a921a586e53ec51d" category="list-text">Das Root-Aggregat muss sich in Partition 3 für alle Knoten auf beiden Standorten befinden.</block>
   <block id="9ef6aecb7d030435d81fe80cacca477e" category="list-text">Die Partitionierung und Festplattenzuordnung erfolgt automatisch bei der Erstkonfiguration der MetroCluster Standorte.</block>
   <block id="82d98fe86a7b6dbc49abc0913b83f2ac" category="paragraph">ADP wird automatisch während der Erstkonfiguration des Systems durchgeführt.</block>
-  <block id="2785e39cd183c09c66a74a7aad221542" category="admonition">Ab ONTAP 9.13.1 können Sie das Verhalten ändern, um einen MAUSO entweder bei Ausfall des Clusters * oder* eines HA-Paares zu initiieren. Bei einem HA-Paar müssen beide Nodes gleichzeitig ausfallen.</block>
-  <block id="3ea08f3e8da19255d966a6ac28c7c9cf" category="paragraph">Sie können einen MAUSO für weitere Szenarien initiieren, die nicht oben aufgeführt sind. Weitere Informationen finden Sie unter <block ref="a3a7e72ce1f5f993a44ac5e44397056b" category="inline-link-macro-rx"></block>.</block>
-  <block id="e0907a528c832799b0d1ad87758c5f86" category="inline-link-macro">Erfahren Sie mehr über MAUSO in MetroCluster IP-Konfigurationen</block>
-  <block id="b5a3168b79ae5368d7ec0db231f9a1fc" category="paragraph"><block ref="715b35e54e91f145a6041ef6c0fd6dbb" category="inline-link-macro-rx"></block>.</block>
   <block id="2d183ed725bd043df73111a219fb4c10" category="list-text">Alle MetroCluster Komponenten müssen unterstützt werden.</block>
   <block id="a6ab1915ab3c895c47d4e04f54324428" category="paragraph">Möglicherweise müssen Sie eine RCF-Datei auf einem MetroCluster IP-Switch aktualisieren. Wenn beispielsweise die RCF-Dateiversion, die Sie auf den Switches ausführen, nicht von der ONTAP-Version, der Switch-Firmware-Version oder beiden unterstützt wird.</block>
   <block id="3c895cdeb8d2489a220d797e54ab8b6f" category="section-title">Stellen Sie sicher, dass die RCF-Datei unterstützt wird</block>
@@ -13418,4 +13369,68 @@
   <block id="9208e559efedea4d185e467a4ad4e657" category="list-text"><block ref="9208e559efedea4d185e467a4ad4e657" category="inline-link-macro-rx"></block></block>
   <block id="c5de0a644266fc0016715f94fa5fe1e3" category="list-text">Die Multi-Faktor-Authentifizierung (MFA) erhöht die Sicherheit Ihres Unternehmens, da Administratoren mehr als nur einen Benutzernamen und ein Kennwort verwenden müssen, um sich selbst zu identifizieren. Obwohl wichtig, sind Benutzernamen und Passwörter anfällig für Brute-Force-Angriffe und können von Dritten gestohlen werden.</block>
   <block id="6de657c388054d5bb983a1d1351b1f89" category="list-text">Red hat Enterprise Linux 8 bietet MFA, bei dem Benutzer mehr als eine Information bereitstellen müssen, um sich erfolgreich bei einem Konto oder Linux-Host zu authentifizieren. Die zusätzlichen Informationen können ein Einmalpasswort sein, das per SMS an Ihr Mobiltelefon gesendet wird, oder Anmeldedaten von einer App wie Google Authenticator, Twilio Authy oder FreeOTP.</block>
+  <block id="37c5a21bd601c49050ac3301b684599c" category="list-text">Der Cisco 9336C-FX2 Switch verfügt über zwei verschiedene Switch-Speichertypen, die im RCF unterschiedlich benannt sind. Verwenden Sie die folgende Tabelle, um den richtigen Cisco 9336C-FX2-Speichertyp für Ihre Konfiguration zu ermitteln:</block>
+  <block id="df31753dd5a463d7868062b7d85b4e56" category="cell">Wenn Sie den folgenden Speicher verbinden...</block>
+  <block id="d78b539282fbd3ab71c056420e27d11d" category="cell">Wählen Sie den Cisco 9336C-FX2-Speichertyp...</block>
+  <block id="b2e9c77dc19c02cc79d1cec1f3ee2fc0" category="cell">Beispiel für RCF-Dateibanner/MOTD</block>
+  <block id="4123b977475c9c4828f585782db5cb61" category="list-text">Direkt verbundene SAS-Shelfs</block>
+  <block id="e8ea5873a1121ec729327255bcb20d9a" category="list-text">Direkt verbundene NVMe-Shelfs</block>
+  <block id="415f7c0e4d1c31bd8bc9a1c226589d04" category="list-text">NVMe-Shelfs, die mit dedizierten Storage-Switches verbunden sind</block>
+  <block id="835e845ff21a7d399948f73712506619" category="paragraph">9336C-FX2 – nur Direct Storage</block>
+  <block id="b744e858676d01c41a1f92dc2c92ce88" category="paragraph"><block ref="c88a201ac5b4f93953dedf78bec764d8" prefix="" category="inline-code"></block></block>
+  <block id="8bda241c90bb84166be9260845bd9dbd" category="list-text">Mit den MetroCluster IP-Switches verbundene NVMe Shelfs</block>
+  <block id="8c8b7a01f7186e24025ef8e89ee4deb8" category="admonition">Es ist mindestens ein Ethernet-angeschlossenes NVMe-Shelf erforderlich</block>
+  <block id="ad87745a64591ff679affa48fe663b39" category="paragraph">9336C-FX2 – SAS- und Ethernet-Speicher</block>
+  <block id="462b36259caf681453d6d7b142217c3d" category="paragraph"><block ref="419f67b8b89585d3be41af97b158dd9e" prefix="" category="inline-code"></block></block>
+  <block id="3a9ef4ec11f1ec3fddae2461f053c31a" category="list-text">Trennen Sie die MetroCluster FC-Schnittstellen.</block>
+  <block id="439c5d8621fe2376ba1455a5e5502727" category="list-text">Verkabeln Sie die MetroCluster FC-Schnittstellen.</block>
+  <block id="6a62571ce4203a1671da10509f3013e0" category="cell">AFF A900, ASA A900 und FAS9500</block>
+  <block id="d7b1c9d4f2a52b2d3648ce28baa0dd5c" category="paragraph">AFF A800, AFF C800, ASA A800 und ASA C800</block>
+  <block id="2bba389392c3b789eaa9d1c8c6fc87d2" category="paragraph">FAS8300, AFF A400, ASA A400, ASA C400 und AFF C400</block>
+  <block id="2adc2b7878fdb2191078a23343a8729e" category="paragraph">FAS2750, AFF A150, ASA A150 und AFF A220</block>
+  <block id="58783907a3fbb2ae3dd67c785764d060" category="paragraph">FAS500f, AFF A250, ASA A250, ASA C250 und AFF C250</block>
+  <block id="1b2e916922e69cdb49ce0690307dd784" category="admonition">MetroCluster IP-Systeme verfügen über keine dedizierten HA-Ports (High Availability). Wenn Sie zur Installation Ihrer Plattform _ONTAP Hardware Systems Documentation_ verwenden, sollten Sie die Anweisungen zum Verkabelung des Clusters und der HA-Ports nicht befolgen.</block>
+  <block id="689365c2d6e4fb2ffa83031a799cb8a1" category="inline-link-macro">Führen Sie eine manuelle Wiederherstellung durch</block>
+  <block id="b6933415b566c13842c75e7153f5e0bd" category="paragraph">Ab ONTAP 9.7 können Sie entweder die ONTAP Mediator-gestützte automatische ungeplante Umschaltung (MAUSO) in der MetroCluster IP-Konfiguration verwenden oder die MetroCluster Tiebreaker Software verwenden. Es ist nicht erforderlich, die MAUSO- oder Tiebreaker-Software zu verwenden; wenn Sie jedoch einen dieser Dienste nicht nutzen möchten, müssen Sie dies tun <block ref="ffc76c5e8798538fa424ea31c8f712bb" category="inline-link-macro-rx"></block> Bei einem Ausfall.</block>
+  <block id="b65bf2d95ccaa5163ee3e519ccc4f46c" category="inline-link-macro">Erfahren Sie, wie der ONTAP Mediator die automatische ungeplante Umschaltung unterstützt</block>
+  <block id="79fa79dc9ecfb5181a7024131b90413f" category="paragraph"><block ref="66850f0d314a9b674fb83121fdb5639b" category="inline-link-macro-rx"></block>.</block>
+  <block id="2927bb12dad92f3aa1e9f54de7ac5c86" category="inline-link-macro">Erfahren Sie mehr über einen MAUSO in MetroCluster IP-Konfigurationen</block>
+  <block id="861d9a7b4136ca5c52adba1b162580b0" category="paragraph"><block ref="dedd67391845326372399eb154d21c6c" category="inline-link-macro-rx"></block>.</block>
+  <block id="88ddeb4aaff386fa8928e9ed590bcdd6" category="admonition">Ab ONTAP 9.12.1 kann die Funktion zur automatischen erzwungenen Umschaltung von MetroCluster in einer MetroCluster IP Konfiguration aktiviert werden. Diese Funktion ist eine Erweiterung der mediatorgestützten ungeplanten Umschaltung. Bevor Sie diese Funktion aktivieren, überprüfen Sie die <block ref="b36331871b99d608d499593ef0805d3b" category="inline-link-macro-rx"></block>.</block>
+  <block id="6627a26235928f19183374e55b041466" category="admonition">Bevor Sie diesen Befehl verwenden, überprüfen Sie die <block ref="b36331871b99d608d499593ef0805d3b" category="inline-link-macro-rx"></block>.</block>
+  <block id="62dab2247ca5697a261fd865abf3712d" category="paragraph">Quartal 4: Buchten 36-47</block>
+  <block id="c81d9f1aaf4df29053805f321b5b089d" category="section-title">ADP- und Festplattenzuordnung für AFF Systeme A150, ASA A150 und AFF A220</block>
+  <block id="f7895982d569530633368489a09d6077" category="section-title">ADP- und Festplattenzuordnung auf Systemen AFF C250, AFF A250, ASA A250, ASA C250 und FAS500f</block>
+  <block id="6a0fb9ba6a0c02751fb5fc909455894f" category="section-title">ADP- und Festplattenzuweisung auf AFF C400-, AFF A400-, ASA C400- und ASA A400-Systemen</block>
+  <block id="ce18baa4e98793cae29bac3255df9775" category="section-title">ADP und Festplattenzuweisung auf AFF C800, ASA C800, ASA A800 und AFF A800 Systemen</block>
+  <block id="fbb4c9d136a3689d23c5be288b1f395e" category="section-title">ADP und Festplattenzuweisung auf AFF A900 und ASA A900 Systemen</block>
+  <block id="fd659a09a0244eaf6b3f61e3ca61a14d" category="paragraph">Der ONTAP Mediator stellt Mailbox-LUNs zur Verfügung, um Statusinformationen über die MetroCluster IP-Knoten zu speichern. Diese LUNs befinden sich in Zusammenarbeit mit dem ONTAP Mediator, der physisch von den MetroCluster-Sites getrennt auf einem Linux-Host ausgeführt wird. Die MetroCluster IP-Knoten können die Mailbox-Informationen nutzen, um den Status ihrer Disaster Recovery (DR)-Partner zu überwachen und im Notfall eine Mediator-gestützte ungeplante Umschaltung (MAUSO) zu implementieren.</block>
+  <block id="30340ec1ae42c7ca90b5fdd7fab0a4a3" category="paragraph">Wenn ein Node einen Standortausfall erkennt, der ein Switchover erfordert, so wird nur schrittweise bestätigt, dass die Umschaltung angemessen ist und falls ja, auch die Umschaltung durchgeführt wird. Standardmäßig wird ein MAUSO für die folgenden Szenarien initiiert:</block>
+  <block id="44c6a8e31f1720ca268816c13cea4bb0" category="list-text">Bei einem Standortausfall. Ein Standortausfall ist ein Ausfall von _all_ Nodes am selben Standort.</block>
+  <block id="b33abe56d950c95329c1ac6ab46d5bdc" category="paragraph">Ein MAUSO wird in den folgenden Shutdown-Szenarien _Not_ initiiert:</block>
+  <block id="7d65c4c7a1755447eb25532fa1c05793" category="list-text">Halten Sie die Nodes an</block>
+  <block id="a31a9f4a486873e4dc3b002470885d75" category="list-text">Booten Sie die Nodes neu</block>
+  <block id="5839b84cc7331e1fd1cf7430c48b88bf" category="paragraph">Erfahren Sie mehr über die MAUSO-Funktionen, die mit jeder Version von ONTAP 9 verfügbar sind.</block>
+  <block id="5959cf5fc1876c0cf2f01475b2d29319" category="cell">Beginnt mit...</block>
+  <block id="b6e60011eab2ca1cf5d6c756a1bbfc5e" category="paragraph">ONTAP 9.13.1</block>
+  <block id="66d9d3437f2744347e0a591595693ad1" category="inline-xref">Standardszenario</block>
+  <block id="ab3336a667d96ef9c402b6a46c81bd2c" category="list-text">Ein MAUSO wird initiiert, wenn ein <block ref="dde1859590d6a82ce7ac4175ed266c06" category="inline-xref-macro-rx"></block> Tritt auf, und ein Lüfter- oder Hardwareausfall initiiert ein Herunterfahren der Umgebung. Beispiele für Hardwareausfälle sind eine hohe oder niedrige Temperatur, ein Netzteil, eine NVRAM-Batterie oder ein Heartbeat-Fehler des Service-Prozessors.</block>
+  <block id="c897ae331a6c4340c7349b2eef604de5" category="list-text">Der Standardwert für die Fehlerdomäne ist in einer MetroCluster IP-Konfiguration auf „aus-on-dr-Group“ gesetzt. Bei ONTAP 9.12.1 und älteren Versionen ist der Standardwert auf „auso-on-Cluster-Disaster“ eingestellt.</block>
+  <block id="0db9b5fe983538f75b18b32de0c2ce94" category="paragraph">In einer MetroCluster IP Konfiguration mit acht Nodes löst „auso-on-dr-Gruppe“ einen MAUSO aus, entweder beim Ausfall des Clusters oder bei einem HA-Paar in einer DR-Gruppe. Bei einem HA-Paar müssen beide Nodes gleichzeitig ausfallen.</block>
+  <block id="6d1c7c21528d53a15ceb69aaf889c3fb" category="paragraph">Optional können Sie die Einstellung der Fehlerdomäne in die Domäne „auso-on-Cluster-Disaster“ mit ändern<block ref="eabe864642c195f21f3f5dd17825dd14" prefix=" " category="inline-code"></block> Befehl zum Auslösen eines MAUSO nur, wenn in beiden DR-Gruppen ein HA-Node-Paar-Fehler vorhanden ist.</block>
+  <block id="8bfc2adffc82ece0041951e3235bb8ec" category="list-text">Sie können das Verhalten so ändern, dass ein MAUSO erzwungen wird, auch wenn der NVRAM zum Zeitpunkt des Fehlers nicht synchron ist.</block>
+  <block id="3137bae31a11a2d4baeb8aa1cec772cb" category="paragraph">[[Mauso-9-12-1]] ONTAP 9.12.1</block>
+  <block id="5c0bdfd01cd7569a98a8f9612aadbf05" category="paragraph">Sie können die automatische erzwungene Umschaltung von MetroCluster in einer MetroCluster IP-Konfiguration mithilfe von aktivieren<block ref="c3c9b152afaa4bfa0aa390b3e2063a6d" prefix=" " category="inline-code"></block> Befehl.</block>
+  <block id="f9de585d414ec03b35493a4744a2d4d4" category="paragraph">Wenn Sie zulassen, dass eine MetroCluster-IP-Konfiguration im automatischen Umschaltmodus betrieben wird, kann das folgende bekannte Problem zu Datenverlust führen:</block>
+  <block id="154771589b1d0513667d698a89165972" category="list-text">Der nicht-flüchtige Speicher in den Storage Controllern wird nicht zum Remote-DR-Partner am Partnerstandort gespiegelt.</block>
+  <block id="6a3d2990d2a37c02edb00046af03cc1f" category="paragraph">*Achtung*: Es können Szenarien auftreten, die nicht erwähnt werden. NetApp ist nicht verantwortlich für Datenkorruption, Datenverlust oder andere Schäden, die durch die Aktivierung der automatischen erzwungenen MetroCluster Switchover-Funktion entstehen können. Verwenden Sie die Funktion zur automatischen erzwungenen Umschaltung nicht von MetroCluster, wenn das Risiko und die Einschränkungen für Sie nicht akzeptabel sind.</block>
+  <block id="b5b5cc6df7a12381dec8d337a0ba502a" category="list-text">Hinweis 2: Controller-Upgrades von AFF A300- oder FAS8200-Plattformen mit integrierten Ports 0e und 0f als FC-VI-Verbindungen werden nur auf den folgenden Systemen unterstützt:</block>
+  <block id="865e0a67a929a26c01b4b5429126f2d7" category="list-text">ONTAP 9.9.1 und frühere Versionen</block>
+  <block id="d0fabc1518e4f28ee6017b7168d98443" category="list-text">ONTAP 9.10.1P9</block>
+  <block id="21493ffcb915c4b7b1c1fcd44d54a372" category="list-text">ONTAP 9.11.1P5</block>
+  <block id="dc75fcdb6131845b7d3d783394c5c6e4" category="list-text">ONTAP 9.12.1 GA</block>
+  <block id="dcc3f7f0ec763ead07e62fab778e446f" category="list-text">ONTAP 9.13.1 und höher</block>
+  <block id="b07b13f7f6740ff05e2edecf69453d1e" category="paragraph">Weitere Informationen finden Sie im <block ref="54dac02f94a6488bb50eb2223b2531dc" category="inline-link-macro-rx"></block>.</block>
+  <block id="6c788f4f91230d4481264ef0fc97d4b2" category="inline-link-macro">Erfahren Sie, wie der ONTAP Mediator die automatische ungeplante Umschaltung in MetroCluster IP-Konfigurationen unterstützt</block>
+  <block id="83401bd8eb751fc79a9ff9e2e69be029" category="paragraph"><block ref="ff41f8886897126f1b4109a0b09cd291" category="inline-link-macro-rx"></block>.</block>
 </blocks>

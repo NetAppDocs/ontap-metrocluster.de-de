@@ -14,7 +14,40 @@ summary: Möglicherweise müssen Sie eine RCF-Datei auf einem Cisco IP-Switch ak
 Möglicherweise müssen Sie eine RCF-Datei auf einem Cisco IP-Switch aktualisieren. Beispielsweise ist für ein ONTAP Upgrade oder ein Switch-Firmware-Upgrade eine neue RCF-Datei erforderlich.
 
 .Über diese Aufgabe
-Ab der Version 1.4a von RcfFileGenerator gibt es eine neue Option, die Switch-Konfiguration auf Cisco IP-Switches zu ändern (Upgrade, Downgrade oder Ersetzen), ohne dass eine 'Schreiblöschung' durchgeführt werden muss.
+* Ab der Version 1.4a von RcfFileGenerator gibt es eine neue Option, die Switch-Konfiguration auf Cisco IP-Switches zu ändern (Upgrade, Downgrade oder Ersetzen), ohne dass eine 'Schreiblöschung' durchgeführt werden muss.
+* Der Cisco 9336C-FX2 Switch verfügt über zwei verschiedene Switch-Speichertypen, die im RCF unterschiedlich benannt sind. Verwenden Sie die folgende Tabelle, um den richtigen Cisco 9336C-FX2-Speichertyp für Ihre Konfiguration zu ermitteln:
++
+[cols="3*"]
+|===
+| Wenn Sie den folgenden Speicher verbinden... | Wählen Sie den Cisco 9336C-FX2-Speichertyp... | Beispiel für RCF-Dateibanner/MOTD 
+
+
+ a| 
+** Direkt verbundene SAS-Shelfs
+** Direkt verbundene NVMe-Shelfs
+** NVMe-Shelfs, die mit dedizierten Storage-Switches verbunden sind
+
+ a| 
+9336C-FX2 – nur Direct Storage
+ a| 
+`* Switch    : NX9336C (direct storage, L2 Networks, direct ISL)`
+
+
+
+ a| 
+** Direkt verbundene SAS-Shelfs
+** Mit den MetroCluster IP-Switches verbundene NVMe Shelfs
+
+
+
+NOTE: Es ist mindestens ein Ethernet-angeschlossenes NVMe-Shelf erforderlich
+ a| 
+9336C-FX2 – SAS- und Ethernet-Speicher
+ a| 
+`* Switch    : NX9336C (SAS and Ethernet storage, L2 Networks, direct ISL)`
+
+|===
+
 
 .Bevor Sie beginnen
 Sie können diese Methode verwenden, wenn Ihre Konfiguration die folgenden Anforderungen erfüllt:
@@ -140,10 +173,6 @@ Gehen Sie folgendermaßen vor, wenn die Konfiguration den Anforderungen entspric
 +
 
 NOTE: Sie müssen die CleanUpFiles aus derselben Version wie die RCF-Datei und für die exakt gleiche Konfiguration verwenden. Die Verwendung von CleanUpFile funktioniert nicht und erfordert möglicherweise ein vollständiges Zurücksetzen des Switches.
-
-+
-
-NOTE: Der Storage-Typ könnte anders sein - SAS-Storage oder Direct Storage.
 
 +
 

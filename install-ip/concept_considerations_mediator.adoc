@@ -11,7 +11,7 @@ summary: Die verschiedenen MetroCluster Konfigurationen weisen wesentliche Unter
 
 
 [role="lead"]
-Ab ONTAP 9.7 können Sie entweder die ONTAP Mediator-gestützte automatische ungeplante Umschaltung (MAUSO) in der MetroCluster IP-Konfiguration verwenden oder die MetroCluster Tiebreaker Software verwenden. Nur einer der beiden Dienste kann mit der MetroCluster IP-Konfiguration verwendet werden.
+Ab ONTAP 9.7 können Sie entweder die ONTAP Mediator-gestützte automatische ungeplante Umschaltung (MAUSO) in der MetroCluster IP-Konfiguration verwenden oder die MetroCluster Tiebreaker Software verwenden. Es ist nicht erforderlich, die MAUSO- oder Tiebreaker-Software zu verwenden; wenn Sie jedoch einen dieser Dienste nicht nutzen möchten, müssen Sie dies tun link:../disaster-recovery/concept_dr_workflow.html["Führen Sie eine manuelle Wiederherstellung durch"] Bei einem Ausfall.
 
 Die verschiedenen MetroCluster Konfigurationen führen unter unterschiedlichen Umständen automatische Umschaltung durch:
 
@@ -24,8 +24,7 @@ In diesen Konfigurationen wird AUSO initiiert, wenn Controller ausfallen, der Sp
 In diesen Konfigurationen wird MAUSO unter denselben Umständen wie AUSO wie oben beschrieben initiiert, aber auch nach einem kompletten Standortausfall (Controller, Storage und Switches).
 
 +
-
-NOTE: MAUSO wird nur initiiert, wenn nichtflüchtige Cache-Spiegelung (_DR Spiegelung_) und SyncMirror Plex-Spiegelung zum Zeitpunkt des Ausfalls synchronisiert ist.
+link:concept-ontap-mediator-supports-automatic-unplanned-switchover.html["Erfahren Sie, wie der ONTAP Mediator die automatische ungeplante Umschaltung unterstützt"].
 
 * *MetroCluster IP- oder FC-Konfigurationen mit der Tiebreaker Software im aktiven Modus*
 +
@@ -42,38 +41,5 @@ Bevor Sie die Tiebreaker Software verwenden, überprüfen Sie das link:../tiebre
 
 Es ist nicht möglich, Applikationen oder Appliances von Drittanbietern zu verwenden, die in Kombination mit ONTAP Mediator eine Umschaltung auslösen können. Darüber hinaus wird das Monitoring einer MetroCluster-Konfiguration mit MetroCluster Tiebreaker Software bei Verwendung des ONTAP Mediator nicht unterstützt.
 
-
-
-== Wie der ONTAP Mediator die automatische ungeplante Umschaltung unterstützt
-
-Der ONTAP Mediator speichert Zustandsdaten zu den MetroCluster-Knoten in Mailboxen auf dem Mediator-Host. Die MetroCluster Knoten können diese Informationen nutzen, um den Status ihrer DR Partner zu überwachen und einen MAUSO bei einem Ausfall zu implementieren.
-
-Wenn ein Node einen Standortausfall erkennt, der ein Switchover erfordert, so wird nur schrittweise bestätigt, dass die Umschaltung angemessen ist und falls ja, auch die Umschaltung durchgeführt wird.
-
-Ein MAUSO wird nur in den folgenden Szenarien initiiert:
-
-* Zum Zeitpunkt des Ausfalls werden sowohl SyncMirror-Spiegelung als auch DR-Spiegelung des nichtflüchtigen Cache jedes Node ausgeführt. Die Caches und Spiegelungen werden synchronisiert.
-* Keiner der Knoten am noch verbleibenden Standort befindet sich im Übernahmemodus.
-* Bei einem Standortausfall. Ein Standortunfall ist ein Ausfall von *allen* Knoten am selben Standort.
-+
-
-NOTE: Ab ONTAP 9.13.1 können Sie das Verhalten ändern, um einen MAUSO entweder bei Ausfall des Clusters * oder* eines HA-Paares zu initiieren. Bei einem HA-Paar müssen beide Nodes gleichzeitig ausfallen.
-
-* Ab ONTAP 9.13.1 initiiert, wenn die oben genannten Bedingungen erfüllt sind und ein Lüfter- oder Hardware-Ausfall eine Abschaltung, z. B. ein Netzteil, eine NVRAM-Batterie oder ein Heartbeat-Ausfall des Service-Prozessors oder eine hohe oder niedrige Temperatur.
-
-
-Sie können einen MAUSO für weitere Szenarien initiieren, die nicht oben aufgeführt sind. Weitere Informationen finden Sie unter link:concept-risks-limitations-automatic-switchover.html["Risiken und Einschränkungen bei der automatischen erzwungenen MetroCluster Umschaltung"].
-
-Ein MAUSO wird in den folgenden Shutdown-Szenarien *nicht* gestartet:
-
-* Sie initiieren ein Herunterfahren. Beispiel, wenn Sie:
-+
-** Halten Sie die Knoten an
-** Die Nodes neu booten
-
-
-
-
-*Verwandte Informationen*
-
-link:../manage/concept_understanding_mcc_data_protection_and_disaster_recovery.html#mediator-assisted-automatic-unplanned-switchover-in-metrocluster-ip-configurations["Erfahren Sie mehr über MAUSO in MetroCluster IP-Konfigurationen"].
+.Verwandte Informationen
+link:../manage/concept_understanding_mcc_data_protection_and_disaster_recovery.html#mediator-assisted-automatic-unplanned-switchover-in-metrocluster-ip-configurations["Erfahren Sie mehr über einen MAUSO in MetroCluster IP-Konfigurationen"].
