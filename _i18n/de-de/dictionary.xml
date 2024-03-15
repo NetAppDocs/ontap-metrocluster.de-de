@@ -7886,7 +7886,6 @@
   <block id="a7c1dc82620aa47d13a5325a92e48b8b" category="paragraph">Wenn Sie feststellen, dass eines der oben genannten Elemente konfiguriert ist, können Sie möglicherweise keine neue RCF-Dateikonfiguration anwenden. Sie können jedoch auf die vorherige Konfiguration zurücksetzen, indem Sie den Switch *neu laden, ohne die laufende Konfiguration in die Startkonfiguration zu speichern. Der Switch verfügt über die vorherige Konfiguration.</block>
   <block id="b96e894aca032efb6ce18c3fee836f2e" category="list-text">Wenden Sie die RCF-Datei an und stellen Sie sicher, dass die Ports online sind.</block>
   <block id="57eec47f7c1d3f7c578a164a838dcb88" category="list-text">Wenden Sie die RCF-Dateien an.</block>
-  <block id="f3f957cad54a09303c58187ea562c4e0" category="admonition">Beim Anwenden der Konfiguration werden einige Warnmeldungen angezeigt. Fehlermeldungen werden nicht erwartet.</block>
   <block id="94f2f59cf614fa38bf778db2f227f97f" category="list-text">Überprüfen Sie nach der Anwendung der Konfiguration, ob die Cluster- und MetroCluster-Ports mit einem der folgenden Befehle online geschaltet werden:<block ref="9bacb249b0368cefba275373cd07ba98" prefix=" " category="inline-code"></block>,<block ref="cdf610401d84a31ec0b35a9530629e42" prefix=" " category="inline-code"></block>, Oder<block ref="3820d68048e47b324f0599909ddc9e1f" prefix=" " category="inline-code"></block></block>
   <block id="36654f0d51aef3cf2ff1ad8320086412" category="admonition">Wenn Sie das VLAN für den lokalen Cluster geändert haben und Sie den ersten Switch am Standort aktualisiert haben, wird der Zustand der Cluster-Zustandsüberwachung möglicherweise nicht als „stabil“ angegeben, da die VLANs der alten und der neuen Konfigurationen nicht übereinstimmen. Nach der Aktualisierung des zweiten Schalters sollte der Status wieder in den Status „gesund“ zurückkehren.</block>
   <block id="d83d3a40a56d46ffaf1367b944bbd493" category="paragraph">Wenn die Konfiguration nicht korrekt angewendet wird oder Sie die Konfiguration nicht beibehalten möchten, können Sie die vorherige Konfiguration wiederherstellen, indem Sie den Switch wieder laden *ohne* die laufende Konfiguration in die Startkonfiguration zu speichern. Der Switch verfügt über die vorherige Konfiguration.</block>
@@ -12976,7 +12975,6 @@
   <block id="64b48b15797ae9ce8dde94af89070b3d" category="paragraph">Mit Red hat Enterprise Linux 8.1 bis 8.7:</block>
   <block id="389dbd9d6deb8eabbab651256bf77680" category="list-text">OpenJDK 17, 18 oder 19</block>
   <block id="9e605ce3bb6ad134bb55c54d861ceb6a" category="paragraph">1.4</block>
-  <block id="d1b3737d5bc8f98b3241666f4d0cd1cf" category="paragraph">ONTAP 9.2 und höher</block>
   <block id="09eecd50480033ff43835a86efed6607" category="list-text">Red hat Enterprise Linux 7 bis 7.9</block>
   <block id="ae1dfcc629f4542382fd6286dbfe5a0d" category="list-text">CentOS 7 auf 7.9 64 Bit</block>
   <block id="3f4ac8596d411de0ef0ad341cbeb82aa" category="paragraph">Mit CentOS:</block>
@@ -13394,8 +13392,6 @@
   <block id="b6933415b566c13842c75e7153f5e0bd" category="paragraph">Ab ONTAP 9.7 können Sie entweder die ONTAP Mediator-gestützte automatische ungeplante Umschaltung (MAUSO) in der MetroCluster IP-Konfiguration verwenden oder die MetroCluster Tiebreaker Software verwenden. Es ist nicht erforderlich, die MAUSO- oder Tiebreaker-Software zu verwenden; wenn Sie jedoch einen dieser Dienste nicht nutzen möchten, müssen Sie dies tun <block ref="ffc76c5e8798538fa424ea31c8f712bb" category="inline-link-macro-rx"></block> Bei einem Ausfall.</block>
   <block id="b65bf2d95ccaa5163ee3e519ccc4f46c" category="inline-link-macro">Erfahren Sie, wie der ONTAP Mediator die automatische ungeplante Umschaltung unterstützt</block>
   <block id="79fa79dc9ecfb5181a7024131b90413f" category="paragraph"><block ref="66850f0d314a9b674fb83121fdb5639b" category="inline-link-macro-rx"></block>.</block>
-  <block id="2927bb12dad92f3aa1e9f54de7ac5c86" category="inline-link-macro">Erfahren Sie mehr über einen MAUSO in MetroCluster IP-Konfigurationen</block>
-  <block id="861d9a7b4136ca5c52adba1b162580b0" category="paragraph"><block ref="dedd67391845326372399eb154d21c6c" category="inline-link-macro-rx"></block>.</block>
   <block id="88ddeb4aaff386fa8928e9ed590bcdd6" category="admonition">Ab ONTAP 9.12.1 kann die Funktion zur automatischen erzwungenen Umschaltung von MetroCluster in einer MetroCluster IP Konfiguration aktiviert werden. Diese Funktion ist eine Erweiterung der mediatorgestützten ungeplanten Umschaltung. Bevor Sie diese Funktion aktivieren, überprüfen Sie die <block ref="b36331871b99d608d499593ef0805d3b" category="inline-link-macro-rx"></block>.</block>
   <block id="6627a26235928f19183374e55b041466" category="admonition">Bevor Sie diesen Befehl verwenden, überprüfen Sie die <block ref="b36331871b99d608d499593ef0805d3b" category="inline-link-macro-rx"></block>.</block>
   <block id="62dab2247ca5697a261fd865abf3712d" category="paragraph">Quartal 4: Buchten 36-47</block>
@@ -13433,4 +13429,11 @@
   <block id="b07b13f7f6740ff05e2edecf69453d1e" category="paragraph">Weitere Informationen finden Sie im <block ref="54dac02f94a6488bb50eb2223b2531dc" category="inline-link-macro-rx"></block>.</block>
   <block id="6c788f4f91230d4481264ef0fc97d4b2" category="inline-link-macro">Erfahren Sie, wie der ONTAP Mediator die automatische ungeplante Umschaltung in MetroCluster IP-Konfigurationen unterstützt</block>
   <block id="83401bd8eb751fc79a9ff9e2e69be029" category="paragraph"><block ref="ff41f8886897126f1b4109a0b09cd291" category="inline-link-macro-rx"></block>.</block>
+  <block id="8ee0349da94a79740c2458822156c3f3" category="paragraph">ONTAP 9.13.1 und frühere Versionen</block>
+  <block id="58ff5f456710e2c10351958a374f1bae" category="paragraph">ONTAP 9.11.1 und früher</block>
+  <block id="0b0ec9f1cc28b3c19dc6c36dcd5af7cc" category="paragraph">1.3</block>
+  <block id="7477ed6488d6dd27883a39484d4cd5f8" category="paragraph">ONTAP 9.10.1 und frühere Versionen</block>
+  <block id="09e34111ef8649a5302b1889e0c7d303" category="list-text">JRE 8</block>
+  <block id="d434765df1b814e459b22676bed43318" category="paragraph">1.21 Px</block>
+  <block id="b3c0f57dcdb05faa9fbc38832a492a4e" category="admonition">Beim Anwenden der Konfiguration werden einige Warnmeldungen angezeigt. Fehlermeldungen werden in der Regel nicht erwartet. Wenn Sie jedoch mit SSH angemeldet sind, wird möglicherweise die folgende Fehlermeldung angezeigt:<block ref="f6ffe33fb36eb714adf6f81147c665f6" prefix=" " category="inline-code"></block></block>
 </blocks>
