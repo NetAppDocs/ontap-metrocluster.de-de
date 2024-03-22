@@ -1,0 +1,56 @@
+---
+permalink: install-ip/concept-requirement-and-limitations-mcc-compliant-switches.html 
+sidebar: sidebar 
+keywords: metrocluster ip, metrocluster-compliant switches, metrocluster-compliant, requirements, compliant, limitations 
+summary: Ab ONTAP 9.7 können in MetroCluster IP Konfigurationen MetroCluster-konforme Switches verwendet werden. Dabei handelt es sich um Switches, die nicht von NetApp validiert wurden, die jedoch die Spezifikationen von NetApp erfüllen. In diesem Thema werden die allgemeinen Anforderungen und Einschränkungen von MetroCluster-konformen Switches erläutert. 
+---
+= Anforderungen und Einschränkungen beim Einsatz von MetroCluster-konformen Switches
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Ab ONTAP 9.7 können in MetroCluster IP Konfigurationen MetroCluster-konforme Switches verwendet werden. Dabei handelt es sich um Switches, die nicht von NetApp validiert wurden, die jedoch die Spezifikationen von NetApp erfüllen. NetApp bietet jedoch keine Fehlerbehebungs- oder Konfigurationsunterstützung für nicht validierte Switches an. Die allgemeinen Anforderungen und Einschränkungen bei der Verwendung von MetroCluster-konformen Switches sollten Sie sich bewusst sein.
+
+
+
+== Allgemeine Anforderungen für MetroCluster-konforme Switches
+
+Der Switch, der die MetroCluster IP-Schnittstellen verbindet, muss die folgenden allgemeinen Anforderungen erfüllen:
+
+* Die Switches müssen für Quality of Service (QoS) und Traffic-Klassifizierung sorgen.
+* Die Schalter müssen eine explizite Benachrichtigung über eine Staumeldung (ECN) unterstützen.
+* Die Switches müssen eine Load-Balancing-Richtlinie unterstützen, um die Reihenfolge entlang des Pfads beizubehalten.
+* Die Switches müssen L2 Flow Control (L2FC) unterstützen.
+* Der Switch-Port muss eine dedizierte Rate bereitstellen und darf nicht überlastet sein.
+* Die Kabel und Transceiver, die die Nodes mit den Switches verbinden, müssen von NetApp bereitgestellt werden. Diese Kabel müssen vom Switch-Anbieter unterstützt werden. Wenn Sie optische Kabel verwenden, wird der Transceiver im Switch möglicherweise nicht von NetApp bereitgestellt. Sie müssen überprüfen, ob es mit dem Transceiver im Controller kompatibel ist.
+* Die Switches, die die MetroCluster Nodes verbinden, können keinen MetroCluster Datenverkehr übertragen.
+* Nur Plattformen, die dedizierte Ports für Cluster Interconnects ohne Switches bereitstellen, können mit einem MetroCluster-konformen Switch verwendet werden. Plattformen wie FAS2750 und AFF A220 können nicht verwendet werden, da sich MetroCluster Traffic und der MetroCluster Interconnect Traffic auf dieselben Netzwerk-Ports befinden.
+* Der MetroCluster-kompatible Switch darf nicht für lokale Cluster-Verbindungen verwendet werden.
+* Die MetroCluster IP-Schnittstelle kann an jeden Switch-Port angeschlossen werden, der entsprechend den Anforderungen konfiguriert werden kann.
+* Es sind vier IP-Switches erforderlich, zwei für jede Switch-Fabric. Wenn Sie Directors verwenden, können Sie einen einzelnen Director auf jeder Seite verwenden, aber die MetroCluster IP-Schnittstellen müssen sich mit zwei verschiedenen Blades in zwei verschiedenen Ausfall-Domains auf diesem Director verbinden.
+* Die MetroCluster-Schnittstellen von einem Node müssen mit zwei Netzwerk-Switches oder Blades verbunden werden. Die MetroCluster-Schnittstellen eines Node können nicht mit demselben Netzwerk, Switch oder Blade verbunden werden.
+* Das Netzwerk muss die in den folgenden Abschnitten beschriebenen Anforderungen erfüllen:
++
+** link:concept-requirements-isls.html["Überlegungen für ISLs"]
+** link:concept-considerations-layer-2-layer-3.html["Überlegungen bei der Bereitstellung von MetroCluster in gemeinsam genutzten Layer-2- oder Layer-3-Netzwerken"]
+
+
+* Die maximale Übertragungseinheit (MTU) von 9216 muss auf allen Switches mit MetroCluster-IP-Datenverkehr konfiguriert werden.
+* Das Zurücksetzen auf ONTAP 9.6 oder eine frühere Version wird nicht unterstützt.
+
+
+Alle Zwischenschalter, die Sie zwischen den Switches verwenden, die die MetroCluster IP-Schnittstellen an beiden Standorten verbinden, müssen die Anforderungen erfüllen und wie in beschrieben konfiguriert werden link:concept-considerations-layer-2-layer-3.html["Überlegungen bei der Bereitstellung von MetroCluster in gemeinsam genutzten Layer-2- oder Layer-3-Netzwerken"].
+
+
+
+== Einschränkungen bei Verwendung von MetroCluster-konformen Switches
+
+Sie können keine Konfiguration oder Funktion verwenden, die erfordert, dass lokale Cluster-Verbindungen mit einem Switch verbunden sind. Mit einem MetroCluster-kompatiblen Switch können Sie beispielsweise die folgenden Konfigurationen und Verfahren nicht verwenden:
+
+* MetroCluster Konfigurationen mit acht Nodes
+* Der Wechsel von MetroCluster FC- zu MetroCluster IP-Konfigurationen
+* Aktualisieren einer MetroCluster IP-Konfiguration mit vier Knoten
+* Plattformen mit einer physischen Schnittstelle für lokalen Cluster und MetroCluster-Datenverkehr. Siehe link:concept-network-speeds-and-switchport-modes.html["Plattformspezifische Netzwerkgeschwindigkeiten und Switch Port-Modi für MetroCluster-konforme Switches"] Für unterstützte Geschwindigkeiten.
+

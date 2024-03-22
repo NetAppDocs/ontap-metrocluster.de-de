@@ -1,0 +1,280 @@
+---
+permalink: install-ip/concept-configure-mcc-compliant-switches.html 
+sidebar: sidebar 
+keywords: metrocluster ip, metrocluster-compliant switches, metrocluster-compliant, requirements, compliant, configuration 
+summary: Erfahren Sie mehr über die verschiedenen Switch-Port-Konfigurationen. 
+---
+= Beispiele für die Switch-Port-Konfiguration
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Erfahren Sie mehr über die verschiedenen Switch-Port-Konfigurationen.
+
+
+NOTE: In den folgenden Beispielen werden Dezimalwerte verwendet. Die Tabelle ist für Cisco Switches gültig. Je nach Switch-Anbieter benötigen Sie möglicherweise unterschiedliche Werte für DSCP. Informationen zur Bestätigung des korrekten Werts finden Sie in der entsprechenden Tabelle Ihres Switch-Anbieters.
+
+|===
+
+
+| DSCP-Wert | Dezimal | Sechskant | Bedeutung 
+
+
+ a| 
+101 000
+ a| 
+16
+ a| 
+0x10
+ a| 
+CS2
+
+
+
+ a| 
+011 000
+ a| 
+24
+ a| 
+0x18
+ a| 
+CS3
+
+
+
+ a| 
+100 000
+ a| 
+32
+ a| 
+0x20
+ a| 
+CS4
+
+
+
+ a| 
+101 000
+ a| 
+40
+ a| 
+0x28
+ a| 
+CS5
+
+|===
+.Switch-Port zum Anschließen einer MetroCluster-Schnittstelle
+* Klassifizierung für RDMA-Datenverkehr (Remote Direct Memory Access):
++
+** Übereinstimmung : TCP-Port 10006, Quelle, Ziel oder beides
+** Optionale Übereinstimmung: COS 5
+** Optionales Match: DSCP 40
+** Legen Sie DSCP 40 fest
+** COS 5 einstellen
+** Optional : Ratenformung bis 20Gbps
+
+
+* Klassifizierung für iSCSI-Datenverkehr:
++
+** Übereinstimmung : TCP-Port 62500, Quelle, Ziel oder beides
+** Optionale Übereinstimmung: COS 4
+** Optionales Match: DSCP 32
+** Legen Sie DSCP 32 fest
+** COS 4 einstellen
+
+
+* L2FlowControl (Pause), RX und TX
+
+
+.ISL-Ports
+* Klassifizierung:
++
+** Übereinstimmung mit COS 5 oder DSCP 40
++
+*** Legen Sie DSCP 40 fest
+*** COS 5 einstellen
+
+
+** Übereinstimmung mit COS 4 oder DSCP 32
++
+*** Legen Sie DSCP 32 fest
+*** COS 4 einstellen
+
+
+
+
+* Warteschlange für ausgehenden Datenverkehr
++
+** Die COS-Gruppe 4 hat einen minimalen Konfigurationsschwellenwert von 2000 und einen maximalen Schwellenwert von 3000
+** Die COS-Gruppe 5 hat einen minimalen Konfigurationsschwellenwert von 3500 und einen maximalen Schwellenwert von 6500.
++
+
+NOTE: Die Konfigurationsschwellenwerte können je nach Umgebung variieren. Sie müssen die Konfigurationsschwellenwerte entsprechend Ihrer individuellen Umgebung bewerten.
+
+** ECN aktiviert für Q4 und Q5
+** ROT aktiviert für Q4 und Q5
+
+
+
+
+.Bandbreitenzuordnung (Switch Ports, die MetroCluster-Schnittstellen und ISL-Ports verbinden)
+* RDMA, COS 5 / DSCP 40: 60 %
+* ISCSI, COS 4/DSCP 32: 40 %
+* Mindestanforderungen für die Kapazität pro MetroCluster-Konfiguration und Netzwerk: 10 GB/s
+
+
+
+NOTE: Wenn Sie die Tarifgrenzen verwenden, sollte der Verkehr *geformt* werden, ohne dass es zu einem Verlust kommt.
+
+
+
+== Beispiele für die Konfiguration von Switch-Ports, die den MetroCluster-Controller verbinden
+
+Die angegebenen Beispielbefehle gelten für Cisco NX332- oder Cisco NX9336-Switches. Befehle variieren je nach Switch-Typ.
+
+Wenn eine in den Beispielen abgebildete Funktion oder ihr Äquivalent auf dem Switch nicht verfügbar ist, erfüllt der Switch nicht die Mindestanforderungen und kann nicht für die Bereitstellung einer MetroCluster-Konfiguration verwendet werden. Dies gilt für alle Switches, die eine Verbindung zu einer MetroCluster-Konfiguration herstellen, und für alle Zwischenswitches.
+
+
+NOTE: In den folgenden Beispielen wird möglicherweise nur die Konfiguration für ein Netzwerk angezeigt.
+
+.Basiskonfiguration
+In jedem Netzwerk muss ein virtuelles LAN (VLAN) konfiguriert werden. Das folgende Beispiel zeigt, wie ein VLAN in Netzwerk 10 konfiguriert wird.
+
+*Beispiel:*
+
+[listing]
+----
+# vlan 10
+The load balancing policy should be set so that order is preserved.
+----
+*Beispiel:*
+
+[listing]
+----
+# port-channel load-balance src-dst ip-l4port-vlan
+----
+
+
+== Beispiele für die Konfiguration der Klassifizierung
+
+Sie müssen Zugriffs- und Klassenzuordnungen konfigurieren, um RDMA- und iSCSI-Datenverkehr den entsprechenden Klassen zuzuordnen.
+
+Im folgenden Beispiel wird der gesamte TCP-Datenverkehr von und zu Port 65200 der Storage-Klasse (iSCSI) zugeordnet. Der gesamte TCP-Datenverkehr zum und vom Port 10006 ist der RDMA-Klasse zugeordnet. Diese Richtlinienzuordnungen werden an Switch-Ports verwendet, die die MetroCluster-Schnittstellen verbinden.
+
+*Beispiel:*
+
+[listing]
+----
+ip access-list storage
+  10 permit tcp any eq 65200 any
+  20 permit tcp any any eq 65200
+ip access-list rdma
+  10 permit tcp any eq 10006 any
+  20 permit tcp any any eq 10006
+
+class-map type qos match-all storage
+  match access-group name storage
+class-map type qos match-all rdma
+match access-group name rdma
+----
+Sie müssen eine Eingangs-Richtlinie konfigurieren. Eine Ingress-Richtlinie ordnet den Datenverkehr verschiedenen COS-Gruppen zu. In diesem Beispiel wird der RDMA-Verkehr der COS-Gruppe 5 zugeordnet und iSCSI-Verkehr der COS-Gruppe 4 zugeordnet. Die Ingress-Richtlinie wird auf Switch-Ports verwendet, die die MetroCluster-Schnittstellen verbinden, und auf den ISL-Ports, die MetroCluster-Datenverkehr übertragen.
+
+*Beispiel:*
+
+[listing]
+----
+policy-map type qos MetroClusterIP_Node_Ingress
+class rdma
+  set dscp 40
+  set cos 5
+  set qos-group 5
+class storage
+  set dscp 32
+  set cos 4
+  set qos-group 4
+----
+NetApp empfiehlt, den Datenverkehr an Switch-Ports, die eine MetroCluster-Schnittstelle verbinden, wie im folgenden Beispiel gezeigt zu gestalten:
+
+*Beispiel:*
+
+[listing]
+----
+policy-map type queuing MetroClusterIP_Node_Egress
+class type queuing c-out-8q-q7
+  priority level 1
+class type queuing c-out-8q-q6
+  priority level 2
+class type queuing c-out-8q-q5
+  priority level 3
+  shape min 0 gbps max 20 gbps
+class type queuing c-out-8q-q4
+  priority level 4
+class type queuing c-out-8q-q3
+  priority level 5
+class type queuing c-out-8q-q2
+  priority level 6
+class type queuing c-out-8q-q1
+  priority level 7
+class type queuing c-out-8q-q-default
+  bandwidth remaining percent 100
+  random-detect threshold burst-optimized ecn
+----
+
+
+== Beispiele für die Konfiguration der Node-Ports
+
+Möglicherweise müssen Sie einen Node-Port im Breakout-Modus konfigurieren. Im folgenden Beispiel sind die Ports 25 und 26 im Breakout-Modus 4 x 25 Gbit/s konfiguriert.
+
+*Beispiel:*
+
+[listing]
+----
+interface breakout module 1 port 25-26 map 25g-4x
+----
+Sie müssen möglicherweise die Port-Geschwindigkeit der MetroCluster-Schnittstelle konfigurieren. Das folgende Beispiel zeigt, wie die Geschwindigkeit auf *Auto* oder in den 40-Gbit/s-Modus konfiguriert wird:
+
+*Beispiel:*
+
+[listing]
+----
+	speed auto
+
+	speed 40000
+----
+Das folgende Beispiel zeigt einen Switch-Port, der für den Anschluss einer MetroCluster-Schnittstelle konfiguriert ist. Es handelt sich um einen Access-Mode-Port in VLAN 10 mit einer MTU von 9216 und arbeitet in nativer Geschwindigkeit. Die symmetrische Flusssteuerung (Senden und Empfangen) ist aktiviert (Pause) und den MetroCluster-Richtlinien für ein- und ausgehenden Datenverkehr sind zugewiesen.
+
+*Beispiel:*
+
+[listing]
+----
+interface eth1/9
+description MetroCluster-IP Node Port
+speed auto
+switchport access vlan 10
+spanning-tree port type edge
+spanning-tree bpduguard enable
+mtu 9216
+flowcontrol receive on
+flowcontrol send on
+service-policy type qos input MetroClusterIP_Node_Ingress
+service-policy type queuing output MetroClusterIP_Node_Egress
+no shutdown
+----
+Bei 25-Gbit/s-Ports müssen Sie möglicherweise die Einstellung Vorwärts-Fehlerkorrektur (FEC) auf „aus“ setzen, wie im folgenden Beispiel gezeigt.
+
+*Beispiel:*
+
+[listing]
+----
+fec off
+----
+
+
+== Beispiele für die Konfiguration von ISL-Ports im gesamten Netzwerk
+
+Ein MetroCluster-konformer Switch gilt als Zwischenschalter, selbst er verbindet die MetroCluster-Schnittstellen direkt. Die ISL-Ports, die MetroCluster-Datenverkehr auf dem MetroCluster-konformen Switch übertragen, müssen auf die gleiche Weise wie die ISL-Ports an einem Zwischen-Switch konfiguriert werden. Siehe link:concept-considerations-layer-2-layer-3.html#required-settings-on-intermediate-switches["Erforderliche Einstellungen an Zwischenschaltern"] Für Anleitungen und Beispiele.
+
+
+NOTE: Einige Richtlinienzuordnungen sind für Switch-Ports, die MetroCluster-Schnittstellen verbinden, und ISLs mit MetroCluster-Datenverkehr identisch. Sie können für beide Portnutzungsarten dieselbe Richtlinienzuordnung verwenden.

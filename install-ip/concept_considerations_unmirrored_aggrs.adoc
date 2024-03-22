@@ -15,14 +15,6 @@ Wenn Ihre Konfiguration nicht gespiegelte Aggregate umfasst, müssen potenzielle
 
 
 
-== Überlegungen für nicht gespiegelte Aggregate bei Wartungsarbeiten, die einen Stromausfall erfordern
-
-Wenn Sie aus Wartungsgründen eine Umschaltung durchführen möchten, die ein standortweites Herunterfahren erfordert, sollten Sie zuerst alle nicht gespiegelten Aggregate des Disaster-Standorts manuell offline schalten.
-
-Ist dies nicht der Fall, können Nodes am verbleibenden Standort aufgrund einer „Panik mit mehreren Festplatten“ ausfallen. Wenn Switched-over-nicht gespiegelte Aggregate offline geschaltet werden oder aufgrund des Verlusts der Verbindung zum Storage am DR-Standort aufgrund des Stromausfalls oder des Verlusts von ISLs fehlen.
-
-
-
 == Überlegungen für nicht gespiegelte Aggregate und hierarchische Namespaces
 
 Wenn Sie hierarchische Namespaces verwenden, sollten Sie den Verbindungspfad so konfigurieren, dass alle Volumes in diesem Pfad sich entweder nur auf gespiegelten Aggregaten oder nur auf nicht gespiegelten Aggregaten befinden. Wenn Sie eine Kombination aus nicht gespiegelten und gespiegelten Aggregaten im Verbindungspfad konfigurieren, ist möglicherweise nach der Umschaltung der Zugriff auf nicht gespiegelte Aggregate verhindert.

@@ -1,0 +1,34 @@
+---
+permalink: install-ip/mcc-compliant-netapp-validated-switches.html 
+sidebar: sidebar 
+keywords: isls, ip, layer 2, layer 3, shared switch 
+summary: Dieser Abschnitt enthält die Informationen, die erforderlich sind, um zu überprüfen, ob Ihre MetroCluster-Konfiguration und das Netzwerk alle Anforderungen erfüllen. 
+---
+= Von NetApp validierte und MetroCluster-konforme Switches
+:allow-uri-read: 
+
+
+Alle in der Konfiguration verwendeten Switches, einschließlich Backend-Switches, müssen entweder NetApp-validiert oder MetroCluster konform sein.
+
+
+
+== Von NetApp validierte Switches
+
+Ein Switch wird von NetApp validiert, wenn er die folgenden Anforderungen erfüllt:
+
+* Der Switch wird von NetApp im Rahmen der MetroCluster IP Konfiguration bereitgestellt
+* Der Switch ist im aufgeführt link:https://hwu.netapp.com/["NetApp Hardware Universe"^] Als unterstützter Switch unter _MetroCluster-over-IP-connections_
+* Der Switch wird nur verwendet, um MetroCluster IP-Controller und in einigen Konfigurationen NS224-Laufwerk-Shelfs zu verbinden
+* Der Switch wird mit der von NetApp bereitgestellten Referenzkonfigurationsdatei (RCF) konfiguriert
+
+
+Jeder Switch, der diese Anforderungen nicht erfüllt, ist *nicht* ein von NetApp validierter Switch.
+
+
+
+== MetroCluster-konforme Switches
+
+Ein MetroCluster-konformer Switch ist nicht von NetApp validiert, kann aber in einer MetroCluster IP-Konfiguration verwendet werden, wenn er bestimmte Anforderungen und Konfigurationsrichtlinien erfüllt.
+
+
+NOTE: NetApp bietet keine Services zur Fehlerbehebung oder Konfiguration von Support für nicht validierte MetroCluster-kompatible Switches.
