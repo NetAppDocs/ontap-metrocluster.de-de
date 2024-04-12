@@ -17,8 +17,8 @@ Sie können ein Platten-Shelf während des laufenden Betrieb hinzufügen, wenn S
 * Ihre Umgebung muss eines der folgenden Szenarien erfüllen, um ein Hot-Add-Shelf zu aktivieren:
 +
 ** Sie haben zwei FibreBridge 7500N-Bridges mit einem Stack von SAS-Platten-Shelves verbunden.
-** Sie verfügen über eine FibreBridge 7500N Bridge und eine FibreBridge 6500N-Bridge, die mit einem SAS-Festplatten-Shelf verbunden ist.
-** Sie haben zwei FibreBridge 6500N-Bridges mit einem Stack von SAS-Platten-Shelves verbunden.
+** Zwei FibreBridge 7600N-Bridges sind mit einem Stack aus SAS-Platten-Shelfs verbunden.
+** Sie verfügen über eine FibreBridge 7500N und eine FibreBridge 7600N, die mit einem Stack aus SAS-Platten-Shelfs verbunden ist.
 
 
 * Dieses Verfahren dient zum Hinzufügen eines Festplatten-Shelfs zum letzten Festplatten-Shelf im Stack.
@@ -116,19 +116,11 @@ https://mysupport.netapp.com/site/downloads/firmware/disk-shelf-firmware["NetApp
 
 . Installieren und verkabeln Sie das Festplatten-Shelf:
 +
-Beachten Sie die folgenden Überlegungen:
+
+NOTE: Erzwingen Sie keinen Anschluss in einen Port. Die Mini-SAS-Kabel sind codiert; wenn sie korrekt in einen SAS-Port ausgerichtet sind, klickt das SAS-Kabel an ihre Stelle und die Festplatten-Shelf-SAS-Port LNK LED leuchtet grün.für Platten-Shelves setzen Sie einen SAS-Kabelanschluss ein, wobei die Zuglasche nach oben (auf der Oberseite des Anschlusses) ausgerichtet ist.
 
 +
-** Für FibreBridge 6500N-Brücken:
-+
-Warten Sie mindestens 10 Sekunden, bevor Sie den Anschluss anschließen. Die SAS-Kabelanschlüsse sind codiert; wenn sie korrekt in einen SAS-Port ausgerichtet sind, klickt der Anschluss an einen Platz und die Festplatten-Shelf-SAS-Port LNK-LED leuchtet grün.bei Platten-Shelves setzen Sie einen SAS-Kabelanschluss ein, wobei die Pull-Lasche nach unten (auf der Unterseite des Connectors) ausgerichtet ist.
-
-** Für FibreBridge 7500N-Brücken:
-+
-Erzwingen Sie keinen Anschluss in einen Port. Die Mini-SAS-Kabel sind codiert; wenn sie korrekt in einen SAS-Port ausgerichtet sind, klickt das SAS-Kabel an ihre Stelle und die Festplatten-Shelf-SAS-Port LNK LED leuchtet grün.für Platten-Shelves setzen Sie einen SAS-Kabelanschluss ein, wobei die Zuglasche nach oben (auf der Oberseite des Anschlusses) ausgerichtet ist.
-
-+
-... Installieren Sie das Festplatten-Shelf, schalten Sie es ein und legen Sie die Shelf-ID fest.
+.. Installieren Sie das Festplatten-Shelf, schalten Sie es ein und legen Sie die Shelf-ID fest.
 +
 Das _Installation Guide_ für Ihr Festplatten-Shelf-Modell enthält detaillierte Informationen zur Installation von Festplatten-Shelfs.
 
@@ -136,13 +128,11 @@ Das _Installation Guide_ für Ihr Festplatten-Shelf-Modell enthält detaillierte
 
 NOTE: Sie müssen das Festplatten-Shelf aus- und wieder einschalten und die Shelf-IDs für jedes SAS-Festplatten-Shelf innerhalb des gesamten Storage-Systems eindeutig aufbewahren.
 
-... Trennen Sie das SAS-Kabel vom Port IOM B des letzten Shelfs im Stack, und schließen Sie es dann wieder an den gleichen Port im neuen Shelf an.
+.. Trennen Sie das SAS-Kabel vom Port IOM B des letzten Shelfs im Stack, und schließen Sie es dann wieder an den gleichen Port im neuen Shelf an.
 +
 Das andere Ende dieses Kabels bleibt mit Brücke B. verbunden
 
-... Schalten Sie das neue Festplatten-Shelf in Reihe, indem Sie die neuen Shelf-IOM-Ports (von IOM A und IOM B) mit den letzten Shelf-IOM-Ports (von IOM A und IOM B) verkabeln.
-
-
+.. Schalten Sie das neue Festplatten-Shelf in Reihe, indem Sie die neuen Shelf-IOM-Ports (von IOM A und IOM B) mit den letzten Shelf-IOM-Ports (von IOM A und IOM B) verkabeln.
 
 
 +

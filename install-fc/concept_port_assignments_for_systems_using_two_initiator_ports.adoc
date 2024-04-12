@@ -13,20 +13,18 @@ summary: Sie können FAS8020, AFF8020, FAS8200 und AFF A300 Systeme über einen 
 [role="lead"]
 Sie können FAS8020, AFF8020, FAS8200 und AFF A300 Systeme über einen einzelnen Initiator-Port für jede Fabric und zwei Initiator-Ports für jeden Controller konfigurieren.
 
-Sie können die Verkabelung für die FibreBridge 6500N Bridge oder FibreBridge 7500N oder 7600N Bridge mit nur einem FC-Port (FC1 oder FC2) verfolgen. Verbinden Sie statt vier Initiatoren nur zwei Initiatoren, und lassen Sie die anderen beiden, die mit dem Switch-Port verbunden sind, leer.
+Sie können die Verkabelung für die FibreBridge 7500N oder 7600N Bridge nur mit einem FC-Port (FC1 oder FC2) verfolgen. Verbinden Sie statt vier Initiatoren nur zwei Initiatoren, und lassen Sie die anderen beiden, die mit dem Switch-Port verbunden sind, leer.
 
-Sie müssen die korrekte RCF-Datei für die Konfiguration der FibreBridge 6500N-Bridge anwenden.
+Wenn das Zoning manuell durchgeführt wird, folgen Sie dem Zoning für eine FibreBridge 7500N- oder 7600N-Bridge mit einem FC-Port (FC1 oder FC2). In diesem Szenario wird jedem Zonenmitglied pro Fabric ein Initiator-Port und nicht zwei hinzugefügt.
 
-Wenn das Zoning manuell durchgeführt wird, folgen Sie dann dem Zoning für eine FibreBridge 6500N- oder eine FibreBridge 7500N oder 7600N-Bridge mit einem FC-Port (FC1 oder FC2). In diesem Szenario wird jedem Zonenmitglied pro Fabric ein Initiator-Port und nicht zwei hinzugefügt.
-
-Sie können das Zoning ändern oder ein Upgrade von einer FibreBridge 6500 auf eine FibreBridge 7500 durchführen. Verwenden Sie dazu das Verfahren _Hot-Swap einer FibreBridge 6500N mit einer FibreBridge 7500N oder 7600N_ aus dem https://docs.netapp.com/us-en/ontap-metrocluster/maintain/index.html["Warten der MetroCluster-Komponenten"].
+Sie können das Zoning ändern oder ein Upgrade von einer FibreBridge 6500N auf eine FibreBridge 7500N durchführen. Gehen Sie dazu wie unter beschrieben vor link:task_replace_a_sle_fc_to_sas_bridge.html#hot_swap_6500n["Hot-Swap einer FibreBridge 6500N-Bridge mit FibreBridge 7600N oder 7500N-Brücke"].
 
 In der folgenden Tabelle werden die Port-Zuweisungen für FC-Switches bei Verwendung von ONTAP 9.1 und höher angezeigt.
 
 |===
 
 
-4+| Konfigurationen mit FibreBridge 6500N-Bridges oder FibreBridge 7500N oder 7600N nur mit einem FC-Port (FC1 oder FC2) 
+4+| Konfigurationen mit FibreBridge 7500N oder 7600N mit nur einem FC-Port (FC1 oder FC2) 
 
 
 4+| *MetroCluster 1 oder DR Gruppe 1* 

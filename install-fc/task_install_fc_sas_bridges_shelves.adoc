@@ -1,5 +1,5 @@
 ---
-permalink: install-fc/task_fb_new_install.html 
+permalink: install-fc/task_install_fc_sas_bridges_shelves.html 
 sidebar: sidebar 
 keywords: install, installing, fc-to-sas, fc, sas, bridges, disk, shelves, atto, fibrebridge 
 summary: Wenn Sie der Konfiguration neuen Speicher hinzufügen, installieren und verkabeln Sie ATTO FibreBridge Bridges und SAS-Platten-Shelves. 
@@ -140,7 +140,7 @@ NOTE: SAS-Shelves in MetroCluster-Konfigurationen unterstützen keine ACP-Verkab
 Wenn Sie eine ONTAP-Version vor 9.5 verwenden oder anderweitig planen, Out-of-Band-Zugriff auf die FibreBridge 7600N-Brücke über Telnet oder andere IP-Port-Protokolle und -Dienste (FTP, ExpressNAV, ICMP oder Quicknav) zu nutzen, können Sie die Zugriffsservices über den Konsolen-Port aktivieren.
 
 .Über diese Aufgabe
-Im Gegensatz zu den Bridges ATTO FibreBridge 7500N und 6500N wird die FibreBridge 7600N mit allen IP-Port-Protokollen und -Diensten ausgeliefert.
+Im Gegensatz zu den ATTO FibreBridge 7500N Bridges wird die FibreBridge 7600N mit deaktivierten IP-Port-Protokollen und -Diensten ausgeliefert.
 
 Ab ONTAP 9.5 wird _in-Band-Management_ der Brücken unterstützt. Das bedeutet, dass die Brücken über die FC-Verbindung zur Bridge von der ONTAP-CLI konfiguriert und überwacht werden können. Physischer Zugang zur Bridge über die Bridge-Ethernet-Ports ist nicht erforderlich und die Bridge-Benutzeroberflächen sind nicht erforderlich.
 
@@ -311,9 +311,8 @@ In Systemen mit ONTAP 9.5 oder höher kann das in-Band-Management verwendet werd
 --
 Die unterstützte FC-Datenrate hängt von Ihrer Modellbrücke ab.
 
-*** Die FibreBridge 7600 unterstützt bis zu 32, 16 oder 8 Gbit/s.
-*** Die FibreBridge 7500 unterstützt bis zu 16, 8 oder 4 Gbit/s.
-*** Die FibreBridge 6500 unterstützt bis zu 8, 4 oder 2 Gbit/s.
+*** Die FibreBridge 7600N unterstützt bis zu 32, 16 oder 8 Gbit/s.
+*** Die FibreBridge 7500N unterstützt bis zu 16, 8 oder 4 Gbit/s.
 
 
 
@@ -324,7 +323,7 @@ Bei Verwendung der CLI müssen Sie den folgenden Befehl ausführen:
 `set FCDataRate _port-number_ _port-speed_`
 
 --
-.. Wenn Sie eine FibreBridge 7500N oder 6500N-Bridge konfigurieren, konfigurieren Sie den Verbindungsmodus, den der Port für ptp verwendet.
+.. Wenn Sie eine FibreBridge 7500N-Bridge konfigurieren, konfigurieren Sie den Verbindungsmodus, den der Port für „ptp“ verwendet.
 +
 
 NOTE: Die Einstellung FCConnMode ist nicht erforderlich, wenn Sie eine FibreBridge 7600N-Bridge konfigurieren.
@@ -459,7 +458,6 @@ Für die Verkabelung Ihrer Platten-Shelves müssen die richtigen FC-to-SAS-Bridg
 .Wahlmöglichkeiten
 * <<cabling_fb_7600N_7500N_with_iom12,Verkabelung einer FibreBridge 7600N oder 7500N Bridge mit Platten-Shelves mit IOM12-Modulen>>
 * <<cabling_fb_7600N_7500N_with_iom6_iom3,Verkabelung einer FibreBridge 7600N oder 7500N Bridge mit Festplatten-Shelfs unter Verwendung von IOM6- oder IOM3-Modulen>>
-* <<cabling_fb_6500N_with_iom6_iom3,Verkabelung einer FibreBridge 6500N Bridge mit Festplatten-Shelfs unter Verwendung von IOM6- oder IOM3-Modulen>>
 
 
 
@@ -548,39 +546,6 @@ image::../media/mcc_cabling_bridge_and_sas_stack_with_7500n_four_stacks.gif[mcc-
 
 
 
-==== Verkabelung einer FibreBridge 6500N Bridge mit Festplatten-Shelfs unter Verwendung von IOM6- oder IOM3-Modulen
-
-Nach der Konfiguration der Bridge können Sie mit der Verkabelung Ihres neuen Systems beginnen. Die FibreBridge 6500N nutzt QSFP-Anschlüsse.
-
-.Über diese Aufgabe
-Warten Sie mindestens 10 Sekunden, bevor Sie den Anschluss anschließen. Die SAS-Kabelanschlüsse sind codiert. Wenn sie sich korrekt in einen SAS-Port orientieren, klicken sie auf ihren Platz und die Festplatten-Shelf-SAS-Port LNK-LED leuchtet grün. Bei Festplatten-Shelfs stecken Sie einen SAS-Kabelanschluss mit nach unten (auf der Unterseite des Connectors) gerichteter Zuglasche.
-
-Die FibreBridge 6500N unterstützt keine Platten-Shelfs mit IOM12.
-
-.Schritte
-. Schalten Sie die Festplatten-Shelfs in den einzelnen Stacks in Reihe.
-+
-Informationen über das Verketten von Platten-Shelfs finden Sie im „ _Installation and Service Guide_“ für Ihr Festplatten-Shelf-Modell.
-
-. Verkabeln Sie für jeden Stack der Festplatten-Shelfs das IOM Mit Einem quadratischen Port des ersten Shelfs zum SAS-Port A bei FibreBridge A
-. Verkabeln Sie für jeden Stack der Festplatten-Shelfs den IOM B-Kreis-Port des letzten Shelfs mit dem SAS-Port A auf FibreBridge B
-+
-Jede Bridge verfügt über einen Pfad zu ihrem Festplatten-Shelf: Bridge A wird über das erste Shelf mit Der A-Seite des Stacks verbunden, und Bridge B wird über das letzte Shelf mit der B-Seite des Stacks verbunden.
-
-+
-
-NOTE: Die SAS-Port B-Bridge ist deaktiviert.
-
-+
-Die folgende Abbildung zeigt eine Reihe von Bridges, die mit einem Stack von vier Festplatten-Shelfs verbunden sind:
-
-+
-image::../media/mcc_cabling_bridge_and_sas_stack.gif[mcc-Verkabelung – Bridge und sas Stack]
-
-
-
-
-
 === Überprüfen der Bridge-Konnektivität und Verkabelung der Bridge-FC-Ports
 
 Sie sollten überprüfen, ob jede Bridge alle Festplattenlaufwerke erkennen kann, und jede Bridge mit den lokalen FC-Switches verkabeln.
@@ -620,12 +585,10 @@ Anzeigen der angeschlossenen Geräte:
 `sastargets`
 
 |===
-
-
++
 Die Ausgabe zeigt die Geräte (Festplatten und Festplatten-Shelfs) an, mit denen die Bridge verbunden ist. Ausgabelinien werden nacheinander nummeriert, sodass Sie die Geräte schnell zählen können. Die folgende Ausgabe zeigt beispielsweise, dass 10 Festplatten verbunden sind:
 
 +
-
 [listing]
 ----
 Tgt VendorID ProductID        Type        SerialNumber
@@ -640,7 +603,9 @@ Tgt VendorID ProductID        Type        SerialNumber
   8 NETAPP   X410_S15K6288A15 DISK        3QP1FY0T00009940G8PA
   9 NETAPP   X410_S15K6288A15 DISK        3QP1FXW600009940VERQ
 ----
-+ ANMERKUNG: Wenn der Text "`response cuted`" am Anfang der Ausgabe erscheint, können Sie Telnet verwenden, um die Verbindung mit der Brücke herzustellen und geben den gleichen Befehl, um alle Ausgabe zu sehen.
++
+
+NOTE: Wenn der Text "`response cumpfed`" am Anfang der Ausgabe erscheint, können Sie Telnet verwenden, um eine Verbindung zur Bridge herzustellen und den gleichen Befehl einzugeben, um die gesamte Ausgabe anzuzeigen.
 
 . Überprüfen Sie, ob die Befehlsausgabe zeigt, dass die Bridge mit allen Festplatten und Festplatten-Shelfs im Stack verbunden ist, mit denen die Verbindung hergestellt werden soll.
 +

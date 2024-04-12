@@ -1,0 +1,679 @@
+---
+permalink: maintain/task-power-on-and-power-off-a-fc-site.html 
+sidebar: sidebar 
+keywords: metrocluster, maintain, service, power, off, on, data, center, relocate, reconfigure, maintenance 
+summary: Sie müssen wissen, wie Sie an einem einzelnen Standort in einer MetroCluster FC-Konfiguration zum Zweck der Standortwartung oder zum Umschalten eines Standorts an einen anderen Standort abschalten und einschalten können. 
+---
+= Schalten Sie einen einzelnen Standort in einer MetroCluster FC-Konfiguration aus und wieder ein
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie eine Standortwartung durchführen oder einen einzelnen Standort in einer MetroCluster FC-Konfiguration verlagern müssen, müssen Sie wissen, wie Sie den Standort ausschalten und einschalten müssen.
+
+Wenn Sie einen Standort verschieben und neu konfigurieren müssen (wenn Sie z. B. von einem Cluster mit vier Nodes auf ein Cluster mit acht Nodes erweitern müssen), können diese Aufgaben nicht gleichzeitig ausgeführt werden. Dieser Vorgang deckt nur die Schritte ab, die zur Durchführung von Wartungsarbeiten am Standort oder zum Standortwechsel ohne Änderung der Konfiguration erforderlich sind.
+
+Das folgende Diagramm zeigt eine MetroCluster-Konfiguration. Cluster_B wird aus Wartungszwecken ausgeschaltet.
+
+image::power-on-off-data-center.gif[Schalten Sie das Datacenter aus]
+
+
+
+== Schalten Sie einen MetroCluster-Standort aus
+
+Sie müssen einen Standort und die gesamte Ausrüstung abschalten, bevor die Wartung oder der Standortwechsel beginnen können.
+
+.Über diese Aufgabe
+Alle Befehle in den folgenden Schritten werden von dem Standort ausgegeben, der weiterhin eingeschaltet bleibt.
+
+.Schritte
+. Bevor Sie beginnen, überprüfen Sie, ob alle nicht gespiegelten Aggregate am Standort offline sind.
+. Überprüfen Sie den Betrieb der MetroCluster-Konfiguration in ONTAP:
++
+.. Prüfen Sie, ob das System multipathed ist:
++
+`node run -node _node-name_ sysconfig -a`
+
+.. Überprüfen Sie auf beiden Clustern auf Zustandswarnmeldungen:
++
+`system health alert show`
+
+.. Bestätigen Sie die MetroCluster-Konfiguration und den normalen Betriebsmodus:
++
+`metrocluster show`
+
+.. Führen Sie eine MetroCluster-Prüfung durch: +
+`metrocluster check run`
+.. Ergebnisse der MetroCluster-Prüfung anzeigen:
++
+`metrocluster check show`
+
+.. Prüfen Sie, ob auf den Switches Zustandswarnmeldungen vorliegen (falls vorhanden):
++
+`storage switch show`
+
+.. Nutzen Sie Config Advisor.
++
+https://mysupport.netapp.com/site/tools/tool-eula/activeiq-configadvisor["NetApp Downloads: Config Advisor"]
+
+.. Überprüfen Sie nach dem Ausführen von Config Advisor die Ausgabe des Tools und befolgen Sie die Empfehlungen in der Ausgabe, um die erkannten Probleme zu beheben.
+
+
+. Implementieren Sie von dem Standort aus, an dem Sie weiterhin arbeiten möchten, die Umschaltung:
++
+`metrocluster switchover`
+
++
+[listing]
+----
+cluster_A::*> metrocluster switchover
+----
++
+Der Vorgang kann einige Minuten dauern.
+
++
+Die nicht gespiegelten Aggregate sind erst nach einem Switchover online, wenn die Remote-Festplatten im Aggregat zugänglich sind. Wenn die ISLs ausfallen, kann der lokale Node möglicherweise nicht auf die Daten auf den nicht gespiegelten Remote-Festplatten zugreifen. Der Ausfall eines Aggregats kann zu einem Neustart des lokalen Node führen.
+
+. Überwachen und überprüfen Sie den Abschluss der Umschaltung:
++
+`metrocluster operation show`
+
++
+[listing]
+----
+cluster_A::*> metrocluster operation show
+  Operation: Switchover
+ Start time: 10/4/2012 19:04:13
+State: in-progress
+   End time: -
+     Errors:
+
+cluster_A::*> metrocluster operation show
+  Operation: Switchover
+ Start time: 10/4/2012 19:04:13
+      State: successful
+   End time: 10/4/2012 19:04:22
+     Errors: -
+----
+. Verschieben Sie alle Volumes und LUNs, die zu nicht gespiegelten Aggregaten gehören, offline.
++
+.. Verschieben Sie die Volumes in den Offline-Modus.
++
+[listing]
+----
+cluster_A::* volume offline <volume name>
+----
+.. Verschieben Sie die LUNs in den Offline-Modus.
++
+[listing]
+----
+cluster_A::* lun offline lun_path <lun_path>
+----
+
+
+. Nicht gespiegelte Aggregate lassen sich offline verschieben: `storage aggregate offline`
++
+[listing]
+----
+cluster_A*::> storage aggregate offline -aggregate <aggregate-name>
+----
+. Identifizieren und verschieben Sie je nach Konfiguration und ONTAP-Version die betroffenen Plexe, die sich am Disaster-Standort (Cluster_B) befinden, offline.
++
+Sie sollten die folgenden Plexe offline verschieben:
+
++
+--
+** Nicht gespiegelte Plexe befinden sich auf Festplatten am DR-Standort.
++
+Wenn Sie die nicht gespiegelten Plexe am Disaster-Standort nicht offline schalten, kann es zu einem Ausfall kommen, wenn der Disaster-Standort später ausgeschaltet wird.
+
+** Gespiegelte Plexe auf Festplatten am Disaster Site zur Aggregatspiegelung Nachdem sie offline verschoben wurden, sind die Plexe nicht mehr zugänglich.
+
+
+--
++
+.. Identifizieren Sie die betroffenen Plexe.
++
+Plexe, die Nodes auf dem verbleibenden Platz gehören, bestehen aus Pool1-Festplatten. Plexe, die im Eigentum von Nodes am Disaster-Site sind, bestehen aus Pool0-Platten.
+
++
+[listing]
+----
+Cluster_A::> storage aggregate plex show -fields aggregate,status,is-online,Plex,pool
+aggregate    plex  status        is-online pool
+------------ ----- ------------- --------- ----
+Node_B_1_aggr0 plex0 normal,active true     0
+Node_B_1_aggr0 plex1 normal,active true     1
+
+Node_B_2_aggr0 plex0 normal,active true     0
+Node_B_2_aggr0 plex5 normal,active true     1
+
+Node_B_1_aggr1 plex0 normal,active true     0
+Node_B_1_aggr1 plex3 normal,active true     1
+
+Node_B_2_aggr1 plex0 normal,active true     0
+Node_B_2_aggr1 plex1 normal,active true     1
+
+Node_A_1_aggr0 plex0 normal,active true     0
+Node_A_1_aggr0 plex4 normal,active true     1
+
+Node_A_1_aggr1 plex0 normal,active true     0
+Node_A_1_aggr1 plex1 normal,active true     1
+
+Node_A_2_aggr0 plex0 normal,active true     0
+Node_A_2_aggr0 plex4 normal,active true     1
+
+Node_A_2_aggr1 plex0 normal,active true     0
+Node_A_2_aggr1 plex1 normal,active true     1
+14 entries were displayed.
+
+Cluster_A::>
+----
++
+Die betroffenen Plexe sind diejenigen, die Remote zu Cluster A sind In der folgenden Tabelle wird gezeigt, ob die Festplatten lokal oder Remote relativ zu Cluster A sind:
+
++
+[cols="20,25,30,25"]
+|===
+
+
+| Knoten | Disks im Pool | Sollten die Festplatten offline geschaltet werden? | Beispiel für Plexe, die offline verschoben werden sollen 
+
+
+ a| 
+Node_A_1 und Node_A_2
+ a| 
+Laufwerke im Pool 0
+ a| 
+Nein Festplatten sind lokal für Cluster A
+ a| 
+-
+
+
+
+ a| 
+Festplatten in Pool 1
+ a| 
+Ja. Die Festplatten befinden sich Remote auf Cluster A
+ a| 
+Node_A_1_aggr0/plex4
+
+Node_A_1_aggr1/plex1
+
+Node_A_2_aggr0/plex4
+
+Node_A_2_aggr1/plex1
+
+
+
+ a| 
+Node _B_1 und Node _B_2
+ a| 
+Laufwerke im Pool 0
+ a| 
+Ja. Die Festplatten befinden sich Remote auf Cluster A
+ a| 
+Node_B_1_aggr1/plex0
+
+Node_B_1_aggr0/plex0
+
+Node_B_2_aggr0/plex0
+
+Node_B_2_aggr1/plex0
+
+
+
+ a| 
+Festplatten in Pool 1
+ a| 
+Nein Festplatten sind lokal für Cluster A
+ a| 
+-
+
+|===
+.. Verschieben Sie die betroffenen Plexe offline:
++
+`storage aggregate plex offline`
+
++
+[listing]
+----
+storage aggregate plex offline -aggregate Node_B_1_aggr0 -plex plex0
+----
++
+
+NOTE: Führen Sie diesen Schritt für alle Plexe aus, die über Remote-Festplatten für Cluster_A verfügen
+
+
+
+. Die ISL-Switch-Ports werden je nach Switch-Typ permanent offline geschaltet.
++
+[cols="25,75"]
+|===
+
+
+| Switch-Typ | Aktion 
+
+
+ a| 
+Für Brocade FC Switches...
+ a| 
+.. Verwenden Sie die `portcfgpersistentdisable <port>` Befehl zum Persistenz-Deaktivieren der Ports, wie im folgenden Beispiel dargestellt. Dies muss an beiden Schaltern am überlebenden Standort erfolgen.
++
+[listing]
+----
+
+ Switch_A_1:admin> portcfgpersistentdisable 14
+ Switch_A_1:admin> portcfgpersistentdisable 15
+ Switch_A_1:admin>
+----
+.. Vergewissern Sie sich, dass die Ports mit deaktiviert sind `switchshow` Befehl, der im folgenden Beispiel angezeigt wird:
++
+[listing]
+----
+
+ Switch_A_1:admin> switchshow
+ switchName:	Switch_A_1
+ switchType:	109.1
+ switchState:	Online
+ switchMode:	Native
+ switchRole:	Principal
+ switchDomain:	2
+ switchId:	fffc02
+ switchWwn:	10:00:00:05:33:88:9c:68
+ zoning:		ON (T5_T6)
+ switchBeacon:	OFF
+ FC Router:	OFF
+ FC Router BB Fabric ID:	128
+ Address Mode:	0
+
+  Index Port Address Media Speed State     Proto
+  ==============================================
+   ...
+   14  14   020e00   id    16G   No_Light    FC  Disabled (Persistent)
+   15  15   020f00   id    16G   No_Light    FC  Disabled (Persistent)
+   ...
+ Switch_A_1:admin>
+----
+
+
+
+
+ a| 
+Für Cisco FC Switches...
+ a| 
+.. Verwenden Sie die `interface` Befehl zum Persistenz Deaktivieren der Ports. Im folgenden Beispiel werden die Ports 14 und 15 deaktiviert:
++
+[listing]
+----
+
+ Switch_A_1# conf t
+ Switch_A_1(config)# interface fc1/14-15
+ Switch_A_1(config)# shut
+
+ Switch_A_1(config-if)# end
+ Switch_A_1# copy running-config startup-config
+----
+.. Vergewissern Sie sich, dass der Switch-Port mithilfe des deaktiviert ist `show interface brief` Befehl wie im folgenden Beispiel dargestellt:
++
+[listing]
+----
+
+ Switch_A_1# show interface brief
+ Switch_A_1
+----
+
+
+|===
+. Schalten Sie die Geräte am DR-Standort aus.
++
+Folgende Geräte müssen in der angegebenen Reihenfolge ausgeschaltet werden:
+
++
+** MetroCluster FC-Switches
+** Speicher-Controller: Die Speicher-Controller sollten sich derzeit am befinden `LOADER` Sie müssen sie vollständig ausschalten.
+** Storage Shelfs
+** ATTO FibreBridges (falls vorhanden)
+
+
+
+
+
+
+== Verlagerung des ausgeschalteten Standorts des MetroCluster
+
+Nachdem der Standort ausgeschaltet ist, können Sie mit der Wartung beginnen. Das Verfahren ist dasselbe, ob die MetroCluster Komponenten innerhalb desselben Datacenters verlegt oder in ein anderes Datacenter verlagert werden.
+
+* Die Hardware sollte auf die gleiche Weise wie der vorherige Standort verkabelt werden.
+* Wenn sich die Geschwindigkeit, Länge oder Zahl der Inter-Switch-Verbindung (ISL) geändert hat, müssen alle neu konfiguriert werden.
+
+
+.Schritte
+. Vergewissern Sie sich, dass die Verkabelung aller Komponenten sorgfältig aufgezeichnet wurde, damit sie am neuen Standort wieder richtig angeschlossen werden kann.
+. Physische Verlagerung der gesamten Hardware, Storage-Controller, FC-Switches, FibreBridges und Storage Shelfs
+. Konfiguration der ISL-Ports und Überprüfung der Konnektivität zwischen Standorten
++
+.. Schalten Sie die FC-Switches ein.
++
+
+NOTE: Schalten Sie keine anderen Geräte ein.
+
+.. Aktivieren Sie die Ports.
++
+Aktivieren Sie die Ports entsprechend den richtigen Switch-Typen in der folgenden Tabelle:
+
++
+[cols="35,65"]
+|===
+
+
+| Switch-Typ | Befehl 
+
+
+ a| 
+Für Brocade FC Switches...
+ a| 
+... Verwenden Sie die `portcfgpersistentenable <port number>` Befehl zum Persistenz-Aktivieren des Ports. Dies muss an beiden Schaltern am überlebenden Standort erfolgen.
++
+Im folgenden Beispiel werden die Ports 14 und 15 bei Switch_A_1 aktiviert.
+
++
+[listing]
+----
+switch_A_1:admin> portcfgpersistentenable 14
+switch_A_1:admin> portcfgpersistentenable 15
+switch_A_1:admin>
+----
+... Vergewissern Sie sich, dass der Switch-Port aktiviert ist: `switchshow`
++
+Im folgenden Beispiel werden die Ports 14 und 15 aktiviert:
+
++
+[listing]
+----
+switch_A_1:admin> switchshow
+switchName:	Switch_A_1
+switchType:	109.1
+
+switchState:	Online
+switchMode:	Native
+switchRole:	Principal
+switchDomain:	2
+switchId:	fffc02
+switchWwn:	10:00:00:05:33:88:9c:68
+zoning:		ON (T5_T6)
+switchBeacon:	OFF
+FC Router:	OFF
+FC Router BB Fabric ID:	128
+Address Mode:	0
+
+Index Port Address Media Speed State     Proto
+==============================================
+ ...
+ 14  14   020e00   id    16G   Online      FC  E-Port  10:00:00:05:33:86:89:cb "Switch_A_1"
+ 15  15   020f00   id    16G   Online      FC  E-Port  10:00:00:05:33:86:89:cb "Switch_A_1" (downstream)
+ ...
+switch_A_1:admin>
+----
+
+
+
+
+ a| 
+Für Cisco FC Switches...
+ a| 
+... Geben Sie das ein `interface` Befehl zum Aktivieren des Ports.
++
+Im folgenden Beispiel werden die Ports 14 und 15 bei Switch_A_1 aktiviert.
+
++
+[listing]
+----
+
+ switch_A_1# conf t
+ switch_A_1(config)# interface fc1/14-15
+ switch_A_1(config)# no shut
+ switch_A_1(config-if)# end
+ switch_A_1# copy running-config startup-config
+----
+... Vergewissern Sie sich, dass der Switch-Port aktiviert ist: `show interface brief`
++
+[listing]
+----
+
+ switch_A_1# show interface brief
+ switch_A_1#
+----
+
+
+|===
+
+
+. Überprüfen Sie mithilfe von Tools auf den Switches (wie sie verfügbar sind) die Verbindung zwischen den Standorten.
++
+
+NOTE: Sie sollten nur fortfahren, wenn die Links korrekt konfiguriert und stabil sind.
+
+. Deaktivieren Sie die Links erneut, wenn sie stabil sind.
++
+Deaktivieren Sie die Ports basierend darauf, ob Sie Brocade- oder Cisco-Switches wie in der folgenden Tabelle dargestellt verwenden:
+
++
+[cols="35,65"]
+|===
+
+
+| Switch-Typ | Befehl 
+
+
+ a| 
+Für Brocade FC Switches...
+ a| 
+.. Geben Sie das ein `portcfgpersistentdisable <port_number>` Befehl zum Persistenz-Deaktivieren des Ports.
++
+Dies muss an beiden Schaltern am überlebenden Standort erfolgen. Im folgenden Beispiel werden die Ports 14 und 15 bei Switch_A_1 deaktiviert:
+
++
+[listing]
+----
+
+ switch_A_1:admin> portpersistentdisable 14
+ switch_A_1:admin> portpersistentdisable 15
+ switch_A_1:admin>
+----
+.. Vergewissern Sie sich, dass der Switch-Port deaktiviert ist: `switchshow`
++
+Im folgenden Beispiel werden die Ports 14 und 15 deaktiviert:
+
++
+[listing]
+----
+switch_A_1:admin> switchshow
+switchName:	Switch_A_1
+switchType:	109.1
+switchState:	Online
+switchMode:	Native
+switchRole:	Principal
+switchDomain:	2
+switchId:	fffc02
+switchWwn:	10:00:00:05:33:88:9c:68
+zoning:		ON (T5_T6)
+switchBeacon:	OFF
+FC Router:	OFF
+FC Router BB Fabric ID:	128
+Address Mode:	0
+
+ Index Port Address Media Speed State     Proto
+ ==============================================
+  ...
+  14  14   020e00   id    16G   No_Light    FC  Disabled (Persistent)
+  15  15   020f00   id    16G   No_Light    FC  Disabled (Persistent)
+  ...
+switch_A_1:admin>
+----
+
+
+
+
+ a| 
+Für Cisco FC Switches...
+ a| 
+.. Deaktivieren Sie den Port mithilfe des `interface` Befehl.
++
+Im folgenden Beispiel werden die Ports fc1/14 und fc1/15 auf Switch A_1 deaktiviert:
+
++
+[listing]
+----
+switch_A_1# conf t
+
+switch_A_1(config)# interface fc1/14-15
+switch_A_1(config)# shut
+switch_A_1(config-if)# end
+switch_A_1# copy running-config startup-config
+----
+.. Vergewissern Sie sich, dass der Switch-Port mithilfe des deaktiviert ist `show interface brief` Befehl.
++
+[listing]
+----
+
+  switch_A_1# show interface brief
+  switch_A_1#
+----
+
+
+|===
+
+
+
+
+== Einschalten der MetroCluster-Konfiguration und Zurückkehren zum normalen Betrieb
+
+Nach Abschluss der Wartung oder Verschieben des Standorts müssen Sie den Standort einschalten und die MetroCluster Konfiguration wiederherstellen.
+
+.Über diese Aufgabe
+Alle Befehle in den folgenden Schritten werden von der Website ausgegeben, die Sie einschalten.
+
+.Schritte
+. Schalten Sie die Schalter ein.
++
+Schalten Sie die Schalter zuerst ein. Möglicherweise wurden sie im vorherigen Schritt eingeschaltet, wenn der Standort verlegt wurde.
+
++
+.. Konfigurieren Sie den Inter-Switch Link (ISL), falls erforderlich, oder falls dieser nicht Teil der Verschiebung abgeschlossen wurde.
+.. ISL aktivieren, falls Fechten abgeschlossen wurde.
+.. ISL überprüfen.
+
+
+. Deaktivieren Sie die ISLs auf den FC-Switches.
+. Schalten Sie die Storage-Controller ein, und warten Sie, bis die angezeigt wird `LOADER` Eingabeaufforderung: Die Controller dürfen nicht vollständig gebootet werden.
++
+Wenn der automatische Start aktiviert ist, drücken Sie `Ctrl+C` Um das automatische Booten der Controller zu stoppen.
+
+. Schalten Sie die Shelfs ein und geben Sie ihnen genügend Zeit, vollständig eingeschaltet zu werden.
+. Die FibreBridge-Brücken mit Strom versorgen.
++
+.. Vergewissern Sie sich bei den FC-Switches, dass die Ports, die die Brücken verbinden, online geschaltet werden.
++
+Sie können z. B. einen Befehl verwenden `switchshow` Für Brocade Switches und `show interface brief` Für Cisco Switches.
+
+.. Stellen Sie sicher, dass die Regale und Festplatten auf den Brücken deutlich sichtbar sind.
++
+Sie können z. B. einen Befehl verwenden `sastargets` Auf der ATTO-CLI.
+
+
+
+. Aktivieren Sie die ISLs auf FC Switches.
++
+Aktivieren Sie die Ports basierend darauf, ob Sie Brocade- oder Cisco-Switches wie in der folgenden Tabelle dargestellt verwenden:
+
++
+[cols="25,75"]
+|===
+
+
+| Switch-Typ | Befehl 
+
+
+ a| 
+Für Brocade FC Switches...
+ a| 
+.. Geben Sie das ein `portcfgpersistentenable <port>` Befehl zum Persistenz-Aktivieren der Ports. Dies muss an beiden Schaltern am überlebenden Standort erfolgen.
++
+Im folgenden Beispiel werden die Ports 14 und 15 bei Switch_A_1 aktiviert:
+
++
+[listing]
+----
+
+ Switch_A_1:admin> portcfgpersistentenable 14
+ Switch_A_1:admin> portcfgpersistentenable 15
+ Switch_A_1:admin>
+----
+.. Vergewissern Sie sich, dass der Switch-Port mit dem + aktiviert ist
+`switchshow` Befehl:
++
+[listing]
+----
+switch_A_1:admin> switchshow
+ switchName:	Switch_A_1
+ switchType:	109.1
+ switchState:	Online
+ switchMode:	Native
+ switchRole:	Principal
+ switchDomain:	2
+ switchId:	fffc02
+ switchWwn:	10:00:00:05:33:88:9c:68
+ zoning:		ON (T5_T6)
+ switchBeacon:	OFF
+ FC Router:	OFF
+ FC Router BB Fabric ID:	128
+ Address Mode:	0
+
+  Index Port Address Media Speed State     Proto
+  ==============================================
+   ...
+   14  14   020e00   id    16G   Online      FC  E-Port  10:00:00:05:33:86:89:cb "Switch_A_1"
+   15  15   020f00   id    16G   Online      FC  E-Port  10:00:00:05:33:86:89:cb "Switch_A_1" (downstream)
+   ...
+ switch_A_1:admin>
+----
+
+
+
+
+ a| 
+Für Cisco FC Switches...
+ a| 
+.. Verwenden Sie die `interface` Befehl zum Aktivieren der Ports.
++
+Das folgende Beispiel zeigt, dass Port fc1/14 und fc1/15 auf Switch A_1 aktiviert sind:
+
++
+[listing]
+----
+
+ switch_A_1# conf t
+ switch_A_1(config)# interface fc1/14-15
+ switch_A_1(config)# no shut
+ switch_A_1(config-if)# end
+ switch_A_1# copy running-config startup-config
+----
+.. Vergewissern Sie sich, dass der Switch-Port deaktiviert ist:
++
+[listing]
+----
+switch_A_1# show interface brief
+switch_A_1#
+----
+
+
+|===
+. Vergewissern Sie sich, dass der Speicher vom verbleibenden Standort aus sichtbar ist. Bringen Sie die Offline-Plexe wieder online. Dadurch werden die Neusynchronisierung neu gestartet, und das SyncMirror wird erneut hergestellt.
+. Wiederherstellung der MetroCluster-Konfiguration
++
+Befolgen Sie die Anweisungen unter link:../disaster-recovery/task_recover_from_a_non_controller_failure_mcc_dr.html#verifying-that-your-system-is-ready-for-a-switchback["Überprüfen, ob das System für einen Wechsel bereit ist"] Um Healing- und Switchback-Vorgänge gemäß Ihrer MetroCluster-Konfiguration durchzuführen.
+
+

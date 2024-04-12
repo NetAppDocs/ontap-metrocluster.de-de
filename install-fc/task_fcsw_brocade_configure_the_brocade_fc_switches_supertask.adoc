@@ -1725,7 +1725,7 @@ Port   Configured    Active   Configured   Active  Speed
 
 == Konfigurieren des Zoning auf Brocade FC-Switches
 
-Sie müssen die Switch-Ports separaten Zonen zuweisen, sodass der Controller- und Storage-Datenverkehr voneinander getrennt ist. Das Verfahren unterscheidet sich je nachdem, ob Sie eine FibreBridge 7500N oder FibreBridge 6500N verwenden.
+Sie müssen die Switch-Ports separaten Zonen zuweisen, sodass der Controller- und Storage-Datenverkehr voneinander getrennt ist.
 
 
 
@@ -1947,9 +1947,9 @@ QOSH2_MC1_FAB_2_FCVI (6520)
 |===
 
 
-=== Zoning für FibreBridge 6500N-Brücken oder FibreBridge 7500N- oder 7600N-Brücken unter Verwendung eines FC-Ports
+=== Zoning für FibreBridge 7500N- oder 7600N-Bridges mit einem FC-Port
 
-Wenn Sie FibreBridge 6500N-Brücken oder FibreBridge 7500N- oder 7600N-Brücken mit nur einem der beiden FC-Ports verwenden, müssen Sie Speicherzonen für die Bridge-Ports erstellen. Sie sollten die Zonen und die zugehörigen Ports verstehen, bevor Sie die Zonen konfigurieren.
+Wenn Sie FibreBridge 7500N- oder 7600N-Bridges verwenden, die nur einen der beiden FC-Ports verwenden, müssen Sie Storage-Zonen für die Bridge-Ports erstellen. Sie sollten die Zonen und die zugehörigen Ports verstehen, bevor Sie die Zonen konfigurieren.
 
 Die Beispiele zeigen nur das Zoning für DR-Gruppe 1. Wenn die Konfiguration eine zweite DR-Gruppe umfasst, konfigurieren Sie das Zoning für die zweite DR-Gruppe auf dieselbe Weise unter Verwendung der entsprechenden Ports der Controller und Bridges.
 
@@ -1999,7 +1999,6 @@ Nummer der Stapelgruppe, mit der das Brückenpaar verbunden ist.
 +
 Die Stack-Gruppe kann maximal 10 Storage Shelves enthalten.
 
-* FibreBridge 6500N Bridges unterstützen nur einen einzelnen Stack in der Stapelgruppe.
 
  a| 
 1, 2, usw.
@@ -2443,7 +2442,6 @@ Nummer der Stapelgruppe, mit der das Brückenpaar verbunden ist.
 +
 Die Stack-Gruppe kann maximal 10 Storage Shelves enthalten.
 
-* FibreBridge 6500N Bridges unterstützen nur einen einzelnen Stack in der Stapelgruppe.
 
  a| 
 1, 2, usw.
@@ -4294,7 +4292,7 @@ Bei den folgenden Schritten wird das Standard-Zoning für die MetroCluster-Konfi
 
 link:task_fcsw_brocade_configure_the_brocade_fc_switches_supertask.html["Zoning für FC-VI-Ports"]
 
-link:task_fcsw_brocade_configure_the_brocade_fc_switches_supertask.html["Zoning für FibreBridge 6500N-Brücken oder FibreBridge 7500N- oder 7600N-Brücken unter Verwendung eines FC-Ports"]
+link:task_fcsw_brocade_configure_the_brocade_fc_switches_supertask.html["Zoning für FibreBridge 7500N- oder 7600N-Bridges mit einem FC-Port"]
 
 link:task_fcsw_brocade_configure_the_brocade_fc_switches_supertask.html["Zoning für FibreBridge 7500N-Bridges unter Verwendung beider FC-Ports"]
 

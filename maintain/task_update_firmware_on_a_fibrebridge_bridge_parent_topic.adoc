@@ -258,9 +258,9 @@ flashimages
 
 
 
-== Firmware auf FibreBridge 7500N wird auf Konfigurationen mit ONTAP 9.3.x und älteren bzw. 6500N-Bridges aktualisiert
+== Aktualisieren der Firmware auf FibreBridge 7500N bei Konfigurationen mit ONTAP 9.3.x und älteren Versionen
 
-Möglicherweise müssen Sie die Firmware auf Ihren FibreBridge-Bridges aktualisieren, um sicherzustellen, dass Sie über die neuesten Funktionen verfügen oder mögliche Probleme beheben können. Dieses Verfahren sollte für FibreBridge 7500N auf Konfigurationen mit ONTAP 9.3.x oder für FibreBridge 6500N-Brücken auf allen unterstützten Versionen von ONTAP angewendet werden.
+Möglicherweise müssen Sie die Firmware auf Ihren FibreBridge-Bridges aktualisieren, um zu überprüfen, ob Sie über die neuesten Funktionen verfügen, oder um mögliche Probleme zu beheben. Dieses Verfahren sollte für FibreBridge 7500N auf Konfigurationen mit ONTAP 9.3.x verwendet werden
 
 .Bevor Sie beginnen
 * Die MetroCluster Konfiguration muss ordnungsgemäß ausgeführt werden.
@@ -276,7 +276,7 @@ Im IMT können Sie im Feld Storage-Lösung die Auswahl Ihrer MetroCluster Lösun
 
 
 
-Sie können diese Aufgabe entweder mit FibreBridge 7500N oder 6500N Bridges verwenden. Ab ONTAP 9.3 können Sie mit dem Befehl ONTAP Speicherbrücke Firmware Update die Bridge-Firmware auf FibreBridge 7500N-Bridges aktualisieren.
+Ab ONTAP 9.3 können Sie mit dem Befehl ONTAP Speicherbrücke Firmware Update die Bridge-Firmware auf FibreBridge 7500N-Bridges aktualisieren.
 
 link:task_update_firmware_on_a_fibrebridge_bridge_parent_topic.html["Firmware-Aktualisierung auf FibreBridge 7600N oder 7500N-Bridges für Konfigurationen mit ONTAP 9.4 und höher"]
 
@@ -305,17 +305,15 @@ https://mysupport.netapp.com/site/products/all/details/atto-fibrebridge/download
 . Erstellen Sie eine Kopie der Download-Seite der ATTO FibreBridge Firmware und der Versionshinweise, wenn Sie aufgefordert werden, die Firmware auf jeder Bridge zu aktualisieren.
 . Aktualisieren Sie die Bridge:
 +
-.. Installieren Sie die Firmware auf der FibreBridge-Bridge.
+.. Installieren Sie die Firmware auf der FibreBridge 7500N Bridge.
 +
-*** Wenn Sie die ATTO FibreBridge 7500N-Brücken verwenden, lesen Sie die Anweisungen im Abschnitt „`Update Firmware`“ des Installations- und Bedienungshandbuchs _ATTO FibreBridge 7500N_.
-*** Wenn Sie die ATTO FibreBridge 6500N-Brücken verwenden, lesen Sie die Anweisungen im Abschnitt „`Update Firmware`“ des Installations- und Bedienungshandbuchs _ATTO FibreBridge 6500N_.
+Lesen Sie die Anweisungen im Abschnitt „`Firmware aktualisieren`“ des Installations- und Betriebshandbuchs _ATTO FibreBridge 7500N.
+
 +
 *ACHTUNG:* Vergewissern Sie sich, dass Sie die einzelne Brücke jetzt aus- und wieder einschalten. Wenn Sie warten und beide Bridges gleichzeitig in einem Stack aus- und wieder einschalten, kann der Controller den Zugriff auf die Laufwerke verlieren, was zu einem Plex-Fehler oder multiplattenpanic führt.
 
 +
 Die Bridge sollte neu gestartet werden.
-
-
 
 .. Vergewissern Sie sich an der Konsole eines der beiden Controller, dass die Bridge ordnungsgemäß neu gestartet wurde:
 +
