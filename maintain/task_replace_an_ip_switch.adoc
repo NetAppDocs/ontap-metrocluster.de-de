@@ -137,6 +137,15 @@ Wenn Sie einen Switch aktualisieren oder herunterstufen, wenden Sie die neueste 
 +
 `*network port show*`
 
++
+.. Ändern Sie alle Cluster-LIFs, um die automatische Zurücksetzung zu deaktivieren:
++
+[source, asciidoc]
+----
+network interface modify -vserver <vserver_name> -lif <lif_name> -auto-revert false
+----
+
+
 . [[existing_step4]]Trennen Sie die Verbindungen vom alten Switch.
 +
 
@@ -146,12 +155,6 @@ NOTE: Sie trennen nur Verbindungen, die nicht denselben Port in der alten und ne
 Entfernen Sie die Anschlüsse in der folgenden Reihenfolge:
 
 +
-.. Ändern Sie alle Cluster-LIFs, um die automatische Zurücksetzung zu deaktivieren:
-+
-[source, asciidoc]
-----
-net int modify -vserver <vserver_name> -lif <lif_name> -auto-revert false
-----
 .. Trennen Sie die lokalen Cluster-Schnittstellen
 .. Trennen Sie die lokalen Cluster-ISLs
 .. Trennen Sie die MetroCluster IP-Schnittstellen
@@ -228,6 +231,12 @@ Wenn Sie die Switches im ersten Netzwerk aktualisieren oder verkleinern, werden 
 
 NOTE: Wenn Sie die Netzwerke aktualisieren oder herunterstufen, dann wiederholen Sie alle Schritte für das zweite Netzwerk.
 
+. Ändern Sie alle Cluster-LIFs, um die automatische Zurücksetzung erneut zu aktivieren:
++
+[source, asciidoc]
+----
+network interface modify -vserver <vserver_name> -lif <lif_name> -auto-revert true
+----
 . Verschieben Sie optional die NS224-Shelfs.
 +
 Wenn Sie eine MetroCluster IP-Konfiguration neu konfigurieren, bei der keine NS224-Shelfs mit den MetroCluster IP-Switches verbunden werden, gehen Sie wie folgt vor, um die NS224-Shelfs hinzuzufügen oder zu verschieben:
