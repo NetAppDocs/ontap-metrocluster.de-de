@@ -2,29 +2,29 @@
 permalink: tiebreaker/install_tiebreaker_package.html 
 sidebar: sidebar 
 keywords: install, tiebreaker, software, monitor, capabilities, capability, cluster, storage, environment, snmp, notification, event, node, connectivity, issue, site, disaster, system, install, upgrade, upgrading, software, dependencies, dependency, package, ntp, requirements, requirements for tiebreaker, tiebreaker requirements, mysql, mariadb, autostart, database 
-summary: Die Tiebreaker Software bietet Monitoring-Funktionen für eine Clustered Storage-Umgebung. Außerdem sendet er SNMP-Benachrichtigungen, wenn Probleme mit der Node-Konnektivität oder im Falle eines Standortnotfalls auftreten. 
+summary: Führen Sie eine Neuinstallation oder ein Upgrade auf Tiebreaker 1.5 auf Ihrem Linux-Host-Betriebssystem durch, um die MetroCluster-Konfigurationen zu überwachen. 
 ---
-= Installieren oder Aktualisieren des Softwarepakets
+= Installieren Sie Tiebreaker 1.5 oder führen Sie ein Upgrade durch
 :allow-uri-read: 
 
 
 [role="lead"]
-Sie müssen die MetroCluster Tiebreaker Software auf Ihrem lokalen Computer installieren oder aktualisieren, um MetroCluster Konfigurationen zu überwachen.
+Führen Sie eine Neuinstallation oder ein Upgrade auf Tiebreaker 1.5 auf Ihrem Linux-Host-Betriebssystem durch, um die MetroCluster-Konfigurationen zu überwachen.
 
 .Über diese Aufgabe
-* Ihr Storage-System muss ONTAP 8.3.x oder höher ausgeführt werden.
-* Sie müssen OpenJDK mithilfe der installiert haben `yum install java-x.x.x-openjdk` Befehl. Führen Sie für Systeme mit Tiebreaker 1.4 und früheren Versionen JRE 8 aus. Führen Sie für Systeme mit Tiebreaker 1.5 und höher OpenJDK 17, 18 oder 19 aus. Die Ausgaben im Beispiel zeigen JRE 1.8.0. (JRE 8).
+* Auf Ihrem Storage-System muss eine unterstützte Version von ONTAP ausgeführt werden. Siehe link:install_prepare.html#software-requirements["Softwareanforderungen"] Tabelle für weitere Details.
+* Sie müssen OpenJDK mithilfe der installiert haben `yum install java-x.x.x-openjdk` Befehl. Tiebreaker 1.5 und höher unterstützt OpenJDK 17, 18 oder 19.
 * Sie können MetroCluster Tiebreaker als Benutzer ohne Root installieren, der über ausreichende Administratorrechte verfügt, um die Tiebreaker Installation durchzuführen, Tabellen und Benutzer zu erstellen und das Benutzerpasswort festzulegen.
 
 
 .Schritte
-. Laden Sie die MetroCluster Tiebreaker Software herunter. In diesem Beispiel wird Version 1.5 verwendet.
+. Laden Sie die MetroCluster Tiebreaker Software und den Schlüssel MetroCluster_Tiebreaker_RPM_GPG herunter.
 +
-https://mysupport.netapp.com/site/["NetApp Support Website"^]
 
-. Laden Sie die herunter `MetroCluster_Tiebreaker_RPM_GPG` Schlüssel:
+NOTE: Der Schlüssel „MetroCluster_Tiebreaker_RPM_GPG“ kann über dieselbe Seite heruntergeladen werden, die Sie auch das Software-Paket für Tiebreaker 1.5 auf der NetApp Support-Website herunterladen.
+
 +
-https://mysupport.netapp.com/site/["NetApp Support Website"^]
+https://mysupport.netapp.com/site/products/all/details/metrocluster-tiebreaker/downloads-tab["MetroCluster Tiebreaker (Downloads) – NetApp Support-Website"^]
 
 . Melden Sie sich beim Host als Root-Benutzer an.
 . Erstellen Sie einen Benutzer, der kein Root-Benutzer ist, und den `mcctbgrp` Gruppieren.
@@ -97,7 +97,7 @@ NOTE: Sie dürfen mit der Installation erst fortfahren, nachdem Sie die Signatur
 NOTE: Ein Upgrade auf Tiebreaker Version 1.5 ist nur möglich, wenn Sie ein Upgrade von Tiebreaker Version 1.4 durchführen. Ein Upgrade von früheren Versionen auf Tiebreaker 1.5 wird nicht unterstützt.
 
 +
-Wählen Sie das richtige Verfahren aus der folgenden Liste aus, je nachdem, ob Sie eine neue Installation durchführen oder eine vorhandene Installation aktualisieren.
+Wählen Sie das richtige Verfahren aus, je nachdem, ob Sie eine neue Installation durchführen oder eine vorhandene Installation aktualisieren.
 
 +
 [role="tabbed-block"]
@@ -123,7 +123,6 @@ NOTE: Wenn Sie während der Installation dazu aufgefordert werden, geben Sie den
 +
 [listing]
 ----
-
 Verifying...                          ################################# [100%]
 Preparing...                          ################################# [100%]
 Updating / installing...

@@ -651,7 +651,7 @@ Konfigurieren Sie die Verbindung manuell mit dem folgenden Befehl an der Eingabe
 
 |===
 . Ausführen eines Netzboots auf Node_B_1:
-`netboot` `http://<web_server_ip/path_to_web_accessible_directory>/netboot/kernel`
+`netboot` `\http://<web_server_ip/path_to_web_accessible_directory>/netboot/kernel`
 +
 Der `<path_to_the_web-accessible_directory>` Sollten Sie dazu führen, wo Sie das heruntergeladen haben `<ontap_version>\_image.tgz` In <<step2-download-software,Schritt 2>>.
 
@@ -683,7 +683,7 @@ Selection (1-11)?
 Aktualisieren Sie den neuen Node immer als Netzboot auf das gewünschte Image. Wenn Sie eine andere Methode zur Installation des Images auf dem neuen Controller verwenden, wird möglicherweise das falsche Image installiert. Dieses Problem gilt für alle ONTAP Versionen.
 
 . Wenn Sie aufgefordert werden, den Vorgang fortzusetzen, geben Sie ein `y`, Und wenn Sie zur Eingabe des Pakets aufgefordert werden, geben Sie die URL ein:
-`http://<web_server_ip/path_to_web-accessible_directory>/<ontap_version>\_image.tgz`
+`\http://<web_server_ip/path_to_web-accessible_directory>/<ontap_version>\_image.tgz`
 . Führen Sie die folgenden Teilschritte durch, um das Controller-Modul neu zu booten:
 +
 .. Eingabe `n` So überspringen Sie die Backup-Recovery, wenn folgende Eingabeaufforderung angezeigt wird:

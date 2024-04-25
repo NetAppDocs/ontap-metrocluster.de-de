@@ -59,10 +59,19 @@ ADP wird automatisch während der Erstkonfiguration des Systems durchgeführt.
 
 NOTE: Ab ONTAP 9.5 muss die automatische Festplattenzuordnung mit dem aktiviert werden `storage disk option modify -autoassign on` Befehl.
 
-Sie müssen den ha-config-Status auf festlegen `mccip` Vor der automatischen Bereitstellung, um sicherzustellen, dass die richtigen Partitionsgrößen ausgewählt sind, um eine entsprechende Root-Volume-Größe zu ermöglichen. Weitere Informationen finden Sie unter link:https://docs.netapp.com/us-en/ontap-metrocluster/install-ip/task_sw_config_verify_haconfig.html["Überprüfen des HA-Konfigurationsstatus von Komponenten"].
+Sie müssen den ha-config-Status auf festlegen `mccip` Vor der automatischen Bereitstellung, um sicherzustellen, dass die richtigen Partitionsgrößen ausgewählt sind, um eine entsprechende Root-Volume-Größe zu ermöglichen. Weitere Informationen finden Sie unter link:install-ip/task_sw_config_verify_haconfig.html["Überprüfen des HA-Konfigurationsstatus von Komponenten"].
 
 Bis zu 96 Laufwerke können während der Installation automatisch partitioniert werden. Nach der Erstinstallation können Sie zusätzliche Laufwerke hinzufügen.
 
+[NOTE]
+====
+Wenn Sie interne und externe Laufwerke verwenden, initialisieren Sie zuerst die MetroCluster mit nur den internen Laufwerken unter Verwendung von ADP. Anschließend schließen Sie das externe Shelf manuell an, nachdem Sie die Installation oder Einrichtung abgeschlossen haben.
+
+Sie müssen sicherstellen, dass für die internen Shelfs die empfohlene Mindestanzahl an Laufwerken wie in beschrieben angegeben angegeben angegeben ist <<adp-disk-assign,Unterschiede bei der ADP- und Festplattenzuordnung nach System>>.
+
+Sowohl für die internen als auch für die externen Laufwerke müssen Sie die teilweise vollständigen Shelfs ausfüllen, wie in beschrieben <<populate-partially-full-shelves,Wie partielle Shelves befüllt werden>>.
+
+====
 
 
 == Die automatische Zuweisung von Shelfs für Shelfs
@@ -122,7 +131,42 @@ Quartal 4: Buchten 36-47
 Schächte 36-41
 
 |===
-Wenn Sie an jedem Standort zwei Shelfs verwenden, werden Festplatten anhand einer halben Shelf-Richtlinie zugewiesen. Wenn die Shelfs nicht vollständig gefüllt sind, installieren Sie die Laufwerke an beiden Enden des Shelfs gleich.
+Die folgende Tabelle zeigt ein Beispiel zum Platzieren von 16 Festplatten in ein internes Shelf mit 24 Laufwerken.
+
+|===
+
+
+| Die 24 Laufwerkschächte sind in vier Quartale unterteilt: | Installieren Sie vier Laufwerke in den ersten vier Schächten pro Quartal... 
+
+
+ a| 
+Quartal: Buchten 0-5
+ a| 
+Schächte 0-3
+
+
+
+ a| 
+Quartal 2: Buchten 6-11
+ a| 
+Schächte 6-9
+
+
+
+ a| 
+Quartal 3: Buchten 12-17
+ a| 
+Schächte 12-15
+
+
+
+ a| 
+Quartal 4: Buchten 18-23
+ a| 
+Schächte 18-21
+
+|===
+Wenn Sie zwei externe Shelfs an jedem Standort verwenden, werden Festplatten anhand einer halben Shelf-Richtlinie zugewiesen. Wenn die Shelfs nicht vollständig gefüllt sind, installieren Sie die Laufwerke an beiden Enden des Shelfs gleich.
 
 Wenn Sie beispielsweise 12 Laufwerke in einem Shelf mit 24 Laufwerken installieren, installieren Sie Laufwerke in den Einschüben 0-5 und 18-23.
 
