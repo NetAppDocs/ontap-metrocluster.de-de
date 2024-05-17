@@ -4,7 +4,7 @@ sidebar: sidebar
 keywords: hardware, component, replace, individual, replacement, installation, guide, replacing, controller, booting, new 
 summary: Wenn Hardwarekomponenten ersetzt werden müssen, müssen Sie sie durch die einzelnen Hardware-Austauschrichtlinien und Installationshandbücher austauschen. 
 ---
-= Austausch von Hardware und Booten neuer Controller
+= Austausch von Hardware und Booten von neuen Controllern
 :allow-uri-read: 
 :icons: font
 :imagesdir: ../media/
@@ -15,7 +15,7 @@ Wenn Hardwarekomponenten ersetzt werden müssen, müssen Sie sie durch die einze
 
 
 
-== Austausch von Hardware am Disaster-Standort
+== Austausch der Hardware am Notfallstandort
 
 .Bevor Sie beginnen
 Die Storage-Controller müssen ausgeschaltet sein oder angehalten bleiben (zeigt die LOADER-Eingabeaufforderung an).
@@ -134,7 +134,7 @@ link:http://docs.netapp.com/platstor/index.jsp["Dokumentation zu ONTAP Hardwares
 
 
 
-== Ermitteln der System-IDs und VLAN-IDs der alten Controller-Module
+== Ermitteln Sie die System-IDs und VLAN-IDs der alten Controller-Module
 
 Nachdem Sie die gesamte Hardware am Disaster-Standort ausgetauscht haben, müssen Sie die System-IDs der ersetzten Controller-Module ermitteln. Sie benötigen die alten System-IDs, wenn Sie Festplatten den neuen Controller-Modulen neu zuweisen. Bei Systemen wie AFF A220, AFF A250, AFF A400, AFF A800, FAS2750 Modelle FAS500f, FAS8300 oder FAS8700 müssen auch die von den MetroCluster IP-Schnittstellen verwendeten VLAN-IDs ermittelt werden.
 
@@ -367,7 +367,7 @@ site_B::*> storage iscsi-initiator disconnect -node node_B_2 -label *
 
 
 
-== Löschen der Konfiguration auf einem Controller-Modul
+== Löschen Sie die Konfiguration auf einem Controller-Modul
 
 [role="lead"]
 Bevor Sie in der MetroCluster-Konfiguration ein neues Controller-Modul verwenden, müssen Sie die vorhandene Konfiguration löschen.
@@ -407,7 +407,7 @@ Antworten `yes` An die Bestätigungsaufforderung.
 
 
 
-== Netbootting der neuen Controller-Module
+== Booten Sie die neuen Controller-Module ein
 
 Wenn die neuen Controller-Module eine andere Version von ONTAP als die Version der verbleibenden Controller-Module aufweisen, müssen Sie die neuen Controller-Module als Netzboot bereitstellen.
 
@@ -483,7 +483,7 @@ The node must be rebooted to start using the newly installed software. Do you wa
 
 
 
-== Ermitteln der System-IDs der Ersatz-Controller-Module
+== Ermitteln Sie die System-IDs der Ersatz-Controller-Module
 
 Nachdem Sie die gesamte Hardware am Notfallstandort ausgetauscht haben, müssen Sie die System-ID des neu installierten Storage Controller-Moduls oder -Moduls bestimmen.
 
@@ -623,7 +623,7 @@ Im folgenden Beispiel ist die neue lokale System-ID 1574774991:
 
 
 
-== Überprüfen des HA-Konfigurationsstatus von Komponenten
+== Überprüfen Sie den Status der HA-Konfiguration der Komponenten
 
 In einer MetroCluster Konfiguration muss der HA-Konfigurationszustand des Controller-Moduls und der Gehäusekomponenten auf „mcc“ oder „mcc-2n“ gesetzt werden, damit sie ordnungsgemäß hochfahren.
 
@@ -725,4 +725,33 @@ MetroCluster IP-Konfiguration
 
 |===
 . Wiederholen Sie diese Schritte auf dem anderen Ersatzknoten.
+
+
+
+
+== Stellen Sie fest, ob die End-to-End-Verschlüsselung auf den ursprünglichen Systemen aktiviert war
+
+Sie sollten überprüfen, ob die ursprünglichen Systeme für die End-to-End-Verschlüsselung konfiguriert wurden.
+
+.Schritt
+. Führen Sie den folgenden Befehl vom verbleibenden Standort aus:
++
+`metrocluster node show -fields is-encryption-enabled`
+
++
+Wenn die Verschlüsselung aktiviert ist, wird die folgende Ausgabe angezeigt:
+
++
+[listing]
+----
+1 cluster_A node_A_1 true
+1 cluster_A node_A_2 true
+1 cluster_B node_B_1 true
+1 cluster_B node_B_2 true
+4 entries were displayed.
+----
++
+
+NOTE: Siehe link:../install-ip/task-configure-end-to-end-encryption.html["Konfigurieren Sie die End-to-End-Verschlüsselung"] Für unterstützte Systeme.
+
 

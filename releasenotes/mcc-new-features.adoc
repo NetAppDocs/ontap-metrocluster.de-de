@@ -10,9 +10,51 @@ summary:
 :imagesdir: ./media/
 
 
+[role="lead"]
+Erfahren Sie mehr über die neuen Funktionen von MetroCluster.
+
 [cols="20,65,15"]
 |===
 | Unterstützte Funktionen in der MetroCluster-Konfiguration | Beschreibung und wo man mehr erfahren kann | Verfügbar ab 
+
+
+ a| 
+MetroCluster IP-Unterstützung für End-to-End-Verschlüsselung
+ a| 
+Die End-to-End-Verschlüsselung wird auf den Systemen AFF A400, FAS8300 und FAS8700 unterstützt, um den Back-End-Datenverkehr, wie NVLOG- und Storage-Replizierungsdaten, zwischen den Standorten einer MetroCluster IP-Konfiguration zu verschlüsseln.
+
+link:../maintain//task-configure-encryption.html["Konfigurieren Sie die End-to-End-Verschlüsselung in einer MetroCluster IP-Konfiguration"]
+ a| 
+ONTAP 9.15.1
+
+
+
+ a| 
+Erhöhung der Volume-Begrenzung bei MetroCluster IP Konfigurationen mit vier Nodes auf AFF A800 und AFF C800 Systemen
+ a| 
+In MetroCluster IP-Konfigurationen mit vier Nodes haben die folgenden Volume-Grenzwerte für AFF A800 und AFF C800 Systeme zugenommen:
+
+* Die maximale Anzahl von FlexVol Volumes pro Aggregat stieg von 200 auf 625.
+* Die maximale Anzahl von FlexVol Volumes pro Node stieg von 800 auf 1250.
+* Die maximale Anzahl von FlexVol Volumes pro Hochverfügbarkeitspaar (HA) ist von 1600 auf 2500 angestiegen.
+
+ a| 
+ONTAP 9.15.1
+
+
+
+ a| 
+Erhöhung der Volume-Begrenzung für MetroCluster IP Konfigurationen mit vier Nodes auf AFF A900 Systemen
+ a| 
+In MetroCluster IP-Konfigurationen mit vier Nodes haben die folgenden Volume-Einschränkungen für AFF A900-Systeme zugenommen:
+
+* Die maximale Anzahl von FlexVol Volumes pro Aggregat stieg von 200 auf 625.
+* Die maximale Anzahl von FlexVol Volumes pro Node stieg von 800 auf 1250.
+* Die maximale Anzahl von FlexVol Volumes pro Hochverfügbarkeitspaar (HA) ist von 1600 auf 2500 angestiegen.
+
+ a| 
+ONTAP 9.14.1
+
 
 
  a| 
@@ -53,7 +95,7 @@ Die automatische, vom Mediator unterstützte, ungeplante Umschaltung (MAUSO) wir
  a| 
 Wenn ein Standort aufgrund einer Abschaltung in der Umgebung ordnungsgemäß heruntergefahren wird, wird MAUSO ausgelöst.
 
-https://docs.netapp.com/us-en/ontap-metrocluster/install-ip/concept_considerations_mediator.html#interoperability-of-ontap-mediator-with-other-applications-and-appliances["Interoperabilität von ONTAP Mediator mit anderen Anwendungen und Geräten"]
+https://docs.netapp.com/us-en/ontap-metrocluster/install-ip/concept-ontap-mediator-supports-automatic-unplanned-switchover.html["Wie der ONTAP Mediator die automatische ungeplante Umschaltung unterstützt"]
  a| 
 ONTAP 9.13.1
 

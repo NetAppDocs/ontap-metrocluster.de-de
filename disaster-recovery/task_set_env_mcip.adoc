@@ -514,6 +514,10 @@ setenv bootarg.mcc.lun_part true
 ----
 
 
+. Wenn die ursprünglichen Systeme für die End-to-End-Verschlüsselung konfiguriert waren, legen Sie an jeder LOADER-Eingabeaufforderung des Ersatz-Nodes den folgenden Bootarg fest:
++
+`setenv bootarg.mccip.encryption_enabled 1`
+
 . Wenn die Originalsysteme für ADP konfiguriert wurden, legen Sie an jeder LOADER-Eingabeaufforderung der Ersatzknoten die ursprüngliche System-ID (*nicht* die System-ID des Ersatzcontrollermoduls) und die System-ID des DR-Partners des Knotens fest:
 +
 `setenv bootarg.mcc.local_config_id original-sysID`
