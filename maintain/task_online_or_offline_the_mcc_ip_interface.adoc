@@ -1,0 +1,120 @@
+---
+permalink: maintain/task_online_or_offline_the_mcc_ip_interface.html 
+sidebar: sidebar 
+keywords: metrocluster, maintain, service, online, offline, ip, interface port 
+summary: Bei Wartungsarbeiten müssen Sie möglicherweise den MetroCluster IP-Schnittstellenport herunterfahren. 
+---
+= Online- oder Offline-Ports der MetroCluster IP-Schnittstelle
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie Wartungsaufgaben durchführen, müssen Sie möglicherweise einen MetroCluster IP-Schnittstellenport offline oder online schalten.
+
+Sie können die folgenden Schritte verwenden, um einen MetroCluster-IP-Schnittstellenport offline oder online zu schalten.
+
+.Schritte
+. Legen Sie die Berechtigungsebene auf erweitert fest.
++
+[source, cli]
+----
+set -privilege advanced
+----
++
+*Beispielausgabe*
+
++
+[listing]
+----
+Cluster A_1::> set -privilege advanced
+Warning: These advanced commands are potentially dangerous; use them only when
+         directed to do so by NetApp personnel.
+Do you want to continue? {y|n}: y
+----
+. Versetzen Sie den Port der MetroCluster IP-Schnittstelle in den Offline-Modus.
++
+[source, cli]
+----
+system ha interconnect link off -node <node_name> -link <link_num, 0 or 1>
+----
++
+*Beispielausgabe*
+
++
+[listing]
+----
+Cluster_A1::*> system ha interconnect link off -node node-a1 -link 0
+----
++
+.. Überprüfen Sie, ob die MetroCluster-IP-Schnittstelle offline ist.
++
+[source, cli]
+----
+Cluster_A1::*> system ha interconnect port show
+----
++
+*Beispielausgabe*
+
++
+[listing]
+----
+Cluster_A1::*> system ha interconnect port show
+                               Physical  Link
+                Link           Layer     Layer      Physical   Physical  Active
+Node            Monitor  Port  State     State       Link Up  Link Down  Link
+--------------  -------  ----  --------  ---------  --------  ---------  ------
+node-a1        off
+                            0  disabled  down              4          3  false
+                            1  linkup    active            4          2  true
+node-a2        off
+                            0  linkup    active            4          2  true
+                            1  linkup    active            4          2  true
+2 entries were displayed.
+----
+
+
+. Versetzen Sie den MetroCluster IP-Schnittstellenport in den Online-Modus.
++
+[source, cli]
+----
+system ha interconnect link on -node <node_name> -link <link_num, 0 or 1>
+----
++
+*Beispielausgabe*
+
++
+[listing]
+----
+Cluster_A1::*> system ha interconnect link on -node node-a1 -link 0
+----
++
+.. Überprüfen Sie, ob der Port der MetroCluster IP-Schnittstelle online ist.
++
+[source, cli]
+----
+Cluster_A1::*> system ha interconnect port show
+----
++
+*Beispielausgabe*
+
++
+[listing]
+----
+Cluster_A1::*> system ha interconnect port show
+                               Physical  Link
+                Link           Layer     Layer      Physical   Physical  Active
+Node            Monitor  Port  State     State       Link Up  Link Down  Link
+--------------  -------  ----  --------  ---------  --------  ---------  ------
+node-a1        off
+                            0  linkup    active            5          3  true
+                            1  linkup    active            4          2  true
+node-a2        off
+                            0  linkup    active            4          2  true
+                            1  linkup    active            4          2  true
+2 entries were displayed.
+----
+
+
+

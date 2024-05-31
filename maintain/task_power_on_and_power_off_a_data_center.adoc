@@ -259,8 +259,8 @@ NOTE: Führen Sie diesen Schritt für alle Plexe aus, die über Remote-Festplatt
 Sie müssen die folgenden Geräte in der angegebenen Reihenfolge ausschalten:
 
 +
+** Speicher-Controller: Die Speicher-Controller sollten sich derzeit am befinden `LOADER` Sie müssen sie vollständig ausschalten.
 ** MetroCluster IP-Switches
-** Storage Controller
 ** Storage Shelfs
 
 
@@ -321,16 +321,14 @@ Schalten Sie die Schalter zuerst ein. Möglicherweise wurden sie im vorherigen S
 Wenn der automatische Start aktiviert ist, drücken Sie `Ctrl+C` Um das automatische Booten der Controller zu stoppen.
 
 . Schalten Sie die Shelfs ein, damit sie sich vollständig einschalten können.
+. Vergewissern Sie sich, dass der Speicher sichtbar ist.
 +
-.. Stellen Sie sicher, dass die Regale und Festplatten auf den Brücken deutlich sichtbar sind.
-+
-Sie können z. B. einen Befehl verwenden `sastargets` Auf der ATTO-CLI.
-
-
-
-. Überprüfen Sie, ob der lokale Speicher vom Knoten im Wartungsmodus sichtbar ist:
+.. Vergewissern Sie sich, dass der Speicher vom verbleibenden Standort aus sichtbar ist. Versetzen Sie die Offline-Plexe wieder in den Online-Modus, um die Neusynchronisierung neu zu starten und die SyncMirror wiederherzustellen.
+.. Überprüfen Sie, ob der lokale Speicher vom Knoten im Wartungsmodus sichtbar ist:
 +
 `disk show -v`
+
+
 
 . Wiederherstellung der MetroCluster-Konfiguration
 +

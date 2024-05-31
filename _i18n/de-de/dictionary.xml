@@ -69,7 +69,6 @@
   <block id="300e7d3508979a7d21a8c85c63a21a11" category="list-text">Sie müssen auf die NetApp Support-Website zugreifen können, um die erforderlichen Systemdateien für Ihre Plattform und die Version der darauf ausgeführten ONTAP Software herunterzuladen.</block>
   <block id="e86bd645f7af01b165bae9ca9d4f08bc" category="list-text">Wählen Sie im Startmenü die Option *Option 5*, um in den Wartungsmodus zu wechseln.</block>
   <block id="f0c3886113b07e21fe10f761766eb054" category="list-text">Wenn Sie über eine MetroCluster-Konfiguration mit vier Nodes verfügen, wiederholen Sie diesen Vorgang auf dem anderen neuen Controller-Modul.</block>
-  <block id="51b67fd3c27836fe854876631b03708d" category="section-title">Ermitteln der System-IDs der Ersatz-Controller-Module</block>
   <block id="851bf5e400898b3911e4218824b52084" category="paragraph">Nachdem Sie die gesamte Hardware am Notfallstandort ausgetauscht haben, müssen Sie die System-ID des neu installierten Storage Controller-Moduls oder -Moduls bestimmen.</block>
   <block id="ae00cd74a16023efcba34f214b262a76" category="paragraph">Sie müssen dieses Verfahren mit den Ersatz-Controller-Modulen im Wartungsmodus durchführen.</block>
   <block id="a55fff4b16868a577d464405cfce5d84" category="paragraph">Dieser Abschnitt enthält Beispiele für Konfigurationen mit zwei und vier Nodes. Bei Konfigurationen mit zwei Nodes können Sie Verweise auf den zweiten Node an jedem Standort ignorieren. Bei Konfigurationen mit acht Nodes müssen die zusätzlichen Nodes in der zweiten DR-Gruppe berücksichtigt werden. Die Beispiele machen folgende Annahmen:</block>
@@ -342,7 +341,6 @@
   <block id="42865315fa4d60b4a089184b578d78a8" category="paragraph">Fahren Sie mit fort <block ref="2b67dda5d5146097b2211bcf36c5a907" category="inline-link-macro-rx"></block>.</block>
   <block id="23675c6086d437e89b00c51e2c7953b0" category="summary">Wenn am Disaster-Standort ein oder beide Controller-Module oder NVRAM-Karten ausgetauscht wurden, müssen Festplatten, die zu den Root-Aggregaten gehören, den Ersatz-Controller-Modulen neu zugewiesen werden.</block>
   <block id="5240450a2525b228e6d6ffeb304e12e9" category="paragraph">Da sich die Nodes im Umschaltmodus befinden und die Reparatur durchgeführt wurde, werden in diesem Abschnitt nur die Festplatten mit den Root-Aggregaten von Pool 1 des Disaster Site neu zugewiesen. Sie sind derzeit die einzigen Festplatten, die noch zur alten System-ID gehören.</block>
-  <block id="ec6baca39edfa454417f6efd043215c9" category="paragraph">Die alten und neuen System-IDs wurden in identifiziert <block ref="05dda3d9932a412ba342505a3437a308" category="inline-link-macro-rx"></block>.</block>
   <block id="0ce159ef649591974fe60d01c47f9f48" category="cell">Anzahl der Nodes</block>
   <block id="fd5d90a6039fa8edfcf7188ba7197e4b" category="list-text">Weisen Sie beim Ersatzknoten im Wartungsmodus die Root-Aggregat-Festplatten neu zu:</block>
   <block id="9e2370246e4aa5b79f9ed5a5e6bed286" category="list-text">Sehen Sie sich die Festplatten an, um die Eigentümeränderung der Pool1 Root-Aggr-Festplatten der Disaster Site zum Ersatzknoten zu bestätigen:</block>
@@ -11983,8 +11981,6 @@
   <block id="f62e57c2cd756c745cc8c3dc7899bd5d" category="list-text">Wenn die Originalsysteme für ADP konfiguriert wurden, legen Sie an jeder LOADER-Eingabeaufforderung der Ersatzknoten die ursprüngliche System-ID (*nicht* die System-ID des Ersatzcontrollermoduls) und die System-ID des DR-Partners des Knotens fest:</block>
   <block id="c980bf2e616d28dd836425b5a356ce9b" category="paragraph"><block ref="e520102daa11dbd039fcaf763b2f5892" prefix="" category="inline-code"></block></block>
   <block id="92670efa1844903ee0c7e2a809aaa8af" category="paragraph"><block ref="83befb2f945a63fae9499fd66ed66d93" prefix="" category="inline-code"></block></block>
-  <block id="a9daabfd9077566a0e834967642d46ae" category="inline-link-macro">Ermitteln der System-IDs und VLAN-IDs der alten Controller-Module</block>
-  <block id="a425862b94ecb00f4800b22c5dddfa63" category="paragraph"><block ref="a425862b94ecb00f4800b22c5dddfa63" category="inline-link-macro-rx"></block></block>
   <block id="8738db0f33e8971f5ce60fa831912fe3" category="paragraph">Im folgenden Beispiel werden die Befehle zum Einstellen der System-IDs auf Node_A_1 angezeigt:</block>
   <block id="bf344da7325a3258f9334bfb457fdaa2" category="list-text">Die alte System-ID von Node_A_1 ist 4068741258.</block>
   <block id="033a40861cdc97bad119d5799567c3af" category="list-text">Die System-ID von Node_B_1 lautet 4068741254.</block>
@@ -12543,7 +12539,6 @@
   <block id="bc66e40e6d2b679666709d4696a3e3a0" category="cell">Tiebreaker Version</block>
   <block id="2ff01ce7887ede183a0dcb4bf579a040" category="cell">CentOS 7 - 7.9</block>
   <block id="e409cbaf30133c40afd8ba79b71e06ee" category="paragraph">#42; Anschlüsse 12 bis 15 sind für die zweite MetroCluster- oder DR-Gruppe auf dem Brocade 7840-Switch reserviert.</block>
-  <block id="2a8e60d3a0b3d603c27fa9c4562178bf" category="summary">NetApp MetroCluster-Konfigurationen kombinieren Array-basiertes Clustering mit synchroner Replizierung und bieten so kontinuierliche Verfügbarkeit. Alle geschäftskritischen Daten werden Transaktion für Transaktion sofort dupliziert.</block>
   <block id="99d7ea00899cf98fde6ae4bd7a763fe6" category="list-text">Überprüfen Sie den Status der AUSO-Fehlerdomäne (Automatic Unplanmäßigen Switchover):</block>
   <block id="914c0f805af7b6a979c9b14a8fca637d" category="admonition">Die folgende Beispielausgabe gilt für ONTAP 9.13.1 und höher. Bei ONTAP 9.12.1 und älteren Versionen sollte der Status der AUSO-Fehlerdomäne sein<block ref="8371e13c4fc64771e634f39be50ec198" prefix=" " category="inline-code"></block>.</block>
   <block id="1d2738c61f2ddb3b312cabca3378259b" category="list-text">Optional können Sie die automatische erzwungene Umschaltung von MetroCluster konfigurieren.</block>
@@ -13334,7 +13329,6 @@ Gilt für alle MetroCluster Konfigurationen.</block>
   <block id="b5b517b5bd160188f72a49194aee565c" category="paragraph">Wenn der automatische Start aktiviert ist, drücken Sie<block ref="08102569ee3581db669c9d763e14b983" prefix=" " category="inline-code"></block> Um das automatische Booten der Controller zu stoppen.</block>
   <block id="235d6d36d1eabe510af7ea0ec5e96c6b" category="paragraph">Sie können z. B. einen Befehl verwenden<block ref="2aa3751083baf48c1e1ddef8df4ddcc3" prefix=" " category="inline-code"></block> Auf der ATTO-CLI.</block>
   <block id="480cf83fd6c463ccef2ed2a9d0dce2c4" category="list-text">Geben Sie das ein<block ref="bedfcd4488b13f5b7062e121a6a8baa5" prefix=" " category="inline-code"></block> Befehl zum Persistenz-Aktivieren der Ports. Dies muss an beiden Schaltern am überlebenden Standort erfolgen.</block>
-  <block id="9d1a338762e03c980c82e8098eb03744" category="list-text">Vergewissern Sie sich, dass der Speicher vom verbleibenden Standort aus sichtbar ist. Bringen Sie die Offline-Plexe wieder online. Dadurch werden die Neusynchronisierung neu gestartet, und das SyncMirror wird erneut hergestellt.</block>
   <block id="9f6a23c1abc971d714730192ce961b96" category="paragraph">Befolgen Sie die Anweisungen unter <block ref="9c0d52e0ce7a57d643217990aba10043" category="inline-link-macro-rx"></block> Um Healing- und Switchback-Vorgänge gemäß Ihrer MetroCluster-Konfiguration durchzuführen.</block>
   <block id="0b4bc6296d77be28e33d3b50e0ea0797" category="paragraph"><block ref="0b4bc6296d77be28e33d3b50e0ea0797" category="inline-link-macro-rx"></block></block>
   <block id="e49bc35e0118f2b5a5904c13e1833761" category="section-title">Aktualisieren der Firmware auf FibreBridge 7500N bei Konfigurationen mit ONTAP 9.3.x und älteren Versionen</block>
@@ -13682,43 +13676,26 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="18bd3543357b4fa11f6a58101dfa61a5" category="sidebar">Installation Von Tiebreaker</block>
   <block id="d2875782347edc6066d3025cecc9df38" category="sidebar">Mediator installieren (nur MetroCluster IP)</block>
   <block id="ade01a5a398372194a42c36e9f5279ac" category="sidebar">Wartung</block>
-  <block id="7b8e5f5947a6dadc276f09b5a095667d" category="sidebar">Wartung und Austausch von FC-Switches in MetroCluster FC-Konfigurationen</block>
   <block id="7f5d1cf6b92b5f6a9e5fe290c7d568fa" category="sidebar">IP-Switches</block>
-  <block id="e9e6a0d40b20996536edcfae7b0ca501" category="sidebar">Wartung und Austausch von IP-Switches in MetroCluster IP-Konfigurationen</block>
   <block id="5360721f5d15a4a50d1c0ea177551d33" category="sidebar">ATTO-Brücken</block>
-  <block id="6659ad060d95c49da27c02efe70880ee" category="sidebar">Aufrechterhaltung und Austausch von ATTO FC-to-SAS Bridges in MetroCluster FC-Konfigurationen</block>
   <block id="c89a58741e7240ddf3c43ec7dbb21cd7" category="sidebar">Festplatten-Shelfs</block>
-  <block id="bb2a6473813b98ffe9edacc863bb749e" category="sidebar">Hot-Add-Konfigurationen für MetroCluster FC-Konfigurationen, die unterbrechungsfrei ersetzt werden können</block>
   <block id="9deb979aa141eacec55a34ce9dfd4cc9" category="sidebar">RCF-Dateien</block>
   <block id="277ccac115bb10401c3dbe796a5fd555" category="sidebar">MetroCluster-RCF-Dateien</block>
-  <block id="f4ff45e882d7ee5ad1b4a9e07301850d" category="sidebar">Erstellen oder laden Sie RCF-Dateien für Ihre MetroCluster-Switches herunter.</block>
   <block id="d59048f21fd887ad520398ce677be586" category="sidebar">Weitere Informationen .</block>
   <block id="b92dd7cb5813aceca4052255be1046a0" category="sidebar">NetApp MetroCluster Lösungsarchitektur und Design TR-4705</block>
-  <block id="c8ed4eb56c00a193e2bf85d5a38119ee" category="sidebar">MetroCluster FC-Lösung verstehen</block>
   <block id="d821955413ef2ce3b63ac32371a5186e" category="sidebar">Architektur und Design der MetroCluster IP-Lösung TR-4689</block>
-  <block id="33d6c0f3568f32d65b84533fcc9dcbcb" category="sidebar">Informieren Sie sich über die MetroCluster IP-Lösung</block>
   <block id="3d5cf400e4fb829207d0ab81798b6587" category="sidebar">Upgrade, Erweiterung und Konvertierung</block>
   <block id="64cd3f6f5347e9d6c92e09aa1c656f87" category="sidebar">Upgrade und Aktualisierung von Hardware</block>
-  <block id="fdc7fb09ec4ebc533362a55d221d305f" category="sidebar">Aktualisieren Sie die Controller in einer MetroCluster-Konfiguration.</block>
   <block id="e912938f380bdbc5125a46cb6974c985" category="sidebar">Erweitern Sie eine MetroCluster mit zwei Nodes</block>
-  <block id="c495f5fb55d923c4b5bdcc9031d17504" category="sidebar">Fügen Sie den MetroCluster Konfigurationen Controller hinzu, um eine Konfiguration mit vier oder acht Nodes zu erstellen.</block>
   <block id="8b9fb0a48d871747071a5767bb11c3c9" category="sidebar">Erweitern Sie eine MetroCluster mit vier Nodes</block>
-  <block id="f0de1d093d27614c73e83446489eec92" category="sidebar">Fügen Sie den MetroCluster Konfigurationen Controller hinzu, um eine Konfiguration mit acht Nodes zu erstellen.</block>
   <block id="daf3fcb291d6eb9e42a7777197caa458" category="sidebar">Konvertieren Sie MetroCluster FC zu MetroCluster IP</block>
-  <block id="689a3f6927feed4862b6b5b03d4f0018" category="sidebar">Umstellung einer vorhandenen MetroCluster IP-Konfiguration auf eine MetroCluster IP-Konfiguration</block>
   <block id="822970998ef8866cd59ed6ba8d63af83" category="sidebar">Aktualisieren von MetroCluster-IP-RCF-Dateien</block>
-  <block id="b2899a6511f7a2ac6656022f75581e5a" category="sidebar">Aktualisieren Sie die RCF-Dateien des Switches in MetroCluster-IP-Konfigurationen.</block>
   <block id="b7c02f1bc7ffc889ddb9e99702663c56" category="sidebar">ATTO Bridge-Firmware</block>
   <block id="ddac5beff5f77bf22595caa98bac08f9" category="sidebar">FibreBridge 7600N</block>
-  <block id="7189e471dda7f4816814f7b74c6948d1" category="sidebar">Laden Sie die Firmware für eine 7600-Brücke herunter.</block>
   <block id="dcb741f9e6e5d6050aeb3d8fd347e9fd" category="sidebar">FibreBridge 7500N</block>
-  <block id="81defdfe6f2018754b9c90215acaf8c1" category="sidebar">Laden Sie die Firmware für eine 7500-Bridge herunter.</block>
   <block id="dfcc398099d6a64026e51ab282e16253" category="sidebar">Mehr Ressourcen</block>
   <block id="fa0344a10c89a05b4e9232391d5feb01" category="sidebar">NetApp Config Advisor</block>
-  <block id="7bde48e6b0d33c17d731b283a4674428" category="sidebar">Überprüfen Sie Ihre Konfiguration und Verkabelung.</block>
-  <block id="d5552b01bf48dde88719269e524ddbb9" category="sidebar">Stellen Sie sicher, dass Ihre Hardware unterstützt wird.</block>
   <block id="3f2b90ec5a9b43745b9c8c9fedf48d8d" category="sidebar">NetApp Support Knowledge Base</block>
-  <block id="b2cdf9234a2dabbbb6acb6f71e098209" category="sidebar">Suchen Sie nach Antworten für Ihre Support-Fragen.</block>
   <block id="67ed9530c4069b662839f89c94d4a160" category="inline-link-macro">End-to-End-Verschlüsselung deaktivieren</block>
   <block id="ade87983ca16ac3bdbf2b32cf6e9b0d5" category="list-text">Wenn es auf Ihrem System aktiviert ist, <block ref="8a6f29aee2b87dab72caa4c63be583f5" category="inline-link-macro-rx"></block> Bevor Sie das Controller-Upgrade durchführen.</block>
   <block id="3d8fb38a661b136fb35b34201d24ef76" category="section-title">Konfigurieren Sie die End-to-End-Verschlüsselung</block>
@@ -13759,7 +13736,6 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="efd20e2b544e4614b2e657ac6783ec0a" category="paragraph">MetroCluster IP-Unterstützung für End-to-End-Verschlüsselung</block>
   <block id="4a4b85199291f3e23fc84fb47fb5ca30" category="paragraph">Die End-to-End-Verschlüsselung wird auf den Systemen AFF A400, FAS8300 und FAS8700 unterstützt, um den Back-End-Datenverkehr, wie NVLOG- und Storage-Replizierungsdaten, zwischen den Standorten einer MetroCluster IP-Konfiguration zu verschlüsseln.</block>
   <block id="a9734ca6d9ffb317f9b6a802b2dbb3aa" category="inline-link-macro">Konfigurieren Sie die End-to-End-Verschlüsselung in einer MetroCluster IP-Konfiguration</block>
-  <block id="c39138b0d883de358017e1fce7fa55a9" category="paragraph"><block ref="c39138b0d883de358017e1fce7fa55a9" category="inline-link-macro-rx"></block></block>
   <block id="aec0d8caac35e70ca6b42831fa957b4d" category="paragraph">Erhöhung der Volume-Begrenzung bei MetroCluster IP Konfigurationen mit vier Nodes auf AFF A800 und AFF C800 Systemen</block>
   <block id="cbd27762af6b4c6335bac75a098542ce" category="paragraph">In MetroCluster IP-Konfigurationen mit vier Nodes haben die folgenden Volume-Grenzwerte für AFF A800 und AFF C800 Systeme zugenommen:</block>
   <block id="2c18214fb090b3346dccf036f48c7f39" category="list-text">Die maximale Anzahl von FlexVol Volumes pro Aggregat stieg von 200 auf 625.</block>
@@ -13783,4 +13759,20 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="98db7bcad911ca4f97f6c512fd15dba5" category="admonition">Siehe <block ref="21cf3ec43c40018cebe1c66cf55306b2" category="inline-link-macro-rx"></block> Für unterstützte Systeme.</block>
   <block id="03e22cbc7470f9e3b1bc635479554ca9" category="sidebar">Neuerungen bei der MetroCluster Unterstützung für ONTAP Funktionen</block>
   <block id="89753eb00eabd16383d2c616cc908230" category="sidebar">Neuerungen bei der MetroCluster IP Plattform und Switch-Unterstützung</block>
+  <block id="1a8f5be2d2808b5d69a091661c1fdb57" category="paragraph"><block ref="1a8f5be2d2808b5d69a091661c1fdb57" category="inline-link-macro-rx"></block></block>
+  <block id="d8654b161561461c8ec014d5d660db0d" category="list-text">Vergewissern Sie sich, dass der Speicher sichtbar ist.</block>
+  <block id="8c31a85fbae513d968c02205e8c210d4" category="list-text">Vergewissern Sie sich, dass der Speicher vom verbleibenden Standort aus sichtbar ist. Versetzen Sie die Offline-Plexe wieder in den Online-Modus, um die Neusynchronisierung neu zu starten und die SyncMirror wiederherzustellen.</block>
+  <block id="262891df0c6ebb50acbcb126fb5c8761" category="summary">Bei Wartungsarbeiten müssen Sie möglicherweise den MetroCluster IP-Schnittstellenport herunterfahren.</block>
+  <block id="4261a47766ada379b26b2c3a719f75b2" category="doc">Online- oder Offline-Ports der MetroCluster IP-Schnittstelle</block>
+  <block id="cb6838ec9d371f50679bbbc58c45370a" category="paragraph">Wenn Sie Wartungsaufgaben durchführen, müssen Sie möglicherweise einen MetroCluster IP-Schnittstellenport offline oder online schalten.</block>
+  <block id="c8611b3438fb84a6c442fe7b05f52a15" category="paragraph">Sie können die folgenden Schritte verwenden, um einen MetroCluster-IP-Schnittstellenport offline oder online zu schalten.</block>
+  <block id="3c84f1de018751821bb0b4202f14bf0a" category="list-text">Legen Sie die Berechtigungsebene auf erweitert fest.</block>
+  <block id="6ca857f7a44a21cfffda914cf9549710" category="paragraph">*Beispielausgabe*</block>
+  <block id="260ab9e602296cf4759b74ba30cbd850" category="list-text">Versetzen Sie den Port der MetroCluster IP-Schnittstelle in den Offline-Modus.</block>
+  <block id="fdc6d534c52f6619e898db680403f69b" category="list-text">Überprüfen Sie, ob die MetroCluster-IP-Schnittstelle offline ist.</block>
+  <block id="2d393525a6ebfc702ca856ed72512167" category="list-text">Versetzen Sie den MetroCluster IP-Schnittstellenport in den Online-Modus.</block>
+  <block id="0ab751f551b18333e82474f5ca9b4122" category="list-text">Überprüfen Sie, ob der Port der MetroCluster IP-Schnittstelle online ist.</block>
+  <block id="e387b7f8f98fe6ef00364ba0984c08a9" category="paragraph">Die alten und neuen System-IDs wurden in identifiziert <block ref="ce17cf746f0f051ba197f9e3096bf7f5" category="inline-link-macro-rx"></block>.</block>
+  <block id="124ba57298a92342f8aec06ebcfb6415" category="inline-link-macro">Ermitteln Sie die System-IDs der alten Controller-Module</block>
+  <block id="3ac27de4b4347c98785ff06870fe7221" category="paragraph"><block ref="3ac27de4b4347c98785ff06870fe7221" category="inline-link-macro-rx"></block></block>
 </blocks>
