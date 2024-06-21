@@ -2371,7 +2371,6 @@
   <block id="0298c9d72aff4562d5434fe4a448c6a1" category="doc">Vorbereiten eines Speicher-Arrays für die Verwendung mit ONTAP-Systemen</block>
   <block id="6ceeef6f6fdaf06b95cae87e460cfe9b" category="paragraph">Die Speicher-Arrays, Firmware und Switches, die Sie in der Konfiguration verwenden möchten, müssen von der jeweiligen ONTAP Version unterstützt werden.</block>
   <block id="a011aa6047381b9696e67c3b40f1802e" category="inline-link">NetApp Interoperabilität (IMT)</block>
-  <block id="adbd7f6da5b8c687e8c9973fbac44739" category="list-text"><block ref="adbd7f6da5b8c687e8c9973fbac44739" category="inline-link-rx"></block></block>
   <block id="567997ebab95ad5c797a8c2164e69988" category="paragraph">Sie müssen sich mit dem Storage Array-Administrator abstimmen, um diese Aufgabe auf dem Storage Array durchzuführen.</block>
   <block id="c6d70523707016c24377e7ebb500eef1" category="list-text">Erstellen Sie auf dem Storage-Array LUNs abhängig von der Anzahl der Nodes in der MetroCluster-Konfiguration.</block>
   <block id="b30da40dcd4e32f00364fe223122c3ab" category="paragraph">Jeder Knoten in der MetroCluster-Konfiguration erfordert Array-LUNs für das Root-Aggregat, das Daten-Aggregat und die Ersatzteile.</block>
@@ -2453,14 +2452,6 @@
   <block id="575e1ed1d3138b38fdd685736a6a47b9" category="paragraph">Controller_B_1: Port FC-VI b</block>
   <block id="e48060ce0dce850ba08838b0bbacf939" category="paragraph">Controller_B_2: FC-VI A-Port</block>
   <block id="05d031d4d0c0ba6aad9ddd1f447198d6" category="paragraph">Controller_B_2: FC-VI-Port b</block>
-  <block id="1070ce9e7bae97d7e7228e149c0b9eb4" category="paragraph">Die folgende Tabelle zeigt die Verwendung von Controller-Ports auf Brocade Switches:</block>
-  <block id="cd45205e4fc2077e0c4d75cfa092a45c" category="cell">MetroCluster Konfiguration mit acht Nodes</block>
-  <block id="8fa7af407bf3527ae51a64903584fb97" category="cell">MetroCluster Konfiguration mit vier Nodes</block>
-  <block id="b568f2bc70056e5c549443721bcfb52b" category="cell">Brocade 6510 oder DCX 8510-8</block>
-  <block id="6ffb8f2c32009a20c314f0eeec771f81" category="cell">Brocade 6510, DCX 8510-8</block>
-  <block id="a435d7a239e10d99dd0bb66c0966f44d" category="paragraph">Die folgende Tabelle zeigt die Verwendung von Controller-Ports auf Cisco Switches:</block>
-  <block id="b54c734a5be7921355fc2aa93b69ba59" category="cell">Cisco 9148 oder 9148S</block>
-  <block id="11278506140805617313d6fd9ed8b0fc" category="cell">Cisco 9148, 9148S oder 9250i</block>
   <block id="c2b6b0e868d1d64740864a0e6e2839e1" category="summary">Um eine MetroCluster-Konfiguration mit nativen Festplatten und Array-LUNs zu implementieren, müssen Sie sicherstellen, dass die in der Konfiguration verwendeten ONTAP-Systeme mit Speicher-Arrays verknüpft werden können.</block>
   <block id="16a5724d7c98fb4a344abbd866c29d17" category="doc">Implementieren einer MetroCluster-Konfiguration mit Festplatten und Array LUNs</block>
   <block id="8d567693df21dd007bca2cab1786c41e" category="paragraph">Eine MetroCluster-Konfiguration mit Festplatten und Array-LUNs kann zwei oder vier Nodes haben. Obwohl die MetroCluster Konfiguration mit vier Nodes Fabric-Attached sein muss, kann die Konfiguration mit zwei Nodes entweder Stretch oder Fabric-Attached sein.</block>
@@ -7780,7 +7771,6 @@
   <block id="623d27fb1a71775c853589b6aa232fcb" category="paragraph">Möglicherweise möchten Sie die Festplatten- und Shelf-Firmware während der MetroCluster-Konfiguration aktualisieren, bevor Sie Shelfs hinzufügen.</block>
   <block id="f9cf9415d2ebe0c1351e0f7a1221a2d8" category="inline-link">Upgrade, Zurücksetzen oder Downgrade</block>
   <block id="c3204e26e12ab80395709eeaa0f8642d" category="paragraph"><block ref="c3204e26e12ab80395709eeaa0f8642d" category="inline-link-rx"></block></block>
-  <block id="c073c8226440025a816eb4efa16a17a3" category="admonition">Wenn auf dem System eine unterstützte Version von ONTAP ausgeführt wird, wird eine Kombination aus IOM12-Modulen und IOM6-Modulen im selben Stack unterstützt. Um festzustellen, ob Ihre Version von ONTAP Shelf-Mischungen unterstützt, Informationen hierzu finden Sie im Interoperabilitäts-Matrix-Tool (IMT).https://mysupport.netapp.com/NOW/products/interoperability[NetApp Interoperabilität] Wenn Ihre ONTAP Version nicht unterstützt wird und Sie die IOM-Module auf dem vorhandenen Stack oder dem neuen Shelf, das zu einer unterstützten Kombination von IOM-Modulen hinzugefügt werden soll, nicht upgraden oder herunterstufen können. Sie müssen eine der folgenden Aktionen ausführen:</block>
   <block id="64974d0b5eb2e258428a89835ce229c9" category="list-text">Starten eines neuen Stacks auf einem neuen SAS-Port (sofern vom Bridge-Paar unterstützt)</block>
   <block id="ad45a06e82c1f0983fdfd0e3d30dc8f8" category="list-text">Starten Sie einen neuen Stack auf einem weiteren Brückenpaar.</block>
   <block id="b7b17808a6e64c132f3bf8c4f253b38d" category="list-text">Laden Sie folgende Dokumente von der NetApp Support-Website herunter oder lesen Sie sie:</block>
@@ -8834,8 +8824,6 @@
   <block id="c7534d571d84fdfe4912d24b4f1f30bf" category="list-text">Um zu überprüfen, welche Dateien für eine bestimmte ONTAP-Version, einen Switch und eine bestimmte Plattform unterstützt werden, verwenden Sie den RCfFileGenerator. Wenn Sie die RCF-Datei für die Konfiguration generieren können, die Sie haben oder auf die Sie aktualisieren möchten, wird sie unterstützt.</block>
   <block id="282bc05e82ec2895ab48f3f9377e06d3" category="list-text">Um sicherzustellen, dass die Switch-Firmware unterstützt wird, lesen Sie bitte die folgenden Informationen:</block>
   <block id="8d0f34f00997c62960ad51adbe64457d" category="list-text"><block ref="8d0f34f00997c62960ad51adbe64457d" category="inline-link-rx"></block></block>
-  <block id="10f02f59043b28fac9ff50a9e24e6044" category="inline-link">NetApp Interoperabilität</block>
-  <block id="8ae1a8b6dc4a3df150f27ca419fb9a6c" category="list-text"><block ref="8ae1a8b6dc4a3df150f27ca419fb9a6c" category="inline-link-rx"></block></block>
   <block id="556bbef84d582c44d275b1d259773581" category="paragraph">Das MetroCluster System kann einen kompletten Stack, einschließlich Bridges, Hot-Add (unterbrechungsfrei hinzufügen) aufnehmen. An den FC-Switches müssen verfügbare Ports vorhanden sein und Sie müssen das Switch-Zoning aktualisieren, um die Änderungen widerzuspiegeln.</block>
   <block id="382796d45bd36c3702aa7fdd174e2a3f" category="list-text">Sie verwenden die ATTO ExpressNAV GUI, um eine Bridge zu konfigurieren und zu verwalten und die Bridge-Firmware zu aktualisieren. Sie verwenden das ATTO Quicknav Dienstprogramm, um den Bridge Ethernet Management 1 Port zu konfigurieren.</block>
   <block id="5a02bdff215718b5bc1262fbe8d72e13" category="list-text">Sie können bei Bedarf andere Management-Schnittstellen verwenden. Zu diesen Optionen gehören die Verwendung eines seriellen Ports oder Telnet zur Konfiguration und Verwaltung einer Bridge sowie die Konfiguration des Ethernet-Management-1-Ports und die Verwendung von FTP zur Aktualisierung der Bridge-Firmware. Wenn Sie eine dieser Managementoberflächen auswählen, muss das System die geltenden Anforderungen in erfüllen <block ref="7ab0568f22b62ca0e98b3c0cd29a60a1" category="inline-link-macro-rx"></block></block>
@@ -8917,49 +8905,8 @@
   <block id="1ff11337859800a806d5ad64bf9af131" category="paragraph">Sie müssen diesen Befehl auf beiden Controller-Modulen ausführen.</block>
   <block id="f45a5dfbad730578f92e4a3f9a408df1" category="paragraph">Sie können die Befehle des Verfahrens über die Systemkonsole eines der beiden Controller-Module ausführen.</block>
   <block id="70ea1a14bb2c19fadc97fea6c6203981" category="admonition">Wenn Sie die Eigentumsrechte eines einzigen Stacks an Festplatten-Shelfs auf mehrere Controller-Module verteilen, müssen Sie die automatische Festplattenzuweisung auf beiden Nodes im Cluster deaktivieren <block ref="bdefdb189a50bac7eca8c2092c06daf4" prefix="(" category="inline-code"></block>) Vor der Zuweisung von Festplatteneigentum; andernfalls werden bei der Zuweisung eines einzelnen Laufwerks die übrigen Laufwerke möglicherweise automatisch demselben Controller-Modul und Pool zugewiesen.</block>
-  <block id="a89a5b71cb60acbd82724db1a629420a" category="summary">Sie müssen überprüfen, ob Sie die angegebenen Portzuweisungen verwenden, wenn Sie die FC-Switches verkabeln. Die Port-Zuweisungen unterscheiden sich zwischen ONTAP 9.0 und neueren Versionen von ONTAP.</block>
-  <block id="3db4017b12769c890b399a8cee60dfb5" category="paragraph">Bei Verwendung der unterstützten RCF-Dateien können ISL-Ports keine Verbindung zu den hier gezeigten Ports herstellen und müssen möglicherweise manuell neu konfiguriert werden.</block>
-  <block id="7cdeeb5d6c1afe20f2835793af3716df" category="section-title">Verwendung von Brocade Ports für Controller-Verbindungen in einer MetroCluster-Konfiguration mit acht Nodes, bei der ONTAP 9.0 ausgeführt wird</block>
-  <block id="4c400b3f7160abe1ed688a9b8979589e" category="paragraph">Die folgende Tabelle zeigt die Verwendung der Controller-Ports bei den Brocade Modellen Brocade 6505, 6510 oder DCX 8510-8:</block>
-  <block id="afad1c27cb5fc5d1d792e5ba791ef840" category="section-title">Nutzung von Brocade Ports für FC-to-SAS-Bridge-Verbindungen in einer MetroCluster-Konfiguration mit acht Nodes und ONTAP 9.0</block>
-  <block id="fac64949de3a43257f3c8a97a35449a1" category="cell">Bridge-Port</block>
-  <block id="ecbaae7ed0bf3689e37afedee8f6c249" category="section-title">Verwendung von Brocade Ports für ISLs in einer MetroCluster-Konfiguration mit acht Nodes mit ONTAP 9.0</block>
-  <block id="394f60a83bf45a2e06134eded4e6adc2" category="paragraph">Die folgende Tabelle zeigt die Verwendung von ISL-Ports für Brocade 6505, 6510 oder DCX 8510-8-Switches:</block>
-  <block id="720e1fb07c36d94aa69e0ee7eb5cb7f3" category="section-title">Verwendung von Brocade Ports für Controller in einer MetroCluster-Konfiguration mit vier Nodes mit ONTAP 9.0</block>
-  <block id="253a9adeaa7038a2700f39aad347d73d" category="paragraph">Für jeden FC-Switch im Switch Fabric ist die Verkabelung identisch. Die folgende Tabelle zeigt den Einsatz der Switches Brocade 6505, 6510 und DCX 8510-8.</block>
-  <block id="bb98798a94eabd991690e4d98bb1e93d" category="section-title">Portnutzung von Brocade für Bridges in einer MetroCluster-Konfiguration mit vier Nodes und ONTAP 9.0</block>
-  <block id="814568b4249c0114f7f5acf6d86149fb" category="cell">FibreBridge 7500-Brücke</block>
-  <block id="4b1342698b69db9277c10ae5d059e837" category="cell">FC_Switch_x_1 (6510 oder DCX 8510-8)</block>
-  <block id="e49423aa401904cc19d9c93b1dba3f71" category="cell">FC_Switch_x_2 (6510 oder DCX 8510-8)</block>
-  <block id="8e8e002bc58d3a842d05c1be7b04ba4c" category="cell">FC_Switch_x_1 (6505)</block>
-  <block id="7ab09fefe83fcbd6007a5ac115dfefbc" category="cell">FC_Switch_x_2 (6505)</block>
-  <block id="5cf1fa7f2c6c9825315b7608236abe2b" category="cell">Zusätzliche Brücken können über Port 19, dann Ports 24 bis 47 verkabelt werden</block>
-  <block id="c4381a0b6bf2d250fd5afa1d8db80d48" category="cell">Zusätzliche Brücken können über Port 23 verkabelt werden</block>
-  <block id="3f0d7bda291f9b3c6f2f35a20a63c52e" category="section-title">Verwendung von Brocade Ports für ISLs in einer MetroCluster-Konfiguration mit vier Nodes mit ONTAP 9.0</block>
-  <block id="69862326bc727c309184d534a3f3cff8" category="paragraph">Die folgende Tabelle zeigt die Verwendung des ISL-Ports:</block>
-  <block id="160cef04b33948c7b91144a2fdf46988" category="section-title">Verwendung von Brocade Ports für Controller in einer MetroCluster-Konfiguration mit zwei Nodes mit ONTAP 9.0</block>
-  <block id="7699bf8a4df6f7e15f159269bd8927e4" category="paragraph">Für jeden FC-Switch im Switch Fabric ist die Verkabelung identisch. Die folgende Tabelle zeigt die Verkabelung der Switches Brocade 6505, 6510 und DCX 8510-8.</block>
-  <block id="4d3b4ab0ee0d27226cd4d951952dc8aa" category="section-title">Portnutzung von Brocade für Bridges in einer MetroCluster-Konfiguration mit zwei Nodes und ONTAP 9.0</block>
-  <block id="f87cb62014b08eabb93a84e435b02ea9" category="section-title">Verwendung von Brocade Ports für ISLs in einer MetroCluster-Konfiguration mit zwei Nodes mit ONTAP 9.0</block>
-  <block id="851032b3e8ee16b9eb2ed6098216108e" category="paragraph">Die folgende Tabelle zeigt den ISL-Portverbrauch für Switches von Brocade 6505, 6510 und DCX 8510-8:</block>
-  <block id="944ef169ea9b385ec2fc06c60bcdd267" category="section-title">Verwendung von Cisco Ports für Controller in einer MetroCluster-Konfiguration mit acht Nodes und ONTAP 9.0</block>
-  <block id="062caca7c0bb29ebff9fcc7a33a75d93" category="paragraph">Die folgende Tabelle zeigt die Verwendung der Controller-Ports bei Switches von Cisco 9148 und 9148S:</block>
-  <block id="7dd0f293a7e09ad1d4ac1014f18a018a" category="section-title">Cisco Port-Nutzung für FC-to-SAS-Bridges in einer MetroCluster-Konfiguration mit acht Nodes unter ONTAP 9.0</block>
-  <block id="c4739fa521713dbbe264a1366afde348" category="section-title">Verwendung von Cisco Ports für ISLs in einer MetroCluster-Konfiguration mit acht Nodes mit ONTAP 9.0</block>
-  <block id="524e7c19dbf542bdc24be3909a68aa5b" category="paragraph">Die folgende Tabelle zeigt den Einsatz von ISL-Ports für Switches von Cisco 9148 und 9148S:</block>
   <block id="84a71a9e63ead8784cd365088a3be8c4" category="cell">ISL-Ports</block>
-  <block id="bf9995231adba64383dd274717591fad" category="section-title">Verwendung von Cisco Ports für Controller in einer MetroCluster-Konfiguration mit vier Nodes</block>
-  <block id="9009bb494f588eb453c941a0f5346de2" category="paragraph">Die folgende Tabelle zeigt die Verwendung der Controller-Ports auf den Switches Cisco 9148, 9148S und 9250i:</block>
-  <block id="8a960a450c78ddb1326827d52c10a15a" category="section-title">Cisco Port-Nutzung für FC-to-SAS-Bridges in einer MetroCluster-Konfiguration mit vier Nodes unter ONTAP 9.0</block>
-  <block id="6fcd6dc740970bb42bde0c9a37d97275" category="section-title">Verwendung von Cisco 9148- und 9148S-Ports für ISLs auf einer MetroCluster-Konfiguration mit vier Nodes unter ONTAP 9.0</block>
-  <block id="d8547f2a1e0767433bffe41b5c4ca3bc" category="section-title">Verwendung von Cisco 9250i-Ports für ISLs in einer MetroCluster-Konfiguration mit vier Nodes mit ONTAP 9.0</block>
-  <block id="183f17b261b81d0d886cf2452983cce8" category="paragraph">Der Cisco 9250i-Switch verwendet die FCIP-Ports für das ISL.</block>
   <block id="4389b93bd76334095ae6f5fdb926d4ee" category="paragraph">Die Ports 40 bis 48 sind 10 GbE-Ports und werden in der MetroCluster-Konfiguration nicht verwendet.</block>
-  <block id="fa69aa564bc90d7adecfb54c289d23be" category="section-title">Verwendung von Cisco Ports für Controller in einer MetroCluster-Konfiguration mit zwei Nodes</block>
-  <block id="762b426bcd4ea34fc55a0f899cf2086d" category="section-title">Cisco Port-Verwendung für FC-to-SAS-Bridges in einer MetroCluster-Konfiguration mit zwei Knoten unter ONTAP 9.0</block>
-  <block id="ba2044d8a6c35bb667c35d13e7a3277d" category="section-title">Verwendung von Cisco 9148- oder 9148S-Ports für ISLs auf einer MetroCluster-Konfiguration mit zwei Knoten unter ONTAP 9.0</block>
-  <block id="2bc92937819403549f510c08d8a54058" category="paragraph">Die folgende Tabelle zeigt den ISL-Port-Einsatz für Cisco Switches mit 9148 oder 9148S:</block>
-  <block id="e936a0e4e03d3d3120e966eca42a0b28" category="section-title">Cisco 9250i Port-Verwendung für ISLs in einer MetroCluster-Konfiguration mit zwei Nodes mit ONTAP 9.0</block>
   <block id="2fb10535c586c96b3774f785a3997a21" category="paragraph"><block ref="69cfa26d6e6345bb4eef9a298daa32f3" prefix="" category="inline-code"></block></block>
   <block id="9d9aef7264cbb39bb4c46c285f3b1647" category="paragraph"><block ref="c55b2fab97bf32977f3799d9d5689c0b" prefix="" category="inline-code"></block></block>
   <block id="43f3f166376065e515d7eb33479e4f37" category="paragraph"><block ref="0f0a05e9497053a21c6cfccec36a35fa" prefix="" category="inline-code"></block></block>
@@ -10587,7 +10534,6 @@
   <block id="af0774f5fa525955d74c2e77f5dab7e6" category="summary">Nach Abschluss der MetroCluster Konfiguration können Sie die Überwachung mit dem Tiebreaker oder Mediator Utility fortsetzen.</block>
   <block id="36588e2aa5ad4fcf60167b3daa06db5a" category="list-text">Verwenden Sie das entsprechende Verfahren für Ihre Konfiguration.</block>
   <block id="7efa6fc838c006d396e42638b4ff25d1" category="paragraph"><block ref="7efa6fc838c006d396e42638b4ff25d1" category="inline-link-macro-rx"></block></block>
-  <block id="fe45fe811f6f58baafc88df1114b43df" category="paragraph">Link:../install-ip/concept_mediator_requirements.html #Configuring-the-ontap-Mediator-Service-from-a-metrocluster-ip-Configuration[Konfigurieren des ONTAP Mediator Service über eine MetroCluster IP-Konfiguration]</block>
   <block id="90d2c7ccf614b1c19cd9a73b325ab425" category="summary">Für den unterbrechungsfreien Wechsel von MetroCluster FC zu IP Nodes müssen Sie FC SAN Host-Objekte unterbrechungsfrei von MetroCluster FC auf IP Nodes verschieben.</block>
   <block id="aba0064857c6ce89cc764da8d55ce5c1" category="doc">Verschieben eines FC SAN-Workloads von MetroCluster FC- zu MetroCluster IP-Nodes</block>
   <block id="73f9743e086ef8ac735d8d9a5a299535" category="list-text">Neue FC-Schnittstellen (LIFS) an MetroCluster IP-Nodes einrichten:</block>
@@ -11287,7 +11233,6 @@
   <block id="f230aa9272cfae103f41403290ae21df" category="list-text">Shelf_A_1_2</block>
   <block id="3045f5f4f1093cf13cd0757dba1576cb" category="list-text">Shelf_B_1_1</block>
   <block id="1a10354dd8ac3ce1f01a352c0c19ac1d" category="list-text">Shelf_B_1_2</block>
-  <block id="76379c0e7357a2749284a8099ed9c896" category="paragraph">Ihre Version von ONTAP muss Shelf-Mix unterstützen. Informieren Sie sich im Interoperabilitäts-Matrix-Tool (IMT), ob Ihre Version von ONTAP Shelf-Mischungen unterstützt.<block ref="02d7a1e934f8b62a0243dc749b1b650b" category="inline-link-rx"></block></block>
   <block id="40478efcbffc865e999b3e1e2108a0cc" category="paragraph">Weitere Informationen zum Anmischen von Regalen finden Sie unter:<block ref="532c1f47a9370f9e21538610051f3830" category="inline-link-rx"></block></block>
   <block id="5380d63de85a85219611f8b45f5c6e20" category="summary">Die FC-VI-Adapter jedes Controllers müssen direkt mit dem Partner verbunden sein.</block>
   <block id="c30a34e27a8f90d73144f28a874b413d" category="doc">Verkabeln Sie die Controller miteinander</block>
@@ -11543,7 +11488,6 @@
   <block id="e11100cda92220a37aefe15b3df72fc6" category="section-title">Mindestens vier SAS-Platten-Shelves (empfohlen)</block>
   <block id="3e203d1fe20288fbdc8e4b477bffda73" category="paragraph">Bei der SAS-Attached Stretch MetroCluster Konfiguration sind mindestens zwei SAS-Festplatten-Shelfs erforderlich. Wir empfehlen vier SAS-Platten-Shelves.</block>
   <block id="a862108f875d286d39adac239f0619d5" category="paragraph">Es werden zwei Shelves an jedem Standort empfohlen, damit die Festplatteneigentümer pro Shelf sind. Es wird mindestens ein Shelf an jedem Standort unterstützt.</block>
-  <block id="d5d16fad39e71fb59dc90d88df5e1025" category="paragraph">Ihre Version von ONTAP muss Shelf-Mix unterstützen. Informieren Sie sich im Interoperabilitäts-Matrix-Tool (IMT), ob Ihre Version von ONTAP Shelf-Mischungen unterstützt.<block ref="ac420cca75b9dbbf7e4e74995a005185" category="inline-link-rx"></block></block>
   <block id="e5e4a159b56e91f667faa79be11c280f" category="paragraph">Weitere Informationen zum Anmischen von Regalen finden Sie unter:<block ref="96c52bfd2d59063b848ae852888ce36d" category="inline-link-rx"></block></block>
   <block id="e0dd1e85604316427a557d67b3079843" category="summary">Sie müssen die korrekte Installation basierend darauf auswählen, ob Sie FlexArray LUNs verwenden und wie die Storage-Controller mit Storage-Shelfs verbinden.</block>
   <block id="c4680bcc4ac229ac4b7d5d145927a0ea" category="doc">Auswahl des richtigen Installationsverfahrens für Ihre Konfiguration</block>
@@ -12442,7 +12386,6 @@
   <block id="3e3df3be76a18ca2c89904765d97f078" category="list-text">Mit dem folgenden Befehl auf beiden Clustern bestätigen Sie, dass ein Takeover möglich ist und die Nodes verbunden sind:</block>
   <block id="3963205d7c5d1cb2f000d61f16c10f1d" category="paragraph">24 interne Laufwerke</block>
   <block id="7632b8724806890acaf96c668d641251" category="inline-link-macro">Erfahren Sie mehr über die automatische Laufwerkszuordnung und ADP-Systeme in MetroCluster IP-Konfigurationen</block>
-  <block id="85488d881ebf03beb1eca3be4b5fda44" category="paragraph">Ihre Version von ONTAP muss Shelf-Mix unterstützen. Siehe<block ref="e78382cc6f841e7f00c97b18a2e30f41" category="inline-link-rx"></block> Um zu prüfen, ob Ihre Version von ONTAP Shelf-Mischungen unterstützt.</block>
   <block id="5fdc7ff67ace146413ecd7d44157aca4" category="paragraph">Weitere Informationen zum Anmischen von Regalen finden Sie unter<block ref="532c1f47a9370f9e21538610051f3830" category="inline-link-rx"></block></block>
   <block id="e868bded76541295e018b74bb15a7920" category="inline-link-macro">Überblick über Installation und Konfiguration von NVIDIA SN2100-Switches</block>
   <block id="b86c7f3554d9472f6a1e417c7f70fb18" category="admonition">Weitere Informationen zur Installation von Cumulus Linux finden Sie unter <block ref="ac21c0d53d9fcd547ee85e9d73d53854" category="inline-link-macro-rx"></block></block>
@@ -12724,9 +12667,7 @@
   <block id="fdf5e2eb479f201de0c9c62e9a32e769" category="paragraph">Wenn Sie einem vorhandenen Cluster neue Nodes ohne standardmäßige Broadcast-Domäne hinzufügen, werden für die neuen Nodes Node-Management-LIFs erstellt, die nicht die erwarteten Namen verwenden, sondern UIDs (Universal Unique Identifiers). Weitere Informationen finden Sie im Knowledge Base-Artikel<block ref="4808e3ddae1b3b2c14dc148b67bd36ea" category="inline-link-rx"></block>.</block>
   <block id="f6410291c32fa961402f5a821c332f6c" category="list-text">Stellen Sie sicher, dass die alten und neuen Plattformmodelle für die gemeinsame Verwendung der Plattformen unterstützt werden.</block>
   <block id="e220a628f1c5f8fb65824aaeb387520e" category="list-text">Überprüfen Sie, ob die alten und die neuen Plattformmodelle von den IP-Switches unterstützt werden.</block>
-  <block id="56f1ca12910041b73ea6fcc9bc18a954" category="paragraph">Ab ONTAP 9.4 unterstützen MetroCluster IP-Konfigurationen neue Installationen mit ADP (Advanced Drive Partitioning).</block>
   <block id="72a38a5af8be1c706e478add3356ba90" category="paragraph">Bei der Verwendung von ADP mit MetroCluster IP-Konfigurationen sollten Sie die folgenden Überlegungen beachten:</block>
-  <block id="3cae0a231aac97485961fb33cea76ca2" category="list-text">ONTAP 9.4 und höher ist für die Verwendung von ADP mit MetroCluster IP Konfigurationen erforderlich.</block>
   <block id="959bb45d9851a2b3efaeb05db74e0a80" category="list-text">ADPv2 wird in MetroCluster IP-Konfigurationen unterstützt.</block>
   <block id="a393732e5defe7b7a921a586e53ec51d" category="list-text">Das Root-Aggregat muss sich in Partition 3 für alle Knoten auf beiden Standorten befinden.</block>
   <block id="9ef6aecb7d030435d81fe80cacca477e" category="list-text">Die Partitionierung und Festplattenzuordnung erfolgt automatisch bei der Erstkonfiguration der MetroCluster Standorte.</block>
@@ -13273,12 +13214,6 @@ Gilt für alle MetroCluster Konfigurationen.</block>
   <block id="0351289236b3260f9d0c35b64f62689c" category="paragraph">Sie können die Verkabelung für die FibreBridge 7500N oder 7600N Bridge nur mit einem FC-Port (FC1 oder FC2) verfolgen. Verbinden Sie statt vier Initiatoren nur zwei Initiatoren, und lassen Sie die anderen beiden, die mit dem Switch-Port verbunden sind, leer.</block>
   <block id="4883312b6c36aa2f1d5ce2e2f17638bd" category="paragraph">Wenn das Zoning manuell durchgeführt wird, folgen Sie dem Zoning für eine FibreBridge 7500N- oder 7600N-Bridge mit einem FC-Port (FC1 oder FC2). In diesem Szenario wird jedem Zonenmitglied pro Fabric ein Initiator-Port und nicht zwei hinzugefügt.</block>
   <block id="1e008e69dc731ad28df3d6927462a7f3" category="paragraph">Sie können das Zoning ändern oder ein Upgrade von einer FibreBridge 6500N auf eine FibreBridge 7500N durchführen. Gehen Sie dazu wie unter beschrieben vor <block ref="0b4bc6296d77be28e33d3b50e0ea0797" category="inline-link-macro-rx"></block>.</block>
-  <block id="803d845c069720e0ec75ee03ea5a43d4" category="paragraph">Die folgende Tabelle zeigt die Verwendung von Bridge-Ports bei der Verwendung von FibreBridge 7500N- und 7600N-Bridges:</block>
-  <block id="2cd1f3df6c3bbd7c9891d742ad23d04a" category="cell">FibreBridge 7500N- oder 7600N-Bridge</block>
-  <block id="81b2aac60df91543fcf4f05563b1f80e" category="paragraph">Die folgende Tabelle zeigt die Verwendung von Bridge-Ports bis zu Port 17 bei der Verwendung von FibreBridge 7500N- und 7600N-Bridges. Zusätzliche Brücken können an die Anschlüsse 18 bis 23 angeschlossen werden.</block>
-  <block id="85878b4f87459062c8904a27720ba2be" category="paragraph">Die folgende Tabelle zeigt die Verwendung von Bridge-Ports bis zu Port 23 bei der Verwendung von FibreBridge 7500N- oder 7600N-Bridges. Zusätzliche Brücken können über die Ports 25 bis 48 befestigt werden.</block>
-  <block id="6f40fc62599b436af99e9090bcb1fe21" category="paragraph">Die folgende Tabelle zeigt die Verwendung von Bridge-Ports bis zu Port 14 bei der Verwendung von FibreBridge 7500N- oder 7600N-Bridges. Weitere Brücken können nach dem gleichen Muster an den Ports 15 bis 32 befestigt werden.</block>
-  <block id="836f2645702f9125726ff7335ed42bd5" category="paragraph">Die folgende Tabelle zeigt die Verwendung von Bridge-Ports bis zu Port 14 bei der Verwendung von FibreBridge 7500N- und 7600N-Bridges. Weitere Brücken können nach dem gleichen Muster an den Ports 15 bis 32 befestigt werden.</block>
   <block id="7f921cbd9f23de85fa3d483b640e428b" category="open-title">Wenn die Nodes ausgeschaltet sind:</block>
   <block id="5f4eaac69c780a3f8ab154192e4a1a26" category="paragraph">Schalten Sie die Nodes ein.</block>
   <block id="2900f8420dafccee0a2692e48506c6cb" category="open-title">Wenn die Eingabeaufforderung des LOADERS für DIE Nodes angezeigt wird:</block>
@@ -13340,12 +13275,6 @@ Gilt für alle MetroCluster Konfigurationen.</block>
   <block id="1cef707d96d59ea52cd45984a36d2f11" category="list-text">Schalten Sie die IP-Switches ein.</block>
   <block id="ac8327044a4ce63889944095a1b6aed8" category="list-text">Schalten Sie die Shelfs ein, damit sie sich vollständig einschalten können.</block>
   <block id="d5061566f9570e151daa3fd59fb31405" category="list-text">Überprüfen Sie, ob der lokale Speicher vom Knoten im Wartungsmodus sichtbar ist:</block>
-  <block id="7a492d8ba3deac8ecd729c56c1058794" category="paragraph">Die folgende Tabelle zeigt die Verwendung von Bridge-Ports bei der Verwendung von FibreBridge 7500N- oder 7600N-Bridges:</block>
-  <block id="2d5d944d1466716b339b20936cc4b7ec" category="paragraph">Die folgende Tabelle zeigt die Verwendung von Bridge-Ports bis zu Port 17 bei der Verwendung von FibreBridge 7500N- oder 7600N-Bridges. Zusätzliche Brücken können an die Anschlüsse 18 bis 23 angeschlossen werden.</block>
-  <block id="f912eaa76cd834cbed98a7201254e72e" category="paragraph">Die folgende Tabelle zeigt die Verwendung von Bridge-Ports bis zu Port 17 bei Verwendung von FibreBridge 7500N- oder 7600N-Bridges mit Brocade 6505-, 6510- und DCX 8510-8-Switches. Zusätzliche Brücken können an die Anschlüsse 18 bis 23 angeschlossen werden.</block>
-  <block id="e75c88d98fec123855e6503ffa20ae16" category="paragraph">Die folgende Tabelle zeigt die Verwendung von Bridge Ports bis zu Port 23 bei Verwendung von FibreBridge 7500N- oder 7600N-Bridges mit Cisco 9148- oder 9148S-Switches.</block>
-  <block id="0d792f55f305e85c0f763a05b6d33ae1" category="paragraph">Die folgende Tabelle zeigt die Verwendung von Bridge Ports bis zu Port 14 bei Verwendung von FibreBridge 7500N- oder 7600N-Bridges mit Cisco 9148-, 9148S- oder 9250i-Switches. Weitere Brücken können nach dem gleichen Muster an den Ports 15 bis 32 befestigt werden.</block>
-  <block id="972c5512c843cde59ea3263b1073efea" category="paragraph">Die folgende Tabelle zeigt die Verwendung von Bridge Ports bis zu Port 14 bei Verwendung von FibreBridge 7500N- oder 7600N-Bridges mit Cisco Switches 9148, 9148S und 9250i. Weitere Brücken können nach dem gleichen Muster an den Ports 15 bis 32 befestigt werden.</block>
   <block id="8bc67669b17eba9ca754ee74dd34564c" category="list-text">Wenn Sie die FIPS-konforme Version von EFOS verwenden, generieren Sie die ECDSA-Schlüssel. Im folgenden Beispiel werden die Schlüssel mit einer Länge von 521 erstellt. Gültige Werte sind 256, 384 oder 521.</block>
   <block id="8eb0b3dc24b7128748cd767385d5a9f2" category="paragraph">Jeder Node in der MetroCluster IP-Konfiguration verfügt über dedizierte Schnittstellen zur Verbindung mit dem Back-End IP-Netzwerk:</block>
   <block id="ad1b97f0744b9c154b01cc69afb505d7" category="list-text">Zwei lokale Cluster-Schnittstellen</block>
@@ -13772,4 +13701,15 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="478093bd7e01c5abe587038bf808af00" category="paragraph">Die folgenden Tabellen zeigen die Portnutzung auf einem Cisco 9132T-Switch. Die Tabellen zeigen die maximal unterstützten Konfigurationen mit vier und acht Controller-Modulen in zwei DR-Gruppen.</block>
   <block id="9e667988f536ce55f0a4c5cf0908d042" category="cell">Cisco 9132T mit 2x LEM und einer MetroCluster- oder DR-Gruppe mit vier Knoten</block>
   <block id="7d83eb0736445dbf18519e99146d2fff" category="cell">Cisco 9132T mit zwei MetroCluster mit vier Nodes oder einem MetroCluster mit acht Nodes mit zwei DR-Gruppen</block>
+  <block id="a786547181c9c8f446791420d2be691f" category="paragraph">Ihre Version von ONTAP muss Shelf-Mix unterstützen. Siehe<block ref="f93341e63c1888be05256ff042174623" category="inline-link-rx"></block> Um zu prüfen, ob Ihre Version von ONTAP Shelf-Mischungen unterstützt.</block>
+  <block id="27211cf5d485f8491ca9b566aefe2d6d" category="paragraph">Ab ONTAP 9.4 unterstützen MetroCluster IP-Konfigurationen neue Installationen mithilfe von automatischer Festplattenzuweisung und ADP (Advanced Drive Partitioning).</block>
+  <block id="e528d26e96f91b34e70a35c4661d620d" category="list-text">ONTAP 9.4 und höher ist für die Verwendung von ADP mit MetroCluster IP Konfigurationen auf AFF und ASA Systemen erforderlich.</block>
+  <block id="bacc4dbebf17d22c9a0361ded0994067" category="paragraph"><block ref="bacc4dbebf17d22c9a0361ded0994067" category="inline-link-macro-rx"></block></block>
+  <block id="bc8be72fdc9d6054f356bb2b7f80fd12" category="inline-link">NetApp Interoperabilitätsmatrix</block>
+  <block id="769db6797bc8c70f9ceb0ea238fcfef2" category="list-text"><block ref="769db6797bc8c70f9ceb0ea238fcfef2" category="inline-link-rx"></block></block>
+  <block id="c9dd6bad4c7d561872f2e2d498a990bf" category="inline-link-macro">Interoperabilitäts-Matrix-Tool (IMT)</block>
+  <block id="520ac91f29d97371c4fac829efc70617" category="admonition">Wenn auf dem System eine unterstützte Version von ONTAP ausgeführt wird, wird eine Kombination aus IOM12-Modulen und IOM6-Modulen im selben Stack unterstützt. Informationen darüber, ob Ihre Version von ONTAP die Shelf-Mischung unterstützt, finden Sie im <block ref="cd3982462c40dc1b1a511ada7c72bab9" category="inline-link-macro-rx"></block>. Wenn Ihre Version von ONTAP nicht unterstützt wird und Sie die IOM-Module im vorhandenen Stack oder das neue Shelf, das einer unterstützten Kombination von IOM-Modulen hinzugefügt werden soll, nicht aktualisieren oder herunterstufen können, müssen Sie einen der folgenden Schritte durchführen:</block>
+  <block id="c5dcd35af16918a17ee9c3a5c153f0af" category="inline-link">IMT</block>
+  <block id="24d65add9a27d74b80e9a9cebdfc8e56" category="paragraph">Ihre Version von ONTAP muss Shelf-Mix unterstützen. Informieren Sie sich im Interoperabilitäts-Matrix-Tool (IMT), ob Ihre Version von ONTAP Shelf-Mischungen unterstützt.<block ref="30796bf173a80af0dc9c120f98ffaed6" category="inline-link-rx"></block></block>
+  <block id="8872b0d09737dfd9b6fcafd4e8c2356b" category="list-text"><block ref="8872b0d09737dfd9b6fcafd4e8c2356b" category="inline-link-rx"></block></block>
 </blocks>
