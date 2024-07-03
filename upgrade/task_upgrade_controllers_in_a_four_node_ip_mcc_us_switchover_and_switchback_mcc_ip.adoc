@@ -19,7 +19,6 @@ Mit ONTAP 9.8 ermöglicht die MetroCluster Umschaltung unterbrechungsfreien Serv
 
 * Die Plattformen müssen ONTAP 9.8 oder höher ausführen.
 * Die Ziel-Plattform (neue) muss ein anderes Modell sein als die ursprüngliche Plattform.
-* Plattformmodelle mit internen Shelfs werden nicht unterstützt.
 * Mit diesem Verfahren können Sie nur bestimmte Plattformmodelle in einer MetroCluster IP-Konfiguration aktualisieren.
 +
 ** Informationen darüber, welche Kombinationen von Plattform-Upgrades unterstützt werden, finden Sie in der MetroCluster IP-Upgrade-Tabelle unter link:concept_choosing_controller_upgrade_mcc.html["Wählen Sie ein Controller-Upgrade-Verfahren"].
@@ -39,54 +38,95 @@ Siehe https://docs.netapp.com/us-en/ontap-metrocluster/upgrade/concept_choosing_
 +
 Das Ausführen der MetroCluster-Konfiguration mit unterschiedlichen Controller-Typen wird außerhalb dieser Wartungsaktivitäten nicht unterstützt.
 
-* Auf den IP-Switches muss eine unterstützte Firmware-Version ausgeführt werden.
+* Die MetroCluster IP Switches (Switch-Typ, Anbieter und Modell) und Firmware-Version müssen von den vorhandenen und neuen Controllern in Ihrer Upgrade-Konfiguration unterstützt werden.
++
+Informationen zu unterstützten Switches und Firmware-Versionen finden Sie im link:https://hwu.netapp.com["NetApp Hardware Universe"^] oder im link:https://imt.netapp.com/matrix/["IMT"^] .
+
+* Wenn es auf Ihrem System aktiviert ist, link:../maintain/task-configure-encryption.html#disable-end-to-end-encryption["End-to-End-Verschlüsselung deaktivieren"] bevor Sie das Upgrade durchführen.
 * Wenn die neue Plattform weniger Steckplätze als das ursprüngliche System besitzt oder weniger oder unterschiedliche Ports vorhanden sind, müssen Sie dem neuen System möglicherweise einen Adapter hinzufügen.
+* Sie verwenden die IP-Adressen, Netmasken und Gateways der ursprünglichen Plattformen auf den neuen Plattformen wieder.
+
+
+Folgende Beispielnamen werden in diesem Verfahren verwendet:
+
+* Standort_A
 +
-Weitere Informationen finden Sie im https://hwu.netapp.com/["NetApp Hardware Universe"].
-
-* Wenn es auf Ihrem System aktiviert ist, link:../maintain/task-configure-encryption.html#disable-end-to-end-encryption["End-to-End-Verschlüsselung deaktivieren"] Bevor Sie das Controller-Upgrade durchführen.
-* Auf den neuen Plattformen werden die IP-Adressen, Netmasken und Gateways der ursprünglichen Plattformen wiederverwendet.
-* Folgende Beispielnamen werden in diesem Verfahren verwendet:
+** Vor dem Upgrade:
 +
-** Standort_A
+*** Node_A_1-alt
+*** Node_A_2-alt
+
+
+** Nach dem Upgrade:
 +
-*** Vor dem Upgrade:
+*** Node_A_1-neu
+*** Node_A_2-neu
+
+
+
+
+* Standort_B
 +
-**** Node_A_1-alt
-**** Node_A_2-alt
-
-
-*** Nach dem Upgrade:
+** Vor dem Upgrade:
 +
-**** Node_A_1-neu
-**** Node_A_2-neu
+*** Node_B_1-alt
+*** Node_B_2-alt
 
 
-
-
-** Standort_B
+** Nach dem Upgrade:
 +
-*** Vor dem Upgrade:
+*** Node_B_1-neu
+*** Node_B_2-neu
+
+
+
+
+
+
+
+
+== Legen Sie den erforderlichen Bootarg auf dem vorhandenen System fest
+
+Wenn Sie ein Upgrade auf ein AFF A70-, AFF A90- oder AFF A1K-System durchführen, befolgen Sie die Schritte zum Einstellen des `hw.cxgbe.toe_keepalive_disable=1` Bootarg.
+
+
+CAUTION: Wenn Sie ein Upgrade auf ein AFF A70-, AFF A90- oder AFF A1K-System durchführen, müssen Sie diese Aufgabe vor dem Upgrade ausführen. Diese Aufgabe *only* gilt für Upgrades auf ein AFF A70-, AFF A90- oder AFF A1K-System von einem unterstützten System. Für alle anderen Upgrades können Sie diese Aufgabe überspringen und direkt zu gehen <<prepare_so_sb_upgrade,Bereiten Sie sich auf das Upgrade vor>>.
+
+.Schritte
+. Halten Sie einen Node an jedem Standort an und erlauben Sie dem HA-Partner, einen Storage-Takeover des Node durchzuführen:
 +
-**** Node_B_1-alt
-**** Node_B_2-alt
+`halt  -node <node_name>`
 
-
-*** Nach dem Upgrade:
+. Geben Sie an `LOADER` der Eingabeaufforderung des angehaltenen Node Folgendes ein:
 +
-**** Node_B_1-neu
-**** Node_B_2-neu
+`setenv hw.cxgbe.toe_keepalive_disable 1`
+
++
+`saveenv`
+
++
+`printenv hw.cxgbe.toe_keepalive_disable`
+
+. Booten des Node:
++
+`boot_ontap`
+
+. Führen Sie beim Booten des Node ein Giveback für den Node durch, um folgende Eingabeaufforderung zu erhalten:
++
+`storage failover giveback -ofnode <node_name>`
+
+. Wiederholen Sie die Schritte für jeden Knoten in der DR-Gruppe, der aktualisiert wird.
 
 
 
 
+== Bereiten Sie sich auf das Upgrade vor
+
+Bevor Sie Änderungen an der bestehenden MetroCluster Konfiguration vornehmen, müssen Sie den Zustand der Konfiguration überprüfen, die neuen Plattformen vorbereiten und andere verschiedene Aufgaben ausführen.
 
 
 
-
-
-
-== Workflow für das Upgrade von Controllern in einer MetroCluster IP-Konfiguration
+=== Workflow für das Upgrade von Controllern in einer MetroCluster IP-Konfiguration
 
 Mithilfe des Workflow-Diagramms können Sie Upgrade-Aufgaben planen.
 
@@ -94,13 +134,7 @@ image::../media/workflow_ip_upgrade.png[Workflow-ip-Upgrade]
 
 
 
-== Vorbereitung auf das Upgrade
-
-Bevor Sie Änderungen an der bestehenden MetroCluster Konfiguration vornehmen, müssen Sie den Zustand der Konfiguration überprüfen, die neuen Plattformen vorbereiten und andere verschiedene Aufgaben ausführen.
-
-
-
-=== Aktualisieren der RCF-Dateien des MetroCluster-Switch vor dem Aktualisieren der Controller
+=== Aktualisieren Sie die RCF-Dateien des MetroCluster-Switch, bevor Sie die Controller aktualisieren
 
 Abhängig von den alten Plattformmodellen, oder wenn die Switch-Konfiguration nicht auf der Mindestversion steht oder wenn Sie die von den Back-End MetroCluster-Verbindungen verwendeten VLAN-IDs ändern möchten, müssen Sie die RCF-Dateien des Switches aktualisieren, bevor Sie mit dem Verfahren zum Plattformupgrade beginnen.
 
@@ -168,27 +202,29 @@ Bei einem Upgrade der Controller On Site_A werden die Switches von Site_A aktual
 .Schritte
 . Bereiten Sie die IP-Schalter für die Anwendung der neuen RCF-Dateien vor.
 +
-Folgen Sie den Schritten im Abschnitt Ihres Switch-Anbieters vom link:../install-ip/concept_considerations_differences.html["Installation und Konfiguration von MetroCluster IP"].
+Befolgen Sie die Schritte im Abschnitt für Ihren Switch-Anbieter:
 
 +
-** link:../install-ip/task_switch_config_broadcom.html["Zurücksetzen des Broadcom IP-Switches auf die Werkseinstellungen"]
-** link:../install-ip/task_switch_config_cisco.html["Zurücksetzen des Cisco IP-Switches auf die Werkseinstellungen"]
+** link:../install-ip/task_switch_config_broadcom.html["Setzen Sie den Broadcom IP-Switch auf die Werkseinstellungen zurück"]
+** link:../install-ip/task_switch_config_cisco.html["Setzen Sie den Cisco IP-Switch auf die Werkseinstellungen zurück"]
+** link:../install-ip/task_switch_config_nvidia.html["Setzen Sie den NVIDIA IP SN2100-Switch auf die Werkseinstellungen zurück"]
 
 
 . Laden Sie die RCF-Dateien herunter und installieren Sie sie.
 +
-Befolgen Sie die Schritte unter link:../install-ip/concept_considerations_differences.html["Installation und Konfiguration von MetroCluster IP"].
+Befolgen Sie die Schritte im Abschnitt für Ihren Switch-Anbieter:
 
 +
-** link:../install-ip/task_switch_config_broadcom.html["Herunterladen und Installieren der Broadcom RCF-Dateien"]
-** link:../install-ip/task_switch_config_cisco.html["Herunterladen und Installieren der Cisco IP RCF-Dateien"]
+** link:../install-ip/task_switch_config_broadcom.html["Laden Sie die Broadcom RCF-Dateien herunter, und installieren Sie sie"]
+** link:../install-ip/task_switch_config_cisco.html["Laden Sie die Cisco IP RCF-Dateien herunter, und installieren Sie sie"]
+** link:../install-ip/task_switch_config_nvidia.html#download-and-install-the-nvidia-rcf-files["Laden Sie die NVIDIA IP RCF-Dateien herunter, und installieren Sie sie"]
 
 
 
 
 
 
-=== Zuordnen von Ports von den alten Nodes zu den neuen Nodes
+=== Weisen Sie den neuen Nodes Ports von den alten Nodes zu
 
 Sie müssen überprüfen, ob die physischen Ports auf Node_A_1-old den physischen Ports auf Node_A_1-New korrekt zugeordnet sind. Dadurch kann Node_A_1-New nach dem Upgrade mit anderen Knoten im Cluster und mit dem Netzwerk kommunizieren.
 
@@ -377,7 +413,7 @@ Intercluster-Port
 
 
 
-=== Netbootting der neuen Controller
+=== Booten Sie die neuen Controller ein
 
 Nachdem Sie die neuen Nodes installiert haben, müssen Sie als Netzboot fahren, damit die neuen Nodes dieselbe Version von ONTAP wie die ursprünglichen Nodes ausführen. Der Begriff Netzboot bedeutet, dass Sie über ein ONTAP Image, das auf einem Remote Server gespeichert ist, booten. Wenn Sie das Netzboot vorbereiten, müssen Sie eine Kopie des ONTAP 9 Boot Images auf einem Webserver ablegen, auf den das System zugreifen kann.
 
@@ -388,39 +424,14 @@ Nachdem Sie die neuen Nodes installiert haben, müssen Sie als Netzboot fahren, 
 .. Laden Sie die entsprechende ONTAP Software im Bereich Software Downloads auf der NetApp Support Website herunter und speichern Sie die `ontap-version_image.tgz` Datei in einem webbasierten Verzeichnis.
 .. Wechseln Sie in das Verzeichnis für den Zugriff über das Internet, und stellen Sie sicher, dass die benötigten Dateien verfügbar sind.
 +
-[cols="1,3"]
-|===
-
-
-| Wenn das Plattformmodell... | Dann... 
-
-
- a| 
-8000 Series Systeme
- a| 
-Extrahieren Sie den Inhalt des `__ontap-version___image.tgz` Datei zum Zielverzeichnis:
-
-`tar -zxvf __ontap-version___image.tgz`
-
-
-NOTE: Wenn Sie die Inhalte unter Windows extrahieren, verwenden Sie 7-Zip oder WinRAR, um das Netzboot-Bild zu extrahieren. Ihre Verzeichnisliste sollte einen Netzboot-Ordner mit einer Kernel-Datei:Netzboot/Kernel enthalten
-
 Ihre Verzeichnisliste sollte einen Netzboot-Ordner mit einer Kernel-Datei enthalten:
 
-`netboot/kernel`
-
-
-
- a| 
-Alle anderen Systeme
- a| 
-Ihre Verzeichnisliste sollte einen Netzboot-Ordner mit einer Kernel-Datei enthalten:
-
++
 `_ontap-version_image.tgz`
 
++
 Sie müssen den nicht extrahieren `_ontap-version_image.tgz` Datei:
 
-|===
 .. Konfigurieren Sie an der Eingabeaufforderung DES LOADERS die Netzboot-Verbindung für eine Management-LIF:
 +
 |===
@@ -448,25 +459,8 @@ Konfigurieren Sie die manuelle Verbindung:
 |===
 .. Führen Sie den Netzboot aus.
 +
-|===
-
-
-| Wenn das Plattformmodell... | Dann... 
-
-
- a| 
-Systeme der FAS/AFF8000 Serie
- a| 
-`netboot http://_web_server_ip/path_to_web-accessible_directory_/netboot/kernel`
-
-
-
- a| 
-Alle anderen Systeme
- a| 
 `netboot \http://_web_server_ip/path_to_web-accessible_directory/ontap-version_image.tgz`
 
-|===
 .. Wählen Sie im Startmenü die Option **(7) Neue Software zuerst installieren** aus, um das neue Software-Image auf das Startgerät herunterzuladen und zu installieren.
 +
 Ignorieren Sie die folgende Meldung:
@@ -483,7 +477,7 @@ Ignorieren Sie die folgende Meldung:
 +
 [listing]
 ----
-Do you want to restore the backup configuration now? {y|n} **n**
+Do you want to restore the backup configuration now? {y|n} n
 ----
 .. Starten Sie den Neustart durch Eingabe `*y*` Wenn eine Eingabeaufforderung wie die folgende angezeigt wird:
 +
@@ -497,7 +491,7 @@ The node must be rebooted to start using the newly installed software. Do you wa
 
 
 
-=== Löschen der Konfiguration auf einem Controller-Modul
+=== Löschen Sie die Konfiguration auf einem Controller-Modul
 
 [role="lead"]
 Bevor Sie in der MetroCluster-Konfiguration ein neues Controller-Modul verwenden, müssen Sie die vorhandene Konfiguration löschen.
@@ -537,7 +531,7 @@ Antworten `yes` An die Bestätigungsaufforderung.
 
 
 
-=== Überprüfen des MetroCluster-Systemzustands vor Standort-Upgrades
+=== Überprüfen Sie vor Standort-Upgrade den MetroCluster-Zustand
 
 Vor dem Upgrade müssen Sie den Zustand und die Konnektivität der MetroCluster Konfiguration überprüfen.
 
@@ -545,7 +539,7 @@ Vor dem Upgrade müssen Sie den Zustand und die Konnektivität der MetroCluster 
 . Überprüfen Sie den Betrieb der MetroCluster-Konfiguration in ONTAP:
 +
 .. Prüfen Sie, ob die Knoten multipathed sind: +
-`node run -node _node-name_ sysconfig -a`
+`node run -node <node_name> sysconfig -a`
 +
 Sie sollten diesen Befehl für jeden Node in der MetroCluster-Konfiguration ausgeben.
 
@@ -613,7 +607,7 @@ https://mysupport.netapp.com/site/tools/tool-eula/activeiq-configadvisor["NetApp
 
 
 
-=== Sammeln von Informationen vor dem Upgrade
+=== Sammeln Sie vor dem Upgrade Informationen
 
 Vor dem Upgrade müssen Informationen für alle Nodes gesammelt und bei Bedarf die Netzwerk-Broadcast-Domänen angepasst, beliebige VLANs und Schnittstellengruppen entfernt und Verschlüsselungsinformationen gesammelt werden.
 
@@ -627,15 +621,20 @@ Sie sollten die Ausgabe der folgenden Befehle für jeden Node erfassen:
 ** `metrocluster interconnect show`
 ** `metrocluster configuration-settings connection show`
 ** `network interface show -role cluster,node-mgmt`
-** `network port show -node node_name -type physical`
-** `network port vlan show -node _node-name_`
-** `network port ifgrp show -node _node_name_ -instance`
+** `network port show -node <node_name> -type physical`
+** `network port vlan show -node <node_name>`
+** `network port ifgrp show -node <node_name> -instance`
 ** `network port broadcast-domain show`
 ** `network port reachability show -detail`
 ** `network ipspace show`
 ** `volume show`
 ** `storage aggregate show`
-** `system node run -node _node-name_ sysconfig -a`
+** `system node run -node <node_name> sysconfig -a`
+** `aggr show -r`
+** `disk show`
+** `system node run <node-name> disk show`
+** `vol show -fields type`
+** `vol show -fields type , space-guarantee`
 ** `vserver fcp initiator show`
 ** `storage disk show`
 ** `metrocluster configuration-settings interface show`
@@ -772,7 +771,7 @@ dr-group-id cluster     node     node-systemid ha-partner-systemid dr-partner-sy
 
 
 
-=== Mediator- oder Tiebreaker-Überwachung wird entfernt
+=== Entfernen Sie die Mediator- oder Tiebreaker-Überwachung
 
 Vor dem Aktualisieren der Plattformen müssen Sie die Überwachung entfernen, wenn die MetroCluster-Konfiguration mit dem Tiebreaker oder Mediator Utility überwacht wird.
 
@@ -815,7 +814,7 @@ Siehe Produktdokumentation.
 
 
 
-=== Senden einer benutzerdefinierten AutoSupport Meldung vor der Wartung
+=== Senden Sie vor der Wartung eine individuelle AutoSupport Nachricht
 
 Bevor Sie die Wartung durchführen, sollten Sie eine AutoSupport Meldung ausgeben, um den technischen Support von NetApp über die laufende Wartung zu informieren. Die Mitteilung des technischen Supports über laufende Wartungsarbeiten verhindert, dass ein Fall eröffnet wird, wenn eine Störung aufgetreten ist.
 
@@ -839,7 +838,7 @@ Der `maintenance-window-in-hours` Parameter gibt die Länge des Wartungsfensters
 
 
 
-== Umschalten der MetroCluster-Konfiguration
+== Wechseln Sie über die MetroCluster-Konfiguration
 
 Sie müssen die Konfiguration auf Site_A umschalten, damit die Plattformen auf Site_B aktualisiert werden können.
 
@@ -881,13 +880,13 @@ Das automatische Heilen von Aggregaten nach der ausgehandelten Umschaltung wird 
 
 
 
-== Entfernen von Schnittstellenkonfigurationen und Deinstallation der alten Controller
+== Entfernen Sie die Schnittstellenkonfigurationen, und deinstallieren Sie die alten Controller
 
 Sie müssen Daten-LIFs zu einem gemeinsamen Port verschieben, VLANs und Schnittstellengruppen auf den alten Controllern entfernen und dann die Controller physisch deinstallieren.
 
 .Über diese Aufgabe
 * Diese Schritte werden auf den alten Controllern ausgeführt (Node_B_1-old, Node_B_2-old).
-* Siehe die Informationen, die Sie in gesammelt haben link:task_upgrade_controllers_in_a_four_node_ip_mcc_us_switchover_and_switchback_mcc_ip.html["Zuordnen von Ports von den alten Nodes zu den neuen Nodes"].
+* Sehen Sie sich die Informationen an, die Sie in gesammelt link:task_upgrade_controllers_in_a_four_node_ip_mcc_us_switchover_and_switchback_mcc_ip.html["Weisen Sie den neuen Nodes Ports von den alten Nodes zu"]haben.
 
 
 .Schritte
@@ -911,8 +910,8 @@ e0d ist zum Beispiel ein physischer Port auf den alten Controllern und ist auch 
 +
 Informationen zur Portnutzung von Plattformmodellen finden Sie im https://hwu.netapp.com/["NetApp Hardware Universe"]
 
-.. Ändern Sie alle Daten-LIFS, um den gemeinsamen Port als Startport zu verwenden: +
-`network interface modify -vserver _svm-name_ -lif _data-lif_ -home-port _port-id_`
+.. Ändern Sie alle DATEN-LIFS, um den gemeinsamen Port als Home Port zu verwenden: +
+`network interface modify -vserver <svm-name> -lif <data-lif> -home-port <port-id>`
 +
 Im folgenden Beispiel ist dies "e0d".
 
@@ -926,10 +925,17 @@ network interface modify -vserver vs0 -lif datalif1 -home-port e0d
 ----
 
 
+. Ändern Sie Broadcast-Domänen, um VLAN und physische Ports zu entfernen, die gelöscht werden müssen:
++
+`broadcast-domain remove-ports -broadcast-domain <broadcast-domain-name> -ports <node-name:port-id>`
+
++
+Wiederholen Sie diesen Schritt für alle VLAN- und physischen Ports.
+
 . Entfernen Sie alle VLAN-Ports mithilfe von Cluster-Ports als Mitgliedsports und ifgrps, die Cluster-Ports als Mitgliedsports verwenden.
 +
 .. VLAN-Ports löschen: +
-`network port vlan delete -node _node-name_ -vlan-name _portid-vlandid_`
+`network port vlan delete -node <node_name> -vlan-name <portid-vlandid>`
 +
 Beispiel:
 
@@ -940,7 +946,7 @@ network port vlan delete -node node1 -vlan-name e1c-80
 ----
 .. Entfernen Sie physische Ports aus den Schnittstellengruppen:
 +
-`network port ifgrp remove-port -node _node-name_ -ifgrp _interface-group-name_ -port _portid_`
+`network port ifgrp remove-port -node <node_name> -ifgrp <interface-group-name> -port <portid>`
 
 +
 Beispiel:
@@ -950,13 +956,13 @@ Beispiel:
 ----
 network port ifgrp remove-port -node node1 -ifgrp a1a -port e0d
 ----
-.. Entfernen Sie VLAN und Interface Group Ports aus Broadcast-Domäne:
+.. Entfernen Sie VLAN- und Interface Group-Ports aus der Broadcast-Domäne:
 +
-`network port broadcast-domain remove-ports -ipspace _ipspace_ -broadcast-domain _broadcast-domain-name_ -ports _nodename:portname,nodename:portname_,..`
+`network port broadcast-domain remove-ports -ipspace <ipspace> -broadcast-domain <broadcast-domain-name> -ports <nodename:portname,nodename:portnamee>,..`
 
-.. Ändern Sie die Schnittstellengruppen-Ports, um bei Bedarf andere physische Ports als Mitglied zu verwenden:
+.. Ändern Sie die Schnittstellen-Gruppenanschlüsse, um andere physische Ports als Mitglied zu verwenden, falls erforderlich:
 +
-`ifgrp add-port -node _node-name_ -ifgrp _interface-group-name_ -port _port-id_`
+`ifgrp add-port -node <node_name> -ifgrp <interface-group-name> -port <port-id>`
 
 
 
@@ -976,48 +982,7 @@ network port ifgrp remove-port -node node1 -ifgrp a1a -port e0d
 
 
 
-== Aktualisierung der Switch-RCFs für die neuen Plattformen
-
-Sie müssen die Switches auf eine Konfiguration aktualisieren, die die neuen Plattformmodelle unterstützt.
-
-.Über diese Aufgabe
-Diese Aufgabe führen Sie an dem Standort mit den derzeit aktualisierten Controllern durch. In den Beispielen, die in diesem Verfahren gezeigt werden, aktualisieren wir zunächst Site_B.
-
-Bei einem Upgrade der Controller On Site_A werden die Switches von Site_A aktualisiert.
-
-.Schritte
-. Bereiten Sie die IP-Schalter für die Anwendung der neuen RCF-Dateien vor.
-+
-Befolgen Sie die Schritte im Verfahren für Ihren Switch-Anbieter:
-
-+
-link:../install-ip/concept_considerations_differences.html["Installation und Konfiguration von MetroCluster IP"]
-
-+
-** link:../install-ip/task_switch_config_broadcom.html["Zurücksetzen des Broadcom IP-Switches auf die Werkseinstellungen"]
-** link:../install-ip/task_switch_config_cisco.html["Zurücksetzen des Cisco IP-Switches auf die Werkseinstellungen"]
-
-
-. Laden Sie die RCF-Dateien herunter und installieren Sie sie.
-+
-Folgen Sie den Schritten im Abschnitt Ihres Switch-Anbieters vom link:../install-ip/concept_considerations_differences.html["Installation und Konfiguration von MetroCluster IP"].
-
-+
-** link:../install-ip/task_switch_config_broadcom.html["Herunterladen und Installieren der Broadcom RCF-Dateien"]
-** link:../install-ip/task_switch_config_cisco.html["Herunterladen und Installieren der Cisco IP RCF-Dateien"]
-
-
-
-
-
-
-== Konfigurieren der neuen Controller
-
-Sie müssen die Controller im Rack unterbringen und installieren, die erforderliche Einrichtung im Wartungsmodus durchführen und dann die Controller booten und die LIF-Konfiguration auf den Controllern überprüfen.
-
-
-
-=== Einrichten der neuen Controller
+=== Richten Sie die neuen Controller ein
 
 Sie müssen die neuen Controller im Rack unterbringen und verkabeln.
 
@@ -1027,21 +992,49 @@ Sie müssen die neuen Controller im Rack unterbringen und verkabeln.
 Der Rack-Platz hängt vom Plattformmodell der Controller-Module, den Switch-Typen und der Anzahl der Storage-Shelfs in Ihrer Konfiguration ab.
 
 . Richtig gemahlen.
-. Installieren Sie die Controller-Module im Rack oder Schrank.
+. Wenn für Ihr Upgrade ein Austausch der Controller-Module erforderlich ist, z. B. ein Upgrade von einem AFF 800 auf ein AFF A90-System, müssen Sie das Controller-Modul aus dem Gehäuse entfernen, wenn Sie das Controller-Modul austauschen. Für alle anderen Upgrades fahren sie mit <<ip_upgrades_so_sb_4,Schritt 4>>fort.
 +
-https://docs.netapp.com/platstor/index.jsp["Dokumentation zu ONTAP Hardwaresystemen"^]
+Drücken Sie auf der Vorderseite des Gehäuses die Daumen, um jedes Laufwerk fest einzuschieben, bis Sie einen positiven Stopp spüren. Dadurch wird bestätigt, dass die Laufwerke fest an der Mittelplatine des Gehäuses sitzen.
 
-. Verbinden Sie die Controller mit den IP-Switches, wie in beschrieben link:../install-ip/concept_considerations_differences.html["Installation und Konfiguration von MetroCluster IP"].
 +
-** link:["Verkabeln der IP-Switches"]
+image::../media/drw_a800_drive_seated.png[Zeigt das Entfernen des Controller-Moduls aus dem Chassis]
 
+. [[ip_Upgrades_so_SB_4]] Installieren Sie die Controller-Module.
++
+
+NOTE: Welche Installationsschritte Sie befolgen, hängt davon ab, ob Ihr Upgrade den Austausch der Controller-Module erfordert, z. B. ein Upgrade von einem AFF 800 auf ein AFF A90-System.
+
++
+[role="tabbed-block"]
+====
+.Austausch von Controller-Modulen
+--
+Die separate Installation der neuen Controller ist bei Upgrades integrierter Systeme mit Festplatten und Controllern im selben Chassis, beispielsweise von einem AFF A800 System auf ein AFF A90 System, nicht möglich. Die neuen Controller-Module und I/O-Karten müssen nach dem Ausschalten der alten Controller ausgetauscht werden, wie in der Abbildung unten gezeigt.
+
+Das folgende Beispielbild dient nur zur Darstellung. Die Controller-Module und E/A-Karten können zwischen den Systemen variieren.
+
+image::../media/a90_a70_pcm_swap.png[Zeigt den Austausch von Controller-Modulen]
+
+--
+.Alle anderen Upgrades
+--
+Installieren Sie die Controller-Module im Rack oder Schrank.
+
+--
+====
+. Verkabeln Sie die Stromversorgungs-, seriellen Konsolen- und Managementverbindungen der Controller wie in beschrieben link:../install-ip/using_rcf_generator.html["Verkabelung der MetroCluster IP-Switches"]
++
+Schließen Sie derzeit keine anderen Kabel an, die von den alten Controllern getrennt wurden.
+
++
+https://docs.netapp.com/us-en/ontap-systems/index.html["Dokumentation zu ONTAP Hardwaresystemen"^]
 
 . Starten Sie die neuen Nodes und starten Sie sie in den Wartungsmodus.
 
 
 
 
-=== Wiederherstellen der HBA-Konfiguration
+=== Wiederherstellung der HBA-Konfiguration
 
 Je nach Vorhandensein und Konfiguration der HBA-Karten im Controller-Modul müssen Sie diese für die Verwendung Ihres Standorts richtig konfigurieren.
 
@@ -1065,28 +1058,28 @@ Je nach Vorhandensein und Konfiguration der HBA-Karten im Controller-Modul müss
  a| 
 CNA FC
  a| 
-`ucadmin modify -m fc -t initiator _adapter-name_`
+`ucadmin modify -m fc -t initiator <adapter-name>`
 
 
 
  a| 
 CNA-Ethernet
  a| 
-`ucadmin modify -mode cna _adapter-name_`
+`ucadmin modify -mode cna <adapter-name>`
 
 
 
  a| 
 FC-Ziel
  a| 
-`fcadmin config -t target _adapter-name_`
+`fcadmin config -t target <adapter-name>`
 
 
 
  a| 
 FC-Initiator
  a| 
-`fcadmin config -t initiator _adapter-name_`
+`fcadmin config -t initiator <adapter-name>`
 
 |===
 . Beenden des Wartungsmodus:
@@ -1125,7 +1118,7 @@ FC
 
 
 
-=== Einstellen des HA-Status auf den neuen Controllern und dem Chassis
+=== Legen Sie den HA-Status für die neuen Controller und das Chassis fest
 
 Sie müssen den HA-Status der Controller und des Chassis überprüfen. Bei Bedarf müssen Sie den Status entsprechend Ihrer Systemkonfiguration aktualisieren.
 
@@ -1135,7 +1128,7 @@ Sie müssen den HA-Status der Controller und des Chassis überprüfen. Bei Bedar
 `ha-config show`
 
 +
-Der HA-Status für alle Komponenten sollte „`mccip`“ sein.
+Der HA-Status für alle Komponenten sollte sein `mccip`.
 
 . Wenn der angezeigte Systemzustand des Controllers oder Chassis nicht korrekt ist, setzen Sie den HA-Status ein:
 +
@@ -1144,24 +1137,106 @@ Der HA-Status für alle Komponenten sollte „`mccip`“ sein.
 +
 `ha-config modify chassis mccip`
 
+. Überprüfen und ändern Sie die Ethernet-Ports, die mit NS224-Shelfs oder Speicher-Switches verbunden sind.
++
+.. Überprüfen Sie die Ethernet-Ports, die mit NS224-Shelfs oder Speicher-Switches verbunden sind:
++
+`storage port show`
+
+.. Setzen Sie alle mit Ethernet-Shelfs oder Storage-Switches verbundenen Ethernet-Ports, einschließlich gemeinsam genutzter Switches für Storage und Cluster, auf den `storage` Modus:
++
+`storage port modify -p <port> -m storage`
+
++
+Beispiel:
+
++
+[listing]
+----
+*> storage port modify -p e5b -m storage
+Changing NVMe-oF port e5b to storage mode
+----
++
+
+NOTE: Dies muss für alle betroffenen Ports festgelegt werden, damit ein Upgrade erfolgreich durchgeführt werden kann.
+
++
+Festplatten aus den an die Ethernet-Ports angeschlossenen Shelfs werden in der Ausgabe gemeldet `sysconfig -v` .
+
++
+Informationen zu den Speicherports für das System, auf das Sie aktualisieren, finden Sie im link:https://hwu.netapp.com["NetApp Hardware Universe"^] .
+
+.. Überprüfen Sie, ob `storage` der Modus festgelegt ist, und vergewissern Sie sich, dass die Ports den Status „Online“ aufweisen:
++
+`storage port show`
+
+
+
+. Stoppen Sie den Knoten: `halt`
++
+Der Node sollte am anhalten `LOADER>` Eingabeaufforderung:
+
+. Überprüfen Sie auf jedem Node das Systemdatum, die Uhrzeit und die Zeitzone: `show date`
+. Stellen Sie bei Bedarf das Datum in UTC oder GMT ein: `set date <mm/dd/yyyy>`
+. Überprüfen Sie die Zeit mit dem folgenden Befehl an der Eingabeaufforderung der Boot-Umgebung: `show time`
+. Stellen Sie bei Bedarf die Uhrzeit in UTC oder GMT ein: `set time <hh:mm:ss>`
+. Einstellungen speichern: `saveenv`
+. Umgebungsvariablen erfassen: `printenv`
 
 
 
 
-=== Festlegen der MetroCluster-IP-Bootarg-Variablen
+=== Aktualisieren Sie die Switch-RCFs, um die neuen Plattformen aufzunehmen
+
+Sie müssen die Switches auf eine Konfiguration aktualisieren, die die neuen Plattformmodelle unterstützt.
+
+.Über diese Aufgabe
+Diese Aufgabe führen Sie an dem Standort mit den derzeit aktualisierten Controllern durch. In den Beispielen in diesem Verfahren führen wir zuerst ein Upgrade von Site_B durch.
+
+Bei einem Upgrade der Controller On Site_A werden die Switches von Site_A aktualisiert.
+
+.Schritte
+. Bereiten Sie die IP-Schalter für die Anwendung der neuen RCF-Dateien vor.
++
+Befolgen Sie die Schritte im Verfahren für Ihren Switch-Anbieter:
+
++
+link:../install-ip/concept_considerations_differences.html["Installation und Konfiguration von MetroCluster IP"]
+
++
+** link:../install-ip/task_switch_config_broadcom.html["Setzen Sie den Broadcom IP-Switch auf die Werkseinstellungen zurück"]
+** link:../install-ip/task_switch_config_cisco.html["Setzen Sie den Cisco IP-Switch auf die Werkseinstellungen zurück"]
+** link:../install-ip/task_switch_config_nvidia.html["Setzen Sie den NVIDIA IP SN2100-Switch auf die Werkseinstellungen zurück"]
+
+
+. Laden Sie die RCF-Dateien herunter und installieren Sie sie.
++
+Befolgen Sie die Schritte im Abschnitt für Ihren Switch-Anbieter:
+
++
+** link:../install-ip/task_switch_config_broadcom.html["Laden Sie die Broadcom RCF-Dateien herunter, und installieren Sie sie"]
+** link:../install-ip/task_switch_config_cisco.html["Laden Sie die Cisco IP RCF-Dateien herunter, und installieren Sie sie"]
+** link:../install-ip/task_switch_config_nvidia.html["Laden Sie die NVIDIA IP SN2100-Switch-RCF-Dateien herunter, und installieren Sie sie"]
+
+
+
+
+
+
+=== Legen Sie die MetroCluster-IP-Bootarg-Variablen fest
 
 Für die neuen Controller-Module müssen bestimmte MetroCluster IP-Bootarg-Werte konfiguriert werden. Die Werte müssen mit den auf den alten Controller-Modulen konfigurierten übereinstimmen.
 
 .Über diese Aufgabe
-In dieser Aufgabe verwenden Sie die UUIDs und System-IDs, die bereits im Upgrade-Verfahren in identifiziert wurden link:task_upgrade_controllers_in_a_four_node_ip_mcc_us_switchover_and_switchback_mcc_ip.html["Sammeln von Informationen vor dem Upgrade"].
+In dieser Aufgabe verwenden Sie die UUIDs und System-IDs, die zuvor im Upgrade-Verfahren in identifiziert wurden <<gather_info_so_sb,Sammeln Sie vor dem Upgrade Informationen>>.
 
 .Schritte
 . Wenn die Nodes des Upgrades die Modelle AFF A400, FAS8300 oder FAS8700 umfassen, legen Sie die folgenden Boot-Bereiche an DER LOADER-Eingabeaufforderung fest:
 +
-`setenv bootarg.mcc.port_a_ip_config _local-IP-address/local-IP-mask,0,HA-partner-IP-address,DR-partner-IP-address,DR-aux-partnerIP-address,vlan-id_`
+`setenv bootarg.mcc.port_a_ip_config <local-IP-address/local-IP-mask,0,HA-partner-IP-address,DR-partner-IP-address,DR-aux-partnerIP-address,vlan-id>`
 
 +
-`setenv bootarg.mcc.port_b_ip_config _local-IP-address/local-IP-mask,0,HA-partner-IP-address,DR-partner-IP-address,DR-aux-partnerIP-address,vlan-id_`
+`setenv bootarg.mcc.port_b_ip_config <local-IP-address/local-IP-mask,0,HA-partner-IP-address,DR-partner-IP-address,DR-aux-partnerIP-address,vlan-id>`
 
 +
 
@@ -1205,10 +1280,10 @@ setenv bootarg.mcc.port_b_ip_config 172.17.27.11/23,0,172.17.27.10,172.17.27.12,
 ----
 . Wenn die Knoten, die aktualisiert werden, keine Systeme im vorherigen Schritt sind, legen Sie bei der LOADER-Eingabeaufforderung für jeden der verbleibenden Nodes die folgenden Bootargs mit local_IP/maska fest:
 +
-`setenv bootarg.mcc.port_a_ip_config _local-IP-address/local-IP-mask,0,HA-partner-IP-address,DR-partner-IP-address,DR-aux-partnerIP-address_`
+`setenv bootarg.mcc.port_a_ip_config <local-IP-address/local-IP-mask,0,HA-partner-IP-address,DR-partner-IP-address,DR-aux-partnerIP-address>`
 
 +
-`setenv bootarg.mcc.port_b_ip_config _local-IP-address/local-IP-mask,0,HA-partner-IP-address,DR-partner-IP-address,DR-aux-partnerIP-address_`
+`setenv bootarg.mcc.port_b_ip_config <local-IP-address/local-IP-mask,0,HA-partner-IP-address,DR-partner-IP-address,DR-aux-partnerIP-address>`
 
 +
 Mit den folgenden Befehlen werden die Werte für Node_B_1-New festgelegt:
@@ -1230,19 +1305,19 @@ setenv bootarg.mcc.port_b_ip_config 172.17.27.11/23,0,172.17.27.10,172.17.27.12,
 ----
 . Legen Sie an DER LOADER-Eingabeaufforderung der neuen Nodes die UUUIDs fest:
 +
-`setenv bootarg.mgwd.partner_cluster_uuid _partner-cluster-UUID_`
+`setenv bootarg.mgwd.partner_cluster_uuid <partner-cluster-UUID>`
 
 +
-`setenv bootarg.mgwd.cluster_uuid _local-cluster-UUID_`
+`setenv bootarg.mgwd.cluster_uuid <local-cluster-UUID>`
 
 +
-`setenv bootarg.mcc.pri_partner_uuid _DR-partner-node-UUID_`
+`setenv bootarg.mcc.pri_partner_uuid <DR-partner-node-UUID>`
 
 +
-`setenv bootarg.mcc.aux_partner_uuid _DR-aux-partner-node-UUID_`
+`setenv bootarg.mcc.aux_partner_uuid <DR-aux-partner-node-UUID>`
 
 +
-`setenv bootarg.mcc_iscsi.node_uuid _local-node-UUID_`
+`setenv bootarg.mcc_iscsi.node_uuid <local-node-UUID>`
 
 +
 .. Legen Sie die UUIDs auf Node_B_1-New fest.
@@ -1273,16 +1348,37 @@ setenv bootarg.mcc_iscsi.node_uuid aa9a7a7a-9a81-11e7-a4e9-00a098908c35
 ----
 
 
-. Wenn die Originalsysteme für ADP konfiguriert wurden, aktivieren Sie an der LOADER-Eingabeaufforderung der Ersatz-Nodes ADP:
+. Bestimmen Sie, ob die ursprünglichen Systeme für die erweiterte Laufwerkpartitionierung (Advanced Drive Partitioning, ADP) konfiguriert wurden, indem Sie den folgenden Befehl vom Standort aus ausführen:
++
+`disk show`
+
++
+In der Spalte „Containertyp“ wird in der Ausgabe „freigegeben“ angezeigt `disk show` , wenn ADP konfiguriert ist. Wenn „Containertyp“ einen anderen Wert hat, ist ADP auf dem System nicht konfiguriert. Die folgende Beispielausgabe zeigt ein mit ADP konfiguriertes System:
+
++
+[listing]
+----
+::> disk show
+                    Usable               Disk    Container   Container
+Disk                Size       Shelf Bay Type    Type        Name      Owner
+
+Info: This cluster has partitioned disks. To get a complete list of spare disk
+      capacity use "storage aggregate show-spare-disks".
+----------------    ---------- ----- --- ------- ----------- --------- --------
+1.11.0              894.0GB    11    0   SSD      shared     testaggr  node_A_1
+1.11.1              894.0GB    11    1   SSD      shared     testaggr  node_A_1
+1.11.2              894.0GB    11    2   SSD      shared     testaggr  node_A_1
+----
+. Wenn die ursprünglichen Systeme mit partitionierten Laufwerken für ADP konfiguriert wurden, aktivieren Sie diese an der `LOADER` Eingabeaufforderung für jeden Ersatz-Node:
 +
 `setenv bootarg.mcc.adp_enabled true`
 
 . Legen Sie die folgenden Variablen fest:
 +
-`setenv bootarg.mcc.local_config_id _original-sys-id_`
+`setenv bootarg.mcc.local_config_id <original-sys-id>`
 
 +
-`setenv bootarg.mcc.dr_partner _dr-partner-sys-id_`
+`setenv bootarg.mcc.dr_partner <dr-partner-sys-id>`
 
 +
 
@@ -1328,7 +1424,7 @@ setenv bootarg.mcc.dr_partner 537403323
 
 
 
-=== Neuzuweisen von Root-Aggregatfestplatten
+=== Neuzuweisung von Root-Aggregat-Festplatten
 
 Weisen Sie die Root-Aggregat-Festplatten dem neuen Controller-Modul unter Verwendung der zuvor gesammelten Sysiden wieder zu.
 
@@ -1346,6 +1442,10 @@ NOTE: Root-Aggregat-Festplatten sind die einzigen Festplatten, die während des 
 . Zeigen Sie die Festplatten auf Node_B_1-New in der Eingabeaufforderung Wartungsmodus an:
 +
 `disk show -a`
+
++
+
+CAUTION: Bevor Sie mit der Neuzuweisung der Festplatte fortfahren, müssen Sie überprüfen, ob die Pool0- und Pool1-Festplatten, die zum Root-Aggregat des Node gehören, in der Ausgabe angezeigt werden `disk show` . Im folgenden Beispiel werden in der Ausgabe die Laufwerke pool0 und pool1 aufgelistet, die sich im Besitz von Node_B_1-old befinden.
 
 +
 Die Befehlsausgabe zeigt die System-ID des neuen Controller-Moduls (1574774970). Allerdings sind die Root-Aggregat-Festplatten immer noch im Besitz der alten System-ID (537403322). In diesem Beispiel werden keine Laufwerke angezeigt, die sich im Besitz anderer Nodes in der MetroCluster-Konfiguration befinden.
@@ -1378,19 +1478,19 @@ prod1-rk18:9.126L27   node_B_1-old(537403322)  Pool0  S0M1PSDW     node_B_1-old(
  a| 
 Ja.
  a| 
-`disk reassign -s _old-sysid_ -d _new-sysid_ -r _dr-partner-sysid_`
+`disk reassign -s <old-sysid> -d <new-sysid> -r <dr-partner-sysid>`
 
 
 
  a| 
 Nein
  a| 
-`disk reassign -s _old-sysid_ -d _new-sysid_`
+`disk reassign -s <old-sysid> -d <new-sysid>`
 
 |===
 . Weisen Sie die Root-Aggregat-Festplatten in den Laufwerk-Shelfs den neuen Controllern neu zu:
 +
-`disk reassign -s old-sysid -d new-sysid`
+`disk reassign -s <old-sysid> -d <new-sysid>`
 
 +
 Das folgende Beispiel zeigt die Neuzuweisung von Laufwerken in einer nicht-ADP-Konfiguration:
@@ -1453,16 +1553,16 @@ Sie müssen die neuen Controller booten, um sicherzustellen, dass die Bootarg-Va
 
 . Wenn der externe Schlüsselmanager konfiguriert ist, legen Sie die zugehörigen Bootargs fest:
 +
-`setenv bootarg.kmip.init.ipaddr _ip-address_`
+`setenv bootarg.kmip.init.ipaddr <ip-address>`
 
 +
-`setenv bootarg.kmip.init.netmask _netmask_`
+`setenv bootarg.kmip.init.netmask <netmask>`
 
 +
-`setenv bootarg.kmip.init.gateway _gateway-address_`
+`setenv bootarg.kmip.init.gateway <gateway-addres>`
 
 +
-`setenv bootarg.kmip.init.interface _interface-id_`
+`setenv bootarg.kmip.init.interface <interface-id>`
 
 . Überprüfen Sie, ob die Partner-sysid aktuell ist:
 +
@@ -1472,7 +1572,7 @@ Sie müssen die neuen Controller booten, um sicherzustellen, dass die Bootarg-Va
 Falls Partner-sysid nicht richtig ist, stellen Sie es fest:
 
 +
-`setenv partner-sysid _partner-sysID_`
+`setenv partner-sysid <partner-sysID>`
 
 . ONTAP-Startmenü anzeigen:
 +
@@ -1530,7 +1630,7 @@ Verwenden Sie die Schritte in link:task_upgrade_controllers_in_a_four_node_ip_mc
 Falls Partner-sysid nicht richtig ist, stellen Sie es fest:
 
 +
-`setenv partner-sysid _partner-sysID_`
+`setenv partner-sysid <partner-sysID>`
 
 . Wenn die Stammverschlüsselung verwendet wird, wählen Sie die Startmenü-Option erneut für Ihre Schlüsselverwaltungskonfiguration aus.
 +
@@ -1584,7 +1684,7 @@ Weitere Informationen finden Sie unter https://docs.netapp.com/ontap-9/topic/com
  a| 
 Externes Verschlüsselungskeymanagement
  a| 
-`security key-manager external restore -vserver _SVM_ -node _node_ -key-server _host_name|IP_address:port_ -key-id key_id -key-tag key_tag _node-name_`
+`security key-manager external restore -vserver <SVM> -node <node> -key-server <host_name|IP_address:port> -key-id key_id -key-tag key_tag <node_name>`
 
 Weitere Informationen finden Sie unter https://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-nve/GUID-32DA96C3-9B04-4401-92B8-EAF323C3C863.html["Wiederherstellen der externen Schlüssel für das Verschlüsselungsmanagement"].
 
@@ -1594,6 +1694,14 @@ Weitere Informationen finden Sie unter https://docs.netapp.com/ontap-9/topic/com
 .. Broadcast-Domänen anzeigen:
 +
 `network port broadcast-domain show`
+
+.. Wenn für die Datenports auf den neu aktualisierten Controllern eine neue Broadcast-Domäne erstellt wird, löschen Sie die Broadcast-Domäne:
++
+
+NOTE: Löschen Sie nur die neue Broadcast-Domäne. Löschen Sie keine der Broadcast-Domänen, die vor dem Start des Upgrades vorhanden waren.
+
++
+`broadcast-domain delete -broadcast-domain <broadcast_domain_name>`
 
 .. Fügen Sie bei Bedarf beliebige Ports zu einer Broadcast-Domäne hinzu.
 +
@@ -1619,7 +1727,7 @@ https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-nmg/GUID-DBC9DEE2-EA
 
 Vergewissern Sie sich, dass LIFs zu Beginn des Upgrade-Vorgangs auf entsprechenden Nodes und Ports gehostet werden, die zugeordnet sind.
 
-.Über diesen Tsak
+.Über diese Aufgabe
 * Diese Aufgabe wird auf Site_B. ausgeführt
 * Sehen Sie sich den Port-Mapping-Plan an, den Sie in erstellt haben link:task_upgrade_controllers_in_a_four_node_ip_mcc_us_switchover_and_switchback_mcc_ip.html["Zuordnen von Ports von den alten Nodes zu den neuen Nodes"].
 
@@ -1633,7 +1741,7 @@ Vergewissern Sie sich, dass LIFs zu Beginn des Upgrade-Vorgangs auf entsprechend
 
 .. Port-Konfiguration überschreiben, um korrekte LIF-Platzierung zu gewährleisten:
 +
-`vserver config override -command "network interface modify -vserver _vserver_name_ -home-port _active_port_after_upgrade_ -lif _lif_name_ -home-node _new_node_name_"`
+`vserver config override -command "network interface modify -vserver <svm-name> -home-port <active_port_after_upgrade> -lif <lif_name> -home-node <new_node_name>`
 
 +
 Wenn Sie den Befehl zur Änderung der Netzwerkschnittstelle in eingeben `vserver config override` Befehl, Sie können die Funktion Autovervollständigung auf der Registerkarte nicht verwenden. Sie können das Netzwerk erstellen `interface modify` Verwenden Sie Autocomplete und schließen Sie es dann in das ein `vserver config override` Befehl.
@@ -1646,7 +1754,7 @@ Wenn Sie den Befehl zur Änderung der Netzwerkschnittstelle in eingeben `vserver
 
 . Zurücksetzen der Schnittstellen auf ihren Home-Node:
 +
-`network interface revert * -vserver _vserver-name_`
+`network interface revert * -vserver <svm-name>`
 
 +
 Führen Sie diesen Schritt bei allen SVMs aus, falls erforderlich.
@@ -1655,7 +1763,7 @@ Führen Sie diesen Schritt bei allen SVMs aus, falls erforderlich.
 
 
 
-== Umschalten der MetroCluster-Konfiguration
+== Schalten Sie die MetroCluster-Konfiguration zurück
 
 In dieser Aufgabe führen Sie den Vorgang zum zurückwechseln durch, und die MetroCluster-Konfiguration kehrt in den normalen Betrieb zurück. Die Knoten auf Site_A warten noch auf das Upgrade.
 
@@ -1725,7 +1833,7 @@ Wenn ein Wechsel eine lange Zeit in Anspruch nimmt, können Sie den Status der i
 
 
 
-== Überprüfen des Systemzustands der MetroCluster-Konfiguration
+== Überprüfen Sie den Systemzustand der MetroCluster-Konfiguration
 
 Nach dem Upgrade der Controller-Module müssen Sie den Systemzustand der MetroCluster Konfiguration überprüfen.
 
@@ -1769,7 +1877,7 @@ Diese Aufgabe kann auf jedem Node der MetroCluster Konfiguration ausgeführt wer
 
 
 
-== Aktualisieren der Knoten auf Cluster_A
+== Aktualisieren Sie die Nodes auf Cluster_A
 
 Sie müssen die Upgrade-Aufgaben auf „Cluster_A“ wiederholen
 
@@ -1782,7 +1890,7 @@ Während Sie die Aufgaben ausführen, werden alle Beispielreferenzen zu den Clus
 
 
 
-== Wiederherstellen der Tiebreaker- oder Mediator-Überwachung
+== Stellen Sie die Tiebreaker- oder Mediator-Überwachung wieder her
 
 Nach Abschluss des Upgrades der MetroCluster-Konfiguration können Sie die Überwachung mit dem Tiebreaker oder Mediator Utility fortsetzen.
 
@@ -1817,7 +1925,7 @@ Siehe Produktdokumentation.
 
 
 
-== Senden einer benutzerdefinierten AutoSupport Meldung nach der Wartung
+== Senden Sie eine individuelle AutoSupport Nachricht nach der Wartung
 
 Nach Abschluss des Upgrades sollten Sie eine AutoSupport Meldung mit Angaben zum Ende der Wartung senden. Die automatische Case-Erstellung kann also fortgesetzt werden.
 
