@@ -14,15 +14,36 @@ summary: In MetroCluster IP-Konfigurationen rufen Sie die IP-Adresse der MetroCl
 In MetroCluster IP-Konfigurationen müssen Sie die IP-Adresse der MetroCluster-Schnittstellen auf den Ethernet-Ports abrufen und sie dann zum Konfigurieren der Schnittstellen auf den Ersatz-Controller-Modulen verwenden.
 
 .Über diese Aufgabe
-Dieser Vorgang ist nur in MetroCluster IP-Konfigurationen erforderlich.
+* Dieser Vorgang ist nur in MetroCluster IP-Konfigurationen erforderlich.
+* Befehle in dieser Aufgabe werden über die Cluster-Eingabeaufforderung des noch intakten Standorts und über die LOADER-Eingabeaufforderung der Nodes am DR-Standort ausgeführt.
 
-Befehle in dieser Aufgabe werden über die Cluster-Eingabeaufforderung des noch intakten Standorts und über die LOADER-Eingabeaufforderung der Nodes am DR-Standort ausgeführt.
 
-Die Nodes in diesen Beispielen weisen die folgenden IP-Adressen für ihre MetroCluster IP-Verbindungen auf:
+[[vlan_id_supported_platfoms]]
+* Bestimmte Plattformen verwenden ein VLAN für die MetroCluster IP Schnittstelle. Standardmäßig verwenden alle beiden Ports ein anderes VLAN: 10 und 20.
++
+Falls unterstützt, können Sie mit dem Parameter auch ein anderes (nicht standardmäßiges) VLAN über 100 (zwischen 101 und 4095) angeben `vlan-id` .
 
++
+Die folgenden Plattformen unterstützen *Not* den `vlan-id` Parameter:
+
++
+** FAS8200 UND AFF A300
+** AFF A320
+** FAS9000 und AFF A700
+** AFF C800, ASA C800, AFF A800 und ASA A800
++
+Alle anderen Plattformen unterstützen den `vlan-id` Parameter.
+
+
+
+
+
+* Die Nodes in diesen Beispielen weisen die folgenden IP-Adressen für ihre MetroCluster IP-Verbindungen auf:
++
 
 NOTE: Diese Beispiele gelten für ein AFF A700 oder FAS9000 System. Die Schnittstellen variieren je nach Plattformmodell.
 
++
 |===
 
 
@@ -92,8 +113,10 @@ E5b
 172.17.27.12
 
 |===
++
 In der folgenden Tabelle sind die Beziehungen zwischen den Nodes und den MetroCluster-IP-Adressen der einzelnen Nodes zusammengefasst.
 
++
 |===
 
 
@@ -103,26 +126,26 @@ In der folgenden Tabelle sind die Beziehungen zwischen den Nodes und den MetroCl
  a| 
 Node_A_1
 
-* e5a: 172.17.26.10
-* E5b: 172.17.27.10
+** e5a: 172.17.26.10
+** E5b: 172.17.27.10
 
  a| 
 Node_A_2
 
-* e5a: 172.17.26.11
-* E5b: 172.17.27.11
+** e5a: 172.17.26.11
+** E5b: 172.17.27.11
 
  a| 
 Knoten_B_1
 
-* e5a: 172.17.26.13
-* E5b: 172.17.27.13
+** e5a: 172.17.26.13
+** E5b: 172.17.27.13
 
  a| 
 Knoten_B_2
 
-* e5a: 172.17.26.12
-* E5b: 172.17.27.12
+** e5a: 172.17.26.12
+** E5b: 172.17.27.12
 
 
 
@@ -130,26 +153,26 @@ Knoten_B_2
  a| 
 Node_A_2
 
-* e5a: 172.17.26.11
-* E5b: 172.17.27.11
+** e5a: 172.17.26.11
+** E5b: 172.17.27.11
 
  a| 
 Node_A_1
 
-* e5a: 172.17.26.10
-* E5b: 172.17.27.10
+** e5a: 172.17.26.10
+** E5b: 172.17.27.10
 
  a| 
 Knoten_B_2
 
-* e5a: 172.17.26.12
-* E5b: 172.17.27.12
+** e5a: 172.17.26.12
+** E5b: 172.17.27.12
 
  a| 
 Knoten_B_1
 
-* e5a: 172.17.26.13
-* E5b: 172.17.27.13
+** e5a: 172.17.26.13
+** E5b: 172.17.27.13
 
 
 
@@ -157,26 +180,26 @@ Knoten_B_1
  a| 
 Knoten_B_1
 
-* e5a: 172.17.26.13
-* E5b: 172.17.27.13
+** e5a: 172.17.26.13
+** E5b: 172.17.27.13
 
  a| 
 Knoten_B_2
 
-* e5a: 172.17.26.12
-* E5b: 172.17.27.12
+** e5a: 172.17.26.12
+** E5b: 172.17.27.12
 
  a| 
 Node_A_1
 
-* e5a: 172.17.26.10
-* E5b: 172.17.27.10
+** e5a: 172.17.26.10
+** E5b: 172.17.27.10
 
  a| 
 Node_A_2
 
-* e5a: 172.17.26.11
-* E5b: 172.17.27.11
+** e5a: 172.17.26.11
+** E5b: 172.17.27.11
 
 
 
@@ -184,53 +207,31 @@ Node_A_2
  a| 
 Knoten_B_2
 
-* e5a: 172.17.26.12
-* E5b: 172.17.27.12
+** e5a: 172.17.26.12
+** E5b: 172.17.27.12
 
  a| 
 Knoten_B_1
 
-* e5a: 172.17.26.13
-* E5b: 172.17.27.13
+** e5a: 172.17.26.13
+** E5b: 172.17.27.13
 
  a| 
 Node_A_2
 
-* e5a: 172.17.26.11
-* E5b: 172.17.27.11
+** e5a: 172.17.26.11
+** E5b: 172.17.27.11
 
  a| 
 Node_A_1
 
-* e5a: 172.17.26.10
-* E5b: 172.17.27.10
+** e5a: 172.17.26.10
+** E5b: 172.17.27.10
 
 
 |===
-In der folgenden Tabelle sind die Plattformmodelle aufgeführt, bei denen VLAN-IDs auf den MetroCluster IP-Schnittstellen verwendet werden. Für diese Modelle sind möglicherweise zusätzliche Schritte erforderlich, wenn Sie die Standard-VLAN-IDs nicht verwenden.
-
-|===
 
 
-2+| Plattformmodelle, die VLAN-IDs mit den MetroCluster IP-Schnittstellen verwenden 
-
-
- a| 
-* AFF A70
-* AFF A90
-* AFF A1K
-* AFF A220
-* AFF A250
-* AFF A400
-
- a| 
-* FAS500f
-* FAS2750
-* FAS8300
-* FAS8700
-
-
-|===
 .Schritte
 . Holen Sie sich vom verbleibenden Standort die IP-Adressen der MetroCluster-Schnittstellen auf dem DR-Standort:
 +
@@ -325,7 +326,7 @@ Group Cluster Node    Network Address Network Address Partner Type Config State
 `metrocluster configuration-settings interface show`
 
 +
-** Sie benötigen die VLAN-ID, wenn die Plattformmodelle VLAN-IDs verwenden (siehe Liste oben) und wenn Sie die Standard-VLAN-IDs nicht verwenden.
+** Sie müssen die VLAN-ID ermitteln, wenn die Plattformmodelle VLAN-IDs unterstützen (siehe <<vlan_id_supported_platfoms,Liste oben>>) und wenn Sie nicht die Standard-VLAN-IDs verwenden.
 ** Sie benötigen die Gateway-Adresse, wenn Sie verwenden link:../install-ip/concept_considerations_layer_3.html["Layer-3-Wide-Area-Netzwerke"].
 +
 Die VLAN-IDs sind in der Spalte *Netzwerkadresse* der Ausgabe enthalten. Die Spalte *Gateway* zeigt die Gateway-IP-Adresse an.
@@ -354,7 +355,7 @@ Group Cluster Node     Network Address Netmask         Gateway         State
 +
 [NOTE]
 ====
-** Wenn die Schnittstellen die Standard-VLANs verwenden oder das Plattformmodell keine VLAN-ID verwendet (siehe Liste oben), ist die _vlan-id_ nicht erforderlich.
+** Wenn die Schnittstellen die Standard-VLANs verwenden oder das Plattformmodell keine VLAN-ID verwendet (siehe <<vlan_id_supported_platfoms,Liste oben>>), ist die _vlan-id_ nicht erforderlich.
 ** Wenn die Konfiguration nicht verwendet wird link:../install-ip/concept_considerations_layer_3.html["Layer3 Wide Area Networks"]Der Wert für _Gateway-IP-Adresse_ ist *0* (Null).
 
 

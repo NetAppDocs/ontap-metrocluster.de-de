@@ -371,7 +371,7 @@ IP_switch_A_1#
 
 == Herunterladen und Installieren der Cisco IP RCF-Dateien
 
-Sie müssen die RCF-Datei auf jeden Switch in der MetroCluster IP-Konfiguration herunterladen.
+Sie müssen die RCF-Datei für jeden Switch in der MetroCluster IP-Konfiguration generieren und installieren.
 
 .Über diese Aufgabe
 Diese Aufgabe erfordert Dateiübertragungssoftware, wie FTP, TFTP, SFTP oder SCP, Um die Dateien auf die Switches zu kopieren.
@@ -418,10 +418,15 @@ NX3232_v1.80_Switch-B2.txt
 
 |===
 .Schritte
-. Laden Sie die MetroCluster IP RCF-Dateien herunter.
+. Erstellen Sie die Cisco RCF-Dateien für MetroCluster IP.
++
+.. Laden Sie die herunter https://mysupport.netapp.com/site/tools/tool-eula/rcffilegenerator["RCfFileGenerator für MetroCluster-IP"^]
+.. Generieren Sie die RCF-Datei für Ihre Konfiguration mit dem RcfFileGenerator für MetroCluster IP.
 +
 
 NOTE: Änderungen an den RCF-Dateien nach dem Download werden nicht unterstützt.
+
+
 
 . Kopieren Sie die RCF-Dateien auf die Switches:
 +
