@@ -2807,7 +2807,6 @@
   <block id="aa5e90893b7f412ef5c52dd995d1a238" category="paragraph">*Platten-Shelves an Standort B*</block>
   <block id="60e70e31928f915722e922383e40f330" category="list-text">Weisen Sie bei Bedarf explizit Festplatten auf den angeschlossenen Platten-Shelfs dem entsprechenden Pool zu:</block>
   <block id="f271a505e3d3d46c62979906b1ac4922" category="paragraph">Wenn Sie im Befehl Platzhalter verwenden, können Sie alle Festplatten in einem Festplatten-Shelf mit einem Befehl zuweisen. Sie können die Festplatten-Shelf-IDs und Einschübe für jede Festplatte mit identifizieren<block ref="2d62c52d696a7f91354f0506866b5b47" prefix=" " category="inline-code"></block> Befehl.</block>
-  <block id="cc1fc0be4e8cd8fa55b631956b8bd17f" category="paragraph"><block ref="6f3bb54099e9178891c7c495e9fda883" prefix="" category="inline-code"></block></block>
   <block id="7e902fb75b9d2939fe12e5e54d005da1" category="paragraph"><block ref="cdb6235a6dc5fe59205068f59934babe" prefix="" category="inline-code"></block></block>
   <block id="f96aff9bb92f47a99bb9e80c8aefd182" category="list-text"><block ref="0ce177c637860f04ef435f1d4df8c7a1" category="inline-xref-macro-rx"></block></block>
   <block id="80f5aa2c1fd8d40ec861adc9b8554601" category="inline-xref">Einrichten von ONTAP in einer MetroCluster Konfiguration mit acht oder vier Nodes</block>
@@ -10569,7 +10568,6 @@
   <block id="2687b88898e3642fcc69aaef6be8e73c" category="paragraph">Beim Umstieg auf eine MetroCluster IP-Konfiguration müssen Sie über eine Kombination unterstützter Plattformmodelle verfügen. Sie sollten außerdem sicherstellen, dass die MetroCluster IP-Plattform für die Auslastung geeignet ist, die Sie von der MetroCluster FC-Konfiguration auf die MetroCluster IP-Konfiguration umstellen.</block>
   <block id="d9599a6265b31306f6c79d760a47a9aa" category="paragraph">Die folgende Tabelle zeigt die unterstützten Plattformkombinationen. Sie können von Plattformen in der linken Spalte zu Plattformen wechseln, die in den Spalten unterstützt werden, nach rechts, wie durch die farbigen Tabellenzellen angegeben.</block>
   <block id="1799408ec992ed3e5561f7b04ccef0fe" category="paragraph">Beispielsweise wird der Wechsel von einer MetroCluster FC-Konfiguration aus AFF8060 Controller-Modulen zu einer IP-Konfiguration aus AFF A400 Controller-Modulen unterstützt.</block>
-  <block id="421c8863e1f7223f216aacf99393b7dd" category="list-text">Hinweis 1: Diese Plattform erfordert ONTAP 9.11.1 oder höher.</block>
   <block id="9418f262fda4ce79d51366cacd6743b2" category="list-text">Für alle Umstiegsprozesse ist ONTAP 9.8 oder höher erforderlich, sofern in den Hinweisen oder den Voraussetzungen einer einzelnen Plattform nicht anders angegeben.</block>
   <block id="7f5e75bec56cf6f3abc06e985a4c745b" category="paragraph">Ein Migrationsverfahren ersetzt das Back-End FC Switch Fabric oder die FC-VI-Verbindung durch ein IP Switch-Netzwerk. Die genaue Vorgehensweise hängt von Ihrer Startkonfiguration ab.</block>
   <block id="2b600317ab6e960fcd1077af38eff1f1" category="paragraph">Die ursprünglichen Plattformen und FC Switches (falls vorhanden) werden am Ende des Umstiegsverfahrens außer Betrieb genommen.</block>
@@ -12494,7 +12492,6 @@
   <block id="87b750ce6fbbe87d62cbc08d2dc73e1f" category="list-text">*Hinweis 2*: Nur ein MetroCluster mit vier Knoten kann mit AFF A320 Systemen an den Switch angeschlossen werden.</block>
   <block id="5b5bc0c2a68a3a5df60e045184c265e7" category="paragraph">Weitere Informationen finden Sie im Abschnitt *Schalter* des <block ref="41f66f34b3a905f864500c9319fdff8f" category="inline-link-macro-rx"></block> Überprüfen der unterstützten Transceiver.</block>
   <block id="30ec0ec381148de730ef6f636244409c" category="paragraph">Ab ONTAP 9.13.1 wird dieses Verfahren in MetroCluster IP-Konfigurationen unterstützt, bei denen die MetroCluster und die Festplatten-Shelfs mit denselben IP-Switches verbunden sind (eine Konfiguration mit einem Shared Storage Switch).</block>
-  <block id="63d08c3cedf8143a5b62917cdffc9a26" category="image-alt">MetroCluster fc ip-Übergangsmatrix 914</block>
   <block id="7411369ee6af7c3b06eeb0cb088ed313" category="list-text">Auf allen Nodes in der MetroCluster-Konfiguration muss dieselbe ONTAP-Version ausgeführt werden. Wenn Sie beispielsweise über eine Konfiguration mit acht Nodes verfügen, müssen alle acht Nodes dieselbe ONTAP-Version ausführen.</block>
   <block id="af03c8177e63c13156d2341adae52d1d" category="paragraph">Bei einem Upgrade-Verfahren werden die Controller durch ein neues Controller-Modell ersetzt. Modelle für Storage Shelfs werden nicht aktualisiert.</block>
   <block id="5fd3c01d6ba82ebe581c794d9a655304" category="list-text">Sie können ein FAS System auf ein FAS System oder ein AFF A-Series auf ein AFF A-Series System aufrüsten.</block>
@@ -12518,8 +12515,6 @@
   <block id="aa71e3dcbe0cdabbe4cce28385ab2fd6" category="paragraph">Wenn Sie die ONTAP-Version oder die Switch-Firmware-Version ändern, sollten Sie überprüfen, ob eine RCF-Datei vorhanden ist, die für diese Version unterstützt wird. Wenn Sie den RCF-Generator verwenden, wird für Sie die richtige RCF-Datei generiert.</block>
   <block id="9f4a5b5c7a3f862c1d0ff77f72d3eea0" category="paragraph">Sie werden aufgefordert, den Benutzernamen und das Passwort für das Administratorkonto des ONTAP Mediators einzugeben.</block>
   <block id="c471c44c2f26c78f9327863d90427cb7" category="admonition">Wenn der ONTAP-Mediator ausgefallen ist, wird der angezeigt<block ref="1eafb93bfc40f298e60cf17e8a8c598c" prefix=" " category="inline-code"></block> Mit dem Befehl werden Sie dennoch aufgefordert, den Benutzernamen und das Passwort für das Administratorkonto des ONTAP Mediators einzugeben und den ONTAP Mediator-Dienst aus der MetroCluster-Konfiguration zu entfernen.</block>
-  <block id="21b5cf2db61fccc0ace8b80bac8b35b7" category="list-text">Hinweis 2: Auf den FC-Nodes ist eine 40-GbE-Schnittstelle für die lokalen Cluster-Schnittstellen erforderlich. Für diese Plattformkombination ist ONTAP 9.11.1 oder höher erforderlich.</block>
-  <block id="13cdbd43c145584bcad75658a29e498d" category="list-text">Hinweis 3: Auf FC-Nodes ist eine 100-GbE-Schnittstelle für die lokalen Cluster-Schnittstellen erforderlich. Für diese Plattformkombination ist ONTAP 9.11.1 oder höher erforderlich.</block>
   <block id="646d7d5f93b4a6d7bbbc65acf5ac1077" category="inline-link">Dokumentation zu ONTAP Hardwaresystemen</block>
   <block id="a6060d4587fc5fc5f841d3287d08316c" category="paragraph"><block ref="a6060d4587fc5fc5f841d3287d08316c" category="inline-link-rx"></block></block>
   <block id="777cc85682fbb64f0c41aa09dccf0ca4" category="paragraph"><block ref="777cc85682fbb64f0c41aa09dccf0ca4" category="inline-link-rx"></block></block>
@@ -14011,4 +14006,35 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="ef5e947e6fcfcc998981842db2980963" category="paragraph"><block ref="03c173f1a61527f819558186b9d61be9" prefix="" category="inline-code"></block></block>
   <block id="f17f69c6edf98777a15cba11703ecfa4" category="paragraph"><block ref="3e67c1f4fcc76e1369016e8e183fdf3b" prefix="" category="inline-code"></block></block>
   <block id="0f137b9473f8c1720c69f6c82c079dba" category="paragraph"><block ref="3b297593c0c2375482cbced8777ea2a8" prefix="" category="inline-code"></block></block>
+  <block id="df0de59a7d82bfac9aeb4c3a4d0ff3d5" category="paragraph"><block ref="593e2b872fdc863863b3175980b503ee" prefix="" category="inline-code"></block></block>
+  <block id="ce4d776f761276cab4718597907e9b25" category="paragraph"><block ref="ce4d776f761276cab4718597907e9b25" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="4bbabfb39bdaa67802b5f83f085672a9" category="image-alt">Zeigt unterstützte Plattformkombinationen für den IP- zu FC-Übergang</block>
+  <block id="32571d30b5ea67a42d51725233459057" category="list-text">Anmerkung 1: Diese Plattformkombination erfordert ONTAP 9.13.1 oder höher.</block>
+  <block id="c6a7b9b858b4fca6a11eb81808875db0" category="list-text">Hinweis 2: Auf FC-Nodes ist eine 100-GbE-Schnittstelle für die lokalen Cluster-Schnittstellen erforderlich. Für diese Plattformkombination ist ONTAP 9.11.1 oder höher erforderlich.</block>
+  <block id="5a4027b63d6ed294211392e256667c2c" category="list-text">Ändern Sie die Intercluster LIFs auf den alten Controllern, um einen anderen Home Port zu verwenden als die Ports, die für HA Interconnect oder MetroCluster IP DR Interconnect auf den neuen Controllern verwendet werden.</block>
+  <block id="931a74601edef3262a75c3d8d8e6acda" category="admonition">Dieser Schritt ist für ein erfolgreiches Upgrade erforderlich.</block>
+  <block id="f7f8cd16da4423b24e25a4d21cb4bc83" category="paragraph">Die Intercluster LIFs auf den alten Controllern müssen einen anderen Home Port verwenden als die Ports, die für HA Interconnect oder MetroCluster IP DR Interconnect auf den neuen Controllern verwendet werden. Wenn Sie beispielsweise auf AFF A90 Controller aktualisieren, sind die HA Interconnect-Ports e1a und e7a und die MetroCluster IP DR Interconnect-Ports e2b und e3b. Sie müssen die Intercluster LIFs auf den alten Controllern verschieben, wenn sie auf den Ports e1a, e7a, e2b oder e3b gehostet werden.</block>
+  <block id="8a09de643687f0a8327c0493bea75cfb" category="paragraph">Informationen zur Portverteilung und -Zuweisung auf den neuen Knoten finden Sie im<block ref="ed4326c3351d8ac0e334b8b4d9b37c82" category="inline-link-rx"></block>.</block>
+  <block id="898c71cbc0947646bf37a832e77fa31f" category="list-text">Sehen Sie sich auf den alten Controllern die Intercluster LIFs an:</block>
+  <block id="ebaeb89c15e72f7de931e5d21d67c21b" category="paragraph"><block ref="a8ef5efd140dbfca42670e5d3b15ccff" prefix="" category="inline-code"></block></block>
+  <block id="1e81235f7b13b0f2e88bd765d2e46a34" category="paragraph">Je nachdem, ob die Intercluster LIFs auf den alten Controllern die gleichen Ports verwenden, wie die Ports für HA Interconnect oder den MetroCluster IP DR Interconnect auf den neuen Controllern.</block>
+  <block id="9e1cf8f40a604f4c38391100a2f69945" category="cell">Wenn die Intercluster LIFs...</block>
+  <block id="9ff403929760ba2610f86579a49399e0" category="cell">Verwenden Sie denselben Home-Port</block>
+  <block id="ed8c1f612253f0c38c2a68c1be34ff71" category="inline-xref">Unterschritt b</block>
+  <block id="27efb084ea8cfb0b1acbce0b33637bf2" category="cell"><block ref="310c42a30486c061e617f12669b1cb31" category="inline-xref-macro-rx"></block></block>
+  <block id="667c8b04e1c765d2ac10d6029d6c4a67" category="cell">Verwenden Sie einen anderen Home-Port</block>
+  <block id="97508d4e4a3b7631b6c05c3f42e9f3c7" category="cell"><block ref="177a8a15f5f4315b71d3ece7c721a178" category="inline-xref-macro-rx"></block></block>
+  <block id="d19c71c5a36e79bee005548e97a3430a" category="list-text">[[Controller_manual_Upgrade_prepare_Network_Ports_2b]]Ändern Sie die Intercluster-LIFs so, dass sie einen anderen Home Port verwenden:</block>
+  <block id="ecc099ad90b879286453572c6448dca3" category="paragraph"><block ref="7d49fda2e15c7e56a195e4a13068da53" prefix="" category="inline-code"></block></block>
+  <block id="67feed2eb0a24db24a92109ddf08b1d3" category="list-text">Überprüfen Sie, ob sich alle Intercluster LIFs an ihren neuen Home Ports befinden:</block>
+  <block id="eceba4f3e0b4a9871c405b2a29588160" category="paragraph"><block ref="e4179081ff1589282042af635786a6a1" prefix="" category="inline-code"></block></block>
+  <block id="e053c6b6612e1badd81926ae9048a6d0" category="paragraph">Die Befehlsausgabe sollte leer sein und bedeutet, dass sich alle Intercluster LIFs auf ihren jeweiligen Home Ports befinden.</block>
+  <block id="424031e17e88451da4f8822abbe10ecc" category="list-text">Wenn LIFs, die nicht auf den Home-Ports vorhanden sind, setzen Sie sie mit dem folgenden Befehl zurück:</block>
+  <block id="85c3f52ae5c990518a32da157e1d43de" category="paragraph"><block ref="7f926cf3edf705b92de0cde858fac3c8" prefix="" category="inline-code"></block></block>
+  <block id="39b8c0f5fb5a1532d766cc2a0500ae92" category="paragraph">Wiederholen Sie den Befehl für jede Intercluster LIF, die sich nicht im Home Port befindet.</block>
+  <block id="270f1324a7b7f1a7e5f85816e9ee67a1" category="list-text">[[Controller_manual_Upgrade_prepare_Network_Ports_3]]Zuweisen des Home-Ports aller Daten-LIFs auf dem alten Controller zu einem gemeinsamen Port, der sowohl auf den alten als auch auf den neuen Controller-Modulen identisch ist.</block>
+  <block id="fc655e61a175b85fccd1c37c00f3ccaa" category="cell"><block ref="ea90f75ed68d4ddf4266e92157cc0fae" category="inline-xref-macro-rx"></block></block>
+  <block id="b0b6d9c342452ad19a9b24e1caf2ff35" category="cell"><block ref="e7896f2437c8c50a74bfea383fc26eb3" category="inline-xref-macro-rx"></block></block>
+  <block id="3872acc735c86484cf5289e6f36d9d09" category="list-text">[[Controller_replace_Upgrade_prepare_Network_Ports_2b]]Ändern Sie die Intercluster LIFs, um einen anderen Home Port zu verwenden:</block>
+  <block id="bd14e125f8f9035fe1f7a46be559035d" category="list-text">[[Controller_replace_Upgrade_prepare_Network_Ports_3]]Zuweisen Sie den Home-Port aller Daten-LIFs auf dem alten Controller einem gemeinsamen Port, der sowohl auf den alten als auch auf den neuen Controller-Modulen identisch ist.</block>
 </blocks>

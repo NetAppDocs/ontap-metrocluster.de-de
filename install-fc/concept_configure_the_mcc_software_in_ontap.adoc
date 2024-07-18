@@ -1301,7 +1301,7 @@ Jedem Pool sollte eine gleiche Anzahl an Festplatten zugewiesen werden.
 +
 .. Weisen Sie beim ersten Knoten systematisch die Hälfte der Disks jedem Shelf zu, um 0 und die andere Hälfte dem Pool des HA-Partners 0 zu bündeln:
 +
-`disk assign -disk _disk-name_ -p _pool_ -n _number-of-disks_`
+`disk assign -shelf <shelf-name> -p <pool> -n <number-of-disks>`
 
 +
 Wenn der Storage Controller Controller_A_1 vier Shelves mit jeweils 8 SSDs aufweist, geben Sie die folgenden Befehle ein:

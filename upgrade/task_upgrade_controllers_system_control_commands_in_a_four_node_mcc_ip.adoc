@@ -358,7 +358,57 @@ Um sicherzustellen, dass das Netzwerk auf den neuen Controllern ordnungsgemäß 
 +
 `boot_ontap`
 
-. Weisen Sie den Home-Port aller Daten-LIFs des alten Controllers einem gemeinsamen Port zu, der auf den alten und den neuen Controller-Modulen identisch ist.
+. Ändern Sie die Intercluster LIFs auf den alten Controllern, um einen anderen Home Port zu verwenden als die Ports, die für HA Interconnect oder MetroCluster IP DR Interconnect auf den neuen Controllern verwendet werden.
++
+
+NOTE: Dieser Schritt ist für ein erfolgreiches Upgrade erforderlich.
+
++
+Die Intercluster LIFs auf den alten Controllern müssen einen anderen Home Port verwenden als die Ports, die für HA Interconnect oder MetroCluster IP DR Interconnect auf den neuen Controllern verwendet werden. Wenn Sie beispielsweise auf AFF A90 Controller aktualisieren, sind die HA Interconnect-Ports e1a und e7a und die MetroCluster IP DR Interconnect-Ports e2b und e3b. Sie müssen die Intercluster LIFs auf den alten Controllern verschieben, wenn sie auf den Ports e1a, e7a, e2b oder e3b gehostet werden.
+
++
+Informationen zur Portverteilung und -Zuweisung auf den neuen Knoten finden Sie im https://hwu.netapp.com["NetApp Hardware Universe"].
+
++
+.. Sehen Sie sich auf den alten Controllern die Intercluster LIFs an:
++
+`network interface show  -role intercluster`
+
++
+Je nachdem, ob die Intercluster LIFs auf den alten Controllern die gleichen Ports verwenden, wie die Ports für HA Interconnect oder den MetroCluster IP DR Interconnect auf den neuen Controllern.
+
++
+[cols="2*"]
+|===
+| Wenn die Intercluster LIFs... | Gehe zu... 
+
+
+| Verwenden Sie denselben Home-Port | <<controller_replace_upgrade_prepare_network_ports_2b,Unterschritt b>> 
+
+
+| Verwenden Sie einen anderen Home-Port | <<controller_replace_upgrade_prepare_network_ports_3,Schritt 3>> 
+|===
+.. [[Controller_replace_Upgrade_prepare_Network_Ports_2b]]Ändern Sie die Intercluster LIFs, um einen anderen Home Port zu verwenden:
++
+`network interface modify -vserver <vserver> -lif <intercluster_lif> -home-port <port-not-used-for-ha-interconnect-or-mcc-ip-dr-interconnect-on-new-nodes>`
+
+.. Überprüfen Sie, ob sich alle Intercluster LIFs an ihren neuen Home Ports befinden:
++
+`network interface show -role intercluster -is-home  false`
+
++
+Die Befehlsausgabe sollte leer sein und bedeutet, dass sich alle Intercluster LIFs auf ihren jeweiligen Home Ports befinden.
+
+.. Wenn LIFs, die nicht auf den Home-Ports vorhanden sind, setzen Sie sie mit dem folgenden Befehl zurück:
++
+`network interface revert -lif <intercluster_lif>`
+
++
+Wiederholen Sie den Befehl für jede Intercluster LIF, die sich nicht im Home Port befindet.
+
+
+
+. [[Controller_replace_Upgrade_prepare_Network_Ports_3]]Zuweisen Sie den Home-Port aller Daten-LIFs auf dem alten Controller einem gemeinsamen Port, der sowohl auf den alten als auch auf den neuen Controller-Modulen identisch ist.
 +
 .. Anzeigen der LIFs:
 +
