@@ -4,23 +4,21 @@ sidebar: sidebar
 keywords: select, transition, procedure, depend, exist, metrocluster, fc, configuration, choosing, choose 
 summary: Sie müssen ein Migrationsverfahren je nach Ihrer bestehenden MetroCluster FC-Konfiguration auswählen. 
 ---
-= Auswahl des Migrationsverfahrens
+= Wählen Sie Ihr Übergangsverfahren
 :allow-uri-read: 
 :icons: font
 :imagesdir: ../media/
 
 
 [role="lead"]
-Beim Umstieg auf eine MetroCluster IP-Konfiguration müssen Sie über eine Kombination unterstützter Plattformmodelle verfügen. Sie sollten außerdem sicherstellen, dass die MetroCluster IP-Plattform für die Auslastung geeignet ist, die Sie von der MetroCluster FC-Konfiguration auf die MetroCluster IP-Konfiguration umstellen.
+Beim Umstieg auf eine MetroCluster IP-Konfiguration müssen Sie über eine Kombination unterstützter Plattformmodelle verfügen.
 
-Die folgende Tabelle zeigt die unterstützten Plattformkombinationen. Sie können von Plattformen in der linken Spalte zu Plattformen wechseln, die in den Spalten unterstützt werden, nach rechts, wie durch die farbigen Tabellenzellen angegeben.
+Sie sollten außerdem sicherstellen, dass die MetroCluster IP-Plattform für die Auslastung geeignet ist, die Sie von der MetroCluster FC-Konfiguration auf die MetroCluster IP-Konfiguration umstellen.
 
-Beispielsweise wird der Wechsel von einer MetroCluster FC-Konfiguration aus AFF8060 Controller-Modulen zu einer IP-Konfiguration aus AFF A400 Controller-Modulen unterstützt.
 
-image::../media/four_node_transition_mcc_9151.png[Zeigt unterstützte Plattformkombinationen für den IP- zu FC-Übergang]
 
-* Anmerkung 1: Diese Plattformkombination erfordert ONTAP 9.13.1 oder höher.
-* Hinweis 2: Auf FC-Nodes ist eine 100-GbE-Schnittstelle für die lokalen Cluster-Schnittstellen erforderlich. Für diese Plattformkombination ist ONTAP 9.11.1 oder höher erforderlich.
+== Unterstützte Plattformkombinationen
+
 * Für alle Umstiegsprozesse ist ONTAP 9.8 oder höher erforderlich, sofern in den Hinweisen oder den Voraussetzungen einer einzelnen Plattform nicht anders angegeben.
 * Auf allen Nodes in der MetroCluster-Konfiguration muss dieselbe ONTAP-Version ausgeführt werden. Wenn Sie beispielsweise über eine Konfiguration mit acht Nodes verfügen, müssen alle acht Nodes dieselbe ONTAP-Version ausführen.
 
@@ -33,6 +31,41 @@ image::../media/four_node_transition_mcc_9151.png[Zeigt unterstützte Plattformk
 
 
 ====
+.Unterstützte AFF- und FAS-Übergangskombinationen
+Die folgende Tabelle zeigt die unterstützten Plattformkombinationen. Sie können von Plattformen in der linken Spalte zu Plattformen wechseln, die in den Spalten unterstützt werden, nach rechts, wie durch die farbigen Tabellenzellen angegeben.
+
+Beispielsweise wird der Wechsel von einer MetroCluster FC-Konfiguration aus AFF8060 Controller-Modulen zu einer IP-Konfiguration aus AFF A400 Controller-Modulen unterstützt.
+
+image::../media/4node-transition-9151-update.png[Zeigt unterstützte Plattformkombinationen für den IP- zu FC-Übergang]
+
+* Hinweis 1: Diese Plattform erfordert ONTAP 9.11.1 oder höher.
+* Hinweis 2: Auf den FC-Nodes ist eine 40-GbE-Schnittstelle für die lokalen Cluster-Schnittstellen erforderlich.
+* Hinweis 3: Auf FC-Nodes ist eine 100-GbE-Schnittstelle für die lokalen Cluster-Schnittstellen erforderlich.
+
+
+.Unterstützte ASA-Plattformkombinationen für den Umstieg
+In der folgenden Tabelle sind die unterstützten Plattformkombinationen für ASA Systeme aufgeführt.
+
+[cols="3*"]
+|===
+| Quell-MetroCluster FC-Plattform | MetroCluster IP-Zielplattform | Unterstützt? 
+
+
+.2+| ASA A400 | ASA A400 | Ja. 
+
+
+| ASA A900 | Nein 
+
+
+.2+| ASA A900 | ASA A400 | Nein 
+
+
+| ASA A900 | Ja. 
+|===
+
+
+== Wählen Sie Ihr Übergangsverfahren
+
 Sie müssen ein Migrationsverfahren je nach Ihrer bestehenden MetroCluster FC-Konfiguration auswählen.
 
 Ein Migrationsverfahren ersetzt das Back-End FC Switch Fabric oder die FC-VI-Verbindung durch ein IP Switch-Netzwerk. Die genaue Vorgehensweise hängt von Ihrer Startkonfiguration ab.

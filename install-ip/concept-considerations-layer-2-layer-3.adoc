@@ -11,12 +11,13 @@ summary: Je nach Ihren Anforderungen können Sie gemeinsam genutzte Layer-2- ode
 [role="lead"]
 Je nach Ihren Anforderungen können Sie gemeinsam genutzte Layer-2- oder Layer-3-Netzwerke zur Implementierung von MetroCluster verwenden.
 
-Ab ONTAP 9.6 können MetroCluster IP-Konfigurationen mit unterstützten Cisco Switches vorhandene Netzwerke für ISLs (Inter-Switch Links) gemeinsam nutzen, anstatt dedizierte MetroCluster-ISLs zu verwenden. Diese Topologie wird als _Shared Layer 2 Networks_ bezeichnet.
+Ab ONTAP 9.6 können MetroCluster IP-Konfigurationen mit unterstützten Switches vorhandene Netzwerke für ISLs (Inter-Switch Links) gemeinsam nutzen, anstatt dedizierte MetroCluster-ISLs zu verwenden. Diese Topologie wird als _Shared Layer 2 Networks_ bezeichnet.
 
 Ab ONTAP 9.9 können MetroCluster IP-Konfigurationen mit IP-Routing (Layer 3)-Backend-Verbindungen implementiert werden. Diese Topologie wird als _Shared Layer 3 Networks_ bezeichnet.
 
 [NOTE]
 ====
+* Nicht alle Funktionen werden in allen Netzwerktopologien unterstützt.
 * Sie müssen überprüfen, ob Sie über ausreichende Netzwerkkapazität verfügen und ob die ISL-Größe für Ihre Konfiguration geeignet ist. Eine niedrige Latenz ist für die Replizierung von Daten zwischen den MetroCluster Standorten von großer Bedeutung. Latenzprobleme auf diesen Verbindungen können sich nachteilig auf das Client-I/O auswirken
 * Alle Verweise auf MetroCluster Backend-Switches beziehen sich auf NetApp validierte Switches oder MetroCluster konforme Switches. Siehe link:mcc-compliant-netapp-validated-switches.html["Von NetApp validierte und MetroCluster-konforme Switches"] Entnehmen.
 

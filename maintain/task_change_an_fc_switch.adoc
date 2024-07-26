@@ -4,12 +4,12 @@ sidebar: sidebar
 keywords: metrocluster, maintain, service, change, fc, switch 
 summary: 'Möglicherweise müssen Sie den Anbieter eines FC-Switches (von Cisco zu Brocade oder umgekehrt) ändern, das Switch-Modell oder beides ändern.' 
 ---
-= Ändern Sie den Anbieter oder das Modell eines FC-Switch
+= Ändern Sie den Anbieter oder das Modell der FC-Switches
 :allow-uri-read: 
 
 
 [role="lead"]
-Möglicherweise müssen Sie den Anbieter eines FC Switch von Cisco zu Brocade wechseln oder umgekehrt, das Switch-Modell ändern oder beides ändern.
+Möglicherweise müssen Sie den Anbieter für FC Switches von Cisco zu Brocade wechseln oder umgekehrt, das Switch-Modell ändern oder beides ändern.
 
 .Über diese Aufgabe
 * Dieses Verfahren gilt, wenn Sie NetApp Validated Switches verwenden.
@@ -53,8 +53,6 @@ Group Cluster Node           State          Mirroring Mode
 ----
 cluster_A::> metrocluster check run
 
-Last Checked On: 10/1/2014 16:03:37
-
 Component           Result
 ------------------- ---------
 nodes               ok
@@ -69,42 +67,29 @@ To check if the nodes are ready to do a switchover or switchback operation, run 
 .. Vergewissern Sie sich, dass es keine Systemzustandsmeldungen gibt: `*system health alert show*`
 
 
-. Konfigurieren Sie den neuen Switch vor der Installation.
+. Konfigurieren Sie die neuen Switches vor der Installation.
 +
-Befolgen Sie die Schritte unter link:https://docs.netapp.com/us-en/ontap-metrocluster/install-fc/task_reset_the_brocade_fc_switch_to_factory_defaults.html["Konfigurieren Sie die FC-Switches"].
+Folgen Sie den Schritten in link:../install-fc/concept-configure-fc-switches.html["Konfigurieren Sie die FC-Switches"].
 
-. Trennen Sie die Verbindungen vom alten Schalter, indem Sie die Anschlüsse in der folgenden Reihenfolge entfernen:
+. Trennen Sie die Verbindungen von den alten Schaltern, indem Sie die Verbindungen in der folgenden Reihenfolge entfernen:
 +
-.. Wenn die lokalen Cluster-Schnittstellen mit einem Switch verbunden sind:
-+
-... Trennen Sie die lokalen Cluster-Schnittstellen
-... Trennen Sie die lokalen Cluster-ISLs
-
-
-.. Trennen Sie die MetroCluster FC-Schnittstellen.
+.. Trennen Sie die MetroCluster FC- und FCVI-Schnittstellen.
+.. Trennen Sie die ATTO FibreBridge-Brücken.
 .. Trennen Sie die MetroCluster-ISLs.
 
 
-. Schalten Sie den alten Schalter aus, entfernen Sie die Kabel, und ersetzen Sie den alten Schalter durch den neuen Schalter.
+. Schalten Sie die alten Schalter aus, entfernen Sie die Kabel, und ersetzen Sie die alten Schalter physisch durch den neuen Schalter.
 . Verkabeln Sie die Schalter in der folgenden Reihenfolge:
 +
-Sie müssen die Schritte unter befolgen link:https://docs.netapp.com/us-en/ontap-metrocluster/install-fc/task_rack_the_hardware_components_mcc_fabric_and_ip.html["Installieren und verkabeln Sie die MetroCluster-Komponenten"].
+Sie müssen die Schritte in befolgen link:../install-fc/task_configure_the_mcc_hardware_components_fabric.html["Verkabelung einer Fabric-Attached MetroCluster-Konfiguration"].
 
 +
 .. Verkabeln Sie die ISLs mit dem Remote-Standort.
-.. Verkabeln Sie die MetroCluster FC-Schnittstellen.
-.. Verkabeln Sie die lokalen Cluster-Schnittstellen.
-+
-Wenn die lokalen Cluster-Schnittstellen mit einem Switch verbunden sind:
-
-+
-... Verkabeln Sie die lokalen Cluster-Schnittstellen.
-... Verkabeln Sie die lokalen Cluster-ISLs.
+.. Verkabeln Sie die ATTO FibreBridge-Brücken.
+.. Verkabeln Sie die MetroCluster FC- und FCVI-Schnittstellen.
 
 
-
-
-. Schalten Sie den Switch ein.
+. Schalten Sie die Schalter ein.
 . Wiederholen Sie die Schritte, um zu überprüfen, ob die MetroCluster-Konfiguration ordnungsgemäß ist <<Schritt 1>>.
 . Wiederholen Sie Schritt 1 bis Schritt 7 für den zweiten Fabric in der Konfiguration.
 
