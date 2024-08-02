@@ -23,14 +23,19 @@ Bei einem Upgrade-Verfahren werden die Controller durch ein neues Controller-Mod
 
 == Unterstützte Controller-Upgrades
 
-Wählen Sie Ihre aktuelle Plattform aus der unten stehenden FC- oder IP-Tabelle aus. Wenn die Schnittmenge der Spalte Aktuelle Plattform und Zielplattform leer ist, wird das Upgrade nicht unterstützt.
-
-
-NOTE: Informationen zu unterstützten Upgrades mit Befehlen in einer MetroCluster IP-Konfiguration mit `system controller replace` vier Nodes finden Sie in der Tabelle in link:task_upgrade_controllers_system_control_commands_in_a_four_node_mcc_ip.html["Aktualisieren Sie Controller in einer MetroCluster IP-Konfiguration mit vier Nodes mithilfe von Switchover und Switchback mit Befehlen, die den System-Controller ersetzen (ONTAP 9.13.1 und höher)."]
+Erfahren Sie mehr über die unterstützten Kombinationen für MetroCluster IP- und FC-Controller-Upgrades.
 
 
 
-=== Unterstützte MetroCluster IP-Controller-Upgrades
+=== Unterstützte MetroCluster IP-Controller-Upgrades mithilfe von Befehlen „System Controller Replace“
+
+Informationen zu unterstützten Plattformen finden Sie in der Tabelle in link:task_upgrade_controllers_system_control_commands_in_a_four_node_mcc_ip.html["Aktualisieren Sie Controller in einer MetroCluster IP-Konfiguration mit vier Nodes mithilfe von Switchover und Switchback mit Befehlen, die den System-Controller ersetzen (ONTAP 9.13.1 und höher)."] .
+
+
+
+=== Alle anderen unterstützten MetroCluster IP-Controller-Upgrades
+
+Finden Sie Ihre *Source*-Plattform in den MetroCluster Controller-Upgrade-Tabellen in diesem Abschnitt. Wenn die Schnittmenge der Spalte *Source* Platform und *Target* Platform leer ist, wird das Upgrade nicht unterstützt.
 
 * Wenn Ihre Plattform nicht aufgeführt ist, gibt es keine unterstützte Kombination für Controller-Upgrades.
 * Wenn Sie ein Controller-Upgrade durchführen, stimmen der alte und der neue Plattformtyp *muss* überein:
@@ -46,7 +51,7 @@ Wenn Sie beispielsweise eine FAS8200 als Plattform aktualisieren möchten, könn
 
 
 .Unterstützte AFF- und FAS MetroCluster IP-Controller-Upgrades
-In der folgenden Tabelle sind die unterstützten Plattformkombinationen für das Upgrade eines AFF- oder FAS-Systems in einer MetroCluster IP-Konfiguration aufgeführt:
+In der folgenden Tabelle sind die unterstützten Plattformkombinationen für das manuelle Upgrade eines AFF- oder FAS-Systems in einer MetroCluster IP-Konfiguration aufgeführt:
 
 image::../media/metrocluster_ip_upgrade_so_sb_aff_fas.png[MetroCluster ip-Upgrade so SB AFF FAS]
 
@@ -57,7 +62,7 @@ image::../media/metrocluster_ip_upgrade_so_sb_aff_fas.png[MetroCluster ip-Upgrad
 
 
 .Unterstützte ASA MetroCluster IP-Controller-Upgrades
-In der folgenden Tabelle sind die unterstützten Plattformkombinationen für das Upgrade eines ASA-Systems in einer MetroCluster IP-Konfiguration aufgeführt:
+In der folgenden Tabelle sind die unterstützten Plattformkombinationen für das manuelle Upgrade eines ASA-Systems in einer MetroCluster IP-Konfiguration aufgeführt:
 
 image::../media/metrocluster_ip_upgrade_so_sb_asa_fas.png[MetroCluster ip-Upgrade so SB ASA FAS]
 
@@ -67,6 +72,8 @@ image::../media/metrocluster_ip_upgrade_so_sb_asa_fas.png[MetroCluster ip-Upgrad
 
 
 === Unterstützte MetroCluster FC-Controller-Upgrades
+
+Finden Sie Ihre *Source*-Plattform in den MetroCluster Controller-Upgrade-Tabellen in diesem Abschnitt. Wenn die Schnittmenge der Spalte *Source* Platform und *Target* Platform leer ist, wird das Upgrade nicht unterstützt.
 
 * Wenn Ihre Plattform nicht aufgeführt ist, gibt es keine unterstützte Kombination für Controller-Upgrades.
 * Wenn Sie ein Controller-Upgrade durchführen, stimmen der alte und der neue Plattformtyp *muss* überein:
