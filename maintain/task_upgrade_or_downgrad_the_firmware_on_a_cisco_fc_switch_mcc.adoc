@@ -13,13 +13,20 @@ summary: Zum Upgrade oder Downgrade der Firmware auf einem Cisco FC-Switch müss
 [role="lead"]
 Zum Upgrade oder Downgrade der Firmware auf einem Cisco FC-Switch müssen Sie den Switch mit den Cisco-spezifischen Befehlen deaktivieren, das Upgrade durchführen und überprüfen sowie den Switch neu starten und wieder aktivieren.
 
-* Das System muss ordnungsgemäß verkabelt sein.
-* Alle Pfade zu den Storage Shelves müssen verfügbar sein.
-* Die Platten-Shelf-Stacks müssen stabil sein.
-* Die FC-Switch-Fabric muss sich in einem ordnungsgemäßen Zustand befinden.
-* Alle Komponenten im System müssen ordnungsgemäß sein.
-* Das System muss ordnungsgemäß ausgeführt werden.
-* Sie benötigen das Admin-Passwort und den Zugriff auf einen FTP- oder SCP-Server.
+.Über diese Aufgabe
+Vergewissern Sie sich, dass Sie die folgenden Aufgaben für Ihre Konfiguration überprüft und ausgeführt haben:
+
+* Das System ist ordnungsgemäß verkabelt.
+* Es sind alle Pfade zu den Storage Shelfs verfügbar.
+* Die Platten-Shelf Stacks sind stabil.
+* Die FC-Switch-Fabric ist in einem ordnungsgemäßen Zustand.
+* Alle Komponenten im System sind in gutem Zustand.
+* Das System funktioniert normal.
+* Sie haben das Admin-Passwort und Zugriff auf einen FTP- oder SCP-Server.
+* Die Konsolenprotokollierung ist aktiviert.
++
+link:enable-console-logging-before-maintenance.html["Aktivieren Sie die Konsolenprotokollierung"]
+
 
 
 Die Switch-Fabric wird während des Firmware-Upgrades oder Downgrades deaktiviert und die MetroCluster-Konfiguration basiert auf der zweiten Fabric, um den Betrieb fortzusetzen.

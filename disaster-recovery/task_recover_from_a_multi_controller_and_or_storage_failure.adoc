@@ -13,19 +13,25 @@ summary: 'Wenn sich der Controller-Ausfall auf alle Controller-Module auf einer 
 [role="lead"]
 Wenn der Controller-Ausfall alle Controller-Module auf einer Seite einer DR-Gruppe in einer MetroCluster Konfiguration umfasst (einschließlich eines einzelnen Controllers in einer MetroCluster Konfiguration mit zwei Nodes), oder wenn der Storage ausgetauscht wurde, müssen die Geräte ersetzt und die Eigentumsrechte an Laufwerken neu zugewiesen werden, um bei einem Ausfall die Wiederherstellung zu ermöglichen.
 
-* Sie sollten die verfügbaren Wiederherstellungsverfahren überprüfen, bevor Sie sich für dieses Verfahren entscheiden.
+Vergewissern Sie sich, dass Sie die folgenden Aufgaben überprüft und ausgeführt haben, bevor Sie dieses Verfahren verwenden:
+
+* Überprüfen Sie die verfügbaren Wiederherstellungsverfahren, bevor Sie sich für die Verwendung dieses Verfahrens entscheiden.
 +
 link:concept_choosing_the_correct_recovery_procedure_parent_concept.html["Auswahl des richtigen Wiederherstellungsverfahrens"]
 
-* Der Disaster-Standort muss abgetrennt werden.
+* Vergewissern Sie sich, dass die Konsolenprotokollierung auf Ihren Geräten aktiviert ist.
++
+link:task-enable-console-logging.html["Aktivieren Sie die Konsolenprotokollierung"]
+
+* Stellen Sie sicher, dass der Katastrophenort abgetrennt ist.
 +
 link:task_perform_a_forced_switchover_after_a_disaster.html#fencing-off-the-disaster-site["Fechten vor dem Disaster-Standort"].
 
-* Umschaltung muss durchgeführt worden sein.
+* Vergewissern Sie sich, dass die Umschaltung durchgeführt wurde.
 +
 link:task_perform_a_forced_switchover_after_a_disaster.html#performing-a-forced-switchover["Erzwungene Umschaltung durchführen"].
 
-* Ersatzlaufwerke und Controller-Module müssen neu sein und dürfen zuvor nicht Eigentümer zugewiesen worden sein.
+* Stellen Sie sicher, dass die Ersatzlaufwerke und die Controller-Module neu sind und zuvor keine Eigentumsrechte zugewiesen wurden.
 * Die Beispiele in diesem Verfahren zeigen Konfigurationen mit zwei oder vier Nodes. Wenn eine Konfiguration mit acht Nodes vorhanden ist (zwei DR-Gruppen), müssen Fehler berücksichtigt und die erforderliche Recovery-Aufgabe auf den zusätzlichen Controller-Modulen ausgeführt werden.
 
 

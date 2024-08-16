@@ -13,14 +13,21 @@ summary: Zum Upgrade oder Downgrade der Firmware auf einem Brocade FC-Switch mü
 [role="lead"]
 Zum Upgrade oder Downgrade der Firmware auf einem Brocade FC-Switch müssen Sie den Switch mit den spezifischen Brocade Befehlen deaktivieren, die Firmware-Änderung durchführen und überprüfen sowie den Switch neu starten und wieder aktivieren.
 
-* Sie müssen über die Firmware-Dateien verfügen.
-* Das System muss ordnungsgemäß verkabelt sein.
-* Alle Pfade zu den Storage Shelves müssen verfügbar sein.
-* Die Platten-Shelf-Stacks müssen stabil sein.
-* Die FC-Switch-Fabric muss sich in einem ordnungsgemäßen Zustand befinden.
-* Im System können keine fehlerhaften Komponenten vorhanden sein.
-* Das System muss ordnungsgemäß ausgeführt werden.
-* Sie müssen über das Admin-Passwort und den Zugriff auf einen FTP- oder SCP-Server verfügen.
+.Über diese Aufgabe
+Vergewissern Sie sich, dass Sie die folgenden Aufgaben für Ihre Konfiguration überprüft und ausgeführt haben:
+
+* Sie haben die Firmware-Dateien.
+* Das System ist ordnungsgemäß verkabelt.
+* Es sind alle Pfade zu den Storage Shelfs verfügbar.
+* Die Platten-Shelf Stacks sind stabil.
+* Die FC-Switch-Fabric ist in einem ordnungsgemäßen Zustand.
+* Im System sind keine fehlerhaften Komponenten vorhanden.
+* Das System funktioniert normal.
+* Sie haben das Admin-Passwort und Zugriff auf einen FTP- oder SCP-Server.
+* Die Konsolenprotokollierung ist aktiviert.
++
+link:enable-console-logging-before-maintenance.html["Aktivieren Sie die Konsolenprotokollierung"]
+
 
 
 Die Switch-Fabric wird während eines Firmware-Upgrades oder Downgrades deaktiviert, wobei die MetroCluster-Konfiguration den Betrieb über die zweite Fabric fortsetzt.
