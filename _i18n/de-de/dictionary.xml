@@ -7925,9 +7925,7 @@
   <block id="147fd0500c6c6d57f507339941c4ecdb" category="paragraph">Sie werden aufgefordert, die Bridge neu zu starten.</block>
   <block id="0d0c0c98576403d7d46bc7ee7fa9fa7a" category="list-text">Aktualisieren Sie die FibreBridge-Firmware auf jeder Bridge.</block>
   <block id="b2d9f80a5c71fe34bed7839914c2fd68" category="paragraph">Wenn die neue Bridge den gleichen Typ hat wie das Upgrade der Partnerbrücke auf die gleiche Firmware wie die Partner Bridge. Falls sich die neue Brücke von einem anderen Typ der Partnerbrücke unterscheidet, aktualisieren Sie auf die neueste Firmware, die von der Bridge und Version von ONTAP unterstützt wird. Siehe Abschnitt „Firmware auf einer FibreBridge-Brücke aktualisieren“ in _MetroCluster-Wartung_.</block>
-  <block id="9013c925bc3a423f843c073690ed8081" category="list-text">[[ste17-connect-newbridge]] verbinden Sie die SAS- und FC-Kabel mit den gleichen Ports auf der neuen Bridge.</block>
   <block id="3b5ef1874490ddb39e2ab56e91c15fd9" category="admonition">Warten Sie mindestens 10 Sekunden, bevor Sie den Anschluss anschließen. Die SAS-Kabelanschlüsse sind codiert. Wenn sie sich korrekt in einen SAS-Port orientieren, klicken sie auf ihren Platz und die Festplatten-Shelf-SAS-Port LNK-LED leuchtet grün. Bei Festplatten-Shelfs stecken Sie einen SAS-Kabelanschluss mit nach unten (auf der Unterseite des Connectors) gerichteter Zuglasche. Bei Controllern kann die Ausrichtung der SAS-Ports je nach Plattformmodell variieren. Daher variiert die korrekte Ausrichtung des SAS-Kabelsteckers.</block>
-  <block id="6795687b051fe5f1cb692559517648dd" category="list-text">[[ste18-verify-each-Bridge]]]Stellen Sie sicher, dass jede Bridge alle Festplattenlaufwerke und Platten-Shelfs erkennt, mit denen die Bridge verbunden ist.</block>
   <block id="51618dab77295eddd5c15097ed80ca2d" category="cell">Wenn Sie den...</block>
   <block id="8d7a98cf0e3de35b46f4b4e7fca074f1" category="paragraph">ATTO ExpressNAV GUI</block>
   <block id="cf6dbfa4f0192b540abc550aae0f260f" category="list-text">Geben Sie in einem unterstützten Webbrowser die IP-Adresse der Bridge in das Browserfenster ein.</block>
@@ -7946,11 +7944,8 @@
   <block id="29219bad186be0330f9ec59a1f483a14" category="cell">Wenn die Ausgabe...</block>
   <block id="d0a3892a5b340ce4f3472dc7595dce02" category="paragraph">Das Ist Korrekt</block>
   <block id="b9da98e99c8057fc3b9a54d9d19ff501" category="inline-xref">Schritt 18</block>
-  <block id="828e19cfb619dbe3f082c13af71c8804" category="paragraph">Wiederholen <block ref="eecb3f0fe03b243e2ecc1f82fe37ecc5" category="inline-xref-macro-rx"></block> Für jede verbleibende Brücke.</block>
   <block id="03f13166de52c74a41327e27684b674e" category="paragraph">Nicht richtig</block>
   <block id="9c709df0d0930ada3ab147bf9abe8f06" category="inline-xref">Schritt 17</block>
-  <block id="78cffeb475b967afce30e7091b0a7aec" category="list-text">Überprüfen Sie, ob sich lose SAS-Kabel befinden oder korrigieren Sie die SAS-Verkabelung, indem Sie das Kabel wiederholt <block ref="34712c7e0b7391b53f3aade40f6e2ba2" category="inline-xref-macro-rx"></block>.</block>
-  <block id="daae67946266f0e5177fa51a3f38fec3" category="list-text">Wiederholen <block ref="eecb3f0fe03b243e2ecc1f82fe37ecc5" category="inline-xref-macro-rx"></block>.</block>
   <block id="2273b85e84dfebeb5a21bbd359461d0f" category="list-text">Wenn sich die Bridge in einer Fabric-Attached MetroCluster-Konfiguration befindet, aktivieren Sie den FC-Switch-Port, den Sie zu Beginn dieses Verfahrens deaktiviert haben.</block>
   <block id="9a20682ddc8cef489d77b087b78b3e16" category="paragraph">Dies sollte der Port sein, der mit der Brücke verbunden ist.</block>
   <block id="253278bf8807d2fb353066f7109cc7f2" category="list-text">Überprüfen Sie über die Systemkonsole beider Controller-Module, ob alle Controller-Module über die neue Bridge auf die Festplatten-Shelfs zugreifen können (d. h. dass das System für Multipath HA verkabelt ist):</block>
@@ -14099,4 +14094,14 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="764a523cf339780ca4471f143c5ae04c" category="paragraph"><block ref="d1f7a93b5f0792c01647ca314d5d7e27" prefix="" category="inline-code"></block></block>
   <block id="6e7eea4bc90b7da31497a85ace82eec8" category="paragraph"><block ref="751a8e9d76de229f9092fac6fb23b628" prefix="" category="inline-code"></block></block>
   <block id="f1fe27301697eb21073abfcd231c91ab" category="section-title">Führen Sie das Aktualisierungsverfahren durch</block>
+  <block id="a713923def413049fcd7bd32d239c3b4" category="list-text">Schließen Sie die FC-Kabel an dieselben Ports an der neuen Bridge an.</block>
+  <block id="c09b16f8a5b97a430a942e2624c2ffc8" category="paragraph">Wenn die neue Bridge vom gleichen Typ wie die Partner Bridge ist, aktualisieren Sie auf dieselbe Firmware wie die Partner Bridge. Falls sich die neue Brücke von einem anderen Typ der Partnerbrücke unterscheidet, aktualisieren Sie auf die neueste Firmware, die von der Bridge und Version von ONTAP unterstützt wird. Siehe <block ref="55e804464be1a7c24451c93244c66ff0" category="inline-link-macro-rx"></block></block>
+  <block id="b5a56495c6cd7b15008b12f44e1c09f9" category="list-text">[[step18-reconnect-newbridge]] Schließen Sie die SAS-Kabel wieder an die gleichen Ports der neuen Bridge an.</block>
+  <block id="1bf1e8417c00edaec85599df5b47ee94" category="list-text">[[step19-verify-each-Bridge]] Stellen Sie sicher, dass jede Bridge alle Festplattenlaufwerke und Festplatten-Shelfs sehen kann, mit denen die Bridge verbunden ist.</block>
+  <block id="287bc804244a679c73d0cac4cb0c0b2c" category="inline-xref">Schritt 19</block>
+  <block id="c582e7ac4118500a1aaf382ea318eeeb" category="paragraph">Wiederholen Sie den <block ref="1c41b1b96665f865995fbed1d8884dfe" category="inline-xref-macro-rx"></block>Vorgang für jede verbleibende Brücke.</block>
+  <block id="2788b7f6b6e21bc5a33df0d4aebf4730" category="list-text">Überprüfen Sie die SAS-Kabel auf lose Kabel, oder korrigieren Sie die SAS-Verkabelung, indem Sie wiederholen<block ref="4f69a23cfa1cdd17cebbee3d88ffc0e9" category="inline-xref-macro-rx"></block>.</block>
+  <block id="dd59329be100bd10605cd63312522627" category="list-text">Wiederholen.<block ref="1c41b1b96665f865995fbed1d8884dfe" category="inline-xref-macro-rx"></block></block>
+  <block id="0b9029dad5ded8eb8b9621381b59b85b" category="paragraph">Führen Sie die folgenden Schritte aus, um die MetroCluster FC-Konfiguration zu aktualisieren.</block>
+  <block id="e80b737c5dcc4e6b9a5a4eecb2dc9582" category="paragraph">Führen Sie die folgenden Schritte aus, um die MetroCluster IP-Konfiguration zu aktualisieren.</block>
 </blocks>

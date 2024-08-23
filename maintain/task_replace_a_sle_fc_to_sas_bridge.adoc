@@ -409,11 +409,12 @@ Sie werden aufgefordert, die Bridge neu zu starten.
 
 
 
+. Schließen Sie die FC-Kabel an dieselben Ports an der neuen Bridge an.
 . Aktualisieren Sie die FibreBridge-Firmware auf jeder Bridge.
 +
-Wenn die neue Bridge den gleichen Typ hat wie das Upgrade der Partnerbrücke auf die gleiche Firmware wie die Partner Bridge. Falls sich die neue Brücke von einem anderen Typ der Partnerbrücke unterscheidet, aktualisieren Sie auf die neueste Firmware, die von der Bridge und Version von ONTAP unterstützt wird. Siehe Abschnitt „Firmware auf einer FibreBridge-Brücke aktualisieren“ in _MetroCluster-Wartung_.
+Wenn die neue Bridge vom gleichen Typ wie die Partner Bridge ist, aktualisieren Sie auf dieselbe Firmware wie die Partner Bridge. Falls sich die neue Brücke von einem anderen Typ der Partnerbrücke unterscheidet, aktualisieren Sie auf die neueste Firmware, die von der Bridge und Version von ONTAP unterstützt wird. Siehe link:task_update_firmware_on_a_fibrebridge_bridge_parent_topic.html["Firmware auf einer FibreBridge-Bridge aktualisieren"]
 
-. [[ste17-connect-newbridge]] verbinden Sie die SAS- und FC-Kabel mit den gleichen Ports auf der neuen Bridge.
+. [[step18-reconnect-newbridge]] Schließen Sie die SAS-Kabel wieder an die gleichen Ports der neuen Bridge an.
 +
 Sie müssen die Kabel austauschen, die die Brücke mit der oberen oder unteren Seite des Regalstapels verbinden. Für die FibreBridge 7600N- und 7500N-Brücken sind Mini-SAS-Kabel für diese Verbindungen erforderlich.
 
@@ -421,7 +422,7 @@ Sie müssen die Kabel austauschen, die die Brücke mit der oberen oder unteren S
 
 NOTE: Warten Sie mindestens 10 Sekunden, bevor Sie den Anschluss anschließen. Die SAS-Kabelanschlüsse sind codiert. Wenn sie sich korrekt in einen SAS-Port orientieren, klicken sie auf ihren Platz und die Festplatten-Shelf-SAS-Port LNK-LED leuchtet grün. Bei Festplatten-Shelfs stecken Sie einen SAS-Kabelanschluss mit nach unten (auf der Unterseite des Connectors) gerichteter Zuglasche. Bei Controllern kann die Ausrichtung der SAS-Ports je nach Plattformmodell variieren. Daher variiert die korrekte Ausrichtung des SAS-Kabelsteckers.
 
-. [[ste18-verify-each-Bridge]]]Stellen Sie sicher, dass jede Bridge alle Festplattenlaufwerke und Platten-Shelfs erkennt, mit denen die Bridge verbunden ist.
+. [[step19-verify-each-Bridge]] Stellen Sie sicher, dass jede Bridge alle Festplattenlaufwerke und Festplatten-Shelfs sehen kann, mit denen die Bridge verbunden ist.
 +
 [cols="35,65"]
 |===
@@ -496,15 +497,15 @@ Tgt VendorID ProductID        Type SerialNumber
  a| 
 Das Ist Korrekt
  a| 
-Wiederholen <<step18-verify-each-bridge,Schritt 18>> Für jede verbleibende Brücke.
+Wiederholen Sie den <<step19-verify-each-bridge,Schritt 19>>Vorgang für jede verbleibende Brücke.
 
 
 
  a| 
 Nicht richtig
  a| 
-.. Überprüfen Sie, ob sich lose SAS-Kabel befinden oder korrigieren Sie die SAS-Verkabelung, indem Sie das Kabel wiederholt <<step17-reconnect-newbridge,Schritt 17>>.
-.. Wiederholen <<step18-verify-each-bridge,Schritt 18>>.
+.. Überprüfen Sie die SAS-Kabel auf lose Kabel, oder korrigieren Sie die SAS-Verkabelung, indem Sie wiederholen<<step18-reconnect-newbridge,Schritt 18>>.
+.. Wiederholen.<<step19-verify-each-bridge,Schritt 19>>
 
 
 |===
