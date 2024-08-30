@@ -124,94 +124,120 @@ Diese Aufgabe muss an jedem der alten Knoten ausgeführt werden:
 
 * Node_A_1-FC
 * Node_B_1-FC
-+
-.. Beenden Sie den gesamten Client-Datenverkehr.
-.. Aktivieren Sie auf einem der MetroCluster FC-Nodes, z. B. Node_A_1-FC, die Transition.
-+
-... Legen Sie die erweiterte Berechtigungsebene fest: `set -priv advanced`
-... Übergang ermöglichen: `metrocluster transition enable -transition-mode disruptive`
-... Zurück zum Admin-Modus: `set -priv admin`
 
 
-.. Heben Sie das Root-Aggregat auf, indem Sie den Remote Plex der Root-Aggregate löschen.
+.Schritte
+. Beenden Sie den gesamten Client-Datenverkehr.
+. Aktivieren Sie auf einem der MetroCluster FC-Nodes, z. B. Node_A_1-FC, die Transition.
 +
-... Root-Aggregate ermitteln: `storage aggregate show -root true`
-... Zeigen Sie die Pool1-Aggregate an: `storage aggregate plex show -pool 1`
-... Löschen Sie den lokalen Plex des Root-Aggregats: `aggr plex delete aggr-name -plex plex-name`
-... Offline der Remote-Plex des Root-Aggregats: `aggr plex offline root-aggregate -plex remote-plex-for-root-aggregate`
+.. Legen Sie die erweiterte Berechtigungsebene fest: `set -priv advanced`
+.. Übergang ermöglichen: `metrocluster transition enable -transition-mode disruptive`
+.. Zurück zum Admin-Modus: `set -priv admin`
+
+
+. Heben Sie das Root-Aggregat auf, indem Sie den Remote Plex der Root-Aggregate löschen.
++
+.. Root-Aggregate ermitteln: `storage aggregate show -root true`
+.. Zeigen Sie die Pool1-Aggregate an: `storage aggregate plex show -pool 1`
+.. Offline und löschen Sie den Remote-Plex des Root-Aggregats: +
+`aggr plex offline <root-aggregate> -plex <remote-plex-for-root-aggregate>`
++
+`aggr plex delete <root-aggregate> -plex <remote-plex-for-root-aggregate>`
+
 +
 Beispiel:
 
 +
 [listing]
 ----
- # aggr plex offline aggr0_node_A_1-FC_01 -plex plex4
+ # aggr plex offline aggr0_node_A_1-FC_01 -plex remoteplex4
+----
++
+[listing]
+----
+# aggr plex delete aggr0_node_A_1-FC_01 -plex remoteplex4
 ----
 
 
-.. Bestätigen Sie die Mailbox-Anzahl, die automatische Zuordnung der Festplatte und den Übergangsmodus, bevor Sie mit den folgenden Befehlen an jedem Controller fortfahren:
+. Bestätigen Sie die Mailbox-Anzahl, die automatische Zuordnung der Festplatte und den Übergangsmodus, bevor Sie mit den folgenden Befehlen an jedem Controller fortfahren:
 +
-... Legen Sie die erweiterte Berechtigungsebene fest: `set -priv advanced`
-... Vergewissern Sie sich, dass für jedes Controller-Modul nur drei Mailbox-Laufwerke angezeigt werden: `storage failover mailbox-disk show`
-... Zurück zum Admin-Modus: `set -priv admin`
-... Vergewissern Sie sich, dass der Umstiegmodus störend ist: MetroCluster Transition show
+.. Legen Sie die erweiterte Berechtigungsebene fest: `set -priv advanced`
+.. Vergewissern Sie sich, dass für jedes Controller-Modul nur drei Mailbox-Laufwerke angezeigt werden: `storage failover mailbox-disk show`
+.. Zurück zum Admin-Modus: `set -priv admin`
+.. Vergewissern Sie sich, dass der Umstiegmodus störend ist: MetroCluster Transition show
 
 
-.. Prüfen Sie auf defekte Festplatten: `disk show -broken`
-.. Entfernen oder ersetzen Sie alle defekten Festplatten
-.. Überprüfen Sie mithilfe der folgenden Befehle auf Node_A_1-FC und Node_B_1-FC, ob die Aggregate ordnungsgemäß sind:``storage aggregate show``/
+. Prüfen Sie auf defekte Festplatten: `disk show -broken`
+. Entfernen oder ersetzen Sie alle defekten Festplatten
+. Überprüfen Sie, ob sich Aggregate in einem ordnungsgemäßen Zustand befinden, indem Sie die folgenden Befehle auf Node_A_1-FC und Node_B_1-FC verwenden:
++
+`storage aggregate show`
+
++
+`storage aggregate plex show`
+
 +
 Der Befehl Storage Aggregate show gibt an, dass das Root-Aggregat nicht gespiegelt ist.
 
-.. VLANs oder Schnittstellengruppen prüfen: `network port ifgrp show``network port vlan show`
+. VLANs oder Schnittstellengruppen prüfen:
++
+`network port ifgrp show`
+
++
+`network port vlan show`
+
 +
 Wenn keine vorhanden sind, überspringen Sie die folgenden beiden Schritte.
 
-.. Zeigen Sie die Liste der LIFs mithilfe von VLANs oder ifgrps an: `network interface show -fields home-port,curr-port``network port show -type if-group | vlan`
-.. Entfernen Sie alle VLANs und Schnittstellengruppen.
+. Zeigen Sie die Liste der LIFs mithilfe von VLANs oder ifgrps an:
++
+`network interface show -fields home-port,curr-port`
+
++
+`network port show -type if-group | vlan`
+
+. Entfernen Sie alle VLANs und Schnittstellengruppen.
 +
 Sie müssen diese Schritte für alle LIFs in allen SVMs durchführen, einschließlich der SVMs mit dem -mc-Suffix.
 
 +
-... Verschieben Sie alle LIFs über VLANs oder Schnittstellengruppen zu einem verfügbaren Port: `network interface modify -vserver vserver-name -lif lif_name -home- port port`
-... Zeigen Sie die LIFs an, die sich nicht an ihren Home-Ports befinden: `network interface show -is-home false`
-... Alle LIFs auf die jeweiligen Home-Ports zurücksetzen: `network interface revert -vserver vserver_name -lif lif_name`
-... Vergewissern Sie sich, dass sich alle LIFs auf ihren Home-Ports befinden: `network interface show -is-home false`
+.. Verschieben Sie alle LIFs über VLANs oder Schnittstellengruppen zu einem verfügbaren Port: `network interface modify -vserver vserver-name -lif lif_name -home- port port`
+.. Zeigen Sie die LIFs an, die sich nicht an ihren Home-Ports befinden: `network interface show -is-home false`
+.. Alle LIFs auf die jeweiligen Home-Ports zurücksetzen: `network interface revert -vserver vserver_name -lif lif_name`
+.. Vergewissern Sie sich, dass sich alle LIFs auf ihren Home-Ports befinden: `network interface show -is-home false`
 +
 Es sollten keine LIFs in der Ausgabe angezeigt werden.
 
-... Entfernen Sie VLAN- und iffrp-Ports aus Broadcast-Domäne: `network port broadcast-domain remove-ports -ipspace ipspace -broadcast-domain broadcast-domain-name -ports nodename:portname,nodename:portname,..`
-... Vergewissern Sie sich, dass nicht alle vlan- und ifgrp-Ports einer Broadcast-Domäne zugeordnet sind: `network port show -type if-group | vlan`
-... Alle VLANs löschen: `network port vlan delete -node nodename -vlan-name vlan-name`
-... Löschen von Schnittstellengruppen: `network port ifgrp delete -node nodename -ifgrp ifgrp-name`
+.. VLAN- und ifgrp-Ports aus Broadcast-Domäne entfernen: `network port broadcast-domain remove-ports -ipspace ipspace -broadcast-domain broadcast-domain-name -ports nodename:portname,nodename:portname,..`
+.. Vergewissern Sie sich, dass nicht alle vlan- und ifgrp-Ports einer Broadcast-Domäne zugeordnet sind: `network port show -type if-group | vlan`
+.. Alle VLANs löschen: `network port vlan delete -node nodename -vlan-name vlan-name`
+.. Löschen von Schnittstellengruppen: `network port ifgrp delete -node nodename -ifgrp ifgrp-name`
 
 
-.. Verschieben Sie alle LIFs nach Bedarf, um Konflikte mit den MetroCluster IP-Schnittstellen-Ports zu lösen.
+. Verschieben Sie alle LIFs nach Bedarf, um Konflikte mit den MetroCluster IP-Schnittstellen-Ports zu lösen.
 +
 Sie müssen die in Schritt 1 von identifizierten LIFs verschieben link:concept_requirements_for_fc_to_ip_transition_2n_mcc_transition.html["Zuordnen von Ports von den MetroCluster FC-Nodes zu den MetroCluster IP-Nodes"].
 
 +
-... Verschieben Sie alle LIFs, die auf dem gewünschten Port gehostet werden, zu einem anderen Port: `network interface modify -lif lifname -vserver vserver-name -home-port new-homeport``network interface revert -lif lifname -vserver vservername`
-... Bewegen Sie den Zielanschluss gegebenenfalls in einen entsprechenden IPspace und Broadcast-Domäne. `network port broadcast-domain remove-ports -ipspace current-ipspace -broadcast-domain current-broadcast-domain -ports controller-name:current-port``network port broadcast-domain add-ports -ipspace new-ipspace -broadcast-domain new-broadcast-domain -ports controller-name:new-port`
+.. Verschieben Sie alle LIFs, die auf dem gewünschten Port gehostet werden, zu einem anderen Port: `network interface modify -lif lifname -vserver vserver-name -home-port new-homeport``network interface revert -lif lifname -vserver vservername`
+.. Bewegen Sie den Zielanschluss gegebenenfalls in einen entsprechenden IPspace und Broadcast-Domäne. `network port broadcast-domain remove-ports -ipspace current-ipspace -broadcast-domain current-broadcast-domain -ports controller-name:current-port``network port broadcast-domain add-ports -ipspace new-ipspace -broadcast-domain new-broadcast-domain -ports controller-name:new-port`
 
 
-.. Beenden Sie die MetroCluster FC-Controller (Node_A_1-FC und Node_B_1-FC): `system node halt`
-.. Synchronisieren Sie an der LOADER-Eingabeaufforderung die Hardware-Uhren zwischen den FC- und IP-Controller-Modulen.
+. Beenden Sie die MetroCluster FC-Controller (Node_A_1-FC und Node_B_1-FC): `system node halt`
+. Synchronisieren Sie an der LOADER-Eingabeaufforderung die Hardware-Uhren zwischen den FC- und IP-Controller-Modulen.
 +
-... Zeigen Sie auf dem alten MetroCluster FC-Knoten (Node_A_1-FC) das Datum an: `show date`
-... Legen Sie auf den neuen MetroCluster IP-Controllern (Node_A_1-IP und Node_B_1-IP) das am ursprünglichen Controller angezeigte Datum fest: `set date mm/dd/yy`
-... Überprüfen Sie auf den neuen MetroCluster IP-Controllern (Node_A_1-IP und Node_B_1-IP) das Datum: `show date`
+.. Zeigen Sie auf dem alten MetroCluster FC-Knoten (Node_A_1-FC) das Datum an: `show date`
+.. Legen Sie auf den neuen MetroCluster IP-Controllern (Node_A_1-IP und Node_B_1-IP) das am ursprünglichen Controller angezeigte Datum fest: `set date mm/dd/yy`
+.. Überprüfen Sie auf den neuen MetroCluster IP-Controllern (Node_A_1-IP und Node_B_1-IP) das Datum: `show date`
 
 
-.. Anhalten und Abschalten der MetroCluster FC-Controller-Module (Node_A_1-FC und Node_B_1-FC), FC-to-SAS-Bridges (falls vorhanden), FC-Switches (falls vorhanden) und jedes mit diesen Nodes verbundene Storage-Shelf
-.. Trennen Sie die Shelfs von den MetroCluster FC Controllern und dokumentieren Sie, welche Shelfs für jedes Cluster lokal sind.
+. Anhalten und Abschalten der MetroCluster FC-Controller-Module (Node_A_1-FC und Node_B_1-FC), FC-to-SAS-Bridges (falls vorhanden), FC-Switches (falls vorhanden) und jedes mit diesen Nodes verbundene Storage-Shelf
+. Trennen Sie die Shelfs von den MetroCluster FC Controllern und dokumentieren Sie, welche Shelfs für jedes Cluster lokal sind.
 +
 Wenn in der Konfiguration FC-to-SAS-Bridges oder FC-Back-End-Switches verwendet werden, trennen und entfernen Sie diese.
 
-.. Vergewissern Sie sich im Wartungsmodus auf den MetroCluster FC Nodes (Node_A_1-FC und Node_B_1-FC), dass keine Festplatten verbunden sind: `disk show -v`
-.. Schalten Sie die MetroCluster FC-Nodes aus und entfernen Sie sie.
-
-
+. Vergewissern Sie sich im Wartungsmodus auf den MetroCluster FC Nodes (Node_A_1-FC und Node_B_1-FC), dass keine Festplatten verbunden sind: `disk show -v`
+. Schalten Sie die MetroCluster FC-Nodes aus und entfernen Sie sie.
 
 
 An diesem Punkt wurden die MetroCluster FC Controller entfernt und die Shelves werden von allen Controllern getrennt.

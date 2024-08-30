@@ -842,11 +842,12 @@ Sie werden aufgefordert, die Bridge neu zu starten.
 
 
 
+. Schließen Sie die FC-Kabel an dieselben Ports an der neuen Bridge an.
 . Aktualisieren Sie die FibreBridge-Firmware auf jeder Bridge.
 +
-link:task_update_firmware_on_a_fibrebridge_bridge_parent_topic.html["Firmware-Aktualisierung auf FibreBridge 7600N oder 7500N-Bridges für Konfigurationen mit ONTAP 9.4 und höher"]
+link:task_update_firmware_on_a_fibrebridge_bridge_parent_topic.html["Aktualisieren Sie die Firmware auf einer FibreBridge-Bridge"]
 
-. [[ste17-connect-Cables]]Schließen Sie die SAS- und FC-Kabel wieder an die gleichen Ports auf der neuen Bridge an.
+. [[step18-reconnect-cables]]Verbinden Sie die SAS-Kabel wieder mit denselben Ports an der neuen Bridge.
 +
 
 NOTE: Warten Sie mindestens 10 Sekunden, bevor Sie den Anschluss anschließen. Die SAS-Kabelanschlüsse sind codiert. Wenn sie sich korrekt in einen SAS-Port orientieren, klicken sie auf ihren Platz und die Festplatten-Shelf-SAS-Port LNK-LED leuchtet grün. Bei Festplatten-Shelfs stecken Sie einen SAS-Kabelanschluss mit nach unten (auf der Unterseite des Connectors) gerichteter Zuglasche. Bei Controllern kann die Ausrichtung der SAS-Ports je nach Plattformmodell variieren. Daher variiert die korrekte Ausrichtung des SAS-Kabelsteckers.
@@ -895,7 +896,7 @@ Wiederholen Sie den vorherigen Schritt für jede verbleibende Brücke.
  a| 
 Nicht richtig
  a| 
-.. Überprüfen Sie, ob sich lose SAS-Kabel befinden oder korrigieren Sie die SAS-Verkabelung, indem Sie das Kabel wiederholt <<step17-reconnect-cables,Schritt 17>>.
+.. Überprüfen Sie die SAS-Kabel auf lose Kabel, oder korrigieren Sie die SAS-Verkabelung, indem Sie wiederholen<<step18-reconnect-cables,Schritt 18>>.
 .. Wiederholen Sie den vorherigen Schritt.
 
 
@@ -1243,16 +1244,20 @@ Sie werden aufgefordert, die Bridge neu zu starten.
 
 
 . Schalten Sie die Funktionsüberwachung für die FibreBridge 7600N oder 7500N ein.
+. Schließen Sie die FC-Kabel an die Fibre-Channel-1-Ports der neuen Bridge an.
++
+Sie müssen den FC-Port mit demselben Switch oder Controller-Port verkabeln, mit dem auch die FibreBridge 6500N Bridge verbunden war.
+
 . Aktualisieren Sie die FibreBridge-Firmware auf jeder Bridge.
 +
-Wenn die neue Bridge den gleichen Typ hat wie das Upgrade der Partnerbrücke auf die gleiche Firmware wie die Partner Bridge. Falls sich die neue Brücke von einem anderen Typ der Partnerbrücke unterscheidet, aktualisieren Sie auf die neueste Firmware, die von der Bridge und Version von ONTAP unterstützt wird. Siehe Abschnitt „Firmware auf einer FibreBridge-Brücke aktualisieren“ im _MetroCluster-Wartungshandbuch_.
+Wenn die neue Bridge vom gleichen Typ wie die Partner Bridge ist, aktualisieren Sie auf dieselbe Firmware wie die Partner Bridge. Wenn die neue Bridge einen anderen Typ als die Partner-Bridge hat, aktualisieren Sie auf die neueste Firmware und Version von ONTAP, die von der Bridge unterstützt wird.
 
-. [[ste17-recable]]]Schließen Sie die SAS- und FC-Kabel wieder an die Ports SAS A und Fibre Channel 1 auf der neuen Bridge an.
++
+link:task_update_firmware_on_a_fibrebridge_bridge_parent_topic.html["Aktualisieren Sie die Firmware auf einer FibreBridge-Bridge"]
+
+. [[step18-recable]]Schließen Sie die SAS-Kabel wieder an die SAS A-Ports der neuen Bridge an.
 +
 Der SAS-Port muss mit demselben Shelf-Port verbunden sein, mit dem die FibreBridge 6500N-Bridge verbunden war.
-
-+
-Der FC-Port muss mit demselben Switch oder Controller-Port verbunden sein, mit dem die FibreBridge 6500N-Bridge verbunden war.
 
 +
 
@@ -1337,7 +1342,7 @@ Wiederholen Sie den vorherigen Schritt für jede verbleibende Brücke.
  a| 
 Nicht richtig
  a| 
-.. Überprüfen Sie, ob sich lose SAS-Kabel befinden oder korrigieren Sie die SAS-Verkabelung, indem Sie das Kabel wiederholt <<step17-recable,Schritt 17>>.
+.. Überprüfen Sie die SAS-Kabel auf lose Kabel, oder korrigieren Sie die SAS-Verkabelung, indem Sie wiederholen<<step18-recable,Schritt 18>>.
 .. Wiederholen Sie den vorherigen Schritt für jede verbleibende Brücke.
 
 

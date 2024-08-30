@@ -13,8 +13,14 @@ summary: Sie sollten sicher sein, dass Sie das richtige Verfahren auswählen, we
 [role="lead"]
 Sie sollten sicher sein, dass Sie das richtige Verfahren auswählen, wenn Sie MetroCluster-Hardwarewartungsaufgaben ausführen.
 
+.Wartungsverfahren für verschiedene Arten von MetroCluster Konfigurationen
+* Wenn Sie über eine MetroCluster-IP-Konfiguration verfügen, lesen Sie die Verfahren in link:task-modify-ip-netmask-properties.html["Wartungsverfahren für MetroCluster IP-Konfigurationen"].
+* Wenn Sie über eine MetroCluster FC-Konfiguration verfügen, lesen Sie die Verfahren in link:task_modify_switch_or_bridge_ip_address_for_health_monitoring.html["Wartungsverfahren für MetroCluster FC-Konfigurationen"].
+* Wenn Sie das Verfahren im Abschnitt für Ihre Konfiguration nicht finden können, lesen Sie die Verfahren unter link:task_replace_a_shelf_nondisruptively_in_a_stretch_mcc_configuration.html["Wartungsverfahren für alle MetroCluster Konfigurationen"].
 
-NOTE: Mit der Veröffentlichung von ONTAP 9.8 haben sich die MetroCluster Upgrade- und Erweiterungsverfahren in das verlagert link:../upgrade/concept_choosing_an_upgrade_method_mcc.html["MetroCluster Upgrade und Erweiterung"] Und link:../transition/concept_choosing_your_transition_procedure_mcc_transition.html["Umstellung von MetroCluster FC auf MetroCluster IP"].
+
+.Alle anderen Wartungsverfahren
+Die folgende Tabelle enthält Links zu Verfahren im Zusammenhang mit der MetroCluster-Wartung, die sich nicht in den drei oben aufgeführten Abschnitten befinden:
 
 |===
 
@@ -50,7 +56,7 @@ https://docs.netapp.com/platstor/index.jsp["Dokumentation zu ONTAP Hardwaresyste
  a| 
 Upgrades und Erweiterungen
  a| 
-link:../upgrade/concept_choosing_an_upgrade_method_mcc.html["MetroCluster® Upgrade und Erweiterung"]
+link:../upgrade/concept_choosing_an_upgrade_method_mcc.html["MetroCluster Upgrade und Erweiterung"]
 
 
 
@@ -63,28 +69,6 @@ link:../transition/concept_choosing_your_transition_procedure_mcc_transition.htm
 
  a| 
 Festplatten-Shelf
- a| 
-FC
- a| 
-Regalzugang (Stapel mit Brücken oder Einzelregal)
- a| 
-link:task_hot_add_a_stack_to_exist_7500n_pair.html["Hot-Adding eines SAS-Festplatten-Shelfs zu einem vorhandenen FibreBridge 7500N-Paar"]
-
-link:task_fb_hot_add_stack_of_shelves_and_bridges.html["Hot-Adding eines Stacks mit SAS-Platten-Shelves und Brücken zu einem MetroCluster System"]
-
-link:task_fb_hot_add_shelf_prepare_7500n.html["Hot-Adding eines SAS-Platten-Shelf zu einem Stack von SAS-Festplatten-Shelfs"]
-
-
-
- a| 
-FC
- a| 
-Entfernen von Shelfs
- a| 
-link:task_hot_remove_storage_from_a_mcc_fc_configuration.html["Hot-Removing Storage aus einer MetroCluster FC-Konfiguration"]
-
-
-
  a| 
 FC
  a| 
@@ -111,111 +95,5 @@ Beides
 Hot-Hinzufügen von IOM12-Shelfs zu einem Stack von IOM6-Shelfs
  a| 
 https://docs.netapp.com/platstor/topic/com.netapp.doc.hw-ds-mix-hotadd/home.html["Hot-Adding-Shelfs mit IOM12-Modulen werden in einem Shelf-Stack mit IOM6-Modulen ausgeführt"^]
-
-
-
- a| 
-FC-to-SAS-Bridge
- a| 
-FC
- a| 
-Brückenaustausch
- a| 
-link:task_replace_a_sle_fc_to_sas_bridge.html["Austauschen einer einzelnen FC-to-SAS-Bridge"]
-
-link:task_fb_consolidate_replace_a_pair_of_fibrebridge_6500n_bridges_with_7500n_bridges.html["Austausch von zwei FibreBridge 6500N-Brücken durch 7600N- oder 7500N-Brücken"]
-
-link:task_replace_a_sle_fc_to_sas_bridge.html#hot-swapping-a-fibrebridge-7500n-with-a-7600n-bridge["Hot-Swap einer FibreBridge 7500N mit einer 7600N-Brücke"]
-
-
-
- a| 
-FC
- a| 
-Firmware-Upgrade
- a| 
-link:task_update_firmware_on_a_fibrebridge_bridge_parent_topic.html["Aktualisieren der Firmware auf einer FibreBridge-Bridge"]
-
-
-
- a| 
-FC
- a| 
-Austausch eines defekten Netzteilmoduls
- a| 
-link:reference_fb_replace_a_power_supply.html["Hot-Ersetzen eines fehlerhaften Netzteilmoduls"]
-
-
-
- a| 
-FC Switch
- a| 
-FC
- a| 
-Switch-Upgrade
- a| 
-link:task_upgrade_to_new_brocade_switches.html["Upgrade auf neue Brocade FC-Switches"]
-
-
-
- a| 
-FC
- a| 
-Wechsel des Schalters
- a| 
-link:task_replace_a_brocade_fc_switch_mcc.html["Ersetzen eines Brocade FC-Switches (MetroCluster)"]
-
-link:task_replace_a_cisco_fc_switch_mcc.html["Austausch eines Cisco FC-Switches"]
-
-
-
- a| 
-FC
- a| 
-Firmware-Upgrade
- a| 
-link:task_upgrade_or_downgrad_the_firmware_on_a_brocade_fc_switch_mcc.html["Aktualisieren der Firmware auf einem Brocade FC-Switch"]
-
-link:task_upgrade_or_downgrad_the_firmware_on_a_cisco_fc_switch_mcc.html["Aktualisieren der Firmware auf einem Cisco FC-Switch"]
-
-
-
- a| 
-IP-Switch
- a| 
-IP
- a| 
-Austausch oder Änderung der Verwendung des Schalters
- a| 
-link:task_replace_an_ip_switch.html["Ersetzen Sie einen IP-Switch oder ändern Sie die Verwendung vorhandener MetroCluster IP-Switches"]
-
-
-
- a| 
-IP
- a| 
-Firmware-Upgrade
- a| 
-link:task_upgrade_firmware_on_mcc_ip_switches.html["Aktualisieren Sie Firmware auf MetroCluster IP Switches"]
-
-
-
- a| 
-IP
- a| 
-RCF-Dateiaktualisierung
- a| 
-link:task_upgrade_rcf_files_on_mcc_ip_switches.html["Aktualisieren Sie RCF-Dateien auf MetroCluster IP-Switches"]
-
-link:task_upgrade_rcf_files_on_cisco_ip_switches_with_cleanupfiles.html["Aktualisieren Sie RCF-Dateien auf Cisco IP-Switches mithilfe von CleanUpFiles"]
-
-
-
- a| 
-IP
- a| 
-Umbenennung eines Switches
- a| 
-link:task_rename_a_cisco_ip_switch.html["Benennen Sie einen Cisco IP-Switch um"]
 
 |===
