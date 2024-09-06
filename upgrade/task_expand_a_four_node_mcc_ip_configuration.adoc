@@ -1063,20 +1063,32 @@ Sie müssen die neue DR-Gruppe in die MetroCluster Konfiguration einbinden und g
 +
 `set -privilege advanced`
 
-.. Aktualisieren Sie die MetroCluster-Konfiguration auf einem der neuen Nodes:
+.. Aktualisieren Sie die MetroCluster-Konfiguration auf einem der Knoten:
 +
-`metrocluster configure`
+[cols="30,70"]
+|===
 
-+
-Im folgenden Beispiel wird die auf beiden DR-Gruppen aktualisierte MetroCluster Konfiguration angezeigt:
 
-+
-[listing]
-----
-cluster_A::*> metrocluster configure -refresh true
+| Wenn Ihre MetroCluster Konfiguration... | Dann tun Sie das... 
 
-[Job 726] Job succeeded: Configure is successful.
-----
+
+ a| 
+Mehrere Datenaggregate
+ a| 
+Führen Sie an der Eingabeaufforderung eines beliebigen Knotens Folgendes aus:
+
+`metrocluster configure <node-name>`
+
+
+
+ a| 
+Ein einziges gespiegeltes Datenaggregat an einem oder beiden Standorten
+ a| 
+Konfigurieren Sie an einer beliebigen Node-Eingabeaufforderung die MetroCluster mit dem `-allow-with-one-aggregate true` Parameter:
+
+`metrocluster configure -allow-with-one-aggregate true <node-name>`
+
+|===
 .. Starten Sie jeden der neuen Nodes neu:
 +
 `node reboot -node <node_name> -inhibit-takeover true`
@@ -1093,7 +1105,7 @@ cluster_A::*> metrocluster configure -refresh true
 
 +
 
-NOTE: Sie müssen mindestens ein gespiegeltes Datenaggregat pro Standort erstellen. Es wird empfohlen, zwei gespiegelte Datenaggregate pro Standort auf MetroCluster IP-Knoten zu haben, um die MDV-Volumes zu hosten. Allerdings wird ein einzelnes Aggregat pro Standort unterstützt (jedoch nicht empfohlen). Es wird unterstützt, dass ein Standort der MetroCluster ein einziges gespiegeltes Datenaggregat hat und der andere Standort mehr als ein gespiegeltes Datenaggregat hat.
+NOTE: Sie müssen mindestens ein gespiegeltes Datenaggregat pro Standort erstellen. Es wird empfohlen, zwei gespiegelte Datenaggregate pro Standort auf MetroCluster IP-Knoten zu haben, um die MDV-Volumes zu hosten. Allerdings wird ein einzelnes Aggregat pro Standort unterstützt (jedoch nicht empfohlen). Es ist akzeptabel, dass ein Standort der MetroCluster ein einziges gespiegeltes Datenaggregat hat und der andere Standort mehr als ein gespiegeltes Datenaggregat hat.
 
 +
 Das folgende Beispiel zeigt die Erstellung eines Aggregats auf Node_A_1-New.
@@ -1161,12 +1173,14 @@ Group Cluster Node               State          Mirroring Mode
 
 cluster_A::*>
 ----
-. Verschieben Sie die MDV_CRS-Volumes von den alten Knoten auf die neuen Knoten in der erweiterten Berechtigung.
+. Verschieben Sie die MDV_CRS-Volumes im erweiterten Berechtigungsmodus.
 +
 .. Anzeigen der Volumes zur Identifizierung der MDV-Volumes:
 +
+Wenn Sie ein einzelnes gespiegeltes Datenaggregat pro Standort haben, dann verschieben Sie beide MDV-Volumen zu diesem einzigen Aggregat. Wenn Sie zwei oder mehr gespiegelte Datenaggregate haben, dann verschieben Sie jedes MDV-Volume zu einem anderen Aggregat.
 
-NOTE: Wenn Sie ein einzelnes gespiegeltes Datenaggregat pro Standort haben, dann verschieben Sie beide MDV-Volumen zu diesem einzigen Aggregat. Wenn Sie zwei oder mehr gespiegelte Datenaggregate haben, dann verschieben Sie jedes MDV-Volume zu einem anderen Aggregat.
++
+Wenn Sie eine MetroCluster-Konfiguration mit vier Knoten auf eine permanente Konfiguration mit acht Knoten erweitern, sollten Sie eines der MDV-Volumes in die neue DR-Gruppe verschieben.
 
 +
 Das folgende Beispiel zeigt die MDV-Volumes im `volume show` Ausgabe:

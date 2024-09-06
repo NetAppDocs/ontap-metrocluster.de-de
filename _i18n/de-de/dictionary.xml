@@ -6886,10 +6886,7 @@
   <block id="4fbb06a55d361d0cd8cf430f9a799e67" category="list-text">Überprüfen Sie, ob die Root-Aggregate gespiegelt wurden:</block>
   <block id="6c46e592d5f16891d3a16e5f364e031b" category="section-title">Beenden des Hinzufügung der neuen Nodes</block>
   <block id="756f29d7bcbe7decf6b979c0706fc9a1" category="paragraph">Sie müssen die neue DR-Gruppe in die MetroCluster Konfiguration einbinden und gespiegelte Datenaggregate auf den neuen Nodes erstellen.</block>
-  <block id="f00a8c2c5126c8a92b929c756950f0f8" category="list-text">Aktualisieren Sie die MetroCluster-Konfiguration auf einem der neuen Nodes:</block>
-  <block id="2ae5190e09d5d39bdc4388104b1ebcd4" category="paragraph"><block ref="3b3242ced99842a6c2c16f489b78e773" prefix="" category="inline-code"></block></block>
   <block id="b24de9180a5deb759a394eebcd1a0305" category="list-text">Erstellen von gespiegelten Datenaggregaten auf jedem der neuen MetroCluster Nodes:</block>
-  <block id="aabce8f4cea0092b527adf5c08e57ba7" category="admonition">Sie müssen mindestens ein gespiegeltes Datenaggregat pro Standort erstellen. Es wird empfohlen, zwei gespiegelte Datenaggregate pro Standort auf MetroCluster IP-Knoten zu haben, um die MDV-Volumes zu hosten. Allerdings wird ein einzelnes Aggregat pro Standort unterstützt (jedoch nicht empfohlen). Es wird unterstützt, dass ein Standort der MetroCluster ein einziges gespiegeltes Datenaggregat hat und der andere Standort mehr als ein gespiegeltes Datenaggregat hat.</block>
   <block id="7062dd7205e5ed0cba84efd4203bc9cc" category="paragraph">Das folgende Beispiel zeigt die Erstellung eines Aggregats auf Node_A_1-New.</block>
   <block id="7d7a3fc828a61ba2a0ef14619b7c2ccb" category="list-text">Vergewissern Sie sich, dass die Nodes zu ihrer DR-Gruppe hinzugefügt werden.</block>
   <block id="d607e1acecde451facff1ac4a2c32440" category="list-text">Verschieben Sie die MDV_CRS-Volumes von den alten Knoten auf die neuen Knoten in der erweiterten Berechtigung.</block>
@@ -14031,4 +14028,12 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="4ac7d2ae8e04576a892556ab9a493959" category="list-text">VLAN- und ifgrp-Ports aus Broadcast-Domäne entfernen:<block ref="bd72bbf935a7a9d39c21cf3731500f70" prefix=" " category="inline-code"></block></block>
   <block id="07b3edb46d2774fa411b0f9a1b01bead" category="sidebar">Vorbereitung auf die MetroCluster-Wartung</block>
   <block id="053564114ce5591908a1b29312289c15" category="sidebar">Hinzufügen von Shelfs zu einer MetroCluster IP-Konfiguration mithilfe von MetroCluster-Shared-Storage-Switches</block>
+  <block id="59a029b0a65d8928b8afd42fd7a5bfe2" category="admonition">Sie müssen mindestens ein gespiegeltes Datenaggregat pro Standort erstellen. Es wird empfohlen, zwei gespiegelte Datenaggregate pro Standort auf MetroCluster IP-Knoten zu haben, um die MDV-Volumes zu hosten. Allerdings wird ein einzelnes Aggregat pro Standort unterstützt (jedoch nicht empfohlen). Es ist akzeptabel, dass ein Standort der MetroCluster ein einziges gespiegeltes Datenaggregat hat und der andere Standort mehr als ein gespiegeltes Datenaggregat hat.</block>
+  <block id="478e4322f0111cf3e7bdad12bea24701" category="list-text">Aktualisieren Sie die MetroCluster-Konfiguration auf einem der Knoten:</block>
+  <block id="4ad402ea3fb0bcfdc921fd3083047f45" category="paragraph">Führen Sie an der Eingabeaufforderung eines beliebigen Knotens Folgendes aus:</block>
+  <block id="28d0a71b806dfc9c57cc495498c72954" category="paragraph">Ein einziges gespiegeltes Datenaggregat an einem oder beiden Standorten</block>
+  <block id="d419812c67afb77388be54f4cb41eb86" category="paragraph">Konfigurieren Sie an einer beliebigen Node-Eingabeaufforderung die MetroCluster mit dem<block ref="d972f8bbe9b04d39b8b96b699cf921e9" prefix=" " category="inline-code"></block> Parameter:</block>
+  <block id="3635681631407e08104ac78c0039ed70" category="paragraph"><block ref="0825cd88596408a485ffc279f70b9da9" prefix="" category="inline-code"></block></block>
+  <block id="753303bac17f77fab4f01ca22a7ff80e" category="list-text">Verschieben Sie die MDV_CRS-Volumes im erweiterten Berechtigungsmodus.</block>
+  <block id="4e934a5efc9ac0d78daef92737cd79bf" category="paragraph">Wenn Sie eine MetroCluster-Konfiguration mit vier Knoten auf eine permanente Konfiguration mit acht Knoten erweitern, sollten Sie eines der MDV-Volumes in die neue DR-Gruppe verschieben.</block>
 </blocks>
