@@ -3094,7 +3094,6 @@
   <block id="bc2027184e27075969cdcd60662c6642" category="sidebar">Konfigurieren Sie Cisco IP-Switches</block>
   <block id="84a335bc70808c0497de1c62a99aaf43" category="sidebar">Konfigurieren Sie die Grundeinstellungen</block>
   <block id="fb66ffdb7a65b64035629ded64b78faf" category="sidebar">Konfigurieren Sie NVIDIA IP-Switches</block>
-  <block id="2e513789c4a513cc3bc3dbb07880d342" category="sidebar">Konfigurieren von Konfigurationen mit acht Nodes</block>
   <block id="41aa5998b40e00d8eb4f7bb40bb2bc22" category="sidebar">Sammeln Sie die erforderlichen Informationen</block>
   <block id="4497ab40f5579cccfc00e6aed35cdae9" category="sidebar">Überprüfen Sie den Status der HA-Konfiguration der Komponenten</block>
   <block id="aa9c71b40476a8ccda9213b9a9416d55" category="sidebar">Konfigurieren Sie die Cluster in einer MetroCluster-Konfiguration</block>
@@ -4704,14 +4703,9 @@
   <block id="420766222a929fd9b32b65dbb060314b" category="inline-link">Hot-Adding-Shelfs mit IOM12-Modulen werden in einem Shelf-Stack mit IOM6-Modulen ausgeführt</block>
   <block id="7a56c93af328a3c1fa4e3fccdc177cb5" category="summary">In einer MetroCluster IP-Konfiguration, die nicht werkseitig vorkonfiguriert ist, müssen Sie überprüfen, ob der HA-Konfigurationsstatus der Controller- und Chassis-Komponenten auf mccip eingestellt ist, damit sie ordnungsgemäß hochfahren. Bei Systemen, die vom Werk empfangen werden, ist dieser Wert vorkonfiguriert, und Sie müssen ihn nicht überprüfen.</block>
   <block id="6260a0c66ccd92620d9889772b65cffe" category="doc">Überprüfen des HA-Konfigurationsstatus von Komponenten</block>
-  <block id="b09496e62afe76db185677ab92dd3695" category="paragraph">In einer nicht werkseitig vorkonfigurierten MetroCluster-IP-Konfiguration müssen Sie überprüfen, ob der HA-Konfigurationsstatus der Controller- und Gehäusekomponenten auf „`mccip`“ eingestellt ist, damit sie ordnungsgemäß gestartet werden. Bei Systemen, die vom Werk empfangen werden, ist dieser Wert vorkonfiguriert, und Sie müssen ihn nicht überprüfen.</block>
   <block id="3293f2fb312a722f96251c9029636630" category="paragraph">Das System muss sich im Wartungsmodus befinden.</block>
-  <block id="d0dddd5779102f5b72e8edf336fef717" category="list-text">Zeigt den HA-Status des Controller-Moduls und des Chassis an:</block>
   <block id="70cfb57c22486ea2d08d331675532dce" category="paragraph"><block ref="fb4e6c2e33b945c3ff4d042cb66d2ed4" prefix="" category="inline-code"></block></block>
-  <block id="c1420c708cdb03e8e6259f7cb1285a08" category="paragraph">Das Controller-Modul und das Gehäuse sollten den Wert „`mccip`“ anzeigen.</block>
-  <block id="717daacc38ffb11ae03c79a7871ba94a" category="list-text">Wenn der angezeigte Systemzustand des Controllers nicht „`mccip`“ lautet, setzen Sie den HA-Status für den Controller ein:</block>
   <block id="5878093a3e92b9c4d3e64a93fc927a8a" category="paragraph"><block ref="d68e680c0ad920bf3b70363718aa8c5b" prefix="" category="inline-code"></block></block>
-  <block id="1be7c4ddc79016b4335125e64b368241" category="list-text">Wenn der angezeigte Systemzustand des Chassis nicht „`mccip`“ lautet, setzen Sie den HA-Status für das Chassis ein:</block>
   <block id="b687dd86b8db3b030c46a3fbc2a2d024" category="paragraph"><block ref="e2f29383f427c1bb29ab03d5c0b0ea17" prefix="" category="inline-code"></block></block>
   <block id="49eb5704f61afb2484b6cc1439fa40de" category="list-text">Wiederholen Sie diese Schritte auf jedem Knoten der MetroCluster-Konfiguration.</block>
   <block id="fea810a7a02c4d40cd3c6c1a77cb926d" category="summary">Wenn Sie die MetroCluster-Knoten mit einer anderen ONTAP-Mediator-Instanz verbinden möchten, müssen Sie die Konfiguration aufheben und dann die Mediatorverbindung in der ONTAP-Software neu konfigurieren.</block>
@@ -14036,4 +14030,19 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="3635681631407e08104ac78c0039ed70" category="paragraph"><block ref="0825cd88596408a485ffc279f70b9da9" prefix="" category="inline-code"></block></block>
   <block id="753303bac17f77fab4f01ca22a7ff80e" category="list-text">Verschieben Sie die MDV_CRS-Volumes im erweiterten Berechtigungsmodus.</block>
   <block id="4e934a5efc9ac0d78daef92737cd79bf" category="paragraph">Wenn Sie eine MetroCluster-Konfiguration mit vier Knoten auf eine permanente Konfiguration mit acht Knoten erweitern, sollten Sie eines der MDV-Volumes in die neue DR-Gruppe verschieben.</block>
+  <block id="dbe62ccc612e92f8dc68e42a4661fecb" category="paragraph">Wenn der HA-Status des Controller-Moduls und des Chassis falsch ist, können Sie die MetroCluster nicht konfigurieren, ohne den Node neu zu initialisieren. Sie müssen die Einstellung mit diesem Verfahren korrigieren und dann das System mit einem der folgenden Verfahren initialisieren:</block>
+  <block id="a86b0de4e0b4c477962412e4fb878fa1" category="list-text">Führen Sie in einer MetroCluster IP-Konfiguration die Schritte in <block ref="46904e83320ab310261c288a6a607871" category="inline-link-macro-rx"></block>aus.</block>
+  <block id="73fa02989b9da1f069817272869a683b" category="inline-link-macro">Stellen Sie die Systemstandardeinstellungen wieder her und konfigurieren Sie den HBA-Typ auf einem Controller-Modul</block>
+  <block id="20e47a9aa4ad4f6197046707d54204fc" category="list-text">Führen Sie in einer MetroCluster FC-Konfiguration die Schritte in <block ref="61b5232c30227f4608eee40560fc97c5" category="inline-link-macro-rx"></block>aus.</block>
+  <block id="db298781944827895a870278a91cf51d" category="paragraph">Vergewissern Sie sich, dass sich das System im Wartungsmodus befindet.</block>
+  <block id="8043a3bf6cce640e7454f2cd339995d4" category="cell">MetroCluster-Konfigurationstyp</block>
+  <block id="b2044c373529567844418af6b99b9c47" category="cell">HA-Status für alle Komponenten...</block>
+  <block id="3ec28b19df1922ba15c732a6c9ce26e7" category="paragraph">MetroCluster FC-Konfiguration mit acht oder vier Nodes</block>
+  <block id="02c92aa95863fe523d726679c13e1c11" category="paragraph">MetroCluster IP-Konfiguration mit acht oder vier Nodes</block>
+  <block id="8d1f63834a0230ca4c300e584f887131" category="list-text">Wenn der angezeigte Systemstatus des Controllers nicht korrekt ist, legen Sie den korrekten HA-Status für Ihre Konfiguration auf dem Controller-Modul fest:</block>
+  <block id="46be68db9978eb3b9ac4054e394c92ce" category="list-text">Wenn der angezeigte Systemstatus des Chassis nicht korrekt ist, legen Sie den korrekten HA-Status für Ihre Konfiguration auf dem Chassis fest:</block>
+  <block id="330acb0fa4964235e5dabc85b0488f57" category="list-text">Wiederholen Sie dieses gesamte Verfahren, um den HA-Status auf jedem Node in der MetroCluster-Konfiguration zu überprüfen.</block>
+  <block id="84afb0fe12dfc2a5fa1e2e978393b33c" category="paragraph">Wenn Sie ein Speichersystem in einer MetroCluster FC-Konfiguration konfigurieren, müssen Sie sicherstellen, dass der Hochverfügbarkeitsstatus (HA) des Controller-Moduls und der Gehäusekomponenten mcc oder mcc-2n ist, damit diese Komponenten ordnungsgemäß booten. Obwohl dieser Wert auf werkseitig empfangene Systeme vorkonfiguriert sein sollte, sollten Sie die Einstellung dennoch überprüfen, bevor Sie fortfahren.</block>
+  <block id="cbc29e9b371b7013e6625c2fa3c7ec20" category="paragraph">In einer MetroCluster IP-Konfiguration müssen Sie überprüfen, ob der ha-Konfigurationsstatus der Controller- und Chassis-Komponenten auf „`mccip`“ eingestellt ist, damit sie ordnungsgemäß booten. Obwohl dieser Wert auf werkseitig empfangene Systeme vorkonfiguriert sein sollte, sollten Sie die Einstellung dennoch überprüfen, bevor Sie fortfahren.</block>
+  <block id="b6eb7f38a057c8f63ffc29f23e6be071" category="sidebar">Konfigurieren von Konfigurationen mit acht Nodes</block>
 </blocks>

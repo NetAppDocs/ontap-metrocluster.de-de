@@ -674,6 +674,122 @@ Erforderlich
 |===
 
 
+== Überprüfen und Konfigurieren des HA-Status von Komponenten im Wartungsmodus
+
+Wenn Sie ein Speichersystem in einer MetroCluster FC-Konfiguration konfigurieren, müssen Sie sicherstellen, dass der Hochverfügbarkeitsstatus (HA) des Controller-Moduls und der Gehäusekomponenten mcc oder mcc-2n ist, damit diese Komponenten ordnungsgemäß booten. Obwohl dieser Wert auf werkseitig empfangene Systeme vorkonfiguriert sein sollte, sollten Sie die Einstellung dennoch überprüfen, bevor Sie fortfahren.
+
+[CAUTION]
+====
+Wenn der HA-Status des Controller-Moduls und des Chassis falsch ist, können Sie die MetroCluster nicht konfigurieren, ohne den Node neu zu initialisieren. Sie müssen die Einstellung mit diesem Verfahren korrigieren und dann das System mit einem der folgenden Verfahren initialisieren:
+
+* Führen Sie in einer MetroCluster IP-Konfiguration die Schritte in link:https://docs.netapp.com/us-en/ontap-metrocluster/install-ip/task_sw_config_verify_haconfig.html["Systemstandardwerte auf einem Controller-Modul wiederherstellen"]aus.
+* Führen Sie in einer MetroCluster FC-Konfiguration die Schritte in link:https://docs.netapp.com/us-en/ontap-metrocluster/install-fc/concept_configure_the_mcc_software_in_ontap.html#restoring-system-defaults-and-configuring-the-hba-type-on-a-controller-module["Stellen Sie die Systemstandardeinstellungen wieder her und konfigurieren Sie den HBA-Typ auf einem Controller-Modul"]aus.
+
+
+====
+.Bevor Sie beginnen
+Vergewissern Sie sich, dass sich das System im Wartungsmodus befindet.
+
+.Schritte
+. Zeigen Sie im Wartungsmodus den HA-Status des Controller-Moduls und des Chassis an:
++
+`ha-config show`
+
++
+Der richtige HA-Status hängt von Ihrer MetroCluster-Konfiguration ab.
+
++
+|===
+
+
+| MetroCluster-Konfigurationstyp | HA-Status für alle Komponenten... 
+
+
+ a| 
+MetroCluster FC-Konfiguration mit acht oder vier Nodes
+ a| 
+mcc
+
+
+
+ a| 
+MetroCluster FC-Konfiguration mit zwei Nodes
+ a| 
+mcc-2n
+
+
+
+ a| 
+MetroCluster IP-Konfiguration mit acht oder vier Nodes
+ a| 
+Mccip
+
+|===
+. Wenn der angezeigte Systemstatus des Controllers nicht korrekt ist, legen Sie den korrekten HA-Status für Ihre Konfiguration auf dem Controller-Modul fest:
++
+|===
+
+
+| MetroCluster-Konfigurationstyp | Befehl 
+
+
+ a| 
+MetroCluster FC-Konfiguration mit acht oder vier Nodes
+ a| 
+`ha-config modify controller mcc`
+
+
+
+ a| 
+MetroCluster FC-Konfiguration mit zwei Nodes
+ a| 
+`ha-config modify controller mcc-2n`
+
+
+
+ a| 
+MetroCluster IP-Konfiguration mit acht oder vier Nodes
+ a| 
+`ha-config modify controller mccip`
+
+|===
+. Wenn der angezeigte Systemstatus des Chassis nicht korrekt ist, legen Sie den korrekten HA-Status für Ihre Konfiguration auf dem Chassis fest:
++
+|===
+
+
+| MetroCluster-Konfigurationstyp | Befehl 
+
+
+ a| 
+MetroCluster FC-Konfiguration mit acht oder vier Nodes
+ a| 
+`ha-config modify chassis mcc`
+
+
+
+ a| 
+MetroCluster FC-Konfiguration mit zwei Nodes
+ a| 
+`ha-config modify chassis mcc-2n`
+
+
+
+ a| 
+MetroCluster IP-Konfiguration mit acht oder vier Nodes
+ a| 
+`ha-config modify chassis mccip`
+
+|===
+. Booten des Node zu ONTAP:
++
+`boot_ontap`
+
+. Wiederholen Sie dieses gesamte Verfahren, um den HA-Status auf jedem Node in der MetroCluster-Konfiguration zu überprüfen.
+
+
+
+
 == Wiederherstellung der Systemstandards und Konfiguration des HBA-Typs auf einem Controller-Modul
 
 .Über diese Aufgabe
@@ -1502,116 +1618,6 @@ Wenn der Storage Controller Node_B_1 vier Shelfs hat, geben Sie die folgenden Be
 
 
 
-
-
-
-
-== Überprüfen und Konfigurieren des HA-Status von Komponenten im Wartungsmodus
-
-Bei der Konfiguration eines Storage-Systems in einer MetroCluster Konfiguration müssen Sie sicherstellen, dass der Hochverfügbarkeits- (HA)-Zustand des Controller-Moduls und der Gehäusekomponenten mcc oder mcc-2n aufweist, damit die Komponenten ordnungsgemäß hochfahren.
-
-.Bevor Sie beginnen
-Das System muss sich im Wartungsmodus befinden.
-
-.Über diese Aufgabe
-Diese Aufgabe ist für Systeme, die vom Werk empfangen werden, nicht erforderlich.
-
-.Schritte
-. Zeigen Sie im Wartungsmodus den HA-Status des Controller-Moduls und des Chassis an:
-+
-`ha-config show`
-
-+
-Der richtige HA-Status hängt von Ihrer MetroCluster-Konfiguration ab.
-
-+
-|===
-
-
-| Anzahl der Controller in der MetroCluster-Konfiguration | DER HA-Status für alle Komponenten sollte... 
-
-
- a| 
-MetroCluster FC-Konfiguration mit acht oder vier Nodes
- a| 
-mcc
-
-
-
- a| 
-MetroCluster FC-Konfiguration mit zwei Nodes
- a| 
-mcc-2n
-
-
-
- a| 
-MetroCluster IP-Konfiguration
- a| 
-Mccip
-
-|===
-. Wenn der angezeigte Systemzustand des Controllers nicht korrekt ist, setzen Sie den HA-Status für das Controller-Modul ein:
-+
-|===
-
-
-| Anzahl der Controller in der MetroCluster-Konfiguration | Befehl 
-
-
- a| 
-MetroCluster FC-Konfiguration mit acht oder vier Nodes
- a| 
-Ha-config - Controller mcc ändern
-
-
-
- a| 
-MetroCluster FC-Konfiguration mit zwei Nodes
- a| 
-Ha-config Controller mcc-2n ändern
-
-
-
- a| 
-MetroCluster IP-Konfiguration
- a| 
-Ha-config mccip Controller ändern
-
-|===
-. Wenn der angezeigte Systemzustand des Chassis nicht korrekt ist, setzen Sie den HA-Status für das Chassis ein:
-+
-|===
-
-
-| Anzahl der Controller in der MetroCluster-Konfiguration | Befehl 
-
-
- a| 
-MetroCluster FC-Konfiguration mit acht oder vier Nodes
- a| 
-Ha-config - Gehäuse mcc ändern
-
-
-
- a| 
-MetroCluster FC-Konfiguration mit zwei Nodes
- a| 
-Ha-Konfiguration ändern Gehäuse mcc-2n
-
-
-
- a| 
-MetroCluster IP-Konfiguration
- a| 
-Ha-config modify Chassis mccip
-
-|===
-. Booten des Node zu ONTAP:
-+
-`boot_ontap`
-
-. Wiederholen Sie diese Schritte auf jedem Knoten der MetroCluster-Konfiguration.
 
 
 
