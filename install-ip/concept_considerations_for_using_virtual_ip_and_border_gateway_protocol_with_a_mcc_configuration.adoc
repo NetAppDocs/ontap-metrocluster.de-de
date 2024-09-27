@@ -41,7 +41,7 @@ Jede Daten-SVM erfordert die Konfiguration aller potenziellen First-Hop-Gateway-
 
 BGP LIFs sind Node-spezifisch, ähnlich wie Intercluster LIFs – jeder Node verfügt über eine eindeutige Konfiguration, die nicht auf DR-Standort-Nodes repliziert werden muss.
 
-Konfiguriert, überprüft die Existenz der v0a (v0b usw.) kontinuierlich die Konnektivität und garantiert, dass eine LIF-Migration oder ein Failover erfolgreich ist (im Gegensatz zu L2, wo eine kaputte Konfiguration nur nach dem Ausfall sichtbar ist).
+Die Existenz des v0a (v0b usw.) überprüft kontinuierlich die Konnektivität und garantiert, dass eine LIF-Migration oder ein Failover erfolgreich ist (im Gegensatz zu L2, wo eine defekte Konfiguration nur nach dem Ausfall sichtbar ist).
 
 Ein großer Unterschied in der Architektur besteht darin, dass Clients nicht mehr dasselbe IP Subnetz wie die VIP der Daten-SVMs teilen sollten. Ein L3-Router mit den entsprechenden Resiliency- und Redundanzfunktionen der Enterprise-Klasse (z. B. VRRP/HSRP) sollte sich auf dem Weg zwischen Speicher und Clients befinden, damit der VIP ordnungsgemäß funktioniert.
 

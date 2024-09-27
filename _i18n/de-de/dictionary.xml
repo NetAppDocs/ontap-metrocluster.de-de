@@ -4055,7 +4055,6 @@
   <block id="a63e8da5ab0d323dfa2d8c1590db4fed" category="paragraph">Je nach Ihrer Version von ONTAP müssen Sie BGP Peering LIFs in der Node-SVM konfigurieren, nicht jedoch das System oder die Daten-SVM. Im Jahr 9.8 sind die BGP LIFs in der Cluster (System) SVM sichtbar und die Node-SVMs sind nicht mehr vorhanden.</block>
   <block id="d82838a19649e1da12902c98b4ee5149" category="paragraph">Jede Daten-SVM erfordert die Konfiguration aller potenziellen First-Hop-Gateway-Adressen (normalerweise der BGP-Router, der IP-Adresse Peering), sodass der Return-Datenpfad bei einer LIF-Migration oder einem MetroCluster-Failover verfügbar ist.</block>
   <block id="5f88fc6eb6dcc7e2d28378195f6e0208" category="paragraph">BGP LIFs sind Node-spezifisch, ähnlich wie Intercluster LIFs – jeder Node verfügt über eine eindeutige Konfiguration, die nicht auf DR-Standort-Nodes repliziert werden muss.</block>
-  <block id="e3bb1ae61b6d4dc1b02fdb23cab46189" category="paragraph">Konfiguriert, überprüft die Existenz der v0a (v0b usw.) kontinuierlich die Konnektivität und garantiert, dass eine LIF-Migration oder ein Failover erfolgreich ist (im Gegensatz zu L2, wo eine kaputte Konfiguration nur nach dem Ausfall sichtbar ist).</block>
   <block id="b9654173e237320a0dc69e69fd436e4f" category="paragraph">Ein großer Unterschied in der Architektur besteht darin, dass Clients nicht mehr dasselbe IP Subnetz wie die VIP der Daten-SVMs teilen sollten. Ein L3-Router mit den entsprechenden Resiliency- und Redundanzfunktionen der Enterprise-Klasse (z. B. VRRP/HSRP) sollte sich auf dem Weg zwischen Speicher und Clients befinden, damit der VIP ordnungsgemäß funktioniert.</block>
   <block id="298fef8c148afa4bfa7475e494967b57" category="paragraph">Der zuverlässige Aktualisierungsprozess von BGP ermöglicht reibungslosere LIF-Migrationen, da sie geringfügig schneller sind und die Wahrscheinlichkeit einer Unterbrechung für einige Clients niedriger ist</block>
   <block id="53c5da85c9b955107fabdb0323fc0619" category="paragraph">Sie können BGP so konfigurieren, dass einige Klassen von Netzwerk- oder Switch-Fehlverhalten schneller als LACP erkannt werden, wenn diese entsprechend konfiguriert werden.</block>
@@ -4805,8 +4804,6 @@
   <block id="f6d141f9c0ebe12ce79c36ba0585ecf8" category="paragraph">Die MKA-Konfiguration von MACsec</block>
   <block id="b6b47858b43ec1819137a7dbb17a0e1c" category="paragraph"><block ref="b40cb3692b615bfe5a12819de2930bfb" prefix="" category="inline-code"></block></block>
   <block id="b73bb1a80bfcd166befb33ddc1a9fe9d" category="paragraph">Die Konfiguration für eine bestimmte MACsec-Richtlinie oder für alle MACsec-Richtlinien</block>
-  <block id="c94a009c5a39824e241500e9f7d49cad" category="summary">Ab ONTAP 9.5 unterstützt ONTAP Layer-3-Konnektivität mithilfe von Virtual IP (VIP) und Border Gateway Protocol (BGP).</block>
-  <block id="23b070f17dffe8e66479102b1681ffad" category="doc">Verwendung eines virtuellen IP- und Border-Gateway-Protokolls mit einer MetroCluster-Konfiguration</block>
   <block id="31c38f64e60770065e856442e98e7930" category="section-title">ONTAP-Einschränkungen</block>
   <block id="d1a4fac9e86db09ae269d00dbc37e4d4" category="section-title">Richtlinien für die Verwendung dieser Layer-3-Lösung mit einer MetroCluster-Konfiguration</block>
   <block id="598ab8da90f7b08fb85eebf2cdb5b642" category="doc">Überlegungen zur Verwendung von MetroCluster-konformen Switches</block>
@@ -6822,8 +6819,6 @@
   <block id="09a5ba598e7357ef745825da8cab1892" category="paragraph">Diese Aufgabe muss auf jedem der neuen Knoten ausgeführt werden:</block>
   <block id="c63a77ef39a96105eac912bc9b3dd2fb" category="paragraph">Löschen Sie in diesen Schritten die Konfiguration auf den Knoten und löschen Sie den Mailbox-Bereich auf neuen Laufwerken.</block>
   <block id="4d2a12dbb40eebfdeb323911fc06c5ce" category="list-text">Für die neuen Controller</block>
-  <block id="1cbfeb82dbc642ca3cfc8e2db84c469c" category="list-text"><block ref="1cbfeb82dbc642ca3cfc8e2db84c469c" category="inline-link-macro-rx"></block></block>
-  <block id="251fa3a6289ecafe7b95d67056605968" category="list-text"><block ref="251fa3a6289ecafe7b95d67056605968" category="inline-link-macro-rx"></block></block>
   <block id="d93785c679dd9ecbbe55df9329146a8d" category="list-text">Geben Sie im Wartungsmodus den Befehl stop ein, um den Wartungsmodus zu beenden, und geben Sie dann den Boot_ontap-Befehl aus, um das System zu booten und zum Cluster-Setup zu gelangen.</block>
   <block id="ccaa4e34c729aaba9db9c5a44c41381f" category="paragraph">Schließen Sie derzeit den Cluster-Assistenten oder den Node-Assistenten nicht ab.</block>
   <block id="bde0605fb74695c23ddd122685cfc65e" category="section-title">RCF-Dateien aktualisieren</block>
@@ -7591,17 +7586,13 @@
   <block id="e485e2a29b3e88e7af57a872271ec004" category="list-text">Trennen Sie die Verkabelung, und entfernen Sie den deaktivierten Schalter.</block>
   <block id="6ab8d2ea7c4ab8de2d0240533675a5ba" category="list-text">Setzen Sie den neuen Schalter in das Rack ein.</block>
   <block id="9db38090d74d3c900ffdd688465bb5e8" category="image-alt">brocade Upgr auf g620 ersetzt eine 1</block>
-  <block id="a0c9a11807b32c8820a3f0a43340ed14" category="list-text">Deaktivieren Sie die neuen Switches:</block>
   <block id="4028a8e16d4b841012a85c08963c7c51" category="paragraph"><block ref="623d551c0d177bd117ee216f82e5235b" prefix="" category="inline-code"></block></block>
-  <block id="7b78e18dcd3185c34c9f26454f6f184a" category="paragraph">Mit dem Befehl werden beide Switches in der Switch-Fabric deaktiviert.</block>
   <block id="d0ec9e05561bfe12c0306959eddf56c8" category="list-text">Schließen Sie den neuen Switch mithilfe der empfohlenen Anschlusszuordnungen an.</block>
   <block id="fb60c06f4120cd75fc9ac39720fd32d8" category="paragraph"><block ref="fb60c06f4120cd75fc9ac39720fd32d8" category="inline-link-macro-rx"></block></block>
   <block id="98865fdc5c9769318f840c5f626b7ec2" category="list-text">Wiederholen Sie diese Unterschritte am Partner-MetroCluster-Standort, um den zweiten Switch der ersten Switch-Fabric zu ersetzen.</block>
   <block id="5a5070abc66ad4ba93c9599236c17675" category="paragraph">Beide Schalter in Fabric 1 wurden ersetzt.</block>
   <block id="9359b4d4c7ebe7a35b725df2addeaf7b" category="image-alt">brocade Upgr auf g620 ersetzt b 1</block>
   <block id="0fd8560791ae174b08c82bd0ee74f32e" category="list-text">Starten Sie die neuen Schalter, und lassen Sie sie hochfahren.</block>
-  <block id="54f59ef2ee1220bd27c7e59f620f7e4a" category="list-text">Laden Sie die RCF-Dateien für den neuen Switch herunter.</block>
-  <block id="b71b5bca0bcdc72655be357f3c8b1c42" category="list-text">Wenden Sie die RCF-Dateien auf beide neuen Switches in der Fabric an und folgen Sie den Anweisungen auf der Download-Seite.</block>
   <block id="44a651ee20f59b8ff5887857d2eb80dc" category="list-text">Switch-Konfiguration speichern:</block>
   <block id="94b65d5fa74397726f3654769576d293" category="paragraph"><block ref="1be72f281210ec23632f03de6cc7c80f" prefix="" category="inline-code"></block></block>
   <block id="8baaacde06cbd685134e16e9023a6e85" category="list-text">Warten Sie 10 Minuten, bis sich die Konfiguration stabilisiert.</block>
@@ -10406,8 +10397,6 @@
   <block id="012f755687424dd2475cf31eee8a99ff" category="paragraph">Die MetroCluster-FC-Nodes (Node_A_x-FC und Node_B_x-FC) bleiben derzeit verkabelt.</block>
   <block id="b42bad79baad4f4f943c81fc37bedccd" category="list-text">Verkabeln Sie die MetroCluster IP-Knoten wie im gezeigt mit den IP-Switches <block ref="657bcb6c51639854c4fdede551507755" category="inline-link-macro-rx"></block>.</block>
   <block id="4852598a3e684943b3bfcba06307b21d" category="list-text">Konfigurieren Sie die MetroCluster IP-Knoten unter Verwendung der folgenden Abschnitte:</block>
-  <block id="87389a8ef852aa6f8fecae947cf8fd86" category="list-text"><block ref="87389a8ef852aa6f8fecae947cf8fd86" category="inline-link-macro-rx"></block></block>
-  <block id="42aa3219583515464abe8c61ef6c61d3" category="list-text"><block ref="42aa3219583515464abe8c61ef6c61d3" category="inline-link-macro-rx"></block></block>
   <block id="fbb3c6ac39d170b58b6e9006735f762f" category="list-text">Wiederholen Sie diese Schritte auf den anderen MetroCluster IP-Knoten.</block>
   <block id="ea4f6a54a922436f4da19eeae7b7be02" category="summary">Je nach Phase des Übergangs verwenden die MetroCluster Switchover-, Healing- und Switchback-Vorgänge entweder den MetroCluster FC- oder MetroCluster IP-Workflow.</block>
   <block id="2169fc2df99c9e0a2b4c8c14a8dea264" category="doc">Umschaltung, Reparatur und Wechsel zwischen den Abläufen während des unterbrechungsfreien Übergangs</block>
@@ -14031,7 +14020,6 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="753303bac17f77fab4f01ca22a7ff80e" category="list-text">Verschieben Sie die MDV_CRS-Volumes im erweiterten Berechtigungsmodus.</block>
   <block id="4e934a5efc9ac0d78daef92737cd79bf" category="paragraph">Wenn Sie eine MetroCluster-Konfiguration mit vier Knoten auf eine permanente Konfiguration mit acht Knoten erweitern, sollten Sie eines der MDV-Volumes in die neue DR-Gruppe verschieben.</block>
   <block id="dbe62ccc612e92f8dc68e42a4661fecb" category="paragraph">Wenn der HA-Status des Controller-Moduls und des Chassis falsch ist, können Sie die MetroCluster nicht konfigurieren, ohne den Node neu zu initialisieren. Sie müssen die Einstellung mit diesem Verfahren korrigieren und dann das System mit einem der folgenden Verfahren initialisieren:</block>
-  <block id="a86b0de4e0b4c477962412e4fb878fa1" category="list-text">Führen Sie in einer MetroCluster IP-Konfiguration die Schritte in <block ref="46904e83320ab310261c288a6a607871" category="inline-link-macro-rx"></block>aus.</block>
   <block id="73fa02989b9da1f069817272869a683b" category="inline-link-macro">Stellen Sie die Systemstandardeinstellungen wieder her und konfigurieren Sie den HBA-Typ auf einem Controller-Modul</block>
   <block id="20e47a9aa4ad4f6197046707d54204fc" category="list-text">Führen Sie in einer MetroCluster FC-Konfiguration die Schritte in <block ref="61b5232c30227f4608eee40560fc97c5" category="inline-link-macro-rx"></block>aus.</block>
   <block id="db298781944827895a870278a91cf51d" category="paragraph">Vergewissern Sie sich, dass sich das System im Wartungsmodus befindet.</block>
@@ -14045,4 +14033,9 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="84afb0fe12dfc2a5fa1e2e978393b33c" category="paragraph">Wenn Sie ein Speichersystem in einer MetroCluster FC-Konfiguration konfigurieren, müssen Sie sicherstellen, dass der Hochverfügbarkeitsstatus (HA) des Controller-Moduls und der Gehäusekomponenten mcc oder mcc-2n ist, damit diese Komponenten ordnungsgemäß booten. Obwohl dieser Wert auf werkseitig empfangene Systeme vorkonfiguriert sein sollte, sollten Sie die Einstellung dennoch überprüfen, bevor Sie fortfahren.</block>
   <block id="cbc29e9b371b7013e6625c2fa3c7ec20" category="paragraph">In einer MetroCluster IP-Konfiguration müssen Sie überprüfen, ob der ha-Konfigurationsstatus der Controller- und Chassis-Komponenten auf „`mccip`“ eingestellt ist, damit sie ordnungsgemäß booten. Obwohl dieser Wert auf werkseitig empfangene Systeme vorkonfiguriert sein sollte, sollten Sie die Einstellung dennoch überprüfen, bevor Sie fortfahren.</block>
   <block id="b6eb7f38a057c8f63ffc29f23e6be071" category="sidebar">Konfigurieren von Konfigurationen mit acht Nodes</block>
+  <block id="37887b7927053bae8056fe215242ac04" category="list-text">Führen Sie in einer MetroCluster IP-Konfiguration die Schritte in <block ref="e39e92837d61810422f20d9c0acf650b" category="inline-link-macro-rx"></block>aus.</block>
+  <block id="654458233d1a8772886f997ae2b46c7c" category="paragraph">Die Existenz des v0a (v0b usw.) überprüft kontinuierlich die Konnektivität und garantiert, dass eine LIF-Migration oder ein Failover erfolgreich ist (im Gegensatz zu L2, wo eine defekte Konfiguration nur nach dem Ausfall sichtbar ist).</block>
+  <block id="705abb444ac66e0442a9ae4646471061" category="list-text">Deaktivieren Sie die neuen Switches, indem Sie den folgenden Befehl auf beiden Switches ausführen:</block>
+  <block id="f67761c61087dd0914ed518ef2c5f8e3" category="list-text">Konfigurieren Sie die Brocade FC-Switches mithilfe einer der folgenden Verfahren:</block>
+  <block id="4aa62d2d0cdae8fdaf47d41d558bac24" category="list-text"><block ref="4aa62d2d0cdae8fdaf47d41d558bac24" category="inline-link-macro-rx"></block></block>
 </blocks>

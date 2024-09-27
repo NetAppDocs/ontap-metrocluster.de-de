@@ -53,12 +53,9 @@ image::../media/brocade_upgr_to_g620_fab_1_down.gif[brocade upgr auf g620 Fab 1 
 +
 image::../media/brocade_upgr_to_g620_replaced_a_1.gif[brocade Upgr auf g620 ersetzt eine 1]
 
-.. Deaktivieren Sie die neuen Switches:
+.. Deaktivieren Sie die neuen Switches, indem Sie den folgenden Befehl auf beiden Switches ausführen:
 +
 `switchCfgPersistentDisable`
-
-+
-Mit dem Befehl werden beide Switches in der Switch-Fabric deaktiviert.
 
 +
 [listing]
@@ -79,8 +76,13 @@ image::../media/brocade_upgr_to_g620_replaced_b_1.gif[brocade Upgr auf g620 erse
 
 
 . Starten Sie die neuen Schalter, und lassen Sie sie hochfahren.
-. Laden Sie die RCF-Dateien für den neuen Switch herunter.
-. Wenden Sie die RCF-Dateien auf beide neuen Switches in der Fabric an und folgen Sie den Anweisungen auf der Download-Seite.
+. Konfigurieren Sie die Brocade FC-Switches mithilfe einer der folgenden Verfahren:
++
+link:../install-fc/task_reset_the_brocade_fc_switch_to_factory_defaults.html["Konfigurieren Sie Brocade FC Switches mit RCF-Dateien"]
+
++
+link:../install-fc/task_fcsw_brocade_configure_the_brocade_fc_switches_supertask.html["Konfigurieren Sie die Brocade FC-Switches manuell"]
+
 . Switch-Konfiguration speichern:
 +
 `cfgSave`
