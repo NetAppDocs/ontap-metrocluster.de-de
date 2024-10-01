@@ -1,0 +1,56 @@
+---
+sidebar: sidebar 
+permalink: install-ip/configure-mcc-site-system-manager.html 
+keywords: metrocluster, configuration, config, mcc, HA, cluster 
+summary: Ab ONTAP 9.8 können Sie MetroCluster IP-Konfigurationsvorgänge mit System Manager managen. Dazu gehört das Einrichten, Peering und Konfigurieren von zwei Clustern. 
+---
+= Konfigurieren Sie einen MetroCluster IP-Standort
+:hardbreaks:
+:toclevels: 1
+:allow-uri-read: 
+:toclevels: 1
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Ab ONTAP 9.8 können Sie MetroCluster IP-Konfigurationsvorgänge mit System Manager managen. Dazu müssen zwei Cluster eingerichtet, Cluster-Peering durchgeführt und die Cluster konfiguriert werden.
+
+.Bevor Sie beginnen
+Gehen Sie wie folgt vor:
+
+* link:set-up-mcc-site-system-manager.html["Richten Sie einen MetroCluster IP-Standort ein"]
+* link:set-up-mcc-peering-system-manager.html["MetroCluster IP-Peering einrichten"]
+
+
+
+
+== Konfigurieren Sie die Verbindung zwischen Clustern
+
+.Schritte
+. Melden Sie sich an einem der Standorte bei System Manager an, und wählen Sie *Dashboard*.
++
+Im Abschnitt *MetroCluster* zeigt die Grafik die beiden Cluster, die Sie für die MetroCluster-Sites eingerichtet und angepasst haben. Das Cluster, von dem Sie arbeiten (lokales Cluster), wird auf der linken Seite angezeigt.
+
+. Klicken Sie auf *MetroCluster konfigurieren*. Führen Sie in diesem Fenster die folgenden Schritte aus:
++
+.. Es werden die Nodes für jedes Cluster in der MetroCluster-Konfiguration dargestellt. Wählen Sie in den Dropdown-Listen die Knoten im lokalen Cluster aus, die Disaster-Recovery-Partner für die Knoten im Remote-Cluster sind.
+.. Aktivieren Sie das Kontrollkästchen, wenn Sie den ONTAP Mediator-Dienst konfigurieren möchten. Siehe link:./task-sm-mediator.html["Konfigurieren Sie den ONTAP Mediator-Dienst"].
+.. Wenn beide Cluster über eine Lizenz zur Aktivierung der Verschlüsselung verfügen, wird der Abschnitt *Verschlüsselung* angezeigt.
++
+Geben Sie zum Aktivieren der Verschlüsselung eine Passphrase ein.
+
+.. Aktivieren Sie das Kontrollkästchen, wenn Sie MetroCluster mit einem freigegebenen Layer-3-Netzwerk konfigurieren möchten.
++
+
+NOTE: Die HA-Partner-Nodes und die mit den Nodes verbundenen Netzwerk-Switches müssen über eine passende Konfiguration verfügen.
+
+
+
+. Klicken Sie auf *Speichern*, um die MetroCluster-Sites zu konfigurieren.
++
+Auf dem *Dashboard* im Abschnitt *MetroCluster* zeigt die Grafik ein Häkchen auf der Verbindung zwischen den beiden Clustern an, was auf eine gesunde Verbindung hinweist.
+
+

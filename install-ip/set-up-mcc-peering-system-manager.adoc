@@ -1,0 +1,66 @@
+---
+sidebar: sidebar 
+permalink: install-ip/set-up-mcc-peering-system-manager.html 
+keywords: metrocluster, peer, peering, pair, pairing, configuration, config, mcc, HA 
+summary: Ab ONTAP 9.8 können Sie MetroCluster IP-Standortvorgänge mit System Manager managen. Dazu müssen zwei Cluster eingerichtet und Cluster-Peering durchgeführt werden. 
+---
+= MetroCluster IP-Peering einrichten
+:hardbreaks:
+:toclevels: 1
+:allow-uri-read: 
+:toclevels: 1
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Ab ONTAP 9.8 können Sie MetroCluster IP-Konfigurationsvorgänge mit System Manager managen. Nachdem Sie zwei Cluster eingerichtet haben, richten Sie Peering zwischen ihnen ein.
+
+.Bevor Sie beginnen
+Richten Sie zwei Cluster ein. Siehe link:set-up-mcc-site-system-manager.html["Richten Sie einen MetroCluster IP-Standort ein"]Verfahren.
+
+Bestimmte Schritte dieses Prozesses werden von verschiedenen Systemadministratoren an den geografischen Standorten des jeweiligen Clusters ausgeführt. Zur Erläuterung dieses Verfahrens werden die Cluster „Standort A Cluster“ und „Standort B Cluster“ genannt.
+
+
+
+== Führen Sie den Peering-Prozess von Standort A aus
+
+Dieser Prozess wird von einem Systemadministrator an Standort A durchgeführt
+
+.Schritte
+. Melden Sie sich bei Site A Cluster an.
+. Wählen Sie in System Manager in der linken Navigationsleiste *Dashboard* aus, um die Clusterübersicht anzuzeigen.
++
+Im Dashboard werden die Details zu diesem Cluster angezeigt (Standort A). Im Abschnitt *MetroCluster* wird Standort A Cluster auf der linken Seite angezeigt.
+
+. Klicken Sie Auf *Partner-Cluster Anhängen*.
+. Geben Sie die Details der Netzwerkschnittstellen ein, die es den Knoten in Standort-A-Cluster ermöglichen, mit den Knoten im Standort-B-Cluster zu kommunizieren.
+. Klicken Sie auf *Speichern und fortfahren*.
+. Wählen Sie im Fenster *Partner Cluster anhängen* *Ich habe keine Passphrase*. Auf diese Weise können Sie eine Passphrase generieren.
+. Kopieren Sie die generierte Passphrase, und teilen Sie sie mit dem Systemadministrator an Standort B
+. Wählen Sie *Schließen*.
+
+
+
+
+== Peering-Prozess von Standort B durchführen
+
+Dieser Prozess wird von einem Systemadministrator an Standort B durchgeführt
+
+.Schritte
+. Melden Sie sich bei Standort B-Cluster an.
+. Wählen Sie in System Manager *Dashboard* aus, um die Clusterübersicht anzuzeigen.
++
+Das Dashboard zeigt die Details zu diesem Cluster an (Standort B). Im Abschnitt MetroCluster wird links Standort-B-Cluster angezeigt.
+
+. Klicken Sie auf *Attach Partner Cluster*, um den Peering-Prozess zu starten.
+. Geben Sie die Details der Netzwerkschnittstellen ein, die es den Knoten im Cluster Standort B ermöglichen, mit den Knoten in Standort A zu kommunizieren.
+. Klicken Sie auf *Speichern und fortfahren*.
+. Wählen Sie im Fenster *Partner Cluster anhängen* *Ich habe eine Passphrase*. Auf diese Weise können Sie die Passphrase eingeben, die Sie vom Systemadministrator an Standort A erhalten haben
+. Wählen Sie *Peer*, um den Peering-Prozess abzuschließen.
+
+
+.Was kommt als Nächstes?
+Nachdem der Peering-Prozess erfolgreich abgeschlossen wurde, konfigurieren Sie die Cluster. Siehe link:configure-mcc-site-system-manager.html["Konfigurieren Sie einen MetroCluster IP-Standort"].

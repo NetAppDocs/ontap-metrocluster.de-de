@@ -4065,7 +4065,6 @@
   <block id="d7fffb0ac95f2fd216c5e3fd04365cca" category="paragraph">Möglicherweise müssen Sie diese Eigenschaften aktualisieren, z. B. wenn eine doppelte IP-Adresse erkannt wird oder wenn ein Gateway aufgrund von Änderungen der Routerkonfiguration im Fall eines Layer 3-Netzwerks geändert werden muss.</block>
   <block id="383d9b07e1ef0cfcfa9ec36fecccfe02" category="paragraph">Sie können jeweils nur eine Schnittstelle ändern. Es wird eine Verkehrsunterbrechung auf dieser Schnittstelle geben, bis die anderen Schnittstellen aktualisiert und Verbindungen wiederhergestellt sind.</block>
   <block id="8450a359c3efc774857fe0f3189456e0" category="paragraph">Verwenden Sie die<block ref="a7c7bfc3508e315ba41d4dc6412930eb" prefix=" " category="inline-code"></block> Befehl zum Ändern einer MetroCluster IP-Schnittstelleneigenschaft.</block>
-  <block id="6a644f6158922e284b18d4232a152b9f" category="admonition">Mit diesen Befehlen wird die Konfiguration auf einem bestimmten Node für einen bestimmten Port geändert. Um eine vollständige Netzwerkverbindung wiederherzustellen, sind ähnliche Befehle auf anderen Ports erforderlich. Auf ähnliche Weise müssen Netzwerk-Switches auch ihre Konfiguration aktualisieren. Wenn das Gateway beispielsweise aktualisiert wird, wird idealerweise auf beiden Knoten eines HA-Paares geändert, da sie identisch sind. Außerdem muss der mit diesen Nodes verbundene Switch auch sein Gateway aktualisieren.</block>
   <block id="700215bf58e5cc6edce60155aeb7c44a" category="section-title">Ändern Sie die IP-Adresse, die Netmask und das Gateway</block>
   <block id="2747f7ff86cce509295bfb4ba2b1c4fa" category="list-text">Aktualisieren Sie die IP-Adresse, die Netmask und das Gateway für einen einzelnen Node und eine einzelne Schnittstelle:<block ref="a7c7bfc3508e315ba41d4dc6412930eb" prefix=" " category="inline-code"></block></block>
   <block id="2f545dcb650b5848061814c5ce3b4cf4" category="paragraph">Mit dem folgenden Befehl wird gezeigt, wie die IP-Adresse, die Netmask und das Gateway aktualisiert werden:</block>
@@ -4573,7 +4572,6 @@
   <block id="22ad9a689b8447af0ecfb5eb5b5495b3" category="list-text">Fügen Sie den ONTAP Mediator-Dienst zu ONTAP hinzu:</block>
   <block id="f8dc7177731310562718d80a3440fa9d" category="paragraph"><block ref="3514c4a480186e54ede98b5d0a79cc77" prefix="" category="inline-code"></block></block>
   <block id="1645e08f0bfdf72de9dd9cf2ec8208de" category="admonition">Sie werden aufgefordert, den Benutzernamen und das Kennwort für das Mediator Admin-Benutzerkonto einzugeben.</block>
-  <block id="80e98c813fb4e1db7539339fdcc19d00" category="list-text">Überprüfen Sie, ob die Funktion zur automatischen Umschaltung aktiviert ist:</block>
   <block id="5c0eb063c7de9ced4fcf06367dc8cf49" category="list-text">Überprüfen Sie, ob der Mediator jetzt ausgeführt wird.</block>
   <block id="241c04bf46a427ee9559a37db9cfc64c" category="list-text">Zeigen Sie die virtuellen Mediator-Laufwerke an:</block>
   <block id="549e9ae28a978e7598586f13c962b013" category="paragraph"><block ref="01f27107dbd6f005bff7ffa285edb3da" prefix="" category="inline-code"></block></block>
@@ -12394,10 +12392,8 @@
   <block id="a7f55356cc47030db5528f30a58edfb2" category="list-text">Installieren oder aktualisieren Sie die Tiebreaker Software.</block>
   <block id="aad71198aa2c8b35c39182535fa9f425" category="paragraph">Führen Sie die folgenden Schritte aus, um Tiebreaker 1.6 neu zu installieren.</block>
   <block id="73bcbbea382be16f93642da3ea4e23a7" category="list-text">Führen Sie den folgenden Befehl auf der aus<block ref="e9af9a0ef1d120bf3a16357375ed6d36" prefix=" " category="inline-code"></block> Aufforderung zum Starten der Installation:</block>
-  <block id="30c295d71ca99219187fc6466ee21568" category="open-title">Upgrade von Tiebreaker 1.5 auf 1.6</block>
   <block id="8be93a7c27b9b66803ef47f46f3d4a36" category="paragraph">Gehen Sie wie folgt vor, um die Tiebreaker 1.5 Softwareversion auf Tiebreaker 1.6 zu aktualisieren.</block>
   <block id="b9a8b4d6a676fac167bcd49bac74376b" category="list-text">Führen Sie den folgenden Befehl auf der aus<block ref="e9af9a0ef1d120bf3a16357375ed6d36" prefix=" " category="inline-code"></block> Aufforderung zum Aktualisieren der Software:</block>
-  <block id="cf316c5c67469aab7dcc16eed2309753" category="open-title">Upgrade von Tiebreaker 1.4 auf 1.6</block>
   <block id="b6afd444ae977b739cc436bd2a8b5c0b" category="paragraph">Gehen Sie wie folgt vor, um die Tiebreaker 1.4 Softwareversion auf Tiebreaker 1.6 zu aktualisieren.</block>
   <block id="67449e50a32d34759e501e37496d3308" category="doc">Tiebraker Installations-Workflow</block>
   <block id="a6812db2442ae325a9ccd39373bbd9dd" category="paragraph-title">Informationen zu diesem Workflow</block>
@@ -12420,7 +12416,6 @@
   <block id="4a558332080902b1daf6c9eb900f075a" category="summary">Das Tiebreaker Installationsverfahren, das Sie durchführen, hängt von der Version von Tiebreaker ab, die Sie installieren.</block>
   <block id="686cbe9ae98dac9e3c34fe747bedda27" category="doc">Wählen Sie den Installationsvorgang aus</block>
   <block id="de537937e28d6ff9bfed73c24f238620" category="paragraph">Tiebreak 1.6</block>
-  <block id="3d0eb4e198ae6fd77a45e8e5eeab8df8" category="paragraph"><block ref="3d0eb4e198ae6fd77a45e8e5eeab8df8" category="inline-link-macro-rx"></block></block>
   <block id="92c6c9c27fa6ff626915d050a03cd801" category="doc">Aktualisieren Sie den Host, auf dem der Tiebreaker Monitor ausgeführt wird</block>
   <block id="bb6cdee210874ecf03d44e914a8ca0e2" category="paragraph">Unter Umständen müssen Sie den Host aktualisieren, auf dem der Tiebreaker Monitor ausgeführt wird.</block>
   <block id="5d7ada76e0c335aff8880d70d7058de7" category="list-text">Deinstallieren Sie die Tiebreaker Software:</block>
@@ -12431,7 +12426,6 @@
   <block id="be7c560a571a01eeb644e3be4ae88e59" category="list-text">Einfachere Installation</block>
   <block id="6106648cc4773cdde37c48ca810022c0" category="cell">Red Hat 7 - 7.9</block>
   <block id="7d04b9af5dfbfc78c7040183f68afdc4" category="cell">Red Hat 8.1 - 8.7</block>
-  <block id="33ef1f5aa9b12ecd01c340c91d8f9150" category="cell">Red Hat 8.8 -9,2</block>
   <block id="003d136e5089a4f9ae0f1df3f6fc37fa" category="cell">Rocky Linux 9.0</block>
   <block id="9d0101bb262cf2b07ff8dcfa1f6cf004" category="list-text">Sie benötigen das Admin-Passwort und Zugriff auf einen HTTP-, FTP-, SFTP- oder Trivial File Transfer Protocol (TFTP)-Server.</block>
   <block id="c422062a1c7b3d9ed9b2282378699dc7" category="paragraph"><block ref="c422062a1c7b3d9ed9b2282378699dc7" category="inline-link-macro-rx"></block></block>
@@ -13779,7 +13773,6 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="b0e1fb1b9093a23db84f9fe9ec414a05" category="paragraph">Sie müssen die RCF-Datei für jeden Switch in der MetroCluster IP-Konfiguration generieren und installieren.</block>
   <block id="5f6300d6cef757d6670c2170d0ee50fb" category="list-text">Erstellen Sie die Cisco RCF-Dateien für MetroCluster IP.</block>
   <block id="f0af72ee7b95606742238881f6d3d746" category="list-text">Mit den<block ref="0dea99cd92a8ce54e8bf65bd553a3e89" prefix=" " category="inline-code"></block>Befehlen ,<block ref="05f7f2ea3536c78a494ee9ec91b6fef9" prefix=" " category="inline-code"></block>und<block ref="1fb1e9c05efc96eb745333b035ce6d59" prefix=" " category="inline-code"></block> können Sie überprüfen, ob alle Verbindungen in allen Schnittstellen funktionieren.</block>
-  <block id="696ca372052e4e85401e9ef266b57375" category="paragraph">Führen Sie die folgenden Schritte aus, um die IP-Adresse, die Netzmaske und das Gateway einer MetroCluster IP-Schnittstelle zu ändern.</block>
   <block id="164748ab1cab79cb53ebb8d067fb41df" category="paragraph"><block ref="3b73cc9aa0167fa80aa8a786a4871e88" prefix="" category="inline-code"></block></block>
   <block id="8c8de216c09126479bba8f0a636ceac7" category="paragraph"><block ref="34b1158d44c89ca8031563bdf424ba84" prefix="" category="inline-code"></block></block>
   <block id="711aa9967b438e020ee72c9773739e5d" category="paragraph"><block ref="c7462aa9b4e3acfeadac46864ab81636" prefix="" category="inline-code"></block></block>
@@ -14038,4 +14031,243 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="705abb444ac66e0442a9ae4646471061" category="list-text">Deaktivieren Sie die neuen Switches, indem Sie den folgenden Befehl auf beiden Switches ausführen:</block>
   <block id="f67761c61087dd0914ed518ef2c5f8e3" category="list-text">Konfigurieren Sie die Brocade FC-Switches mithilfe einer der folgenden Verfahren:</block>
   <block id="4aa62d2d0cdae8fdaf47d41d558bac24" category="list-text"><block ref="4aa62d2d0cdae8fdaf47d41d558bac24" category="inline-link-macro-rx"></block></block>
+  <block id="bfa00e3106960b2480f83fadff713a4f" category="paragraph">1.6P1</block>
+  <block id="6bfcd5ea08a80cd94155fdf88dcf6123" category="paragraph">Die folgende Tabelle zeigt die unterstützten Betriebssysteme für die einzelnen Versionen von Tiebreaker.</block>
+  <block id="1b768ce691e5eb1aa740065a1f672bfa" category="cell">Betriebssystem für Tiebreaker</block>
+  <block id="540490e777cd8d6d9e7c6fc96ae66c78" category="paragraph">Rocky Linux 9.4</block>
+  <block id="5462f235f897a01fa661bab622beabc8" category="paragraph">Rocky Linux 8.10</block>
+  <block id="a19c888b1dfc0d7cae495bcb3d337fc0" category="paragraph">Red Hat 9.4</block>
+  <block id="3e6f4ea6825b1c15c5caa424f32e8e56" category="paragraph">Red Hat 9.3</block>
+  <block id="990892a05d2ae7871bb10520e7d92e70" category="paragraph">Red Hat 9.2</block>
+  <block id="b846d756ce474e84306c1784e17929a2" category="paragraph">Red Hat 9.1</block>
+  <block id="a9a9af4fc514b12a09fbdb4e9dc69b3e" category="paragraph">Red Hat 9.0</block>
+  <block id="7f1240813348dba5070feb8fcbcd1ef6" category="paragraph">Red Hat 8.11 - 9.0</block>
+  <block id="dfb323b8bbf2e9913deb2acdece0c7f4" category="paragraph">Red Hat 8.10</block>
+  <block id="df0cfaadf30e71fdaa61f84b52c44994" category="paragraph">Red Hat 8.9</block>
+  <block id="04dca81afefd0df779a73a7d71167788" category="paragraph">Red Hat 8.8</block>
+  <block id="38a72bda83bf45017fe822ff4eba9612" category="summary">Ab ONTAP 9.8 können Sie MetroCluster IP-Konfigurationsvorgänge mit System Manager managen. Dazu gehört das Einrichten, Peering und Konfigurieren von zwei Clustern.</block>
+  <block id="36f25b89c535d52dd7602dc98235602e" category="doc">Konfigurieren Sie einen MetroCluster IP-Standort</block>
+  <block id="28899ffbbfaa5ea10173ff0ea7d1a3c4" category="paragraph">Ab ONTAP 9.8 können Sie MetroCluster IP-Konfigurationsvorgänge mit System Manager managen. Dazu müssen zwei Cluster eingerichtet, Cluster-Peering durchgeführt und die Cluster konfiguriert werden.</block>
+  <block id="ab5b4f0eeffd1a9db4154301438d854e" category="paragraph">Gehen Sie wie folgt vor:</block>
+  <block id="db2d063a7c49bffea6360ca914ed7b80" category="inline-link-macro">Richten Sie einen MetroCluster IP-Standort ein</block>
+  <block id="6752a5e24c893d34589e26378fa69a36" category="list-text"><block ref="6752a5e24c893d34589e26378fa69a36" category="inline-link-macro-rx"></block></block>
+  <block id="666700b42fe1d56ec812d1016bf00474" category="inline-link-macro">MetroCluster IP-Peering einrichten</block>
+  <block id="432b1852c060822f86f6a936e2d5a657" category="list-text"><block ref="432b1852c060822f86f6a936e2d5a657" category="inline-link-macro-rx"></block></block>
+  <block id="11de751fc3a61ece2c4369c7f228d262" category="section-title">Konfigurieren Sie die Verbindung zwischen Clustern</block>
+  <block id="4f98dcf943b7a3cd7ed4f88ca8839b1b" category="list-text">Melden Sie sich an einem der Standorte bei System Manager an, und wählen Sie *Dashboard*.</block>
+  <block id="d3ab8079aafa01dd2443858e1958cde3" category="paragraph">Im Abschnitt *MetroCluster* zeigt die Grafik die beiden Cluster, die Sie für die MetroCluster-Sites eingerichtet und angepasst haben. Das Cluster, von dem Sie arbeiten (lokales Cluster), wird auf der linken Seite angezeigt.</block>
+  <block id="4dbd519ea68e9fdd1535b92dd4afd5fb" category="list-text">Klicken Sie auf *MetroCluster konfigurieren*. Führen Sie in diesem Fenster die folgenden Schritte aus:</block>
+  <block id="1786426d5d80efd6c5165d556166c28b" category="list-text">Es werden die Nodes für jedes Cluster in der MetroCluster-Konfiguration dargestellt. Wählen Sie in den Dropdown-Listen die Knoten im lokalen Cluster aus, die Disaster-Recovery-Partner für die Knoten im Remote-Cluster sind.</block>
+  <block id="5b4f1da4fd53e0370a93b132cee09135" category="inline-link-macro">Konfigurieren Sie den ONTAP Mediator-Dienst</block>
+  <block id="79929ab5271f1ea472573389b4d83491" category="list-text">Aktivieren Sie das Kontrollkästchen, wenn Sie den ONTAP Mediator-Dienst konfigurieren möchten. Siehe <block ref="5f1311c68626dc6800182a56591c319d" category="inline-link-macro-rx"></block>.</block>
+  <block id="2e04b49bb4e33ec691ac2f426d41203d" category="list-text">Wenn beide Cluster über eine Lizenz zur Aktivierung der Verschlüsselung verfügen, wird der Abschnitt *Verschlüsselung* angezeigt.</block>
+  <block id="12d02fba21726eafac4f9ce09b0d1801" category="paragraph">Geben Sie zum Aktivieren der Verschlüsselung eine Passphrase ein.</block>
+  <block id="39391d3e9d1021130d7922046a90931b" category="list-text">Aktivieren Sie das Kontrollkästchen, wenn Sie MetroCluster mit einem freigegebenen Layer-3-Netzwerk konfigurieren möchten.</block>
+  <block id="efe042b7cd567da6e7a1991e57562f95" category="admonition">Die HA-Partner-Nodes und die mit den Nodes verbundenen Netzwerk-Switches müssen über eine passende Konfiguration verfügen.</block>
+  <block id="3ff0da84e96e24c0f2119aa4d9252fc8" category="list-text">Klicken Sie auf *Speichern*, um die MetroCluster-Sites zu konfigurieren.</block>
+  <block id="a84590effe20f7cfc7a37800f946342b" category="paragraph">Auf dem *Dashboard* im Abschnitt *MetroCluster* zeigt die Grafik ein Häkchen auf der Verbindung zwischen den beiden Clustern an, was auf eine gesunde Verbindung hinweist.</block>
+  <block id="0a2cb077aceb828b74111b3c72d0875f" category="summary">Ab ONTAP 9.8 können Sie MetroCluster IP-Standortvorgänge mit System Manager managen. Dazu müssen zwei Cluster eingerichtet und Cluster-Peering durchgeführt werden.</block>
+  <block id="2fecebbfac11150535911d877966c9e3" category="paragraph">Ab ONTAP 9.8 können Sie MetroCluster IP-Konfigurationsvorgänge mit System Manager managen. Nachdem Sie zwei Cluster eingerichtet haben, richten Sie Peering zwischen ihnen ein.</block>
+  <block id="8301378659a3e958b3ed8bee628d4fed" category="paragraph">Richten Sie zwei Cluster ein. Siehe <block ref="6752a5e24c893d34589e26378fa69a36" category="inline-link-macro-rx"></block>Verfahren.</block>
+  <block id="fd52b08a1d5c4aa668d8747cad70b430" category="paragraph">Bestimmte Schritte dieses Prozesses werden von verschiedenen Systemadministratoren an den geografischen Standorten des jeweiligen Clusters ausgeführt. Zur Erläuterung dieses Verfahrens werden die Cluster „Standort A Cluster“ und „Standort B Cluster“ genannt.</block>
+  <block id="800f6bec4d7bccca8986aece418ad1de" category="section-title">Führen Sie den Peering-Prozess von Standort A aus</block>
+  <block id="91e08e596d03b4598a0cb6e18b3b7323" category="paragraph">Dieser Prozess wird von einem Systemadministrator an Standort A durchgeführt</block>
+  <block id="1b22a2a59202338d982fba5bbb33fa30" category="list-text">Melden Sie sich bei Site A Cluster an.</block>
+  <block id="37d02710ca9beb5be0727430fb2162b8" category="list-text">Wählen Sie in System Manager in der linken Navigationsleiste *Dashboard* aus, um die Clusterübersicht anzuzeigen.</block>
+  <block id="400cef5b08c0727ecc8dc2c820f4cc03" category="paragraph">Im Dashboard werden die Details zu diesem Cluster angezeigt (Standort A). Im Abschnitt *MetroCluster* wird Standort A Cluster auf der linken Seite angezeigt.</block>
+  <block id="6107d832d713643417cdcb1247850b8d" category="list-text">Klicken Sie Auf *Partner-Cluster Anhängen*.</block>
+  <block id="1ad364a11b40005802e1f84d90d041cf" category="list-text">Geben Sie die Details der Netzwerkschnittstellen ein, die es den Knoten in Standort-A-Cluster ermöglichen, mit den Knoten im Standort-B-Cluster zu kommunizieren.</block>
+  <block id="e2aa96095bb2f8cb065ca1dbb1797062" category="list-text">Klicken Sie auf *Speichern und fortfahren*.</block>
+  <block id="0fb2a7e128a2eac45533dd8f9ae55f5e" category="list-text">Wählen Sie im Fenster *Partner Cluster anhängen* *Ich habe keine Passphrase*. Auf diese Weise können Sie eine Passphrase generieren.</block>
+  <block id="c049d3b7f45a9d71a026303b72bd3c89" category="list-text">Kopieren Sie die generierte Passphrase, und teilen Sie sie mit dem Systemadministrator an Standort B</block>
+  <block id="4a553bf9ebe9a32a6743c78be912cfbc" category="list-text">Wählen Sie *Schließen*.</block>
+  <block id="b05890405a4f635e4f56b65031e75631" category="section-title">Peering-Prozess von Standort B durchführen</block>
+  <block id="0b4aea80df80bf888adc9518474f6947" category="paragraph">Dieser Prozess wird von einem Systemadministrator an Standort B durchgeführt</block>
+  <block id="dd50214e47fa588d26e3c92a3d198338" category="list-text">Melden Sie sich bei Standort B-Cluster an.</block>
+  <block id="734cc1d7de8d108a27e917887214636f" category="list-text">Wählen Sie in System Manager *Dashboard* aus, um die Clusterübersicht anzuzeigen.</block>
+  <block id="1f10efcab03c53da22ba08cb6bbc8598" category="paragraph">Das Dashboard zeigt die Details zu diesem Cluster an (Standort B). Im Abschnitt MetroCluster wird links Standort-B-Cluster angezeigt.</block>
+  <block id="b7c19af97bcc09d6c21203f84e692348" category="list-text">Klicken Sie auf *Attach Partner Cluster*, um den Peering-Prozess zu starten.</block>
+  <block id="8ca83d09916f639dd29a3ed4f3b639b4" category="list-text">Geben Sie die Details der Netzwerkschnittstellen ein, die es den Knoten im Cluster Standort B ermöglichen, mit den Knoten in Standort A zu kommunizieren.</block>
+  <block id="bfee858eb2d3fe3045afebb6acac2a29" category="list-text">Wählen Sie im Fenster *Partner Cluster anhängen* *Ich habe eine Passphrase*. Auf diese Weise können Sie die Passphrase eingeben, die Sie vom Systemadministrator an Standort A erhalten haben</block>
+  <block id="3dada8e82959cb16ca8382065e3028f9" category="list-text">Wählen Sie *Peer*, um den Peering-Prozess abzuschließen.</block>
+  <block id="58eaebf972358f1cf03d386a4ade1a0f" category="paragraph-title">Was kommt als Nächstes?</block>
+  <block id="1d5ce8d0636fdf8fd5bc5cb4e8a960df" category="paragraph">Nachdem der Peering-Prozess erfolgreich abgeschlossen wurde, konfigurieren Sie die Cluster. Siehe <block ref="f4b8cb4c8ba1cae03984184387785b0f" category="inline-link-macro-rx"></block>.</block>
+  <block id="6860105c09c16d5d7eaa1e78fed2b5e5" category="summary">Ab ONTAP 9.8 können Sie mit System Manager einen MetroCluster IP-Standort einrichten.</block>
+  <block id="466f762f177e526457605fb9ac8c08f3" category="paragraph">Ein MetroCluster-Standort besteht aus zwei Clustern. In der Regel befinden sich die Cluster an verschiedenen geografischen Standorten.</block>
+  <block id="b0d3ebac943d2ae6f9252023ec4372af" category="inline-link">Installations- und Setup-Anleitung</block>
+  <block id="ad7d040781ae344cb798e4643b544189" category="list-text">Das System sollte bereits gemäß dem installiert und verkabelt sein<block ref="fe37fd3178daac666b0ecf82dc69d67e" category="inline-link-rx"></block>, der mit dem System geliefert wurde.</block>
+  <block id="3521850b1984afef04220756150edd6f" category="list-text">Clusternetzwerkschnittstellen sollten auf jedem Knoten eines jeden Clusters für die Kommunikation innerhalb des Clusters konfiguriert werden.</block>
+  <block id="333626d7eac89dbbbfc0adb558126fa5" category="section-title">Weisen Sie eine Node-Management-IP-Adresse zu</block>
+  <block id="b6aad8c4ffa5342dbf2d86461d5eacd0" category="section-title">Windows System</block>
+  <block id="5239b38f72ba4e5cf31c91f53e96fbed" category="paragraph">Sie sollten Ihren Windows-Computer mit dem Subnetz verbinden, mit dem die Controller verbunden sind. Dadurch wird Ihrem System automatisch eine Node-Management-IP-Adresse zugewiesen.</block>
+  <block id="3ce0ea9ab77c17a59c6c5bc699f28c5f" category="list-text">Öffnen Sie vom Windows-System aus das Laufwerk *Network*, um die Knoten zu erkennen.</block>
+  <block id="19695fc87bb0fcfd896be28e7208553d" category="list-text">Doppelklicken Sie auf den Node, um den Cluster-Setup-Assistenten zu starten.</block>
+  <block id="4df67b430c2c93a881bdfcb608ac9d64" category="section-title">Andere Systeme</block>
+  <block id="088e15bd429f3ce14d70d95c30e1e122" category="paragraph">Sie sollten die Node-Management-IP-Adresse für einen der Nodes im Cluster konfigurieren. Sie können diese Node-Management-IP-Adresse verwenden, um den Setup-Assistenten für das Cluster zu starten.</block>
+  <block id="35993a777fd55e9b8652d85b9bcdb437" category="inline-link-macro">Erstellen des Clusters auf dem ersten Node</block>
+  <block id="f6d314ce096e8231f7a5bc9785329bcb" category="paragraph"><block ref="6a6a97d50b361c85b6a1efd6b8465455" category="inline-link-macro-rx"></block>Informationen zum Zuweisen einer Node-Management-IP-Adresse finden Sie unter.</block>
+  <block id="01aefac0a86b676c1949a51d6e866a82" category="section-title">Initialisieren und konfigurieren Sie den Cluster</block>
+  <block id="49fad8a8e436dfc1d8668e654044de3c" category="paragraph">Sie initialisieren den Cluster, indem Sie ein Administratorpasswort für das Cluster festlegen und die Cluster-Management- und Node-Managementnetzwerke einrichten. Sie können auch Dienste wie einen DNS (Domain Name Server) konfigurieren, um Hostnamen aufzulösen, und einen NTP-Server zur Synchronisierung der Zeit.</block>
+  <block id="cc1405b96b23f7d6e3c371baa8cee9fd" category="list-text">Geben Sie in einem Webbrowser die konfigurierte Node-Management-IP-Adresse ein: <block ref="c3d870229fd69ece8d3d772339d7351c" category="inline-link-rx"></block></block>
+  <block id="b4ab57535e2494a9072f367bc0cc66ac" category="paragraph">System Manager erkennt die im Cluster verbliebenen Nodes automatisch.</block>
+  <block id="b32feae1add7ad238c11b701aebd6a4d" category="list-text">Führen Sie im Fenster *Storage System initialisieren* folgende Schritte durch:</block>
+  <block id="0723981d0cd8540448ade0ad0c2bce4f" category="list-text">Geben Sie die Netzwerkkonfigurationsdaten des Cluster-Managements ein.</block>
+  <block id="d9e5bca04bba2210fd7133286123d23b" category="list-text">Geben Sie die Node-Management-IP-Adressen für alle Nodes ein.</block>
+  <block id="89b17fac13461899552af00e761c444f" category="list-text">Geben Sie DNS-Details an.</block>
+  <block id="f2cf1382fae972d1f657f56bdf1ccd2f" category="list-text">Aktivieren Sie im Abschnitt *andere* das Kontrollkästchen *Zeitdienst verwenden (NTP)*, um die Zeitserver hinzuzufügen.</block>
+  <block id="d385f8f7be7049af17b707b814da972d" category="paragraph">Wenn Sie auf *Absenden* klicken, warten Sie, bis der Cluster erstellt und konfiguriert wurde. Anschließend erfolgt ein Validierungsprozess.</block>
+  <block id="e66cf0363da426ff5fc40b5dff923ee7" category="paragraph-title">Nächste Schritte</block>
+  <block id="fb0527aaad3b8834bb5bd8b9aaac2d14" category="paragraph">Nachdem beide Cluster eingerichtet, initialisiert und konfiguriert wurden, führen Sie das [Setup von MetroCluster IP Peering]-Verfahren durch.</block>
+  <block id="5a8cb11351ec1c2ae0f6ece191a675b3" category="section-title">Konfigurieren Sie ONTAP auf einem neuen Cluster-Video</block>
+  <block id="de87e59d2852e752153034440b599942" category="summary">Mit System Manager können Sie Aufgaben zur Verwaltung des Mediators ausführen.</block>
+  <block id="4a75c782083d91f8442fa0793b7cfbf5" category="doc">Verwalten Sie den ONTAP Mediator mit System Manager</block>
+  <block id="a92f4998e6033fa7b4c91230afa4eb31" category="paragraph">Mit System Manager können Sie Aufgaben zum Verwalten des ONTAP Mediators ausführen.</block>
+  <block id="58d9a382438a6ccf3362b70996f2217e" category="paragraph-title">Über diese Aufgaben</block>
+  <block id="06d19fcd882f22629288f03ed5b7cdbf" category="paragraph">Ab ONTAP 9.8 können Sie System Manager als vereinfachte Schnittstelle zur Verwaltung einer MetroCluster IP-Konfiguration mit vier Knoten verwenden. Zu dieser Konfiguration kann auch ein ONTAP Mediator an einem dritten Standort gehören.</block>
+  <block id="7cd65d7812b2b9ccfca9369428e81afc" category="paragraph">Ab ONTAP 9.14.1 können Sie die folgenden Vorgänge auch für einen MetroCluster IP-Standort mit acht Nodes ausführen. Sie können ein System mit acht Nodes nicht mit System Manager einrichten oder erweitern, aber wenn Sie bereits ein MetroCluster IP-System mit acht Nodes eingerichtet haben, können Sie diese Vorgänge trotzdem ausführen.</block>
+  <block id="cf5d5c60759eb97116f97dba2f94928f" category="paragraph">Führen Sie die folgenden Aufgaben aus, um den ONTAP Mediator zu verwalten.</block>
+  <block id="34c30a40821bf0600cbb66a443eaa256" category="cell">Aufgabe durchführen...</block>
+  <block id="ed48cbb0bf6ff16f983dee37b0fa56db" category="cell">Ergreifen Sie diese Maßnahmen...</block>
+  <block id="fbdb3c4696d4af3abdd40a7c4d39dff1" category="paragraph">Konfigurieren Sie den Mediator-Dienst</block>
+  <block id="5887ba6bb1083b1733f935c989ce8798" category="paragraph">Beide Cluster an den MetroCluster Standorten sollten up und Peering durchgeführt werden.</block>
+  <block id="e41b8f6d50b100db120f723ab2d80b55" category="list-text">Wählen Sie unter System Manager in ONTAP 9.8 die Option *Cluster &gt; Einstellungen* aus.</block>
+  <block id="5ad3e303fff11348579be9fa7186a3bf" category="inline-image-macro">Aktionssymbol</block>
+  <block id="91137d8840d5756932cbbe95191ebef9" category="list-text">Klicken Sie im Abschnitt *Mediator* auf <block ref="7d54718dbc3f6ea214f7c0852ad5f778" category="inline-image-macro-rx" type="image"></block>.</block>
+  <block id="08e18262fd4a21acec4d96a4a34ce874" category="list-text">Klicken Sie im Fenster *Mediator konfigurieren* auf *Hinzufügen+*.</block>
+  <block id="7106fd9d66839587984098b5b110af62" category="list-text">Geben Sie die Konfigurationsdetails für den ONTAP Mediator ein.</block>
+  <block id="4454fd0f209c519ab968807065d1d63d" category="paragraph">Sie können die folgenden Details eingeben, während Sie einen ONTAP Mediator mit dem System Manager konfigurieren.</block>
+  <block id="2396a51918b19da4a570bb6eeefaf733" category="list-text">Die IP-Adresse des Mediators.</block>
+  <block id="bf3c0dfedfed52264992478ab75c11ab" category="list-text">Der Benutzername.</block>
+  <block id="818e503323563216b4a9556e8c414a99" category="list-text">Das Passwort.</block>
+  <block id="db76a646cbffaec942b46f13ae610cdf" category="paragraph">Aktivieren oder Deaktivieren der Mediator-gestützten automatischen Umschaltung (MAUSO)</block>
+  <block id="8a9b7c6da233afe1b94f2908370636ae" category="list-text">Klicken Sie in System Manager auf *Dashboard*.</block>
+  <block id="33ba5213ca4a1cf4e94a02d0ba4e50a8" category="list-text">Blättern Sie zum Abschnitt „MetroCluster“.</block>
+  <block id="9b5ce2fc82e55a2629051893f8d8d4ff" category="inline-image-macro">Menüsymbol</block>
+  <block id="8048f4b95111b36ae736e0db22032afc" category="list-text">Klicken Sie neben dem Namen der MetroCluster-Site auf <block ref="fc003bdefc684d1fa6047f466b3a4572" category="inline-image-macro-rx" type="image"></block> .</block>
+  <block id="5451b90704453cd0f976a20853b71515" category="list-text">Wählen Sie *Enable* oder *Disable*.</block>
+  <block id="e7d8532df0bf3db8251352a8238be289" category="list-text">Geben Sie den Benutzernamen und das Kennwort des Administrators ein, und klicken Sie dann auf *enable* oder *Disable*.</block>
+  <block id="1f48f2b275c8a8c7c346ee84a099bf8d" category="admonition">Sie können den Mediator aktivieren oder deaktivieren, wenn er erreicht werden kann und sich beide Standorte im Modus „`normal`“ befinden. Der Mediator ist weiterhin erreichbar, wenn MAUSO aktiviert oder deaktiviert ist, wenn das MetroCluster-System in einem ordnungsgemäßen Zustand ist.</block>
+  <block id="7f4fa61d4e9b9b925c8fb71469e17d9d" category="paragraph">Entfernen Sie den Mediator aus der MetroCluster-Konfiguration</block>
+  <block id="90e2fb7737ff30cfb4976eadc47866a4" category="list-text">Wählen Sie *Mediator Entfernen*.</block>
+  <block id="08c3fe5d52a59ab36d7b3b7acab670d1" category="list-text">Geben Sie den Benutzernamen und das Kennwort des Administrators ein, und klicken Sie dann auf *Entfernen*.</block>
+  <block id="7f4010553b429e7c90d3b1f0da9fa64b" category="paragraph">Überprüfen Sie den Zustand des Mediators</block>
+  <block id="88696f657e6e364490e66c4462936660" category="inline-link-macro">Überprüfen Sie den Funktionszustand einer MetroCluster-Konfiguration</block>
+  <block id="b01e706bfb46755bbdbe42d170a1b23a" category="paragraph">Führen Sie die spezifischen Schritte des System Managers in <block ref="1dc6f14de17f840d44d583754a4c8527" category="inline-link-macro-rx"></block>aus.</block>
+  <block id="d643e31d547d643afdddd05a8a4f7112" category="paragraph">Durchführen einer Umschaltung und eines Switchback</block>
+  <block id="95232b2668851dd7e6d065abeee1ed20" category="inline-link-macro">Verwenden Sie System Manager für Umschaltung und Switchback (nur MetroCluster IP-Konfigurationen).</block>
+  <block id="94728a8f449ff84b5ac878653ab4ad67" category="paragraph">Führen Sie die Schritte in <block ref="5b3a204b8bc535419d3d88f0ef6f3046" category="inline-link-macro-rx"></block>aus.</block>
+  <block id="a4d7653998b91da503a24fc71e65ad4f" category="list-text">Stellen Sie sicher, dass die automatische Umschaltfunktion aktiviert ist:</block>
+  <block id="b03614d885f56be6dafeebbbaa010a5f" category="paragraph">Die Vorgehensweise, die Sie befolgen, hängt davon ab, ob Sie ONTAP System Manager oder die CLI verwenden.</block>
+  <block id="26ed02718973e705cd69ee6e109400e0" category="open-title">System Manager</block>
+  <block id="a8f22e0a130b300278ead25d693a43d5" category="paragraph">Ändern Sie mit System Manager die IP-Adresse, die Netmask- und die Gateway-Eigenschaften.</block>
+  <block id="7cdf282c18fa11c6df4d9d55af90d450" category="paragraph">Aktualisieren Sie die IP-Adresse, die Netzmaske und das Gateway für jeden Node und jede Schnittstelle.</block>
+  <block id="91af5705f16502125e8b2187e64202c0" category="open-title">CLI</block>
+  <block id="f9a65892b48ad466104ac3eb33403881" category="paragraph">Verwenden Sie die CLI, um die Eigenschaften von IP-Adresse, Netzmaske und Gateway zu ändern.</block>
+  <block id="0efcd0c9061820674001fdd91f087bf1" category="admonition">Mit diesen Befehlen wird die Konfiguration auf einem bestimmten Node für einen bestimmten Port geändert. Um eine vollständige Netzwerkverbindung wiederherzustellen, sind ähnliche Befehle auf anderen Ports erforderlich. Auf ähnliche Weise müssen Netzwerk-Switches auch ihre Konfiguration aktualisieren. Wenn das Gateway beispielsweise aktualisiert wird, wird idealerweise auf beiden Knoten eines HA-Paares geändert, da sie identisch sind. Der Switch, der mit diesen Nodes verbunden ist, muss auch sein Gateway aktualisieren.</block>
+  <block id="1e7bea8d62062fd522d5f5c2523a3c72" category="summary">Erfahren Sie, wie Sie überprüfen, ob sich die MetroCluster Komponenten in einem ordnungsgemäßen Zustand befinden.</block>
+  <block id="f505230c63d40beb8fbcb47fba267ed7" category="list-text">In MetroCluster IP- und FC-Konfigurationen können Sie die CLI verwenden, um Zustandspeckbefehle auszuführen und den Status der MetroCluster-Komponenten zu überprüfen.</block>
+  <block id="8b0de0e20dd0b02520681f56e79ebae0" category="list-text">In MetroCluster IP-Konfigurationen, auf denen ONTAP 9 8 oder höher ausgeführt wird, können Sie auch ONTAP System Manager verwenden, um Warnmeldungen zur Integritätsprüfung zu überwachen und zu beheben.</block>
+  <block id="1583d2d97747ba72311f2e67c5e8cbb4" category="paragraph">Überprüfen Sie den Systemzustand der MetroCluster Konfiguration in Abhängigkeit davon, ob Sie die CLI oder System Manager verwenden.</block>
+  <block id="37dcbbe313fadb76f239174825a5a989" category="paragraph">Führen Sie die folgenden Schritte aus, um den Systemzustand einer MetroCluster Konfiguration mithilfe der CLI zu überprüfen.</block>
+  <block id="c4a17569a8bf29b7e14beddf0509bffc" category="list-text">Zeigen Sie nach Abschluss des<block ref="c2966f2f3bfc7e81dae5df7c44ce66ea" prefix=" " category="inline-code"></block> Vorgangs die Ergebnisse an:</block>
+  <block id="207b1edaa970369e13d7a443fcd16244" category="open-title">ONTAP System Manager (nur MetroCluster IP)</block>
+  <block id="a2c21bc044f933ab565d513bcc14eb44" category="paragraph">Ab ONTAP 9.8 überwacht System Manager den Systemzustand der MetroCluster IP Konfigurationen und unterstützt Sie bei der Identifizierung und Behebung von möglicherweise auftretenden Problemen.</block>
+  <block id="d679b550fc7e920c8d317b30292d5b72" category="paragraph">System Manager überprüft regelmäßig den Zustand Ihrer MetroCluster IP-Konfiguration. Wenn Sie den Abschnitt „MetroCluster“ auf dem Dashboard anzeigen, wird in der Regel die Meldung „MetroCluster-Systeme sind ordnungsgemäß“ ausgegeben.</block>
+  <block id="744b05e9d4a2bf5cfaf4233e162b7287" category="paragraph">Wenn jedoch ein Problem auftritt, wird in der Meldung die Anzahl der Ereignisse angezeigt. Sie können auf diese Meldung klicken und die Ergebnisse der Integritätsprüfung für die folgenden Komponenten anzeigen:</block>
+  <block id="fbebc6739678d32573bdcc8e7d9712a2" category="list-text">Netzwerkschnittstelle</block>
+  <block id="9db57734568bdbbb6cb1f1ae0e91c96e" category="list-text">Ebene (Storage)</block>
+  <block id="249694a485fc5d3289c38986b4f8e887" category="list-text">Cluster</block>
+  <block id="c2cc7082a89c1ad6631a2f66af5f00c0" category="list-text">Verbindung</block>
+  <block id="bd7a9717d29c5ddcab1bc175eda1e298" category="list-text">Datenmenge</block>
+  <block id="21094294c878b9478fc6a4481429dd3b" category="list-text">Konfigurationsreplizierung</block>
+  <block id="b06582224c79e1b61467fdec14da2228" category="paragraph">In der Spalte *Status* werden die Komponenten mit Problemen identifiziert, und in der Spalte *Details* wird erläutert, wie das Problem behoben werden kann.</block>
+  <block id="1d1e5cd96b3e552f9fc410fb90447401" category="list-text">Wählen Sie in System Manager *Dashboard* aus.</block>
+  <block id="68c5b182341ec0270d2cfc783a5cb3a8" category="list-text">Sehen Sie sich die Nachricht im Abschnitt *MetroCluster* an:</block>
+  <block id="2e957c43738afa0268a948e2ddbfc90a" category="list-text">Wenn die Meldung angibt, dass Ihre MetroCluster-Konfiguration ordnungsgemäß ist und die Verbindungen zwischen den Clustern und dem ONTAP Mediator in einem ordnungsgemäßen Zustand sind (siehe Häkchen), können Sie keine Probleme beheben.</block>
+  <block id="5ead04b6add34a12036cdfd7b3076e12" category="list-text">Wenn die Meldung die Anzahl der Ereignisse auflistet oder die Verbindungen (mit einem „X“ angezeigt) abwärts gegangen sind, fahren Sie mit dem nächsten Schritt fort.</block>
+  <block id="5eade9ac1d44db33dfd4a3c509a9f1db" category="list-text">Klicken Sie auf die Nachricht, die die Anzahl der Ereignisse anzeigt.</block>
+  <block id="2c0ee5124aa4e5392364a27cc1881b73" category="paragraph">Der MetroCluster-Integritätsbericht wird angezeigt.</block>
+  <block id="0d5b953768363f4a9dfdd80e2f7c966b" category="list-text">Beheben Sie die im Bericht angezeigten Probleme mithilfe der Vorschläge in der Spalte *Details*.</block>
+  <block id="b9a9a239553d33237233de0bfd8f65f6" category="list-text">Wenn alle Probleme behoben wurden, klicken Sie auf *MetroCluster-Zustand prüfen*.</block>
+  <block id="e4fd105ae14d31c18bec3c48cfbb91dd" category="admonition">Sie sollten alle Fehlerbehebungsaufgaben ausführen, bevor Sie die Prüfung ausführen, da die MetroCluster-Integritätsprüfung eine intensive Menge an Ressourcen verwendet.</block>
+  <block id="aafba8024f058e44bbc108aceb7544c0" category="paragraph">Die MetroCluster-Integritätsprüfung wird im Hintergrund ausgeführt. Sie können andere Aufgaben bearbeiten, während Sie warten, bis der Vorgang abgeschlossen ist.</block>
+  <block id="f3f0554af4f46e3b78864e3ee8cf634d" category="paragraph">Sie können die Steuerung von einem MetroCluster IP-Standort zum anderen wechseln, um Wartungsarbeiten durchzuführen oder nach einem Problem eine Wiederherstellung durchzuführen.</block>
+  <block id="e332e690f18abf1e6fbf15bb2839f91f" category="admonition">Umschaltvorgänge und Switchback-Verfahren werden nur für MetroCluster IP-Konfigurationen unterstützt.</block>
+  <block id="476bb76a6bf7614cd646479d690f0355" category="section-title">Überblick über Umschaltung und zurückwechseln</block>
+  <block id="4e487442ec743c75d773efc8d7eb4975" category="paragraph">Eine Umschaltung kann in zwei Fällen erfolgen:</block>
+  <block id="7d22a9492e26d8b6f7e62e754b8038bc" category="list-text">*Eine geplante Umschaltung*</block>
+  <block id="122a8d927b5f2bfbd5c05e151d100ecf" category="paragraph">Diese Umschaltung wird von einem Systemadministrator über System Manager initiiert. Mit der geplanten Umschaltung kann ein Systemadministrator eines lokalen Clusters die Kontrolle wechseln, sodass die Datenservices des Remote-Clusters vom lokalen Cluster übernommen werden. Anschließend kann ein Systemadministrator am Remote-Cluster-Standort Wartungsarbeiten am Remote-Cluster durchführen.</block>
+  <block id="e8fac69a545ec9a20c2f066fd2d5c64c" category="list-text">*Eine ungeplante Umschaltung*</block>
+  <block id="7ee58ef1472684aca1fe0fe874b6d592" category="paragraph">In manchen Fällen initiiert ONTAP automatisch ein Switchover, wenn ein MetroCluster Cluster ausfällt oder die Verbindungen zwischen den Clustern ausfallen, sodass der noch laufende Cluster die Verantwortung für die Datenhandhabung des ausgefallen Clusters übernimmt.</block>
+  <block id="97ea4ec8c53cbd7aa2f77e41af35214d" category="paragraph">Wenn ONTAP den Status eines der Cluster nicht ermitteln kann, initiiert der Systemadministrator des Standorts, der gerade arbeitet, die Umschaltung, um die Verantwortung für die Datenverarbeitung am anderen Standort zu übernehmen.</block>
+  <block id="b04fc1c1a947340b6295bca4e15296fa" category="paragraph">Bei jedem Switch-Verfahren wird die Datenpflege mithilfe eines _switchback_-Prozesses an das Cluster zurückgegeben.</block>
+  <block id="3a6a5031743305019642718d6b386a76" category="paragraph">Für ONTAP 9.7 und 9.8 führen Sie verschiedene Switchover- und Switchback-Prozesse durch:</block>
+  <block id="e6930e280c751418022003bf9fa97d63" category="inline-xref">Verwenden Sie in ONTAP 9.7 System Manager zum Umschalten und zurückwechseln</block>
+  <block id="fbb89290a9f0639df9fd99dd91afccee" category="list-text"><block ref="256c277ba57abb095e4dc34a115bfd87" category="inline-xref-macro-rx"></block></block>
+  <block id="90984242656b59b4ec4bc8b2dc652b47" category="inline-xref">Verwenden Sie in ONTAP 9.8 System Manager zum Umschalten und zurückwechseln</block>
+  <block id="7bf20936df7319e027dcb25cf3be240e" category="list-text"><block ref="b26721d6058aa62e04e032c9956f0274" category="inline-xref-macro-rx"></block></block>
+  <block id="84e994bcb8ec0880899d43da827eb4f8" category="list-text">Melden Sie sich unter ONTAP 9.7 bei System Manager an.</block>
+  <block id="ef676a956a1111a97c4b6d5a5313ec0c" category="list-text">Klicken Sie auf *(Zurück zur klassischen Version)*.</block>
+  <block id="c6b17260f6c04748cb3b263e07841d9c" category="list-text">Klicken Sie auf *Konfiguration &gt; MetroCluster*.</block>
+  <block id="9512c15d06f8ebc094a9ff5468e46042" category="paragraph">System Manager überprüft, ob eine ausgehandelte Umschaltung möglich ist.</block>
+  <block id="1184e7d21efeb90e1213fb76b1a8ab92" category="list-text">Führen Sie einen der folgenden Teilschritte durch, wenn der Validierungsprozess abgeschlossen ist:</block>
+  <block id="d70c82e05495e05abc2021dc54100a96" category="list-text">Wenn die Validierung fehlschlägt, Standort B jedoch aktiv ist, ist ein Fehler aufgetreten. Beispielsweise könnte ein Problem mit einem Subsystem auftreten, oder NVRAM-Spiegelung wird unter Umständen nicht synchronisiert.</block>
+  <block id="158ad5b32c8309811884b5700c04c866" category="list-text">Beheben Sie das Problem, das den Fehler verursacht, klicken Sie auf *Schließen* und starten Sie dann erneut bei Schritt 2.</block>
+  <block id="2da490367d961d43e4786cecfbde3d6b" category="inline-link-macro">Durchführung einer ungeplanten Umschaltung</block>
+  <block id="37950e07940a13e856cb50dc1a9291b9" category="list-text">Beenden Sie die Knoten von Standort B, klicken Sie auf *Schließen*, und führen Sie dann die Schritte unter <block ref="fb6c16196bc2d21511884d5617718b51" category="inline-link-macro-rx"></block>aus.</block>
+  <block id="47cb9ca4992d157c03e7725803af8e2a" category="list-text">Wenn die Validierung fehlschlägt und Standort B ausgefallen ist, liegt höchstwahrscheinlich ein Verbindungsproblem vor. Überprüfen Sie, ob Standort B ausgefallen ist, und führen Sie die Schritte in <block ref="fb6c16196bc2d21511884d5617718b51" category="inline-link-macro-rx"></block>aus.</block>
+  <block id="f40d6676f14af4f7006dc55f7866a8cc" category="list-text">Klicken Sie auf *Umschaltung von Standort B zu Standort A*, um den Switchover-Prozess zu starten.</block>
+  <block id="3fa63b2ebfe34a52015afed9c4be0676" category="list-text">Klicken Sie auf *Wechseln Sie zum neuen Erlebnis*.</block>
+  <block id="a0bbb21498df4682785de3ad118d2112" category="section-title">Geplante Umschaltung durchführen (ONTAP 9.8)</block>
+  <block id="7032cb0fb8b2c734e0b3330b170287a8" category="list-text">Melden Sie sich unter ONTAP 9.8 bei System Manager an.</block>
+  <block id="d86b98757fa72a3091b65699a17b3724" category="list-text">Wählen Sie *Dashboard*. Im Abschnitt *MetroCluster* werden die beiden Cluster mit einer Verbindung angezeigt.</block>
+  <block id="b7833a52299d966f41b82417259c5239" category="inline-image-macro">Kebab-Symbol</block>
+  <block id="6b466076a02d34c371b188caa9b5a5ea" category="list-text">Klicken Sie im lokalen Cluster (links dargestellt) auf , und wählen Sie *Umschalten der Remote-Datenservices auf <block ref="2f6e127087f9ef4b927e204474c5d0b2" category="inline-image-macro-rx" type="image"></block>den lokalen Standort*.</block>
+  <block id="aa0bfd6a3a3db9e5b0409213f48708d9" category="paragraph">Nachdem die Umschaltanforderung validiert wurde, wird die Steuerung vom Remote-Standort an den lokalen Standort übertragen. Der lokale Standort führt Datenserviceanfragen für beide Cluster aus.</block>
+  <block id="3c8328130d9ea4793e2bc9f3551b90e0" category="paragraph">Das Remote Cluster wird neu gebootet, die Storage-Komponenten sind jedoch nicht aktiv, und das Cluster verarbeitet keine Datenanfragen. Es steht nun für die geplante Wartung zur Verfügung.</block>
+  <block id="6f83354e8ce958bae1f9ffca3c39c278" category="admonition">Das Remote-Cluster sollte erst für die Datenpflege verwendet werden, wenn Sie einen Switchback durchführen.</block>
+  <block id="defaf88320e88f259a284fdbcd5986c2" category="section-title">Ungeplante Umschaltung durchführen (ONTAP 9.8)</block>
+  <block id="ef7ccb5f4ce99dc2e349e8c6c47a3d17" category="paragraph">Eine ungeplante Umschaltung kann automatisch von ONTAP initiiert werden. Wenn ONTAP nicht feststellen kann, ob ein Switchback erforderlich ist, so initiiert der Systemadministrator des noch aktiven MetroCluster Standorts die Umschaltung mit folgenden Schritten:</block>
+  <block id="612770839809215b203a58fa260be49e" category="list-text">Wählen Sie *Dashboard*.</block>
+  <block id="940768454917470cad252dfa341a9bae" category="paragraph">Im Abschnitt *MetroCluster* wird die Verbindung zwischen den beiden Clustern mit einem "X" dargestellt. Dies bedeutet, dass eine Verbindung nicht erkannt werden kann und dass entweder die Verbindungen oder das Cluster ausgefallen sind.</block>
+  <block id="0b85c3b32c8fd95dfef8906dc740c0b2" category="paragraph">Falls die Umschaltung mit einem Fehler fehlschlägt, klicken Sie auf den Link „View Details“ in der Fehlermeldung und bestätigen Sie die ungeplante Umschaltung.</block>
+  <block id="b2a8c150e46a4d6da48aa21c7035a5ec" category="paragraph">Das Cluster muss repariert werden, bevor es wieder online geschaltet wird.</block>
+  <block id="dacd599c11508c590c3afe8309bc777e" category="admonition">Nachdem das Remote-Cluster online gestellt wurde, sollte es erst dann für die Datenpflege verwendet werden, wenn Sie ein Switchback durchführen.</block>
+  <block id="b7066bce35bcdc9bde30393cfe83bbdd" category="section-title">Zurückwechseln (ONTAP 9.8)</block>
+  <block id="83d20468f433e569baf2f41de2670745" category="paragraph">Wenn das Remote-Cluster aufgrund geplanter Wartungsarbeiten oder aufgrund eines Ausfalls ausfällt, sollte es nun betriebsbereit sein und auf den Switchback warten.</block>
+  <block id="a91ed0fc67b86b9a97667032dc887550" category="list-text">Melden Sie sich beim lokalen Cluster bei System Manager in ONTAP 9.8 an.</block>
+  <block id="e722eda52729a565e292380da3b9cd9e" category="paragraph">Im Abschnitt *MetroCluster* werden die beiden Cluster angezeigt.</block>
+  <block id="3964a12029e4869f90c22d4b7b86e4d7" category="list-text">Klicken Sie im lokalen Cluster (links dargestellt) auf <block ref="2f6e127087f9ef4b927e204474c5d0b2" category="inline-image-macro-rx" type="image"></block>, und wählen Sie *Kontrolle zurücknehmen*.</block>
+  <block id="9650db837519c6f15dca6f446f677c65" category="paragraph">Die Daten werden zuerst _healed_, um zu überprüfen, ob die Daten zwischen beiden Clustern synchronisiert und gespiegelt werden.</block>
+  <block id="76cc37c77093b53852f92d0bedaab777" category="list-text">Wenn die Datenheilung abgeschlossen ist, klicken Sie auf <block ref="2f6e127087f9ef4b927e204474c5d0b2" category="inline-image-macro-rx" type="image"></block>, und wählen Sie *Switchback initiieren* aus.</block>
+  <block id="99ce5ee29ba72294092dc372ec9cdde8" category="paragraph">Nach Abschluss der zurückschalttaFunktionen sind beide Cluster aktiv und warten Datenanfragen. Zudem werden die Daten zwischen den Clustern gespiegelt und synchronisiert.</block>
+  <block id="1634280924da564c571e77a82a5ca015" category="paragraph">Tiebreak 1.6 oder höher</block>
+  <block id="10090a98eb5a0c97ffdfee7c207fcda3" category="inline-link-macro">Tiebreaker 1.6 oder höher installieren</block>
+  <block id="01edf779844a94aabbe0472729e9db87" category="paragraph"><block ref="01edf779844a94aabbe0472729e9db87" category="inline-link-macro-rx"></block></block>
+  <block id="96e17598e0060c107f4db8b804505693" category="inline-link-macro">Rocky Linux-Produktdokumentation</block>
+  <block id="98f9ad5cd8db49b652b4f699146c5868" category="list-text"><block ref="98f9ad5cd8db49b652b4f699146c5868" category="inline-link-macro-rx"></block></block>
+  <block id="95bf514988fe6b2ae6d2c4683d39fc01" category="paragraph">Führen Sie eine neue Installation oder ein Upgrade auf Tiebreaker 1.6 oder Tiebreaker 1.6P1 auf Ihrem Linux Host-Betriebssystem durch, um die MetroCluster-Konfigurationen zu überwachen.</block>
+  <block id="a83518fbb29b384795513d23f16fd04e" category="section-title">Installation oder Upgrade auf Tiebreaker 1.6P1</block>
+  <block id="d09d293bdd140120cf0307019e78b0cd" category="paragraph">Sie können Tiebreaker 1.6P1 installieren oder auf Tiebreaker 1.6P1 aus Tiebreaker 1.6, 1.5 oder 1.4 aktualisieren.</block>
+  <block id="05a80bec4c4faf7292bd76d0ea9f6892" category="list-text">Laden Sie die Software MetroCluster Tiebreaker 1.6P1 herunter.</block>
+  <block id="1363760bda4dfedc53bb20d35c4168e0" category="open-title">Tiebreaker 1.6P1 installieren</block>
+  <block id="0497a99a53a8d060e80a9df590a19dc2" category="paragraph">Führen Sie die folgenden Schritte für eine Neuinstallation von Tiebreaker 1.6P1 aus.</block>
+  <block id="0c1fd6dcabaf349cd3a6aa337ab277da" category="open-title">Upgrade 1.6 auf 1.6P1</block>
+  <block id="ac34f0a5488c43ea34fb716ad2b99542" category="paragraph">Gehen Sie wie folgt vor, um ein Upgrade der Tiebreaker 1.6 Softwareversion auf Tiebreaker 1.6P1 durchzuführen.</block>
+  <block id="c9c37d73e375ec3a682ea8da2ddda245" category="admonition">Nach dem Upgrade auf Tiebreaker 1.6P1 von 1.6 entfernen Sie die vorhandenen Monitore und fügen die MetroCluster-Konfiguration für die Überwachung erneut hinzu.</block>
+  <block id="5fd58ebc01ff0738d8e9d5d32822a902" category="list-text">Entfernen Sie die MetroCluster-Konfiguration, und fügen Sie sie erneut hinzu, indem Sie die Schritte in ausführen<block ref="eb6675758f8fdd2ff1cefe24d56fcfaa" category="inline-link-macro-rx"></block>.</block>
+  <block id="aeaf036ca6e5c33b5742d712e2156fbb" category="open-title">Upgrade 1.5 auf 1.6P1</block>
+  <block id="bbda4afc2f394a21e70bf3c4c7453f1d" category="paragraph">Gehen Sie wie folgt vor, um ein Upgrade der Tiebreaker 1.5 Softwareversion auf Tiebreaker 1.6P1 durchzuführen.</block>
+  <block id="e9465edd6afc2f3bafbc90e1474f330a" category="open-title">Upgrade 1.4 auf 1.6P1</block>
+  <block id="507339937a8a4d04acddad9a85364c30" category="paragraph">Gehen Sie wie folgt vor, um ein Upgrade der Tiebreaker 1.4 Softwareversion auf Tiebreaker 1.6P1 durchzuführen.</block>
+  <block id="0981d7670ea8cbff51e1b8ebf522d26f" category="section-title">Installieren Sie Tiebreaker 1.6 oder führen Sie ein Upgrade durch</block>
+  <block id="a04a5cbd4bb79cf4f0cf1dc258588888" category="paragraph">Sie können Tiebreaker 1.6 installieren oder ein Upgrade auf Tiebreaker 1.6 über Tiebreaker 1.5 oder 1.4 durchführen.</block>
+  <block id="0f9ed37231c3e05c40c3439b54c05a31" category="open-title">Upgrade 1.5 auf 1.6</block>
+  <block id="6377e594d18868747f42ff493652c09e" category="open-title">Upgrade 1.4 auf 1.6</block>
+  <block id="27a3d314127445dc4a7f93184b84d65e" category="sidebar">Aktualisieren Sie ONTAP auf MetroCluster Clustern</block>
+  <block id="4e04b2ebfeef2f344cfa9299a14a7f15" category="sidebar">Datensicherung mit MetroCluster</block>
+  <block id="eb2ce2e6e8dd207e0722c727b11bf523" category="sidebar">Konfigurieren Sie die MetroCluster-Software mithilfe der CLI</block>
+  <block id="ae58261cc60a8a566f51001fa9647cc8" category="sidebar">Konfigurieren Sie die MetroCluster Software mit System Manager</block>
+  <block id="7dbb00295563db0482d1cd647c85ce79" category="sidebar">Verwalten Sie den ONTAP Mediator mit dem System Manager</block>
+  <block id="08df7de62062ac541a6aa573389a0bff" category="sidebar">Überprüfen Sie den Systemzustand einer MetroCluster-Konfiguration</block>
 </blocks>

@@ -1,0 +1,128 @@
+---
+permalink: maintain/verify-health-mcc-config.html 
+sidebar: sidebar 
+keywords: metrocluster, ip, fc, verify, health, troubleshoot, cli, system manager, error, event, problem, maintenance, fix, correction, check 
+summary: Erfahren Sie, wie Sie überprüfen, ob sich die MetroCluster Komponenten in einem ordnungsgemäßen Zustand befinden. 
+---
+= Überprüfen Sie den Funktionszustand einer MetroCluster-Konfiguration
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Erfahren Sie, wie Sie überprüfen, ob sich die MetroCluster Komponenten in einem ordnungsgemäßen Zustand befinden.
+
+.Über diese Aufgabe
+* In MetroCluster IP- und FC-Konfigurationen können Sie die CLI verwenden, um Zustandspeckbefehle auszuführen und den Status der MetroCluster-Komponenten zu überprüfen.
+* In MetroCluster IP-Konfigurationen, auf denen ONTAP 9 8 oder höher ausgeführt wird, können Sie auch ONTAP System Manager verwenden, um Warnmeldungen zur Integritätsprüfung zu überwachen und zu beheben.
+
+
+.Schritte
+Überprüfen Sie den Systemzustand der MetroCluster Konfiguration in Abhängigkeit davon, ob Sie die CLI oder System Manager verwenden.
+
+[role="tabbed-block"]
+====
+.CLI
+--
+Führen Sie die folgenden Schritte aus, um den Systemzustand einer MetroCluster Konfiguration mithilfe der CLI zu überprüfen.
+
+.Schritte
+. Vergewissern Sie sich, dass die MetroCluster-Komponenten ordnungsgemäß sind:
++
+[source, cli]
+----
+metrocluster check run
+----
++
+[listing]
+----
+cluster_A::*> metrocluster check run
+----
++
+Der Vorgang wird im Hintergrund ausgeführt.
+
+. Zeigen Sie nach Abschluss des `metrocluster check run` Vorgangs die Ergebnisse an:
++
+[source, cli]
+----
+metrocluster check show
+----
++
+Nach etwa fünf Minuten werden die folgenden Ergebnisse angezeigt:
+
++
+[listing]
+----
+cluster_A:::*> metrocluster check show
+
+Component           Result
+------------------- ---------
+nodes               ok
+lifs                ok
+config-replication  ok
+aggregates          ok
+clusters            ok
+connections         not-applicable
+volumes             ok
+7 entries were displayed.
+----
+. Überprüfen Sie den Status des laufenden MetroCluster-Prüfvorgangs:
++
+[source, cli]
+----
+metrocluster operation history show -job-id <id>
+----
+. Vergewissern Sie sich, dass es keine Systemzustandsmeldungen gibt:
++
+[source, cli]
+----
+system health alert show
+----
+
+
+--
+.ONTAP System Manager (nur MetroCluster IP)
+--
+Ab ONTAP 9.8 überwacht System Manager den Systemzustand der MetroCluster IP Konfigurationen und unterstützt Sie bei der Identifizierung und Behebung von möglicherweise auftretenden Problemen.
+
+System Manager überprüft regelmäßig den Zustand Ihrer MetroCluster IP-Konfiguration. Wenn Sie den Abschnitt „MetroCluster“ auf dem Dashboard anzeigen, wird in der Regel die Meldung „MetroCluster-Systeme sind ordnungsgemäß“ ausgegeben.
+
+Wenn jedoch ein Problem auftritt, wird in der Meldung die Anzahl der Ereignisse angezeigt. Sie können auf diese Meldung klicken und die Ergebnisse der Integritätsprüfung für die folgenden Komponenten anzeigen:
+
+* Knoten
+* Netzwerkschnittstelle
+* Ebene (Storage)
+* Cluster
+* Verbindung
+* Datenmenge
+* Konfigurationsreplizierung
+
+
+In der Spalte *Status* werden die Komponenten mit Problemen identifiziert, und in der Spalte *Details* wird erläutert, wie das Problem behoben werden kann.
+
+.Schritte
+. Wählen Sie in System Manager *Dashboard* aus.
+. Sehen Sie sich die Nachricht im Abschnitt *MetroCluster* an:
++
+.. Wenn die Meldung angibt, dass Ihre MetroCluster-Konfiguration ordnungsgemäß ist und die Verbindungen zwischen den Clustern und dem ONTAP Mediator in einem ordnungsgemäßen Zustand sind (siehe Häkchen), können Sie keine Probleme beheben.
+.. Wenn die Meldung die Anzahl der Ereignisse auflistet oder die Verbindungen (mit einem „X“ angezeigt) abwärts gegangen sind, fahren Sie mit dem nächsten Schritt fort.
+
+
+. Klicken Sie auf die Nachricht, die die Anzahl der Ereignisse anzeigt.
++
+Der MetroCluster-Integritätsbericht wird angezeigt.
+
+. Beheben Sie die im Bericht angezeigten Probleme mithilfe der Vorschläge in der Spalte *Details*.
+. Wenn alle Probleme behoben wurden, klicken Sie auf *MetroCluster-Zustand prüfen*.
++
+
+NOTE: Sie sollten alle Fehlerbehebungsaufgaben ausführen, bevor Sie die Prüfung ausführen, da die MetroCluster-Integritätsprüfung eine intensive Menge an Ressourcen verwendet.
+
++
+Die MetroCluster-Integritätsprüfung wird im Hintergrund ausgeführt. Sie können andere Aufgaben bearbeiten, während Sie warten, bis der Vorgang abgeschlossen ist.
+
+
+
+--
+====

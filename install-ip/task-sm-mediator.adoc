@@ -1,0 +1,95 @@
+---
+permalink: install-ip/task-sm-mediator.html 
+sidebar: sidebar 
+keywords: system manager, mediator, metrocluster, mcc, 8-node, ip, configure, remove, mauso, mediator-assisted automatic switchover, switchover, switchback, health 
+summary: Mit System Manager können Sie Aufgaben zur Verwaltung des Mediators ausführen. 
+---
+= Verwalten Sie den ONTAP Mediator mit System Manager
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Mit System Manager können Sie Aufgaben zum Verwalten des ONTAP Mediators ausführen.
+
+.Über diese Aufgaben
+Ab ONTAP 9.8 können Sie System Manager als vereinfachte Schnittstelle zur Verwaltung einer MetroCluster IP-Konfiguration mit vier Knoten verwenden. Zu dieser Konfiguration kann auch ein ONTAP Mediator an einem dritten Standort gehören.
+
+Ab ONTAP 9.14.1 können Sie die folgenden Vorgänge auch für einen MetroCluster IP-Standort mit acht Nodes ausführen. Sie können ein System mit acht Nodes nicht mit System Manager einrichten oder erweitern, aber wenn Sie bereits ein MetroCluster IP-System mit acht Nodes eingerichtet haben, können Sie diese Vorgänge trotzdem ausführen.
+
+Führen Sie die folgenden Aufgaben aus, um den ONTAP Mediator zu verwalten.
+
+[cols="30,70"]
+|===
+
+
+| Aufgabe durchführen... | Ergreifen Sie diese Maßnahmen... 
+
+
+ a| 
+Konfigurieren Sie den Mediator-Dienst
+ a| 
+Beide Cluster an den MetroCluster Standorten sollten up und Peering durchgeführt werden.
+
+.Schritte
+. Wählen Sie unter System Manager in ONTAP 9.8 die Option *Cluster > Einstellungen* aus.
+. Klicken Sie im Abschnitt *Mediator* auf image:icon_gear.gif["Aktionssymbol"].
+. Klicken Sie im Fenster *Mediator konfigurieren* auf *Hinzufügen+*.
+. Geben Sie die Konfigurationsdetails für den ONTAP Mediator ein.
++
+Sie können die folgenden Details eingeben, während Sie einen ONTAP Mediator mit dem System Manager konfigurieren.
+
++
+** Die IP-Adresse des Mediators.
+** Der Benutzername.
+** Das Passwort.
+
+
+
+
+
+
+ a| 
+Aktivieren oder Deaktivieren der Mediator-gestützten automatischen Umschaltung (MAUSO)
+ a| 
+.Schritte
+. Klicken Sie in System Manager auf *Dashboard*.
+. Blättern Sie zum Abschnitt „MetroCluster“.
+. Klicken Sie neben dem Namen der MetroCluster-Site auf image:icon_kabob.gif["Menüsymbol"] .
+. Wählen Sie *Enable* oder *Disable*.
+. Geben Sie den Benutzernamen und das Kennwort des Administrators ein, und klicken Sie dann auf *enable* oder *Disable*.
++
+
+NOTE: Sie können den Mediator aktivieren oder deaktivieren, wenn er erreicht werden kann und sich beide Standorte im Modus „`normal`“ befinden. Der Mediator ist weiterhin erreichbar, wenn MAUSO aktiviert oder deaktiviert ist, wenn das MetroCluster-System in einem ordnungsgemäßen Zustand ist.
+
+
+
+
+
+ a| 
+Entfernen Sie den Mediator aus der MetroCluster-Konfiguration
+ a| 
+.Schritte
+. Klicken Sie in System Manager auf *Dashboard*.
+. Blättern Sie zum Abschnitt „MetroCluster“.
+. Klicken Sie neben dem Namen der MetroCluster-Site auf image:icon_kabob.gif["Menüsymbol"] .
+. Wählen Sie *Mediator Entfernen*.
+. Geben Sie den Benutzernamen und das Kennwort des Administrators ein, und klicken Sie dann auf *Entfernen*.
+
+
+
+
+ a| 
+Überprüfen Sie den Zustand des Mediators
+ a| 
+Führen Sie die spezifischen Schritte des System Managers in link:../maintain/verify-health-mcc-config.html["Überprüfen Sie den Funktionszustand einer MetroCluster-Konfiguration"]aus.
+
+
+
+ a| 
+Durchführen einer Umschaltung und eines Switchback
+ a| 
+Führen Sie die Schritte in link:../manage/system-manager-switchover-healing-switchback.html["Verwenden Sie System Manager für Umschaltung und Switchback (nur MetroCluster IP-Konfigurationen)."]aus.
+
+|===
