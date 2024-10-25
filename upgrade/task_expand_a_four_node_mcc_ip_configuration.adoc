@@ -88,20 +88,6 @@ dr_Group_2-neu
 |===
 
 
-== Aktivieren Sie die Konsolenprotokollierung
-
-NetApp empfiehlt dringend, die Konsolenprotokollierung auf den von Ihnen verwendeten Geräten zu aktivieren und folgende Aktionen durchzuführen:
-
-* Lassen Sie AutoSupport während der Wartung aktiviert.
-* Lösen Sie vor und nach der Wartung eine Wartungs-AutoSupport-Meldung aus, um die Case-Erstellung für die Dauer der Wartungsaktivität zu deaktivieren.
-+
-Siehe Knowledge Base-Artikel link:https://kb.netapp.com/Support_Bulletins/Customer_Bulletins/SU92["Wie kann die automatische Case-Erstellung während geplanter Wartungszeiträume unterdrückt werden"^].
-
-* Aktivieren Sie die Sitzungsprotokollierung für jede CLI-Sitzung. Anweisungen zum Aktivieren der Sitzungsprotokollierung finden Sie im Abschnitt „Protokollierung der Sitzungsausgabe“ im Knowledge Base-Artikel link:https://kb.netapp.com/on-prem/ontap/Ontap_OS/OS-KBs/How_to_configure_PuTTY_for_optimal_connectivity_to_ONTAP_systems["So konfigurieren Sie PuTTY für optimale Konnektivität zu ONTAP-Systemen"^].
-
-
-
-
 == Unterstützte Plattformkombinationen beim Hinzufügen einer zweiten DR-Gruppe
 
 In der folgenden Tabelle sind die unterstützten Plattformkombinationen für MetroCluster IP-Konfigurationen mit acht Nodes aufgeführt.
@@ -1092,6 +1078,10 @@ Konfigurieren Sie an einer beliebigen Node-Eingabeaufforderung die MetroCluster 
 .. Starten Sie jeden der neuen Nodes neu:
 +
 `node reboot -node <node_name> -inhibit-takeover true`
+
++
+
+NOTE: Die Nodes müssen nicht in einer bestimmten Reihenfolge neu gebootet werden. Sie sollten jedoch warten, bis ein Node vollständig gebootet wurde und alle Verbindungen hergestellt sind, bevor Sie den nächsten Node neu booten.
 
 .. Zurück zum Admin-Berechtigungsmodus:
 +

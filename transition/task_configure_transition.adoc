@@ -645,6 +645,14 @@ Sie müssen mit antworten `y` Wenn Sie aufgefordert werden, den erweiterten Modu
 
 NOTE: Als Best Practice empfiehlt sich die Nutzung mehrerer gespiegelter Datenaggregate. Wenn nur ein gespiegeltes Aggregat verfügbar ist, ist weniger Schutz da sich die Metadaten-Volumes auf demselben Aggregat anstatt auf separaten Aggregaten befinden.
 
+. Starten Sie jeden der neuen Nodes neu:
++
+`node reboot -node <node_name> -inhibit-takeover true`
+
++
+
+NOTE: Die Nodes müssen nicht in einer bestimmten Reihenfolge neu gebootet werden. Sie sollten jedoch warten, bis ein Node vollständig gebootet wurde und alle Verbindungen hergestellt sind, bevor Sie den nächsten Node neu booten.
+
 . Vergewissern Sie sich, dass die Nodes zu ihrer DR-Gruppe hinzugefügt werden:
 +
 `metrocluster node show`
