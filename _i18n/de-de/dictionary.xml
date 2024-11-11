@@ -7204,10 +7204,8 @@
   <block id="0eb57575de5c7f4d680f1a39b29ec2b1" category="paragraph">Sie können die Befehle in den verbleibenden Schritten von der Konsole eines der beiden Controller-Module aus eingeben.</block>
   <block id="1f06fb185175c42c17ad8392e330767e" category="paragraph">Sie müssen mit „`y`“ antworten, wenn Sie dazu aufgefordert werden, den erweiterten Modus fortzusetzen und die Eingabeaufforderung für den erweiterten Modus (*&gt;) anzuzeigen.</block>
   <block id="3240aad2738f70e3ab16c6dadcff4f64" category="list-text">Aktualisieren Sie die Bridge-Firmware:</block>
-  <block id="661e2204cb2e8d5d76cdeb2ec6dd4c82" category="paragraph"><block ref="f9b3a6511f32ab6d850680461374c7cc" prefix="" category="inline-code"></block></block>
   <block id="4b3afe92d6efd942da2f6c9cc0193156" category="list-text">Vergewissern Sie sich, dass die Firmware-Aktualisierung abgeschlossen ist:</block>
   <block id="e8ecfd692141a2af654944f772388550" category="paragraph"><block ref="35cf6f7333734661dc09591dc27f71cd" prefix="" category="inline-code"></block></block>
-  <block id="c91321ecefb3f3097824082b2b8ad47e" category="paragraph">Das folgende Beispiel zeigt, dass der Job "`sTorage Bridge Firmware Update`" noch ausgeführt wird:</block>
   <block id="57218ce2b3683cc3d220300cdb1a5112" category="paragraph">Nach etwa 10 Minuten ist die neue Firmware vollständig installiert und der Auftragsstatus wird erfolgreich sein:</block>
   <block id="1023e499127e1c9705dbc019dc65ffca" category="list-text">Führen Sie die Schritte aus, ob die bandinterne Verwaltung aktiviert ist und welche Version von ONTAP Ihr System ausgeführt wird:</block>
   <block id="ad4a04ec96320f2893d5f6989086846f" category="list-text">Wenn Sie ONTAP 9.4 ausführen, wird die bandinterne Verwaltung nicht unterstützt, und der Befehl muss von der Bridge-Konsole ausgegeben werden:</block>
@@ -7215,9 +7213,7 @@
   <block id="26fdc702129a16aafe7405c5c6bbf046" category="admonition">Das Beispiel zeigt, dass das primäre Flash-Image das neue Firmware-Image anzeigt, während das sekundäre Flash-Image das alte Image anzeigt.</block>
   <block id="fc586f4b0980908d4372323e410963a4" category="list-text">Starten Sie die Bridge neu, indem Sie den ausführen<block ref="b7ea2b43f07f5f6c853aa524246c8c7b" prefix=" " category="inline-code"></block> Befehl von der Bridge aus.</block>
   <block id="d47da404b64fa7f223a274546a4f333a" category="list-text">Wenn Sie ONTAP 9.5 oder höher ausführen, wird das bandinterne Management unterstützt, und der Befehl kann an der Cluster-Eingabeaufforderung ausgegeben werden:</block>
-  <block id="dae4d2e67917b362ddd1f681a84bbf3c" category="list-text">Führen Sie die aus<block ref="6a59c2d96331786a99a23717c5dc3dfd" prefix=" " category="inline-code"></block> Befehl.</block>
   <block id="5bd4b5b50c5ac874303a8d602e07a3df" category="list-text">Falls erforderlich, starten Sie die Bridge neu:</block>
-  <block id="58a8b36ecd6128fba6f2a930d1870915" category="paragraph"><block ref="67db4214d6ce80df20dbfa3f689f86a4" prefix="" category="inline-code"></block></block>
   <block id="befb8d9c3b9caecfce0121a43afa3ce1" category="admonition">Ab ATTO Firmware Version 2.95 wird die Bridge automatisch neu gestartet und dieser Schritt ist nicht erforderlich.</block>
   <block id="2667ea3cde22695f6975f497f96d298f" category="list-text">Überprüfen Sie, ob die Bridge ordnungsgemäß neu gestartet wurde:</block>
   <block id="6e4b7fcf9090d34cd27cab087264a169" category="paragraph">Das System sollte für Multipath High Availability (beide Controller haben Zugriff über die Brücken zu den Platten-Shelfs in jedem Stack) verkabelt werden.</block>
@@ -13500,10 +13496,7 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="65bd6763ac7ddd88c7008054cb6bc624" category="admonition">Führen Sie die folgenden Schritte aus, um Änderungen an OOD von der ONTAP-Software vorzunehmen: <block ref="b0ca457fe34ed30c44119bccf9b89d7d" category="inline-link-macro-rx"></block></block>
   <block id="7b195fd8d412843052bdca8035a73b9b" category="paragraph">Informieren Sie sich über die Neuerungen bei der Unterstützung der MetroCluster IP-Plattform.</block>
   <block id="5fa70989a3e04b27c407da750f3d94fe" category="paragraph">AFF A70, AFF A90, AFF A1K</block>
-  <block id="4b96de8aec25594d2021f91d86aa38cb" category="paragraph">ONTAP 9.15.1 und höher</block>
   <block id="09165c2d4ac9e01ef347c57ffcbe1ce5" category="paragraph">ASA A150, ASA A250, ASA A400, ASA A800, ASA A900 ASA C250, ASA C400, ASA C800</block>
-  <block id="fafe6583a668a5a00cfd6d5e611b9ce3" category="paragraph">ONTAP 9.14.1 und höher</block>
-  <block id="f8f1cacc3272f3e60fb1b860d1134be6" category="paragraph">ONTAP 9.13.1 GA und höher</block>
   <block id="2f709669cbfb385626cf55d7c80120be" category="paragraph">ASA AFF A220, ASA AFF A250, ASA AFF A400, ASA AFF A700, ASA AFF A800</block>
   <block id="e4d3a0569925dd58f4e2c0c40b889993" category="paragraph">AFF A220, FAS2750</block>
   <block id="fc028e3a959d5040cb2c7b0ceac73cf8" category="paragraph">AFF A300, FAS8200</block>
@@ -14271,4 +14264,28 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="04615ba020125ab8e6efd72006cee7b6" category="sidebar">Installation und Konfiguration von MetroCluster Tiebreaker</block>
   <block id="f292b4f87450c271c690d67e1d3a03e8" category="paragraph">16 ISLs mit 10 Gbit/s oder 25 Gbit/s.</block>
   <block id="d20d5c9d070e6369690ed4a79cf3c4bd" category="admonition">Die Nodes müssen nicht in einer bestimmten Reihenfolge neu gebootet werden. Sie sollten jedoch warten, bis ein Node vollständig gebootet wurde und alle Verbindungen hergestellt sind, bevor Sie den nächsten Node neu booten.</block>
+  <block id="65a32997b66c0fa9964c46d8ce3023c5" category="admonition">Ab ONTAP 9.8 ersetzt der<block ref="81f0734b378bc1ed5fb99125faf1d47a" prefix=" " category="inline-code"></block> Befehl den<block ref="c5c5939ad24a4bc4cca8c77f5105d463" prefix=" " category="inline-code"></block>. Im Folgenden wird der Befehl angezeigt<block ref="81f0734b378bc1ed5fb99125faf1d47a" prefix=" " category="inline-code"></block>. Wenn Sie jedoch eine Version vor ONTAP 9.8 ausführen, sollten Sie den Befehl verwenden<block ref="c5c5939ad24a4bc4cca8c77f5105d463" prefix=" " category="inline-code"></block>.</block>
+  <block id="e0b676f47094dac51c79372806a1021a" category="list-text">Aktualisieren Sie die Bridge-Firmware.</block>
+  <block id="1e8d4e4a0ce5b464f6997d0bbb8d8ba2" category="paragraph">Ab ONTAP 9.16.1 können Sie Anmeldeinformationen verwenden, um die Bridge-Firmware zu aktualisieren, wenn sie vom Server zum Herunterladen des Firmware-Pakets benötigt werden.</block>
+  <block id="38cbc38ca036975e59d1ee4168bc50a2" category="open-title">Wenn Anmeldedaten nicht erforderlich sind:</block>
+  <block id="db7fff50b13f73830f7aaaf34fd5371e" category="open-title">Wenn Anmeldeinformationen erforderlich sind:</block>
+  <block id="c540a55c1af8888d4507b7c80af2d372" category="list-text">Aktualisieren Sie die Bridge-Firmware, und geben Sie den erforderlichen Benutzernamen an:</block>
+  <block id="e9b9a2eac9e5ccde661c85666e1bebfc" category="list-text">Geben Sie das Passwort ein, wenn Sie in der Ausgabe dazu aufgefordert werden, wie im folgenden Beispiel gezeigt:</block>
+  <block id="9f81eba7dfa3609b17894df364395597" category="paragraph">Das folgende Beispiel zeigt, dass der Job „`sSystem Bridge Firmware Update`“ noch ausgeführt wird:</block>
+  <block id="92289ea5a47b731862869f48712c9527" category="list-text">Führen Sie den<block ref="e595c34083a230fd789d64c7de21c72a" prefix=" " category="inline-code"></block> Befehl aus.</block>
+  <block id="52e06a42c952a2b1bdb77dfc0f6f90ff" category="paragraph"><block ref="a51df89c214b1838fdbc8273e8704555" prefix="" category="inline-code"></block></block>
+  <block id="968258a4c4370a9f6fe8b87ce4255cca" category="paragraph"><block ref="6604a22a7f45489dfc4b36fa6c37c036" prefix="" category="inline-code"></block></block>
+  <block id="afdf08fe53823e29ce4e277959c64b1e" category="paragraph">Unterstützung der SVM-Datenmobilität für die Migration von MetroCluster Konfigurationen</block>
+  <block id="61576ee193ce4ae8f8a1aea237cc4781" category="paragraph">ONTAP unterstützt die Migration einer SVM von einem nicht-MetroCluster HA-Paar in eine MetroCluster Konfiguration oder von einer MetroCluster Konfiguration zu einem nicht-MetroCluster HA-Paar. Sie können eine SVM nicht zwischen MetroCluster-Konfigurationen migrieren.</block>
+  <block id="aeaa758085c5e2389b9072b1ced2dc57" category="inline-link-macro">SVM-Datenmobilität</block>
+  <block id="deff601e347d3753345e223f0dece2ac" category="paragraph"><block ref="deff601e347d3753345e223f0dece2ac" category="inline-link-macro-rx"></block></block>
+  <block id="31272abf1c9209ab4acd0bf10f129338" category="paragraph">ONTAP 9.16.1</block>
+  <block id="b186fa8da6778f3ac2d4aa8499deffeb" category="paragraph">MD5-Authentifizierungsunterstützung für BGP-Peer-Gruppen</block>
+  <block id="a74281ed4b15e1a42fc798b20f31018b" category="paragraph">ONTAP unterstützt MD5-Authentifizierung auf BGP-Peer-Gruppen zum Schutz von BGP-Sitzungen. Wenn MD5 aktiviert ist, können BGP-Sitzungen nur unter autorisierten Peers eingerichtet und verarbeitet werden, um mögliche Unterbrechungen der Sitzung durch einen nicht autorisierten Schauspieler zu verhindern.</block>
+  <block id="ef78f11e7aec890f1dc53f6a0176cdf4" category="inline-link-macro">Konfigurieren Sie Virtual IP (VIP) LIFs</block>
+  <block id="43d93948b7becfd15462e91085fd63cc" category="paragraph"><block ref="43d93948b7becfd15462e91085fd63cc" category="inline-link-macro-rx"></block></block>
+  <block id="94ffd34b73e540c50265688d834cea45" category="paragraph">ONTAP 9.13.1 GA</block>
+  <block id="0cb8709673d91d9b41f7a2d9110be6db" category="paragraph">Fibrebridge-Firmware-Update mit Anmeldeinformationen</block>
+  <block id="cca6b3113bea250bb0e5ecb42fcd1f6b" category="paragraph">Sie können die Firmware auf Fibrebridge Bridges mit Anmeldeinformationen aktualisieren, wenn sie vom Server zum Herunterladen des Firmware-Pakets erforderlich sind.</block>
+  <block id="7f35c16e72037a8dea668c5bb0e6327d" category="paragraph"><block ref="7f35c16e72037a8dea668c5bb0e6327d" category="inline-link-macro-rx"></block></block>
 </blocks>
