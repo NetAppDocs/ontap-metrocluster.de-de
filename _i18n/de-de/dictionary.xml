@@ -7205,7 +7205,6 @@
   <block id="1f06fb185175c42c17ad8392e330767e" category="paragraph">Sie müssen mit „`y`“ antworten, wenn Sie dazu aufgefordert werden, den erweiterten Modus fortzusetzen und die Eingabeaufforderung für den erweiterten Modus (*&gt;) anzuzeigen.</block>
   <block id="3240aad2738f70e3ab16c6dadcff4f64" category="list-text">Aktualisieren Sie die Bridge-Firmware:</block>
   <block id="4b3afe92d6efd942da2f6c9cc0193156" category="list-text">Vergewissern Sie sich, dass die Firmware-Aktualisierung abgeschlossen ist:</block>
-  <block id="e8ecfd692141a2af654944f772388550" category="paragraph"><block ref="35cf6f7333734661dc09591dc27f71cd" prefix="" category="inline-code"></block></block>
   <block id="57218ce2b3683cc3d220300cdb1a5112" category="paragraph">Nach etwa 10 Minuten ist die neue Firmware vollständig installiert und der Auftragsstatus wird erfolgreich sein:</block>
   <block id="1023e499127e1c9705dbc019dc65ffca" category="list-text">Führen Sie die Schritte aus, ob die bandinterne Verwaltung aktiviert ist und welche Version von ONTAP Ihr System ausgeführt wird:</block>
   <block id="ad4a04ec96320f2893d5f6989086846f" category="list-text">Wenn Sie ONTAP 9.4 ausführen, wird die bandinterne Verwaltung nicht unterstützt, und der Befehl muss von der Bridge-Konsole ausgegeben werden:</block>
@@ -7218,7 +7217,6 @@
   <block id="2667ea3cde22695f6975f497f96d298f" category="list-text">Überprüfen Sie, ob die Bridge ordnungsgemäß neu gestartet wurde:</block>
   <block id="6e4b7fcf9090d34cd27cab087264a169" category="paragraph">Das System sollte für Multipath High Availability (beide Controller haben Zugriff über die Brücken zu den Platten-Shelfs in jedem Stack) verkabelt werden.</block>
   <block id="67fe76fc6c243ad7a07dba1bedbd68be" category="list-text">Überprüfen Sie, ob die FibreBridge-Firmware aktualisiert wurde:</block>
-  <block id="871912239094dc44baa2ec93ffb8d632" category="paragraph"><block ref="d6532f205af7738fbda4ce33335d4e04" prefix="" category="inline-code"></block></block>
   <block id="f7600c022afd87e76a4e915ac9399e45" category="list-text">Überprüfen Sie, ob die Partitionen in der Bridge-Eingabeaufforderung aktualisiert wurden:</block>
   <block id="06e7ec6ae7f944544771022d467d0496" category="paragraph"><block ref="c27e24b8b45de3e3c43ee4f5da981459" prefix="" category="inline-code"></block></block>
   <block id="98e693f628e7057fb87edf44897d2df1" category="paragraph">Das primäre Flash-Image zeigt das neue Firmware-Image an, während das sekundäre Flash-Image das alte Image anzeigt.</block>
@@ -7226,18 +7224,6 @@
   <block id="aebdbdde32f31274fe9fc6e75b482c32" category="list-text">Vergewissern Sie sich, dass beide Flash-Images auf dieselbe Version aktualisiert wurden.</block>
   <block id="1b7c547e0c44744faa2a37c6b0435cc2" category="paragraph">Die Ausgabe sollte für beide Partitionen dieselbe Version anzeigen.</block>
   <block id="bb7439d72897f5b031319c5576c3cc67" category="list-text">Wiederholen Sie die Schritte 5 bis 13 auf der nächsten Brücke, bis alle Brücken in der MetroCluster-Konfiguration aktualisiert wurden.</block>
-  <block id="2ff283b5fcea4bdb853d6b9da8d8948c" category="paragraph"><block ref="2ff283b5fcea4bdb853d6b9da8d8948c" category="inline-link-macro-rx"></block></block>
-  <block id="2d0700f1234a9f9dd9937555291170ec" category="paragraph">„`_Maintenance-window-in-hours_`“ gibt die Länge des Wartungsfensters an, mit maximal 72 Stunden. Wenn die Wartung vor dem Vergehen der Zeit abgeschlossen ist, können Sie eine AutoSupport-Meldung mit dem Ende des Wartungszeitraums aufrufen:</block>
-  <block id="8c3f1a5045c47c008de3de6fa5352da3" category="list-text">Laden Sie die Bridge-Firmware-Datei mit den Schritten 1 bis 3 des Verfahrens auf der Seite ATTO FibreBridge Firmware Download herunter.</block>
-  <block id="3083b982cc912e364f9e1bc28cc6915a" category="list-text">Erstellen Sie eine Kopie der Download-Seite der ATTO FibreBridge Firmware und der Versionshinweise, wenn Sie aufgefordert werden, die Firmware auf jeder Bridge zu aktualisieren.</block>
-  <block id="ae87d5531ab43f90dedaa89f103356a1" category="list-text">Aktualisieren Sie die Bridge:</block>
-  <block id="8458ea1c3c1ea2053887d2f331da77f4" category="paragraph">*ACHTUNG:* Vergewissern Sie sich, dass Sie die einzelne Brücke jetzt aus- und wieder einschalten. Wenn Sie warten und beide Bridges gleichzeitig in einem Stack aus- und wieder einschalten, kann der Controller den Zugriff auf die Laufwerke verlieren, was zu einem Plex-Fehler oder multiplattenpanic führt.</block>
-  <block id="6eee07f1028e6e37c9b9675c78a3ecab" category="paragraph">Die Bridge sollte neu gestartet werden.</block>
-  <block id="86b1ef008f18b43ce62a9069606c0c6d" category="list-text">Vergewissern Sie sich an der Konsole eines der beiden Controller, dass die Bridge ordnungsgemäß neu gestartet wurde:</block>
-  <block id="7eb8d2db2d90e516a56d7472a56b99bd" category="list-text">Überprüfen Sie in der Konsole eines der beiden Controller, ob die FibreBridge-Firmware aktualisiert wurde:</block>
-  <block id="ed0f0385ac6d639a877dbd50ffe09fc9" category="list-text">Wiederholen Sie die vorherigen Teilschritte auf derselben Bridge, um die zweite Partition zu aktualisieren.</block>
-  <block id="c1e404b965bd033d8d0a2284a04382d6" category="list-text">Vergewissern Sie sich, dass beide Partitionen aktualisiert wurden:</block>
-  <block id="f716521a03deca3c493b0dbaa94f969c" category="list-text">Wiederholen Sie den vorherigen Schritt auf der nächsten Bridge, bis alle Brücken in der MetroCluster-Konfiguration aktualisiert wurden.</block>
   <block id="44244676532e07acd5a22f72a89ec840" category="summary">Um potenziell unsichere Ethernet-Protokolle auf einer Bridge einfach zu deaktivieren, können Sie ab ONTAP 9.5 die Bridge sichern. Dadurch werden die Ethernet-Ports der Bridge deaktiviert. Sie können auch den Ethernet-Zugriff erneut aktivieren.</block>
   <block id="27095f3064c14438fd39d18650d50519" category="doc">Sichern oder Entricken der FibreBridge-Brücke</block>
   <block id="618f88c71c4840cc7fbd972a2c370542" category="paragraph">Um potenziell unsichere Ethernet-Protokolle auf einer Bridge einfach zu deaktivieren, können Sie ab ONTAP 9.5 die Bridge sichern. Dadurch werden die Ethernet-Ports der Bridge deaktiviert. Sie können auch den Ethernet-Zugriff erneut aktivieren.</block>
@@ -12902,11 +12888,6 @@ Gilt für alle MetroCluster Konfigurationen.</block>
   <block id="480cf83fd6c463ccef2ed2a9d0dce2c4" category="list-text">Geben Sie das ein<block ref="bedfcd4488b13f5b7062e121a6a8baa5" prefix=" " category="inline-code"></block> Befehl zum Persistenz-Aktivieren der Ports. Dies muss an beiden Schaltern am überlebenden Standort erfolgen.</block>
   <block id="9f6a23c1abc971d714730192ce961b96" category="paragraph">Befolgen Sie die Anweisungen unter <block ref="9c0d52e0ce7a57d643217990aba10043" category="inline-link-macro-rx"></block> Um Healing- und Switchback-Vorgänge gemäß Ihrer MetroCluster-Konfiguration durchzuführen.</block>
   <block id="0b4bc6296d77be28e33d3b50e0ea0797" category="paragraph"><block ref="0b4bc6296d77be28e33d3b50e0ea0797" category="inline-link-macro-rx"></block></block>
-  <block id="e49bc35e0118f2b5a5904c13e1833761" category="section-title">Aktualisieren der Firmware auf FibreBridge 7500N bei Konfigurationen mit ONTAP 9.3.x und älteren Versionen</block>
-  <block id="1a5e839afe7a716dd2640f7fdb69669a" category="paragraph">Möglicherweise müssen Sie die Firmware auf Ihren FibreBridge-Bridges aktualisieren, um zu überprüfen, ob Sie über die neuesten Funktionen verfügen, oder um mögliche Probleme zu beheben. Dieses Verfahren sollte für FibreBridge 7500N auf Konfigurationen mit ONTAP 9.3.x verwendet werden</block>
-  <block id="ef1eae725a44cfeb66559e3d3e94f7ec" category="paragraph">Ab ONTAP 9.3 können Sie mit dem Befehl ONTAP Speicherbrücke Firmware Update die Bridge-Firmware auf FibreBridge 7500N-Bridges aktualisieren.</block>
-  <block id="05791e70fbe1537753bf5a023b7623eb" category="list-text">Installieren Sie die Firmware auf der FibreBridge 7500N Bridge.</block>
-  <block id="c1a1962dd8879c856d3b821c9622f94c" category="paragraph">Lesen Sie die Anweisungen im Abschnitt „`Firmware aktualisieren`“ des Installations- und Betriebshandbuchs _ATTO FibreBridge 7500N.</block>
   <block id="24ea961e35f1e60e606fd840735a7b80" category="summary">Wenn Sie eine Standortwartung durchführen oder einen einzelnen Standort in einer MetroCluster IP-Konfiguration verlagern müssen, müssen Sie wissen, wie Sie den Standort ausschalten und einschalten müssen.</block>
   <block id="064c811af1591c939040fba47365213b" category="doc">Schalten Sie einen einzelnen Standort in einer MetroCluster IP-Konfiguration aus und wieder ein</block>
   <block id="b66411bb5022a5619d62ef25fa47b67f" category="paragraph">Bei MetroCluster IP-Konfigurationen mit ONTAP 9.5 oder älteren Versionen werden die Knoten der Disaster-Standorte nicht automatisch von ONTAP gebootet, und die Plexe bleiben offline.</block>
@@ -13855,33 +13836,6 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="dff95cb9e5adc8c22082286195b9c18b" category="list-text"><block ref="dff95cb9e5adc8c22082286195b9c18b" category="inline-link-macro-rx"></block></block>
   <block id="86e4bcdd91ae737b95a3cf066dd128f7" category="paragraph">Die alten und neuen System-IDs wurden in identifiziert <block ref="e3858d0d76295d35179b2ac088c574f3" category="inline-link-macro-rx"></block>.</block>
   <block id="f411a218519aacec5088cc5a3d23eb64" category="paragraph">Die alten und neuen System-IDs wurden in identifiziert <block ref="372daca62ea6308294fd70c00fcc8af2" category="inline-link-macro-rx"></block>.</block>
-  <block id="11ceccfd751fe28a61b558ba07583aff" category="section-title">Unterstützte Anzahl an Festplatten und Shelfs auf FibreBridge 7600N- und 7500N-Bridges</block>
-  <block id="ff2961229b46cc89dffec4aab67d010d" category="paragraph">Die folgenden Tabellen enthalten die Anzahl der Festplatten und Shelfs, die hinter einem Paar FibreBridge 7600N- und 7500N-Bridges unterstützt werden.</block>
-  <block id="b8cbb75a8c2b1413bcddd7c532ccc064" category="list-text">Die erste Grenze, die Sie erreichen, gilt.</block>
-  <block id="2a3f0c8b0ca6744889b3ffa76d4b9f5b" category="list-text">Bei Verwendung von DS460C Shelfs können nur bis zu 240 Laufwerke verwendet werden, was 4 Shelfs entspricht.</block>
-  <block id="5ccf1f9193b673f77fa0a023f0c64238" category="list-text">Bei DS212C Shelfs können nur bis zu 120 Laufwerke verwendet werden, was 10 Shelfs entspricht.</block>
-  <block id="402fb729f11d0452c518d4172b605b2c" category="paragraph-title">Unterstützte Festplattenanzahl</block>
-  <block id="c75f82dd210bf38bdd42ff246823dd9e" category="paragraph">Prüfen Sie die Anzahl der unterstützten Festplatten hinter einem Paar FibreBridge 7600N- oder 7500N-Bridges:</block>
-  <block id="3baa66bdd3ca9158478ad78d6079db1c" category="cell">Festplattenkonfiguration</block>
-  <block id="3d0bf05155f3dfd0eeccf9e953d46156" category="cell">Festplattentyp</block>
-  <block id="eda8b8dec444e51f3afb1c089a183afc" category="cell">Festplatten pro Bridge-Paar insgesamt</block>
-  <block id="4a761ba24826218f4585e8feddc64d7c" category="cell">Ausschließlich SSDs</block>
-  <block id="34df20bab5e85dc75bfc94ef569cced9" category="cell">SSD</block>
-  <block id="b0df25be54449fa53d1180d01ad8bdc5" category="cell">Alle HDDs</block>
-  <block id="9c2dc227590d4220750b52b21b0aeb99" category="cell">HDD</block>
-  <block id="335f5352088d7d9bf74191e006d8e24c" category="cell">240</block>
-  <block id="de97ed9eb6dc112873264b693e05c88c" category="cell">Gemischt (96 SSDs)</block>
-  <block id="0a09c8844ba8f0936c20bd791130d6b6" category="cell">144</block>
-  <block id="1b48b5dfad482eb966c69b885c217e13" category="cell">Gemischt (72 SSDs)</block>
-  <block id="006f52e9102a8d3be2fe5614f42ba989" category="cell">168</block>
-  <block id="79fa5a72c63f064bf5ae4709ac221926" category="cell">Gemischt (48 SSDs)</block>
-  <block id="58a2fc6ed39fd083f55d4182bf88826d" category="cell">192</block>
-  <block id="1c151db89d2679449be5c45bb7b8d994" category="cell">Gemischt (24 SSDs)</block>
-  <block id="45fbc6d3e05ebd93369ce542e8f2322d" category="cell">216</block>
-  <block id="c742d6affaef84b501d784319fca6de4" category="paragraph-title">Unterstützte Anzahl an Shelfs</block>
-  <block id="22daa6b9c9c5e98028929434af5223de" category="paragraph">Sehen Sie sich die Anzahl der unterstützten Shelves hinter zwei FibreBridge 7600N- und 7500N-Bridges an:</block>
-  <block id="ca7ac3a83947da614de147e934674475" category="cell">Gesamtanzahl der Shelfs</block>
-  <block id="699b4f79215d191584653efebf156e52" category="cell">Gemischt</block>
   <block id="04e334293a29a0fcdf98b56004e27edc" category="section-title">MetroCluster-konform und NetApp validierte Switches</block>
   <block id="5c5c34d5e7843e9424f3ca2380ae18ea" category="list-text"><block ref="5c5c34d5e7843e9424f3ca2380ae18ea" category="inline-link-macro-rx"></block></block>
   <block id="a629fe794ff2e51df541a99e4468ebb2" category="paragraph">Wenn Sie die neuen Controller mit einem Netboot booten müssen, siehe <block ref="a7e3b7fa9390de21e9e66df9d4048c53" category="inline-link-macro-rx"></block>.</block>
@@ -14272,7 +14226,6 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="c540a55c1af8888d4507b7c80af2d372" category="list-text">Aktualisieren Sie die Bridge-Firmware, und geben Sie den erforderlichen Benutzernamen an:</block>
   <block id="e9b9a2eac9e5ccde661c85666e1bebfc" category="list-text">Geben Sie das Passwort ein, wenn Sie in der Ausgabe dazu aufgefordert werden, wie im folgenden Beispiel gezeigt:</block>
   <block id="9f81eba7dfa3609b17894df364395597" category="paragraph">Das folgende Beispiel zeigt, dass der Job „`sSystem Bridge Firmware Update`“ noch ausgeführt wird:</block>
-  <block id="92289ea5a47b731862869f48712c9527" category="list-text">Führen Sie den<block ref="e595c34083a230fd789d64c7de21c72a" prefix=" " category="inline-code"></block> Befehl aus.</block>
   <block id="52e06a42c952a2b1bdb77dfc0f6f90ff" category="paragraph"><block ref="a51df89c214b1838fdbc8273e8704555" prefix="" category="inline-code"></block></block>
   <block id="968258a4c4370a9f6fe8b87ce4255cca" category="paragraph"><block ref="6604a22a7f45489dfc4b36fa6c37c036" prefix="" category="inline-code"></block></block>
   <block id="afdf08fe53823e29ce4e277959c64b1e" category="paragraph">Unterstützung der SVM-Datenmobilität für die Migration von MetroCluster Konfigurationen</block>
@@ -14288,4 +14241,30 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="0cb8709673d91d9b41f7a2d9110be6db" category="paragraph">Fibrebridge-Firmware-Update mit Anmeldeinformationen</block>
   <block id="cca6b3113bea250bb0e5ecb42fcd1f6b" category="paragraph">Sie können die Firmware auf Fibrebridge Bridges mit Anmeldeinformationen aktualisieren, wenn sie vom Server zum Herunterladen des Firmware-Pakets erforderlich sind.</block>
   <block id="7f35c16e72037a8dea668c5bb0e6327d" category="paragraph"><block ref="7f35c16e72037a8dea668c5bb0e6327d" category="inline-link-macro-rx"></block></block>
+  <block id="dd5e73f11c8453deab39cc51184b718c" category="admonition">Die Verwendung der bandinternen Verwaltung mit deaktiviertem IP-Zugriff wird empfohlen, um die Sicherheit zu verbessern, indem die physische Konnektivität zur Bridge eingeschränkt wird.</block>
+  <block id="794172cd90da1900d6103d0859717cae" category="section-title">FiberBridge 7600N und 7500N Brückengrenzen und Befestigungsregeln</block>
+  <block id="6640e784b645fe9fb8ac2e43bbd6435c" category="paragraph">Überprüfen Sie die Grenzwerte und Überlegungen beim Anbringen von FibreBridge 7600N- und 7500N-Brücken.</block>
+  <block id="2578541f645016c0cd8de75379c88d3e" category="list-title">Grenzwerte für FibreBridge 7600N und 7500N-Brücken</block>
+  <block id="33993760dba186d29e6c1b1c4a5a9eb6" category="list-text">Die maximale Anzahl der kombinierten HDD- und SSD-Laufwerke beträgt 240.</block>
+  <block id="0ea95754c61ccceaa6093ef60f306589" category="list-text">Die maximale Anzahl von SSD-Laufwerken beträgt 96.</block>
+  <block id="6aa9ec42d5ec998ae8c42e6ff59ac177" category="list-text">Es sind maximal 48 SSDs pro SAS-Port zulässig.</block>
+  <block id="3443a5a71e5726152a93cb7f1222c252" category="list-text">Die maximale Anzahl von Shelfs pro SAS-Port ist 10.</block>
+  <block id="c15552ec0e1dcd2dc0268b8f8853f8b0" category="list-title">Befestigungsregeln für FibreBridge 7600N und 7500N</block>
+  <block id="cd4785cfe3cc59dcc3af8a0b3d1c2d26" category="list-text">Verwenden Sie keine SSD- und HDD-Laufwerke zusammen am selben SAS-Port.</block>
+  <block id="bfbbc9e02b02d4cba470cc14b2b71995" category="list-text">Verteilen Sie die Shelfs gleichmäßig über die SAS-Ports.</block>
+  <block id="b2d9a3d2403921e9bad0f2de39898557" category="list-text">Sie sollten DS460 Shelfs nicht auf demselben SAS Port wie andere Shelf-Typen (z. B. DS212 oder DS224 Shelfs) einsetzen.</block>
+  <block id="881aa664fe300b14a430d83d71657f1b" category="paragraph-title">Beispielkonfiguration</block>
+  <block id="4849ab8ff2c4f06051acea06836aec90" category="paragraph">Im Folgenden ist eine Beispielkonfiguration zum Anschluss von vier DS224-Shelfs mit SSD-Laufwerken und sechs DS224-Shelfs mit HDD-Laufwerken dargestellt:</block>
+  <block id="b13899cc9055a7a129cc3597a28caf33" category="cell">SAS-Port</block>
+  <block id="b559966ca417caecbc925fd04a9d4253" category="cell">Shelfs und Laufwerke</block>
+  <block id="a56114e15d97418161a772996c894a0c" category="cell">SAS Port-A</block>
+  <block id="823cebd40c22009076dea45c51d568b3" category="cell">2 DS224-Shelfs mit SSD-Laufwerken</block>
+  <block id="d375b409cacda3ce9f6afe9379e101ce" category="cell">SAS-Port-B</block>
+  <block id="0b7b249cf6a212613080ac29d6eda992" category="cell">SAS-Port-C</block>
+  <block id="c394385c28e9969eb81c66b053fd009c" category="cell">3x DS224-Shelfs mit HDD-Laufwerken</block>
+  <block id="f7cdd2784709f45955fc9f25497956ae" category="cell">SAS-Port-D</block>
+  <block id="e5246bcdb743ec1c543a9253bc3a20f0" category="inline-link-macro">Broadcom Support-Site</block>
+  <block id="7e8efc833fbde0ff722d85e00415edec" category="list-text">Laden Sie die Switch-Firmware aus dem herunter<block ref="7b0bfad9e7dd6186ed0f14c867034109" category="inline-link-macro-rx"></block>.</block>
+  <block id="e6d64e0eb5e781bce7f755d1457a9170" category="paragraph"><block ref="b2f8990b0f3f5de2520bc483556b14eb" prefix="" category="inline-code"></block></block>
+  <block id="b0782c02cc2d2b20315a3f6a825b3fbe" category="list-text">Führen Sie den<block ref="2586ba33015a99bfc10dda523f819039" prefix=" " category="inline-code"></block> Befehl aus.</block>
 </blocks>

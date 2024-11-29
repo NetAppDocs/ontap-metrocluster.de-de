@@ -47,95 +47,45 @@ Die Verfügbarkeit der in-Band-Verwaltung der Brücken hängt von der Version vo
 Bridge-CLI-Befehle können über die ONTAP-Schnittstelle ausgegeben werden `storage bridge run-cli -name _bridge_name_ -command _bridge_command_name_` Befehl über die ONTAP-Schnittstelle.
 
 
-NOTE: Die Verwendung von in-Band-Management mit deaktiviertem IP-Zugriff wird empfohlen, um die Sicherheit durch Beschränkung der physischen Konnektivität der Bridge zu verbessern.
+NOTE: Die Verwendung der bandinternen Verwaltung mit deaktiviertem IP-Zugriff wird empfohlen, um die Sicherheit zu verbessern, indem die physische Konnektivität zur Bridge eingeschränkt wird.
 
 
 
-== Unterstützte Anzahl an Festplatten und Shelfs auf FibreBridge 7600N- und 7500N-Bridges
+== FiberBridge 7600N und 7500N Brückengrenzen und Befestigungsregeln
 
-Die folgenden Tabellen enthalten die Anzahl der Festplatten und Shelfs, die hinter einem Paar FibreBridge 7600N- und 7500N-Bridges unterstützt werden.
+Überprüfen Sie die Grenzwerte und Überlegungen beim Anbringen von FibreBridge 7600N- und 7500N-Brücken.
 
-[NOTE]
-====
-* Die erste Grenze, die Sie erreichen, gilt.
-* Bei Verwendung von DS460C Shelfs können nur bis zu 240 Laufwerke verwendet werden, was 4 Shelfs entspricht.
-* Bei DS212C Shelfs können nur bis zu 120 Laufwerke verwendet werden, was 10 Shelfs entspricht.
+.Grenzwerte für FibreBridge 7600N und 7500N-Brücken
+* Die maximale Anzahl der kombinierten HDD- und SSD-Laufwerke beträgt 240.
+* Die maximale Anzahl von SSD-Laufwerken beträgt 96.
+* Es sind maximal 48 SSDs pro SAS-Port zulässig.
+* Die maximale Anzahl von Shelfs pro SAS-Port ist 10.
 
 
-====
-.Unterstützte Festplattenanzahl
-Prüfen Sie die Anzahl der unterstützten Festplatten hinter einem Paar FibreBridge 7600N- oder 7500N-Bridges:
+.Befestigungsregeln für FibreBridge 7600N und 7500N
+* Verwenden Sie keine SSD- und HDD-Laufwerke zusammen am selben SAS-Port.
+* Verteilen Sie die Shelfs gleichmäßig über die SAS-Ports.
+* Sie sollten DS460 Shelfs nicht auf demselben SAS Port wie andere Shelf-Typen (z. B. DS212 oder DS224 Shelfs) einsetzen.
 
-[cols="3*"]
+
+.Beispielkonfiguration
+Im Folgenden ist eine Beispielkonfiguration zum Anschluss von vier DS224-Shelfs mit SSD-Laufwerken und sechs DS224-Shelfs mit HDD-Laufwerken dargestellt:
+
+[cols="2*"]
 |===
-| Festplattenkonfiguration | Festplattentyp | Festplatten pro Bridge-Paar insgesamt 
+| SAS-Port | Shelfs und Laufwerke 
 
 
-| Ausschließlich SSDs | SSD | 96 
+| SAS Port-A | 2 DS224-Shelfs mit SSD-Laufwerken 
 
 
-| Alle HDDs | HDD | 240 
+| SAS-Port-B | 2 DS224-Shelfs mit SSD-Laufwerken 
 
 
-.2+| Gemischt (96 SSDs) | SSD | 96 
+| SAS-Port-C | 3x DS224-Shelfs mit HDD-Laufwerken 
 
 
-| HDD | 144 
-
-
-.2+| Gemischt (72 SSDs) | SSD | 72 
-
-
-| HDD | 168 
-
-
-.2+| Gemischt (48 SSDs) | SSD | 48 
-
-
-| HDD | 192 
-
-
-.2+| Gemischt (24 SSDs) | SSD | 24 
-
-
-| HDD | 216 
-|===
-.Unterstützte Anzahl an Shelfs
-Sehen Sie sich die Anzahl der unterstützten Shelves hinter zwei FibreBridge 7600N- und 7500N-Bridges an:
-
-[cols="3*"]
-|===
-| Festplattenkonfiguration | Festplattentyp | Gesamtanzahl der Shelfs 
-
-
-| Ausschließlich SSDs | SSD | 4 
-
-
-| Alle HDDs | HDD | 10 
-
-
-.2+| Gemischt | SSD | 1 
-
-
-| HDD | 9 
-
-
-.2+| Gemischt | SSD | 2 
-
-
-| HDD | 8 
-
-
-.2+| Gemischt | SSD | 3 
-
-
-| HDD | 7 
-
-
-.2+| Gemischt | SSD | 4 
-
-
-| HDD | 6 
+| SAS-Port-D | 3x DS224-Shelfs mit HDD-Laufwerken 
 |===
 
 
