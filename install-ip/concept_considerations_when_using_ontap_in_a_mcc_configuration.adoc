@@ -237,6 +237,7 @@ Beim Erstellen von LIFs müssen Sie die folgenden Richtlinien beachten:
 * ARP-Sendungen: Sie müssen ARP-Übertragungen zwischen den beiden Clustern aktivieren
 * Doppelte LIFs: Sie müssen nicht mehrere LIFs mit derselben IP-Adresse (doppelte LIFs) in einem IPspace erstellen
 * NFS- und SAN-Konfigurationen: Es müssen unterschiedliche Storage Virtual Machines (SVMs) sowohl für nicht gespiegelte als auch gespiegelte Aggregate verwendet werden
+* Sie sollten ein Subnetz-Objekt erstellen, bevor Sie eine LIF erstellen. Mithilfe eines Subnetzobjekts kann ONTAP Failover-Ziele auf dem Zielcluster ermitteln, da ihm eine Broadcast-Domäne zugeordnet ist.
 
 
 
