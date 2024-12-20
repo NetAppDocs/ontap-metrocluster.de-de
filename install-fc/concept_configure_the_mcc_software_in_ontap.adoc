@@ -3029,10 +3029,19 @@ Ab Fabric OS 9.0 wird SNMPv2 für die Integritätsüberwachung auf Brocade-Switc
 [NOTE]
 ====
 * Sie sollten Bridges und eine Node-Management-LIF in einem dedizierten Netzwerk platzieren, um eine Interferenz von anderen Quellen zu vermeiden.
-* Wenn Sie ein dediziertes Netzwerk für die Statusüberwachung verwenden, muss jeder Node über eine Management-LIF in diesem dedizierten Netzwerk verfügen.
+* Wenn Sie ein dediziertes Netzwerk für die Statusüberwachung verwenden, muss jeder Node über eine Node-Management-LIF in diesem dedizierten Netzwerk verfügen.
 
 
 ====
+NetApp unterstützt nur die folgenden Tools zur Überwachung der Komponenten in einer MetroCluster FC-Konfiguration:
+
+* Brocade Network Advisor (BNA)
+* Brocade Sannav
+* Active IQ Config Advisor
+* NetApp Zustandsüberwachung (ONTAP)
+* MetroCluster-Datensammler (MC_DC)
+
+
 
 
 ==== Konfigurieren von MetroCluster FC-Switches für das Monitoring des Systemzustands

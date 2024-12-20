@@ -1,64 +1,8 @@
 ---
 permalink: install-stretch/task_fb_new_install_prepare.html 
-sidebar: sidebar 
-keywords: metrocluster, stretch, installation, prepare 
-summary: Wenn Sie die Installation der Brücken als Teil Ihres neuen MetroCluster-Systems vorbereiten, müssen Sie sicherstellen, dass Ihr System bestimmte Anforderungen erfüllt. Dazu gehört auch die Erfüllung der Setup- und Konfigurationsanforderungen für die Brücken. Weitere Anforderungen sind das Herunterladen der erforderlichen Dokumente, das Dienstprogramm ATTO Quicknav und die Bridge-Firmware. 
+redirect: ontap-metrocluster/install-stretch/task_fb_new_install.html 
 ---
-= Vorbereitung der Installation
+= 
 :allow-uri-read: 
-:icons: font
-:imagesdir: ../media/
-
-
-[role="lead"]
-Wenn Sie die Installation der Brücken als Teil Ihres neuen MetroCluster-Systems vorbereiten, müssen Sie sicherstellen, dass Ihr System bestimmte Anforderungen erfüllt. Dazu gehört auch die Erfüllung der Setup- und Konfigurationsanforderungen für die Brücken. Weitere Anforderungen sind das Herunterladen der erforderlichen Dokumente, das Dienstprogramm ATTO Quicknav und die Bridge-Firmware.
-
-
-
-== Bevor Sie beginnen
-
-* Das System muss bereits in einem Rack installiert sein, wenn es nicht in einem Systemschrank ausgeliefert wurde.
-* Ihre Konfiguration muss unterstützte Hardware-Modelle und Software-Versionen verwenden.
-+
-https://mysupport.netapp.com/matrix["NetApp Interoperabilitäts-Matrix-Tool"]
-
-+
-Im IMT können Sie im Feld Storage-Lösung die Auswahl Ihrer MetroCluster Lösung verwenden. Sie verwenden den *Komponenten-Explorer*, um die Komponenten und die ONTAP-Version auszuwählen, um Ihre Suche zu verfeinern. Klicken Sie auf *Ergebnisse anzeigen*, um die Liste der unterstützten Konfigurationen anzuzeigen, die den Kriterien entsprechen.
-
-* Jeder FC-Switch muss über einen FC-Port verfügen, damit eine Bridge mit ihm verbunden werden kann.
-* Sie müssen sich vertraut machen mit dem Umgang mit SAS-Kabeln und den Überlegungen und Best Practices für die Installation und Verkabelung von Platten-Shelves.
-+
-Das Handbuch „ _Installation and Service Guide_“ für Ihr Festplatten-Shelf-Modell beschreibt die Überlegungen und Best Practices.
-
-* Der Computer, mit dem Sie die Brücken einrichten, muss einen ATTO-unterstützten Webbrowser betreiben, um die ATTO ExpressNAV GUI nutzen zu können.
-+
-Die _ATTO Product Release Notes_ verfügen über eine aktuelle Liste der unterstützten Webbrowser. Sie können auf dieses Dokument über die ATTO-Website zugreifen, wie in den folgenden Schritten beschrieben.
-
-
-
-.Schritte
-. Laden Sie das _Installation and Service Guide_ für Ihr Festplatten-Shelf-Modell herunter:
-. Greifen Sie über den Link Ihres FibreBridge-Modells auf die ATTO-Website zu, und laden Sie das Handbuch und das Quicknav-Dienstprogramm herunter.
-+
-[NOTE]
-====
-Das _ATTO FibreBridge Installations- und Bedienungshandbuch_ für Ihre Modellbrücke enthält weitere Informationen zu Management-Schnittstellen.
-
-Sie können auf diesen und andere Inhalte auf der ATTO-Website über den Link auf der Seite ATTO Fibrebridge Beschreibung zugreifen.
-
-====
-. Sammeln Sie die Hardware und Informationen, die benötigt werden, um die empfohlenen Bridge Management-Schnittstellen, die ATTO ExpressNAV GUI und das ATTO Quicknav Dienstprogramm zu verwenden:
-+
-.. Legen Sie einen nicht standardmäßigen Benutzernamen und ein Kennwort fest (für den Zugriff auf die Brücken).
-+
-Sie sollten den Standardbenutzernamen und das Standardpasswort ändern.
-
-.. Bei der Konfiguration für die IP-Verwaltung der Brücken benötigen Sie das abgeschirmte Ethernet-Kabel mit den Brücken (das vom Bridge Ethernet Management 1-Port mit Ihrem Netzwerk verbunden wird).
-.. Wenn Sie für das IP-Management der Brücken konfigurieren, benötigen Sie eine IP-Adresse, eine Subnetzmaske und Gateway-Informationen für den Ethernet-Management-Port 1 auf jeder Bridge.
-.. Deaktivieren Sie VPN-Clients auf dem Computer, den Sie für die Einrichtung verwenden.
-+
-Aktive VPN-Clients führen zum Fehlschlagen des Quicknav-Scans für Brücken.
-
-
 
 

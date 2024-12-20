@@ -896,7 +896,7 @@ Das automatische Heilen von Aggregaten nach der ausgehandelten Umschaltung wird 
 
 == Entfernen Sie die Schnittstellenkonfigurationen, und deinstallieren Sie die alten Controller
 
-Sie müssen Daten-LIFs zu einem gemeinsamen Port verschieben, VLANs und Schnittstellengruppen auf den alten Controllern entfernen und dann die Controller physisch deinstallieren.
+Überprüfen Sie die korrekte LIF-Platzierung. Entfernen Sie dann die VLANs und Schnittstellengruppen auf den alten Controllern und deinstallieren Sie die Controller physisch.
 
 .Über diese Aufgabe
 * Diese Schritte werden auf den alten Controllern ausgeführt (Node_B_1-old, Node_B_2-old).
@@ -960,6 +960,10 @@ Wiederholen Sie den Befehl für jede Intercluster LIF, die sich nicht im Home Po
 
 . [[Controller_manual_Upgrade_prepare_Network_Ports_3]]Zuweisen des Home-Ports aller Daten-LIFs auf dem alten Controller zu einem gemeinsamen Port, der sowohl auf den alten als auch auf den neuen Controller-Modulen identisch ist.
 +
+
+CAUTION: Wenn die alten und neuen Controller keinen gemeinsamen Port haben, müssen Sie die Daten-LIFs nicht ändern. Überspringen Sie diesen Schritt und gehen Sie direkt zu <<upgrades_manual_without_matching_ports,Schritt 4>>.
+
++
 .. Anzeigen der LIFs:
 +
 `network interface show`
@@ -989,7 +993,7 @@ network interface modify -vserver vs0 -lif datalif1 -home-port e0d
 ----
 
 
-. Ändern Sie Broadcast-Domänen, um VLAN und physische Ports zu entfernen, die gelöscht werden müssen:
+. [[Upgrades_manual_without_matching_Ports]] Ändern Sie Broadcast-Domänen, um das zu löschende VLAN und die physischen Ports zu entfernen:
 +
 `broadcast-domain remove-ports -broadcast-domain <broadcast-domain-name> -ports <node-name:port-id>`
 
@@ -1796,19 +1800,36 @@ Vergewissern Sie sich, dass LIFs zu Beginn des Upgrade-Vorgangs auf entsprechend
 * Sehen Sie sich den Port-Mapping-Plan an, den Sie in erstellt haben link:task_upgrade_controllers_in_a_four_node_ip_mcc_us_switchover_and_switchback_mcc_ip.html["Zuordnen von Ports von den alten Nodes zu den neuen Nodes"].
 
 
+
+CAUTION: Sie müssen vor dem Wechsel zurück überprüfen, ob die Daten-LIFs auf den neuen Nodes korrekt sind. Wenn Sie die Konfiguration zurückschalten, versucht ONTAP, den Datenverkehr auf dem von den LIFs verwendeten Home Port wiederaufzunehmen. E/A-Fehler können auftreten, wenn die Verbindung des Home-Ports zum Switch-Port und VLAN falsch ist.
+
 .Schritte
-. Stellen Sie vor dem Wechsel sicher, dass LIFs auf dem entsprechenden Node und den entsprechenden Ports gehostet werden.
+. Vergewissern Sie sich vor dem Switchback, dass LIFs auf dem entsprechenden Node und den entsprechenden Ports gehostet werden.
 +
 .. Ändern Sie die erweiterte Berechtigungsebene:
 +
 `set -privilege advanced`
 
-.. Port-Konfiguration überschreiben, um korrekte LIF-Platzierung zu gewährleisten:
+.. Zeigen Sie die LIFs an und vergewissern Sie sich, dass jede Daten-LIF den richtigen Home Port verwendet:
 +
-`vserver config override -command "network interface modify -vserver <svm-name> -home-port <active_port_after_upgrade> -lif <lif_name> -home-node <new_node_name>`
+`network interface show`
+
+.. Ändern Sie alle LIFs, die nicht den korrekten Home Port verwenden:
++
+`network interface modify -vserver <svm-name> -lif <data-lif> -home-port <port-id>`
+
++
+Wenn der Befehl einen Fehler zurückgibt, können Sie die Portkonfiguration überschreiben:
+
++
+`vserver config override -command "network interface modify -vserver <svm-name> -home-port <active_port_after_upgrade> -lif <lif_name> -home-node <new_node_name>"`
 
 +
 Wenn Sie den Befehl zur Änderung der Netzwerkschnittstelle in eingeben `vserver config override` Befehl, Sie können die Funktion Autovervollständigung auf der Registerkarte nicht verwenden. Sie können das Netzwerk erstellen `interface modify` Verwenden Sie Autocomplete und schließen Sie es dann in das ein `vserver config override` Befehl.
+
+.. Vergewissern Sie sich, dass alle Daten-LIFs nun am richtigen Home Port sind:
++
+`network interface show`
 
 .. Zurück zur Administratorberechtigungsebene:
 +

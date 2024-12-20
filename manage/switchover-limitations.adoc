@@ -1,0 +1,52 @@
+---
+permalink: manage/switchover-limitations.html 
+sidebar: sidebar 
+keywords: switchover, perform, heal, operation, restore, metrocluster, functionality, fc, configuration, ip, limitations, 
+summary: Während einer Umschaltung sollten bestimmte Vorgänge nicht ausgeführt werden. 
+---
+= Einschränkungen, wenn die MetroCluster-Konfiguration umgeschaltet wird
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn sich das System im Umschaltvorgang befindet, sollten bestimmte Vorgänge nicht ausgeführt werden. Informieren Sie sich über eingeschränkte Vorgänge, wenn das System umgeschaltet wird.
+
+
+
+== Eingeschränkte Vorgänge bei Umschaltung
+
+Die folgenden Vorgänge werden nicht unterstützt, wenn sich das System in Umschaltung befindet:
+
+* Erstellen oder Löschen von Aggregaten und Volumes
+* Erstellen oder Löschen von SVMs
+* Erstellen oder Löschen von LIFs
+* Hinzufügen oder Entfernen von Festplatten (nur wenn Sie sie im Rahmen eines Wiederherstellungsverfahrens ersetzen)
+* Durchführung von Konfigurationsänderungen an SnapMirror SVM DR
+* Ändern vorhandener Broadcast-Domänen oder Erstellen neuer Broadcast-Domänen
+* Ändern von Netzwerk-Subnetzen
+
+
+
+
+== Hardware-Austausch bei Umschaltung
+
+Gehen Sie wie folgt vor, um die Controller-Hardware auszutauschen, wenn sich das System im Umschalten befindet:
+
+* Wenn Sie einen Controller des gleichen Typs am Standort austauschen müssen, der sich nicht in Umschaltung befindet, gehen Sie wie unter link:../disaster-recovery/task_recover_from_a_multi_controller_and_or_storage_failure.html["Wiederherstellung nach einem Multi-Controller- oder Storage-Ausfall"]beschrieben vor.
++
+** Wenn Sie die Controller-Module und das Chassis austauschen müssen, während die Nodes am verbleibenden Standort umgeschaltet werden, fahren Sie beide Controller herunter, und führen Sie dann das Verfahren unter link:../disaster-recovery/task_recover_from_a_multi_controller_and_or_storage_failure.html["Wiederherstellung nach einem Multi-Controller- oder Storage-Ausfall"]aus.
+
+
+* Wenn Sie einen Controller durch einen anderen Controller-Typ ersetzen müssen, befolgen Sie das Verfahren für Ihre Konfiguration in link:../upgrade/concept_choosing_controller_upgrade_mcc.html["Wählen Sie ein Controller-Upgrade-Verfahren"].
++
+** Wenn sich Ihr System aufgrund eines Controller-Ausfalls im Umschalten befindet oder wenn bei Ihnen ein Controller-Ausfall auftritt, müssen Sie zuerst die Controller-Hardware austauschen, einen Switchback durchführen und dann ein Controller-Upgrade durchführen:
++
+... Gehen Sie wie folgt link:../disaster-recovery/task_recover_from_a_multi_controller_and_or_storage_failure.html["Wiederherstellung nach einem Multi-Controller- oder Storage-Ausfall"]vor, um die Controller-Hardware zu ersetzen und den Switchback durchzuführen.
+... Führen Sie nach dem Austausch der Hardware ein Controller-Upgrade gemäß den Verfahren in link:../upgrade/concept_choosing_controller_upgrade_mcc.html["Wählen Sie ein Controller-Upgrade-Verfahren"]durch.
+
+
+
+
+

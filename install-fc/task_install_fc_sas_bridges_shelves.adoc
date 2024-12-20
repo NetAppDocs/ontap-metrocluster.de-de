@@ -89,7 +89,7 @@ Im Folgenden ist eine Beispielkonfiguration zum Anschluss von vier DS224-Shelfs 
 |===
 
 
-== Vorbereitung der Installation
+== Bereiten Sie die Installation vor
 
 Wenn Sie die Installation der Brücken als Teil Ihres neuen MetroCluster-Systems vorbereiten, müssen Sie sicherstellen, dass Ihr System bestimmte Anforderungen erfüllt, einschließlich der Erfüllung von Setup- und Konfigurationsanforderungen für die Brücken. Weitere Anforderungen sind das Herunterladen der erforderlichen Dokumente, das Dienstprogramm ATTO Quicknav und die Bridge-Firmware.
 
@@ -112,7 +112,8 @@ Die _ATTO Product Release Notes_ verfügen über eine aktuelle Liste der unterst
 
 .Schritte
 . Laden Sie das _Installation and Service Guide_ für Ihr Festplatten-Shelf-Modell herunter:
-. Greifen Sie über den Link Ihres FibreBridge-Modells auf die ATTO-Website zu, und laden Sie das Handbuch und das Quicknav-Dienstprogramm herunter.
++
+.. Greifen Sie über den Link Ihres FibreBridge-Modells auf die ATTO-Website zu, und laden Sie das Handbuch und das Quicknav-Dienstprogramm herunter.
 +
 [NOTE]
 ====
@@ -121,6 +122,8 @@ Das _ATTO FibreBridge Installations- und Bedienungshandbuch_ für Ihre Modellbr�
 Sie können auf diesen und andere Inhalte auf der ATTO-Website über den Link auf der Seite ATTO Fibrebridge Beschreibung zugreifen.
 
 ====
+
+
 . Sammeln Sie die Hardware und Informationen, die benötigt werden, um die empfohlenen Bridge Management-Schnittstellen, die ATTO ExpressNAV GUI und das ATTO Quicknav Dienstprogramm zu verwenden:
 +
 .. Legen Sie einen nicht standardmäßigen Benutzernamen und ein Kennwort fest (für den Zugriff auf die Brücken).
@@ -139,7 +142,7 @@ Aktive VPN-Clients führen zum Fehlschlagen des Quicknav-Scans für Brücken.
 
 
 
-== Installation der FC-to-SAS-Bridge und der SAS-Shelfs
+== Installieren Sie die FC-to-SAS-Bridge und die SAS-Shelfs
 
 Nachdem Sie sichergestellt haben, dass das System alle Anforderungen in „`Vorbereitung auf die Installation`“ erfüllt, können Sie Ihr neues System installieren.
 
@@ -173,7 +176,7 @@ NOTE: SAS-Shelves in MetroCluster-Konfigurationen unterstützen keine ACP-Verkab
 
 
 
-=== Aktivieren des IP-Portzugriffs auf der FibreBridge 7600N-Brücke, falls erforderlich
+=== Aktivieren Sie ggf. den IP-Port-Zugriff auf die FibreBridge 7600N-Brücke
 
 Wenn Sie eine ONTAP-Version vor 9.5 verwenden oder anderweitig planen, Out-of-Band-Zugriff auf die FibreBridge 7600N-Brücke über Telnet oder andere IP-Port-Protokolle und -Dienste (FTP, ExpressNAV, ICMP oder Quicknav) zu nutzen, können Sie die Zugriffsservices über den Konsolen-Port aktivieren.
 
@@ -187,7 +190,7 @@ Ab ONTAP 9.8 wird _in-Band-Management_ der Bridges standardmäßig unterstützt 
 Diese Aufgabe ist erforderlich, wenn Sie zur Verwaltung der Brücken * nicht* verwenden. In diesem Fall müssen Sie die Bridge über den Ethernet-Management-Port konfigurieren.
 
 .Schritte
-. Greifen Sie auf die Konsolenschnittstelle der Bridge zu, indem Sie ein serielles Kabel an den seriellen Port der FibreBridge 7600N anschließen.
+. Greifen Sie auf die Konsolenschnittstelle der Bridge zu, indem Sie ein serielles Kabel an den seriellen Port der FibreBridge 7600N-Brücke anschließen.
 . Aktivieren Sie die Zugriffsservices über die Konsole, und speichern Sie die Konfiguration:
 +
 `set closeport none`
@@ -233,7 +236,7 @@ SNMP ist das einzige Protokoll, das einen separaten Enable-Befehl erfordert.
 
 
 
-=== Konfiguration der FC-to-SAS-Bridges
+=== Konfigurieren Sie die FC-zu-SAS-Bridges
 
 Bevor Sie das Modell der FC-zu-SAS-Brücken verkabeln, müssen Sie die Einstellungen in der FibreBridge-Software konfigurieren.
 
@@ -358,7 +361,7 @@ NOTE: Die von Ihnen ausgewählte FCDataRate-Geschwindigkeit ist auf die maximale
 
 Bei Verwendung der CLI müssen Sie den folgenden Befehl ausführen:
 
-`set FCDataRate _port-number_ _port-speed_`
+`set FCDataRate <port-number> <port-speed>`
 
 --
 .. Wenn Sie eine FibreBridge 7500N-Bridge konfigurieren, konfigurieren Sie den Verbindungsmodus, den der Port für „ptp“ verwendet.
@@ -370,14 +373,14 @@ NOTE: Die Einstellung FCConnMode ist nicht erforderlich, wenn Sie eine FibreBrid
 Bei Verwendung der CLI müssen Sie den folgenden Befehl ausführen:
 
 +
-`set FCConnMode _port-number_ ptp`
+`set FCConnMode <port-number> ptp`
 
 .. Wenn Sie eine FibreBridge 7600N oder 7500N-Bridge konfigurieren, müssen Sie den FC2-Port konfigurieren oder deaktivieren.
 +
 *** Wenn Sie den zweiten Port verwenden, müssen Sie die vorherigen Teilschritte für den FC2-Port wiederholen.
 *** Wenn Sie den zweiten Port nicht verwenden, müssen Sie den Port deaktivieren:
 +
-`FCPortDisable _port-number_`
+`FCPortDisable <port-number>`
 
 +
 Im folgenden Beispiel wird die Deaktivierung von FC-Port 2 gezeigt:
@@ -484,23 +487,20 @@ link:../maintain/index.html["Warten von MetroCluster-Komponenten"]
 
 
 
-.Verwandte Informationen
-link:task_fb_new_install.html["In-Band-Management der FC-to-SAS-Bridges"]
 
 
-
-=== Verkabelung von Platten-Shelves zu den Bridges
+=== Verkabeln Sie die Platten-Shelfs mit den Bridges
 
 Für die Verkabelung Ihrer Platten-Shelves müssen die richtigen FC-to-SAS-Bridges verwendet werden.
 
 .Wahlmöglichkeiten
-* <<cabling_fb_7600N_7500N_with_iom12,Verkabelung einer FibreBridge 7600N oder 7500N Bridge mit Platten-Shelves mit IOM12-Modulen>>
-* <<cabling_fb_7600N_7500N_with_iom6_iom3,Verkabelung einer FibreBridge 7600N oder 7500N Bridge mit Festplatten-Shelfs unter Verwendung von IOM6- oder IOM3-Modulen>>
+* <<cabling_fb_7600N_7500N_with_iom12,Verkabeln Sie eine FibreBridge 7600N- oder 7500N-Bridge mit Festplatten-Shelfs mit IOM12-Modulen>>
+* <<cabling_fb_7600N_7500N_with_iom6_iom3,Verkabeln Sie eine FibreBridge 7600N- oder 7500N-Bridge mit Festplatten-Shelfs mit IOM6- oder IOM3-Modulen>>
 
 
 
 
-==== Verkabelung einer FibreBridge 7600N oder 7500N Bridge mit Platten-Shelves mit IOM12-Modulen
+==== Verkabeln Sie eine FibreBridge 7600N- oder 7500N-Bridge mit Festplatten-Shelfs mit IOM12-Modulen
 
 Nach der Konfiguration der Bridge können Sie mit der Verkabelung Ihres neuen Systems beginnen.
 
@@ -510,7 +510,7 @@ Bei Festplatten-Shelfs stecken Sie einen SAS-Kabelanschluss mit nach unten (auf 
 .Schritte
 . Schalten Sie die Festplatten-Shelfs in den einzelnen Stacks in Reihe:
 +
-.. Beginnend mit dem logischen ersten Shelf im Stack verbinden Sie IOM A-Port 3 mit Dem IOM A-Port 1 des nächsten Shelfs, bis jedes IOM A im Stack verbunden ist.
+.. Beginnend mit dem logischen ersten Shelf im Stack verbinden Sie IOM A-Port 3 mit IOM A-Port 1 im nächsten Shelf, bis jedes IOM A im Stack verbunden ist.
 .. Wiederholen Sie den vorherigen Unterschritt für IOM B.
 .. Wiederholen Sie die vorherigen Unterschritte für jeden Stack.
 
@@ -545,7 +545,7 @@ image::../media/mcc_cabling_bridge_and_sas3_stack_with_7500n_and_multiple_stacks
 
 
 
-==== Verkabelung einer FibreBridge 7600N oder 7500N Bridge mit Shelfs unter Verwendung von IOM6- oder IOM3-Modulen
+==== Verkabeln Sie eine FibreBridge 7600N- oder 7500N-Bridge mit Shelfs mit IOM6- oder IOM3-Modulen
 
 Nach der Konfiguration der Bridge können Sie mit der Verkabelung Ihres neuen Systems beginnen. Die FibreBridge 7600N oder 7500N Bridge nutzt Mini-SAS-Anschlüsse und unterstützt Shelfs, die IOM6- oder IOM3-Module verwenden.
 
@@ -582,7 +582,7 @@ image::../media/mcc_cabling_bridge_and_sas_stack_with_7500n_four_stacks.gif[mcc-
 
 
 
-=== Überprüfen der Bridge-Konnektivität und Verkabelung der Bridge-FC-Ports
+=== Überprüfen Sie die Bridge-Konnektivität und verkabeln Sie die Bridge-FC-Ports
 
 Sie sollten überprüfen, ob jede Bridge alle Festplattenlaufwerke erkennen kann, und jede Bridge mit den lokalen FC-Switches verkabeln.
 
@@ -664,7 +664,7 @@ Nicht richtig
  a| 
 .. Überprüfen Sie, ob sich lose SAS-Kabel befinden oder korrigieren Sie die SAS-Verkabelung, indem Sie die Verkabelung wiederholen.
 +
-<<Verkabelung von Platten-Shelves zu den Bridges>>
+<<Verkabeln Sie die Platten-Shelfs mit den Bridges>>
 
 .. Wiederholen <<step1_bridge,Schritt 1>>.
 
@@ -682,13 +682,13 @@ Weitere Informationen finden Sie in den Portzuweisungen für Ihre Version von ON
 
 
 .Verwandte Informationen
-link:concept_port_assignments_for_fc_switches_when_using_ontap_9_1_and_later.html["Port-Zuweisungen für FC-Switches bei Verwendung von ONTAP 9.1 und höher"]
-
 Sie müssen überprüfen, ob Sie die angegebenen Portzuweisungen verwenden, wenn Sie die FC-Switches mit ONTAP 9.1 und höher verkabeln.
 
+link:concept_port_assignments_for_fc_switches_when_using_ontap_9_1_and_later.html["Port-Zuweisungen für FC-Switches bei Verwendung von ONTAP 9.1 und höher"]
 
 
-== Sichern oder Entricken der FibreBridge-Brücke
+
+== Sichern oder unsichern Sie die FibreBridge-Brücke
 
 Um potenziell unsichere Ethernet-Protokolle auf einer Bridge einfach zu deaktivieren, können Sie ab ONTAP 9.5 die Bridge sichern. Dadurch werden die Ethernet-Ports der Bridge deaktiviert. Sie können auch den Ethernet-Zugriff erneut aktivieren.
 
