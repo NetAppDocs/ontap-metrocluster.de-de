@@ -7046,15 +7046,6 @@
   <block id="4ab496c462bc9a729fe703221c683545" category="paragraph"><block ref="4ab496c462bc9a729fe703221c683545" category="inline-link-macro-rx"></block></block>
   <block id="fa14a702e51b19084e9474a2f3ee6905" category="list-text">Starten Sie die neuen Nodes und starten Sie sie in den Wartungsmodus.</block>
   <block id="510771fb0bd315f647b0c3501cf5aac7" category="paragraph">Der HA-Status für alle Komponenten sollte „`mccip`“ sein.</block>
-  <block id="ae33f232a65af78b38ef0d615f9b4685" category="list-text">Wenn die Nodes des Upgrades die Modelle AFF A400, FAS8300 oder FAS8700 umfassen, legen Sie die folgenden Boot-Bereiche an DER LOADER-Eingabeaufforderung fest:</block>
-  <block id="b776a192613301675eb8a9978b122c2e" category="admonition">Wenn die Schnittstellen Standard-VLANs verwenden, ist keine vlan-id erforderlich.</block>
-  <block id="f15ac8125bcf03a0a837e92a4cc50161" category="paragraph">Mit den folgenden Befehlen werden die Werte für Node_B_1-New unter Verwendung von VLAN 120 für das erste Netzwerk und VLAN 130 für das zweite Netzwerk festgelegt:</block>
-  <block id="e74024ee9d7f8e95f3e626a5c873a315" category="paragraph">Die folgenden Befehle legen die Werte für Node_B_2-New unter Verwendung von VLAN 120 für das erste Netzwerk und VLAN 130 für das zweite Netzwerk fest:</block>
-  <block id="44f9e07ea9ebd3af9d897a1fd22a2893" category="paragraph">Das folgende Beispiel zeigt die Befehle für Node_B_1-New bei Verwendung des Standard-VLAN:</block>
-  <block id="39587765d8074fb3d6e4963abb2b1998" category="paragraph">Das folgende Beispiel zeigt die Befehle für Node_B_2-New bei Verwendung des Standard-VLAN:</block>
-  <block id="d81eefa1c7e616946da2c21d8091ff22" category="list-text">Wenn die Knoten, die aktualisiert werden, keine Systeme im vorherigen Schritt sind, legen Sie bei der LOADER-Eingabeaufforderung für jeden der verbleibenden Nodes die folgenden Bootargs mit local_IP/maska fest:</block>
-  <block id="ad660c4b2e3b57b6c520334fa6e9e973" category="paragraph">Mit den folgenden Befehlen werden die Werte für Node_B_1-New festgelegt:</block>
-  <block id="e99a6d6afe39a84ad08205e484b19f40" category="paragraph">Mit den folgenden Befehlen werden die Werte für Node_B_2-New festgelegt:</block>
   <block id="b6eb4854ed8abef4df5eb8ee192a6d06" category="list-text">Legen Sie an DER LOADER-Eingabeaufforderung der neuen Nodes die UUUIDs fest:</block>
   <block id="c9d5ebb47f50b3ec208877d0c063b7ff" category="list-text">Legen Sie die UUIDs auf Node_B_1-New fest.</block>
   <block id="496b18f1dee3ef49e665af4d8b2f692f" category="paragraph">Im folgenden Beispiel werden die Befehle zum Einstellen der UUIDs auf Node_B_1-New angezeigt:</block>
@@ -11836,17 +11827,6 @@
   <block id="8351b67dee4e0c692cf4f28e83b54b0a" category="paragraph">Der Automatisierungsvorgang initiiert die Umschaltvorgänge. Nach Abschluss dieser Vorgänge wird der Vorgang bei *pausiert für Benutzereingriff* angehalten, sodass Sie die Controller racken und installieren können, die Partner-Controller hochfahren und die Root-Aggregat-Festplatten dem neuen Controller-Modul aus dem Flash-Backup mit dem neu zuweisen können<block ref="5fb641c5977b93de82b81e36db0454cf" prefix=" " category="inline-code"></block> Früher gesammelt.</block>
   <block id="956cd19055bcda776c4aa38d849f5270" category="paragraph">Ihre Verzeichnisliste sollte einen Netzboot-Ordner mit der Kernel-Datei enthalten: ontap-Version_image.tgz</block>
   <block id="d58685908c79a70d5ff1a6db6c223402" category="paragraph">Sie müssen nicht die Datei ontap-Version_image.tgz extrahieren.</block>
-  <block id="f3b7262f888ca591450dde27d2e71aaf" category="paragraph">Im folgenden Beispiel werden die Werte für Node_B_1 mit VLAN 120 für das erste Netzwerk und VLAN 130 für das zweite Netzwerk festgelegt:</block>
-  <block id="65197a1036db006851c7578b94728a50" category="paragraph">Im folgenden Beispiel werden die Werte für Node_B_2 mit VLAN 120 für das erste Netzwerk und VLAN 130 für das zweite Netzwerk festgelegt:</block>
-  <block id="bf8bfdf49f6f753bf2394e6dce1882b0" category="list-text">Legen Sie die UUIDs auf Node_B_1 fest.</block>
-  <block id="5eac2f82a290cf5f7626a80d0e2c07aa" category="paragraph">Im folgenden Beispiel werden die Befehle zum Einstellen der UUIDs auf Node_B_1 gezeigt:</block>
-  <block id="f2925ea98441cdf274d96211ca1ada37" category="list-text">Legen Sie die UUIDs auf Node_B_2 fest:</block>
-  <block id="812568fdfa215d28245c0e27f1e6f5ce" category="paragraph">Im folgenden Beispiel werden die Befehle zum Einstellen der UUIDs auf Node_B_2 gezeigt:</block>
-  <block id="384df789341519934d49ceef6f3f8c5e" category="admonition">Der<block ref="12f728ceb5fc82e860ec81c090369ca5" prefix=" " category="inline-code"></block> Variable muss auf die sys-id des *original* Controller-Moduls Node_B_1 gesetzt werden.</block>
-  <block id="1e9e20507e30afe8b79feaf697336037" category="list-text">Setzen Sie die Variablen auf Node_B_1.</block>
-  <block id="96a30b5e5305a12e0752b81f173e6fc6" category="paragraph">Im folgenden Beispiel werden die Befehle zum Einstellen der Werte auf Node_B_1 gezeigt:</block>
-  <block id="ed8d1dfb2569c85ee7b108aa3e6a5466" category="list-text">Setzen Sie die Variablen auf Node_B_2.</block>
-  <block id="bacd790164cac2c217ca06a37ce78e9c" category="paragraph">Im folgenden Beispiel werden die Befehle zum Einstellen der Werte auf Node_B_2 gezeigt:</block>
   <block id="ca0df34f59e377032b2f4b42096b5055" category="admonition">Wenn Ihr MetroCluster IP-System mit erweiterter Festplattenpartitionierung konfiguriert ist, müssen Sie die ID des DR-Partnersystems angeben, indem Sie den ausführen<block ref="1d9572d24113365244a97e4cb81d5a77" prefix=" " category="inline-code"></block> Befehl.</block>
   <block id="3d76ebef670d0f7bd3eab697fb186812" category="paragraph">Während eines Neustarts nach der Option „`6`“ wird die Bestätigungsaufforderung angezeigt<block ref="adeeb123a02ab1bcf79fc4bdffdd3b9f" prefix=" " category="inline-code"></block> Angezeigt. Eingabe<block ref="415290769594460e2e485922904f345d" prefix=" " category="inline-code"></block>.</block>
   <block id="16de7447f84bfaba1c8cf72b93fbf6ee" category="paragraph"><block ref="16de7447f84bfaba1c8cf72b93fbf6ee" category="inline-link-macro-rx"></block></block>
@@ -13568,11 +13548,8 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="ef53a1465284a8eba202285b88ef0eb2" category="section-title">Aktualisieren Sie die Switch-RCFs, um die neuen Plattformen aufzunehmen</block>
   <block id="8aedcbe06dc4ee85bfbfe46c6a62713c" category="paragraph">Diese Aufgabe führen Sie an dem Standort mit den derzeit aktualisierten Controllern durch. In den Beispielen in diesem Verfahren führen wir zuerst ein Upgrade von Site_B durch.</block>
   <block id="097b5e4a3935e7904f9e57e130711c8b" category="inline-link-macro">Laden Sie die NVIDIA IP SN2100-Switch-RCF-Dateien herunter, und installieren Sie sie</block>
-  <block id="a0738c0401f656b59d11c3e37bee47f0" category="paragraph">In dieser Aufgabe verwenden Sie die UUIDs und System-IDs, die zuvor im Upgrade-Verfahren in identifiziert wurden <block ref="a74b37b1135e46e1745610d5ef77ba43" category="inline-xref-macro-rx"></block>.</block>
   <block id="080c153c3d5c3f5a7519058826d07cb8" category="paragraph"><block ref="579363eabf2a70eb9e6c8d9b1bca9609" prefix="" category="inline-code"></block></block>
   <block id="ba2a7c5e352255c376b6b0d315a1ffc1" category="paragraph"><block ref="3edfeb45325920fedac6b21b22c6872d" prefix="" category="inline-code"></block></block>
-  <block id="862fde34d3847472911a47c752a908d7" category="paragraph"><block ref="89ed4000c8f8ef2820e346fa5400a05a" prefix="" category="inline-code"></block></block>
-  <block id="d45e24cad9f9369e3d68aa5fb105c745" category="paragraph"><block ref="bf4900d508399da9f73f695794148642" prefix="" category="inline-code"></block></block>
   <block id="53eeb8487a1b47736074a390cc992c92" category="paragraph"><block ref="cce414ec64a9c4e23a2e870045abf8dc" prefix="" category="inline-code"></block></block>
   <block id="88e5cedcd18951b04046ff208ab8ff3a" category="paragraph"><block ref="38241bd430968bdc944f07594d46f2ea" prefix="" category="inline-code"></block></block>
   <block id="39531e530d83708f9ed5390dc12c1a07" category="paragraph"><block ref="1a08db264211390895870fb4d46031c2" prefix="" category="inline-code"></block></block>
@@ -13627,9 +13604,6 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="58d7ca4c8c3e89d8d921fc52e28adc1c" category="list-text">Schalten Sie die neuen Nodes ein, und drücken Sie bei der Aufforderung Strg-C, um die Eingabeaufforderung anzuzeigen<block ref="82b8350d28f0a14e36de1958b3be9205" prefix=" " category="inline-code"></block> .</block>
   <block id="b18f9742d77912f838f8a0bc859bbf11" category="list-text">Konfigurieren Sie an der<block ref="82b8350d28f0a14e36de1958b3be9205" prefix=" " category="inline-code"></block> Eingabeaufforderung die Netzboot-Verbindung für eine Management-LIF:</block>
   <block id="7c9dbc13c4af0588948dc0974ad07931" category="paragraph">Warten Sie nach dem Ausführen des Befehls, bis der Node an der Eingabeaufforderung angehalten<block ref="82b8350d28f0a14e36de1958b3be9205" prefix=" " category="inline-code"></block> wird.</block>
-  <block id="1eeedf4cd6f5dec243d5f4e1418fc445" category="paragraph">In dieser Aufgabe verwenden Sie die UUIDs und System-IDs, die zuvor im Upgrade-Verfahren in identifiziert wurden <block ref="9c150672da580a5dceed21dfb73c4b76" category="inline-xref-macro-rx"></block>.</block>
-  <block id="fee55a9e6e115fa7d775bb57b8cb4b87" category="paragraph">Im folgenden Beispiel werden die Werte für Node_B_1 unter Verwendung von Standard-VLANs für alle MetroCluster IP DR-Verbindungen festgelegt:</block>
-  <block id="2046d129795b588ef0d8a2657f550cbc" category="paragraph">Im folgenden Beispiel werden die Werte für Node_B_2 unter Verwendung von Standard-VLANs für alle MetroCluster IP DR-Verbindungen festgelegt:</block>
   <block id="6efdcf657072c6d286d4dff5b0919f19" category="list-text">Wenn die ursprünglichen Systeme für ADP konfiguriert wurden, aktivieren Sie an jeder Eingabeaufforderung des Ersatzknotens<block ref="82b8350d28f0a14e36de1958b3be9205" prefix=" " category="inline-code"></block> ADP:</block>
   <block id="2a881aa88a35b35de21b4af29f7c41a7" category="paragraph">Die alten System-IDs wurden in identifiziert <block ref="315917271da740413467f609180e49f8" category="inline-xref-macro-rx"></block>.</block>
   <block id="b2d1a6a95156d238b86f82d812e29748" category="admonition">Bevor Sie mit der Festplattenzuordnung fortfahren, müssen Sie überprüfen, ob die Pool0- und Pool1-Festplatten, die zum Root-Aggregat des Node gehören, in der Ausgabe angezeigt werden<block ref="63328c72194085e2f8ff497b866f6d24" prefix=" " category="inline-code"></block> . Im folgenden Beispiel werden in der Ausgabe die Laufwerke pool0 und pool1 aufgelistet, die sich im Besitz von Node_B_1-old befinden.</block>
@@ -14328,4 +14302,30 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="07bfa9093a8ef293dfd6099e38fde255" category="list-text">Vergewissern Sie sich, dass die MetroCluster ordnungsgemäß konfiguriert ist. Prüfen Sie den Knoten-Status:</block>
   <block id="d64694bac02c7b4eea890e175a53a0c7" category="paragraph">Vergewissern Sie sich, dass LIFs auf den entsprechenden Nodes gehostet werden, bevor Sie mit dem automatischen Switchback fortfahren.</block>
   <block id="db85d3fd5e7d7beaa319d4ebe299145b" category="sidebar">Einschränkungen, wenn das System umgeschaltet wird</block>
+  <block id="e2b04aa38f9463877227eab80f2afa55" category="list-text">Sie benötigen die UUIDs und System-IDs, die zuvor im Upgrade-Verfahren in identifiziert <block ref="a74b37b1135e46e1745610d5ef77ba43" category="inline-xref-macro-rx"></block>wurden.</block>
+  <block id="1ee9e9c6e0682332b92cf414d56216e5" category="list-text">Je nach Plattformmodell können Sie die VLAN-ID mit dem Parameter angeben<block ref="6790c40b1680557da1f80536ae186301" prefix=" " category="inline-code"></block>. Die folgenden Plattformen unterstützen den Parameter nicht<block ref="6790c40b1680557da1f80536ae186301" prefix=" " category="inline-code"></block>:</block>
+  <block id="2c17b709cf340ae9f4b202df67582f0d" category="list-text">AFF C800, ASA C800, AFF A800 und ASA A800</block>
+  <block id="9a7bf3cb6e6fcf5bc8021ad8b24c709d" category="list-text">Die von Ihnen festgelegten MetroCluster Bootarg-Werte hängen davon ab, ob Ihr neues System gemeinsam genutzte Cluster/HA-Ports oder gemeinsam genutzte MetroCluster/HA-Ports verwendet.</block>
+  <block id="01c711ec30c5984ab759c03d8ae83dbc" category="paragraph">Die in der folgenden Tabelle aufgeführten Systeme verwenden *Shared MetroCluster/HA-Ports*.</block>
+  <block id="72b13aee8e15cbc1635a37e0cc999b15" category="paragraph">Alle anderen Systeme verwenden *Shared Cluster/HA-Ports*.</block>
+  <block id="b4a6f2e0f896be0b4aa0ce4693340515" category="cell">AFF und ASA Systeme mit gemeinsam genutzten MetroCluster/HA-Ports</block>
+  <block id="a92298a0da357308bf3f327f1d13f333" category="cell">FAS Systeme mit gemeinsam genutzten MetroCluster/HA-Ports</block>
+  <block id="8f7306dd779bf45e84d3417319068f67" category="list-text">AFF A250, ASA A250</block>
+  <block id="58588e3dc50a2798e7501fa654fd258f" category="list-text">AFF C400, ASA C400</block>
+  <block id="3620dab5844cf978130a9d0a58017f2a" category="list-text">AFF A400, ASA A400</block>
+  <block id="9d4b0febc0f20a3a06297c23c3559983" category="list-text">AFF C800, ASA C800</block>
+  <block id="9576d309dc6946e2591793a503a98da6" category="list-text">AFF A900, ASA A900</block>
+  <block id="1891901e07a2b1183ae0bdb153f73f5b" category="paragraph">Die Schritte, die Sie befolgen, hängen von den Ports ab, die vom neuen Plattformmodell verwendet werden.</block>
+  <block id="194a07d9daae191baeeb97eb547e1768" category="open-title">Systeme, die Shared Cluster/HA-Ports verwenden</block>
+  <block id="66e20f51e3a078b6cbc064932bff53cc" category="list-text">Legen Sie die folgenden Bootargs fest:</block>
+  <block id="365c4529a692b9621626b7a16d6f1fcf" category="paragraph"><block ref="44edf5bc5c9ded025ac5ca02d1f1dc5b" prefix="" category="inline-code"></block></block>
+  <block id="b53e7075a1894b2cbd85248fb5a648ef" category="paragraph"><block ref="057e6af1be749fa6fb8d9dd6a88adc62" prefix="" category="inline-code"></block></block>
+  <block id="945d0ede3512e9e4eaadb1711c02216c" category="admonition">Wenn die Schnittstellen eine Standard-VLAN-ID verwenden, ist der<block ref="883efb435dfcdbab29a2ff69d0287888" prefix=" " category="inline-code"></block> Parameter nicht erforderlich.</block>
+  <block id="b07af26bfbb0ba81d6796450189f5cf8" category="paragraph">Im folgenden Beispiel werden die Werte für Node_B_1-New mit VLAN 120 für das erste Netzwerk und VLAN 130 für das zweite Netzwerk festgelegt:</block>
+  <block id="a06bd9649be55565fd74562b1ee1756e" category="paragraph">Im folgenden Beispiel werden die Werte für Node_B_2-New mit VLAN 120 für das erste Netzwerk und VLAN 130 für das zweite Netzwerk festgelegt:</block>
+  <block id="a1909236f08f260f2b52aebf539344be" category="paragraph">Im folgenden Beispiel werden die Werte für Node_B_1-New mithilfe von Standard-VLANs für alle MetroCluster IP DR-Verbindungen festgelegt:</block>
+  <block id="a0436481bda3531d4a5eda5dac0e5608" category="paragraph">Im folgenden Beispiel werden die Werte für Node_B_2-New mithilfe von Standard-VLANs für alle MetroCluster IP DR-Verbindungen festgelegt:</block>
+  <block id="1a5991cd222add52b1f5aa51350d470e" category="list-title">Systeme, die gemeinsam genutzte MetroCluster/HA-Ports verwenden</block>
+  <block id="f4c0383379a5ae93d0b5e4c4f8586e47" category="open-title">Systeme mit gemeinsam genutzten Cluster/HA-Ports</block>
+  <block id="fce1683696c48d3d34e98e19d634ae19" category="open-title">Systeme mit gemeinsam genutzten MetroCluster/HA-Ports</block>
 </blocks>
