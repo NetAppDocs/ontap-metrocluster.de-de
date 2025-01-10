@@ -38,15 +38,17 @@ IMPORTANT: Sie müssen in den Befehlen sowohl die Authentifizierungs- als auch d
 [listing]
 ----
 (IP_switch_1)# config
-(IP_switch_1) (Config)# snmp-server user <user_name> network-admin [auth-md5/auth-sha/noauth] "<auth_password>" [priv-aes128/priv-des] "<priv_password>"
+(IP_switch_1) (Config)# snmp-server user <user_name> network-admin auth-sha priv-aes128
 ----
 +
-Sie müssen Anführungszeichen für die Authentifizierungs- und Datenschutzkennwörter verwenden, wie im folgenden Beispiel gezeigt:
+Geben Sie das Authentifizierungskennwort ein, wenn Sie dazu aufgefordert werden.
 
 +
 [listing]
 ----
-snmp-server user admin1 network-admin auth-md5 "password" priv-des "password"
+#snmp-server user admin1 network-admin auth-sha priv-aes128
+
+Enter Authentication Password:
 ----
 
 
