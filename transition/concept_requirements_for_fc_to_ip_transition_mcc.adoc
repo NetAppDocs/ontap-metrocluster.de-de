@@ -11,19 +11,28 @@ summary: Bevor Sie mit dem Umstieg beginnen, müssen Sie sicherstellen, dass die
 
 
 [role="lead"]
-Bevor Sie mit dem Umstieg beginnen, müssen Sie sicherstellen, dass die Konfiguration die Anforderungen erfüllt.
+Vergewissern Sie sich vor Beginn des Wechsels, dass die Konfiguration den Anforderungen entspricht.
 
-* Bei einer Konfiguration mit acht Nodes müssen alle Nodes ONTAP 9.13.1 oder höher ausführen.
-* Bei einer Konfiguration mit vier Nodes müssen alle Nodes ONTAP 9.8 oder höher ausführen.
-* Die bestehenden und neuen Plattformen müssen eine unterstützte Kombination für den Umstieg sein.
+Sie können einen unterbrechungsfreien FC-zu-IP-Übergang durchführen, wenn Ihre Konfiguration die folgenden Anforderungen erfüllt:
+
+* Bei einer Konfiguration mit acht Nodes werden auf allen Nodes ONTAP 9.13.1 oder höher ausgeführt.
+* Bei einer Konfiguration mit vier Nodes werden auf allen Nodes ONTAP 9.8 oder höher ausgeführt.
+* Die bestehenden und neuen Plattformen sind eine unterstützte Kombination für den Übergang.
 +
 link:concept_choosing_your_transition_procedure_mcc_transition.html["Unterstützte Plattformen für unterbrechungsfreien Übergang"]
 
-* Er muss eine Switch-Cluster-Konfiguration unterstützen.
+* Ihre Konfiguration unterstützt eine Cluster-Konfiguration mit Switches.
 +
-https://hwu.netapp.com["NetApp Hardware Universe"]
+https://hwu.netapp.com["Hardware Universe"^]
 
-* Er muss alle Anforderungen und Verkabelung erfüllen, wie in den Verfahren _MetroCluster Installation and Configuration_ beschrieben.
+
+
+[CAUTION]
+====
+Bei Verwendung von Shared Storage MetroCluster Switches können Sie nur zu einer MetroCluster IP-Konfiguration mit vier Nodes wechseln. Der Übergang zu einer MetroCluster IP-Konfiguration mit acht Nodes unter Verwendung von MetroCluster-Switches für gemeinsamen Storage wird nicht unterstützt. Nachdem Sie den Übergang zu einer MetroCluster IP-Konfiguration mit vier Knoten abgeschlossen haben, können Sie link:../upgrade/task_expand_a_four_node_mcc_ip_configuration.html["Erweitern Sie auf eine MetroCluster IP-Konfiguration mit acht Nodes"].
+
+====
+* Ihre Konfiguration erfüllt alle Anforderungen und ist gemäß den folgenden _MetroCluster-Installations- und -Konfigurations_ -Verfahren verkabelt.
 +
 link:../install-fc/index.html["Installation und Konfiguration von Fabric-Attached MetroCluster"]
 

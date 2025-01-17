@@ -9855,7 +9855,6 @@
   <block id="ee6ed7097775dc1dd54c183bab7fabca" category="list-text">Die MetroCluster FC-Plattform ist ein Cluster ohne Switches, sodass neue Switches erforderlich sind.</block>
   <block id="f6ee19cc42b9955140e50bd5845ab941" category="list-text">Die MetroCluster FC ist ein Switch-basiertes Cluster, die bestehenden IP-Switches werden jedoch in der MetroCluster IP-Konfiguration nicht unterstützt.</block>
   <block id="f2e4f8254f9371aba3bca00c7ae823a3" category="list-text">Sie möchten verschiedene Switches für die MetroCluster IP-Konfiguration verwenden.</block>
-  <block id="4ee1b040d263e389d67330e3d505f6c5" category="paragraph">Informationen zum Plattformmodell und zur Switch-Unterstützung finden Sie im _NetApp Hardware Universe_.</block>
   <block id="14e348c170f7b6385528cb19a585219d" category="summary">Bevor Sie mit dem Umstieg beginnen, müssen Sie sicherstellen, dass die Konfiguration die Anforderungen erfüllt.</block>
   <block id="ad874ee6fe262ee6a8077ff8c08b6a0c" category="doc">Vorbereitung auf den Umstieg mit FC-to-IP und Störungen</block>
   <block id="a8ed125290aefa9f0cc45d96d05cf827" category="section-title">Allgemeine Anforderungen für die disruptive FC-to-IP Umstellung</block>
@@ -10569,7 +10568,6 @@
   <block id="6a8cfc7e554fc5750d024bfbc8a85742" category="paragraph">LINK FÜR MIGRATION WURDE ENTFERNT</block>
   <block id="26335ad95c44f5e233c28d27ab09f461" category="doc">Anforderungen für einen unterbrechungsfreien FC-to-IP Umstieg</block>
   <block id="fd8a65566a0bac859d93882f20cc0c7d" category="paragraph"><block ref="fd8a65566a0bac859d93882f20cc0c7d" category="inline-link-macro-rx"></block></block>
-  <block id="1c80ea06ae866b6e42e9d266e0cb8906" category="list-text">Er muss eine Switch-Cluster-Konfiguration unterstützen.</block>
   <block id="a1dc95b2dccfd24df8e5f465b41ca7bb" category="summary">Während der Umstellung werden die Daten von den Laufwerk-Shelfs in der MetroCluster FC-Konfiguration auf die neue MetroCluster IP-Konfiguration verschoben.</block>
   <block id="6b2201b255bf7619b40525eabcf640ce" category="doc">Die Daten werden auf die neuen Festplatten-Shelfs verschoben</block>
   <block id="d43a293b508a220ef74948f1d6ffa38b" category="paragraph">Während der Umstellung werden die Daten von den Laufwerk-Shelfs in der MetroCluster FC-Konfiguration auf die neue MetroCluster IP-Konfiguration verschoben.</block>
@@ -11772,8 +11770,6 @@
   <block id="65cc666ecd4a5bdf3c624b12e425c91f" category="admonition">Sie müssen den Controller neu booten, um die Konfiguration zu ändern.</block>
   <block id="57d89ae0fa9051439d76f5f61398fa16" category="list-text">Starten Sie den Controller neu, indem Sie in beide Richtungen eine HA-Übernahme durchführen.</block>
   <block id="ee587f5bd979b8f81d1cbf341f0b2470" category="list-text">Wenn Sie über eine Konfiguration mit acht Nodes verfügen, müssen Sie den gesamten Vorgang ab wiederholen <block ref="e821f1828723ededc57f2e891aea4a6a" category="inline-link-macro-rx"></block> Für jede der FC DR-Gruppen.</block>
-  <block id="bb6c47f32358fe5242b175ac608f7d32" category="list-text">Bei einer Konfiguration mit acht Nodes müssen alle Nodes ONTAP 9.13.1 oder höher ausführen.</block>
-  <block id="d8e49cb116ea5302a217647ce0506ea6" category="list-text">Bei einer Konfiguration mit vier Nodes müssen alle Nodes ONTAP 9.8 oder höher ausführen.</block>
   <block id="b8c86c478bbb73c53f5440966b9fb7d1" category="list-text">Überschreiten Sie keine Objektgrenzen des „unteren“ der Plattformen in der Kombination. Wenden Sie die untere Objektgrenze der beiden Plattformen an.</block>
   <block id="c5c0eb8cddac9e2347091241dce72719" category="list-text">Wenn die Grenzen der Zielplattform unter den MetroCluster-Limits liegen, müssen Sie die MetroCluster neu konfigurieren, damit sie die Grenzen der Zielplattform erreichen oder darunter liegen, bevor Sie die neuen Nodes hinzufügen.</block>
   <block id="dc63943b5b97ad0f10f23219d6f93cd4" category="list-text">Ändern Sie die IP-Adresse für den Cluster-Peer der migrierten IP-Nodes für jedes Cluster:</block>
@@ -14328,4 +14324,16 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="f4c0383379a5ae93d0b5e4c4f8586e47" category="open-title">Systeme mit gemeinsam genutzten Cluster/HA-Ports</block>
   <block id="fce1683696c48d3d34e98e19d634ae19" category="open-title">Systeme mit gemeinsam genutzten MetroCluster/HA-Ports</block>
   <block id="eabf799ca909dc7fa9808c3abb476773" category="paragraph">Geben Sie das Authentifizierungskennwort ein, wenn Sie dazu aufgefordert werden.</block>
+  <block id="8c62b33499e87d946c3be674c109e802" category="inline-link-macro">Erweitern Sie auf eine MetroCluster IP-Konfiguration mit acht Nodes</block>
+  <block id="d3f54bf5e1d7bcb93c8d615f71713d7f" category="paragraph">Bei Verwendung von Shared Storage MetroCluster Switches können Sie nur zu einer MetroCluster IP-Konfiguration mit vier Nodes wechseln. Der Übergang zu einer MetroCluster IP-Konfiguration mit acht Nodes unter Verwendung von MetroCluster-Switches für gemeinsamen Storage wird nicht unterstützt. Nachdem Sie den Übergang zu einer MetroCluster IP-Konfiguration mit vier Knoten abgeschlossen haben, können Sie <block ref="6dee49609367b51155e32a3a9526bace" category="inline-link-macro-rx"></block>.</block>
+  <block id="2e6fac9e7be327118126470b28ac80e9" category="paragraph">Informationen zu Plattformmodellen und Switch-Unterstützung finden Sie im<block ref="16a6d09025d51cb8dd3516798b3fee8a" category="inline-link-rx"></block>.</block>
+  <block id="e77208401ec89552ec5e85789d235879" category="paragraph">Vergewissern Sie sich vor Beginn des Wechsels, dass die Konfiguration den Anforderungen entspricht.</block>
+  <block id="1229d62fc62771990d4aca35e86babbb" category="paragraph">Sie können einen unterbrechungsfreien FC-zu-IP-Übergang durchführen, wenn Ihre Konfiguration die folgenden Anforderungen erfüllt:</block>
+  <block id="c93eb5b603c598e0771b611b95a1f13a" category="list-text">Bei einer Konfiguration mit acht Nodes werden auf allen Nodes ONTAP 9.13.1 oder höher ausgeführt.</block>
+  <block id="fbe14351123598a8a64fee33aa1a2a2b" category="list-text">Bei einer Konfiguration mit vier Nodes werden auf allen Nodes ONTAP 9.8 oder höher ausgeführt.</block>
+  <block id="d7b625bf0290f633deca10fab483feb9" category="list-text">Die bestehenden und neuen Plattformen sind eine unterstützte Kombination für den Übergang.</block>
+  <block id="449f221b85b0830ccbe6f932311166dc" category="list-text">Ihre Konfiguration unterstützt eine Cluster-Konfiguration mit Switches.</block>
+  <block id="ec4312d0db3bce928129e7e5c3a58d73" category="paragraph"><block ref="ec4312d0db3bce928129e7e5c3a58d73" category="inline-link-rx"></block></block>
+  <block id="c42a1c17fcba2c3f1c614f6d301144e6" category="paragraph">Bei Verwendung von Shared Storage MetroCluster Switches können Sie nur zu einer MetroCluster IP-Konfiguration mit vier Nodes wechseln. Der Übergang zu einer MetroCluster IP-Konfiguration mit acht Nodes unter Verwendung von MetroCluster-Switches für gemeinsamen Storage wird nicht unterstützt. Nachdem Sie den Übergang zu einer MetroCluster IP-Konfiguration mit vier Knoten abgeschlossen haben, können Sie <block ref="6dee49609367b51155e32a3a9526bace" category="inline-link-macro-rx"></block>.</block>
+  <block id="fb9168c2e293c1ba8ecd781a9f35d00f" category="list-text">Ihre Konfiguration erfüllt alle Anforderungen und ist gemäß den folgenden _MetroCluster-Installations- und -Konfigurations_ -Verfahren verkabelt.</block>
 </blocks>
