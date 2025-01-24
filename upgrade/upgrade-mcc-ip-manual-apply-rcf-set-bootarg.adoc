@@ -1,0 +1,351 @@
+---
+permalink: upgrade/upgrade-mcc-ip-manual-apply-rcf-set-bootarg.html 
+sidebar: sidebar 
+keywords: metrocluster, upgrade, controllers, switchover, switchback, ip, configuration, rcf, bootarg 
+summary: Aktualisieren Sie die Switch RCF-Dateien für die neuen Plattformen und setzen Sie die MetroCluster IP Bootarg-Werte auf den Controller-Modulen. 
+---
+= Aktualisieren Sie die Switch-RCFs und legen Sie die MetroCluster IP-Bootarg-Werte fest
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Aktualisieren Sie die Switch-Referenzkonfigurationsdateien (RCFs) für die neuen Plattformen und legen Sie die MetroCluster IP-Bootarg-Werte auf den Controller-Modulen fest.
+
+
+
+== Aktualisieren Sie die Switch-RCFs, um die neuen Plattformen aufzunehmen
+
+Sie müssen die Switches auf eine Konfiguration aktualisieren, die die neuen Plattformmodelle unterstützt.
+
+.Über diese Aufgabe
+Diese Aufgabe führen Sie an dem Standort mit den derzeit aktualisierten Controllern durch. In den Beispielen, die in diesem Verfahren gezeigt werden, aktualisieren wir zunächst Site_B.
+
+Bei einem Upgrade der Controller On Site_A werden die Switches von Site_A aktualisiert.
+
+.Schritte
+. Bereiten Sie die IP-Switches auf die Anwendung der neuen RCFs vor.
++
+Befolgen Sie die Schritte im Abschnitt für Ihren Switch-Anbieter:
+
++
+** link:../install-ip/task_switch_config_broadcom.html#resetting-the-broadcom-ip-switch-to-factory-defaults["Setzen Sie den Broadcom IP-Switch auf die Werkseinstellungen zurück"]
+** link:../install-ip/task_switch_config_cisco.html#resetting-the-cisco-ip-switch-to-factory-defaults["Setzen Sie den Cisco IP-Switch auf die Werkseinstellungen zurück"]
+** link:../install-ip/task_switch_config_nvidia.html#reset-the-nvidia-ip-sn2100-switch-to-factory-defaults["Setzen Sie den NVIDIA IP SN2100-Switch auf die Werkseinstellungen zurück"]
+
+
+. Laden Sie die RCFs herunter, und installieren Sie sie.
++
+Befolgen Sie die Schritte im Abschnitt für Ihren Switch-Anbieter:
+
++
+** link:../install-ip/task_switch_config_broadcom.html#downloading-and-installing-the-broadcom-rcf-files["Laden Sie die Broadcom RCFs herunter, und installieren Sie sie"]
+** link:../install-ip/task_switch_config_cisco.html#downloading-and-installing-the-cisco-ip-rcf-files["Laden Sie die Cisco IP-RCFs herunter, und installieren Sie sie"]
+** link:../install-ip/task_switch_config_nvidia.html#download-and-install-the-nvidia-rcf-files["Laden Sie die NVIDIA IP-RCFs herunter, und installieren Sie sie"]
+
+
+
+
+
+
+== Legen Sie die MetroCluster-IP-Bootarg-Variablen fest
+
+Sie müssen bestimmte MetroCluster IP-Bootarg-Werte auf den neuen Controller-Modulen konfigurieren. Die bootarg-Werte müssen mit denen übereinstimmen, die auf den alten Controller-Modulen konfiguriert sind.
+
+.Über diese Aufgabe
+* Sie verwenden die UUIDs und System-IDs, die zuvor im Upgrade-Verfahren in angegeben link:upgrade-mcc-ip-prepare-system.html#gather-information-before-the-upgrade["Sammeln Sie vor dem Upgrade Informationen"]wurden.
+* Je nach Plattformmodell können Sie die VLAN-ID mit dem Parameter angeben `-vlan-id`. Die folgenden Plattformen unterstützen den Parameter nicht `-vlan-id`:
++
+** FAS8200 UND AFF A300
+** AFF A320
+** FAS9000 und AFF A700
+** AFF C800, ASA C800, AFF A800 und ASA A800
++
+Alle anderen Plattformen unterstützen den `-vlan-id` Parameter.
+
+
+
+* Die von Ihnen festgelegten MetroCluster Bootarg-Werte hängen davon ab, ob Ihr neues System gemeinsam genutzte Cluster/HA-Ports oder gemeinsam genutzte MetroCluster/HA-Ports verwendet.
++
+Die in der folgenden Tabelle aufgeführten Systeme verwenden *Shared MetroCluster/HA-Ports*.
+
++
+Alle anderen Systeme verwenden *Shared Cluster/HA-Ports*.
+
++
+[cols="2*"]
+|===
+| AFF und ASA Systeme mit gemeinsam genutzten MetroCluster/HA-Ports | FAS Systeme mit gemeinsam genutzten MetroCluster/HA-Ports 
+
+
+ a| 
+** AFF A150, ASA A150
+** AFF A220
+** AFF C250, ASA C250
+** AFF A250, ASA A250
+** AFF A300
+** AFF A320
+** AFF C400, ASA C400
+** AFF A400, ASA A400
+** AFF A700
+** AFF C800, ASA C800
+** AFF A800, ASA A800
+** AFF A900, ASA A900
+
+ a| 
+** FAS2750
+** FAS500f
+** FAS8200
+** FAS8300
+** FAS8700
+** FAS9000
+** FAS9500
+
+
+|===
+
+
+.Schritte
+. Am `LOADER>` Eingabeaufforderung: Legen Sie folgende Bootargs auf den neuen Knoten an Standort_B fest:
++
+Die Schritte, die Sie befolgen, hängen von den Ports ab, die vom neuen Plattformmodell verwendet werden.
+
++
+[role="tabbed-block"]
+====
+.Systeme, die Shared Cluster/HA-Ports verwenden
+--
+.. Legen Sie die folgenden Bootargs fest:
++
+`setenv bootarg.mcc.port_a_ip_config <local-IP-address/local-IP-mask,0,0,DR-partner-IP-address,DR-aux-partnerIP-address,vlan-id>`
+
++
+`setenv bootarg.mcc.port_b_ip_config <local-IP-address/local-IP-mask,0,0,DR-partner-IP-address,DR-aux-partnerIP-address,vlan-id>`
+
++
+
+NOTE: Wenn die Schnittstellen eine Standard-VLAN-ID verwenden, ist der `vlan-id` Parameter nicht erforderlich.
+
++
+Im folgenden Beispiel werden die Werte für Node_B_1-New mit VLAN 120 für das erste Netzwerk und VLAN 130 für das zweite Netzwerk festgelegt:
+
++
+[listing]
+----
+setenv bootarg.mcc.port_a_ip_config 172.17.26.10/23,0,0,172.17.26.13,172.17.26.12,120
+setenv bootarg.mcc.port_b_ip_config 172.17.27.10/23,0,0,172.17.27.13,172.17.27.12,130
+----
++
+Im folgenden Beispiel werden die Werte für Node_B_2-New mit VLAN 120 für das erste Netzwerk und VLAN 130 für das zweite Netzwerk festgelegt:
+
++
+[listing]
+----
+setenv bootarg.mcc.port_a_ip_config 172.17.26.11/23,0,0,172.17.26.12,172.17.26.13,120
+setenv bootarg.mcc.port_b_ip_config 172.17.27.11/23,0,0,172.17.27.12,172.17.27.13,130
+----
++
+Im folgenden Beispiel werden die Werte für Node_B_1-New mithilfe von Standard-VLANs für alle MetroCluster IP DR-Verbindungen festgelegt:
+
++
+[listing]
+----
+setenv bootarg.mcc.port_a_ip_config
+172.17.26.10/23,0,0,172.17.26.13,172.17.26.12
+setenv bootarg.mcc.port_b_ip_config
+172.17.27.10/23,0,0,172.17.27.13,172.17.27.12
+----
++
+Im folgenden Beispiel werden die Werte für Node_B_2-New mithilfe von Standard-VLANs für alle MetroCluster IP DR-Verbindungen festgelegt:
+
++
+[listing]
+----
+setenv bootarg.mcc.port_a_ip_config
+172.17.26.11/23,0,0,172.17.26.12,172.17.26.13
+setenv bootarg.mcc.port_b_ip_config
+172.17.27.11/23,0,0,172.17.27.12,172.17.27.13
+----
+
+
+--
+.Systeme, die gemeinsam genutzte MetroCluster/HA-Ports verwenden
+.. Legen Sie die folgenden Bootargs fest:
++
+`setenv bootarg.mcc.port_a_ip_config <local-IP-address/local-IP-mask,0,HA-partner-IP-address,DR-partner-IP-address,DR-aux-partnerIP-address,vlan-id>`
+
++
+`setenv bootarg.mcc.port_b_ip_config <local-IP-address/local-IP-mask,0,HA-partner-IP-address,DR-partner-IP-address,DR-aux-partnerIP-address,vlan-id>`
+
++
+
+NOTE: Wenn die Schnittstellen eine Standard-VLAN-ID verwenden, ist der `vlan-id` Parameter nicht erforderlich.
+
++
+Im folgenden Beispiel werden die Werte für Node_B_1-New mit VLAN 120 für das erste Netzwerk und VLAN 130 für das zweite Netzwerk festgelegt:
+
++
+[listing]
+----
+setenv bootarg.mcc.port_a_ip_config 172.17.26.10/23,0,172.17.26.11,172.17.26.13,172.17.26.12,120
+setenv bootarg.mcc.port_b_ip_config 172.17.27.10/23,0,172.17.27.11,172.17.27.13,172.17.27.12,130
+----
++
+Im folgenden Beispiel werden die Werte für Node_B_2-New mit VLAN 120 für das erste Netzwerk und VLAN 130 für das zweite Netzwerk festgelegt:
+
++
+[listing]
+----
+setenv bootarg.mcc.port_a_ip_config 172.17.26.11/23,0,172.17.26.10,172.17.26.12,172.17.26.13,120
+setenv bootarg.mcc.port_b_ip_config 172.17.27.11/23,0,172.17.27.10,172.17.27.12,172.17.27.13,130
+----
++
+Im folgenden Beispiel werden die Werte für Node_B_1-New mithilfe von Standard-VLANs für alle MetroCluster IP DR-Verbindungen festgelegt:
+
++
+[listing]
+----
+setenv bootarg.mcc.port_a_ip_config
+172.17.26.10/23,0,172.17.26.11,172.17.26.13,172.17.26.12
+setenv bootarg.mcc.port_b_ip_config
+172.17.27.10/23,0,172.17.27.11,172.17.27.13,172.17.27.12
+----
++
+Im folgenden Beispiel werden die Werte für Node_B_2-New mithilfe von Standard-VLANs für alle MetroCluster IP DR-Verbindungen festgelegt:
+
++
+[listing]
+----
+setenv bootarg.mcc.port_a_ip_config
+172.17.26.11/23,0,172.17.26.10,172.17.26.12,172.17.26.13
+setenv bootarg.mcc.port_b_ip_config
+172.17.27.11/23,0,172.17.27.10,172.17.27.12,172.17.27.13
+----
+
+
+--
+
+--
+====
+. Legen Sie an DER LOADER-Eingabeaufforderung der neuen Nodes die UUUIDs fest:
++
+`setenv bootarg.mgwd.partner_cluster_uuid <partner-cluster-UUID>`
+
++
+`setenv bootarg.mgwd.cluster_uuid <local-cluster-UUID>`
+
++
+`setenv bootarg.mcc.pri_partner_uuid <DR-partner-node-UUID>`
+
++
+`setenv bootarg.mcc.aux_partner_uuid <DR-aux-partner-node-UUID>`
+
++
+`setenv bootarg.mcc_iscsi.node_uuid <local-node-UUID>`
+
++
+.. Legen Sie die UUIDs auf Node_B_1-New fest:
++
+Im folgenden Beispiel werden die Befehle zum Einstellen der UUIDs auf Node_B_1-New angezeigt:
+
++
+[listing]
+----
+setenv bootarg.mgwd.cluster_uuid ee7db9d5-9a82-11e7-b68b-00a098908039
+setenv bootarg.mgwd.partner_cluster_uuid 07958819-9ac6-11e7-9b42-00a098c9e55d
+setenv bootarg.mcc.pri_partner_uuid f37b240b-9ac1-11e7-9b42-00a098c9e55d
+setenv bootarg.mcc.aux_partner_uuid bf8e3f8f-9ac4-11e7-bd4e-00a098ca379f
+setenv bootarg.mcc_iscsi.node_uuid f03cb63c-9a7e-11e7-b68b-00a098908039
+----
+.. Legen Sie die UUIDs auf Node_B_2-New fest:
++
+Im folgenden Beispiel werden die Befehle zum Einstellen der UUIDs auf Node_B_2-New angezeigt:
+
++
+[listing]
+----
+setenv bootarg.mgwd.cluster_uuid ee7db9d5-9a82-11e7-b68b-00a098908039
+setenv bootarg.mgwd.partner_cluster_uuid 07958819-9ac6-11e7-9b42-00a098c9e55d
+setenv bootarg.mcc.pri_partner_uuid bf8e3f8f-9ac4-11e7-bd4e-00a098ca379f
+setenv bootarg.mcc.aux_partner_uuid f37b240b-9ac1-11e7-9b42-00a098c9e55d
+setenv bootarg.mcc_iscsi.node_uuid aa9a7a7a-9a81-11e7-a4e9-00a098908c35
+----
+
+
+. Bestimmen Sie, ob die ursprünglichen Systeme für die erweiterte Laufwerkpartitionierung (Advanced Drive Partitioning, ADP) konfiguriert wurden, indem Sie den folgenden Befehl vom Standort aus ausführen:
++
+`disk show`
+
++
+In der Spalte „Containertyp“ wird in der Ausgabe „freigegeben“ angezeigt `disk show` , wenn ADP konfiguriert ist. Wenn „Containertyp“ einen anderen Wert hat, ist ADP auf dem System nicht konfiguriert. Die folgende Beispielausgabe zeigt ein mit ADP konfiguriertes System:
+
++
+[listing]
+----
+::> disk show
+                    Usable               Disk    Container   Container
+Disk                Size       Shelf Bay Type    Type        Name      Owner
+
+Info: This cluster has partitioned disks. To get a complete list of spare disk
+      capacity use "storage aggregate show-spare-disks".
+----------------    ---------- ----- --- ------- ----------- --------- --------
+1.11.0              894.0GB    11    0   SSD      shared     testaggr  node_A_1
+1.11.1              894.0GB    11    1   SSD      shared     testaggr  node_A_1
+1.11.2              894.0GB    11    2   SSD      shared     testaggr  node_A_1
+----
+. Wenn die ursprünglichen Systeme mit partitionierten Laufwerken für ADP konfiguriert wurden, aktivieren Sie diese an der `LOADER` Eingabeaufforderung für jeden Ersatz-Node:
++
+`setenv bootarg.mcc.adp_enabled true`
+
+. Legen Sie die folgenden Variablen fest:
++
+`setenv bootarg.mcc.local_config_id <original-sys-id>`
+
++
+`setenv bootarg.mcc.dr_partner <dr-partner-sys-id>`
+
++
+
+NOTE: Der `setenv bootarg.mcc.local_config_id` Variable muss auf die sys-id des *original* Controller-Moduls, Node_B_1-old, gesetzt werden.
+
++
+.. Legen Sie die Variablen auf Node_B_1-New fest.
++
+Im folgenden Beispiel werden die Befehle zum Einstellen der Werte auf Node_B_1-New angezeigt:
+
++
+[listing]
+----
+setenv bootarg.mcc.local_config_id 537403322
+setenv bootarg.mcc.dr_partner 537403324
+----
+.. Legen Sie die Variablen auf Node_B_2-New fest.
++
+Im folgenden Beispiel werden die Befehle zum Einstellen der Werte auf Node_B_2-New angezeigt:
+
++
+[listing]
+----
+setenv bootarg.mcc.local_config_id 537403321
+setenv bootarg.mcc.dr_partner 537403323
+----
+
+
+. Wenn Sie die Verschlüsselung mit dem externen Schlüsselmanager verwenden, legen Sie die erforderlichen Bootargs fest:
++
+`setenv bootarg.kmip.init.ipaddr`
+
++
+`setenv bootarg.kmip.kmip.init.netmask`
+
++
+`setenv bootarg.kmip.kmip.init.gateway`
+
++
+`setenv bootarg.kmip.kmip.init.interface`
+
+
+
+.Was kommt als Nächstes?
+link:upgrade-mcc-ip-manual-reassign-root-agg.html["Weisen Sie die Root-Aggregat-Festplatten neu zu"].

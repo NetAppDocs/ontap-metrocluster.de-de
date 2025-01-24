@@ -1,0 +1,128 @@
+---
+permalink: upgrade/upgrade-mcc-ip-manual-complete-upgrade.html 
+sidebar: sidebar 
+keywords: metrocluster, upgrade, controllers, switchover, switchback, ip, configuration, net, boot, root, aggregate, system, commands, mcc, complete 
+summary: Führen Sie nach dem Upgrade der Controller-Module die erforderlichen Aufgaben aus, um das Controller-Upgrade abzuschließen. 
+---
+= Schließen Sie das MetroCluster IP-Controller-Upgrade ab
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Führen Sie nach dem Upgrade der Controller-Module die erforderlichen Aufgaben aus, um das Controller-Upgrade abzuschließen.
+
+
+
+== Überprüfen Sie den Systemzustand der MetroCluster-Konfiguration
+
+Nach dem Upgrade der Controller-Module müssen Sie den Systemzustand der MetroCluster Konfiguration überprüfen.
+
+.Über diese Aufgabe
+Sie können diese Aufgabe auf jedem beliebigen Knoten in der MetroCluster-Konfiguration ausführen.
+
+.Schritte
+. Überprüfen Sie den Betrieb der MetroCluster Konfiguration:
++
+.. Bestätigen Sie die MetroCluster-Konfiguration und den normalen Betriebsmodus: +
+`metrocluster show`
+.. Führen Sie eine MetroCluster-Prüfung durch: +
+`metrocluster check run`
+.. Ergebnisse der MetroCluster-Prüfung anzeigen:
++
+`metrocluster check show`
+
+
+
+. Überprüfen Sie die MetroCluster-Konnektivität und den Status.
++
+.. Prüfen Sie die MetroCluster-IP-Verbindungen:
++
+`storage iscsi-initiator show`
+
+.. Prüfen Sie, ob die Knoten arbeiten:
++
+`metrocluster node show`
+
+.. Überprüfen Sie, ob die MetroCluster IP Schnittstellen aktiv sind:
++
+`metrocluster configuration-settings interface show`
+
+.. Überprüfen Sie, ob lokaler Failover aktiviert ist:
++
+`storage failover show`
+
+
+
+
+
+
+
+== Aktualisieren Sie die Nodes auf Cluster_A
+
+Sie müssen die Upgrade-Tasks wiederholen, um die Nodes auf „Cluster_A“ an Standort A zu aktualisieren
+
+.Schritte
+. Wiederholen Sie die Schritte, um die Knoten auf Cluster_A zu aktualisieren, beginnend mit link:upgrade-mcc-ip-manual-requirements.html["Bereiten Sie sich auf das Upgrade vor"].
++
+Während Sie die Aufgaben ausführen, werden alle Beispielreferenzen zu den Clustern und Nodes umgekehrt. Wenn das Beispiel für die Umschaltung von Cluster_A verwendet wird, erfolgt die Umschaltung von Cluster_B.
+
+
+
+
+
+== Stellen Sie die Tiebreaker- oder Mediator-Überwachung wieder her
+
+Nach Abschluss des Upgrades der MetroCluster-Konfiguration können Sie die Überwachung mit dem Tiebreaker oder Mediator Utility fortsetzen.
+
+.Schritte
+. Stellen Sie ggf. die Überwachung mithilfe des Verfahrens für Ihre Konfiguration wieder her.
++
+|===
+| Sie verwenden... | Gehen Sie wie folgt vor 
+
+
+ a| 
+Tiebreaker
+ a| 
+link:../tiebreaker/concept_configuring_the_tiebreaker_software.html#adding-metrocluster-configurations["Fügen Sie MetroCluster-Konfigurationen hinzu"].
+
+
+
+ a| 
+Mediator
+ a| 
+link:../install-ip/concept_mediator_requirements.html["Konfigurieren Sie den ONTAP Mediator-Dienst über eine MetroCluster-IP-Konfiguration"].
+
+
+
+ a| 
+Applikationen von Drittanbietern
+ a| 
+Siehe Produktdokumentation.
+
+|===
+
+
+
+
+== Senden Sie eine individuelle AutoSupport Nachricht nach der Wartung
+
+Nach Abschluss des Upgrades sollten Sie eine AutoSupport Meldung mit Angaben zum Ende der Wartung senden. Die automatische Case-Erstellung kann also fortgesetzt werden.
+
+.Schritte
+. Um mit der automatischen Erstellung von Support-Cases fortzufahren, senden Sie eine AutoSupport Meldung, um anzugeben, dass die Wartung abgeschlossen ist.
++
+.. Geben Sie den folgenden Befehl ein: +
+`system node autosupport invoke -node * -type all -message MAINT=end`
+.. Wiederholen Sie den Befehl im Partner-Cluster.
+
+
+
+
+
+
+== Konfigurieren Sie die End-to-End-Verschlüsselung
+
+Falls es von Ihrem System unterstützt wird, können Sie zwischen den MetroCluster IP-Standorten den Back-End-Verkehr, wie NVLOG- und Storage-Replizierungsdaten, verschlüsseln. Siehe link:../maintain/task-configure-encryption.html["Konfigurieren Sie die End-to-End-Verschlüsselung"] Finden Sie weitere Informationen.

@@ -13,16 +13,8 @@ summary: Die Portnutzung in einer MetroCluster IP-Konfiguration hängt vom Switc
 [role="lead"]
 Die Portnutzung in einer MetroCluster IP-Konfiguration hängt vom Switch-Modell und dem Plattformtyp ab.
 
+Lesen Sie die folgenden Überlegungen, bevor Sie die Konfigurationstabellen verwenden:
 
-
-== Unterstützte Konfigurationen
-
-Die folgenden Konfigurationen werden derzeit nicht unterstützt:
-
-* MetroCluster FC-to-IP-Transition
-
-
-.Lesen Sie diese Überlegungen durch, bevor Sie die Konfigurationstabellen verwenden
 * Zum Verbinden einer MetroCluster-Konfiguration mit acht oder zwei vier Nodes sind ONTAP 9.14.1 oder höher und RCF-Dateiversion 2.00 oder höher erforderlich.
 +
 
@@ -64,13 +56,22 @@ AFF A250, ASA A250
 | <<table_1_nvidia_sn2100,NVIDIA SN2100 Plattform-Port-Zuweisungen (Gruppe 1)>> 
 
 
-| FAS8300 AFF C400, ASA C400 AFF A400, ASA A400 FAS8700 FAS9000, AFF A700 | <<table_2_nvidia_sn2100,NVIDIA SN2100-Plattform-Port-Zuweisungen (Gruppe 2)>> 
+| AFF A20 | <<table_2_nvidia_sn2100,NVIDIA SN2100-Plattform-Port-Zuweisungen (Gruppe 2)>> 
 
 
-| AFF C800, ASA C800 AFF A800, ASA A800 FAS9500 AFF A900, ASA A900 | <<table_3_nvidia_sn2100,NVIDIA SN2100-Plattform-Port-Zuweisungen (Gruppe 3)>> 
+| AFF C30, AFF A30 AFF C60 | <<table_3_nvidia_sn2100,NVIDIA SN2100-Plattform-Port-Zuweisungen (Gruppe 3)>> 
 
 
-| AFF A70 AFF A90 AFF A1K *Hinweis:* Diese Systeme erfordern ONTAP 9.15.1 oder höher. | <<table_4_nvidia_sn2100,NVIDIA SN2100-Plattform-Port-Zuweisungen (Gruppe 4)>> 
+| FAS8300 AFF C400, ASA C400 AFF A400, ASA A400 FAS8700 FAS9000, AFF A700 | <<table_4_nvidia_sn2100,NVIDIA SN2100-Plattform-Port-Zuweisungen (Gruppe 4)>> 
+
+
+| AFF A50 | <<table_5_nvidia_sn2100,NVIDIA SN2100 Plattform-Port-Zuweisungen (Gruppe 5)>> 
+
+
+| AFF C800, ASA C800 AFF A800, ASA A800 FAS9500 AFF A900, ASA A900 | <<table_6_nvidia_sn2100,NVIDIA SN2100 Plattform-Port-Zuweisungen (Gruppe 6)>> 
+
+
+| FAS70, AFF A70 AFF C80 FAS90, AFF A90 AFF A1K | <<table_7_nvidia_sn2100,NVIDIA SN2100 Plattform-Port-Zuweisungen (Gruppe 7)>> 
 |===
 .NVIDIA SN2100 Plattform-Port-Zuweisungen (Gruppe 1)
 Überprüfen Sie die Zuordnungen der Plattformports zur Verkabelung von AFF A150, ASA A150, FAS500f, AFF C250, ASA C250, AFF A250 oder ASA A250-System auf einem NVIDIA SN2100-Switch:
@@ -79,23 +80,38 @@ AFF A250, ASA A250
 image::../media/mcc-ip-cabling-aff-asa-a150-fas500f-a25-c250-MSN2100.png[Zeigt die Zuweisung von NVIDIA SN2100-Plattform-Ports]
 
 .NVIDIA SN2100-Plattform-Port-Zuweisungen (Gruppe 2)
-Prüfen der Plattform-Port-Zuordnungen für die Verkabelung einer FAS8300, AFF C400, ASA C400, AFF A400, ASA A400 FAS8700, FAS9000 oder AFF A700 System auf einem NVIDIA SN2100 Switch:
+Überprüfen Sie die Zuordnungen der Plattform-Ports, um ein AFF A20-System mit einem NVIDIA SN2100-Switch zu verkabeln:
 
-image::../media/mcc_ip_cabling_aff_asa_c400_a400_fas8700_fas9000_MSN2100.png[Zeigt die Zuweisung von NVIDIA SN2100-Plattform-Ports]
-
-*Hinweis 1*: Wenn Sie einen X91440A Adapter (40Gbps) verwenden, verwenden Sie entweder die Ports e4a und e4e oder e4a und e8a. Wenn Sie einen X91153A-Adapter (100 Gbit/s) verwenden, verwenden Sie entweder die Ports e4a und e4b oder e4a und e8a.
+[#table_2_nvidia_sn2100]
+image::../media/mccip-cabling-aff-a20-nvidia-sn2100.png[Zeigt die Zuweisung von NVIDIA SN2100-Plattform-Ports]
 
 .NVIDIA SN2100-Plattform-Port-Zuweisungen (Gruppe 3)
+Überprüfen Sie die Zuordnungen der Plattform-Ports, um ein AFF C30-, AFF A30- oder AFF C60-System mit einem NVIDIA SN2100-Switch zu verkabeln:
+
+[#table_3_nvidia_sn2100]
+image::../media/mccip-cabling-aff-a30-c30-c60-nvidia-sn2100.png[Zeigt die Zuweisung von NVIDIA SN2100-Plattform-Ports]
+
+.NVIDIA SN2100-Plattform-Port-Zuweisungen (Gruppe 4)
+Prüfen der Plattform-Port-Zuordnungen für die Verkabelung einer FAS8300, AFF C400, ASA C400, AFF A400, ASA A400 FAS8700, FAS9000 oder AFF A700 System auf einem NVIDIA SN2100 Switch:
+
+image::../media/mccip-cabling-fas8300-aff-a400-c400-a700-fas900-nvidaia-sn2100.png[Zeigt die Zuweisung von NVIDIA SN2100-Plattform-Ports]
+
+*Hinweis 1*: Verwenden Sie entweder die Ports e4a und e4e oder e4a und e8a, wenn Sie einen X91440A Adapter (40Gbps) verwenden. Verwenden Sie entweder die Ports e4a und e4b oder e4a und e8a, wenn Sie einen X91153A-Adapter (100 Gbit/s) verwenden.
+
+.NVIDIA SN2100 Plattform-Port-Zuweisungen (Gruppe 5)
+Überprüfen Sie die Zuordnungen der Plattform-Ports, um ein AFF A50-System mit einem NVIDIA SN2100-Switch zu verkabeln:
+
+[#table_5_nvidia_sn2100]
+image::../media/mccip-cabling-aff-a50-nvidia-sn2100.png[Zeigt die Zuweisung von NVIDIA SN2100-Plattform-Ports]
+
+.NVIDIA SN2100 Plattform-Port-Zuweisungen (Gruppe 6)
 Plattform-Port-Zuordnungen zur Verkabelung von AFF C800, ASA C800, AFF A800, ASA A800, FAS9500 prüfen AFF A900 oder ASA A900 System zu einem NVIDIA SN2100-Switch:
 
 image::../media/mcc_ip_cabling_fas8300_aff_asa_a800_a900_fas9500_MSN2100.png[Zeigt die Zuweisung von NVIDIA SN2100-Plattform-Ports]
 
-*Hinweis 1*: Wenn Sie einen X91440A Adapter (40Gbps) verwenden, verwenden Sie entweder die Ports e4a und e4e oder e4a und e8a. Wenn Sie einen X91153A-Adapter (100 Gbit/s) verwenden, verwenden Sie entweder die Ports e4a und e4b oder e4a und e8a.
+*Hinweis 1*: Verwenden Sie entweder die Ports e4a und e4e oder e4a und e8a, wenn Sie einen X91440A Adapter (40Gbps) verwenden. Verwenden Sie entweder die Ports e4a und e4b oder e4a und e8a, wenn Sie einen X91153A-Adapter (100 Gbit/s) verwenden.
 
-.NVIDIA SN2100-Plattform-Port-Zuweisungen (Gruppe 4)
-Überprüfen Sie die Zuweisung der Plattform-Ports, um ein AFF A90-, AFF A70- oder AFF A1K-System mit einem NVIDIA SN2100-Switch zu verkabeln:
+.NVIDIA SN2100 Plattform-Port-Zuweisungen (Gruppe 7)
+Prüfen Sie die Zuordnungen der Plattform-Ports, um ein FAS70-, AFF A70-, AFF C80-, FAS90-, AFF A90- oder AFF A1K-System mit einem NVIDIA SN2100-Switch zu verkabeln:
 
-
-NOTE: Für die in dieser Tabelle aufgeführten Systeme ist ONTAP 9.15.1 oder höher erforderlich.
-
-image::../media/mcc_ip_cabling_fas8300_aff_a90_a70_a1k_MSN2100.png[Zeigt die Zuweisung von NVIDIA SN2100-Plattform-Ports]
+image::../media/mccip-cabling-fas90-fas70-aff-a70--a90-c80-a1k-nvidia-sn2100.png[Zeigt die Zuweisung von NVIDIA SN2100-Plattform-Ports]

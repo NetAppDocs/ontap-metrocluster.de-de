@@ -1,0 +1,730 @@
+---
+permalink: upgrade/upgrade-mcc-ip-prepare-system.html 
+sidebar: sidebar 
+keywords: metrocluster, upgrade, controllers, switchover, switchback, ip, configuration, net, boot, root, aggregate, system, commands, mcc 
+summary: Bevor Sie Änderungen an der bestehenden MetroCluster Konfiguration vornehmen, müssen Sie den Zustand der Konfiguration überprüfen, die neuen Plattformen vorbereiten und andere verschiedene Aufgaben ausführen. 
+---
+= Bereiten Sie das MetroCluster IP-System für das Upgrade vor
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Bevor Sie Änderungen an der vorhandenen MetroCluster Konfiguration vornehmen, überprüfen Sie den Zustand der Konfiguration, bereiten die neuen Plattformen vor und führen verschiedene andere Aufgaben aus.
+
+
+
+== Aktualisieren Sie die RCFs des MetroCluster-Switches, bevor Sie die Controller aktualisieren
+
+Je nach den alten und neuen Plattformmodellen müssen Sie möglicherweise die Referenzkonfigurationsdateien (RCFs) des MetroCluster-Switches aktualisieren, bevor Sie ein Controller-Upgrade durchführen.
+
+.Über diese Aufgabe
+Führen Sie diese Aufgabe unter folgenden Umständen aus:
+
+* Die Switch-RCF-Konfiguration ist nicht auf der Mindestversion.
+* Sie müssen die VLAN-IDs ändern, die von den Back-End-MetroCluster-Verbindungen verwendet werden.
+
+
+.Bevor Sie beginnen
+Prüfen Sie, ob Sie die RCFs vor dem Upgrade der Controller aktualisieren müssen:
+
+* Wenn die Switch-Konfiguration nicht mit der unterstützten RCF-Mindestversion konfiguriert wurde, müssen Sie die RCFs vor dem Upgrade Ihrer Controller aktualisieren:
++
+|===
+
+
+| Switch-Modell | Erforderliche RCF-Version 
+
+
+ a| 
+Cisco 3132Q-V
+ a| 
+1.7 oder höher
+
+
+
+ a| 
+Cisco 3232C
+ a| 
+1.7 oder höher
+
+
+
+ a| 
+Broadcom BES-53248
+ a| 
+1.3 oder höher
+
+
+
+ a| 
+NVIDIA SN2100
+ a| 
+2.0 oder höher
+
+|===
+* Wenn beide Ihrer alten und neuen Plattformmodelle in der folgenden Liste aufgeführt sind, müssen Sie die VLAN-ID vor dem Upgrade der Controller * nicht * aktualisieren:
++
+** FAS8200 oder AFF A300
+** AFF A320
+** FAS9000 oder AFF A700
+** AFF A800, AFF C800, ASA A800 oder ASA C800
++
+Wenn eines Ihrer alten oder neuen Plattformmodelle oben nicht aufgeführt ist, müssen Sie bestätigen, dass die MetroCluster-Schnittstellen eine unterstützte VLAN-ID verwenden. Unterstützte VLAN-IDs für die MetroCluster-Schnittstellen: 10, 20 oder im Bereich von 101 bis 4096.
+
++
+[CAUTION]
+====
+*** Wenn die VLAN-ID nicht 10, 20 oder im Bereich von 101 bis 4096 lautet, müssen Sie die Switch-RCF aktualisieren, bevor Sie die Controller aktualisieren.
+*** Die lokalen Cluster-Verbindungen können jedes beliebige VLAN verwenden, sie müssen sich nicht im angegebenen Bereich befinden.
+*** Die neue RCF, auf die Sie aktualisieren, muss die VLANs 10, 20 oder im Bereich 101 bis 4096 verwenden. Ändern Sie das VLAN für den lokalen Cluster nur, wenn es erforderlich ist.
+
+
+====
+
+
+
+
+.Schritte
+. Bereiten Sie die IP-Switches auf die Anwendung der neuen RCFs vor.
++
+Befolgen Sie die Schritte im Abschnitt für Ihren Switch-Anbieter:
+
++
+
+NOTE: Sie sollten die Schalter in der folgenden Reihenfolge aktualisieren: Switch_A_1, Switch_B_1, Switch_A_2, Switch_B_2.
+
++
+** link:../install-ip/task_switch_config_broadcom.html#resetting-the-broadcom-ip-switch-to-factory-defaults["Setzen Sie den Broadcom IP-Switch auf die Werkseinstellungen zurück"]
+** link:../install-ip/task_switch_config_cisco.html#resetting-the-cisco-ip-switch-to-factory-defaults["Setzen Sie den Cisco IP-Switch auf die Werkseinstellungen zurück"]
+** link:../install-ip/task_switch_config_nvidia.html#reset-the-nvidia-ip-sn2100-switch-to-factory-defaults["Setzen Sie den NVIDIA IP SN2100-Switch auf die Werkseinstellungen zurück"]
+
+
+. Laden Sie die RCFs herunter, und installieren Sie sie.
++
+Befolgen Sie die Schritte im Abschnitt für Ihren Switch-Anbieter:
+
++
+** link:../install-ip/task_switch_config_broadcom.html#downloading-and-installing-the-broadcom-rcf-files["Laden Sie die Broadcom RCFs herunter, und installieren Sie sie"]
+** link:../install-ip/task_switch_config_cisco.html#downloading-and-installing-the-cisco-ip-rcf-files["Laden Sie die Cisco IP-RCFs herunter, und installieren Sie sie"]
+** link:../install-ip/task_switch_config_nvidia.html#download-and-install-the-nvidia-rcf-files["Laden Sie die NVIDIA IP-RCFs herunter, und installieren Sie sie"]
+
+
+
+
+
+
+== Weisen Sie den neuen Nodes Ports von den alten Nodes zu
+
+Sie müssen überprüfen, ob die physischen Ports auf Node_A_1-old den physischen Ports auf Node_A_1-New richtig zugeordnet sind. Dadurch kann Node_A_1-New nach dem Upgrade mit anderen Knoten im Cluster und mit dem Netzwerk kommunizieren.
+
+.Über diese Aufgabe
+Beim ersten Booten des neuen Node während des Upgrades wird die aktuellste Konfiguration des alten Node wiedergegeben, den er ersetzt. Wenn Sie Node_A_1-New booten, versucht ONTAP, LIFs auf denselben Ports zu hosten, die in Node_A_1-old verwendet wurden. Das bedeutet, dass Sie im Rahmen des Upgrades die Port- und LIF-Konfiguration anpassen müssen, sodass sie mit der Konfiguration des alten Node kompatibel ist. Während des Upgrades führen Sie sowohl für die alten als auch für die neuen Nodes Schritte aus, um die korrekte Konfiguration der Cluster-, Management- und Daten-LIFs zu gewährleisten
+
+Die folgende Tabelle zeigt Beispiele für Konfigurationsänderungen in Bezug auf die Portanforderungen der neuen Nodes.
+
+|===
+
+
+3+| Physische Ports für Cluster-Interconnect 
+
+
+| Alter Controller | Neuer Controller | Erforderliche Maßnahme 
+
+
+ a| 
+e0a, e0b
+ a| 
+e3a, e3b
+ a| 
+Kein passender Port. Nach dem Upgrade müssen Sie die Cluster-Ports neu erstellen.
+
+
+
+ a| 
+e0c, e0d
+ a| 
+e0a, e0b, e0c, e0d
+ a| 
+e0c und e0d sind passende Anschlüsse. Sie müssen die Konfiguration nicht ändern, aber nach dem Upgrade können Sie Ihre Cluster LIFs auf die verfügbaren Cluster-Ports verteilen.
+
+|===
+.Schritte
+. Legen Sie fest, welche physischen Ports auf den neuen Controllern verfügbar sind und welche LIFs auf den Ports gehostet werden können.
++
+Die Port-Nutzung des Controllers hängt vom Plattformmodul ab und welche Switches Sie in der MetroCluster IP-Konfiguration verwenden werden. Sie können die Port-Nutzung der neuen Plattformen aus der link:https://hwu.netapp.com["Hardware Universe"^].
+
+. Planen Sie Ihre Portnutzung und füllen Sie die folgenden Tabellen als Referenz für jeden der neuen Nodes aus.
++
+Sie verweisen auf die Tabelle, während Sie das Upgrade-Verfahren durchführen.
+
++
+|===
+
+
+|  3+| Node_A_1-alt 3+| Node_A_1-neu 
+
+
+| LIF | Ports | IPspaces | Broadcast-Domänen | Ports | IPspaces | Broadcast-Domänen 
+
+
+ a| 
+Cluster 1
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+Cluster 2
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+Cluster 3
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+Cluster 4
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+Node-Management
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+Cluster-Management
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+Daten 1
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+Daten 2
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+Daten 3
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+Daten 4
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+San
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+Intercluster-Port
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+|===
+
+
+
+
+== Booten Sie die neuen Controller ein
+
+Nachdem Sie die neuen Nodes installiert haben, müssen Sie als Netzboot fahren, damit die neuen Nodes dieselbe Version von ONTAP wie die ursprünglichen Nodes ausführen. Der Begriff Netzboot bedeutet, dass Sie über ein ONTAP Image, das auf einem Remote Server gespeichert ist, booten. Wenn Sie das Netzboot vorbereiten, müssen Sie eine Kopie des ONTAP 9 Boot Images auf einem Webserver ablegen, auf den das System zugreifen kann.
+
+.Schritte
+. Netzboot der neuen Controller:
++
+.. Auf das zugreifen link:https://mysupport.netapp.com/site/["NetApp Support Website"^] Zum Herunterladen der Dateien zum Ausführen des Netzboots des Systems.
+.. Laden Sie die entsprechende ONTAP Software im Bereich Software Downloads auf der NetApp Support Website herunter und speichern Sie die `ontap-version_image.tgz` Datei in einem webbasierten Verzeichnis.
+.. Wechseln Sie in das Verzeichnis für den Zugriff über das Internet, und stellen Sie sicher, dass die benötigten Dateien verfügbar sind.
++
+Ihre Verzeichnisliste sollte einen Netzboot-Ordner mit einer Kernel-Datei enthalten:
+
++
+`_ontap-version_image.tgz`
+
++
+Sie müssen die Datei nicht extrahieren `_ontap-version_image.tgz`.
+
+.. Konfigurieren Sie an der `LOADER` Eingabeaufforderung die Netzboot-Verbindung für eine Management-LIF:
++
+|===
+
+
+| Wenn IP-Adresse... | Dann... 
+
+
+ a| 
+DHCP
+ a| 
+Konfigurieren der automatischen Verbindung:
+
+`ifconfig e0M -auto`
+
+
+
+ a| 
+Festgelegt
+ a| 
+Konfigurieren Sie die manuelle Verbindung:
+
+`ifconfig e0M -addr=_ip_addr_ -mask=_netmask_ -gw=_gateway_`
+
+|===
+.. Führen Sie den Netzboot aus.
++
+`netboot \http://_web_server_ip/path_to_web-accessible_directory/ontap-version_image.tgz`
+
+.. Wählen Sie im Startmenü die Option **(7) Neue Software zuerst installieren** aus, um das neue Software-Image auf das Startgerät herunterzuladen und zu installieren.
++
+Ignorieren Sie die folgende Meldung:
+
++
+`"This procedure is not supported for Non-Disruptive Upgrade on an HA pair"`. Dies gilt für unterbrechungsfreie Software-Upgrades, nicht für Controller-Upgrades.
+
+.. Wenn Sie aufgefordert werden, den Vorgang fortzusetzen, geben Sie ein `y`, Und wenn Sie zur Eingabe des Pakets aufgefordert werden, geben Sie die URL der Bilddatei ein:
++
+`http://__web_server_ip/path_to_web-accessible_directory/ontap-version___image.tgz`
+
+.. Geben Sie ggf. den Benutzernamen und das Kennwort ein, oder drücken Sie die Eingabetaste, um fortzufahren.
+.. Seien Sie dabei `n` So überspringen Sie die Backup-Recovery, wenn eine Eingabeaufforderung wie die folgende angezeigt wird:
++
+[listing]
+----
+Do you want to restore the backup configuration now? {y|n} n
+----
+.. Starten Sie den Neustart durch Eingabe `*y*` Wenn eine Eingabeaufforderung wie die folgende angezeigt wird:
++
+[listing]
+----
+The node must be rebooted to start using the newly installed software. Do you want to reboot now? {y|n}
+----
+
+
+
+
+
+
+== Löschen Sie die Konfiguration auf einem Controller-Modul
+
+Bevor Sie in der MetroCluster-Konfiguration ein neues Controller-Modul verwenden, müssen Sie die vorhandene Konfiguration löschen.
+
+.Schritte
+. Halten Sie den Node gegebenenfalls an, um die Eingabeaufforderung anzuzeigen `LOADER`:
++
+`halt`
+
+. Legen Sie an der `LOADER` Eingabeaufforderung die Umgebungsvariablen auf die Standardwerte fest:
++
+`set-defaults`
+
+. Umgebung speichern:
++
+`saveenv`
+
+. Starten Sie an der `LOADER` Eingabeaufforderung das Startmenü:
++
+`boot_ontap menu`
+
+. Löschen Sie an der Eingabeaufforderung des Startmenüs die Konfiguration:
++
+`wipeconfig`
+
++
+Antworten `yes` An die Bestätigungsaufforderung.
+
++
+Der Node wird neu gebootet, und das Startmenü wird erneut angezeigt.
+
+. Wählen Sie im Startmenü die Option *5*, um das System im Wartungsmodus zu booten.
++
+Antworten `yes` An die Bestätigungsaufforderung.
+
+
+
+
+
+== Überprüfen Sie vor Standort-Upgrade den MetroCluster-Zustand
+
+Vor dem Upgrade müssen Sie den Zustand und die Konnektivität der MetroCluster Konfiguration überprüfen.
+
+.Schritte
+. Überprüfen Sie den Betrieb der MetroCluster-Konfiguration in ONTAP:
++
+.. Prüfen Sie, ob die Knoten multipathed sind: +
+`node run -node <node_name> sysconfig -a`
++
+Geben Sie diesen Befehl für jeden Node in der MetroCluster-Konfiguration ein.
+
+.. Stellen Sie sicher, dass in der Konfiguration: + keine defekten Festplatten vorhanden sind
+`storage disk show -broken`
++
+Geben Sie diesen Befehl für jeden Node in der MetroCluster-Konfiguration ein.
+
+.. Überprüfen Sie auf Statusmeldungen:
++
+`system health alert show`
+
++
+Geben Sie diesen Befehl für jedes Cluster ein.
+
+.. Überprüfen Sie die Lizenzen auf den Clustern:
++
+`system license show`
+
++
+Geben Sie diesen Befehl für jedes Cluster ein.
+
+.. Überprüfen Sie die mit den Knoten verbundenen Geräte:
++
+`network device-discovery show`
+
++
+Geben Sie diesen Befehl für jedes Cluster ein.
+
+.. Vergewissern Sie sich, dass Zeitzone und Uhrzeit auf beiden Standorten richtig eingestellt sind:
++
+`cluster date show`
+
++
+Geben Sie diesen Befehl für jedes Cluster ein. Sie können die Uhrzeit und die Zeitzone mit den `cluster date` Befehlen konfigurieren.
+
+
+
+. Überprüfen Sie den Betriebsmodus der MetroCluster Konfiguration, und führen Sie eine MetroCluster-Prüfung durch.
++
+.. Bestätigen Sie die MetroCluster-Konfiguration und den Betriebsmodus `normal`: +
+`metrocluster show`
+.. Vergewissern Sie sich, dass alle erwarteten Knoten angezeigt werden: +
+`metrocluster node show`
+.. Geben Sie den folgenden Befehl ein:
++
+`metrocluster check run`
+
+.. Ergebnisse der MetroCluster-Prüfung anzeigen:
++
+`metrocluster check show`
+
+
+
+. Prüfen Sie die MetroCluster-Verkabelung mit dem Tool Config Advisor.
++
+.. Laden Sie Config Advisor herunter und führen Sie sie aus.
++
+https://mysupport.netapp.com/site/tools/tool-eula/activeiq-configadvisor["NetApp Downloads: Config Advisor"]
+
+.. Überprüfen Sie nach dem Ausführen von Config Advisor die Ausgabe des Tools und befolgen Sie die Empfehlungen in der Ausgabe, um die erkannten Probleme zu beheben.
+
+
+
+
+
+
+== Sammeln Sie vor dem Upgrade Informationen
+
+Vor dem Upgrade müssen Informationen für alle Nodes gesammelt und bei Bedarf die Netzwerk-Broadcast-Domänen angepasst, beliebige VLANs und Schnittstellengruppen entfernt und Verschlüsselungsinformationen gesammelt werden.
+
+.Schritte
+. Notieren Sie die physische Verkabelung für jeden Node und kennzeichnen Sie die Kabel nach Bedarf, damit die neue Nodes ordnungsgemäß verkabelt werden.
+. Sammeln Sie Interconnect-, Port- und LIF-Informationen für die einzelnen Nodes.
++
+Sammeln Sie die Ausgabe der folgenden Befehle für jeden Node:
+
++
+** `metrocluster interconnect show`
+** `metrocluster configuration-settings connection show`
+** `network interface show -role cluster,node-mgmt`
+** `network port show -node <node_name> -type physical`
+** `network port vlan show -node <node_name>`
+** `network port ifgrp show -node <node_name> -instance`
+** `network port broadcast-domain show`
+** `network port reachability show -detail`
+** `network ipspace show`
+** `volume show`
+** `storage aggregate show`
+** `system node run -node <node_name> sysconfig -a`
+** `aggr show -r`
+** `disk show`
+** `system node run <node-name> disk show`
+** `vol show -fields type`
+** `vol show -fields type , space-guarantee`
+** `vserver fcp initiator show`
+** `storage disk show`
+** `metrocluster configuration-settings interface show`
+
+
+. Erfassen Sie die UUIDs für Site_B (die Site, an der die Plattformen gerade aktualisiert werden):
++
+`metrocluster node show -fields node-cluster-uuid, node-uuid`
+
++
+Diese Werte müssen auf den neuen Controller-Modulen „Site_B“ genau konfiguriert werden, um eine erfolgreiche Aktualisierung zu gewährleisten. Kopieren Sie die Werte in eine Datei, damit Sie sie später im Aktualisierungsvorgang in die Befehle kopieren können.
+
++
+Im folgenden Beispiel wird die Befehlsausgabe mit den UUIDs angezeigt:
+
++
+[listing]
+----
+cluster_B::> metrocluster node show -fields node-cluster-uuid, node-uuid
+  (metrocluster node show)
+dr-group-id cluster     node   node-uuid                            node-cluster-uuid
+----------- --------- -------- ------------------------------------ ------------------------------
+1           cluster_A node_A_1 f03cb63c-9a7e-11e7-b68b-00a098908039 ee7db9d5-9a82-11e7-b68b-00a098908039
+1           cluster_A node_A_2 aa9a7a7a-9a81-11e7-a4e9-00a098908c35 ee7db9d5-9a82-11e7-b68b-00a098908039
+1           cluster_B node_B_1 f37b240b-9ac1-11e7-9b42-00a098c9e55d 07958819-9ac6-11e7-9b42-00a098c9e55d
+1           cluster_B node_B_2 bf8e3f8f-9ac4-11e7-bd4e-00a098ca379f 07958819-9ac6-11e7-9b42-00a098c9e55d
+4 entries were displayed.
+cluster_B::*
+----
++
+NetApp empfiehlt, die UUIDs in einer Tabelle wie der folgenden aufzuzeichnen:
+
++
+|===
+
+
+| Cluster oder Node | UUID 
+
+
+ a| 
+Cluster_B
+ a| 
+07958819-9ac6-11e7-9b42-00a098c9e55d
+
+
+
+ a| 
+Knoten_B_1
+ a| 
+F37b240b-9ac1-11e7-9b42-00a098c9e55d
+
+
+
+ a| 
+Knoten_B_2
+ a| 
+Bf8e3f8f-9ac4-11e7-bd4e-00a098ca379f
+
+
+
+ a| 
+Cluster_A
+ a| 
+E7db9d5-9a82-11e7-b68b-00a098908039
+
+
+
+ a| 
+Node_A_1
+ a| 
+F03cb63c-9a7e-11e7-b68b-00a098908039
+
+
+
+ a| 
+Node_A_2
+ a| 
+Aa9a7a7a-9a81-11e7-a4e9-00a098908c35
+
+|===
+. Wenn sich die MetroCluster-Nodes in einer SAN-Konfiguration befinden, sammeln Sie die relevanten Informationen.
++
+Sammeln Sie die Ausgabe der folgenden Befehle:
+
++
+** `fcp adapter show -instance`
+** `fcp interface show -instance`
+** `iscsi interface show`
+** `ucadmin show`
+
+
+. Wenn das Root-Volume verschlüsselt ist, erfassen und speichern Sie die für den Schlüsselmanager verwendete Passphrase:
++
+`security key-manager backup show`
+
+. Wenn die MetroCluster Nodes Verschlüsselung für Volumes oder Aggregate nutzen, kopieren Sie Informationen zu Schlüsseln und Passphrases.
++
+Weitere Informationen finden Sie unter https://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-nve/GUID-1677AE0A-FEF7-45FA-8616-885AA3283BCF.html["Manuelles Backup der integrierten Informationen für das Verschlüsselungsmanagement"].
+
++
+.. Wenn Onboard Key Manager konfiguriert ist: +
+`security key-manager onboard show-backup`
++
+Sie benötigen die Passphrase später im Upgrade-Verfahren.
+
+.. Wenn das Enterprise-Verschlüsselungsmanagement (KMIP) konfiguriert ist, geben Sie die folgenden Befehle ein:
++
+`security key-manager external show -instance`
+`security key-manager key query`
+
+
+
+. Ermitteln Sie die System-IDs der vorhandenen Nodes:
++
+`metrocluster node show -fields node-systemid,ha-partner-systemid,dr-partner-systemid,dr-auxiliary-systemid`
+
++
+Die folgende Ausgabe zeigt die neu zugewiesen Laufwerke.
+
++
+[listing]
+----
+::> metrocluster node show -fields node-systemid,ha-partner-systemid,dr-partner-systemid,dr-auxiliary-systemid
+
+dr-group-id cluster     node     node-systemid ha-partner-systemid dr-partner-systemid dr-auxiliary-systemid
+----------- ----------- -------- ------------- ------------------- ------------------- ---------------------
+1           cluster_A node_A_1   537403324     537403323           537403321           537403322
+1           cluster_A node_A_2   537403323     537403324           537403322           537403321
+1           cluster_B node_B_1   537403322     537403321           537403323           537403324
+1           cluster_B node_B_2   537403321     537403322           537403324           537403323
+4 entries were displayed.
+----
+
+
+
+
+== Entfernen Sie die Mediator- oder Tiebreaker-Überwachung
+
+Vor dem Aktualisieren der Plattformen müssen Sie die Überwachung entfernen, wenn die MetroCluster-Konfiguration mit dem Tiebreaker oder Mediator Utility überwacht wird.
+
+.Schritte
+. Sammeln Sie die Ausgabe für den folgenden Befehl:
++
+`storage iscsi-initiator show`
+
+. Entfernen Sie die vorhandene MetroCluster-Konfiguration von Tiebreaker, Mediator oder einer anderen Software, die die Umschaltung initiieren kann.
++
+|===
+
+
+| Sie verwenden... | Gehen Sie folgendermaßen vor: 
+
+
+ a| 
+Tiebreaker
+ a| 
+link:../tiebreaker/concept_configuring_the_tiebreaker_software.html#removing-metrocluster-configurations["Entfernen von MetroCluster-Konfigurationen"]
+
+
+
+ a| 
+Mediator
+ a| 
+Geben Sie den folgenden Befehl an der ONTAP-Eingabeaufforderung ein:
+
+`metrocluster configuration-settings mediator remove`
+
+
+
+ a| 
+Applikationen von Drittanbietern
+ a| 
+Siehe Produktdokumentation.
+
+|===
+
+
+
+
+== Senden Sie vor der Wartung eine individuelle AutoSupport Nachricht
+
+Bevor Sie die Wartung durchführen, sollten Sie eine AutoSupport Meldung ausgeben, um den technischen Support von NetApp über die laufende Wartung zu informieren. Die Mitteilung des technischen Supports über laufende Wartungsarbeiten verhindert, dass ein Fall eröffnet wird, wenn eine Störung aufgetreten ist.
+
+.Über diese Aufgabe
+Diese Aufgabe muss auf jedem MetroCluster-Standort ausgeführt werden.
+
+.Schritte
+. Melden Sie sich bei dem Cluster an.
+. Rufen Sie eine AutoSupport-Meldung auf, die den Beginn der Wartung angibt:
++
+`system node autosupport invoke -node * -type all -message MAINT=__maintenance-window-in-hours__`
+
++
+Der `maintenance-window-in-hours` Parameter gibt die Länge des Wartungsfensters an, mit maximal 72 Stunden. Wenn die Wartung vor dem Vergehen der Zeit abgeschlossen ist, können Sie eine AutoSupport-Meldung mit dem Ende des Wartungszeitraums aufrufen:
+
++
+`system node autosupport invoke -node * -type all -message MAINT=end`
+
+. Wiederholen Sie diese Schritte auf der Partner-Site.
+
+
+.Was kommt als Nächstes?
+link:upgrade-mcc-ip-manual-switchover.html["Wechseln Sie über die MetroCluster-Konfiguration"].

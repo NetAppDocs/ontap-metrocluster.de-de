@@ -1,0 +1,29 @@
+---
+permalink: upgrade/upgrade-mcc-ip-system-controller-replace.html 
+sidebar: sidebar 
+keywords: metrocluster, upgrade, controllers, switchover, switchback, ip, configuration, net, boot, root, aggregate, system, commands, mcc 
+summary: Sie können diese geführte automatische MetroCluster-Umschaltung verwenden, um ein unterbrechungsfreies Controller-Upgrade für eine MetroCluster IP-Konfiguration mit vier Nodes durchzuführen. 
+---
+= Workflow für das Upgrade von MetroCluster IP-Controllern mithilfe von Befehlen „System Controller Replace“ (ONTAP 9.13.1 oder höher)
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können diesen geführten automatischen MetroCluster-Switchover-Vorgang verwenden, um ein unterbrechungsfreies Controller-Upgrade auf einer MetroCluster IP-Konfiguration mit vier Nodes auszuführen, bei der ONTAP 9.13.1 später ausgeführt wird. Andere Komponenten (wie Storage Shelves oder Switches) können nicht im Rahmen dieses Verfahrens aktualisiert werden.
+
+.Informationen zu diesem Workflow
+Sie können diesen Workflow verwenden, um MetroCluster IP-Controller mit ONTAP 9.13.1 oder höher mithilfe von Switchover und Switchback mit Befehlen zu aktualisieren `system controller replace`.
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png["Eins"]link:upgrade-mcc-ip-system-controller-replace-supported-platforms.html["Upgrade wird vorbereitet"]
+[role="quick-margin-para"]
+Prüfen Sie die unterstützten Upgrade-Kombinationen und -Anforderungen und führen Sie die erforderlichen Aufgaben aus, um das System auf das Controller-Upgrade vorzubereiten. Das automatisierte Controller-Upgrade beginnt mit einer Reihe von Vorabprüfungen, bevor die Konfigurationsinformationen erfasst und vorhandene Monitoring-Software entfernt wird.
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-2.png["Zwei"]link:upgrade-mcc-ip-system-controller-replace-prepare-network-configuration.html["Upgrade Ihrer Controller"]
+[role="quick-margin-para"]
+Der Automatisierungsvorgang initiiert die Umschaltvorgänge. Nach Abschluss dieser Vorgänge wird der Vorgang angehalten, sodass Sie die Netzwerkkonfiguration der alten Controller vorbereiten, ein Rack erstellen und die neuen Controller installieren, die Root-Aggregat-Festplatten neu zuweisen und die neuen Controller booten können.
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-3.png["Drittens"]link:upgrade-mcc-ip-system-controller-replace-complete-upgrade.html["Schließen Sie das Upgrade ab"]
+[role="quick-margin-para"]
+Führen Sie das automatische Controller-Upgrade durch, indem Sie die Netzwerkfähigkeit überprüfen, die Upgrade-Aufgaben am zweiten Standort wiederholen und die Überwachungskonfiguration wiederherstellen.

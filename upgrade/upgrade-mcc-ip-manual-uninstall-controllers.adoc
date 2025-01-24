@@ -1,0 +1,167 @@
+---
+permalink: upgrade/upgrade-mcc-ip-manual-uninstall-controllers.html 
+sidebar: sidebar 
+keywords: metrocluster, upgrade, controllers, switchover, switchback, ip, configuration, net, boot, root, aggregate, system, commands, mcc 
+summary: Verschieben Sie Daten-LIFs auf einen gemeinsamen Port, entfernen Sie VLANs und Schnittstellengruppen auf den alten Controllern und deinstallieren Sie dann die Controller physisch. 
+---
+= Entfernen Sie die Schnittstellenkonfigurationen, und deinstallieren Sie die alten MetroCluster IP-Controller
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Überprüfen Sie die korrekte LIF-Platzierung. Entfernen Sie dann die VLANs und Schnittstellengruppen auf den alten Controllern und deinstallieren Sie die Controller physisch.
+
+.Über diese Aufgabe
+* Diese Schritte führen Sie auf den alten Controllern aus (Node_B_1-old, Node_B_2-old).
+* Sie benötigen die Informationen, die Sie für diesen Vorgang gesammelt link:upgrade-mcc-ip-prepare-system.html#map-ports-from-the-old-nodes-to-the-new-nodes["Weisen Sie den neuen Nodes Ports von den alten Nodes zu"]haben.
+
+
+.Schritte
+. Booten der alten Nodes und melden Sie sich bei den Nodes an:
++
+`boot_ontap`
+
+. Ändern Sie die Intercluster LIFs auf den alten Controllern, um einen anderen Home Port zu verwenden als die Ports, die für HA Interconnect oder MetroCluster IP DR Interconnect auf den neuen Controllern verwendet werden.
++
+
+NOTE: Dieser Schritt ist für ein erfolgreiches Upgrade erforderlich.
+
++
+Die Intercluster LIFs auf den alten Controllern müssen einen anderen Home Port verwenden als die Ports, die für HA Interconnect oder MetroCluster IP DR Interconnect auf den neuen Controllern verwendet werden. Wenn Sie beispielsweise auf AFF A90 Controller aktualisieren, sind die HA Interconnect-Ports e1a und e7a und die MetroCluster IP DR Interconnect-Ports e2b und e3b. Sie müssen die Intercluster LIFs auf den alten Controllern verschieben, wenn sie auf den Ports e1a, e7a, e2b oder e3b gehostet werden.
+
++
+Informationen zur Portverteilung und -Zuweisung auf den neuen Knoten finden Sie im https://hwu.netapp.com["Hardware Universe"].
+
++
+.. Sehen Sie sich auf den alten Controllern die Intercluster LIFs an:
++
+`network interface show  -role intercluster`
+
++
+Je nachdem, ob die Intercluster LIFs auf den alten Controllern die gleichen Ports verwenden, wie die Ports für HA Interconnect oder den MetroCluster IP DR Interconnect auf den neuen Controllern.
+
++
+[cols="2*"]
+|===
+| Wenn die Intercluster LIFs... | Gehe zu... 
+
+
+| Verwenden Sie denselben Home-Port | <<controller_manual_upgrade_prepare_network_ports_2b,Unterschritt b>> 
+
+
+| Verwenden Sie einen anderen Home-Port | <<controller_manual_upgrade_prepare_network_ports_3,Schritt 3>> 
+|===
+.. [[Controller_manual_Upgrade_prepare_Network_Ports_2b]]Ändern Sie die Intercluster-LIFs so, dass sie einen anderen Home Port verwenden:
++
+`network interface modify -vserver <vserver> -lif <intercluster_lif> -home-port <port-not-used-for-ha-interconnect-or-mcc-ip-dr-interconnect-on-new-nodes>`
+
+.. Überprüfen Sie, ob sich alle Intercluster LIFs an ihren neuen Home Ports befinden:
++
+`network interface show -role intercluster -is-home  false`
+
++
+Die Befehlsausgabe sollte leer sein und bedeutet, dass sich alle Intercluster LIFs auf ihren jeweiligen Home Ports befinden.
+
+.. Zurücksetzen aller LIFs, die sich nicht auf ihrem Home Port befinden:
++
+`network interface revert -lif <intercluster_lif>`
+
++
+Wiederholen Sie den Befehl für jede Intercluster LIF, die sich nicht im Home Port befindet.
+
+
+
+. [[Controller_manual_Upgrade_prepare_Network_Ports_3]]Zuweisen des Home-Ports aller Daten-LIFs auf dem alten Controller zu einem gemeinsamen Port, der sowohl auf den alten als auch auf den neuen Controller-Modulen identisch ist.
++
+
+CAUTION: Wenn die alten und neuen Controller keinen gemeinsamen Port haben, müssen Sie die Daten-LIFs nicht ändern. Überspringen Sie diesen Schritt und gehen Sie direkt zu <<upgrades_manual_without_matching_ports,Schritt 4>>.
+
++
+.. Anzeigen der LIFs:
++
+`network interface show`
+
++
+Alle Daten-LIFS wie SAN und NAS sind Administrator betriebsbereit und betriebsbereit, da sie sich am Switchover-Standort (Cluster_A) befinden.
+
+.. Überprüfen Sie die Ausgabe, um einen gemeinsamen physischen Netzwerk-Port zu finden, der auf den alten und den neuen Controllern identisch ist, die nicht als Cluster-Port verwendet werden.
++
+e0d ist zum Beispiel ein physischer Port auf den alten Controllern und ist auch auf neuen Controllern vorhanden. e0d wird nicht als Cluster-Port oder anderweitig auf den neuen Controllern verwendet.
+
++
+Informationen zur Portnutzung für Plattformmodelle finden Sie im https://hwu.netapp.com/["Hardware Universe"]
+
+.. Ändern Sie alle DATEN-LIFS, um den gemeinsamen Port als Home Port zu verwenden: +
+`network interface modify -vserver <svm-name> -lif <data-lif> -home-port <port-id>`
++
+Im folgenden Beispiel ist dies "e0d".
+
++
+Beispiel:
+
++
+[listing]
+----
+network interface modify -vserver vs0 -lif datalif1 -home-port e0d
+----
+
+
+. [[Upgrades_manual_without_matching_Ports]]Ändern Sie Broadcast-Domänen, um das zu löschende VLAN und die physischen Ports zu entfernen:
++
+`broadcast-domain remove-ports -broadcast-domain <broadcast-domain-name> -ports <node-name:port-id>`
+
++
+Wiederholen Sie diesen Schritt für alle VLAN- und physischen Ports.
+
+. Entfernen Sie alle VLAN-Ports mithilfe von Cluster-Ports als Mitgliedsports und Schnittstellengruppen, die Cluster-Ports als Mitgliedsports verwenden.
++
+.. VLAN-Ports löschen: +
+`network port vlan delete -node <node_name> -vlan-name <portid-vlandid>`
++
+Beispiel:
+
++
+[listing]
+----
+network port vlan delete -node node1 -vlan-name e1c-80
+----
+.. Entfernen Sie physische Ports aus den Schnittstellengruppen:
++
+`network port ifgrp remove-port -node <node_name> -ifgrp <interface-group-name> -port <portid>`
+
++
+Beispiel:
+
++
+[listing]
+----
+network port ifgrp remove-port -node node1 -ifgrp a1a -port e0d
+----
+.. VLAN- und Schnittstellengruppen-Ports aus der Broadcast-Domäne entfernen:
++
+`network port broadcast-domain remove-ports -ipspace <ipspace> -broadcast-domain <broadcast-domain-name> -ports <nodename:portname,nodename:portnamee>,..`
+
+.. Ändern Sie die Schnittstellen-Gruppenanschlüsse, um andere physische Ports als Mitglied zu verwenden, falls erforderlich:
++
+`ifgrp add-port -node <node_name> -ifgrp <interface-group-name> -port <port-id>`
+
+
+
+. Halten Sie die Nodes an der `LOADER` Eingabeaufforderung an:
++
+`halt -inhibit-takeover true`
+
+. Stellen Sie an Standort_B eine Verbindung mit der seriellen Konsole der alten Controller (Node_B_1-old und Node_B_2-old) her, und überprüfen Sie, ob die Eingabeaufforderung angezeigt wird `LOADER`.
+. Ermitteln Sie die Bootarg-Werte:
++
+`printenv`
+
+. Trennen Sie die Speicher- und Netzwerkverbindungen auf Node_B_1-old und Node_B_2-old. Beschriften Sie die Kabel, sodass Sie sie mit den neuen Nodes verbinden können.
+. Trennen Sie die Stromkabel von Node_B_1-old und Node_B_2-old.
+. Entfernen Sie die Controller Node_B_1-old und Node_B_2-old aus dem Rack.
+
+
+.Was kommt als Nächstes?
+link:upgrade-mcc-ip-manual-setup-controllers.html["Richten Sie die neuen Controller ein"].

@@ -1,0 +1,305 @@
+---
+permalink: upgrade/upgrade-mcc-ip-system-controller-replace-prechecks.html 
+sidebar: sidebar 
+keywords: metrocluster, upgrade, controllers, switchover, switchback, ip, configuration, net, boot, root, aggregate, system, commands, mcc 
+summary: Zur Vorbereitung auf das Controller-Upgrade führen Sie Systemprüfungen durch und erfassen die Konfigurationsinformationen. 
+---
+= Bereiten Sie das MetroCluster IP-System für das Upgrade vor
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Um das Controller-Upgrade vorzubereiten, müssen Sie möglicherweise die Switch-Referenzkonfigurationsdateien (RCFs) je nach den alten und neuen Plattformmodellen aktualisieren. Anschließend führen Sie Systemvorprüfungen durch, sammeln die Konfigurationsinformationen und entfernen die vorhandene Überwachungssoftware.
+
+
+
+== Aktualisieren Sie die RCFs des MetroCluster-Switches, bevor Sie die Controller aktualisieren
+
+Je nach den alten und neuen Plattformmodellen müssen Sie möglicherweise die Referenzkonfigurationsdateien (RCFs) des MetroCluster-Switches aktualisieren, bevor Sie ein Controller-Upgrade durchführen.
+
+.Über diese Aufgabe
+Führen Sie diese Aufgabe unter folgenden Umständen aus:
+
+* Die Switch-RCF-Konfiguration ist nicht auf der Mindestversion.
+* Sie müssen die VLAN-IDs ändern, die von den Back-End-MetroCluster-Verbindungen verwendet werden.
+
+
+.Bevor Sie beginnen
+Prüfen Sie, ob Sie die RCFs vor dem Upgrade der Controller aktualisieren müssen:
+
+* Wenn die Switch-Konfiguration nicht mit der unterstützten RCF-Mindestversion konfiguriert wurde, müssen Sie die RCFs vor dem Upgrade Ihrer Controller aktualisieren:
++
+|===
+
+
+| Switch-Modell | Erforderliche RCF-Version 
+
+
+ a| 
+Cisco 3132Q-V
+ a| 
+1.7 oder höher
+
+
+
+ a| 
+Cisco 3232C
+ a| 
+1.7 oder höher
+
+
+
+ a| 
+Broadcom BES-53248
+ a| 
+1.3 oder höher
+
+
+
+ a| 
+NVIDIA SN2100
+ a| 
+2.0 oder höher
+
+|===
+* Wenn beide Ihrer alten und neuen Plattformmodelle in der folgenden Liste aufgeführt sind, müssen Sie die VLAN-ID vor dem Upgrade der Controller * nicht * aktualisieren:
++
+** FAS8200 oder AFF A300
+** AFF A320
+** FAS9000 oder AFF A700
+** AFF A800, AFF C800, ASA A800 oder ASA C800
++
+Wenn eines Ihrer alten oder neuen Plattformmodelle oben nicht aufgeführt ist, müssen Sie bestätigen, dass die MetroCluster-Schnittstellen eine unterstützte VLAN-ID verwenden. Unterstützte VLAN-IDs für die MetroCluster-Schnittstellen: 10, 20 oder im Bereich von 101 bis 4096.
+
++
+[CAUTION]
+====
+*** Wenn die VLAN-ID nicht 10, 20 oder im Bereich von 101 bis 4096 lautet, müssen Sie die Switch-RCF aktualisieren, bevor Sie die Controller aktualisieren.
+*** Die lokalen Cluster-Verbindungen können jedes beliebige VLAN verwenden, sie müssen sich nicht im angegebenen Bereich befinden.
+*** Die neue RCF, auf die Sie aktualisieren, muss die VLANs 10, 20 oder im Bereich 101 bis 4096 verwenden. Ändern Sie das VLAN für den lokalen Cluster nur, wenn es erforderlich ist.
+
+
+====
+
+
+
+
+.Schritte
+. Bereiten Sie die IP-Switches auf die Anwendung der neuen RCFs vor.
++
+Befolgen Sie die Schritte im Abschnitt für Ihren Switch-Anbieter:
+
++
+
+NOTE: Sie sollten die Schalter in der folgenden Reihenfolge aktualisieren: Switch_A_1, Switch_B_1, Switch_A_2, Switch_B_2.
+
++
+** link:../install-ip/task_switch_config_broadcom.html#resetting-the-broadcom-ip-switch-to-factory-defaults["Setzen Sie den Broadcom IP-Switch auf die Werkseinstellungen zurück"]
+** link:../install-ip/task_switch_config_cisco.html#resetting-the-cisco-ip-switch-to-factory-defaults["Setzen Sie den Cisco IP-Switch auf die Werkseinstellungen zurück"]
+** link:../install-ip/task_switch_config_nvidia.html#reset-the-nvidia-ip-sn2100-switch-to-factory-defaults["Setzen Sie den NVIDIA IP SN2100-Switch auf die Werkseinstellungen zurück"]
+
+
+. Laden Sie die RCFs herunter, und installieren Sie sie.
++
+Befolgen Sie die Schritte im Abschnitt für Ihren Switch-Anbieter:
+
++
+** link:../install-ip/task_switch_config_broadcom.html#downloading-and-installing-the-broadcom-rcf-files["Laden Sie die Broadcom RCFs herunter, und installieren Sie sie"]
+** link:../install-ip/task_switch_config_cisco.html#downloading-and-installing-the-cisco-ip-rcf-files["Laden Sie die Cisco IP-RCFs herunter, und installieren Sie sie"]
+** link:../install-ip/task_switch_config_nvidia.html#download-and-install-the-nvidia-rcf-files["Laden Sie die NVIDIA IP-RCFs herunter, und installieren Sie sie"]
+
+
+
+
+
+
+== Durchführung von Systemvorprüfungen
+
+Wenn der ONTAP Mediator installiert ist, wird er vor Beginn der Vorabprüfungen automatisch erkannt und entfernt. Um das Entfernen zu bestätigen, werden Sie aufgefordert, einen Benutzernamen und ein Passwort einzugeben. Wenn Sie das Upgrade abschließen oder die Vorabprüfungen fehlschlagen oder das Upgrade nicht fortsetzen möchten, müssen Sie manuell link:../install-ip/task_configuring_the_ontap_mediator_service_from_a_metrocluster_ip_configuration.html["Konfigurieren Sie den ONTAP Mediator-Dienst neu"].
+
+Während des Upgrades können Sie die ausführen `system controller replace show` Oder `system controller replace show-details` Befehl von Standort A, um den Status zu überprüfen. Wenn die Befehle eine leere Ausgabe zurückgeben, warten Sie einige Minuten, und führen Sie den Befehl erneut aus.
+
+.Schritte
+. Starten Sie das Verfahren zum automatischen Austausch der Controller von Standort A, um die Controller an Standort B zu ersetzen:
++
+`system controller replace start -nso true`
+
++
+Der automatisierte Vorgang führt die Vorabprüfungen durch. Wenn keine Probleme gefunden werden, wird der Vorgang angehalten, sodass Sie die konfigurationsbezogenen Informationen manuell erfassen können.
+
++
+[NOTE]
+====
+** Wenn Sie den nicht ausführen `system controller replace start -nso true` Befehl, das Controller-Upgrade wählt NSO basierte automatische Umschaltung und Switchback als Standardverfahren bei MetroCluster IP-Systemen.
+** Das aktuelle Quellsystem und alle kompatiblen Zielsysteme werden angezeigt. Wenn Sie den Quell-Controller durch einen Controller mit einer anderen ONTAP-Version oder einer nicht kompatiblen Plattform ersetzt haben, wird der Automatisierungsvorgang angehalten und ein Fehler meldet, nachdem die neuen Nodes gestartet wurden. Um den Cluster wieder in einen ordnungsgemäßen Zustand zu versetzen, müssen Sie die manuelle Recovery-Prozedur befolgen.
++
+Der `system controller replace start` Der Befehl meldet möglicherweise den folgenden Vorprüffehler:
+
++
+[listing]
+----
+Cluster-A::*>system controller replace show
+Node        Status         Error-Action
+----------- -------------- ------------------------------------
+Node-A-1    Failed         MetroCluster check failed. Reason : MCC check showed errors in component aggregates
+----
++
+Überprüfen Sie, ob dieser Fehler aufgetreten ist, weil Sie nicht gespiegelte Aggregate oder ein anderes Problem an Aggregaten haben. Vergewissern Sie sich, dass sich alle gespiegelten Aggregate in einem ordnungsgemäßen Zustand befinden und dass sie nicht beeinträchtigt bzw. gespiegelt werden. Wenn dieser Fehler nur auf nicht gespiegelte Aggregate zurückzuführen ist, können Sie diesen Fehler durch Auswahl des überschreiben `-skip-metrocluster-check true` Option auf der `system controller replace start` Befehl. Wenn auf Remote-Storage zugegriffen werden kann, sind die nicht gespiegelten Aggregate nach einer Umschaltung online. Falls die Remote-Storage-Verbindung ausfällt, können die nicht gespiegelten Aggregate nicht online geschaltet werden.
+
+
+
+====
+. Erfassen Sie manuell die Konfigurationsinformationen, indem Sie sich bei Standort B anmelden und den Befehlen folgen, die in der Konsolenmeldung unter der aufgeführt sind `system controller replace show` Oder `system controller replace show-details` Befehl.
+
+
+
+
+== Sammeln Sie vor dem Upgrade Informationen
+
+Vor dem Upgrade, wenn das Root-Volume verschlüsselt ist, müssen Sie den Sicherungsschlüssel und andere Informationen sammeln, um die neuen Controller mit den alten verschlüsselten Root-Volumes zu booten.
+
+.Über diese Aufgabe
+Diese Aufgabe wird für die bestehende MetroCluster IP-Konfiguration ausgeführt.
+
+.Schritte
+. Beschriften Sie die Kabel für die vorhandenen Controller, damit Sie bei der Einrichtung der neuen Controller problemlos die Kabel identifizieren können.
+. Zeigen Sie die Befehle an, um den Backup-Schlüssel und weitere Informationen zu erfassen:
++
+`system controller replace show`
+
++
+Führen Sie die unter aufgeführten Befehle aus `show` Befehl aus dem Partner-Cluster.
+
++
+Der `show` In der Befehlsausgabe werden drei Tabellen angezeigt, die die MetroCluster-Schnittstellen-IPs, System-IDs und System-UUIDs enthalten. Diese Informationen sind später im Verfahren zum Festlegen der Bootargs erforderlich, wenn Sie den neuen Node booten.
+
+. Ermitteln Sie die System-IDs der Nodes in der MetroCluster-Konfiguration:
++
+--
+`metrocluster node show -fields node-systemid,dr-partner-systemid`
+
+Während der Aktualisierung ersetzen Sie diese alten System-IDs durch die System-IDs der neuen Controller-Module.
+
+In diesem Beispiel für eine MetroCluster-IP-Konfiguration mit vier Knoten werden die folgenden alten System-IDs abgerufen:
+
+** Node_A_1-alt: 4068741258
+** Node_A_2-alt: 4068741260
+** Node_B_1-alt: 4068741254
+** Node_B_2-alt: 4068741256
+
+
+[listing]
+----
+metrocluster-siteA::> metrocluster node show -fields node-systemid,ha-partner-systemid,dr-partner-systemid,dr-auxiliary-systemid
+dr-group-id        cluster           node            node-systemid     ha-partner-systemid     dr-partner-systemid    dr-auxiliary-systemid
+-----------        ---------------   ----------      -------------     -------------------     -------------------    ---------------------
+1                    Cluster_A       Node_A_1-old    4068741258        4068741260              4068741256             4068741256
+1                    Cluster_A       Node_A_2-old    4068741260        4068741258              4068741254             4068741254
+1                    Cluster_B       Node_B_1-old    4068741254        4068741256              4068741258             4068741260
+1                    Cluster_B       Node_B_2-old    4068741256        4068741254              4068741260             4068741258
+4 entries were displayed.
+----
+In diesem Beispiel für eine MetroCluster-IP-Konfiguration mit zwei Knoten werden die folgenden alten System-IDs abgerufen:
+
+** Node_A_1: 4068741258
+** Knoten_B_1: 4068741254
+
+
+[listing]
+----
+metrocluster node show -fields node-systemid,dr-partner-systemid
+
+dr-group-id cluster    node          node-systemid dr-partner-systemid
+----------- ---------- --------      ------------- ------------
+1           Cluster_A  Node_A_1-old  4068741258    4068741254
+1           Cluster_B  node_B_1-old  -             -
+2 entries were displayed.
+----
+--
+. Sammeln von Port- und LIF-Informationen zu jedem alten Node
++
+Sie sollten die Ausgabe der folgenden Befehle für jeden Node erfassen:
+
++
+** `network interface show -role cluster,node-mgmt`
+** `network port show -node <node-name> -type physical`
+** `network port vlan show -node <node-name>`
+** `network port ifgrp show -node <node-name> -instance`
+** `network port broadcast-domain show`
+** `network port reachability show -detail`
+** `network ipspace show`
+** `volume show`
+** `storage aggregate show`
+** `system node run -node <node-name> sysconfig -a`
+** `aggr show -r`
+** `disk show`
+** `system node run <node-name> disk show`
+** `vol show -fields type`
+** `vol show -fields type , space-guarantee`
+** `vserver fcp initiator show`
+** `storage disk show`
+** `metrocluster configuration-settings interface show`
+
+
+. Wenn sich die MetroCluster-Nodes in einer SAN-Konfiguration befinden, sammeln Sie die relevanten Informationen.
++
+Sie sollten die Ausgabe der folgenden Befehle erfassen:
+
++
+** `fcp adapter show -instance`
+** `fcp interface show -instance`
+** `iscsi interface show`
+** `ucadmin show`
+
+
+. Wenn das Root-Volume verschlüsselt ist, erfassen und speichern Sie die für das Schlüsselmanagement verwendete Passphrase:
++
+`security key-manager backup show`
+
+. Wenn die MetroCluster Nodes Verschlüsselung für Volumes oder Aggregate nutzen, kopieren Sie Informationen zu Schlüsseln und Passphrases.
++
+Weitere Informationen finden Sie unter https://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-nve/GUID-1677AE0A-FEF7-45FA-8616-885AA3283BCF.html["Manuelles Backup der integrierten Informationen für das Verschlüsselungsmanagement"^].
+
++
+.. Wenn Onboard Key Manager konfiguriert ist:
++
+`security key-manager onboard show-backup`
+
++
+Sie benötigen die Passphrase später im Upgrade-Verfahren.
+
+.. Wenn das Enterprise-Verschlüsselungsmanagement (KMIP) konfiguriert ist, geben Sie die folgenden Befehle ein:
++
+`security key-manager external show -instance`
+
++
+`security key-manager key query`
+
+
+
+. Setzen Sie den Vorgang fort, nachdem Sie die Konfigurationsinformationen erfasst haben:
++
+`system controller replace resume`
+
+
+
+
+
+== Entfernen Sie die vorhandene Konfiguration aus Tiebreaker oder einer anderen Monitoring-Software
+
+Bevor Sie mit dem Upgrade beginnen, entfernen Sie die vorhandene Konfiguration aus dem Tiebreaker oder einer anderen Überwachungssoftware.
+
+Wenn die vorhandene Konfiguration mit der MetroCluster Tiebreaker Konfiguration oder anderen Applikationen von Drittanbietern (z. B. ClusterLion) überwacht wird, die eine Umschaltung initiieren können, müssen Sie die MetroCluster Konfiguration über den Tiebreaker oder eine andere Software entfernen, bevor der alte Controller ersetzt wird.
+
+.Schritte
+. link:../tiebreaker/concept_configuring_the_tiebreaker_software.html#removing-metrocluster-configurations["Entfernen der vorhandenen MetroCluster-Konfiguration"] Über die Tiebreaker Software.
+. Entfernen Sie die vorhandene MetroCluster Konfiguration von jeder Anwendung eines Drittanbieters, die eine Umschaltung initiieren kann.
++
+Informationen zur Anwendung finden Sie in der Dokumentation.
+
+
+
+.Was kommt als Nächstes?
+link:upgrade-mcc-ip-system-controller-replace-prepare-network-configuration.html["Vorbereiten der Netzwerkkonfiguration der alten Controller"].

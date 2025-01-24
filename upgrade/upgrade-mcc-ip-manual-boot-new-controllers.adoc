@@ -1,0 +1,255 @@
+---
+permalink: upgrade/upgrade-mcc-ip-manual-boot-new-controllers.html 
+sidebar: sidebar 
+keywords: metrocluster, upgrade, controllers, switchover, switchback, ip, configuration, net, boot, root, aggregate, system, commands, mcc 
+summary: Starten Sie die neuen Controller und überprüfen Sie, ob LIFs auf entsprechenden Nodes und Ports gehostet werden. 
+---
+= Starten Sie die neuen MetroCluster IP-Controller und stellen Sie die LIF-Konfiguration wieder her
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Starten Sie die neuen Controller und überprüfen Sie, ob LIFs auf entsprechenden Nodes und Ports gehostet werden.
+
+
+
+== Starten Sie die neuen Controller
+
+Sie müssen die neuen Controller booten, um sicherzustellen, dass die Bootarg-Variablen korrekt sind und, falls erforderlich, die Verschlüsselungswiederherstellungsschritte durchführen.
+
+.Schritte
+. Anhalten der neuen Knoten:
++
+`halt`
+
+. Wenn der externe Schlüsselmanager konfiguriert ist, legen Sie die zugehörigen Bootargs fest:
++
+`setenv bootarg.kmip.init.ipaddr <ip-address>`
+
++
+`setenv bootarg.kmip.init.netmask <netmask>`
+
++
+`setenv bootarg.kmip.init.gateway <gateway-addres>`
+
++
+`setenv bootarg.kmip.init.interface <interface-id>`
+
+. Überprüfen Sie, ob die Partner-sysid aktuell ist:
++
+`printenv partner-sysid`
+
++
+Falls Partner-sysid nicht richtig ist, stellen Sie es fest:
+
++
+`setenv partner-sysid <partner-sysID>`
+
+. ONTAP-Startmenü anzeigen:
++
+`boot_ontap menu`
+
+. Wenn die Stammverschlüsselung verwendet wird, wählen Sie die Startmenü-Option für Ihre Konfiguration für die Schlüsselverwaltung aus.
++
+|===
+
+
+| Sie verwenden... | Diese Startmenüoption auswählen... 
+
+
+ a| 
+Integriertes Verschlüsselungsmanagement
+ a| 
+Option `10`
+
+Befolgen Sie die Anweisungen, um die erforderlichen Eingaben zur Wiederherstellung und Wiederherstellung der Schlüsselmanager-Konfiguration bereitzustellen.
+
+
+
+ a| 
+Externes Verschlüsselungskeymanagement
+ a| 
+Option `11`
+
+Befolgen Sie die Anweisungen, um die erforderlichen Eingaben zur Wiederherstellung und Wiederherstellung der Schlüsselmanager-Konfiguration bereitzustellen.
+
+|===
+. Wählen Sie im Startmenü „`(6) Flash-Update aus Backup config`“ aus.
++
+
+NOTE: Bei Option 6 wird der Knoten zweimal neu gebootet, bevor der Vorgang abgeschlossen ist.
+
++
+Reagieren Sie mit „`y`“ auf die Eingabeaufforderungen zur Änderung der System-ID. Warten Sie auf die zweite Neustartmeldung:
+
++
+[listing]
+----
+Successfully restored env file from boot media...
+
+Rebooting to load the restored env file...
+----
+. Überprüfen Sie an der `LOADER` Eingabeaufforderung die Bootarg-Werte, und aktualisieren Sie die Werte bei Bedarf.
++
+Verwenden Sie die Schritte in link:upgrade-mcc-ip-manual-apply-rcf-set-bootarg.html#set-the-metrocluster-ip-bootarg-variables["Legen Sie die MetroCluster-IP-Bootarg-Variablen fest"].
+
+. Überprüfen Sie, ob die Partner-sysid die richtige ist:
++
+`printenv partner-sysid`
+
++
+Falls Partner-sysid nicht richtig ist, stellen Sie es fest:
+
++
+`setenv partner-sysid <partner-sysID>`
+
+. Wenn die Stammverschlüsselung verwendet wird, wählen Sie die Startmenü-Option erneut für Ihre Schlüsselverwaltungskonfiguration aus.
++
+|===
+
+
+| Sie verwenden... | Diese Startmenüoption auswählen... 
+
+
+ a| 
+Integriertes Verschlüsselungsmanagement
+ a| 
+Option `10`
+
+Befolgen Sie die Anweisungen, um die erforderlichen Eingaben zur Wiederherstellung und Wiederherstellung der Schlüsselmanager-Konfiguration bereitzustellen.
+
+
+
+ a| 
+Externes Verschlüsselungskeymanagement
+ a| 
+Option „`11`“
+
+Befolgen Sie die Anweisungen, um die erforderlichen Eingaben zur Wiederherstellung und Wiederherstellung der Schlüsselmanager-Konfiguration bereitzustellen.
+
+|===
++
+Führen Sie je nach Einstellung des Schlüsselmanagers den Wiederherstellungsvorgang durch, indem Sie die Option „`10`“ oder die Option „`11`“ und anschließend die Option auswählen `6` Bei der ersten Eingabeaufforderung für das Startmenü. Um die Knoten vollständig zu booten, müssen Sie möglicherweise den Wiederherstellungsvorgang mit Option „`1`“ (normaler Start) wiederholen.
+
+. Warten Sie, bis die ausgetauschten Nodes gebootet werden.
++
+Wenn sich einer der beiden Nodes im Übernahmemodus befindet, geben Sie sie mithilfe der wieder `storage failover giveback` Befehl.
+
+. Stellen Sie bei Verwendung der Verschlüsselung die Schlüssel mithilfe des korrekten Befehls für Ihre Verschlüsselungsmanagementkonfiguration wieder her.
++
+|===
+
+
+| Sie verwenden... | Befehl 
+
+
+ a| 
+Integriertes Verschlüsselungsmanagement
+ a| 
+`security key-manager onboard sync`
+
+Weitere Informationen finden Sie unter https://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-nve/GUID-E4AB2ED4-9227-4974-A311-13036EB43A3D.html["Wiederherstellung der integrierten Verschlüsselungsschlüssel für das Verschlüsselungsmanagement"^].
+
+
+
+ a| 
+Externes Verschlüsselungskeymanagement
+ a| 
+`security key-manager external restore -vserver <SVM> -node <node> -key-server <host_name|IP_address:port> -key-id key_id -key-tag key_tag <node_name>`
+
+Weitere Informationen finden Sie unter https://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-nve/GUID-32DA96C3-9B04-4401-92B8-EAF323C3C863.html["Wiederherstellung der externen Verschlüsselungsschlüssel für das Verschlüsselungsmanagement"^].
+
+|===
+. Vergewissern Sie sich, dass sich alle Ports in einer Broadcast-Domäne befinden:
++
+.. Broadcast-Domänen anzeigen:
++
+`network port broadcast-domain show`
+
+.. Wenn für die Datenports auf den neu aktualisierten Controllern eine neue Broadcast-Domäne erstellt wird, löschen Sie die Broadcast-Domäne:
++
+
+NOTE: Löschen Sie nur die neue Broadcast-Domäne. Löschen Sie keine der Broadcast-Domänen, die vor dem Start des Upgrades vorhanden waren.
+
++
+`broadcast-domain delete -broadcast-domain <broadcast_domain_name>`
+
+.. Fügen Sie bei Bedarf Ports zu einer Broadcast-Domäne hinzu.
++
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-nmg/GUID-003BDFCD-58A3-46C9-BF0C-BA1D1D1475F9.html["Hinzufügen oder Entfernen von Ports aus einer Broadcast-Domäne"^]
+
+.. VLANs und Schnittstellengruppen nach Bedarf neu erstellen.
++
+Die Mitgliedschaft in VLAN und Schnittstellengruppen kann sich vom alten Knoten unterscheiden.
+
++
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-nmg/GUID-8929FCE2-5888-4051-B8C0-E27CAF3F2A63.html["Erstellen Sie eine VLAN"^]
+
++
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-nmg/GUID-DBC9DEE2-EAB7-430A-A773-4E3420EE2AA1.html["Kombinieren Sie physische Ports, um Schnittstellengruppen zu erstellen"^]
+
+
+
+
+
+
+
+== Überprüfung und Wiederherstellung der LIF-Konfiguration
+
+Vergewissern Sie sich, dass LIFs zu Beginn des Upgrade-Vorgangs auf entsprechenden Nodes und Ports gehostet werden, die zugeordnet sind.
+
+.Über diese Aufgabe
+* Diese Aufgabe wird auf Site_B. ausgeführt
+* Sehen Sie sich den Port Mapping Plan anlink:upgrade-mcc-ip-prepare-system.html#map-ports-from-the-old-nodes-to-the-new-nodes["Weisen Sie den neuen Nodes Ports von den alten Nodes zu"], den Sie in erstellt haben.
+
+
+
+CAUTION: Sie müssen vor dem Wechsel zurück überprüfen, ob die Daten-LIFs auf den neuen Nodes korrekt sind. Wenn Sie die Konfiguration zurückschalten, versucht ONTAP, den Datenverkehr auf dem von den LIFs verwendeten Home Port wiederaufzunehmen. E/A-Fehler können auftreten, wenn die Verbindung des Home-Ports zum Switch-Port und VLAN falsch ist.
+
+.Schritte
+. Vergewissern Sie sich vor dem Switchback, dass LIFs auf dem entsprechenden Node und den entsprechenden Ports gehostet werden.
++
+.. Ändern Sie die erweiterte Berechtigungsebene:
++
+`set -privilege advanced`
+
+.. Zeigen Sie die LIFs an und vergewissern Sie sich, dass jede Daten-LIF den richtigen Home Port verwendet:
++
+`network interface show`
+
+.. Ändern Sie alle LIFs, die nicht den korrekten Home Port verwenden:
++
+`network interface modify -vserver <svm-name> -lif <data-lif> -home-port <port-id>`
+
++
+Wenn der Befehl einen Fehler zurückgibt, können Sie die Portkonfiguration überschreiben:
+
++
+`vserver config override -command "network interface modify -vserver <svm-name> -home-port <active_port_after_upgrade> -lif <lif_name> -home-node <new_node_name>"`
+
++
+Wenn Sie den Befehl zur Änderung der Netzwerkschnittstelle in eingeben `vserver config override` Befehl, Sie können die Funktion Autovervollständigung auf der Registerkarte nicht verwenden. Sie können das Netzwerk erstellen `interface modify` Verwenden Sie Autocomplete und schließen Sie es dann in das ein `vserver config override` Befehl.
+
+.. Vergewissern Sie sich, dass alle Daten-LIFs nun am richtigen Home Port sind:
++
+`network interface show`
+
+.. Zurück zur Administratorberechtigungsebene:
++
+`set -privilege admin`
+
+
+
+. Zurücksetzen der Schnittstellen auf ihren Home-Node:
++
+`network interface revert * -vserver <svm-name>`
+
++
+Führen Sie diesen Schritt bei allen SVMs aus, falls erforderlich.
+
+
+
+.Was kommt als Nächstes?
+link:upgrade-mcc-ip-manual-switchback.html["Umschalten der MetroCluster-Konfiguration"].

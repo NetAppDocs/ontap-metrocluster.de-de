@@ -1,0 +1,27 @@
+---
+permalink: upgrade/upgrade-mcc-ip-system-controller-replace-console-logging.html 
+sidebar: sidebar 
+keywords: metrocluster, upgrade, controllers, switchover, switchback, ip, configuration, net, boot, root, aggregate, system, commands, mcc 
+summary: Aktivieren Sie die Konsolenprotokollierung auf Ihren Geräten, bevor Sie das Controller-Upgrade durchführen. 
+---
+= Aktivieren Sie die Konsolenprotokollierung vor dem MetroCluster IP-Upgrade
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Aktivieren Sie die Konsolenprotokollierung auf Ihren Geräten, bevor Sie das Controller-Upgrade durchführen.
+
+NetApp empfiehlt dringend, die Konsolenprotokollierung auf den von Ihnen verwendeten Geräten zu aktivieren und folgende Aktionen durchzuführen:
+
+* Lassen Sie AutoSupport während der Wartung aktiviert.
+* Lösen Sie vor und nach der Wartung eine Wartungs-AutoSupport-Meldung aus, um die Case-Erstellung für die Dauer der Wartungsaktivität zu deaktivieren.
++
+Siehe Knowledge Base-Artikel link:https://kb.netapp.com/Support_Bulletins/Customer_Bulletins/SU92["Wie kann die automatische Case-Erstellung während geplanter Wartungszeiträume unterdrückt werden"^].
+
+* Aktivieren Sie die Sitzungsprotokollierung für jede CLI-Sitzung. Anweisungen zum Aktivieren der Sitzungsprotokollierung finden Sie im Abschnitt „Protokollierung der Sitzungsausgabe“ im Knowledge Base-Artikel link:https://kb.netapp.com/on-prem/ontap/Ontap_OS/OS-KBs/How_to_configure_PuTTY_for_optimal_connectivity_to_ONTAP_systems["So konfigurieren Sie PuTTY für optimale Konnektivität zu ONTAP-Systemen"^].
+
+
+.Was kommt als Nächstes?
+Prüfen Sie die Informationen inlink:upgrade-mcc-ip-system-controller-replace-set-bootarg.html["Legen Sie den erforderlichen Bootarg fest (für Upgrades auf Systeme, die ab 9.15.1 eingeführt wurden)."], um zu bestätigen, ob Sie einen erforderlichen Bootarg auf dem vorhandenen System festlegen müssen.

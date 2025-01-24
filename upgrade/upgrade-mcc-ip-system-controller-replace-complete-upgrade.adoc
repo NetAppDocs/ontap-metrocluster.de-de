@@ -1,0 +1,78 @@
+---
+permalink: upgrade/upgrade-mcc-ip-system-controller-replace-complete-upgrade.html 
+sidebar: sidebar 
+keywords: metrocluster, upgrade, controllers, switchover, switchback, ip, configuration, net, boot, root, aggregate, system, commands, mcc 
+summary: Führen Sie das automatische Controller-Upgrade durch, indem Sie die Erreichbarkeit des Netzwerks überprüfen und die Überwachungskonfiguration wiederherstellen. 
+---
+= Schließen Sie das MetroCluster IP-Controller-Upgrade ab
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Führen Sie das automatische Controller-Upgrade durch, indem Sie die Erreichbarkeit des Netzwerks überprüfen und die Überwachungskonfiguration wiederherstellen.
+
+
+
+== Überprüfung der Erreichbarkeit des Netzwerks
+
+Der Automatisierungsvorgang führt Überprüfungen des Verifikationssystems durch und hält anschließend Pausen ein, um die Erreichbarkeit des Netzwerks zu überprüfen. Nach der Überprüfung wird die Rückgewinnungsphase für die Ressourcen eingeleitet und der Automatisierungsvorgang führt den Wechsel zurück an Standort A durch und hält die Prüfungen nach dem Upgrade an. Nachdem Sie den Automatisierungsvorgang fortgesetzt haben, führt er die Prüfungen nach dem Upgrade durch und markiert, wenn keine Fehler erkannt werden, das Upgrade als abgeschlossen.
+
+.Schritte
+. Überprüfen Sie die Netzwerkzuwachbarkeit, indem Sie die Konsolenmeldung ausführen.
+. Setzen Sie nach Abschluss der Verifizierung den Vorgang fort:
++
+`system controller replace resume`
+
+. Der Automatisierungsvorgang wird durchgeführt `heal-aggregate`, `heal-root-aggregate`, Und die Umschaltung Operationen an Standort A, und die nach dem Upgrade prüft. Wenn der Vorgang angehalten wird, überprüfen Sie den SAN-LIF-Status manuell und überprüfen Sie die Netzwerkkonfiguration anhand der Konsolenmeldung.
+. Setzen Sie nach Abschluss der Verifizierung den Vorgang fort:
++
+`system controller replace resume`
+
+. Prüfen Sie den Status der Prüfungen nach der Aktualisierung:
++
+`system controller replace show`
+
++
+Wenn bei der Überprüfung nach dem Upgrade keine Fehler gemeldet wurden, ist das Upgrade abgeschlossen.
+
+. Melden Sie sich nach Abschluss des Controller-Upgrades bei Standort B an und überprüfen Sie, ob die ersetzten Controller ordnungsgemäß konfiguriert sind.
+
+
+
+
+== Aktualisieren Sie die Nodes auf Cluster_A
+
+Sie müssen die Upgrade-Tasks wiederholen, um die Nodes auf „Cluster_A“ an Standort A zu aktualisieren
+
+.Schritte
+. Wiederholen Sie die Schritte, um die Knoten auf Cluster_A zu aktualisieren, beginnend mit link:upgrade-mcc-ip-system-controller-replace-supported-platforms.html["Bereiten Sie sich auf das Upgrade vor"].
++
+Während Sie die Aufgaben ausführen, werden alle Beispielreferenzen zu den Clustern und Nodes umgekehrt.
+
+
+
+
+
+== Konfigurieren Sie ONTAP Mediator neu
+
+Konfigurieren Sie ONTAP Mediator manuell, der vor dem Start des Upgrades automatisch entfernt wurde.
+
+. Verwenden Sie die Schritte in link:../install-ip/task_configuring_the_ontap_mediator_service_from_a_metrocluster_ip_configuration.html["Konfigurieren Sie den ONTAP Mediator-Dienst über eine MetroCluster-IP-Konfiguration"].
+
+
+
+
+== Wiederherstellung des Tiebreaker Monitoring
+
+Wenn die MetroCluster Konfiguration zuvor für das Monitoring über die Tiebreaker Software konfiguriert war, können Sie die Tiebreaker Verbindung wiederherstellen.
+
+. Verwenden Sie die Schritte in http://docs.netapp.com/ontap-9/topic/com.netapp.doc.hw-metrocluster-tiebreaker/GUID-7259BCA4-104C-49C6-BAD0-1068CA2A3DA5.html["Fügen Sie MetroCluster-Konfigurationen hinzu"].
+
+
+
+
+== Konfigurieren Sie die End-to-End-Verschlüsselung
+
+Falls es von Ihrem System unterstützt wird, können Sie zwischen den MetroCluster IP-Standorten den Back-End-Verkehr, wie NVLOG- und Storage-Replizierungsdaten, verschlüsseln. Siehe link:../maintain/task-configure-encryption.html["Konfigurieren Sie die End-to-End-Verschlüsselung"] Finden Sie weitere Informationen.

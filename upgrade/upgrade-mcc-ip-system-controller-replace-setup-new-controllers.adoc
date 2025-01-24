@@ -1,0 +1,206 @@
+---
+permalink: upgrade/upgrade-mcc-ip-system-controller-replace-setup-new-controllers.html 
+sidebar: sidebar 
+keywords: metrocluster, upgrade, controllers, switchover, switchback, ip, configuration, net, boot, root, aggregate, system, commands, mcc 
+summary: Richten Sie die neuen Controller vor dem Booten der Controller ein, um zu bestätigen, dass auf den neuen Nodes dieselbe Version von ONTAP wie auf den ursprünglichen Nodes ausgeführt wird. 
+---
+= Richten Sie die neuen MetroCluster IP-Controller ein und booten Sie sie über das Netzwerk
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Richten Sie die neuen Controller vor dem Booten der Controller ein, um zu bestätigen, dass auf den neuen Nodes dieselbe Version von ONTAP wie auf den ursprünglichen Nodes ausgeführt wird.
+
+
+
+== Richten Sie die neuen Controller ein
+
+Sie müssen die neuen Controller im Rack unterbringen und verkabeln.
+
+.Schritte
+. Planen Sie die Positionierung der neuen Controller-Module und Storage Shelves je nach Bedarf.
++
+Der Rack-Platz hängt vom Plattformmodell der Controller-Module, den Switch-Typen und der Anzahl der Storage-Shelfs in Ihrer Konfiguration ab.
+
+. Richtig gemahlen.
+. Wenn Ihr Upgrade den Austausch der Controller-Module erfordert, beispielsweise das Upgrade von einem AFF A800 auf ein AFF A90-System oder von einem AFF C800 auf ein AFF C80-System, müssen Sie das Controller-Modul aus dem Gehäuse entfernen, wenn Sie das Controller-Modul austauschen. Für alle anderen Upgrades fahren sie mit <<ip_upgrades_replace_4,Schritt 4>>fort.
++
+Drücken Sie auf der Vorderseite des Gehäuses die Daumen, um jedes Laufwerk fest einzuschieben, bis Sie einen positiven Stopp spüren. Dadurch wird bestätigt, dass die Laufwerke fest an der Mittelplatine des Gehäuses sitzen.
+
++
+image::../media/drw-a800-drive-seated.png[Zeigt das Entfernen des Controller-Moduls aus dem Chassis]
+
+. [[ip_Upgrades_Replace_4]] Installieren Sie die Controller-Module.
++
+Welche Installationsschritte Sie durchführen, hängt davon ab, ob Ihr Upgrade den Austausch der Controller-Module erfordert oder ob IOM-Module zur Konvertierung der alten Controller in ein externes Shelf erforderlich sind.
+
++
+[cols="2*"]
+|===
+| Wenn Sie ein Upgrade durchführen... | Folgen Sie den Schritten für ... 
+
+
+ a| 
+** Ein AFF A150 auf ein AFF A20-System
+** Ein AFF A220 auf ein AFF A20-System
+
+| Konvertierung von Controller zu externem Shelf 
+
+
+ a| 
+** Ein AFF A800 auf ein AFF A90 System
+** Ein AFF C800 auf ein AFF C80-System
+
+| Austausch des Controller-Moduls 
+
+
+| Beliebige andere Kombinationen für Controller-Upgrades | Alle anderen Upgrades 
+|===
++
+[role="tabbed-block"]
+====
+.Konvertierung von Controller zu externem Shelf
+--
+Bei ursprünglichen MetroCluster IP-Controllern handelt es sich um AFF A150- oder AFF A220-Modelle, können Sie das AFF A150 oder AFF A220 HA-Paar in ein DS224C Laufwerk-Shelf konvertieren und dann zu den neuen Nodes hinzufügen.
+
+Wenn Sie beispielsweise ein Upgrade von einem AFF A150 oder AFF A220 System zu einem AFF A20 System durchführen, können Sie das AFF A150 oder AFF A220 HA-Paar in ein DS224C Shelf konvertieren, indem Sie die AFF A150 oder AFF A220 Controller-Module durch IOM12-Module austauschen.
+
+.Schritte
+.. Ersetzen Sie die Controller-Module im Node, den Sie mit IOM12 Shelf-Modulen konvertieren.
++
+https://hwu.netapp.com["Hardware Universe"^]
+
+.. Legen Sie die Festplatten-Shelf-ID fest.
++
+Jedes Festplatten-Shelf, einschließlich des Chassis, erfordert eine eindeutige ID.
+
+.. Setzen Sie andere Festplatten-Shelf-IDs bei Bedarf zurück.
+.. Schalten Sie die Shelfs aus.
+.. Verkabeln Sie das umgewandelte Festplatten-Shelf mit einem SAS-Port auf dem neuen System und bei Verwendung von Out-of-Band-ACP-Verkabelung zum ACP-Port auf dem neuen Node.
+.. Schalten Sie das umgewandelte Laufwerk-Shelf und alle anderen an die neuen Nodes angeschlossenen Laufwerk-Shelfs ein.
+.. Schalten Sie die neuen Nodes ein und unterbrechen Sie dann den Boot-Prozess auf jedem Node, indem Sie Strg-C drücken, um auf die Eingabeaufforderung der Boot-Umgebung zuzugreifen.
+
+
+--
+.Austausch des Controller-Moduls
+--
+Die separate Installation der neuen Controller ist bei Upgrades integrierter Systeme mit Festplatten und Controllern im selben Chassis, beispielsweise von einem AFF A800 System auf ein AFF A90 System, nicht möglich. Sie müssen die neuen Controller-Module und I/O-Karten nach dem Ausschalten der alten Controller austauschen, wie in der Abbildung unten gezeigt.
+
+Das folgende Beispielbild dient nur zur Darstellung. Die Controller-Module und E/A-Karten können zwischen den Systemen variieren.
+
+image::../media/a90-a70-pcm-swap.png[Zeigt den Austausch von Controller-Modulen]
+
+--
+.Alle anderen Upgrades
+--
+Installieren Sie die Controller-Module im Rack oder Schrank.
+
+--
+====
+. Verkabeln Sie die Stromversorgungs-, seriellen Konsolen- und Managementverbindungen der Controller wie in beschrieben link:../install-ip/using_rcf_generator.html["MetroCluster IP-Switches verkabeln"]
++
+Schließen Sie derzeit keine anderen Kabel an, die von den alten Controllern getrennt wurden.
+
++
+https://docs.netapp.com/us-en/ontap-systems/index.html["Dokumentation zu ONTAP Hardwaresystemen"^]
+
+. Schalten Sie die neuen Nodes ein, und drücken Sie bei der Aufforderung Strg-C, um die Eingabeaufforderung anzuzeigen `LOADER` .
+
+
+
+
+== Booten Sie die neuen Controller ein
+
+Nachdem Sie die neuen Nodes installiert haben, müssen Sie als Netzboot fahren, damit die neuen Nodes dieselbe Version von ONTAP wie die ursprünglichen Nodes ausführen. Der Begriff Netzboot bedeutet, dass Sie über ein ONTAP Image, das auf einem Remote Server gespeichert ist, booten. Wenn Sie das Netzboot vorbereiten, müssen Sie eine Kopie des ONTAP 9 Boot Images auf einem Webserver ablegen, auf den das System zugreifen kann.
+
+Diese Aufgabe wird an jedem der neuen Controller-Module durchgeführt.
+
+.Schritte
+. Auf das zugreifen link:https://mysupport.netapp.com/site/["NetApp Support Website"^] Zum Herunterladen der Dateien zum Ausführen des Netzboots des Systems.
+. Laden Sie die entsprechende ONTAP Software im Bereich Software Downloads auf der NetApp Support Website herunter und speichern Sie die `ontap-version_image.tgz` Datei in einem webbasierten Verzeichnis.
+. Rufen Sie das Verzeichnis mit Webzugriff auf, und stellen Sie sicher, dass die benötigten Dateien verfügbar sind.
++
+Ihre Verzeichnisliste sollte einen Netzboot-Ordner mit einer Kernel-Datei enthalten: `ontap-version_image.tgz`
+
++
+Sie müssen die Datei nicht extrahieren `ontap-version_image.tgz`.
+
+. Konfigurieren Sie an der `LOADER` Eingabeaufforderung die Netzboot-Verbindung für eine Management-LIF:
++
+** Wenn die IP-Adresse DHCP ist, konfigurieren Sie die automatische Verbindung:
++
+`ifconfig e0M -auto`
+
+** Wenn die IP-Adresse statisch ist, konfigurieren Sie die manuelle Verbindung:
++
+`ifconfig e0M -addr=ip_addr -mask=netmask` `-gw=gateway`
+
+
+
+. Führen Sie den Netzboot aus.
++
+`netboot \http://web_server_ip/path_to_web-accessible_directory/ontap-version_image.tgz`
+
+. Wählen Sie im Startmenü die Option *(7) Neue Software zuerst installieren* aus, um das neue Software-Image auf das Boot-Gerät herunterzuladen und zu installieren.
++
+ Disregard the following message: "This procedure is not supported for Non-Disruptive Upgrade on an HA pair". It applies to nondisruptive upgrades of software, not to upgrades of controllers.
+. Wenn Sie aufgefordert werden, den Vorgang fortzusetzen, geben Sie ein `y`, Und wenn Sie zur Eingabe des Pakets aufgefordert werden, geben Sie die URL der Bilddatei ein: `\http://web_server_ip/path_to_web-accessible_directory/ontap-version_image.tgz`
++
+....
+Enter username/password if applicable, or press Enter to continue.
+....
+. Seien Sie dabei `n` So überspringen Sie die Backup-Recovery, wenn eine Eingabeaufforderung wie die folgende angezeigt wird:
++
+....
+Do you want to restore the backup configuration now? {y|n}
+....
+. Starten Sie den Neustart durch Eingabe `y` Wenn eine Eingabeaufforderung wie die folgende angezeigt wird:
++
+....
+The node must be rebooted to start using the newly installed software. Do you want to reboot now? {y|n}
+....
+
+
+
+
+== Löschen Sie die Konfiguration auf einem Controller-Modul
+
+Bevor Sie in der MetroCluster-Konfiguration ein neues Controller-Modul verwenden, müssen Sie die vorhandene Konfiguration löschen.
+
+.Schritte
+. Halten Sie den Node gegebenenfalls an, um die Eingabeaufforderung anzuzeigen `LOADER`:
++
+`halt`
+
+. Legen Sie an der `LOADER` Eingabeaufforderung die Umgebungsvariablen auf die Standardwerte fest:
++
+`set-defaults`
+
+. Umgebung speichern:
++
+`saveenv`
+
+. Starten Sie an der `LOADER` Eingabeaufforderung das Startmenü:
++
+`boot_ontap menu`
+
+. Löschen Sie an der Eingabeaufforderung des Startmenüs die Konfiguration:
++
+`wipeconfig`
+
++
+Antworten `yes` An die Bestätigungsaufforderung.
+
++
+Der Node wird neu gebootet, und das Startmenü wird erneut angezeigt.
+
+. Wählen Sie im Startmenü die Option *5*, um das System im Wartungsmodus zu booten.
++
+Antworten `yes` An die Bestätigungsaufforderung.
+
+
+
+.Was kommt als Nächstes?
+link:upgrade-mcc-ip-system-controller-replace-restore-hba-set-ha.html["Stellen Sie die HBA-Konfiguration wieder her, und legen Sie den HA-Status fest"].

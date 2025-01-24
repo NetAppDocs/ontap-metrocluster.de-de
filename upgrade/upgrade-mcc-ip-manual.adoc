@@ -1,0 +1,29 @@
+---
+permalink: upgrade/upgrade-mcc-ip-manual.html 
+sidebar: sidebar 
+keywords: metrocluster, upgrade, controllers, switchover, switchback, ip, configuration, net, boot, root, aggregate, system, commands, mcc 
+summary: Mit ONTAP 9.8 ermöglicht die MetroCluster Umschaltung unterbrechungsfreien Service für Clients, während Controller-Module im Partner-Cluster aktualisiert werden. 
+---
+= Workflow für MetroCluster IP-Controller-Upgrades mithilfe von Switchover und Switchback (ONTAP 9.8 und höher)
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Mit ONTAP 9.8 ermöglicht die MetroCluster Umschaltung unterbrechungsfreien Service für Clients, während Controller-Module im Partner-Cluster aktualisiert werden. Andere Komponenten (wie Storage Shelves oder Switches) können nicht im Rahmen dieses Verfahrens aktualisiert werden.
+
+.Informationen zu diesem Workflow
+Sie können diesen Workflow verwenden, um MetroCluster IP-Controller mithilfe von Switchover und Switchback auf Systemen mit ONTAP 9.8 oder höher zu aktualisieren.
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png["Eins"]link:upgrade-mcc-ip-manual-requirements.html["Upgrade wird vorbereitet"]
+[role="quick-margin-para"]
+Prüfen Sie die unterstützten Upgrade-Kombinationen und -Anforderungen und führen Sie die erforderlichen Aufgaben aus, um das System auf das Controller-Upgrade vorzubereiten.
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-2.png["Zwei"]link:upgrade-mcc-ip-manual-switchover.html["Upgrade Ihrer Controller"]
+[role="quick-margin-para"]
+Wechseln Sie die MetroCluster Konfiguration, um die Konfiguration der alten Controller zu entfernen, Rack und installieren Sie die neuen Controller, weisen Sie die Root-Aggregat-Festplatten neu zu und booten Sie die neuen Controller, bevor Sie einen Switchback durchführen.
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-3.png["Drittens"]link:upgrade-mcc-ip-manual-complete-upgrade.html["Schließen Sie das Upgrade ab"]
+[role="quick-margin-para"]
+Führen Sie das Controller-Upgrade durch, indem Sie die Upgrade-Aufgaben am zweiten Standort wiederholen und die Überwachungskonfiguration wiederherstellen.

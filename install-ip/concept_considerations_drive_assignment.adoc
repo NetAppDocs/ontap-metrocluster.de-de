@@ -261,15 +261,11 @@ Die Laufwerke auf jedem externen Shelf werden in zwei gleiche Gruppen (Hälften)
  a| 
 Ein Shelf wird von dem lokalen HA-Paar verwendet. Das zweite Shelf wird vom Remote HA-Paar verwendet.
 
-Partitionen auf jedem Shelf werden verwendet, um das Root-Aggregat zu erstellen. Jedes der beiden Plexe im Root-Aggregat enthält die folgenden Partitionen::
-+
---
+Partitionen auf jedem Shelf werden verwendet, um das Root-Aggregat zu erstellen. Jedes der beiden Plexe im Root-Aggregat enthält die folgenden Partitionen:
+
 * Acht Partitionen für Daten
 * Zwei Paritätspartitionen
 * Zwei Ersatzpartitionen
-
-
---
 
 
 
@@ -306,8 +302,7 @@ Nur interne Laufwerke
  a| 
 Die internen Laufwerke sind in vier gleiche Gruppen unterteilt. Jede Gruppe wird automatisch einem separaten Pool zugewiesen, und jeder Pool wird einem separaten Controller in der Konfiguration zugewiesen.
 
-
-NOTE: Die Hälfte der internen Laufwerke bleibt vor der Konfiguration von MetroCluster unzugewiesen.
+*Hinweis:* die Hälfte der internen Laufwerke bleibt nicht zugewiesen, bevor MetroCluster konfiguriert wird.
  a| 
 Das lokale HA-Paar verwendet zwei Quartale. Die anderen zwei Quartale werden von dem Remote HA-Paar verwendet.
 
@@ -341,8 +336,7 @@ Ein Shelf mit den Quartalen Q1 bis Q4 kann beispielsweise folgende Aufgaben habe
 * Q4:Node_B_2 Pool1
 
 
-
-NOTE: Die Hälfte der internen Laufwerke bleibt vor der Konfiguration von MetroCluster unzugewiesen.
+*Hinweis:* die Hälfte der internen Laufwerke bleibt nicht zugewiesen, bevor MetroCluster konfiguriert wird.
  a| 
 Jedes der beiden Plexe im Root-Aggregat enthält die folgenden Partitionen:
 
@@ -354,7 +348,7 @@ Jedes der beiden Plexe im Root-Aggregat enthält die folgenden Partitionen:
 |===
 
 
-=== ADP- und Festplattenzuordnung auf Systemen AFF C250, AFF A250, ASA A250, ASA C250 und FAS500f
+=== ADP- und Festplattenzuweisung für AFF A250, AFF C250, ASA A250, ASA C250, FAS500f, AFF A20, AFF A30 und AFF C30 Systeme
 
 |===
 
@@ -362,10 +356,8 @@ Jedes der beiden Plexe im Root-Aggregat enthält die folgenden Partitionen:
 | Richtlinie | Laufwerke pro Standort | Zuweisungsregeln für Laufwerke | ADP-Layout für Root-Partition 
 
 
- a| 
-Minimal empfohlene Laufwerke (pro Standort)
- a| 
-48 Laufwerke
+.2+| Minimal empfohlene Laufwerke (pro Standort)  a| 
+48 Laufwerke (nur externe Laufwerke, keine internen Laufwerke)
  a| 
 Die Laufwerke auf jedem externen Shelf werden in zwei gleiche Gruppen (Hälften) aufgeteilt. Jedes halbe Shelf wird automatisch einem separaten Pool zugewiesen.
  a| 
@@ -381,9 +373,78 @@ Partitionen auf jedem Shelf werden verwendet, um das Root-Aggregat zu erstellen.
 
 
  a| 
+48 Laufwerke (externe und interne Laufwerke)
+ a| 
+Die internen Partitionen sind in vier gleiche Gruppen (Quartiere) unterteilt. Jedes Quartal wird automatisch einem separaten Pool zugewiesen. Die Laufwerke auf den externen Regalen sind in vier gleiche Gruppen (Quartale) unterteilt. Jedes Quartal wird automatisch einem separaten Pool zugewiesen.
+ a| 
+Jedes der beiden Plexe im Root-Aggregat enthält:
+
+* Acht Partitionen für Daten
+* Zwei Paritätspartitionen
+* Zwei Ersatzpartitionen
+
+
+
+
+ a| 
 Mindestens unterstützte Laufwerke (pro Standort)
  a| 
 16 interne Laufwerke
+ a| 
+Die Laufwerke sind in vier gleiche Gruppen unterteilt. Jedes Quartals-Shelf wird automatisch einem separaten Pool zugewiesen.
+ a| 
+Jedes der beiden Plexe im Root-Aggregat enthält die folgenden Partitionen:
+
+* Zwei Partitionen für Daten
+* Zwei Paritätspartitionen
+* Keine Ersatzpartitionen
+
+
+|===
+
+
+=== ADP und Festplattenzuweisung auf AFF A50 und AFF C60 Systemen
+
+|===
+
+
+| Richtlinie | Laufwerke pro Standort | Zuweisungsregeln für Laufwerke | ADP-Layout für Root-Partition 
+
+
+.2+| Minimal empfohlene Laufwerke (pro Standort)  a| 
+48 Laufwerke (nur externe Laufwerke, keine internen Laufwerke)
+ a| 
+Die Laufwerke auf jedem externen Shelf werden in zwei gleiche Gruppen (Hälften) aufgeteilt. Jedes halbe Shelf wird automatisch einem separaten Pool zugewiesen.
+ a| 
+Das lokale HA-Paar verwendet ein Shelf. Das Remote-HA-Paar verwendet das zweite Shelf.
+
+Partitionen auf jedem Shelf werden verwendet, um das Root-Aggregat zu erstellen. Das Root-Aggregat enthält die folgenden Partitionen in jedem Plex:
+
+* Acht Partitionen für Daten
+* Zwei Paritätspartitionen
+* Zwei Ersatzpartitionen
+
+
+
+
+ a| 
+48 Laufwerke (externe und interne Laufwerke)
+ a| 
+Die internen Partitionen sind in vier gleiche Gruppen (Quartiere) unterteilt. Jedes Quartal wird automatisch einem separaten Pool zugewiesen. Die Laufwerke auf den externen Regalen sind in vier gleiche Gruppen (Quartale) unterteilt. Jedes Quartal wird automatisch einem separaten Pool zugewiesen.
+ a| 
+Jedes der beiden Plexe im Root-Aggregat enthält:
+
+* Acht Partitionen für Daten
+* Zwei Paritätspartitionen
+* Zwei Ersatzpartitionen
+
+
+
+
+ a| 
+Mindestens unterstützte Laufwerke (pro Standort)
+ a| 
+24 interne Laufwerke
  a| 
 Die Laufwerke sind in vier gleiche Gruppen unterteilt. Jedes Quartals-Shelf wird automatisch einem separaten Pool zugewiesen.
  a| 
@@ -522,7 +583,7 @@ Jedes der beiden Plexe im Root-Aggregat enthält:
 |===
 
 
-=== ADP- und Festplattenzuordnung auf AFF C800, ASA C800, ASA A800, AFF A800, AFF A70, und AFF A90-Systemen
+=== ADP und Festplattenzuweisung auf AFF C800, ASA C800, ASA A800 und AFF A800 Systemen
 
 |===
 
@@ -537,8 +598,51 @@ Interne Laufwerke und 96 externe Laufwerke
  a| 
 Die internen Partitionen sind in vier gleiche Gruppen (Quartiere) unterteilt. Jedes Quartal wird automatisch einem separaten Pool zugewiesen. Die Laufwerke auf den externen Shelfs werden automatisch Shelf-einzeln zugewiesen, wobei allen Laufwerken in jedem Shelf einer der vier Nodes in der MetroCluster-Konfiguration zugewiesen ist.
  a| 
-Das Root-Aggregat wird mit 12 Root-Partitionen auf dem internen Shelf erstellt.
+Jedes der beiden Plexe im Root-Aggregat enthält:
 
+* Acht Partitionen für Daten
+* Zwei Paritätspartitionen
+* Zwei Ersatzpartitionen
+
+
+*Hinweis:* das Root-Aggregat wird mit 12 Root-Partitionen auf dem internen Regal erstellt.
+
+
+
+ a| 
+Mindestens unterstützte Laufwerke (pro Standort)
+ a| 
+24 interne Laufwerke
+ a| 
+Die internen Partitionen sind in vier gleiche Gruppen (Quartiere) unterteilt. Jedes Quartal wird automatisch einem separaten Pool zugewiesen.
+ a| 
+Jedes der beiden Plexe im Root-Aggregat enthält:
+
+* Drei Partitionen für Daten
+* Zwei Paritätspartitionen
+* Eine Ersatzpartitionen
+
+
+*Hinweis:* das Root-Aggregat wird mit 12 Root-Partitionen auf dem internen Regal erstellt.
+
+|===
+
+
+=== ADP- und Festplattenzuweisung auf AFF A70-, AFF A90- und AFF C80-Systemen
+
+|===
+
+
+| Richtlinie | Laufwerke pro Standort | Zuweisungsregeln für Laufwerke | ADP-Layout für Root-Aggregat 
+
+
+ a| 
+Minimal empfohlene Laufwerke (pro Standort)
+ a| 
+Interne Laufwerke und 96 externe Laufwerke
+ a| 
+Die internen Partitionen sind in vier gleiche Gruppen (Quartiere) unterteilt. Jedes Quartal wird automatisch einem separaten Pool zugewiesen. Die Laufwerke auf den externen Shelfs werden automatisch Shelf-einzeln zugewiesen, wobei allen Laufwerken in jedem Shelf einer der vier Nodes in der MetroCluster-Konfiguration zugewiesen ist.
+ a| 
 Jedes der beiden Plexe im Root-Aggregat enthält:
 
 * Acht Partitionen für Daten
@@ -555,8 +659,6 @@ Mindestens unterstützte Laufwerke (pro Standort)
  a| 
 Die internen Partitionen sind in vier gleiche Gruppen (Quartiere) unterteilt. Jedes Quartal wird automatisch einem separaten Pool zugewiesen.
  a| 
-Das Root-Aggregat wird mit 12 Root-Partitionen auf dem internen Shelf erstellt.
-
 Jedes der beiden Plexe im Root-Aggregat enthält:
 
 * Drei Partitionen für Daten
@@ -676,43 +778,12 @@ Für FAS500f Systeme gelten die gleichen Richtlinien und Regeln für die Festpla
 
 
 
-=== Festplattenzuordnung bei FAS9000 Systemen
+=== Festplattenzuordnung auf FAS9000, FAS9500, FAS70 und FAS90 Systemen
 
 |===
 
 
 | Richtlinie | Laufwerke pro Standort | Zuweisungsregeln für Laufwerke | ADP-Layout für Root-Partition 
-
-
- a| 
-Minimal empfohlene Laufwerke (pro Standort)
- a| 
-96 Laufwerke
- a| 
-Laufwerke werden automatisch Shelf-für-Shelf zugewiesen.
- a| 
-Keine Angabe
-
-
-
- a| 
-Mindestens unterstützte Laufwerke (pro Standort)
- a| 
-48 Laufwerke
- a| 
-Die Laufwerke auf den Shelfs sind in zwei gleiche Gruppen (Hälften) unterteilt. Jedes halbe Shelf wird automatisch einem separaten Pool zugewiesen.
- a| 
-Keine Angabe
-
-|===
-
-
-=== Festplattenzuordnung auf FAS9500 Systemen
-
-|===
-
-
-| Richtlinie | Shelves pro Standort | Zuweisungsregeln für Laufwerke | ADP-Layout für Root-Partition 
 
 
  a| 

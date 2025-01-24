@@ -1,0 +1,113 @@
+---
+permalink: upgrade/upgrade-mcc-ip-system-controller-replace-set-bootarg.html 
+sidebar: sidebar 
+keywords: metrocluster, upgrade, controllers, switchover, switchback, ip, configuration, net, boot, root, aggregate, system, commands, mcc 
+summary: Upgrades auf Systeme, die in ONTAP 9.15.1 oder höher eingeführt wurden, erfordern, dass Sie einen Bootarg einrichten, bevor Sie mit dem Upgrade fortfahren können. 
+---
+= Legen Sie den erforderlichen Bootarg fest (für MetroCluster IP-Upgrades auf Systemen ab ONTAP 9.15.1).
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Upgrades auf Systeme, die in ONTAP 9.15.1 oder höher eingeführt wurden, erfordern, dass Sie einen Bootarg einrichten, bevor Sie mit dem Upgrade fortfahren können.
+
+
+
+== Schritt 1: Bestimmen Sie den Bootarg, den Sie auf den alten Controllern einstellen müssen
+
+Für alle unterstützten Upgrades auf den folgenden Systemen müssen Sie vor der Durchführung des Controller-Upgrades ein Boot-arg auf den alten Controllern einrichten:
+
+* AFF A70, AFF A90, AFF A1K
+* FAS70, FAS90
+* AFF C80
+* AFF A50, AFF A20, AFF A30
+* AFF C30, AFF C60
+
+
+
+CAUTION: Wenn Sie ein Upgrade auf eines der aufgeführten Systeme durchführen, müssen Sie * einen erforderlichen Bootarg auf dem vorhandenen System festlegen, bevor Sie das Upgrade durchführen. Für alle anderen Upgrades können Sie diese Aufgabe überspringen und direkt zu gehen link:upgrade-mcc-ip-system-controller-replace-prechecks.html["Bereiten Sie das System für das Upgrade vor"].
+
+Bei den meisten Upgrades von Systemen, die in ONTAP 9.15.1 oder höher eingeführt wurden, müssen Sie den Bootarg auf den alten Controllern einstellen `hw.cxgbe.toe_keepalive_disable`. Bestimmte Upgrade-Pfade erfordern jedoch, dass Sie stattdessen den Bootarg einstellen `bootarg.siw.interop_enabled`.
+
+Verwenden Sie die folgende Tabelle, um zu bestimmen, welche Bootarg Sie für Ihre spezifische Upgrade-Kombination einstellen müssen.
+
+[cols="2*"]
+|===
+| Für dieses Upgrade... | Bootarg festlegen... 
+
+
+| Von AFF A250 nach AFF A30 | `bootarg.siw.interop_enabled` 
+
+
+| Von AFF C250 nach AFF C30 | `bootarg.siw.interop_enabled` 
+
+
+| Von AFF A150 nach AFF A20 | `bootarg.siw.interop_enabled` 
+
+
+| Von AFF A220 nach AFF A20 | `bootarg.siw.interop_enabled` 
+
+
+| Alle anderen unterstützten Upgrades auf AFF A70, AFF A90, AFF A1K, FAS70, FAS90, AFF C80, AFF A50, AFF A20, AFF A30, AFF C30 oder AFF C60 Systeme | `hw.cxgbe.toe_keepalive_disable` 
+|===
+
+
+== Schritt 2: Stellen Sie den erforderlichen Bootarg auf den alten Controllern ein
+
+Diese Aufgabe ist *nur* erforderlich, wenn Sie ein Upgrade auf ein AFF A70-, AFF A90-, AFF A1K-, FAS70-, FAS90-, AFF C80-, AFF A50-, AFF A20-, AFF A30-, AFF C30- oder AFF C60-System durchführen.
+
+.Schritte
+. Halten Sie einen Node an jedem Standort an und erlauben Sie dem HA-Partner, einen Storage-Takeover des Node durchzuführen:
++
+`halt  -node <node_name>`
+
+. Stellen Sie den erforderlichen Bootarg für Ihre Upgrade-Kombination ein. Sie haben bereits den Bootarg festgelegt, den Sie mithilfe der Tabelle in festlegen müssen<<upgrade_paths_bootarg_assisted,Bestimmen Sie, welchen Bootarg Sie einstellen müssen>>.
++
+[role="tabbed-block"]
+====
+.hw.cxgbe.toe_keepalive_disable
+--
+.. Geben Sie an `LOADER` der Eingabeaufforderung des angehaltenen Node Folgendes ein:
++
+`setenv hw.cxgbe.toe_keepalive_disable 1`
+
++
+`saveenv`
+
++
+`printenv hw.cxgbe.toe_keepalive_disable`
+
+
+
+--
+.bootarg.siw.interop_enabled
+--
+.. Geben Sie an `LOADER` der Eingabeaufforderung des angehaltenen Node Folgendes ein:
++
+`setenv bootarg.siw.interop_enabled 1`
+
++
+`saveenv`
+
++
+`printenv bootarg.siw.interop_enabled`
+
+
+
+--
+====
+. Booten des Node:
++
+`boot_ontap`
+
+. Führen Sie beim Booten des Node ein Giveback für den Node durch, um folgende Eingabeaufforderung zu erhalten:
++
+`storage failover giveback -ofnode <node_name>`
+
+. Wiederholen Sie die Schritte für jeden Knoten in der DR-Gruppe, der aktualisiert wird.
+
+
+.Wie es weiter geht
+link:upgrade-mcc-ip-system-controller-replace-prechecks.html["Bereiten Sie das System für das Upgrade vor"].

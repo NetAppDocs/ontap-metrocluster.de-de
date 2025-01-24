@@ -1,0 +1,131 @@
+---
+permalink: upgrade/upgrade-mcc-ip-manual-reassign-root-agg.html 
+sidebar: sidebar 
+keywords: metrocluster, upgrade, controllers, switchover, switchback, ip, configuration, net, boot, root, aggregate, system, commands, mcc 
+summary: Weisen Sie die Festplatten des Stammaggregats dem neuen Controller-Modul unter Verwendung der zuvor zusammengetragenen System-IDs neu zu. 
+---
+= Weisen Sie die Festplatten des Root-Aggregats dem neuen MetroCluster IP-Controller-Modul neu zu
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Weisen Sie die Festplatten des Stammaggregats dem neuen Controller-Modul mithilfe der zuvor zusammengefassten System-IDs neu zu.
+
+.Über diese Aufgabe
+Die alten System-IDs wurden in identifiziert link:upgrade-mcc-ip-prepare-system.html#gather-information-before-the-upgrade["Sammeln Sie vor dem Upgrade Informationen"].
+
+Sie führen die Schritte im Wartungsmodus aus.
+
+
+NOTE: Root-Aggregat-Festplatten sind die einzigen Festplatten, die während des Controller-Upgrades neu zugewiesen werden müssen. Die Eigentumsrechte an Datenaggregaten werden im Rahmen des Switchover/Switchback-Vorgangs übernommen.
+
+.Schritte
+. Starten des Systems in den Wartungsmodus:
++
+`boot_ontap maint`
+
+. Zeigen Sie die Festplatten auf Node_B_1-New in der Eingabeaufforderung Wartungsmodus an:
++
+`disk show -a`
+
++
+
+CAUTION: Bevor Sie mit der Neuzuweisung der Festplatte fortfahren, überprüfen Sie, ob die zum Root-Aggregat des Node gehörenden Pool0- und Pool1-Festplatten in der Ausgabe angezeigt werden `disk show`. Im folgenden Beispiel werden in der Ausgabe die Laufwerke pool0 und pool1 aufgelistet, die sich im Besitz von Node_B_1-old befinden.
+
++
+Die Befehlsausgabe zeigt die System-ID des neuen Controller-Moduls (1574774970). Die alte System-ID (537403322) besitzt jedoch immer noch die Root-Aggregat-Festplatten. Dieses Beispiel zeigt keine Laufwerke an, die anderen Nodes in der MetroCluster-Konfiguration gehören.
+
++
+[listing]
+----
+*> disk show -a
+Local System ID: 1574774970
+DISK                  OWNER                 POOL   SERIAL NUMBER   HOME                  DR HOME
+------------          ---------             -----  -------------   -------------         -------------
+prod3-rk18:9.126L44   node_B_1-old(537403322)  Pool1  PZHYN0MD     node_B_1-old(537403322)  node_B_1-old(537403322)
+prod4-rk18:9.126L49   node_B_1-old(537403322)  Pool1  PPG3J5HA     node_B_1-old(537403322)  node_B_1-old(537403322)
+prod4-rk18:8.126L21   node_B_1-old(537403322)  Pool1  PZHTDSZD     node_B_1-old(537403322)  node_B_1-old(537403322)
+prod2-rk18:8.126L2    node_B_1-old(537403322)  Pool0  S0M1J2CF     node_B_1-old(537403322)  node_B_1-old(537403322)
+prod2-rk18:8.126L3    node_B_1-old(537403322)  Pool0  S0M0CQM5     node_B_1-old(537403322)  node_B_1-old(537403322)
+prod1-rk18:9.126L27   node_B_1-old(537403322)  Pool0  S0M1PSDW     node_B_1-old(537403322)  node_B_1-old(537403322)
+.
+.
+.
+----
+. Weisen Sie die Root-Aggregat-Disks in den Laufwerk-Shelfs den neuen Controllern wieder zu.
++
+|===
+
+
+| Wenn Sie ADP verwenden... | Verwenden Sie dann diesen Befehl... 
+
+
+ a| 
+Ja.
+ a| 
+`disk reassign -s <old-sysid> -d <new-sysid> -r <dr-partner-sysid>`
+
+
+
+ a| 
+Nein
+ a| 
+`disk reassign -s <old-sysid> -d <new-sysid>`
+
+|===
+. Weisen Sie die Root-Aggregat-Festplatten in den Laufwerk-Shelfs den neuen Controllern neu zu:
++
+`disk reassign -s <old-sysid> -d <new-sysid>`
+
++
+Das folgende Beispiel zeigt die Neuzuweisung von Laufwerken in einer nicht-ADP-Konfiguration:
+
++
+[listing]
+----
+*> disk reassign -s 537403322 -d 1574774970
+Partner node must not be in Takeover mode during disk reassignment from maintenance mode.
+Serious problems could result!!
+Do not proceed with reassignment if the partner is in takeover mode. Abort reassignment (y/n)? n
+
+After the node becomes operational, you must perform a takeover and giveback of the HA partner node to ensure disk reassignment is successful.
+Do you want to continue (y/n)? y
+Disk ownership will be updated on all disks previously belonging to Filer with sysid 537403322.
+Do you want to continue (y/n)? y
+----
+. Überprüfen Sie, ob die Festplatten des Root-Aggregats ordnungsgemäß neu zugewiesen wurden:
++
+`disk show`
+
++
+`storage aggr status`
+
++
+[listing]
+----
+
+*> disk show
+Local System ID: 537097247
+
+  DISK                    OWNER                    POOL   SERIAL NUMBER   HOME                     DR HOME
+------------              -------------            -----  -------------   -------------            -------------
+prod03-rk18:8.126L18 node_B_1-new(537097247)  Pool1  PZHYN0MD        node_B_1-new(537097247)   node_B_1-new(537097247)
+prod04-rk18:9.126L49 node_B_1-new(537097247)  Pool1  PPG3J5HA        node_B_1-new(537097247)   node_B_1-new(537097247)
+prod04-rk18:8.126L21 node_B_1-new(537097247)  Pool1  PZHTDSZD        node_B_1-new(537097247)   node_B_1-new(537097247)
+prod02-rk18:8.126L2  node_B_1-new(537097247)  Pool0  S0M1J2CF        node_B_1-new(537097247)   node_B_1-new(537097247)
+prod02-rk18:9.126L29 node_B_1-new(537097247)  Pool0  S0M0CQM5        node_B_1-new(537097247)   node_B_1-new(537097247)
+prod01-rk18:8.126L1  node_B_1-new(537097247)  Pool0  S0M1PSDW        node_B_1-new(537097247)   node_B_1-new(537097247)
+::>
+::> aggr status
+           Aggr          State           Status                Options
+aggr0_node_B_1           online          raid_dp, aggr         root, nosnap=on,
+                                         mirrored              mirror_resync_priority=high(fixed)
+                                         fast zeroed
+                                         64-bit
+----
+
+
+.Was kommt als Nächstes?
+link:upgrade-mcc-ip-manual-boot-new-controllers.html["Booten der neuen Controller und Wiederherstellen der LIF-Konfiguration"].

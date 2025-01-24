@@ -1,0 +1,166 @@
+---
+permalink: upgrade/upgrade-mcc-ip-system-controller-replace-restore-hba-set-ha.html 
+sidebar: sidebar 
+keywords: metrocluster, upgrade, controllers, switchover, switchback, ip, configuration, net, boot, root, aggregate, system, commands, mcc 
+summary: Konfigurieren Sie die HBA-Karten im Controller-Modul, und überprüfen und legen Sie den HA-Status des Controllers und des Gehäuses fest. 
+---
+= Stellen Sie die HBA-Konfiguration wieder her, und legen Sie den HA-Status des MetroCluster IP-Controllers und -Gehäuses fest
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Konfigurieren Sie die HBA-Karten im Controller-Modul, und überprüfen und legen Sie den HA-Status des Controllers und des Gehäuses fest.
+
+
+
+== Wiederherstellung der HBA-Konfiguration
+
+Je nach Vorhandensein und Konfiguration von HBA-Karten im Controller-Modul müssen Sie sie für Ihren Standort korrekt konfigurieren.
+
+.Schritte
+. Konfigurieren Sie im Wartungsmodus die Einstellungen für alle HBAs im System:
++
+.. Überprüfen Sie die aktuellen Einstellungen der Ports: `ucadmin show`
+.. Aktualisieren Sie die Porteinstellungen nach Bedarf.
+
+
++
+|===
+
+
+| Wenn Sie über diese Art von HBA und den gewünschten Modus verfügen... | Befehl 
+
+
+ a| 
+CNA FC
+ a| 
+`ucadmin modify -m fc -t initiator <adapter-name>`
+
+
+
+ a| 
+CNA-Ethernet
+ a| 
+`ucadmin modify -mode cna <adapter-name>`
+
+
+
+ a| 
+FC-Ziel
+ a| 
+`fcadmin config -t target <adapter-name>`
+
+
+
+ a| 
+FC-Initiator
+ a| 
+`fcadmin config -t initiator <adapter-name>`
+
+|===
+. Beenden des Wartungsmodus:
++
+`halt`
+
++
+Warten Sie nach dem Ausführen des Befehls, bis der Node an der Eingabeaufforderung angehalten `LOADER` wird.
+
+. Booten Sie den Node wieder im Wartungsmodus, um die Konfigurationsänderungen anzuwenden:
++
+`boot_ontap maint`
+
+. Überprüfen Sie die Änderungen:
++
+|===
+
+
+| Wenn Sie über diese Art von HBA verfügen... | Befehl 
+
+
+ a| 
+CNA
+ a| 
+`ucadmin show`
+
+
+
+ a| 
+FC
+ a| 
+`fcadmin show`
+
+|===
+
+
+
+
+== Legen Sie den HA-Status für die neuen Controller und das Chassis fest
+
+Sie müssen den HA-Status der Controller und des Chassis überprüfen. Bei Bedarf müssen Sie den Status entsprechend Ihrer Systemkonfiguration aktualisieren.
+
+.Schritte
+. Zeigen Sie im Wartungsmodus den HA-Status des Controller-Moduls und des Chassis an:
++
+`ha-config show`
+
++
+Der HA-Status für alle Komponenten sollte sein `mccip`.
+
+. Wenn der angezeigte Systemzustand des Controllers oder Chassis nicht korrekt ist, setzen Sie den HA-Status ein:
++
+`ha-config modify controller mccip`
+
++
+`ha-config modify chassis mccip`
+
+. Überprüfen und ändern Sie die Ethernet-Ports, die mit NS224-Shelfs oder Speicher-Switches verbunden sind.
++
+.. Überprüfen Sie die Ethernet-Ports, die mit NS224-Shelfs oder Speicher-Switches verbunden sind:
++
+`storage port show`
+
+.. Setzen Sie alle mit Ethernet-Shelfs oder Storage-Switches verbundenen Ethernet-Ports, einschließlich gemeinsam genutzter Switches für Storage und Cluster, auf den `storage` Modus:
++
+`storage port modify -p <port> -m storage`
+
++
+Beispiel:
+
++
+[listing]
+----
+*> storage port modify -p e5b -m storage
+Changing NVMe-oF port e5b to storage mode
+----
++
+
+NOTE: Dies muss für alle betroffenen Ports festgelegt werden, damit ein Upgrade erfolgreich durchgeführt werden kann.
+
++
+Festplatten aus den an die Ethernet-Ports angeschlossenen Shelfs werden in der Ausgabe gemeldet `sysconfig -v` .
+
++
+Informationen zu den Speicherports für das System, auf das Sie aktualisieren, finden Sie im link:https://hwu.netapp.com["Hardware Universe"^] .
+
+.. Überprüfen Sie, ob `storage` der Modus festgelegt ist, und vergewissern Sie sich, dass die Ports den Status „Online“ aufweisen:
++
+`storage port show`
+
+
+
+. Stoppen Sie den Knoten: `halt`
++
+Der Node sollte am anhalten `LOADER>` Eingabeaufforderung:
+
+. Überprüfen Sie auf jedem Node das Systemdatum, die Uhrzeit und die Zeitzone: `show date`
+. Stellen Sie bei Bedarf das Datum in UTC oder GMT ein: `set date <mm/dd/yyyy>`
+. Überprüfen Sie die Zeit mit dem folgenden Befehl an der Eingabeaufforderung der Boot-Umgebung: `show time`
+. Stellen Sie bei Bedarf die Uhrzeit in UTC oder GMT ein: `set time <hh:mm:ss>`
+. Einstellungen speichern: `saveenv`
+. Umgebungsvariablen erfassen: `printenv`
+
+
+.Was kommt als Nächstes?
+link:upgrade-mcc-ip-system-controller-replace-apply-rcf-set-bootarg.html["Aktualisieren Sie die Switch-RCF-Dateien und legen Sie die MetroCluster IP-Bootarg-Werte fest"].
