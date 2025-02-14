@@ -28,13 +28,13 @@ Die vorhandenen 7-Mode Fabric MetroCluster können mit 8-Gbit/s- oder 16-Gbit/s-
 
 * An jedem der vier Brocade 6510-Switches müssen die Ports 24 bis 45 zur Verbindung der neuen MetroCluster-Komponenten verfügbar sein.
 * Sie sollten überprüfen, ob sich die vorhandenen Inter-Switch Links (ISLs) auf den Ports 46 und 47 befinden.
-* Auf den Brocade 6510 Switches muss eine FOS-Firmwareversion ausgeführt werden, die sowohl auf der 7-Mode Fabric MetroCluster als auch auf der Clustered ONTAP MetroCluster Konfiguration unterstützt wird.
+* Auf den Brocade 6510-Switches muss eine FOS-Firmware-Version ausgeführt werden, die sowohl von der Fabric MetroCluster- als auch von der ONTAP MetroCluster-Konfiguration mit 7-Mode unterstützt wird.
 
 
 .Nachdem Sie fertig sind
 Nach Freigabe der Fabric und Abschluss der MetroCluster Konfiguration können Sie die Daten aus der 7-Mode Fabric MetroCluster Konfiguration umstellen.
 
-Nach der Transition der Daten können Sie die 7-Mode Fabric MetroCluster-Verkabelung entfernen und auf Wunsch die Clustered ONTAP MetroCluster-Verkabelung auf die Ports mit geringerer Anzahl verschieben, die zuvor für die 7-Mode MetroCluster-Verkabelung verwendet wurden. Die Ports werden im Abschnitt „Überprüfen der FC-Switch-Port-Zuweisungen für eine MetroCluster mit vier Nodes“ angezeigt. Sie müssen das Zoning für die neu angeordneten Ports anpassen.
+Nach dem Überführen der Daten können Sie die 7-Mode Fabric MetroCluster-Verkabelung entfernen und bei Bedarf die ONTAP MetroCluster-Verkabelung auf die Ports verschieben, die zuvor für die 7-Mode MetroCluster-Verkabelung verwendet wurden, mit der niedrigeren Nummer. Die Ports sind im Abschnitt „Überprüfen der FC-Switch-Port-Zuweisungen für eine MetroCluster mit vier Nodes“ dargestellt. Sie müssen das Zoning für die neu arrangierten Ports anpassen.
 
 link:concept_port_assignments_for_fc_switches_when_using_ontap_9_1_and_later.html["Port-Zuweisungen für FC-Switches bei Verwendung von ONTAP 9.1 und höher"]
 
