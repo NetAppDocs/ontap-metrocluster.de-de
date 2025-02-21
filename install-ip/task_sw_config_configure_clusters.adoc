@@ -717,7 +717,6 @@ NOTE: Die MetroCluster-IP-Adresse und die verbundenen Switch-Ports werden erst o
 
 .Über diese Aufgabe
 * Sie müssen für jeden Node zwei Schnittstellen erstellen. Die Schnittstellen müssen mit den in der MetroCluster RCF-Datei definierten VLANs verknüpft sein.
-* Abhängig von Ihrer ONTAP-Version können Sie einige Eigenschaften der MetroCluster-IP-Schnittstelle nach der Erstkonfiguration ändern. Weitere Informationen zu den unterstützten Funktionen finden Sie unter link:../maintain/task-modify-ip-netmask-properties.html["Ändern Sie die Eigenschaften einer MetroCluster-IP-Schnittstelle"] .
 * Sie müssen alle MetroCluster IP Schnittstelle „A“-Ports in demselben VLAN und alle MetroCluster IP Schnittstelle „B“-Ports in dem anderen VLAN erstellen. Siehe link:concept_considerations_mcip.html["Überlegungen zur MetroCluster IP-Konfiguration"].
 * Ab ONTAP 9.9 müssen Sie auch die angeben, wenn Sie eine Layer 3-Konfiguration verwenden `-gateway` Parameter beim Erstellen von MetroCluster-IP-Schnittstellen. Siehe link:../install-ip/concept_considerations_layer_3.html["Überlegungen für Layer 3-Weitbereichs-Netzwerke"].
 +
@@ -921,6 +920,10 @@ cluster_B
 . Erstellen Sie die Schnittstellen auf Node_A_1.
 +
 .. Konfigurieren Sie die Schnittstelle am Port „e5a“ auf „Node_A_1“:
++
+
+CAUTION: Verwenden Sie beim Erstellen von MetroCluster-IP-Schnittstellen keine IP-Adressen 169.254.17.x oder 169.254.18.x, um Konflikte mit automatisch generierten Schnittstellen-IP-Adressen im gleichen Bereich zu vermeiden.
+
 +
 `metrocluster configuration-settings interface create -cluster-name <cluster_name> -home-node <node_name> -home-port e5a -address <ip_address> -netmask <netmask>`
 

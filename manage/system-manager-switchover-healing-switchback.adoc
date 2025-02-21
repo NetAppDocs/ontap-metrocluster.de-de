@@ -37,18 +37,18 @@ Wenn ONTAP den Status eines der Cluster nicht ermitteln kann, initiiert der Syst
 
 Bei jedem Switch-Verfahren wird die Datenpflege mithilfe eines _switchback_-Prozesses an das Cluster zurückgegeben.
 
-Für ONTAP 9.7 und 9.8 führen Sie verschiedene Switchover- und Switchback-Prozesse durch:
+Der Umschaltvorgang und der Rückkehrprozess sind abhängig von Ihrer ONTAP-Version:
 
-* <<sm97-sosb,Verwenden Sie in ONTAP 9.7 System Manager zum Umschalten und zurückwechseln>>
-* <<sm98-sosb,Verwenden Sie in ONTAP 9.8 System Manager zum Umschalten und zurückwechseln>>
-
-
+* <<sm97-sosb,Verwenden Sie System Manager in ONTAP 9.6 oder 9.7 für Umschaltung und Switchback>>
+* <<sm98-sosb,Verwenden Sie System Manager in ONTAP 9.8 oder höher für die Umschaltung und den Wechsel zurück>>
 
 
-== Verwenden Sie in ONTAP 9.7 System Manager zum Umschalten und zurückwechseln
+
+
+== Verwenden Sie System Manager in ONTAP 9.6 oder 9.7 für Umschaltung und Switchback
 
 .Schritte
-. Melden Sie sich unter ONTAP 9.7 bei System Manager an.
+. Melden Sie sich in ONTAP 9.6 oder 9.7 beim System Manager an.
 . Klicken Sie auf *(Zurück zur klassischen Version)*.
 . Klicken Sie auf *Konfiguration > MetroCluster*.
 +
@@ -71,14 +71,14 @@ System Manager überprüft, ob eine ausgehandelte Umschaltung möglich ist.
 
 
 
-== Verwenden Sie in ONTAP 9.8 System Manager zum Umschalten und zurückwechseln
+== Verwenden Sie System Manager in ONTAP 9.8 oder höher für die Umschaltung und den Wechsel zurück
 
 
 
-=== Geplante Umschaltung durchführen (ONTAP 9.8)
+=== Durchführen einer geplanten Umschaltung (ONTAP 9.8 oder höher)
 
 .Schritte
-. Melden Sie sich unter ONTAP 9.8 bei System Manager an.
+. Melden Sie sich unter ONTAP 9.8 oder höher beim System Manager an.
 . Wählen Sie *Dashboard*. Im Abschnitt *MetroCluster* werden die beiden Cluster mit einer Verbindung angezeigt.
 . Klicken Sie im lokalen Cluster (links dargestellt) auf , und wählen Sie *Umschalten der Remote-Datenservices auf image:icon_kabob.gif["Kebab-Symbol"]den lokalen Standort*.
 +
@@ -94,12 +94,12 @@ NOTE: Das Remote-Cluster sollte erst für die Datenpflege verwendet werden, wenn
 
 
 
-=== Ungeplante Umschaltung durchführen (ONTAP 9.8)
+=== Durchführung einer ungeplanten Umschaltung (ONTAP 9.8 oder höher)
 
 Eine ungeplante Umschaltung kann automatisch von ONTAP initiiert werden. Wenn ONTAP nicht feststellen kann, ob ein Switchback erforderlich ist, so initiiert der Systemadministrator des noch aktiven MetroCluster Standorts die Umschaltung mit folgenden Schritten:
 
 .Schritte
-. Melden Sie sich unter ONTAP 9.8 bei System Manager an.
+. Melden Sie sich unter ONTAP 9.8 oder höher beim System Manager an.
 . Wählen Sie *Dashboard*.
 +
 Im Abschnitt *MetroCluster* wird die Verbindung zwischen den beiden Clustern mit einem "X" dargestellt. Dies bedeutet, dass eine Verbindung nicht erkannt werden kann und dass entweder die Verbindungen oder das Cluster ausgefallen sind.
@@ -121,13 +121,13 @@ NOTE: Nachdem das Remote-Cluster online gestellt wurde, sollte es erst dann für
 
 
 
-=== Zurückwechseln (ONTAP 9.8)
+=== Durchführen eines Switchback (ONTAP 9.8 oder höher)
 
 .Bevor Sie beginnen
 Wenn das Remote-Cluster aufgrund geplanter Wartungsarbeiten oder aufgrund eines Ausfalls ausfällt, sollte es nun betriebsbereit sein und auf den Switchback warten.
 
 .Schritte
-. Melden Sie sich beim lokalen Cluster bei System Manager in ONTAP 9.8 an.
+. Melden Sie sich auf dem lokalen Cluster in ONTAP 9.8 oder höher bei System Manager an.
 . Wählen Sie *Dashboard*.
 +
 Im Abschnitt *MetroCluster* werden die beiden Cluster angezeigt.

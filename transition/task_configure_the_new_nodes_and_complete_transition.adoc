@@ -29,6 +29,10 @@ Sie müssen die MetroCluster IP-Verbindungen implementieren, die MetroCluster-Ko
 
 . MetroCluster-IP-Schnittstellen erstellen (Node_A_1-IP, Node_A_2-IP, Node_B_1-IP, Node_B_2-IP) -- pro Controller müssen zwei Schnittstellen erstellt werden; insgesamt acht Schnittstellen:
 +
+
+CAUTION: Verwenden Sie beim Erstellen von MetroCluster-IP-Schnittstellen keine IP-Adressen 169.254.17.x oder 169.254.18.x, um Konflikte mit automatisch generierten Schnittstellen-IP-Adressen im gleichen Bereich zu vermeiden.
+
++
 `metrocluster configuration-settings interface create -cluster-name <cluster_name> -home-node <controller_name> -home-port <port_name> -address <ip_address> -netmask <netmask_address> -vlan-id <vlan_id>`
 
 +

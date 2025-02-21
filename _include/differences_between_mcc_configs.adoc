@@ -18,7 +18,7 @@ In allen Konfigurationen ist jeder der beiden MetroCluster-Standorte als ONTAP-C
  a| 
 Anzahl an Controllern
  a| 
-Vier oder acht*
+Vier oder acht^1^
  a| 
 Vier oder acht
  a| 
@@ -207,15 +207,15 @@ Ja.
 Ja.
 
 |===
-* Wichtig*
+*Hinweise*
 
-Beachten Sie bei MetroCluster IP-Konfigurationen mit acht Nodes die folgenden Überlegungen:
+. Lesen Sie die folgenden Überlegungen für MetroCluster IP-Konfigurationen mit acht Nodes:
++
+** Konfigurationen mit acht Nodes werden ab ONTAP 9.9 unterstützt.
+** Es werden nur NetApp validierte MetroCluster Switches (bei NetApp bestellt) unterstützt.
+** Konfigurationen, die IP-geroutet (Layer 3)-Back-End-Verbindungen verwenden, werden nicht unterstützt.
 
-* Konfigurationen mit acht Nodes werden ab ONTAP 9.9 unterstützt.
-* Es werden nur NetApp validierte MetroCluster Switches (bei NetApp bestellt) unterstützt.
-* Konfigurationen, die IP-geroutet (Layer 3)-Back-End-Verbindungen verwenden, werden nicht unterstützt.
-* Konfigurationen mit gemeinsam genutzten privaten Layer 2-Netzwerken werden nicht unterstützt.
-* Konfigurationen mit einem gemeinsamen Cisco 9336C-FX2 Switch werden nicht unterstützt.
+
 
 
 

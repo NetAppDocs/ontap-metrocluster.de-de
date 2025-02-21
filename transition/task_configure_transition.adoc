@@ -336,6 +336,10 @@ Group Cluster Node               State          Mirroring Mode
 ....
 . Konfigurieren Sie die MetroCluster IP-Schnittstellen für die neu verbundenen MetroCluster IP-Knoten:
 +
+
+CAUTION: Verwenden Sie beim Erstellen von MetroCluster-IP-Schnittstellen keine IP-Adressen 169.254.17.x oder 169.254.18.x, um Konflikte mit automatisch generierten Schnittstellen-IP-Adressen im gleichen Bereich zu vermeiden.
+
++
 `metrocluster configuration-settings interface create -cluster-name`
 
 +
