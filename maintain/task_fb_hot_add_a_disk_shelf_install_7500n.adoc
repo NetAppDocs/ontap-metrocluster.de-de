@@ -4,7 +4,7 @@ sidebar: sidebar
 keywords: metrocluster, maintain, service, hot, add, disk, shelf 
 summary: Sie können ein Platten-Shelf während des laufenden Betrieb hinzufügen, wenn Sie die Storage-Kapazität erhöhen möchten, ohne die Performance zu beeinträchtigen. 
 ---
-= Hot-Adding eines Festplatten-Shelfs
+= Fügen Sie ein SAS-Platten-Shelf zu einem Stack von SAS-Platten-Shelves hinzu
 :allow-uri-read: 
 :icons: font
 :imagesdir: ../media/
@@ -13,14 +13,79 @@ summary: Sie können ein Platten-Shelf während des laufenden Betrieb hinzufüge
 [role="lead"]
 Sie können ein Platten-Shelf während des laufenden Betrieb hinzufügen, wenn Sie die Storage-Kapazität erhöhen möchten, ohne die Performance zu beeinträchtigen.
 
-* Das System muss alle Anforderungen in erfüllen link:task_fb_hot_add_shelf_prepare_7500n.html["Vorbereitung auf Hot-Add-Platten-Shelves"].
-* Ihre Umgebung muss eines der folgenden Szenarien erfüllen, um ein Hot-Add-Shelf zu aktivieren:
+
+
+== Schritt 1: Bereiten Sie das Hot-Add eines SAS-Platten-Shelfs vor
+
+Um das Hot-Hinzufügen eines SAS-Platten-Shelfs vorzubereiten, müssen Sie Dokumente sowie die Festplatten- und Festplatten-Shelf-Firmware herunterladen.
+
+.Bevor Sie beginnen
+* Stellen Sie sicher, dass Ihr System eine unterstützte Konfiguration ist und eine unterstützte Version von ONTAP ausführt.
+* Überprüfen Sie, ob auf allen Festplattenlaufwerken und Festplatten-Shelfs im System die neueste Firmware-Version ausgeführt wird.
++
+Möglicherweise möchten Sie die Festplatten- und Shelf-Firmware in der gesamten MetroCluster Konfiguration aktualisieren, bevor Sie Shelfs hinzufügen.
+
++
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-ug-rdg/home.html["Upgrade, Zurücksetzen oder Downgrade"]
+
+
+
+[NOTE]
+====
+Eine Kombination aus IOM12-Modulen und IOM6-Modulen wird im selben Stack unterstützt, wenn auf Ihrem System eine unterstützte ONTAP-Version ausgeführt wird. Informationen darüber, ob Ihre ONTAP-Version Shelf-Mischen unterstützt, finden Sie im link:https://imt.netapp.com/matrix/["Interoperabilitäts-Matrix-Tool (IMT)"^]. Wenn Ihre Version von ONTAP nicht unterstützt wird und Sie die IOM-Module im vorhandenen Stack oder das neue Shelf, das einer unterstützten Kombination von IOM-Modulen hinzugefügt werden soll, nicht aktualisieren oder herunterstufen können, müssen Sie einen der folgenden Schritte durchführen:
+
+* Starten eines neuen Stacks auf einem neuen SAS-Port (sofern vom Bridge-Paar unterstützt)
+* Starten Sie einen neuen Stack auf einem weiteren Brückenpaar.
+
+
+====
+.Schritte
+. Laden Sie folgende Dokumente von der NetApp Support-Website herunter oder lesen Sie sie:
++
+** https://mysupport.netapp.com/matrix["Interoperabilitäts-Matrix-Tool"]
+** Das _Installation Guide_ für Ihr Festplatten-Shelf-Modell.
+
+
+. Überprüfen Sie, ob das Festplatten-Shelf, das Sie hinzufügen, unterstützt wird.
++
+https://mysupport.netapp.com/matrix["Interoperabilitäts-Matrix-Tool"^]
+
+. Laden Sie die neueste Festplatten- und Festplatten-Shelf-Firmware herunter:
++
+
+NOTE: In diesem Schritt schließen Sie nur den Download-Teil der Anweisungen ab. Sie müssen die Schritte in befolgen<<step_2_hot_add_shelf,Fügen Sie während des laufenden Betrieb ein Platten-Shelf hinzu>>, um das Festplatten-Shelf zu installieren.
+
++
+.. Laden Sie die Festplatten-Firmware herunter, und erstellen Sie eine Kopie der Firmware-Anleitungen für die Festplatte, um sie später zu verwenden.
++
+https://mysupport.netapp.com/site/downloads/firmware/disk-drive-firmware["NetApp Downloads: Festplatten-Firmware"^]
+
+.. Laden Sie die Festplatten-Shelf-Firmware herunter und erstellen Sie eine Kopie der Anleitungen für die Festplatten-Shelf-Firmware, um sie später zu verwenden.
++
+https://mysupport.netapp.com/site/downloads/firmware/disk-shelf-firmware["NetApp Downloads: Festplatten-Shelf Firmware"^]
+
+
+
+
+
+
+
+== Schritt 2: Hinzufügen eines Festplatten-Shelfs während des laufenden Betrieb
+
+Gehen Sie wie folgt vor, um einem Stack im laufenden Betrieb ein Festplatten-Shelf hinzuzufügen.
+
+.Bevor Sie beginnen
+* Überprüfen Sie, ob das System alle Anforderungen in erfüllt<<prepare_to_hot_add_disk,Bereiten Sie das Hot-Add von SAS-Platten-Shelves vor>>.
+* Vergewissern Sie sich, dass Ihre Umgebung eines der folgenden Szenarien erfüllt, bevor Sie ein Shelf während des laufenden Betrieb hinzufügen:
 +
 ** Sie haben zwei FibreBridge 7500N-Bridges mit einem Stack von SAS-Platten-Shelves verbunden.
 ** Zwei FibreBridge 7600N-Bridges sind mit einem Stack aus SAS-Platten-Shelfs verbunden.
 ** Sie verfügen über eine FibreBridge 7500N und eine FibreBridge 7600N, die mit einem Stack aus SAS-Platten-Shelfs verbunden ist.
 
 
+
+
+.Über diese Aufgabe
 * Dieses Verfahren dient zum Hinzufügen eines Festplatten-Shelfs zum letzten Festplatten-Shelf im Stack.
 +
 Dieses Verfahren setzt die Annahme ein, dass das letzte Festplatten-Shelf eines Stacks von IOM A mit der Bridge A und von IOM B zu Bridge B verbunden ist
@@ -29,22 +94,22 @@ Dieses Verfahren setzt die Annahme ein, dass das letzte Festplatten-Shelf eines 
 * Sie sollten an jedem Standort die gleiche Anzahl an Platten-Shelfs hinzufügen.
 * Wenn Sie mehrere Festplatten-Shelfs im laufenden Betrieb hinzufügen, müssen Sie ein Festplatten-Shelf gleichzeitig im laufenden Betrieb hinzufügen.
 +
-
-NOTE: Jedes Paar Brücken FibreBridge 7500N oder 7600N kann bis zu vier Stapel unterstützen.
-
+Jedes Paar Brücken FibreBridge 7500N oder 7600N kann bis zu vier Stapel unterstützen.
 
 
 
-IMPORTANT: Zum Hot-Hinzufügen eines Festplatten-Shelfs müssen Sie die Festplatten-Firmware auf dem Hot-Added Disk Shelf aktualisieren, indem Sie die ausführen `storage disk firmware update` Befehl im erweiterten Modus. Diese Ausführung dieses Befehls kann den Betrieb unterbrechen, wenn die Firmware auf vorhandenen Festplattenlaufwerken im System eine ältere Version ist.
+[CAUTION]
+====
+Zum Hot-Hinzufügen eines Festplatten-Shelfs müssen Sie die Festplatten-Firmware auf dem Hot-Added Disk Shelf aktualisieren, indem Sie die ausführen `storage disk firmware update` Befehl im erweiterten Modus. Diese Ausführung dieses Befehls kann den Betrieb unterbrechen, wenn die Firmware auf vorhandenen Festplattenlaufwerken im System eine ältere Version ist.
 
+Falls Sie ein SAS-Kabel an den falschen Port anschließen, müssen Sie nach dem Abziehen des Kabels von einem SAS-Port mindestens 120 Sekunden warten, bevor Sie das Kabel an einen anderen SAS-Port anschließen. Wenn Sie dies nicht tun, erkennt das System nicht, dass Sie das Kabel an einen anderen Port verlegt haben.
 
-IMPORTANT: Wenn Sie ein SAS-Kabel in den falschen Port stecken, müssen Sie das Kabel von einem SAS-Port entfernen und mindestens 120 Sekunden warten, bevor Sie das Kabel an einen anderen SAS-Port anschließen. Wenn Sie dies nicht tun, erkennt das System nicht, dass das Kabel auf einen anderen Port verschoben wurde.
-
+====
 .Schritte
 . Richtig gemahlen.
 . Überprüfen Sie die Festplatten-Shelf-Konnektivität von der Systemkonsole eines Controllers:
 +
-`*sysconfig -v*`
+`sysconfig -v`
 
 +
 Die Ausgabe ähnelt der folgenden Ausgabe:
@@ -74,12 +139,12 @@ cisco_A_1-1:9.126L2   : NETAPP   X421_HCOBD450A10 NA01 418.0GB (879097968 520B/s
 ----
 
 
-. Überprüfen Sie, ob die automatische Festplattenzuordnung über die Konsole eines der Controller aktiviert ist:
+. Überprüfen Sie, ob die automatische Festplattenzuordnung im System von der Konsole eines der Controller aktiviert ist:
 +
-`*storage disk option show*`
+`storage disk option show`
 
 +
-Die Richtlinie für die automatische Zuweisung wird in der Spalte Automatische Zuweisung angezeigt.
+Die Richtlinie für die automatische Zuweisung wird in der Spalte „Automatische Zuweisung“ angezeigt.
 
 +
 [listing]
@@ -91,22 +156,21 @@ node_A_1             on           on           on           default
 node_A_2             on           on           on           default
 2 entries were displayed.
 ----
-. Wenn die automatische Zuweisung von Festplatten im System nicht aktiviert ist oder wenn sich die Laufwerke im selben Stapel im Eigentum beider Controller befinden, weisen Sie den entsprechenden Pools Festplatten zu.
+. Wenn die automatische Festplattenzuordnung im System nicht aktiviert ist oder Festplattenlaufwerke im selben Stack zu beiden Controllern gehören, weisen Sie den entsprechenden Pools Festplattenlaufwerke zu.
 +
 https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-psmg/home.html["Festplatten- und Aggregatmanagement"]
 
 +
 [NOTE]
 ====
-Wenn Sie einen einzelnen Stack von Platten-Shelfs zwischen zwei Controllern aufteilen, muss die automatische Festplattenzuweisung deaktiviert werden, bevor Sie die Festplatteneigentümer festlegen. Andernfalls werden die übrigen Festplattenlaufwerke automatisch demselben Controller und demselben Pool zugewiesen.
+** Wenn Sie einen einzelnen Stack an Platten-Shelfs auf zwei Controller aufteilen, muss die automatische Zuweisung einer Festplatte vor der Zuweisung der Festplatteneigentümer deaktiviert werden. Andernfalls werden die verbleibenden Festplatten beim Zuweisen eines einzelnen Festplattenlaufwerks möglicherweise automatisch demselben Controller und Pool zugewiesen.
++
+Der `storage disk option modify -node <node-name> -autoassign off` Befehl deaktiviert die automatische Zuweisung von Festplatten.
 
-Der `storage disk option modify -node _node-name_ -autoassign off` Mit Befehl wird die automatische Festplattenzuordnung deaktiviert.
+** Sie können erst dann Laufwerke zu Aggregaten oder Volumes hinzufügen, nachdem Sie die Festplatten- und Festplatten-Shelf-Firmware aktualisiert haben.
+
 
 ====
-+
-
-NOTE: Festplattenlaufwerke dürfen Aggregaten und Volumes erst dann hinzugefügt werden, wenn die Festplatten- und Festplatten-Shelf-Firmware aktualisiert wurde.
-
 . Aktualisieren Sie die Festplatten-Shelf-Firmware auf die aktuelle Version, indem Sie die Anweisungen für die heruntergeladene Firmware verwenden.
 +
 Sie können die Befehle des Verfahrens über die Systemkonsole eines der beiden Controller ausführen.
@@ -144,14 +208,14 @@ https://mysupport.netapp.com/site/downloads/firmware/disk-drive-firmware["NetApp
 
 +
 .. Wechseln Sie zur erweiterten Berechtigungsebene: +
-`*set -privilege advanced*`
+`set -privilege advanced`
 +
 Sie müssen mit reagieren `*y*` Wenn Sie dazu aufgefordert werden, den erweiterten Modus fortzusetzen und die Eingabeaufforderung für den erweiterten Modus (*>) anzuzeigen.
 
 .. Aktualisieren Sie die Festplatten-Firmware von der Systemkonsole aus auf die aktuellste Version: +
-`*storage disk firmware update*`
+`storage disk firmware update`
 .. Zurück zur Administrator-Berechtigungsebene: +
-`*set -privilege admin*`
+`set -privilege admin`
 .. Wiederholen Sie die vorherigen Unterschritte auf dem anderen Controller.
 
 
@@ -159,28 +223,28 @@ Sie müssen mit reagieren `*y*` Wenn Sie dazu aufgefordert werden, den erweitert
 +
 .. Prüfen Sie, ob das System multipathed ist:
 +
-`*node run -node _node-name_ sysconfig -a*`
+`node run -node <node-name> sysconfig -a`
 
 .. Überprüfen Sie auf beiden Clustern auf alle Zustandswarnmeldungen: +
-`*system health alert show*`
+`system health alert show`
 .. Bestätigen Sie die MetroCluster-Konfiguration und den normalen Betriebsmodus: +
-`*metrocluster show*`
+`metrocluster show`
 .. Führen Sie eine MetroCluster-Prüfung durch: +
-`*metrocluster check run*`
+`metrocluster check run`
 .. Ergebnisse der MetroCluster-Prüfung anzeigen:
 +
-`*metrocluster check show*`
+`metrocluster check show`
 
 .. Prüfen Sie, ob auf den Switches Zustandswarnmeldungen vorliegen (falls vorhanden):
 +
-`*storage switch show*`
+`storage switch show`
 
-.. Nutzen Sie Config Advisor.
+.. Führen Sie Active IQ Config Advisor aus.
 +
 https://mysupport.netapp.com/site/tools/tool-eula/activeiq-configadvisor["NetApp Downloads: Config Advisor"]
 
 .. Überprüfen Sie nach dem Ausführen von Config Advisor die Ausgabe des Tools und befolgen Sie die Empfehlungen in der Ausgabe, um die erkannten Probleme zu beheben.
 
 
-. Wenn Sie mehr als ein Festplatten-Shelf im laufenden Betrieb hinzufügen, wiederholen Sie die vorherigen Schritte für jedes Festplatten-Shelf, das Sie hinzufügen.
+. Wenn Sie beim Hinzufügen von mehr als einem Festplatten-Shelf während des laufenden Betrieb die vorherigen Schritte für jedes Festplatten-Shelf wiederholen, das Sie Hot-hinzufügen.
 

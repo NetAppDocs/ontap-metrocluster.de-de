@@ -3021,6 +3021,9 @@ Sie sollten auch Passwörter für nicht verwendete Konten festlegen, um diese zu
 
 Sie müssen einige spezielle Konfigurationsschritte durchführen, bevor Sie die Komponenten einer MetroCluster-Konfiguration überwachen.
 
+
+NOTE: Zur Verbesserung der Sicherheit empfiehlt NetApp, SNMPv2 oder SNMPv3 zur Überwachung des Switch-Zustands zu konfigurieren.
+
 .Über diese Aufgabe
 Diese Aufgaben gelten nur für Systeme mit FC-to-SAS-Bridges.
 
@@ -3049,7 +3052,7 @@ NetApp unterstützt nur die folgenden Tools zur Überwachung der Komponenten in 
 In einer Fabric-Attached MetroCluster-Konfiguration müssen Sie einige zusätzliche Konfigurationsschritte durchführen, um die FC-Switches zu überwachen.
 
 
-NOTE: Ab ONTAP 9.8 beginnt der `storage switch` Befehl wird durch ersetzt `system switch`. Die folgenden Schritte zeigen das `storage switch` Befehl, aber wenn Sie ONTAP 9.8 oder höher ausführen, der `system switch` Befehl ist bevorzugt.
+NOTE: Ab ONTAP 9.8 wird der `storage switch` Befehl durch ersetzt `system switch fibre-channel`. Im Folgenden wird der Befehl angezeigt `storage switch`. Wenn Sie jedoch ONTAP 9.8 oder höher ausführen, ist der `system switch fibre-channel` Befehl bevorzugt.
 
 .Schritte
 . Fügen Sie jedem MetroCluster-Knoten einen Switch mit einer IP-Adresse hinzu:
