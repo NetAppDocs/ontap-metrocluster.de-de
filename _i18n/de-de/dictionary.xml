@@ -7576,18 +7576,9 @@
   <block id="6512bd43d9caa6e02c990b0a82652dca" category="paragraph">11</block>
   <block id="5021af697beed999ef21aef7e7c30df5" category="paragraph">Bridge_x_yb</block>
   <block id="5cbc856360b7f465a0b074d28f0718d0" category="paragraph">In der folgenden Tabelle werden die Port-Zuweisungen für FC-Switches bei Verwendung von ONTAP 9.0 angezeigt.</block>
-  <block id="89ddd460f27ddf4dacfc453eddcd2ecb" category="summary">Möglicherweise müssen Sie die Geschwindigkeit der ISL-Ports auf einem Switch ändern, um die Qualität des ISL zu verbessern. ISLs, die größere Entfernungen zurückfahren, müssen möglicherweise ihre Geschwindigkeit senken, um die Qualität zu verbessern.</block>
-  <block id="30c3b951201788d25b66c685dcd79fd0" category="doc">Ändern der Geschwindigkeit der ISL-Ports bei einem Cisco FC-Switch</block>
   <block id="81cb74811132f21a42025036363e5af8" category="paragraph">Um die ISL-Konnektivität sicherzustellen, müssen Sie alle Schritte auf beiden Switches ausführen.</block>
-  <block id="866cada809bef010c2994bedea815659" category="list-text">Deaktivieren Sie die ISL-Ports der ISLs, die die Geschwindigkeit bei beiden Switches in der Fabric ändern möchten:</block>
-  <block id="3c595fcd34c5fc9805912b055f7f5203" category="paragraph"><block ref="15ea461f535f6c4d8fde36f4a8a05134" prefix="" category="inline-code"></block></block>
-  <block id="53e97e8405f4a684269ecbe1412c46c1" category="paragraph">Geben Sie Konfigurationsbefehle ein pro Zeile ein. Beenden Sie mit STRG-Z, nachdem Sie alle Konfigurationsbefehle eingegeben haben.</block>
   <block id="a60e468ca4246b442f30c733d507bb4b" category="list-text">Ändern Sie die Geschwindigkeit der ISL-Ports an beiden Switches in der Fabric:</block>
-  <block id="a469e3145e2f36a1540af79d9519e45b" category="admonition">Geschwindigkeiten für Ports sind 16 = 16,000 Gbit/s, 8 = 8,000 Gbit/s, 4 = 4,000 Gbit/s.</block>
-  <block id="21719ecdb94ad4662618cad46e3fb543" category="paragraph">Stellen Sie sicher, dass diese ISL-Ports für Ihren Switch im Installations- und Konfigurationshandbuch für _Fabric-Attached MetroCluster_ aufgeführt sind.</block>
   <block id="e94b889ef4d4456639810f5c4d896aa7" category="list-text">Alle ISL-Ports (falls nicht aktiviert) auf beiden Switches in der Fabric aktivieren:</block>
-  <block id="d79fafd1f79b18f46b5fdc4eba3a3a7a" category="list-text">Überprüfen Sie, ob die ISLs zwischen beiden Switches aufgebaut sind:</block>
-  <block id="ccbbe54d32019572b537370d771a1004" category="paragraph"><block ref="1d3ef0c33b775642e055de148cd619ec" prefix="" category="inline-code"></block></block>
   <block id="a3bf857f81a4bba7e1f5e22c53499add" category="list-text">Wiederholen Sie das Verfahren für die zweite Switch-Struktur.</block>
   <block id="f323ad60392fa7c75997f3419493d6c3" category="summary">Bevor die Wartung oder Umsiedlung beginnen kann, müssen Sie die gesamte MetroCluster IP-Konfiguration und alle Geräte ausschalten.</block>
   <block id="5c79413a4833df0080080fe8fe2e7c15" category="doc">Ausschalten einer gesamten MetroCluster IP-Konfiguration</block>
@@ -8483,15 +8474,7 @@
   <block id="3ad19859d634653cbfa49ce0ad1776eb" category="list-text">Schalten Sie die Netzteile ein und legen Sie die Shelf-ID für ein Hot-Add-On fest.</block>
   <block id="7e82b35d3a9c0624409fd7a684476b93" category="list-text">Verkabeln Sie das Hot-Added Festplatten-Shelf.</block>
   <block id="5c8b06614b34d1cc8bfcc4d0913c331c" category="list-text">Überprüfen Sie die SAS-Konnektivität.</block>
-  <block id="bd19bf00e1fbfd96fcc2339c755e0467" category="summary">Möglicherweise müssen Sie ISLs zu einem Switch hinzufügen, wenn Hardware wie zusätzliche oder schnellere Controller oder schnellere Switches hinzugefügt oder aktualisiert wird.</block>
-  <block id="a6237977252c00c91d0b5db5336baec2" category="doc">Hinzufügen von lSLs zu einem Cisco Switch</block>
   <block id="de71f5ad868db8c978c7f3225fdfdf6a" category="list-text">Deaktivieren Sie die ISL-Ports der ISLs, die auf beiden Switches im Fabric hinzugefügt werden:</block>
-  <block id="2853dcfcc60d2e6dc08e90bf6acb95f6" category="paragraph"><block ref="c36c9504b00ee220d576732f600d4a26" prefix="" category="inline-code"></block></block>
-  <block id="5cd2ac3c7ee0ee9b3836b2cdeb2a3924" category="paragraph">Geben Sie die Konfigurationsbefehle ein pro Zeile ein. Beenden Sie mit STRG-Z, nachdem alle Konfigurationsbefehle eingegeben wurden.</block>
-  <block id="e72fe1ad6bd48d2d759bab610449f53c" category="list-text">Fügen Sie SFPs in die Ports ein, die Sie als ISL-Ports hinzufügen, und verkabeln Sie diese gemäß dem _Installation and Configuration Guide_.</block>
-  <block id="02f19ced711a6a7d0bf2f837384b28a6" category="paragraph">Stellen Sie sicher, dass diese Ports im Handbuch _Installation und Konfiguration_ für den Switch aufgeführt sind, zu dem Sie sie hinzufügen.</block>
-  <block id="9f753983c9b33e720e4ef00de71d5f0d" category="list-text">Konfigurieren Sie die ISL-Ports gemäß _Installation and Configuration Guide_.</block>
-  <block id="6e9af0fa4284c99ebba7edb2cb79c46a" category="paragraph">Geben Sie die Konfigurationsbefehle ein pro Zeile ein. Mit STRG-Z beenden.</block>
   <block id="5ed8f44307454ec26dcecaa85949ef5b" category="list-text">Wiederholen Sie den Vorgang auf dem zweiten Gewebe:</block>
   <block id="11c88611295bbd4991975499f28e409a" category="summary">Die FibreBridge 7500N Bridge wird als Ersatz für die FibreBridge 6500N Bridge oder für beim Hinzufügen von neuem Speicher zur MetroCluster-Konfiguration unterstützt. Die unterstützten Konfigurationen weisen Zoning-Anforderungen und Einschränkungen hinsichtlich der Verwendung der FC-Ports der Bridge sowie der Beschränkungen für Stack und Speicher-Shelf auf.</block>
   <block id="69795ca6dc0dac25282b5469283a7e08" category="doc">Unterstützung für FibreBridge 7500N-Brücken in MetroCluster-Konfigurationen</block>
@@ -8504,14 +8487,11 @@
   <block id="1025e9a2c15333c941d5f543373b6f36" category="paragraph">Hinzufügen von neuem Speicher durch das Hinzufügen eines neuen FibreBridge 7500N-Brückenpaares</block>
   <block id="e0b252916154b49ca991301bb62d8e77" category="summary">Möglicherweise müssen Sie eine RCF-Datei auf einem MetroCluster IP-Switch aktualisieren. Beispielsweise ist für ein ONTAP Upgrade oder ein Switch-Firmware-Upgrade eine neue RCF-Datei erforderlich.</block>
   <block id="56ba5c8d245e7af9f26245ccc8eddba9" category="doc">Aktualisieren Sie RCF-Dateien auf MetroCluster IP-Switches</block>
-  <block id="bdff20b545d5f7f451d6cc86cddcd9d5" category="list-text">Verwenden Sie die folgenden Befehle der Schalter, um die Version der RCF-Datei zu überprüfen:</block>
   <block id="cb1e716ab831d1ef2a5741deabd44bd7" category="cell">Von diesem Schalter...</block>
   <block id="80f6a6e12e6ca0304707e7a67581f248" category="paragraph">Broadcom-Switch</block>
   <block id="196859a46785802c1b55cf0cc9501818" category="paragraph"><block ref="51cf8bc54acdd87ee9f9e1237f6e1ebc" prefix="" category="inline-code"></block></block>
   <block id="4b7e6b18c6a39aa5ac2a1c68aebcc388" category="paragraph">Cisco Switch</block>
   <block id="9b3b2c674f3b4b1f564ace7400510bbc" category="paragraph"><block ref="9b0b071cbeedb9bb40e134702701197f" prefix="" category="inline-code"></block></block>
-  <block id="e36320198d71e90e7fbc80a9b47b9394" category="paragraph">Suchen Sie bei jedem Switch die Zeile in der Ausgabe, die die Version der RCF-Datei anzeigt. Die folgende Ausgabe ist beispielsweise von einem Cisco-Switch, der angibt, dass die RCF-Dateiversion „`v1.80`“ ist.</block>
-  <block id="c7534d571d84fdfe4912d24b4f1f30bf" category="list-text">Um zu überprüfen, welche Dateien für eine bestimmte ONTAP-Version, einen Switch und eine bestimmte Plattform unterstützt werden, verwenden Sie den RCfFileGenerator. Wenn Sie die RCF-Datei für die Konfiguration generieren können, die Sie haben oder auf die Sie aktualisieren möchten, wird sie unterstützt.</block>
   <block id="282bc05e82ec2895ab48f3f9377e06d3" category="list-text">Um sicherzustellen, dass die Switch-Firmware unterstützt wird, lesen Sie bitte die folgenden Informationen:</block>
   <block id="8d0f34f00997c62960ad51adbe64457d" category="list-text"><block ref="8d0f34f00997c62960ad51adbe64457d" category="inline-link-rx"></block></block>
   <block id="556bbef84d582c44d275b1d259773581" category="paragraph">Das MetroCluster System kann einen kompletten Stack, einschließlich Bridges, Hot-Add (unterbrechungsfrei hinzufügen) aufnehmen. An den FC-Switches müssen verfügbare Ports vorhanden sein und Sie müssen das Switch-Zoning aktualisieren, um die Änderungen widerzuspiegeln.</block>
@@ -12144,9 +12124,6 @@
   <block id="9ef6aecb7d030435d81fe80cacca477e" category="list-text">Die Partitionierung und Festplattenzuordnung erfolgt automatisch bei der Erstkonfiguration der MetroCluster Standorte.</block>
   <block id="82d98fe86a7b6dbc49abc0913b83f2ac" category="paragraph">ADP wird automatisch während der Erstkonfiguration des Systems durchgeführt.</block>
   <block id="2d183ed725bd043df73111a219fb4c10" category="list-text">Alle MetroCluster Komponenten müssen unterstützt werden.</block>
-  <block id="a6ab1915ab3c895c47d4e04f54324428" category="paragraph">Möglicherweise müssen Sie eine RCF-Datei auf einem MetroCluster IP-Switch aktualisieren. Wenn beispielsweise die RCF-Dateiversion, die Sie auf den Switches ausführen, nicht von der ONTAP-Version, der Switch-Firmware-Version oder beiden unterstützt wird.</block>
-  <block id="3c895cdeb8d2489a220d797e54ab8b6f" category="section-title">Stellen Sie sicher, dass die RCF-Datei unterstützt wird</block>
-  <block id="aa71e3dcbe0cdabbe4cce28385ab2fd6" category="paragraph">Wenn Sie die ONTAP-Version oder die Switch-Firmware-Version ändern, sollten Sie überprüfen, ob eine RCF-Datei vorhanden ist, die für diese Version unterstützt wird. Wenn Sie den RCF-Generator verwenden, wird für Sie die richtige RCF-Datei generiert.</block>
   <block id="9f4a5b5c7a3f862c1d0ff77f72d3eea0" category="paragraph">Sie werden aufgefordert, den Benutzernamen und das Passwort für das Administratorkonto des ONTAP Mediators einzugeben.</block>
   <block id="c471c44c2f26c78f9327863d90427cb7" category="admonition">Wenn der ONTAP-Mediator ausgefallen ist, wird der angezeigt<block ref="1eafb93bfc40f298e60cf17e8a8c598c" prefix=" " category="inline-code"></block> Mit dem Befehl werden Sie dennoch aufgefordert, den Benutzernamen und das Passwort für das Administratorkonto des ONTAP Mediators einzugeben und den ONTAP Mediator-Dienst aus der MetroCluster-Konfiguration zu entfernen.</block>
   <block id="646d7d5f93b4a6d7bbbc65acf5ac1077" category="inline-link">Dokumentation zu ONTAP Hardwaresystemen</block>
@@ -13620,9 +13597,7 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="221a3239afd85b15c0a082e006cc9d76" category="summary">Aktivieren Sie die Konsolenprotokollierung auf Ihren Geräten, bevor Sie Wartungsaufgaben durchführen.</block>
   <block id="377bd72f596f8fb4cb973eb33ab1c3c3" category="doc">Aktivieren Sie die Konsolenprotokollierung, bevor Sie Wartungsaufgaben durchführen</block>
   <block id="60fda9f0d4f66fd0b517637868752be0" category="paragraph">NetApp empfiehlt dringend, die Konsolenprotokollierung auf den von Ihnen verwendeten Geräten zu aktivieren und vor der Durchführung von Wartungsmaßnahmen die folgenden Aktionen durchzuführen:</block>
-  <block id="1ba38a7c71055c7f849086255d5169f3" category="list-text">Führen Sie alle Schritte auf beiden Switches aus, um die ISL-Konnektivität sicherzustellen.</block>
   <block id="d83f1e34f43df0bbaa3ee4017c09e1b4" category="list-text"><block ref="88e4990ce21c0256eb827c7e19fa0648" category="inline-link-macro-rx"></block> Bevor Sie diese Aufgabe ausführen.</block>
-  <block id="403a10bd737423e3cac1fc37dacbdcd3" category="list-text">Führen Sie alle Schritte an beiden Switches aus, um die ISL-Konnektivität sicherzustellen.</block>
   <block id="66673dfafcae9371f075b879dc217aa9" category="paragraph">Sie können die folgenden Schritte durchführen, um einen MetroCluster-IP-Schnittstellen-Port online zu schalten oder in den Offline-Modus zu versetzen.</block>
   <block id="423cc95dedd4ee68f0dd8126c7d0dc86" category="paragraph">Vergewissern Sie sich, dass Sie die folgenden Aufgaben für Ihre Konfiguration überprüft und ausgeführt haben:</block>
   <block id="577c57afc12db82055cff4fa1ef601e7" category="list-text">Sie haben die Firmware-Dateien.</block>
@@ -14084,10 +14059,6 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="1ee9e9c6e0682332b92cf414d56216e5" category="list-text">Je nach Plattformmodell können Sie die VLAN-ID mit dem Parameter angeben<block ref="6790c40b1680557da1f80536ae186301" prefix=" " category="inline-code"></block>. Die folgenden Plattformen unterstützen den Parameter nicht<block ref="6790c40b1680557da1f80536ae186301" prefix=" " category="inline-code"></block>:</block>
   <block id="2c17b709cf340ae9f4b202df67582f0d" category="list-text">AFF C800, ASA C800, AFF A800 und ASA A800</block>
   <block id="9a7bf3cb6e6fcf5bc8021ad8b24c709d" category="list-text">Die von Ihnen festgelegten MetroCluster Bootarg-Werte hängen davon ab, ob Ihr neues System gemeinsam genutzte Cluster/HA-Ports oder gemeinsam genutzte MetroCluster/HA-Ports verwendet.</block>
-  <block id="01c711ec30c5984ab759c03d8ae83dbc" category="paragraph">Die in der folgenden Tabelle aufgeführten Systeme verwenden *Shared MetroCluster/HA-Ports*.</block>
-  <block id="72b13aee8e15cbc1635a37e0cc999b15" category="paragraph">Alle anderen Systeme verwenden *Shared Cluster/HA-Ports*.</block>
-  <block id="b4a6f2e0f896be0b4aa0ce4693340515" category="cell">AFF und ASA Systeme mit gemeinsam genutzten MetroCluster/HA-Ports</block>
-  <block id="a92298a0da357308bf3f327f1d13f333" category="cell">FAS Systeme mit gemeinsam genutzten MetroCluster/HA-Ports</block>
   <block id="8f7306dd779bf45e84d3417319068f67" category="list-text">AFF A250, ASA A250</block>
   <block id="58588e3dc50a2798e7501fa654fd258f" category="list-text">AFF C400, ASA C400</block>
   <block id="3620dab5844cf978130a9d0a58017f2a" category="list-text">AFF A400, ASA A400</block>
@@ -14568,7 +14539,6 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="d1d3effcd2e3b543a6d69f1de82ab93f" category="paragraph">Die folgenden Tabellen zeigen die Portnutzung für einen Cisco 9132T-Switch mit 1x LEM und einer MetroCluster- oder DR-Gruppe mit vier Knoten.</block>
   <block id="59bea19cbabb48065c7357317b97432c" category="paragraph">Die folgende Tabelle zeigt die Portnutzung für einen Cisco 9132T-Switch mit 2x LEM und einem MetroCluster mit vier Knoten oder einer DR-Gruppe.</block>
   <block id="71b8d98cdcca6f6c9703e8e704b1bc15" category="paragraph">In der folgenden Tabelle wird die Portauslastung für einen Cisco 9132T Switch mit zwei MetroCluster mit vier Nodes oder einem MetroCluster mit acht Nodes mit zwei DR-Gruppen dargestellt.</block>
-  <block id="401f98cd1747471e0821c98c1d0564ff" category="paragraph">+ Alle anderen Systeme verwenden *Shared Cluster/HA-Ports*.</block>
   <block id="9fc6290b0188dfeebf0e0bc3aa659923" category="list-text">Die von Ihnen festgelegten MetroCluster Bootarg-Werte hängen davon ab, ob Ihr neues System gemeinsam genutzte Cluster/HA-Ports oder gemeinsam genutzte MetroCluster/HA-Ports verwendet. Verwenden Sie die folgenden Informationen, um die Ports für Ihr System zu bestimmen.</block>
   <block id="9e6ae12e9968c12ca89b65cbfc98c1a6" category="paragraph">Die Befehlsausgabe hängt davon ab, ob Ihr Plattformmodell gemeinsam genutzte Cluster/HA-Ports oder gemeinsam genutzte MetroCluster/HA-Ports verwendet.</block>
   <block id="f4c0383379a5ae93d0b5e4c4f8586e47" category="open-title">Systeme mit gemeinsam genutzten Cluster/HA-Ports</block>
@@ -14599,13 +14569,11 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="2441e03051d41aa2f6f9d9e39c577a3e" category="section-title">Durchführen eines Switchback (ONTAP 9.8 oder höher)</block>
   <block id="2a6e3f78c9b73af2855a7bc5191bf5b1" category="list-text">Melden Sie sich auf dem lokalen Cluster in ONTAP 9.8 oder höher bei System Manager an.</block>
   <block id="22049fef22b0ddad50caf9ded819a4f1" category="paragraph"><block ref="22049fef22b0ddad50caf9ded819a4f1" category="inline-link-macro-rx"></block></block>
-  <block id="a6a86c7d4711a3d450ec4121102de402" category="list-text">Wenn das System, auf das Sie aktualisieren, NICHT in der folgenden Tabelle aufgeführt ist, überprüfen Sie, ob die MetroCluster-IP-Schnittstellen unterstützte IP-Adressen verwenden.</block>
   <block id="8210c1e569b4a7f0d685a838881f7f66" category="cell">AFF und ASA Systeme</block>
   <block id="d5d4923aa83e46af2152de920946ba41" category="cell">FAS Systeme</block>
   <block id="fa8ce860967d0ec751385e3e150d223a" category="list-text">Überprüfen Sie die IP-Adressen der MetroCluster-Schnittstellen auf den alten Controllern:</block>
   <block id="09542928ac9f09905359ce0cdc32a079" category="inline-link-macro">Der Knowledge Base-Artikel „Ändern der Eigenschaften einer MetroCluster IP-Schnittstelle“</block>
   <block id="f80e9f0a9fba665f77ab307a250b7fd3" category="list-text">Wenn die MetroCluster-Schnittstellen 169.254.17.x- oder 169.254.18.x-IP-Adressen verwenden, finden Sie unter <block ref="d1c038803b45479df32bbfd628b2e8b5" category="inline-link-macro-rx"></block> Informationen zum Ändern der Schnittstellen-IP-Adressen, bevor Sie mit dem Upgrade fortfahren.</block>
-  <block id="400bb3d32423e6384fb4cfe6867b0ccc" category="admonition">Ein Upgrade auf ein System, das nicht in der Tabelle aufgeführt ist, wird nicht unterstützt, wenn die MetroCluster-Schnittstellen mit 169.254.17.x- oder 169.254.18.x-IP-Adressen konfiguriert sind.</block>
   <block id="e7997597817a3facf42bc030e3a35309" category="cell"><block ref="92a96fa95be44bd76fa573ac0e371c6f" category="inline-xref-macro-rx"></block></block>
   <block id="6165ea79c58238b8f7f4d2edcab21f29" category="admonition">Wenn die alten und neuen Controller keinen gemeinsamen Port haben, müssen Sie die Daten-LIFs nicht ändern. Überspringen Sie diesen Schritt und gehen Sie direkt zu <block ref="19d16029d22befc9cf5c2bffaac61331" category="inline-xref-macro-rx"></block>.</block>
   <block id="abcdb4b4b1872daf29ecc9031115f937" category="paragraph">Alle Daten-LIFs wie SAN und NAS sind Administrator betriebsbereit und betriebsbereit, da sie sich am Switchover-Standort (Cluster_A) befinden.</block>
@@ -14644,4 +14612,73 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="1925007e066bed6950af241a5bb2641e" category="list-text">Aktualisieren Sie die Festplatten-Firmware von der Systemkonsole aus auf die aktuellste Version: +<block ref="da6a6b7cd3f4972b2a5426b567597f96" prefix=" " category="inline-code"></block></block>
   <block id="0dfe9ec4ea6b3d29900dd8df5b21179e" category="list-text">Führen Sie Active IQ Config Advisor aus.</block>
   <block id="c4d48c87201e87b08fdc19bd686fd707" category="list-text">Wenn Sie beim Hinzufügen von mehr als einem Festplatten-Shelf während des laufenden Betrieb die vorherigen Schritte für jedes Festplatten-Shelf wiederholen, das Sie Hot-hinzufügen.</block>
+  <block id="5fe059efbf355f70430f354b19571fc3" category="open-title">Shared-Cluster-/HA-Ports</block>
+  <block id="7c8b5a5d3c0fc199728d7336238824b0" category="paragraph">Die in der folgenden Tabelle aufgeführten Systeme verwenden gemeinsam genutzte Cluster-/HA-Ports:</block>
+  <block id="f8f6ba2d572ef729148f2d89d8ff810a" category="list-text">AFF A30</block>
+  <block id="bab1b59b0a2ad746796448276777fdbd" category="list-text">AFF C30</block>
+  <block id="7a1f08f539146079eaeae8f4a563cce2" category="list-text">AFF C60</block>
+  <block id="017db3debbf4b1ed577798b78fd96b66" category="list-text">FAS70</block>
+  <block id="649e9f4912bcf4af7efe489c6866eb1d" category="list-text">FAS90</block>
+  <block id="e5c17292b927d6196fc40c54d712ac26" category="open-title">Shared-MetroCluster/HA-Ports</block>
+  <block id="050f8b121af1c77b0d9da988edad7d47" category="paragraph">Die in der folgenden Tabelle aufgeführten Systeme verwenden gemeinsam genutzte MetroCluster/HA-Ports:</block>
+  <block id="390d12d84818f7c716a940532ce50205" category="section-title">Legen Sie die Fehlerkorrektur für Systeme mit 25-Gbit/s-Konnektivität vor</block>
+  <block id="63c0e07285d0bc5e3f178d40a2cc138a" category="paragraph">Wenn Ihr System über eine 25-Gbit/s-Konnektivität konfiguriert ist, stellen Sie den Parameter Vorwärtskorrektur (fec) nach Anwendung des RCF manuell auf aus. Die RCF wendet diese Einstellung nicht an.</block>
+  <block id="2b06467580858574b4de36094cbe0f09" category="list-text">Diese Aufgabe gilt nur für Plattformen mit 25-Gbit/s-Konnektivität. Siehe <block ref="9778b8e12bd12224da54abd0721799c9" category="inline-link-macro-rx"></block>.</block>
+  <block id="cf176f6e59c0efd3aa8a1d07663e5a99" category="list-text">Sie müssen jeden Switch-Port einzeln aktualisieren. Sie können im Befehl nicht mehrere Ports oder Portbereiche angeben.</block>
+  <block id="a756347fcced8a90ebe1a3f908f44775" category="list-text">Stellen Sie den<block ref="68e129acd99d4b65789a3c9e07fcbfc0" prefix=" " category="inline-code"></block> Parameter für den ersten Switch-Port, der eine 25-Gbit/s-Konnektivität verwendet, auf aus:</block>
+  <block id="c74173a1567bd19c3837172c99113a4e" category="paragraph"><block ref="1c9e50455fa99a855bbafb050c6ba1b5" prefix="" category="inline-code"></block></block>
+  <block id="1e0a72eef9348c35673f119115449f0e" category="list-text">Wiederholen Sie den Schritt für jeden 25-Gbit/s-Switch-Port, der mit einem Controller-Modul verbunden ist.</block>
+  <block id="b21ae041ed0e5d2ef9aa406e906a4523" category="paragraph">NetApp empfiehlt, nicht verwendete ISL-Ports und Port-Kanäle zu deaktivieren, um unnötige Integritätswarnungen zu vermeiden. Sie müssen jeden Port oder Port-Kanal einzeln deaktivieren. Im Befehl können Sie nicht mehrere Ports oder Port-Bereiche angeben.</block>
+  <block id="a91958c89b083b7c1a304b4ab6d373b7" category="summary">Sie können Inter-Switch Links (ISLs) hinzufügen, die ISL-Geschwindigkeit ändern und auf einem Cisco FC-Switch die Einstellungen für die Zustellung in Bestellung (IOD) oder die Zustellung außerhalb der Bestellung (OOD) neu konfigurieren.</block>
+  <block id="c9225e4e350cd9d9fe3a38da85b0536e" category="doc">Ändern Sie die ISL-Eigenschaften und die IOD/OOD-Konfiguration auf einem Cisco-FC-Switch</block>
+  <block id="337b5d15a9edec82de3f2f7329a42550" category="section-title">Fügen Sie ISLs zu einem Cisco FC Switch hinzu</block>
+  <block id="0b3736750926237891eb6c12411b51e8" category="paragraph">Wenn Sie Hardware hinzufügen oder aktualisieren, müssen Sie eventuell ISLs zu einem Switch hinzufügen, z. B. zum Hinzufügen oder Aktualisieren schnellerer Controller oder schnellerer Switches.</block>
+  <block id="e5198e8f84dbcc2351ff644eef3918f5" category="paragraph">Führen Sie diese Schritte an beiden Switches in der Fabric aus, um die ISL-Konnektivität zu überprüfen.</block>
+  <block id="2501a812babbfc76897b6c713f0e09d8" category="paragraph"><block ref="084d52e6652401a693230b55f1e7ccfc" prefix="" category="inline-code"></block></block>
+  <block id="24137179282647bd5bf799b5c9f444e8" category="paragraph">Geben Sie die folgenden Konfigurationsbefehle pro Zeile ein. Geben Sie STRG-Z ein, nachdem Sie alle Konfigurationsbefehle eingegeben haben.</block>
+  <block id="3e2bff28c4d5a6902deb1da7418b5633" category="list-text">Setzen Sie SFPs in die Ports ein, die Sie als ISL-Ports hinzufügen, und verkabeln Sie sie gemäß <block ref="e771511c0206e82d9e035f5f51bd9261" category="inline-link-macro-rx"></block>.</block>
+  <block id="5a4cc4195ef40bb04c8f05db04504ca4" category="paragraph">Stellen Sie sicher, dass diese Ports in der Verkabelungsdokumentation für das Switch-Modell aufgeführt sind, dem Sie sie hinzufügen.</block>
+  <block id="bd823b9a4f2bded3e52b9ff6d0255318" category="list-text">Konfigurieren Sie die ISL-Ports, indem Sie die Schritte in ausführen<block ref="e5672860f046da2596ebb8703ae94ba4" category="inline-link-macro-rx"></block>.</block>
+  <block id="98714de8ac0f228ff45b434fcb7d89fa" category="paragraph"><block ref="a35badd5d667a1ad392acb2670119390" prefix="" category="inline-code"></block></block>
+  <block id="5e86bcc5d9fe6a28b01c182d6535501b" category="paragraph">Geben Sie die folgenden Konfigurationsbefehle pro Zeile ein. Beenden Sie mit STRG-Z, nachdem Sie alle Konfigurationsbefehle eingegeben haben.</block>
+  <block id="7bf2b8aa2965c469cbed666283cc688a" category="list-text">Vergewissern Sie sich, dass die ISLs zwischen beiden Switches hergestellt sind:</block>
+  <block id="735f5f934e3776fdadb038d27c6c8c8f" category="paragraph"><block ref="2b81923b7cbaf73bd4adfab23db890e3" prefix="" category="inline-code"></block></block>
+  <block id="96ba5659c42c8abdd694919d9383f29b" category="section-title">Ändern Sie die ISL-Portgeschwindigkeiten auf einem Cisco FC Switch</block>
+  <block id="a75f0012d38fb3b2e0a0fefdf030079c" category="paragraph">Sie können die Geschwindigkeit von ISL-Ports auf einem Switch ändern, um die Qualität der ISL zu verbessern, beispielsweise um die Geschwindigkeit bei ISLs zu verringern, die eine größere Entfernung zurücklegen.</block>
+  <block id="e90de5e523869f526cdba04fee0f25a7" category="list-text">Deaktivieren Sie die ISL-Ports für die ISLs, für die Sie die Geschwindigkeit auf beiden Switches in der Fabric ändern möchten:</block>
+  <block id="7b746326ba036c54b13006e2edbd06c3" category="admonition">Die Geschwindigkeiten für die Ports sind 16 = 16,000 Gbit/s, 8 = 8,000 Gbit/s und 4 = 4,000 Gbit/s.</block>
+  <block id="73dd2fadef4a732de76f6c50f6d5a164" category="inline-link-macro">Installieren Sie eine Fabric-Attached MetroCluster-Konfiguration</block>
+  <block id="4e72bc8b7b9232777cec9124cdcf38e6" category="paragraph">Überprüfen Sie, ob die ISL-Ports für Ihren Switch in aufgeführt sind<block ref="a0d2080afba0f53144cd7a8949b63e7f" category="inline-link-macro-rx"></block>.</block>
+  <block id="aaeb982f0ec8d00f37aadad52615e727" category="section-title">Konfigurieren Sie das VSAN neu, um die IOD oder OOD von Frames zu garantieren</block>
+  <block id="21acc3a14a019ef2634f56e73c781f1d" category="paragraph">Die Standard-IOD-Einstellungen werden empfohlen. Sie sollten OOD nur bei Bedarf neu konfigurieren.</block>
+  <block id="f9dd74d50e6d4e8c6ec0191ce2905da9" category="section-title">IOD neu konfigurieren</block>
+  <block id="cb39dfe5f68bcd5edd296b6fdc8de53a" category="paragraph">Führen Sie den folgenden Schritt aus, um die IOD von Frames neu zu konfigurieren.</block>
+  <block id="4f375b24a0d5774a1f8b8fb169ffd561" category="paragraph"><block ref="aa4366e67ba9c1780e754fa8dc23d135" prefix="" category="inline-code"></block></block>
+  <block id="853c6fb07fb64c752f80dd74a122ddd1" category="paragraph"><block ref="4e988219ece70ad722f6d97e866c6f20" prefix="" category="inline-code"></block></block>
+  <block id="b76d6746168e22522c19327d1971ea3c" category="paragraph">Die Befehle zum Konfigurieren der IOD von Frames auf FC_Switch_A_1:</block>
+  <block id="a108ae2a3d92ce4d59636979b61ebeb8" category="paragraph">Die Befehle zum Konfigurieren der IOD von Frames auf FC_Switch_B_1:</block>
+  <block id="79fb406afe400b547ae1b57a2b1cd1c8" category="section-title">OOD neu konfigurieren</block>
+  <block id="d55dddb22fef3c45c8e1b3b1db03b98a" category="paragraph">Führen Sie die folgenden Schritte durch, um die OOD-Konfiguration von Frames neu zu konfigurieren.</block>
+  <block id="fbb1911474a5cabe61d1dafab91eb1b7" category="paragraph"><block ref="6a7129a1a8fafc695808b8f7ce3b6296" prefix="" category="inline-code"></block></block>
+  <block id="ff049fa50dad139a4c89167b72cabb9f" category="paragraph">Die Befehle zum Konfigurieren der OOD-Einstellung von Frames auf FC_Switch_A_1:</block>
+  <block id="e8fa834f1f574b3a7727a4445e5c9457" category="paragraph">Die Befehle zum Konfigurieren der OOD-Einstellung von Frames auf FC_Switch_B_1:</block>
+  <block id="21daa05855e2dfd058474b417b918f85" category="inline-link-macro">Erfahren Sie mehr über die Konfiguration von IOD oder OOD von Frames auf ONTAP Software</block>
+  <block id="9297e3a651ea4ae16b4ad5bebebd2d89" category="paragraph"><block ref="4bccef683c79c68508e9369e74e9379b" category="inline-link-macro-rx"></block>.</block>
+  <block id="01c59b552b3cfa63d40f5f7a1882a0e3" category="doc">Ändern Sie die ISL-Eigenschaften, ISL-Ports oder die IOD/OOD-Konfiguration auf einem Brocade-Switch</block>
+  <block id="cd973e88c2cc2bfeeee999660f342900" category="section-title">Stellen Sie sicher, dass die RCF unterstützt wird</block>
+  <block id="978f47a3dee30dd1d7757c24a1c6cf0c" category="paragraph">Wenn Sie die ONTAP-Version oder die Switch-Firmware-Version ändern, sollten Sie überprüfen, ob eine Referenzkonfigurationsdatei (RCF) vorhanden ist, die für diese Version unterstützt wird. Wenn Sie das  Tool verwenden<block ref="46a459674905c476821f71bc8486a4ba" category="inline-link-macro-rx"></block>, wird die richtige RCF für Ihre Konfiguration generiert.</block>
+  <block id="4f7c3897327570dec3984f1aab62a690" category="list-text">Verwenden Sie die folgenden Befehle der Switches, um die Version der RCF zu überprüfen:</block>
+  <block id="6cce5d78fc7baf999a2f91945cec4681" category="paragraph">NVIDIA SN2100-Switch</block>
+  <block id="350f96a9ce42f36a9a9f5b4c8b9d84d4" category="paragraph"><block ref="deaca175ac9500a5b1b1280356cacbae" prefix="" category="inline-code"></block></block>
+  <block id="6402d49dd52ac4a97e3a5b5df13a2b01" category="paragraph">Suchen Sie die Zeile in der Befehlsausgabe, die die RCF-Version angibt. Die folgende Ausgabe von einem Cisco-Switch zeigt beispielsweise an, dass die RCF-Version „`v1.80`“ ist.</block>
+  <block id="372302cd9a52d50f8bbec355aa5caad3" category="list-text">Um zu überprüfen, welche Dateien für eine bestimmte ONTAP-Version, einen Switch und eine bestimmte Plattform unterstützt werden, verwenden Sie die <block ref="3d323bfcd2e7c90d6e420b3bfd1a01ed" category="inline-link-macro-rx"></block>. Wenn Sie die RCF für die Konfiguration generieren können, auf die Sie aktualisieren möchten, wird sie unterstützt.</block>
+  <block id="5892dc73aeb0908038bb8e9380fb53c4" category="section-title">Aktualisieren Sie die Switch-Firmware</block>
+  <block id="28abab10271202d2140cfed5d173dff5" category="paragraph">Möglicherweise müssen Sie eine RCF-Datei (Reference Configuration File) auf einem MetroCluster IP-Switch aktualisieren. Wenn beispielsweise die RCF-Version, die Sie auf den Switches ausführen, nicht von der ONTAP-Version, der Switch-Firmware-Version oder beiden unterstützt wird.</block>
+  <block id="463c4e9c177d926f8a70723419e27185" category="inline-link-macro">Stellen Sie sicher, dass die RCF unterstützt wird</block>
+  <block id="31e4a45ff8bf040780bcaeea92eaf273" category="list-text">Bevor Sie den RCF aktualisieren, <block ref="0cb16fc2594f35c2b9b081a93af72ead" category="inline-link-macro-rx"></block>.</block>
+  <block id="72d26e3e5a2756a67ae4a487db269cd2" category="list-text">Dieses Verfahren unterbricht den Datenverkehr auf dem Switch, auf dem die RCF-Datei aktualisiert wird. Der Datenverkehr wird wieder aufgenommen, wenn die neue RCF-Datei angewendet wird.</block>
+  <block id="085e87b6ec813d01dd3f597186e26f1e" category="list-text">Wenn das System, auf das Sie aktualisieren, *Shared Cluster/HA-Ports* verwendet, überprüfen Sie, ob die MetroCluster-IP-Schnittstellen unterstützte IP-Adressen verwenden.</block>
+  <block id="11f90eb1d0dccabe5ea84d5795fc2ef7" category="paragraph">Verwenden Sie die folgenden Informationen, um zu bestimmen, ob das neue System gemeinsam genutzte Cluster/HA-Ports verwendet:</block>
+  <block id="fb1ce5d087cc4c4bd39c43bc3af7058b" category="admonition">Ein Upgrade auf ein System mit *Shared Cluster/HA-Ports* wird nicht unterstützt, wenn die MetroCluster-Schnittstellen mit 169.254.17.x- oder 169.254.18.x-IP-Adressen konfiguriert sind.</block>
+  <block id="25b129509e36ff88d2beb94d08667a62" category="sidebar">Ändern Sie die ISL-Eigenschaften oder die IOD/OOD-Konfiguration auf einem Cisco-FC-Switch</block>
 </blocks>

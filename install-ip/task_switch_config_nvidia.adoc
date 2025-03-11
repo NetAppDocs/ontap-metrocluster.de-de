@@ -404,14 +404,37 @@ NOTE: Wenn Sie die DAC-Option für mehrere Switch-Ports festlegen, müssen Sie d
 
 
 
+== Legen Sie die Fehlerkorrektur für Systeme mit 25-Gbit/s-Konnektivität vor
+
+Wenn Ihr System über eine 25-Gbit/s-Konnektivität konfiguriert ist, stellen Sie den Parameter Vorwärtskorrektur (fec) nach Anwendung des RCF manuell auf aus. Die RCF wendet diese Einstellung nicht an.
+
+.Über diese Aufgabe
+* Diese Aufgabe gilt nur für Plattformen mit 25-Gbit/s-Konnektivität. Siehe link:../install-ip/port_usage_sn2100.html["Plattform-Port-Zuweisungen für von NVIDIA unterstützte SN2100 IP-Switches"].
+* Diese Aufgabe muss an allen vier Switches der MetroCluster IP-Konfiguration ausgeführt werden.
+* Sie müssen jeden Switch-Port einzeln aktualisieren. Sie können im Befehl nicht mehrere Ports oder Portbereiche angeben.
+
+
+.Schritte
+. Stellen Sie den `fec` Parameter für den ersten Switch-Port, der eine 25-Gbit/s-Konnektivität verwendet, auf aus:
++
+`sudo python3 SN2100_v2.0_Switch-A1.py runCmd <switchport> fec off`
+
+. Wiederholen Sie den Schritt für jeden 25-Gbit/s-Switch-Port, der mit einem Controller-Modul verbunden ist.
+
+
+
+
 == Stellen Sie die Switch-Port-Geschwindigkeit für die MetroCluster IP-Schnittstellen ein
 
 .Über diese Aufgabe
-Gehen Sie folgendermaßen vor, um die Switch-Port-Geschwindigkeit für die folgenden Systeme auf 100 G einzustellen:
+* Gehen Sie folgendermaßen vor, um die Switch-Port-Geschwindigkeit für die folgenden Systeme auf 100 G einzustellen:
++
+** AFF A70
+** AFF A90
+** AFF A1K
 
-* AFF A70
-* AFF A90
-* AFF A1K
+
+* Sie müssen jeden Switch-Port einzeln aktualisieren. Sie können im Befehl nicht mehrere Ports oder Portbereiche angeben.
 
 
 .Schritt
@@ -452,8 +475,9 @@ cumulus@Switch-A-1:mgmt:~$
 
 == Deaktivieren Sie nicht verwendete ISL-Ports und Port-Kanäle
 
-NetApp empfiehlt, nicht verwendete ISL-Ports und Port-Kanäle zu deaktivieren, um unnötige Integritätswarnungen zu vermeiden.
+NetApp empfiehlt, nicht verwendete ISL-Ports und Port-Kanäle zu deaktivieren, um unnötige Integritätswarnungen zu vermeiden. Sie müssen jeden Port oder Port-Kanal einzeln deaktivieren. Im Befehl können Sie nicht mehrere Ports oder Port-Bereiche angeben.
 
+.Schritte
 . Identifizieren Sie die nicht verwendeten ISL-Ports und Port-Kanäle mithilfe des RCF-Datei-Banners:
 +
 

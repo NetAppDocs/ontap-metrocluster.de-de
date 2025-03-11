@@ -23,11 +23,46 @@ summary: Verschieben Sie Daten-LIFs auf einen gemeinsamen Port, entfernen Sie VL
 +
 `boot_ontap`
 
-. Wenn das System, auf das Sie aktualisieren, NICHT in der folgenden Tabelle aufgeführt ist, überprüfen Sie, ob die MetroCluster-IP-Schnittstellen unterstützte IP-Adressen verwenden.
+. Wenn das System, auf das Sie aktualisieren, *Shared Cluster/HA-Ports* verwendet, überprüfen Sie, ob die MetroCluster-IP-Schnittstellen unterstützte IP-Adressen verwenden.
 +
+Verwenden Sie die folgenden Informationen, um zu bestimmen, ob das neue System gemeinsam genutzte Cluster/HA-Ports verwendet:
+
++
+[role="tabbed-block"]
+====
+.Shared-Cluster-/HA-Ports
+--
+Die in der folgenden Tabelle aufgeführten Systeme verwenden gemeinsam genutzte Cluster-/HA-Ports:
+
+[cols="2*"]
 |===
+| AFF und ASA Systeme | FAS Systeme 
 
 
+ a| 
+** AFF A20
+** AFF A30
+** AFF C30
+** AFF A50
+** AFF C60
+** AFF C80
+** AFF A70
+** AFF A90
+** AFF A1K
+
+ a| 
+** FAS70
+** FAS90
+
+
+|===
+--
+.Shared-MetroCluster/HA-Ports
+--
+Die in der folgenden Tabelle aufgeführten Systeme verwenden gemeinsam genutzte MetroCluster/HA-Ports:
+
+[cols="2*"]
+|===
 | AFF und ASA Systeme | FAS Systeme 
 
 
@@ -56,6 +91,8 @@ summary: Verschieben Sie Daten-LIFs auf einen gemeinsamen Port, entfernen Sie VL
 
 
 |===
+--
+====
 +
 .. Überprüfen Sie die IP-Adressen der MetroCluster-Schnittstellen auf den alten Controllern:
 +
@@ -64,7 +101,7 @@ summary: Verschieben Sie Daten-LIFs auf einen gemeinsamen Port, entfernen Sie VL
 .. Wenn die MetroCluster-Schnittstellen 169.254.17.x- oder 169.254.18.x-IP-Adressen verwenden, finden Sie unter link:https://kb.netapp.com/on-prem/ontap/mc/MC-KBs/How_to_modify_the_properties_of_a_MetroCluster_IP_interface["Der Knowledge Base-Artikel „Ändern der Eigenschaften einer MetroCluster IP-Schnittstelle“"^] Informationen zum Ändern der Schnittstellen-IP-Adressen, bevor Sie mit dem Upgrade fortfahren.
 +
 
-CAUTION: Ein Upgrade auf ein System, das nicht in der Tabelle aufgeführt ist, wird nicht unterstützt, wenn die MetroCluster-Schnittstellen mit 169.254.17.x- oder 169.254.18.x-IP-Adressen konfiguriert sind.
+CAUTION: Ein Upgrade auf ein System mit *Shared Cluster/HA-Ports* wird nicht unterstützt, wenn die MetroCluster-Schnittstellen mit 169.254.17.x- oder 169.254.18.x-IP-Adressen konfiguriert sind.
 
 
 
