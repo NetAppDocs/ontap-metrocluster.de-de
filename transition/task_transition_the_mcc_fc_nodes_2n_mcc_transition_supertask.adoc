@@ -233,9 +233,118 @@ Sie müssen die in Schritt 1 von identifizierten LIFs verschieben link:concept_r
 
 . Anhalten und Abschalten der MetroCluster FC-Controller-Module (Node_A_1-FC und Node_B_1-FC), FC-to-SAS-Bridges (falls vorhanden), FC-Switches (falls vorhanden) und jedes mit diesen Nodes verbundene Storage-Shelf
 . Trennen Sie die Shelfs von den MetroCluster FC Controllern und dokumentieren Sie, welche Shelfs für jedes Cluster lokal sind.
+. Wenn in der Konfiguration FC-to-SAS-Bridges oder FC-Back-End-Switches verwendet werden, trennen und entfernen Sie diese.
 +
-Wenn in der Konfiguration FC-to-SAS-Bridges oder FC-Back-End-Switches verwendet werden, trennen und entfernen Sie diese.
+[role="tabbed-block"]
+====
+.Entfernen Sie FC-to-SAS-Bridges
+--
+.. Identifizieren Sie die Brücken:
++
+`system bridge show`
 
+.. Entfernen Sie die Brücken:
++
+`system bridge remove -name <bridge_name>`
+
+.. Vergewissern Sie sich, dass die Brücken entfernt wurden:
++
+`system bridge show`
+
+
+
+Das folgende Beispiel zeigt, dass die Brücken entfernt werden:
+
+.Beispiel
+[%collapsible]
+=====
+[listing]
+----
+cluster1::> system bridge remove -name ATTO_10.226.197.16
+cluster1::> system bridge show
+                                                                Is        Monitor
+    Bridge     Symbolic Name Vendor  Model     Bridge WWN       Monitored Status
+    ---------- ------------- ------- --------- ---------------- --------- -------
+    ATTO_FibreBridge6500N_1
+               Bridge Number 16
+                             Atto    FibreBridge 6500N
+                                               2000001086603824 false     -
+    ATTO_FibreBridge6500N_2
+               Not Set       Atto    FibreBridge 6500N
+                                               20000010866037e8 false     -
+    ATTO_FibreBridge6500N_3
+               Not Set       Atto    FibreBridge 6500N
+                                               2000001086609e0e false     -
+    ATTO_FibreBridge6500N_4
+               Not Set       Atto    FibreBridge 6500N
+                                               2000001086609c06 false     -
+    4 entries were displayed.
+----
+=====
+--
+.Entfernen Sie die FC-Switches
+--
+.. Identifizieren Sie die Switches:
++
+`system switch fibre-channel show`
+
+.. Entfernen Sie die Schalter:
++
+`system switch fibre-channel remove -switch-name <switch_name>`
+
+.. Vergewissern Sie sich, dass die Schalter entfernt wurden:
++
+`system switch fibre-channel show`
+
+
+
+.Beispiel
+[%collapsible]
+=====
+[listing]
+----
+cluster1::> system switch fibre-channel show
+                Symbolic                                     Is        Monitor
+    Switch      Name     Vendor  Model      Switch WWN       Monitored Status
+    ----------- -------- ------- ---------- ---------------- --------- -------
+    Cisco_10.226.197.34
+                mcc-cisco-8Gb-fab-4
+                         Cisco   DS-C9148-16P-K9
+                                            2000547fee78f088 true      ok
+    mcc-cisco-8Gb-fab-1
+                mcc-cisco-8Gb-fab-1
+                         Cisco   -          -                false     -
+    mcc-cisco-8Gb-fab-2
+                mcc-cisco-8Gb-fab-2
+                         Cisco   -          -                false     -
+    mcc-cisco-8Gb-fab-3
+                mcc-cisco-8Gb-fab-3
+                         Cisco   -          -                false     -
+    4 entries were displayed.
+cluster1::> system switch fibre-channel remove -switch-name Cisco_10.226.197.34
+cluster1::> system switch fibre-channel show
+                Symbolic                                     Is        Monitor
+    Switch      Name     Vendor  Model      Switch WWN       Monitored Status
+    ----------- -------- ------- ---------- ---------------- --------- -------
+    mcc-cisco-8Gb-fab-4
+                mcc-cisco-8Gb-fab-4
+                         Cisco
+                                 -          -                false     -
+    mcc-cisco-8Gb-fab-1
+                mcc-cisco-8Gb-fab-1
+                         Cisco   -          -                false     -
+    mcc-cisco-8Gb-fab-2
+                mcc-cisco-8Gb-fab-2
+                         Cisco   -          -                false     -
+    mcc-cisco-8Gb-fab-3
+                mcc-cisco-8Gb-fab-3
+                         Cisco   -          -                false     -
+    4 entries were displayed
+cluster1::>
+----
+=====
+--
+====
 . Vergewissern Sie sich im Wartungsmodus auf den MetroCluster FC Nodes (Node_A_1-FC und Node_B_1-FC), dass keine Festplatten verbunden sind: `disk show -v`
 . Schalten Sie die MetroCluster FC-Nodes aus und entfernen Sie sie.
 

@@ -23,6 +23,7 @@ Die Konnektivität zwischen dem ONTAP Mediator und jedem Standort muss aus zwei 
 
 * Der ONTAP Mediator Service unterstützt bis zu fünf MetroCluster-Konfigurationen gleichzeitig.
 * Die automatische ungeplante Umschaltung wird in ONTAP 9.7 und höher unterstützt.
+* IPv6 wird mit ONTAP Mediator nicht unterstützt.
 
 
 
@@ -89,19 +90,38 @@ Bei Verwendung der standardmäßigen Red hat oder CentOS Firewall wird die Firew
 
 In der folgenden Tabelle sind die Ports aufgeführt, die Sie in Ihrer Firewall zulassen müssen:
 
+[NOTE]
+====
+* Der iSCSI-Port ist nur in einer MetroCluster-IP-Konfiguration erforderlich.
+* Der 22/tcp-Port ist für den normalen Betrieb nicht erforderlich, Sie können ihn jedoch vorübergehend für Wartungsarbeiten aktivieren und deaktivieren, wenn die Wartungssitzung beendet ist.
 
-NOTE: Der iSCSI-Port ist nur in einer MetroCluster-IP-Konfiguration erforderlich.
 
+====
 |===
 
 
-| Port/Services | Quelle | Ziel | Zweck 
+| Port/Services | Quelle | Richtung | Ziel | Zweck 
+
+
+ a| 
+22/tcp
+ a| 
+Management-Host
+ a| 
+Eingehend
+ a| 
+ONTAP Mediator
+ a| 
+SSH / ONTAP Mediatormanagement
+
 
 
  a| 
 31784/tcp
  a| 
-ONTAP Cluster-Management-Schnittstellen
+Cluster-Management-LIFs
+ a| 
+Eingehend
  a| 
 Web-Server ONTAP Mediator
  a| 
@@ -112,7 +132,9 @@ REST-API (HTTPS)
  a| 
 3260/tcp
  a| 
-ONTAP-Cluster (Daten-LIF oder Datenmanagement-LIF)
+Cluster-Management-LIFs
+ a| 
+Bidirektional
  a| 
 ONTAP Mediator iSCSI-Ziele
  a| 

@@ -4,7 +4,7 @@ sidebar: sidebar
 keywords: metrocluster, maintain, service, upgrade, downgrade, firmware, brocade, fc, switch 
 summary: Zum Upgrade oder Downgrade der Firmware auf einem Brocade FC-Switch müssen Sie den Switch mit den spezifischen Brocade Befehlen deaktivieren, die Firmware-Änderung durchführen und überprüfen sowie den Switch neu starten und wieder aktivieren. 
 ---
-= Aktualisieren oder Downgrade der Firmware auf einem Brocade FC Switch
+= Upgrade oder Downgrade der Firmware auf einem Brocade FC-Switch
 :allow-uri-read: 
 :icons: font
 :imagesdir: ../media/
@@ -33,6 +33,8 @@ link:enable-console-logging-before-maintenance.html["Aktivieren Sie die Konsolen
 Die Switch-Fabric wird während eines Firmware-Upgrades oder Downgrades deaktiviert, wobei die MetroCluster-Konfiguration den Betrieb über die zweite Fabric fortsetzt.
 
 Ab Fabric OS 9.0 wird SNMPv2 auf Brocade-Switches nicht unterstützt. Wenn Sie ein Upgrade auf Fabric OS 9.0.1 oder höher durchführen, müssen Sie SNMPv3 für die Statusüberwachung verwenden. Weitere Informationen finden Sie unter link:../install-fc/concept_configure_the_mcc_software_in_ontap.html#configuring-snmpv3-in-a-metrocluster-configuration["Konfigurieren von SNMPv3 in einer MetroCluster-Konfiguration"].
+
+Wenn Sie ein Upgrade auf Fabric OS V 9.2.x oder höher durchführen, müssen Sie ein Brocade TruFOS-Zertifikat installiert haben. Weitere Informationen finden Sie unterlink:https://techdocs.broadcom.com/us/en/fibre-channel-networking/fabric-os/fabric-os-software-upgrade/9-2-x/Obtaining-Firmware/download-prerequisites-new/brocade-trufos-certificates.html["Upgrade-Handbuch für Brocade Fabric OS Software, 9.2.x"^].
 
 Diese Aufgabe muss nacheinander an jeder Switch-Fabric ausgeführt werden, damit alle Switches dieselbe Firmware-Version ausführen.
 
