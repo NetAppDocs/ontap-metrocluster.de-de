@@ -2,38 +2,64 @@
 permalink: install-fc/task_synchronize_the_system_time_us_ntp.html 
 sidebar: sidebar 
 keywords: metrocluster, fabric, installation, synchronize, system, time, ntp 
-summary: 'Jedes Cluster benötigt einen eigenen Network Time Protocol \(NTP\)-Server, um die Zeit zwischen den Nodes und ihren Clients zu synchronisieren. Mit dem Dialogfeld DateTime bearbeiten in System Manager können Sie den NTP-Server konfigurieren.' 
+summary: 'Jedes Cluster benötigt einen eigenen Network Time Protocol \(NTP\)-Server, um die Zeit zwischen den Nodes und ihren Clients zu synchronisieren.' 
 ---
-= Synchronisieren der Systemzeit mithilfe von NTP
+= Synchronisieren Sie die Systemzeit mit NTP
 :allow-uri-read: 
 :icons: font
 :imagesdir: ../media/
 
 
 [role="lead"]
-Jedes Cluster benötigt einen eigenen NTP-Server (Network Time Protocol), um die Zeit zwischen den Nodes und ihren Clients zu synchronisieren. Mit dem Dialogfeld DateTime bearbeiten in System Manager können Sie den NTP-Server konfigurieren.
-
-.Bevor Sie beginnen
-Sie müssen System Manager heruntergeladen und installiert haben. System Manager ist über die NetApp Support Site erhältlich.
+Jedes Cluster benötigt einen eigenen NTP-Server (Network Time Protocol), um die Zeit zwischen den Nodes und ihren Clients zu synchronisieren.
 
 .Über diese Aufgabe
 * Nach dem Takeover können Sie die Zeitzoneneinstellungen für einen ausgefallenen Node oder den Partner-Node nicht ändern.
 * Jedes Cluster in der MetroCluster FC-Konfiguration sollte über einen eigenen separaten NTP-Server oder Server verfügen, die von den Nodes, FC-Switches und FC-to-SAS-Bridges an diesem MetroCluster-Standort verwendet werden.
-+
-Wenn Sie die MetroCluster Tiebreaker Software verwenden, sollte es auch einen eigenen separaten NTP-Server haben.
+* Wenn Sie die MetroCluster Tiebreaker Software verwenden, sollte es auch einen eigenen separaten NTP-Server haben.
 
 
+Abhängig von Ihrer ONTAP-Version können Sie den NTP über die Registerkarte *Cluster* oder *Insights* in der Benutzeroberfläche des Systemmanagers konfigurieren.
+
+[role="tabbed-block"]
+====
+.Cluster
+--
+In System Manager können Sie den NTP auf der Registerkarte *Cluster* mit zwei verschiedenen Optionen konfigurieren, je nach ONTAP-Version:
+
+.ONTAP 9.8 oder höher:
+Führen Sie die folgenden Schritte aus, um das NTP von der Registerkarte *Cluster* in ONTAP 9.8 oder höher zu synchronisieren.
 
 .Schritte
-. Doppelklicken Sie auf der Startseite auf das entsprechende Storage-System.
-. Erweitern Sie die *Cluster* -Hierarchie im linken Navigationsbereich.
-. Klicken Sie im Navigationsbereich auf *Konfiguration* *Systemwerkzeuge* *DateTime*.
-. Klicken Sie Auf *Bearbeiten*.
-. Wählen Sie die Zeitzone aus.
-. Geben Sie die IP-Adressen der Zeitserver an, und klicken Sie dann auf *Hinzufügen*.
-+
-Sie müssen einen NTP-Server zur Liste der Zeitserver hinzufügen. Der Domänencontroller kann ein autorisierende Server sein.
+. Gehen Sie zu *Cluster > Übersicht*
+. Wählen Sie dann die  Option und dann image:icon-more-kebab-blue-bg.jpg["Mehr"]*Bearbeiten*.
+. Wählen Sie im Fenster *Cluster-Details bearbeiten* die Option *+Hinzufügen* unter NTP-Servern aus.
+. Fügen Sie den Namen und den Speicherort hinzu, und geben Sie die IP-Adresse des Zeitservers an.
+. Wählen Sie dann *Speichern*.
+. Wiederholen Sie die Schritte für weitere Zeitserver.
 
-. Klicken Sie auf *OK*.
-. Überprüfen Sie die Änderungen an den Datums- und Zeiteinstellungen im Fenster *Datum und Uhrzeit*.
 
+.ONTAP 9.11.1 oder höher:
+Führen Sie die folgenden Schritte aus, um den NTP vom Fenster *Insights* auf der Registerkarte *Cluster* in ONTAP 9.11.1 oder höher zu synchronisieren.
+
+.Schritte
+. Gehen Sie zu *Cluster > Übersicht*
+. Scrollen Sie auf der Seite nach unten zum Fenster *Insights*, suchen Sie *zu wenige NTP-Server sind konfiguriert*, und wählen Sie dann *Fix IT*.
+. Geben Sie die IP-Adresse des Zeitservers ein, und wählen Sie dann *Speichern*.
+. Wiederholen Sie den vorherigen Schritt für weitere Zeitserver.
+
+
+--
+.Einblick
+--
+In ONTAP 9.11.1 oder höher können Sie NTP auch über die Registerkarte *Insights* in System Manager konfigurieren:
+
+.Schritte
+. Wechseln Sie in der System Manager-Benutzeroberfläche zur Registerkarte *Insights*.
+. Scrollen Sie nach unten zu *zu wenige NTP-Server sind konfiguriert* und wählen Sie *Fix it*.
+. Geben Sie die IP-Adresse des Zeitservers ein, und wählen Sie dann *Speichern*.
+. Wiederholen Sie den vorherigen Schritt für weitere Zeitserver.
+
+
+--
+====

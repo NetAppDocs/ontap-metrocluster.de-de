@@ -1,0 +1,48 @@
+= 
+:allow-uri-read: 
+
+
+Abhängig von Ihrer ONTAP-Version können Sie den NTP über die Registerkarte *Cluster* oder *Insights* in der Benutzeroberfläche des Systemmanagers konfigurieren.
+
+[role="tabbed-block"]
+====
+.Cluster
+--
+In System Manager können Sie den NTP auf der Registerkarte *Cluster* mit zwei verschiedenen Optionen konfigurieren, je nach ONTAP-Version:
+
+.ONTAP 9.8 oder höher:
+Führen Sie die folgenden Schritte aus, um das NTP von der Registerkarte *Cluster* in ONTAP 9.8 oder höher zu synchronisieren.
+
+.Schritte
+. Gehen Sie zu *Cluster > Übersicht*
+. Wählen Sie dann die  Option und dann image:icon-more-kebab-blue-bg.jpg["Mehr"]*Bearbeiten*.
+. Wählen Sie im Fenster *Cluster-Details bearbeiten* die Option *+Hinzufügen* unter NTP-Servern aus.
+. Fügen Sie den Namen und den Speicherort hinzu, und geben Sie die IP-Adresse des Zeitservers an.
+. Wählen Sie dann *Speichern*.
+. Wiederholen Sie die Schritte für weitere Zeitserver.
+
+
+.ONTAP 9.11.1 oder höher:
+Führen Sie die folgenden Schritte aus, um den NTP vom Fenster *Insights* auf der Registerkarte *Cluster* in ONTAP 9.11.1 oder höher zu synchronisieren.
+
+.Schritte
+. Gehen Sie zu *Cluster > Übersicht*
+. Scrollen Sie auf der Seite nach unten zum Fenster *Insights*, suchen Sie *zu wenige NTP-Server sind konfiguriert*, und wählen Sie dann *Fix IT*.
+. Geben Sie die IP-Adresse des Zeitservers ein, und wählen Sie dann *Speichern*.
+. Wiederholen Sie den vorherigen Schritt für weitere Zeitserver.
+
+
+--
+.Einblick
+--
+In ONTAP 9.11.1 oder höher können Sie NTP auch über die Registerkarte *Insights* in System Manager konfigurieren:
+
+.Schritte
+. Wechseln Sie in der System Manager-Benutzeroberfläche zur Registerkarte *Insights*.
+. Scrollen Sie nach unten zu *zu wenige NTP-Server sind konfiguriert* und wählen Sie *Fix it*.
+. Geben Sie die IP-Adresse des Zeitservers ein, und wählen Sie dann *Speichern*.
+. Wiederholen Sie den vorherigen Schritt für weitere Zeitserver.
+
+
+--
+====

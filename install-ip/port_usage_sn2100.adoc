@@ -40,7 +40,7 @@ In den folgenden Abschnitten wird die Beschreibung der physischen Verkabelung be
 
 Ermitteln Sie anhand der folgenden Tabelle, welche Verkabelungstabelle Sie befolgen sollten.
 
-[cols="2*"]
+[cols="25,75"]
 |===
 | Wenn Ihr System... | Verwenden Sie diese Verkabelungstabelle... 
 
@@ -59,7 +59,13 @@ AFF A250, ASA A250
 | AFF A20 | <<table_2_nvidia_sn2100,NVIDIA SN2100-Plattform-Port-Zuweisungen (Gruppe 2)>> 
 
 
-| AFF C30, AFF A30 AFF C60 | <<table_3_nvidia_sn2100,NVIDIA SN2100-Plattform-Port-Zuweisungen (Gruppe 3)>> 
+| AFF C30, AFF A30 FAS50 AFF C60  a| 
+Die folgende Tabelle hängt davon ab, ob Sie eine 25G (Gruppe 3a) oder 100G (Gruppe 3b) Ethernet-Karte verwenden.
+
+* <<table_3a_nvidia_sn2100,NVIDIA SN2100 Plattform-Port-Zuweisungen (Gruppe 3a -25G)>>
+* <<table_3b_nvidia_sn2100,NVIDIA SN2100-Plattform-Port-Zuweisungen (Gruppe 3b -100G)>>
+
+
 
 
 | FAS8300 AFF C400, ASA C400 AFF A400, ASA A400 FAS8700 FAS9000, AFF A700 | <<table_4_nvidia_sn2100,NVIDIA SN2100-Plattform-Port-Zuweisungen (Gruppe 4)>> 
@@ -83,13 +89,25 @@ image::../media/mcc-ip-cabling-aff-asa-a150-fas500f-a25-c250-MSN2100.png[Zeigt d
 Überprüfen Sie die Zuordnungen der Plattform-Ports, um ein AFF A20-System mit einem NVIDIA SN2100-Switch zu verkabeln:
 
 [#table_2_nvidia_sn2100]
-image::../media/mccip-cabling-aff-a20-nvidia-sn2100.png[Zeigt die Zuweisung von NVIDIA SN2100-Plattform-Ports]
+image::../media/mccip-cabling-nvidia-a20-updated.png[Zeigt die Zuweisung von NVIDIA SN2100-Plattform-Ports]
 
-.NVIDIA SN2100-Plattform-Port-Zuweisungen (Gruppe 3)
-Überprüfen Sie die Zuordnungen der Plattform-Ports, um ein AFF C30-, AFF A30- oder AFF C60-System mit einem NVIDIA SN2100-Switch zu verkabeln:
+.NVIDIA SN2100 Plattform-Port-Zuweisungen (Gruppe 3a)
+Überprüfen Sie die Zuordnungen der Plattform-Ports, um ein AFF A30-, AFF C30-, AFF C60- oder FAS50-System mit einem NVIDIA SN2100-Switch über eine 25-Gbit-Ethernet-Karte mit vier Ports zu verkabeln:
 
-[#table_3_nvidia_sn2100]
-image::../media/mccip-cabling-aff-a30-c30-c60-nvidia-sn2100.png[Zeigt die Zuweisung von NVIDIA SN2100-Plattform-Ports]
+
+NOTE: Diese Konfiguration erfordert eine 25-Gbit-Ethernet-Karte mit vier Ports in Steckplatz 4, um das lokale Cluster und die HA-Schnittstellen anzuschließen.
+
+[#table_3a_nvidia_sn2100]
+image::../media/mccip-cabling-nvidia-a30-c30-fas50-c60-25G.png[Zeigt die Zuweisung von NVIDIA SN2100-Plattform-Ports]
+
+.NVIDIA SN2100 Plattform-Port-Zuweisungen (Gruppe 3b)
+Überprüfen Sie die Zuweisung der Plattform-Ports, um ein AFF A30-, AFF C30-, AFF C60- oder FAS50-System mit einem NVIDIA SN2100-Switch über eine 100-GbE-Karte mit zwei Ports zu verkabeln:
+
+
+NOTE: Für diese Konfiguration ist eine 100-GB-Ethernet-Karte mit zwei Ports in Steckplatz 4 erforderlich, um das lokale Cluster und die HA-Schnittstellen zu verbinden.
+
+[#table_3b_nvidia_sn2100]
+image::../media/mccip-cabling-nvidia-a30-c30-fas50-c60-100G.png[Zeigt die Zuweisung von NVIDIA SN2100-Plattform-Ports]
 
 .NVIDIA SN2100-Plattform-Port-Zuweisungen (Gruppe 4)
 Prüfen der Plattform-Port-Zuordnungen für die Verkabelung einer FAS8300, AFF C400, ASA C400, AFF A400, ASA A400 FAS8700, FAS9000 oder AFF A700 System auf einem NVIDIA SN2100 Switch:
@@ -114,4 +132,4 @@ image::../media/mcc_ip_cabling_fas8300_aff_asa_a800_a900_fas9500_MSN2100.png[Zei
 .NVIDIA SN2100 Plattform-Port-Zuweisungen (Gruppe 7)
 Prüfen Sie die Zuordnungen der Plattform-Ports, um ein FAS70-, AFF A70-, AFF C80-, FAS90-, AFF A90- oder AFF A1K-System mit einem NVIDIA SN2100-Switch zu verkabeln:
 
-image::../media/mccip-cabling-fas90-fas70-aff-a70--a90-c80-a1k-nvidia-sn2100-updated.png[Zeigt die Zuweisung von NVIDIA SN2100-Plattform-Ports]
+image::../media/mccip-cabling-nvidia-a70-c80-fas90-fas70-a1k.png[Zeigt die Zuweisung von NVIDIA SN2100-Plattform-Ports]

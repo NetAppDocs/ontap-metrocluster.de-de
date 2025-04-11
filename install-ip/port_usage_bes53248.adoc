@@ -46,7 +46,7 @@ Jede Konfiguration oder Funktion, die erfordert, dass die lokalen Cluster-Verbin
 
 Ermitteln Sie anhand der folgenden Tabelle, welche Verkabelungstabelle Sie befolgen sollten.
 
-[cols="2*"]
+[cols="25,75"]
 |===
 | Wenn Ihr System... | Verwenden Sie diese Verkabelungstabelle... 
 
@@ -63,16 +63,19 @@ AFF A220
 | FAS500f AFF C250, ASA C250 AFF A250, ASA A250 | <<table_2_bes_53248,Broadcom BES-53248-Plattform-Port-Zuweisungen (Gruppe 2)>> 
 
 
-| AFF A20 AFF C30, AFF A30 AFF C60 | <<table_3_bes_53248,Broadcom BES-53248-Plattform-Port-Zuweisungen (Gruppe 3)>> 
+| AFF A20 | <<table_3_bes_53248,Broadcom BES-53248-Plattform-Port-Zuweisungen (Gruppe 3)>> 
 
 
-| FAS8200, AFF A300 | <<table_4_bes_53248,Broadcom BES-53248-Plattform-Port-Zuweisungen (Gruppe 4)>> 
+| AFF C30, AFF A30 FAS50 AFF C60 | <<table_4_bes_53248,Broadcom BES-53248-Plattform-Port-Zuweisungen (Gruppe 4)>> 
 
 
-| AFF A320 | <<table_5_bes_53248,Broadcom BES-53248-Plattform-Port-Zuweisungen (Gruppe 5)>> 
+| FAS8200, AFF A300 | <<table_5_bes_53248,Broadcom BES-53248-Plattform-Port-Zuweisungen (Gruppe 5)>> 
 
 
-| FAS8300 AFF C400, ASA C400 AFF A400, ASA A400 FAS8700 | <<table_6_bes_53248,Broadcom BES-53248-Plattform-Port-Zuweisungen (Gruppe 6)>> 
+| AFF A320 | <<table_6_bes_53248,Broadcom BES-53248-Plattform-Port-Zuweisungen (Gruppe 6)>> 
+
+
+| FAS8300 AFF C400, ASA C400 AFF A400, ASA A400 FAS8700 | <<table_7_bes_53248,Broadcom BES-53248-Plattform-Port-Zuweisungen (Gruppe 7)>> 
 |===
 .Broadcom BES-53248-Plattform-Port-Zuweisungen (Gruppe 1)
 Plattform-Port-Zuordnungen zum Verkabelung eines AFF A150, ASA A150, FAS2750 oder AFF A220 Systems mit einem Broadcom BES-53248 Switch prüfen:
@@ -93,14 +96,29 @@ image::../media/mcc_ip_cabling_a_aff_asa_c250_a250_fas500f_to_a_broadcom_bes_532
 
 
 .Broadcom BES-53248-Plattform-Port-Zuweisungen (Gruppe 3)
-Überprüfen Sie die Zuweisungen der Plattform-Ports, um ein AFF A20-, AFF C30-, AFF A30- oder AFF C60-System mit einem Broadcom BES-53248-Switch zu verkabeln:
+Überprüfen Sie die Zuweisungen der Plattform-Ports, um ein AFF A20-System mit einem Broadcom BES-53248-Switch zu verkabeln:
 
-image:../media/mcc-ip-cabling-aff-a20-a30-c30-c60-to-a-broadcom-bes-53248-switch.png["Zeigt die Portzuweisungen der Broadcom BES-53248-Plattform an"]
+image:../media/mccip-cabling-bes-a20-updated.png["Zeigt die Portzuweisungen der Broadcom BES-53248-Plattform an"]
 
 * *Hinweis 1*: Die Verwendung dieser Ports erfordert eine zusätzliche Lizenz.
 
 
 .Broadcom BES-53248-Plattform-Port-Zuweisungen (Gruppe 4)
+Überprüfen Sie die Zuweisung der Plattform-Ports, um ein AFF A30-, AFF C30-, AFF C60- oder FAS50-System mit einem Broadcom BES-53248-Switch unter Verwendung einer 25-Gbit-Ethernet-Karte mit vier Ports zu verkabeln.
+
+[NOTE]
+====
+* Diese Konfiguration erfordert eine 25-Gbit-Ethernet-Karte mit vier Ports in Steckplatz 4, um das lokale Cluster und die HA-Schnittstellen anzuschließen.
+* Diese Konfiguration erfordert einen QSFP-zu-SFP+-Adapter in der Karte des Controllers, um eine Netzwerkgeschwindigkeit von 25 Gbit/s zu unterstützen.
+
+
+====
+image:../media/mccip-cabling-bes-a30-c30-fas50-c60-25G.png["Zeigt die Portzuweisungen der Broadcom BES-53248-Plattform an"]
+
+* *Hinweis 1*: Die Verwendung dieser Ports erfordert eine zusätzliche Lizenz.
+
+
+.Broadcom BES-53248-Plattform-Port-Zuweisungen (Gruppe 5)
 Prüfen Sie die Zuordnungen der Plattform-Ports zur Verkabelung eines FAS8200 oder AFF A300 Systems mit einem Broadcom BES-53248-Switch:
 
 image::../media/mcc-ip-cabling-a-aff-a300-or-fas8200-to-a-broadcom-bes-53248-switch-9161.png[Zeigt die Portzuweisungen der Broadcom BES-53248-Plattform an]
@@ -108,7 +126,7 @@ image::../media/mcc-ip-cabling-a-aff-a300-or-fas8200-to-a-broadcom-bes-53248-swi
 * *Hinweis 1*: Die Verwendung dieser Ports erfordert eine zusätzliche Lizenz.
 
 
-.Broadcom BES-53248-Plattform-Port-Zuweisungen (Gruppe 5)
+.Broadcom BES-53248-Plattform-Port-Zuweisungen (Gruppe 6)
 Überprüfen Sie die Zuweisungen der Plattform-Ports, um ein AFF A320-System mit einem Broadcom BES-53248-Switch zu verkabeln:
 
 image::../media/mcc-ip-cabling-a-aff-a320-to-a-broadcom-bes-53248-switch.png[Zeigt die Portzuweisungen der Broadcom BES-53248-Plattform an]
@@ -120,7 +138,7 @@ Funktionen, die einen Switch-Cluster erfordern, werden in dieser Konfiguration n
 
 
 
-.Broadcom BES-53248-Plattform-Port-Zuweisungen (Gruppe 6)
+.Broadcom BES-53248-Plattform-Port-Zuweisungen (Gruppe 7)
 Prüfen der Plattform-Port-Zuordnungen für die Verkabelung einer FAS8300, AFF C400, ASA C400, AFF A400, ASA A400 oder FAS8700 System auf einen Broadcom BES-53248 Switch:
 
 image::../media/mcc-ip-cabling-a-fas8300-a400-c400-or-fas8700-to-a-broadcom-bes-53248-switch.png[Zeigt die Portzuweisungen der Broadcom BES-53248-Plattform an]

@@ -24,6 +24,7 @@ Für alle unterstützten Upgrades auf den folgenden Systemen müssen Sie vor der
 * AFF C80
 * AFF A50, AFF A20, AFF A30
 * AFF C30, AFF C60
+* FAS50
 
 
 
@@ -50,13 +51,13 @@ Verwenden Sie die folgende Tabelle, um zu bestimmen, welche Bootarg Sie für Ihr
 | Von AFF A220 nach AFF A20 | `bootarg.siw.interop_enabled` 
 
 
-| Alle anderen unterstützten Upgrades auf AFF A70, AFF A90, AFF A1K, FAS70, FAS90, AFF C80, AFF A50, AFF A20, AFF A30, AFF C30 oder AFF C60 Systeme | `hw.cxgbe.toe_keepalive_disable` 
+| Alle anderen unterstützten Upgrades auf AFF A70, AFF A90, AFF A1K, FAS70, FAS90, AFF C80, AFF A50, AFF A20, AFF A30, AFF C30, AFF C60 oder FAS50 Systeme | `hw.cxgbe.toe_keepalive_disable` 
 |===
 
 
 == Schritt 2: Stellen Sie den erforderlichen Bootarg auf den alten Controllern ein
 
-Diese Aufgabe ist *nur* erforderlich, wenn Sie ein Upgrade auf ein AFF A70-, AFF A90-, AFF A1K-, FAS70-, FAS90-, AFF C80-, AFF A50-, AFF A20-, AFF A30-, AFF C30- oder AFF C60-System durchführen.
+Diese Aufgabe ist *nur* erforderlich, wenn Sie ein Upgrade auf ein AFF A70, AFF A90, AFF A1K, FAS70, FAS90, AFF C80, AFF A50, AFF A20, AFF A30, AFF C30, AFF C60 oder FAS50 System durchführen.
 
 .Schritte
 . Halten Sie einen Node an jedem Standort an und erlauben Sie dem HA-Partner, einen Storage-Takeover des Node durchzuführen:
