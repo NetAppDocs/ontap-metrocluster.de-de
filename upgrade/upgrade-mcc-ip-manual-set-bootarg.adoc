@@ -11,7 +11,10 @@ summary: Für Upgrades von Systemen, die in ONTAP 9.15.1 oder höher eingeführt
 
 
 [role="lead"]
-Controller-Upgrades für Systeme, die in ONTAP 9.15.1 oder höher eingeführt wurden, erfordern es, ein Boot-arg einzurichten, bevor Sie mit dem Upgrade beginnen können.
+Controller-Upgrades für Systeme, die in ONTAP 9.15.1 oder höher eingeführt wurden, erfordern es, dass Sie ein Boot-arg auf den alten Controllern einrichten, bevor Sie mit dem Upgrade beginnen können.
+
+
+NOTE: Sie müssen den erforderlichen Bootarg auf allen alten Knoten an beiden Standorten festlegen, bevor Sie mit dem Upgrade beginnen.
 
 
 
@@ -60,7 +63,7 @@ Verwenden Sie die folgende Tabelle, um zu bestimmen, welche Bootarg Sie für Ihr
 Diese Aufgabe ist *nur* erforderlich, wenn Sie ein Upgrade auf ein AFF A70, AFF A90, AFF A1K, FAS70, FAS90, AFF C80, AFF A50, AFF A20, AFF A30, AFF C30, AFF C60 oder FAS50 System durchführen.
 
 .Schritte
-. Halten Sie einen Node an jedem Standort an und erlauben Sie dem HA-Partner, einen Storage-Takeover des Node durchzuführen:
+. Halten Sie einen Node an beiden Standorten an und erlauben Sie dem HA-Partner, einen Storage-Takeover des Node durchzuführen:
 +
 `halt  -node <node_name>`
 
@@ -107,7 +110,7 @@ Diese Aufgabe ist *nur* erforderlich, wenn Sie ein Upgrade auf ein AFF A70, AFF 
 +
 `storage failover giveback -ofnode <node_name>`
 
-. Wiederholen Sie die Schritte für jeden Knoten in der DR-Gruppe, der aktualisiert wird.
+. Wiederholen Sie die Schritte für alle Nodes in der DR-Gruppe oder DR-Gruppen, die Sie aktualisieren.
 
 
 .Was kommt als Nächstes?
