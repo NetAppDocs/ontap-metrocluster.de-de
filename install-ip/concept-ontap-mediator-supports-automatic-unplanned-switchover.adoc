@@ -1,17 +1,17 @@
 ---
 permalink: install-ip/concept-ontap-mediator-supports-automatic-unplanned-switchover.html 
 sidebar: sidebar 
-keywords: ontap, mediator, service, assist, metrocluster, ip, configuration, perform, automatic, unplan, switchover, physical, repository, status, information, configuring, configure, install, configuring, configure, forced 
+keywords: ontap, mediator, assist, metrocluster, ip, configuration, perform, automatic, unplan, switchover, physical, repository, status, information, configuring, configure, install, configuring, configure, forced 
 summary:  
 ---
-= Wie der ONTAP Mediator die automatische ungeplante Umschaltung unterstützt
+= So unterstützt ONTAP Mediator automatische ungeplante Switchover
 :allow-uri-read: 
 :icons: font
 :imagesdir: ../media/
 
 
 [role="lead"]
-Der ONTAP Mediator stellt Mailbox-LUNs zur Verfügung, um Statusinformationen über die MetroCluster IP-Knoten zu speichern. Diese LUNs befinden sich in Zusammenarbeit mit dem ONTAP Mediator, der physisch von den MetroCluster-Sites getrennt auf einem Linux-Host ausgeführt wird. Die MetroCluster IP-Knoten können die Mailbox-Informationen nutzen, um den Status ihrer Disaster Recovery (DR)-Partner zu überwachen und im Notfall eine Mediator-gestützte ungeplante Umschaltung (MAUSO) zu implementieren.
+ONTAP Mediator stellt Postfach-LUNs zur Speicherung von Statusinformationen zu den MetroCluster-IP-Knoten bereit. Diese LUNs befinden sich am selben Standort wie ONTAP Mediator, der auf einem Linux-Host ausgeführt wird, der physisch von den MetroCluster-Standorten getrennt ist. Die MetroCluster IP-Knoten können die Mailbox-Informationen nutzen, um den Status ihrer Disaster Recovery (DR)-Partner zu überwachen und im Notfall eine Mediator-gestützte ungeplante Umschaltung (MAUSO) zu implementieren.
 
 
 NOTE: MAUSO wird in MetroCluster FC-Konfigurationen nicht unterstützt.

@@ -122,7 +122,17 @@ NOTE: Integrierte Ports sind in die Controller-Hardware (Steckplatz 0) integrier
 | Modell der Plattform | Erforderlicher Gigabit-Ethernet-Adapter | Erforderlicher Steckplatz für Adapter | Ports 
 
 
-| AFF A900, ASA A900 und FAS9500 | X91146A | Steckplatz 5, Steckplatz 7 | E5b, e7b 
+ a| 
+AFF A900, ASA A900 und FAS9500
+ a| 
+X91146A
+ a| 
+Steckplatz 5, Steckplatz 7
+ a| 
+E5b, e7b
+
+*Hinweis:* Die Ports e5a und e7a können nur für Intercluster-LIFs verwendet werden. Sie können diese Ports nicht für ein Daten-LIF verwenden.
+
 
 
  a| 
@@ -284,7 +294,10 @@ In einer minimal unterstützten Konfiguration verfügt jeder Pool über das folg
 
 Bei einer unterstützten Minimalkonfiguration ist pro Standort mindestens ein Shelf erforderlich.
 
-MetroCluster-Konfigurationen unterstützen RAID-DP und RAID4.
+MetroCluster-Konfigurationen unterstützen RAID-DP, RAID4 und RAID-TEC.
+
+
+NOTE: Ab ONTAP 9.4 unterstützen MetroCluster IP-Konfigurationen neue Installationen mithilfe von automatischer Festplattenzuweisung und ADP (Advanced Drive Partitioning). Weitere Informationen finden Sie unter link:../install-ip/concept_considerations_drive_assignment.html["Überlegungen zur automatischen Laufwerkszuweisung und ADP-Systemen"] .
 
 
 

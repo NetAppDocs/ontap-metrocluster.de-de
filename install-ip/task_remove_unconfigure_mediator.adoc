@@ -1,23 +1,23 @@
 ---
 permalink: install-ip/task_remove_unconfigure_mediator.html 
 sidebar: sidebar 
-keywords: ontap, mediator, service, assist, remove, unconfigure, requirements, mediator requirements 
-summary: Sie können den ONTAP Mediator-Dienst aus der MetroCluster-IP-Konfiguration entfernen. 
+keywords: ontap, mediator, assist, remove, unconfigure, requirements, mediator requirements 
+summary: Sie können den ONTAP-Mediator aus der MetroCluster-IP-Konfiguration entfernen. 
 ---
-= Heben Sie die Konfiguration des ONTAP Mediator-Dienstes über die MetroCluster IP-Konfiguration auf
+= Dekonfigurieren Sie ONTAP Mediator aus der MetroCluster-IP-Konfiguration
 :allow-uri-read: 
 :icons: font
 :imagesdir: ../media/
 
 
 [role="lead"]
-Sie können die Konfiguration des ONTAP Mediator-Dienstes von der MetroCluster IP-Konfiguration aufheben.
+Sie können ONTAP Mediator aus der MetroCluster-IP-Konfiguration dekonfigurieren.
 
 .Bevor Sie beginnen
-Sie müssen den ONTAP Mediator erfolgreich an einem Netzwerkstandort installiert und konfiguriert haben, der von beiden MetroCluster-Standorten erreichbar ist.
+Sie müssen ONTAP Mediator erfolgreich an einem Netzwerkstandort installiert und konfiguriert haben, der von beiden MetroCluster-Sites aus erreichbar ist.
 
 .Schritte
-. Deaktivieren Sie die Konfiguration des ONTAP Mediator-Dienstes mit dem folgenden Befehl:
+. Dekonfigurieren Sie ONTAP Mediator mit dem folgenden Befehl:
 +
 `metrocluster configuration-settings mediator remove`
 
@@ -26,7 +26,7 @@ Sie werden aufgefordert, den Benutzernamen und das Passwort für das Administrat
 
 +
 
-NOTE: Wenn der ONTAP-Mediator ausgefallen ist, wird der angezeigt `metrocluster configuration-settings mediator remove` Mit dem Befehl werden Sie dennoch aufgefordert, den Benutzernamen und das Passwort für das Administratorkonto des ONTAP Mediators einzugeben und den ONTAP Mediator-Dienst aus der MetroCluster-Konfiguration zu entfernen.
+NOTE: Wenn der ONTAP Mediator ausfällt,  `metrocluster configuration-settings mediator remove` Der Befehl fordert Sie weiterhin auf, den Benutzernamen und das Kennwort für das ONTAP Mediator-Administratorbenutzerkonto einzugeben, und entfernt ONTAP Mediator aus der MetroCluster-Konfiguration.
 
 +
 .. Überprüfen Sie mit dem folgenden Befehl, ob beschädigte Festplatten vorhanden sind:
@@ -42,7 +42,7 @@ There are no entries matching your query.
 ....
 
 
-. Vergewissern Sie sich, dass der ONTAP Mediator-Dienst aus der MetroCluster-Konfiguration entfernt wurde, indem Sie die folgenden Befehle auf beiden Clustern ausführen:
+. Bestätigen Sie, dass ONTAP Mediator aus der MetroCluster-Konfiguration entfernt wurde, indem Sie die folgenden Befehle auf beiden Clustern ausführen:
 +
 .. `metrocluster configuration-settings mediator show`
 +
