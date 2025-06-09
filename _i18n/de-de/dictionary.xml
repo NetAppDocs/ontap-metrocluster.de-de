@@ -12515,7 +12515,6 @@ Gilt für alle MetroCluster Konfigurationen.</block>
   <block id="2900f8420dafccee0a2692e48506c6cb" category="open-title">Wenn die Eingabeaufforderung des LOADERS für DIE Nodes angezeigt wird:</block>
   <block id="796bd1c27d5eea106367802d9fd5bd0e" category="paragraph">Führen Sie den Befehl aus:<block ref="ce54ef17bebf280339d340bd40dff593" prefix=" " category="inline-code"></block></block>
   <block id="4129cca17421055c633ccbc72f65d61f" category="list-text">Überprüfen Sie nach dem Booten des Node, ob die Root-Aggregate gespiegelt sind.</block>
-  <block id="f691b46b240bca97e906bfb1366247a7" category="paragraph">Wenn beide Plexe vorhanden sind, wird eine Neusynchronisierung automatisch gestartet. Wenn ein Plex fehlschlägt, zerstören Sie ihn und stellen Sie die Spiegelbeziehung wieder her, indem Sie den folgenden Befehl verwenden, um den Spiegel neu zu erstellen:</block>
   <block id="9abd59a18f57d6cb4282adb209f8b563" category="list-text">Zwei FibreBridge 7600N-Bridges sind mit einem Stack aus SAS-Platten-Shelfs verbunden.</block>
   <block id="fc35f0bbf60965f7ec34001ad687a3f3" category="list-text">Sie verfügen über eine FibreBridge 7500N und eine FibreBridge 7600N, die mit einem Stack aus SAS-Platten-Shelfs verbunden ist.</block>
   <block id="3ed94c5d90da7ee057d27e4a111e2d56" category="list-text">Schalten Sie die ATTO-Brücke aus, und entfernen Sie die an die Brücke angeschlossenen Stromkabel.</block>
@@ -12562,7 +12561,6 @@ Gilt für alle MetroCluster Konfigurationen.</block>
   <block id="b13f7000aa5add9a5264da17e3dc4f67" category="list-text">Beenden Sie die Nodes, indem Sie für jeden Node den folgenden Befehl ausführen:</block>
   <block id="de48c3af46bd57dad9f2ad02bbb26041" category="paragraph"><block ref="8a921c8973814d1a72edcc98a6686da9" prefix="" category="inline-code"></block></block>
   <block id="84b0c3d7ab439004e978c709f15fc230" category="paragraph">Sie müssen die folgenden Geräte in der angegebenen Reihenfolge ausschalten:</block>
-  <block id="98734a3d5b75c8baf95c27fbc27a15f1" category="list-text">Physische Verlagerung der gesamten Hardware, der Storage-Controller, der IP-Switches, FibreBridges und der Storage-Shelfs</block>
   <block id="1cef707d96d59ea52cd45984a36d2f11" category="list-text">Schalten Sie die IP-Switches ein.</block>
   <block id="ac8327044a4ce63889944095a1b6aed8" category="list-text">Schalten Sie die Shelfs ein, damit sie sich vollständig einschalten können.</block>
   <block id="d5061566f9570e151daa3fd59fb31405" category="list-text">Überprüfen Sie, ob der lokale Speicher vom Knoten im Wartungsmodus sichtbar ist:</block>
@@ -14666,7 +14664,6 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="c452f245605b541913c8927f2fb39f4b" category="inline-link-macro">Überlegungen zur automatischen Laufwerkszuweisung und ADP-Systemen</block>
   <block id="9648215f493ab7d57f334a1db39291f3" category="admonition">Ab ONTAP 9.4 unterstützen MetroCluster IP-Konfigurationen neue Installationen mithilfe von automatischer Festplattenzuweisung und ADP (Advanced Drive Partitioning). Weitere Informationen finden Sie unter <block ref="b265df9824eecc73bbbf36d6341665a3" category="inline-link-macro-rx"></block> .</block>
   <block id="cbeca2fa89a3ea8f375e96b634c42759" category="doc">Konfigurieren Sie SNMPv3 auf MetroCluster-IP-Switches</block>
-  <block id="630f606ab1d9cdb74f5fddde24450385" category="paragraph">Diese Aufgabe zeigt die allgemeinen Schritte zur Konfiguration von SNMPv3 auf einem Switch. Einige der aufgeführten Switch-Firmware-Versionen werden in einer MetroCluster-IP-Konfiguration möglicherweise nicht unterstützt.</block>
   <block id="578f5e3d8693dd5b8f97c29bf9aec80b" category="paragraph">Sie müssen die Schritte für eine Switch-Firmware-Version befolgen, die in einer MetroCluster-IP-Konfiguration unterstützt wird. Weitere Informationen finden Sie im <block ref="9c839fcdfb8699a63c787254d7b1ae03" category="inline-link-macro-rx"></block> um die unterstützten Firmware-Versionen zu überprüfen.</block>
   <block id="1451684986f1c945fdb4e4f2a8b904be" category="list-text">SNMPv3 wird nur auf ONTAP 9.12.1 und höher unterstützt.</block>
   <block id="e43f0bacec59589637fec825db76ae04" category="list-text">ONTAP 9.13.1P12, 9.14.1P9, 9.15.1P5, 9.16.1 und spätere Versionen beheben diese beiden Probleme:</block>
@@ -14692,7 +14689,6 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="c19095c0c8945d1d4e4e73ec7a11354c" category="paragraph">Konfigurieren Sie einen SNMPv3-Benutzernamen SNMPv3_USER auf NVIDIA SN2100-Switches mit CLI 5.4.0:</block>
   <block id="cd12738ab621b27db86ca1b02e9d118c" category="open-title">NVIDIA – CL 5.11.0</block>
   <block id="1d478fc1ce1613a790d5d77707c188f6" category="paragraph">Konfigurieren Sie einen SNMPv3-Benutzernamen SNMPv3_USER auf NVIDIA SN2100-Switches mit CLI 5.11.0:</block>
-  <block id="8ec049d1fe155ff0c4df415c3d4691e2" category="doc">Übersicht über die Switch-Integritätsüberwachung in einer MetroCluster-IP-Konfiguration</block>
   <block id="8ae4eeaa7baed19106cc30ea02483c5e" category="paragraph">Die Ethernet-Switch-Integritätsüberwachung (CSHM) ist für die Sicherstellung des Betriebszustands von Cluster- und Speichernetzwerk-Switches und das Sammeln von Switch-Protokollen für Debugging-Zwecke verantwortlich.</block>
   <block id="4ae61f4d1ec2f0efafd8ee4274e49ccf" category="section-title">Wichtige Hinweise zur Konfiguration von CSHM in einer MetroCluster-IP-Konfiguration</block>
   <block id="b38569be2d36a20e8902840c1ea976fe" category="paragraph">Dieser Abschnitt enthält die allgemeinen Schritte zur Konfiguration von SNMPv3 und zur Protokollerfassung auf Cisco-, Broadcom- und NVIDIA SN2100-Switches. Sie müssen die Schritte für eine Switch-Firmware-Version befolgen, die in einer MetroCluster-IP-Konfiguration unterstützt wird. Weitere Informationen finden Sie im <block ref="cbfe825e8e02458e2eef3cd048612d7d" category="inline-link-macro-rx"></block> um die unterstützten Firmware-Versionen zu überprüfen.</block>
@@ -14897,4 +14893,18 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="eb781ca5db4579a64062bcf161d91cbe" category="sidebar">Überprüfen der Ethernet-Switch-Überwachung</block>
   <block id="3ef38a7332e8a3a92f8540dfdb80708d" category="sidebar">Konfigurieren von ONTAP Mediator aus einer MetroCluster-IP-Konfiguration</block>
   <block id="84e085c408a358fe4e512066e45c3837" category="sidebar">Verwalten Sie ONTAP Mediator mit System Manager</block>
+  <block id="d2dfa94f0ec6119f137b05b65f72b726" category="open-title">Wenn ein Plex fehlschlägt:</block>
+  <block id="a3d50ad07bbec0a08b055954bb66cfcb" category="list-text">Zerstöre den ausgefallenen Plex:</block>
+  <block id="eb10fb6e54a620d06a2f18c1a660ffe4" category="paragraph"><block ref="10736eb62e72d120f2dcaa0fe0b7666f" prefix="" category="inline-code"></block></block>
+  <block id="b78dcdf12c052d8955dc51b3b3b7b105" category="list-text">Stellen Sie die Spiegelbeziehung wieder her, indem Sie den Spiegel neu erstellen:</block>
+  <block id="e6534782a81c039714b69e68abd6dd24" category="open-title">Wenn ein Plex offline ist:</block>
+  <block id="5bf31f2147933b41528417b67db14d59" category="paragraph">Online der Plex:</block>
+  <block id="db0df63b9e668f95fb18ff3a3c311c03" category="paragraph"><block ref="abdcc012bb91335575fa83e50f5bd9f2" prefix="" category="inline-code"></block></block>
+  <block id="173d04d1482af7bc613216daa9c54d3b" category="open-title">Wenn beide Plexus vorhanden sind:</block>
+  <block id="0cb322072bf2ca0a4a593635bde1f36d" category="paragraph">Dieses Verfahren zeigt die allgemeinen Schritte zum Konfigurieren von SNMPv3 auf einem Switch. Einige der aufgeführten Switch-Firmware-Versionen werden in einer MetroCluster-IP-Konfiguration möglicherweise nicht unterstützt.</block>
+  <block id="00f60657daab6d52f5bc57575661559b" category="list-text">Verlagern Sie physisch die gesamte Hardware, Speichercontroller, IP-Switches und Speicherregale.</block>
+  <block id="ba17277e87e849f2a38d0126b17905d8" category="list-text">Überprüfen Sie, ob der Speicher im Wartungsmodus sichtbar ist.</block>
+  <block id="ef1806576a0dffd58481510c7525ed90" category="list-text">Booten Sie in den Wartungsmodus:</block>
+  <block id="41af2ca5f1002ab08c75f010d70581a4" category="list-text">Vergewissern Sie sich, dass der Speicher vom verbleibenden Standort aus sichtbar ist.</block>
+  <block id="b496741d8a784412385f91b26ad4e4f1" category="list-text">Überprüfen Sie, ob der lokale Speicher vom Knoten im Wartungsmodus aus sichtbar ist:</block>
 </blocks>

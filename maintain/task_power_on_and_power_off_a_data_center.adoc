@@ -278,7 +278,7 @@ Nachdem der Standort ausgeschaltet ist, können Sie mit der Wartung beginnen. Da
 
 .Schritte
 . Vergewissern Sie sich, dass die Verkabelung aller Komponenten sorgfältig aufgezeichnet wurde, damit sie am neuen Standort wieder richtig angeschlossen werden kann.
-. Physische Verlagerung der gesamten Hardware, der Storage-Controller, der IP-Switches, FibreBridges und der Storage-Shelfs
+. Verlagern Sie physisch die gesamte Hardware, Speichercontroller, IP-Switches und Speicherregale.
 . Konfiguration der ISL-Ports und Überprüfung der Konnektivität zwischen Standorten
 +
 .. Schalten Sie die IP-Switches ein.
@@ -325,14 +325,22 @@ Wenn der automatische Start aktiviert ist, drücken Sie `Ctrl+C` Um das automati
 CAUTION: Schalten Sie die Shelfs vor dem Einschalten der Controller nicht ein. Dadurch wird verhindert, dass die Controller unbeabsichtigt in ONTAP booten.
 
 . Schalten Sie die Shelfs ein, damit sie sich vollständig einschalten können.
-. Vergewissern Sie sich, dass der Speicher sichtbar ist.
+. Überprüfen Sie, ob der Speicher im Wartungsmodus sichtbar ist.
 +
-.. Vergewissern Sie sich, dass der Speicher vom verbleibenden Standort aus sichtbar ist. Versetzen Sie die Offline-Plexe wieder in den Online-Modus, um die Neusynchronisierung neu zu starten und die SyncMirror wiederherzustellen.
-.. Überprüfen Sie, ob der lokale Speicher vom Knoten im Wartungsmodus sichtbar ist:
+.. Booten Sie in den Wartungsmodus:
++
+`boot_ontap maint`
+
+.. Vergewissern Sie sich, dass der Speicher vom verbleibenden Standort aus sichtbar ist.
+.. Überprüfen Sie, ob der lokale Speicher vom Knoten im Wartungsmodus aus sichtbar ist:
 +
 `disk show -v`
 
 
+
+. Anhalten der Knoten:
++
+`halt`
 
 . Wiederherstellung der MetroCluster-Konfiguration
 +

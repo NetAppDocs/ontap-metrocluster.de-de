@@ -186,11 +186,34 @@ Führen Sie den Befehl aus: `boot_ontap`
 ====
 . Überprüfen Sie nach dem Booten des Node, ob die Root-Aggregate gespiegelt sind.
 +
-Wenn beide Plexe vorhanden sind, wird eine Neusynchronisierung automatisch gestartet. Wenn ein Plex fehlschlägt, zerstören Sie ihn und stellen Sie die Spiegelbeziehung wieder her, indem Sie den folgenden Befehl verwenden, um den Spiegel neu zu erstellen:
+[role="tabbed-block"]
+====
+.Wenn ein Plex fehlschlägt:
+--
+.. Zerstöre den ausgefallenen Plex:
++
+`storage aggregate plex delete -aggregate <aggregate_name> -plex <plex_name>`
 
+.. Stellen Sie die Spiegelbeziehung wieder her, indem Sie den Spiegel neu erstellen:
 +
 `storage aggregate mirror -aggregate <aggregate-name>`
 
+
+
+--
+.Wenn ein Plex offline ist:
+--
+Online der Plex:
+
+`storage aggregate plex online -aggregate <aggregate_name> -plex <plex_name>`
+
+--
+.Wenn beide Plexus vorhanden sind:
+--
+Die Neusynchronisierung wird automatisch gestartet.
+
+--
+====
 . Simulieren Sie den Switchback-Betrieb:
 +
 .. Ändern Sie von der Eingabeaufforderung eines verbleibenden Node auf die erweiterte Berechtigungsebene:
