@@ -4,7 +4,7 @@ sidebar: sidebar
 keywords: cabling, cable, component, link, site, management, network, networks, hardware, component, shared, switch, cluster, connection, management, data, configuring, configure 
 summary: Die Portnutzung in einer MetroCluster IP-Konfiguration hängt vom Switch-Modell und dem Plattformtyp ab. 
 ---
-= Zuweisung von Plattform-Ports für einen Cisco 9336C-FX2-Switch, der NS224-Speicher verbindet
+= Plattform-Portzuweisungen für einen 36-Port Cisco 9336C-FX2-Switch, der NS224-Speicher verbindet
 :allow-uri-read: 
 :icons: font
 :imagesdir: ../media/
@@ -15,10 +15,20 @@ Die Portnutzung in einer MetroCluster IP-Konfiguration hängt vom Switch-Modell 
 
 Lesen Sie die folgenden Überlegungen, bevor Sie die Konfigurationstabellen verwenden:
 
-* Wenn Sie einen Cisco 9336C-FX2-Switch verbinden, der NS224-Speicher verbindet, können Sie nur über maximal zwei MetroCluster-Konfigurationen oder DR-Gruppen verfügen. Mindestens eine MetroCluster-Konfiguration oder DR-Gruppe muss Switch-verbundene NS224-Shelfs unterstützen. Plattformen, die Switch-Attached NS224 Shelfs nicht unterstützen, können nur als zweite MetroCluster-Konfiguration oder als zweite DR-Gruppe verbunden werden.
+* Die Tabellen in diesem Abschnitt gelten für Cisco 9336C-FX2-Switches mit 36 Ports, wenn mindestens eine MetroCluster-Konfiguration oder DR-Gruppe NS224-Shelves mit dem MetroCluster-Switch verbindet.
++
+Wenn Sie einen 36-Port Cisco 9336C-FX2 Switch haben, der keinen NS224-Speicher verbindet, verwenden Sie die Tabellen in link:port_usage_3232c_9336c.html["Plattform-Portzuweisungen für Cisco 3232C- oder 36-Port-Switches Cisco 9336C-FX2"] .
+
++
+Wenn Sie einen 12-Port Cisco 9336C-FX2 Switch haben, verwenden Sie die Tabellen in link:port-usage-9336c-fx-2-12-port.html["Plattform-Portzuweisungen für 12-Port Cisco 9336C-FX2-Switches"] .
+
 +
 
-CAUTION: Sie verwenden diese Tabellen nur, wenn mindestens eine MetroCluster-Konfiguration oder DR-Gruppe NS224-Shelfs mit dem MetroCluster-Switch verbindet. Wenn Sie dedizierte Speicherschalter zum Anschließen der NS224-Shelfs verwenden, verkabeln Sie die Switches gemäß den Tabellen inlink:port_usage_3232c_9336c.html["Zuweisung der Plattform-Ports für Cisco 3232C- oder Cisco 9336C-FX2-Switches"].
+NOTE: Der 12-Port-Switch Cisco 9336C-FX2 unterstützt nicht den Anschluss von NS224-Shelves an den MetroCluster-Switch.
+
+* Wenn Sie einen Cisco 9336C-FX2-Switch verkabeln und NS224-Speicher anschließen, können Sie maximal zwei MetroCluster-Konfigurationen oder DR-Gruppen verwenden. Mindestens eine MetroCluster-Konfiguration oder DR-Gruppe muss NS224-Shelves mit dem MetroCluster-Switch verbinden. Sie können nur Plattformen verbinden, die keine Switch-angeschlossenen NS224-Shelves als zweite MetroCluster-Konfiguration oder zweite DR-Gruppe verbinden.
++
+Wenn Ihr zweiter MetroCluster oder Ihre DR-Gruppe keine NS224-Shelves mit dem MetroCluster-Switch verbindet, folgen Sie den <<tables_not_connecting_ns224,Verkabelungstabellen für Controller, die keine über einen Switch angeschlossenen NS224-Regale verbinden>> .
 
 * Der RcfFileGenerator zeigt nur geeignete Plattformen an, wenn die erste Plattform ausgewählt ist.
 * Für das Verbinden von MetroCluster Konfigurationen mit einem oder zwei vier Nodes ist ONTAP 9.14.1 oder höher erforderlich.

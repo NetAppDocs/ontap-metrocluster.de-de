@@ -17,11 +17,17 @@ Sie müssen verstehen, wie die Informationen in den Porttabellen verwendet werde
 Lesen Sie vor der Verwendung der Tabellen diese Überlegungen durch:
 
 * In den folgenden Tabellen wird die Portnutzung für Standort A angezeigt Für Standort B wird dieselbe Verkabelung verwendet
-* Die Switches können nicht mit Ports unterschiedlicher Geschwindigkeit konfiguriert werden (beispielsweise mit einer Mischung aus 100-Gbit/s-Ports und 40-Gbit/s-Ports).
-* Verfolgen Sie die MetroCluster-Portgruppe (MetroCluster 1, MetroCluster 2 usw.). Diese Informationen benötigen Sie, wenn Sie das RcfFileGenerator-Tool verwenden, wie später in diesem Konfigurationsvorgang beschrieben.
+* Sie können die Switches nicht mit Ports unterschiedlicher Geschwindigkeit konfigurieren (z. B. eine Mischung aus 100-Gbit/s-Ports und 40-Gbit/s-Ports).
+* Verfolgen Sie die MetroCluster-Portgruppe (MetroCluster 1, MetroCluster 2 usw.). Sie benötigen diese Informationen, wenn Sie das Tool RcfFileGenerator verwenden, wie später in diesem Konfigurationsverfahren beschrieben.
 * Sie sollten alle Nodes auf die gleiche Weise verkabeln. Wenn für die Verkabelung der Nodes unterschiedliche Portkombinationsoptionen verfügbar sind, sollten alle Nodes die gleichen Port-Kombinationen verwenden. Beispiel: e1a auf Knoten 1 und e1a auf Knoten 2 sollten an einen Schalter angeschlossen werden. Gleichermaßen sollte der zweite Port beider Nodes an den zweiten Switch angeschlossen werden.
 * Der https://mysupport.netapp.com/site/tools/tool-eula/rcffilegenerator["RCfFileGenerator für MetroCluster-IP"^] bietet außerdem eine Übersicht über die Verkabelung pro Port für jeden Switch. Verwenden Sie diese Verkabelungsübersicht, um Ihre Verkabelung zu überprüfen.
 
+
+
+
+== Verkabelung von zwei MetroCluster-Konfigurationen mit den Switches
+
+Wenn Sie mehrere MetroCluster-Konfigurationen an einen Switch anschließen, verkabeln Sie jeden MetroCluster gemäß der entsprechenden Tabelle. Wenn Sie beispielsweise eine FAS2750 und eine AFF A700 an denselben Switch anschließen, verkabeln Sie die FAS2750 gemäß „MetroCluster 1“ in Tabelle 1 und die AFF A700 gemäß „MetroCluster 2“ oder „MetroCluster 3“ in Tabelle 2. Die FAS2750 und die AFF A700 können nicht physisch als „MetroCluster 1“ verkabelt werden.
 
 
 
@@ -30,7 +36,7 @@ Lesen Sie vor der Verwendung der Tabellen diese Überlegungen durch:
 Bei MetroCluster Konfiguration mit ONTAP 9.8 und früher müssen bei einigen Verfahren für die Transition eines Upgrades eine zweite DR-Gruppe mit vier Nodes zur Konfiguration hinzugefügt werden, um eine temporäre Konfiguration mit acht Nodes zu erstellen.  Ab ONTAP 9.9 werden dauerhafte MetroCluster-Konfigurationen mit acht Nodes unterstützt.
 
 .Über diese Aufgabe
-Für solche Konfigurationen verwenden Sie die gleiche Methode wie oben beschrieben. Anstelle einer zweiten MetroCluster ist eine weitere DR-Gruppe mit vier Nodes verkabelt.
+Für Konfigurationen mit acht Knoten verwenden Sie dieselbe Methode wie oben beschrieben. Anstelle einer zweiten MetroCluster ist eine weitere DR-Gruppe mit vier Nodes verkabelt.
 
 Ihre Konfiguration umfasst beispielsweise Folgendes:
 

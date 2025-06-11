@@ -17,6 +17,68 @@ Ab ONTAP 9.13.1 können Sie die Controller und den Speicher in einer MetroCluste
 
 Ab ONTAP 9.8 können Sie die Controller und den Storage in einer MetroCluster IP-Konfiguration mit vier Nodes aktualisieren, indem Sie die Konfiguration zu einer temporären Konfiguration mit acht Nodes erweitern und dann die alte DR-Gruppe entfernen.
 
+.Wichtige Informationen
+Während der Umstellungs-, Aktualisierungs- und Erweiterungsvorgänge können Sie Ihrer MetroCluster-Konfiguration ein neues Plattformmodell hinzufügen. Wenn Ihre vorhandene MetroCluster-Konfiguration zu irgendeinem Zeitpunkt eine Plattform mit *gemeinsamen Cluster-/HA-Ports* enthält, können Sie der Konfiguration keine Plattform mit *gemeinsamen MetroCluster-/HA-Ports* hinzufügen, ohne Ihre ONTAP-Version auf ONTAP 9.15.1P11 oder ONTAP 9.16.1P4 oder höher zu aktualisieren.
+
+Bevor Sie sich für dieses Verfahren entscheiden, lesen Sie die Informationen in der folgenden Tabelle sorgfältig durch. Wenn Ihre vorhandene Plattform in der ersten Spalte und die Plattform, die Sie der Konfiguration hinzufügen möchten, in der zweiten Spalte aufgeführt ist, müssen alle Knoten in der Konfiguration ONTAP 9.15.1P11 oder ONTAP 9.16.1P4 oder höher ausführen, um dieses Verfahren zu unterstützen.
+
+
+CAUTION: Sowohl die vorhandene Plattform als auch die Plattform, die Sie der Konfiguration hinzufügen möchten, müssen ONTAP 9.15.1P11 oder ONTAP 9.16.1P4 oder höher ausführen.
+
+[cols="20,20,20,20,20"]
+|===
+2+| Wenn Ihr vorhandener MetroCluster Folgendes enthält: 2+| Und die Plattform, die Sie hinzufügen, ist ... | Dann... 
+
+
+ a| 
+Ein AFF-System, das *gemeinsam genutzte Cluster-/HA-Ports* verwendet:
+
+* AFF A20
+* AFF A30
+* AFF C30
+* AFF A50
+* AFF C60
+* AFF C80
+* AFF A70
+* AFF A90
+* AFF A1K
+
+ a| 
+Ein FAS-System, das *gemeinsam genutzte Cluster-/HA-Ports* verwendet:
+
+* FAS50
+* FAS70
+* FAS90
+
+ a| 
+Ein AFF-System, das *gemeinsam genutzte MetroCluster/HA-Ports* verwendet:
+
+* AFF A150, ASA A150
+* AFF A220
+* AFF C250, ASA C250
+* AFF A250, ASA A250
+* AFF A300
+* AFF A320
+* AFF C400, ASA C400
+* AFF A400, ASA A400
+* AFF A700
+* AFF C800, ASA C800
+* AFF A800, ASA A800
+* AFF A900, ASA A900
+
+ a| 
+Ein FAS-System, das *gemeinsam genutzte MetroCluster/HA-Ports* verwendet:
+
+* FAS2750
+* FAS500f
+* FAS8200
+* FAS8300
+* FAS8700
+* FAS9000
+* FAS9500
+
+| Bevor Sie die neue Plattform zu Ihrer vorhandenen MetroCluster-Konfiguration hinzufügen, aktualisieren Sie alle Knoten in der vorhandenen und neuen Konfiguration auf ONTAP 9.15.1P11 oder ONTAP 9.16.1P4 oder höher. 
+|===
 .Über diese Aufgabe
 * Bei einer Konfiguration mit acht Nodes muss auf dem System ONTAP 9.13.1 oder höher ausgeführt werden.
 * Bei einer Konfiguration mit vier Nodes muss auf dem System ONTAP 9.8 oder höher ausgeführt werden.

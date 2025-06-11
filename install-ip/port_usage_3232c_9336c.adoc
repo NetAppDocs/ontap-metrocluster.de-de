@@ -4,7 +4,7 @@ sidebar: sidebar
 keywords: cabling, cable, component, link, site, management, network, networks, hardware, component, switch, cluster, connection, management, data, configuring, configure 
 summary: Die Portnutzung in einer MetroCluster IP-Konfiguration hängt vom Switch-Modell und dem Plattformtyp ab. 
 ---
-= Zuweisung der Plattform-Ports für Cisco 3232C- oder Cisco 9336C-FX2-Switches
+= Plattform-Portzuweisungen für Cisco 3232C- oder 36-Port-Switches Cisco 9336C-FX2
 :allow-uri-read: 
 :icons: font
 :imagesdir: ../media/
@@ -15,8 +15,15 @@ Die Portnutzung in einer MetroCluster IP-Konfiguration hängt vom Switch-Modell 
 
 Lesen Sie die folgenden Überlegungen, bevor Sie die Konfigurationstabellen verwenden:
 
+* Die Tabellen in diesem Abschnitt gelten für Cisco 3232C-Switches oder 36-Port-Cisco 9336C-FX2-Switches, die keinen NS224-Speicher verbinden.
++
+Wenn Sie einen 12-Port Cisco 9336C-FX2 Switch haben, verwenden Sie die Tabellen in link:port-usage-9336c-fx-2-12-port.html["Plattform-Portzuweisungen für 12-Port Cisco 9336C-FX2-Switches"] .
+
++
+Wenn Sie einen Cisco 9336C-FX2-Switch mit 36 Ports haben und mindestens eine MetroCluster-Konfiguration oder DR-Gruppe NS224-Shelves mit dem MetroCluster-Switch verbindet, verwenden Sie die Tabellen in link:port_usage_9336c_shared.html["Plattform-Portzuweisungen für einen 36-Port Cisco 9336C-FX2-Switch, der NS224-Speicher verbindet"] .
+
 * In den folgenden Tabellen wird die Portnutzung für Standort A angezeigt Für Standort B wird dieselbe Verkabelung verwendet
-* Die Switches können nicht mit Ports unterschiedlicher Geschwindigkeit konfiguriert werden (beispielsweise mit einer Mischung aus 100-Gbit/s-Ports und 40-Gbit/s-Ports).
+* Sie können die Switches nicht mit Ports unterschiedlicher Geschwindigkeit konfigurieren (z. B. eine Mischung aus 100-Gbit/s-Ports und 40-Gbit/s-Ports).
 * Wenn Sie eine einzelne MetroCluster mit den Switches konfigurieren, verwenden Sie die Portgruppe *MetroCluster 1*.
 +
 Verfolgen Sie die MetroCluster-Portgruppe (MetroCluster 1, MetroCluster 2, MetroCluster 3 oder MetroCluster 4). Sie benötigen sie, wenn Sie das RcfFileGenerator-Tool verwenden, wie später in diesem Konfigurationsvorgang beschrieben.
@@ -31,12 +38,6 @@ Verwenden Sie diese Verkabelungsübersicht, um Ihre Verkabelung zu überprüfen.
 
 
 NOTE: Die Version der RCF-Datei unterscheidet sich von der Version des RCFfilegenerator-Tools, mit dem die Datei generiert wird. Beispielsweise können Sie eine RCF-Datei Version 2.00 mit RCFfilegenerator v1.6c generieren.
-
-
-
-== Verkabelung von zwei MetroCluster-Konfigurationen mit den Switches
-
-Wenn Sie mehrere MetroCluster-Konfigurationen mit einem Cisco 3132Q-V Switch verkabeln, müssen Sie jede MetroCluster gemäß der entsprechenden Tabelle verkabeln. Beispiel: Wenn Sie eine FAS2750 und eine AFF A700 mit demselben Cisco 3132Q-V Switch verkabeln. Anschließend müssen Sie die FAS2750 gemäß „MetroCluster 1“ in Tabelle 1 und die AFF A700 gemäß „MetroCluster 2“ oder „MetroCluster 3“ in Tabelle 2 verkabeln. Die FAS2750 und die AFF A700 können nicht physisch als „MetroCluster 1“ verkabelt werden.
 
 
 
