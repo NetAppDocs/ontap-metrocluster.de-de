@@ -11,21 +11,23 @@ summary: Nachdem Sie alle Anforderungen geprüft und sich auf den Umstieg vorber
 
 
 [role="lead"]
-Sie müssen die Cluster-Schnittstellen der MetroCluster FC-Konfiguration auf die IP-Switches verschieben.
+Verschieben Sie die Clusterschnittstellen der MetroCluster FC-Konfiguration zu den IP-Switches.
 
 
 
-== Verschieben Sie die Cluster-Verbindungen auf den MetroCluster FC-Nodes
+== Schritt 1: Verschieben Sie die Clusterverbindungen auf den MetroCluster FC-Knoten
 
-Sie müssen die Cluster-Verbindungen auf den MetroCluster-FC-Nodes zu den IP-Switches verschieben. Die Schritte hängen davon ab, ob Sie die vorhandenen IP-Switches verwenden oder neue IP-Switches verwenden.
+Verschieben Sie die Clusterverbindungen der MetroCluster FC-Knoten zu den IP-Switches. Die Schritte hängen davon ab, ob Sie vorhandene oder neue IP-Switches verwenden.
 
-Sie müssen diese Aufgabe auf beiden MetroCluster-Sites ausführen.
+.Über diese Aufgabe
+* Sie führen diese Aufgabe auf beiden MetroCluster-Sites aus.
+
 
 
 
 === Welche Verbindungen zu verschieben sind
 
-Bei der folgenden Aufgabe wird von einem Controller-Modul ausgegangen, in dem zwei Ports für die Cluster-Verbindungen verwendet werden. Einige Controller-Modulmodelle verwenden vier oder mehr Ports für die Cluster-Verbindung. In diesem Fall werden die Ports für die Zwecke dieses Beispiels in zwei Gruppen unterteilt, die abwechselnd Ports zwischen den beiden Gruppen
+Die folgende Aufgabe geht davon aus, dass ein Controllermodul zwei Ports für die Clusterverbindungen verwendet. Einige Controller-Modulmodelle verwenden vier oder mehr Ports für die Cluster-Verbindung. In diesem Beispiel sind die Ports in zwei Gruppen unterteilt, wobei die Ports zwischen den beiden Gruppen abwechselnd verwendet werden.
 
 In der folgenden Tabelle sind die Beispielports aufgeführt, die in dieser Aufgabe verwendet werden.
 
@@ -68,6 +70,19 @@ In der folgenden Tabelle wird gezeigt, mit welchen Switch-Ports die FC-Nodes ver
 Alle
  a| 
 5, 6
+ a| 
+Lokale Cluster-Schnittstelle am FC-Node
+
+
+
+ a| 
+Cisco 9336C-FX2 (12 Ports)
+ a| 
+Alle
+ a| 
+3,4 oder 11,12
+
+*Hinweis:* Um die Switch-Ports 11 und 12 zu verwenden, müssen Sie zwei Geschwindigkeitsmodi auswählen.
  a| 
 Lokale Cluster-Schnittstelle am FC-Node
 
@@ -140,10 +155,11 @@ Lokale Cluster-Schnittstelle am FC-Node
 |===
 
 
-=== Verschieben der lokalen Cluster-Verbindungen bei Verwendung neuer IP-Switches
+=== Verschieben der lokalen Clusterverbindungen bei Verwendung neuer IP-Switches
 
-Bei Verwendung neuer IP-Switches müssen die Cluster-Verbindungen der vorhandenen MetroCluster FC-Nodes physisch auf die neuen Switches verschoben werden.
+Wenn Sie neue IP-Switches verwenden, verschieben Sie die Clusterverbindungen der vorhandenen MetroCluster FC-Knoten physisch auf die neuen Switches.
 
+.Schritte
 . Verschieben Sie die Cluster-Verbindungen der MetroCluster-FC-Node-Gruppe A zu den neuen IP-Switches.
 +
 Verwenden Sie die in beschriebenen Ports <<Welche Verbindungen zu verschieben sind>>.
@@ -262,12 +278,14 @@ cluster_A::*>
 
 
 
-=== Verschieben der lokalen Cluster-Verbindungen bei erneuter Nutzung vorhandener IP-Switches
+=== Verschieben Sie die lokalen Clusterverbindungen, wenn Sie vorhandene IP-Switches wiederverwenden
 
-Wenn Sie vorhandene IP-Switches erneut verwenden, müssen Sie die Firmware aktualisieren, die Switches mit dem korrekten Reference Configure Files (RCFs) neu konfigurieren und die Verbindungen jeweils an die richtigen Ports verschieben.
+Wenn Sie vorhandene IP-Switches wiederverwenden, aktualisieren Sie die Firmware, konfigurieren die Switches mit den richtigen Referenzkonfigurationsdateien (RCFs) neu und verschieben die Verbindungen Switch für Switch auf die richtigen Ports.
 
+.Über diese Aufgabe
 Diese Aufgabe ist nur erforderlich, wenn die FC-Knoten mit vorhandenen IP-Switches verbunden sind und Sie die Switches erneut verwenden.
 
+.Schritte
 . Trennen Sie die lokalen Cluster-Verbindungen, die sich mit Switch_A_1_IP verbinden
 +
 .. Trennen Sie die Ports der Gruppe A vom vorhandenen IP-Switch.
@@ -391,10 +409,11 @@ Cluster-A::*>
 
 
 
-== Überprüfen, ob die Cluster-Verbindungen verschoben und das Cluster in einem ordnungsgemäßen Zustand ist
+== Schritt 2: Überprüfen, ob die Clusterverbindungen verschoben wurden und der Cluster fehlerfrei ist
 
-Um sicherzustellen, dass die Konnektivität korrekt ist und die Konfiguration bereit ist, den Transitionsprozess fortzusetzen, müssen Sie überprüfen, ob die Cluster-Verbindungen ordnungsgemäß verschoben werden, die Cluster-Switches erkannt und der Cluster in einem ordnungsgemäßen Zustand ist.
+Um sicherzustellen, dass die Konnektivität ordnungsgemäß ist und die Konfiguration für den Übergangsprozess bereit ist, überprüfen Sie, ob die Clusterverbindungen richtig verschoben wurden, die Cluster-Switches erkannt werden und der Cluster fehlerfrei ist.
 
+.Schritte
 . Vergewissern Sie sich, dass alle Cluster-Ports betriebsbereit sind:
 +
 `network port show -ipspace Cluster`

@@ -15,7 +15,7 @@ Zum Abschluss der Umstellung müssen Sie den Betrieb der neuen MetroCluster IP-K
 
 . Überprüfen Sie die MetroCluster IP-Konfiguration.
 +
-Sie müssen diesen Schritt für jedes Cluster durchführen.
+Sie müssen diesen Schritt auf jedem Cluster im erweiterten Berechtigungsmodus ausführen.
 
 +
 Im folgenden Beispiel wird die Ausgabe für „Cluster_A“ angezeigt
@@ -25,7 +25,7 @@ Im folgenden Beispiel wird die Ausgabe für „Cluster_A“ angezeigt
 cluster_A::> cluster show
 Node                 Health  Eligibility   Epsilon
 -------------------- ------- ------------  ------------
-node_A_1-IP          true    true          true
+node_A_1-IP          true    true          false
 node_A_2-IP          true    true          false
 2 entries were displayed.
 
@@ -39,7 +39,7 @@ Im folgenden Beispiel wird die Ausgabe für „Cluster_B“ angezeigt
 cluster_B::> cluster show
 Node                 Health  Eligibility   Epsilon
 -------------------- ------- ------------  ------------
-node_B_1-IP          true    true          true
+node_B_1-IP          true    true          false
 node_B_2-IP          true    true          false
 2 entries were displayed.
 

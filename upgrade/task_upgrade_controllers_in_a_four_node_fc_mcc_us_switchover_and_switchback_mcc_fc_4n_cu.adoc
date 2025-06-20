@@ -4,7 +4,7 @@ sidebar: sidebar
 keywords: metrocluster, upgrade, nondisruptive, controller, switchover, switchback, fc, configuration, net, boot, root, aggregate, mcc 
 summary: 'Mit dem MetroCluster Switchover profitieren Kunden von unterbrechungsfreiem Service, während die Controller-Module im Partner-Cluster aktualisiert werden. Andere Komponenten (wie Storage Shelves oder Switches) können nicht im Rahmen dieses Verfahrens aktualisiert werden.' 
 ---
-= Controller-Upgrade in einer MetroCluster FC-Konfiguration durch Switchover und Switchback
+= Aktualisieren Sie Controller in einer MetroCluster FC Konfiguration mithilfe von Switchover und Switchback
 :allow-uri-read: 
 :icons: font
 :imagesdir: ../media/
@@ -113,15 +113,18 @@ Siehe Knowledge Base-Artikel link:https://kb.netapp.com/Support_Bulletins/Custom
 
 
 
-== Vorbereitung auf das Upgrade
+== Bereiten Sie sich auf das Upgrade vor
 
 Bevor Sie Änderungen an der bestehenden MetroCluster Konfiguration vornehmen, müssen Sie den Zustand der Konfiguration überprüfen, die neuen Plattformen vorbereiten und andere verschiedene Aufgaben ausführen.
 
 
 
-=== Überprüfen des Systemzustands der MetroCluster-Konfiguration
+=== Überprüfen Sie den Systemzustand der MetroCluster-Konfiguration
 
-Vor dem Upgrade müssen Sie den Zustand und die Konnektivität der MetroCluster Konfiguration überprüfen.
+Sie überprüfen den Zustand und die Konnektivität der MetroCluster-Konfiguration, bevor Sie das Upgrade durchführen.
+
+
+CAUTION: Nachdem Sie die Controller am ersten Standort aktualisiert haben und bevor Sie den zweiten aktualisieren, wird ausgeführt  `metrocluster check run` gefolgt von  `metrocluster check show` gibt einen Fehler zurück in der  `config-replication` Feld. Dieser Fehler weist auf eine Nichtübereinstimmung der NVRAM-Größe zwischen den Knoten an jedem Standort hin und ist das erwartete Verhalten, wenn an beiden Standorten unterschiedliche Plattformmodelle vorhanden sind. Sie können den Fehler ignorieren, bis das Controller-Upgrade für alle Knoten in der DR-Gruppe abgeschlossen ist.
 
 .Schritte
 . Überprüfen Sie den Betrieb der MetroCluster-Konfiguration in ONTAP:
@@ -208,7 +211,7 @@ https://mysupport.netapp.com/site/tools/tool-eula/activeiq-configadvisor["NetApp
 
 
 
-=== Zuordnen von Ports von den alten Nodes zu den neuen Nodes
+=== Weisen Sie den neuen Nodes Ports von den alten Nodes zu
 
 Sie müssen die Zuordnung der LIFs zu physischen Ports auf den alten Nodes zu den physischen Ports auf den neuen Nodes planen.
 
@@ -232,7 +235,7 @@ e0a, e0b
  a| 
 e3a, e3b
  a| 
-Kein passender Port. Erstellen Sie nach dem Upgrade die Clusterports neu. link:task_prepare_cluster_ports_on_the_exist_controller.html["Vorbereiten von Cluster-Ports auf einem vorhandenen Controller-Modul"]
+Kein passender Port. Erstellen Sie nach dem Upgrade die Clusterports neu. link:task_prepare_cluster_ports_on_the_exist_controller.html["Bereiten Sie Cluster-Ports auf einem vorhandenen Controller-Modul vor"]
 
 
 
@@ -401,7 +404,7 @@ Intercluster-Port
 
 
 
-=== Sammeln von Informationen vor dem Upgrade
+=== Sammeln Sie vor dem Upgrade Informationen
 
 Vor der Aktualisierung müssen Sie Informationen für jeden der alten Knoten erfassen und bei Bedarf die Netzwerk-Broadcast-Domänen anpassen, VLANs und Schnittstellengruppen entfernen und Verschlüsselungsinformationen sammeln.
 
@@ -512,14 +515,14 @@ Sie benötigen die Passphrase später im Upgrade-Verfahren.
 
 
 
-=== Entfernen der vorhandenen Konfiguration über den Tiebreaker oder eine andere Monitoring-Software
+=== Entfernen Sie die vorhandene Konfiguration über den Tiebreaker oder eine andere Monitoring-Software
 
 Wenn die vorhandene Konfiguration mit der MetroCluster Tiebreaker Konfiguration oder anderen Applikationen anderer Anbieter (z. B. ClusterLion) überwacht wird, die eine Umschaltung initiieren können, müssen Sie die MetroCluster Konfiguration vor dem Umstieg aus dem Tiebreaker oder einer anderen Software entfernen.
 
 .Schritte
 . Entfernen Sie die vorhandene MetroCluster-Konfiguration über die Tiebreaker Software.
 +
-link:../tiebreaker/concept_configuring_the_tiebreaker_software.html#removing-metrocluster-configurations["Entfernen von MetroCluster-Konfigurationen"]
+link:../tiebreaker/concept_configuring_the_tiebreaker_software.html#removing-metrocluster-configurations["MetroCluster-Konfigurationen entfernen"]
 
 . Entfernen Sie die vorhandene MetroCluster Konfiguration von jeder Anwendung eines Drittanbieters, die eine Umschaltung initiieren kann.
 +
@@ -529,7 +532,7 @@ Informationen zur Anwendung finden Sie in der Dokumentation.
 
 
 
-=== Senden einer benutzerdefinierten AutoSupport Meldung vor der Wartung
+=== Senden Sie vor der Wartung eine individuelle AutoSupport Nachricht
 
 Bevor Sie die Wartung durchführen, sollten Sie eine AutoSupport Meldung ausgeben, um den technischen Support von NetApp über die laufende Wartung zu informieren. Die Mitteilung des technischen Supports über laufende Wartungsarbeiten verhindert, dass ein Fall eröffnet wird, wenn eine Störung aufgetreten ist.
 
@@ -556,7 +559,7 @@ Diese Aufgabe muss auf jedem MetroCluster-Standort ausgeführt werden.
 
 
 
-== Umschalten der MetroCluster-Konfiguration
+== Wechseln Sie über die MetroCluster-Konfiguration
 
 Sie müssen die Konfiguration auf Site_A umschalten, damit die Plattformen auf Site_B aktualisiert werden können.
 
@@ -747,7 +750,7 @@ Dieser Schritt muss auf beiden Knoten durchgeführt werden.
 
 
 
-== Entfernen der alten Plattformen
+== Entfernen Sie die alten Plattformen
 
 Die alten Controller müssen aus der Konfiguration entfernt werden.
 
@@ -763,13 +766,13 @@ Diese Aufgabe wird auf Site_B. ausgeführt
 
 
 
-== Konfigurieren der neuen Controller
+== Konfigurieren Sie die neuen Controller
 
 Sie müssen die Controller im Rack unterbringen und installieren, die erforderliche Einrichtung im Wartungsmodus durchführen und dann die Controller booten und die LIF-Konfiguration auf den Controllern überprüfen.
 
 
 
-=== Einrichten der neuen Controller
+=== Richten Sie die neuen Controller ein
 
 Sie müssen die neuen Controller im Rack unterbringen und verkabeln.
 
@@ -799,7 +802,7 @@ https://docs.netapp.com/platstor/index.jsp["Dokumentation zu ONTAP Hardwaresyste
 
 
 
-=== Netbootting der neuen Controller
+=== Booten Sie die neuen Controller ein
 
 Nachdem Sie die neuen Nodes installiert haben, müssen Sie als Netzboot fahren, damit die neuen Nodes dieselbe Version von ONTAP wie die ursprünglichen Nodes ausführen. Der Begriff Netzboot bedeutet, dass Sie über ein ONTAP Image, das auf einem Remote Server gespeichert ist, booten. Wenn Sie das Netzboot vorbereiten, müssen Sie eine Kopie des ONTAP 9 Boot Images auf einem Webserver ablegen, auf den das System zugreifen kann.
 
@@ -867,7 +870,7 @@ The node must be rebooted to start using the newly installed software. Do you wa
 
 
 
-=== Löschen der Konfiguration auf einem Controller-Modul
+=== Löschen Sie die Konfiguration auf einem Controller-Modul
 
 Bevor Sie in der MetroCluster-Konfiguration ein neues Controller-Modul verwenden, müssen Sie die vorhandene Konfiguration löschen.
 
@@ -906,7 +909,7 @@ Antworten `yes` An die Bestätigungsaufforderung.
 
 
 
-=== Wiederherstellen der HBA-Konfiguration
+=== Wiederherstellung der HBA-Konfiguration
 
 Je nach Vorhandensein und Konfiguration der HBA-Karten im Controller-Modul müssen Sie diese für die Verwendung Ihres Standorts richtig konfigurieren.
 
@@ -988,7 +991,7 @@ FC
 
 
 
-=== Einstellen des HA-Status auf den neuen Controllern und dem Chassis
+=== Legen Sie den HA-Status für die neuen Controller und das Chassis fest
 
 Sie müssen den HA-Status der Controller und des Chassis überprüfen. Bei Bedarf müssen Sie den Status entsprechend Ihrer Systemkonfiguration aktualisieren.
 
@@ -1049,14 +1052,14 @@ mcc
 
 
 
-=== Neuzuweisen von Root-Aggregatfestplatten
+=== Neuzuweisung von Root-Aggregat-Festplatten
 
 Weisen Sie die Root-Aggregat-Festplatten dem neuen Controller-Modul unter Verwendung der zuvor gesammelten Sysiden wieder zu
 
 .Über diese Aufgabe
 Diese Aufgabe wird im Wartungsmodus ausgeführt.
 
-Die alten System-IDs wurden in identifiziert link:task_upgrade_controllers_in_a_four_node_fc_mcc_us_switchover_and_switchback_mcc_fc_4n_cu.html["Sammeln von Informationen vor dem Upgrade"].
+Die alten System-IDs wurden in identifiziert link:task_upgrade_controllers_in_a_four_node_fc_mcc_us_switchover_and_switchback_mcc_fc_4n_cu.html["Sammeln Sie vor dem Upgrade Informationen"].
 
 Die Beispiele in diesem Verfahren verwenden Controller mit den folgenden System-IDs:
 
@@ -1372,10 +1375,10 @@ link:../install-fc/concept_configure_the_mcc_software_in_ontap.html#peering-the-
 VLAN und Interface Group Mitgliedschaft können sich von der des alten Node unterscheiden.
 
 +
-https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-nmg/GUID-8929FCE2-5888-4051-B8C0-E27CAF3F2A63.html["Erstellen eines VLANs"^]
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-nmg/GUID-8929FCE2-5888-4051-B8C0-E27CAF3F2A63.html["Erstellen Sie eine VLAN"^]
 
 +
-https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-nmg/GUID-DBC9DEE2-EAB7-430A-A773-4E3420EE2AA1.html["Verbinden von physischen Ports zum Erstellen von Schnittstellengruppen"^]
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-nmg/GUID-DBC9DEE2-EAB7-430A-A773-4E3420EE2AA1.html["Kombinieren Sie physische Ports zum Erstellen von Schnittstellengruppen"^]
 
 
 
@@ -1408,7 +1411,7 @@ Weitere Informationen finden Sie unter https://docs.netapp.com/ontap-9/topic/com
 
 
 
-=== LIF-Konfiguration wird überprüft
+=== LIF-Konfiguration überprüfen
 
 Stellen Sie vor dem Wechsel sicher, dass LIFs auf den entsprechenden Nodes/Ports gehostet werden. Folgende Schritte sind auszuführen
 
@@ -1454,7 +1457,7 @@ Vor dem Wechsel-Back-Vorgang müssen Sie Lizenzen für die neuen Controller inst
 
 
 
-== Umschalten der MetroCluster-Konfiguration
+== Schalten Sie die MetroCluster-Konfiguration zurück
 
 Nachdem die neuen Controller konfiguriert wurden, schalten Sie die MetroCluster Konfiguration zurück und kehren den normalen Betrieb zurück.
 
@@ -1517,7 +1520,7 @@ Wenn ein Wechsel eine lange Zeit in Anspruch nimmt, können Sie den Status der i
 
 
 
-== Überprüfen des Systemzustands der MetroCluster-Konfiguration
+== Überprüfen Sie den Systemzustand der MetroCluster-Konfiguration
 
 Nach dem Upgrade der Controller-Module müssen Sie den Systemzustand der MetroCluster Konfiguration überprüfen.
 
@@ -1559,20 +1562,20 @@ Dieses Verhalten wird aufgrund einer Controller-Diskrepanz während des Upgrade-
 
 
 
-== Aktualisieren der Knoten auf Cluster_A
+== Aktualisieren Sie die Nodes auf Cluster_A
 
 Sie müssen die Upgrade-Aufgaben auf „Cluster_A“ wiederholen
 
 .Schritt
-. Wiederholen Sie die Schritte, um die Nodes auf Cluster_A zu aktualisieren. Beginnen Sie mit link:task_upgrade_controllers_in_a_four_node_fc_mcc_us_switchover_and_switchback_mcc_fc_4n_cu.html["Vorbereitung auf das Upgrade"].
+. Wiederholen Sie die Schritte, um die Knoten auf Cluster_A zu aktualisieren, beginnend mit link:task_upgrade_controllers_in_a_four_node_fc_mcc_us_switchover_and_switchback_mcc_fc_4n_cu.html["Bereiten Sie sich auf das Upgrade vor"].
 +
-Während Sie die Aufgaben ausführen, werden alle Beispielreferenzen zu den Clustern und Nodes umgekehrt. Wenn das Beispiel für die Umschaltung von Cluster_A verwendet wird, erfolgt die Umschaltung von Cluster_B.
+Wenn Sie den Vorgang wiederholen, werden alle Beispielverweise auf die Cluster und Knoten umgekehrt. Wenn das Beispiel für die Umschaltung von Cluster_A verwendet wird, erfolgt die Umschaltung von Cluster_B.
 
 
 
 
 
-== Senden einer benutzerdefinierten AutoSupport Meldung nach der Wartung
+== Senden Sie eine individuelle AutoSupport Nachricht nach der Wartung
 
 Nach Abschluss des Upgrades sollten Sie eine AutoSupport Meldung mit Angaben zum Ende der Wartung senden. Die automatische Case-Erstellung kann also fortgesetzt werden.
 
@@ -1590,9 +1593,9 @@ Nach Abschluss des Upgrades sollten Sie eine AutoSupport Meldung mit Angaben zum
 
 
 
-== Wiederherstellen des Tiebreaker Monitoring
+== Wiederherstellung des Tiebreaker Monitoring
 
 Wenn die MetroCluster Konfiguration zuvor für das Monitoring über die Tiebreaker Software konfiguriert war, können Sie die Tiebreaker Verbindung wiederherstellen.
 
-. Verwenden Sie die Schritte in http://docs.netapp.com/ontap-9/topic/com.netapp.doc.hw-metrocluster-tiebreaker/GUID-7259BCA4-104C-49C6-BAD0-1068CA2A3DA5.html["Hinzufügen von MetroCluster Konfigurationen"^] In _MetroCluster Tiebreaker Installation und Konfiguration_.
+. Verwenden Sie die Schritte in  http://docs.netapp.com/ontap-9/topic/com.netapp.doc.hw-metrocluster-tiebreaker/GUID-7259BCA4-104C-49C6-BAD0-1068CA2A3DA5.html["Fügen Sie MetroCluster-Konfigurationen hinzu"^] in _Installation und Konfiguration des MetroCluster-Tiebreakers_.
 

@@ -5352,7 +5352,6 @@
   <block id="dadca3d57b191a678f23de76f79b283e" category="section-title">Weisen Sie den neuen Nodes Ports von den alten Nodes zu</block>
   <block id="faab2cbd973ffc485dff6e74aeeab547" category="paragraph">Beim Upgrade von einer AFF A700 auf ein AFF A900 oder FAS9000 auf FAS9500 werden die Datennetzwerkports, FCP SAN-Adapterports sowie SAS- und NVMe-Storage-Ports nicht geändert. Die Daten-LIFs bleiben dort, wo sie sich während und nach dem Upgrade befinden. Daher sind Sie nicht erforderlich, die Netzwerk-Ports von den alten Nodes den neuen Nodes zuzuordnen.</block>
   <block id="0c8985d7cfbb81f5f054993ed8285211" category="section-title">Überprüfen Sie vor Standort-Upgrade den MetroCluster-Zustand</block>
-  <block id="e53a7c24d7a4423f5e6dc1e0489f4650" category="paragraph">Vor dem Upgrade müssen Sie den Zustand und die Konnektivität der MetroCluster Konfiguration überprüfen.</block>
   <block id="46ab1094509f05c492019af70dffd16d" category="list-text">Überprüfen Sie den Betrieb der MetroCluster-Konfiguration in ONTAP:</block>
   <block id="e64a7827901a0e6216b6c75c3b100902" category="list-text">Prüfen Sie, ob die Knoten multipathed sind: +<block ref="9d8e96d9200d45a5b615d425c5e1d7e0" prefix=" " category="inline-code"></block></block>
   <block id="542da501ed6fd2c5eec24de28539644a" category="paragraph">Sie sollten diesen Befehl für jeden Node in der MetroCluster-Konfiguration ausgeben.</block>
@@ -5992,7 +5991,6 @@
   <block id="6abf8fcf1209a0e61a34ee20748a726e" category="paragraph">Verbinden Sie die Cluster-Ports an jedem Controller mit den Ports auf den in Unterschritt B angegebenen Cluster-Netzwerk-Switches</block>
   <block id="291349860e45161d05b403e88ba2f28b" category="list-text">Verwenden Sie die Verfahren für die ausgehandelte Umschaltung, Heilung und zurückwechseln <block ref="e3d7ead0f01b9fa985ec5c35c22c44f3" category="inline-link-macro-rx"></block>.</block>
   <block id="c305ce21377f146200c5e9ef13536599" category="summary">Mithilfe dieses geführten automatisierten MetroCluster-Switchover-Vorgangs lässt sich ein unterbrechungsfreies Controller-Upgrade für eine MetroCluster FC-Konfiguration mit vier Nodes durchführen.</block>
-  <block id="f49f60b6304797900db897e855566402" category="doc">Controller-Upgrade in einer MetroCluster FC-Konfiguration mit vier Nodes durch Umschaltung und Switchback mit Befehlen zum Austausch eines System-Controllers (ONTAP 9.10.1 und höher)</block>
   <block id="66c25daffc009801ab74d25814bedafb" category="paragraph">Mithilfe dieses geführten automatisierten MetroCluster-Switchover-Vorgangs lässt sich ein unterbrechungsfreies Controller-Upgrade auf einer MetroCluster FC-Konfiguration mit vier Nodes durchführen. Andere Komponenten (wie Storage Shelves oder Switches) können nicht im Rahmen dieses Verfahrens aktualisiert werden.</block>
   <block id="344184862169747549deee4b87dc1cf2" category="section-title">Unterstützte Plattformkombinationen</block>
   <block id="301e2a674920a7bb1b220a6ccd88ce36" category="inline-link">Wahl einer Upgrade- oder Aktualisierungsmethode</block>
@@ -6018,10 +6016,7 @@
   <block id="1a79a6f65ccd83c6b745bba021e17537" category="list-text">Node_B_2-neu</block>
   <block id="60b2b0f6400af78e603c06413100168c" category="paragraph">Zur Vorbereitung auf das Controller Upgrade müssen Sie die System-Vorabprüfungen durchführen und die Konfigurationsinformationen erfassen.</block>
   <block id="73ad115378efdb25c08af588822361c8" category="paragraph">Während des Upgrades können Sie die ausführen<block ref="340b1e35bd4793c9ac3c4d55ddd84539" prefix=" " category="inline-code"></block> Oder<block ref="63d16b8fc2c8a4a0516d9f30bda63167" prefix=" " category="inline-code"></block> Befehl von Standort A, um den Status zu überprüfen. Wenn die Befehle eine leere Ausgabe zurückgeben, warten Sie einige Minuten, und führen Sie den Befehl erneut aus.</block>
-  <block id="0b31bcfeca87d4774cd67b62b4046694" category="list-text">Starten Sie das Verfahren zum automatischen Austausch der Controller von Standort A, um die Controller an Standort B zu ersetzen:</block>
   <block id="9ba5ebf2ab22ccd4b9b8065d168c7b7b" category="paragraph"><block ref="2b4e2bfd3f993678e0b6870d28304a76" prefix="" category="inline-code"></block></block>
-  <block id="74bf6e65171bf6ee65dc9487114a8bfa" category="paragraph">Der automatisierte Vorgang führt die Vorabprüfungen durch. Wenn keine Probleme gefunden werden, wird der Vorgang angehalten, sodass Sie die konfigurationsbezogenen Informationen manuell erfassen können.</block>
-  <block id="bc966781e77c2e4acdbeca5c5d81d3a6" category="admonition">Das aktuelle Quellsystem und alle kompatiblen Zielsysteme werden angezeigt. Wenn Sie den Quell-Controller durch einen Controller mit einer anderen ONTAP-Version oder einer nicht kompatiblen Plattform ersetzt haben, wird der Automatisierungsvorgang angehalten und ein Fehler meldet, nachdem die neuen Nodes gestartet wurden. Um den Cluster wieder in einen ordnungsgemäßen Zustand zu versetzen, müssen Sie die manuelle Recovery-Prozedur befolgen.</block>
   <block id="ea7b87ede287b27be45723feb0a2e4d0" category="paragraph">Der<block ref="2b4e2bfd3f993678e0b6870d28304a76" prefix=" " category="inline-code"></block> Der Befehl meldet möglicherweise den folgenden Vorprüffehler:</block>
   <block id="9319c19c2a50b74bb162c257218ac3e9" category="paragraph">Überprüfen Sie, ob dieser Fehler aufgetreten ist, weil Sie nicht gespiegelte Aggregate oder ein anderes Problem an Aggregaten haben. Vergewissern Sie sich, dass sich alle gespiegelten Aggregate in einem ordnungsgemäßen Zustand befinden und dass sie nicht beeinträchtigt bzw. gespiegelt werden. Wenn dieser Fehler nur auf nicht gespiegelte Aggregate zurückzuführen ist, können Sie diesen Fehler durch Auswahl des überschreiben<block ref="bf0b9d28548e0e53fb793faa9566bdc3" prefix=" " category="inline-code"></block> Option auf der<block ref="2b4e2bfd3f993678e0b6870d28304a76" prefix=" " category="inline-code"></block> Befehl. Wenn auf Remote-Storage zugegriffen werden kann, sind die nicht gespiegelten Aggregate nach einer Umschaltung online. Falls die Remote-Storage-Verbindung ausfällt, können die nicht gespiegelten Aggregate nicht online geschaltet werden.</block>
   <block id="f5095e87ada35bc113e0f036c8e69f97" category="list-text">Erfassen Sie manuell die Konfigurationsinformationen, indem Sie sich bei Standort B anmelden und den Befehlen folgen, die in der Konsolenmeldung unter der aufgeführt sind<block ref="340b1e35bd4793c9ac3c4d55ddd84539" prefix=" " category="inline-code"></block> Oder<block ref="63d16b8fc2c8a4a0516d9f30bda63167" prefix=" " category="inline-code"></block> Befehl.</block>
@@ -6059,13 +6054,10 @@
   <block id="61a9d2fcb1a19cf607c57206c54d6509" category="inline-link">Entfernen der vorhandenen MetroCluster-Konfiguration</block>
   <block id="715a557335c993fbdddacfeead63bcfb" category="list-text">Entfernen Sie die vorhandene MetroCluster Konfiguration von jeder Anwendung eines Drittanbieters, die eine Umschaltung initiieren kann.</block>
   <block id="c587e54ff9ed88f954efbfffaff5cb81" category="paragraph">Informationen zur Anwendung finden Sie in der Dokumentation.</block>
-  <block id="2cd5138ffea77134b2eaf87275680e03" category="section-title">Ersetzen der alten Controller und Booten der neuen Controller</block>
   <block id="f7a00e5a4faa1093e067a4074671fd4f" category="paragraph">Nachdem Sie Informationen gesammelt und den Vorgang fortgesetzt haben, wird die Automatisierung mit dem Switchover fortgesetzt.</block>
   <block id="b13266858f69c83d67ff15214dfa7a27" category="paragraph">Vor dem Starten der Umschaltung hält der Automatisierungsvorgang pausiert, sodass Sie manuell überprüfen können, ob alle LIFs „`up`“ an Standort B. sind Ggf. Beliebige LIFs mit „`deigenen`“ bis „`up`“ bereitstellen und den Automatisierungsvorgang mit dem fortsetzen<block ref="73226fabfade9b9a2472baed8321894c" prefix=" " category="inline-code"></block> Befehl.</block>
-  <block id="5e744c4240b735a2a086be5884b09ed3" category="section-title">Vorbereiten der Netzwerkkonfiguration der alten Controller</block>
   <block id="f02f75fbbe89500c3766deab4ccf2d4d" category="paragraph">Um sicherzustellen, dass das Netzwerk auf den neuen Controllern ordnungsgemäß fortgesetzt wird, müssen Sie LIFs auf einen gemeinsamen Port verschieben und dann die Netzwerkkonfiguration der alten Controller entfernen.</block>
   <block id="dd3d39a72e683fc82c6e4dd4c8f79169" category="list-text">Diese Aufgabe muss an jedem der alten Knoten ausgeführt werden.</block>
-  <block id="134c86cd6759685fca4e3083cca3c8dd" category="list-text">Sie verwenden die in erfassten Informationen <block ref="d24bc3082c34acd97b0b951a86de3913" category="inline-xref-macro-rx"></block>.</block>
   <block id="222865f12c5217fc8874b26cdd58fd1e" category="list-text">Booten Sie die alten Nodes, und melden Sie sich dann bei den Nodes an:</block>
   <block id="ba77a2c608c7c3d0b48158b1141a5d60" category="list-text">Weisen Sie den Home-Port aller Daten-LIFs des alten Controllers einem gemeinsamen Port zu, der auf den alten und den neuen Controller-Modulen identisch ist.</block>
   <block id="0be3d44fabdd20b3537c941fe3904d2a" category="list-text">Anzeigen der LIFs:</block>
@@ -6098,7 +6090,6 @@
   <block id="c128b2ab68429454a80c551ee2dde909" category="list-text">Verkabeln Sie die Strom-, seriellen Konsolen- und Managementverbindungen der Controller, wie in den _MetroCluster Installations- und Konfigurationsleitfäden_ beschrieben.</block>
   <block id="af0193fb968af44ba857457d276dbbff" category="paragraph">Schließen Sie derzeit keine anderen Kabel an, die von den alten Controllern getrennt wurden.</block>
   <block id="160d469f0d322af20c918ade628d8dd9" category="list-text">Schalten Sie die neuen Nodes ein, und drücken Sie bei der Eingabeaufforderung Strg-C, um die LOADER-Eingabeaufforderung anzuzeigen.</block>
-  <block id="1494e61022d43a77210d5dc678a3a88d" category="section-title">Netbootting der neuen Controller</block>
   <block id="edc643a9505fab515a007a1aa3dc38cc" category="paragraph">Nachdem Sie die neuen Nodes installiert haben, müssen Sie als Netzboot fahren, damit die neuen Nodes dieselbe Version von ONTAP wie die ursprünglichen Nodes ausführen. Der Begriff Netzboot bedeutet, dass Sie über ein ONTAP Image, das auf einem Remote Server gespeichert ist, booten. Wenn Sie das Netzboot vorbereiten, müssen Sie eine Kopie des ONTAP 9 Boot Images auf einem Webserver ablegen, auf den das System zugreifen kann.</block>
   <block id="9fedaeee9e87c87e46105dc0f2af2cae" category="paragraph">Diese Aufgabe wird an jedem der neuen Controller-Module durchgeführt.</block>
   <block id="b766f72a6d760e806b313f201b12c31b" category="list-text">Laden Sie die entsprechende ONTAP Software aus dem Abschnitt zum Software-Download der NetApp Support-Website herunter und speichern Sie die Datei ontap-Version_image.tgz in einem über Web zugänglichen Verzeichnis.</block>
@@ -6122,12 +6113,9 @@
   <block id="94b4038bc962a8ff7acafad652850e68" category="list-text">Wenn Sie aufgefordert werden, den Vorgang fortzusetzen, geben Sie ein<block ref="415290769594460e2e485922904f345d" prefix=" " category="inline-code"></block>, Und wenn Sie zur Eingabe des Pakets aufgefordert werden, geben Sie die URL der Bilddatei ein:<block ref="2e9e2b536dc4f964c5360c51dbe0bf3e" prefix=" " category="inline-code"></block></block>
   <block id="f59d590a38cf457fb44a857365a2aec4" category="list-text">Seien Sie dabei<block ref="7b8b965ad4bca0e41ab51de7b31363a1" prefix=" " category="inline-code"></block> So überspringen Sie die Backup-Recovery, wenn eine Eingabeaufforderung wie die folgende angezeigt wird:</block>
   <block id="4c311f4de89068c42d4731e90025eefc" category="list-text">Starten Sie den Neustart durch Eingabe<block ref="415290769594460e2e485922904f345d" prefix=" " category="inline-code"></block> Wenn eine Eingabeaufforderung wie die folgende angezeigt wird:</block>
-  <block id="8154d55f73ab64571f60299356015117" category="section-title">Wiederherstellen der HBA-Konfiguration</block>
   <block id="f3fced65783d96fe674e1249b62fdd67" category="list-text">Überprüfen Sie die aktuellen Einstellungen der Ports:<block ref="773b5d44fd1b5ae080ff3a379be13169" prefix=" " category="inline-code"></block></block>
-  <block id="e97c2d73dc1c54dfe8c4452dcb629eb7" category="section-title">Neuzuweisen von Root-Aggregatfestplatten</block>
   <block id="664faa773b897771d732ec0de99d505a" category="paragraph">Weisen Sie die Root-Aggregat-Festplatten dem neuen Controller-Modul mithilfe des neu zu<block ref="5fb641c5977b93de82b81e36db0454cf" prefix=" " category="inline-code"></block> Früher gesammelt</block>
   <block id="656b3430f6aeb54a5747ced587d5f2ef" category="paragraph">Diese Aufgabe wird im Wartungsmodus ausgeführt.</block>
-  <block id="34c4e01a7077e9106112da52b0cc894e" category="paragraph">Die alten System-IDs wurden in identifiziert <block ref="c251a9631962af6f05d9aa0aeb7678df" category="inline-link-macro-rx"></block>.</block>
   <block id="ad3d8189e8e55c3028771da773eed75a" category="paragraph">Die Beispiele in diesem Verfahren verwenden Controller mit den folgenden System-IDs:</block>
   <block id="e791539ee9176ad79d314a9cd36bba19" category="cell">Alte System-ID</block>
   <block id="959f559d380ae4cad20f5e8bb59190c9" category="cell">Neue System-ID</block>
@@ -6143,7 +6131,6 @@
   <block id="400779b1fb33958b56a5d711fd6576f5" category="list-text">Zeigt den Aggregatstatus an:</block>
   <block id="39cff9999d84ec4289e4ab2ff2e81c67" category="paragraph"><block ref="83b38c3c445e1627bc74199655467ce8" prefix="" category="inline-code"></block></block>
   <block id="a45adb2cc03a7b6b2f8aad0f0a988893" category="list-text">Wiederholen Sie die oben genannten Schritte auf dem Partner-Node (Node_B_2-New).</block>
-  <block id="7a6002540ecd362954aac55e62be8b2d" category="section-title">Booten der neuen Controller</block>
   <block id="f2e258fab466f759085e8337708390d7" category="paragraph">Sie müssen die Controller aus dem Boot-Menü neu booten, um das Controller-Flash-Image zu aktualisieren. Bei Konfiguration der Verschlüsselung sind weitere Schritte erforderlich.</block>
   <block id="bfb74093c695212150621f6bdf9a4d2e" category="paragraph">Sie können VLANs und Schnittstellengruppen neu konfigurieren. Falls erforderlich, ändern Sie die Ports für die Cluster-LIFs und Broadcast-Domänen manuell, bevor Sie den Vorgang mit der fortsetzen<block ref="73226fabfade9b9a2472baed8321894c" prefix=" " category="inline-code"></block> Befehl.</block>
   <block id="558c0a7f72f16f49bd860bfff6928871" category="paragraph">Diese Aufgabe muss für alle neuen Controller ausgeführt werden.</block>
@@ -6165,7 +6152,6 @@
   <block id="2ebcfc4e6e9e59e780050b367202dd4c" category="list-text">Ändern Sie Intercluster LIFs, um den neuen physischen Port als Home-Port zu verwenden.</block>
   <block id="f953e6cfed541804735d21b7602e3be7" category="list-text">Nachdem die Intercluster LIFs aktiviert sind, prüfen Sie den Cluster Peer-Status und stellen Sie bei Bedarf Cluster-Peering wieder her.</block>
   <block id="f19333f1035e0715716b1478e3988a40" category="paragraph">Möglicherweise müssen Sie Cluster-Peering neu konfigurieren.</block>
-  <block id="8a538153882e92cc056162106b1709ea" category="paragraph"><block ref="8a538153882e92cc056162106b1709ea" category="inline-link-macro-rx"></block></block>
   <block id="4bffe29d6d1104677dcfeb9e99ac549e" category="paragraph"><block ref="4bffe29d6d1104677dcfeb9e99ac549e" category="inline-link-rx"></block></block>
   <block id="7b79bd2b52b89f70edfedac8da540bb3" category="paragraph"><block ref="7b79bd2b52b89f70edfedac8da540bb3" category="inline-link-rx"></block></block>
   <block id="e64aaeac172dbd7d324ded015d3b620f" category="list-text">Überprüfen Sie, ob das Partner-Cluster erreichbar ist und ob die Konfiguration auf dem Partner-Cluster erfolgreich resynchronisiert ist:</block>
@@ -6175,7 +6161,6 @@
   <block id="f15497fde7585731affbb2484431a8a8" category="list-text">Bevor Sie den Vorgang fortsetzen, überprüfen Sie, ob die MetroCluster ordnungsgemäß konfiguriert ist. Prüfen Sie den Knoten-Status:</block>
   <block id="088c19240da89dbb9f8682a7168eea93" category="paragraph">Überprüfen Sie, ob sich die neuen Knoten (site_B) in *warten auf den Status wechseln* von site_A befinden</block>
   <block id="3b70100fce1839004dba40191f90a2c9" category="list-text">Vorgang fortsetzen:</block>
-  <block id="4475fe40cbdeb04db8c9562cf8b91ab1" category="section-title">Abschluss des Upgrades</block>
   <block id="cddd37c26961b651e776113f46191ca7" category="paragraph">Der Automatisierungsvorgang führt Überprüfungen des Verifikationssystems durch und hält anschließend Pausen ein, um die Erreichbarkeit des Netzwerks zu überprüfen. Nach der Überprüfung wird die Rückgewinnungsphase für die Ressourcen eingeleitet und der Automatisierungsvorgang führt den Wechsel zurück an Standort A durch und hält die Prüfungen nach dem Upgrade an. Nachdem Sie den Automatisierungsvorgang fortgesetzt haben, führt er die Prüfungen nach dem Upgrade durch und markiert, wenn keine Fehler erkannt werden, das Upgrade als abgeschlossen.</block>
   <block id="ade29ab679ccb0c0ffae494ab79cb975" category="list-text">Überprüfen Sie die Netzwerkzuwachbarkeit, indem Sie die Konsolenmeldung ausführen.</block>
   <block id="325cfe0fbca444947dffe8b494e6621b" category="list-text">Setzen Sie nach Abschluss der Verifizierung den Vorgang fort:</block>
@@ -6185,7 +6170,6 @@
   <block id="f6b539ea59b73f9b259ffed026e616d0" category="list-text">Melden Sie sich nach Abschluss des Controller-Upgrades bei Standort B an und überprüfen Sie, ob die ersetzten Controller ordnungsgemäß konfiguriert sind.</block>
   <block id="b7e5b55538476224f8195437bdd6b155" category="section-title">Wiederherstellen des Tiebreaker Monitoring</block>
   <block id="cf01be10c4ad6c0e087f2447c096712d" category="paragraph">Wenn die MetroCluster Konfiguration zuvor für das Monitoring über die Tiebreaker Software konfiguriert war, können Sie die Tiebreaker Verbindung wiederherstellen.</block>
-  <block id="decbfc8b8a7a71731aab8ff640f90638" category="list-text">Verwenden Sie die Schritte in<block ref="8a40a48df09f86826787416776d41780" category="inline-link-rx"></block>.</block>
   <block id="b2fa14e3df9342c7d9ce9f5ac1643744" category="paragraph">Sie können die Verfahren in der Dokumentation _Installation and Setup_ für Ihre Plattform und Platten-Shelfs verwenden.</block>
   <block id="cbd00cb1e3956c7b77e9a26286ae68a5" category="paragraph">Wenn Sie auf der Cluster-Managementoberfläche beim Cluster angemeldet sind, können Sie auf jedem Node im Cluster ein Aggregat erstellen. Um zu überprüfen, ob das Aggregat auf einem bestimmten Node erstellt wird, sollten Sie das verwenden<block ref="13f7dbdfe17d26284f31a4eac8e056e8" prefix=" " category="inline-code"></block> Parameter oder geben Sie Laufwerke an, die diesem Node gehören.</block>
   <block id="caf5a8c5111f5b0928fbdb96c1e8b81a" category="summary">Das FC-Switch-Zoning muss die neuen Controller-Verbindungen aufnehmen. Wenn Sie die von NetApp zur Konfiguration der Switches bereitgestellten Referenzkonfigurationsdateien \(RCFs\) verwendet haben, ist das Zoning vorkonfiguriert, und Sie müssen keine Änderungen vornehmen.</block>
@@ -6350,7 +6334,6 @@
   <block id="cd6c42f22b0649cda62803cd1b11f14a" category="doc">Verkabelung der Cluster-Peering-Verbindungen des neuen Controller-Moduls</block>
   <block id="b99ba5be13e289565b08f250edeea7b8" category="paragraph">Im folgenden Beispiel werden Intercluster-LIFs erstellt<block ref="2b54f01eda64f502f938c49486b38e74" prefix=" " category="inline-code"></block> Und<block ref="09f3de01619557688d33a79c117d2142" prefix=" " category="inline-code"></block>:</block>
   <block id="70368afdba29ef090427320b39d6868b" category="paragraph">Das folgende Beispiel zeigt, dass der Intercluster LIFs „cluster01_ic.01“ und „cluster01_ic.02“ auf dem „e0c“-Port an den „e0d“-Port scheitern wird.</block>
-  <block id="3f28886cbb43f1c7c0c4f4d35ecafdde" category="doc">Controller-Upgrade in einer MetroCluster FC-Konfiguration durch Switchover und Switchback</block>
   <block id="65fc2b3acec6ee29de6484f084e9ad51" category="paragraph">Bei bestimmten Plattformen können Sie in einer MetroCluster FC-Konfiguration über den Switchover- und Switchback-Betrieb aufrüsten.</block>
   <block id="a5820aab646669a3b5a9ad826ceaf514" category="list-text">Sie können dieses Verfahren mit bestimmten ONTAP-Versionen verwenden:</block>
   <block id="0658afd7b63854a03c773da7890b79c4" category="list-text">ONTAP 9.3 und höher unterstützen Konfigurationen mit zwei Nodes.</block>
@@ -6413,7 +6396,6 @@
   <block id="cff1f1e3d1bd4979f788b1439a65b093" category="paragraph">Bevor Sie die Wartung durchführen, sollten Sie eine AutoSupport Meldung ausgeben, um den technischen Support von NetApp über die laufende Wartung zu informieren. Die Mitteilung des technischen Supports über laufende Wartungsarbeiten verhindert, dass ein Fall eröffnet wird, wenn eine Störung aufgetreten ist.</block>
   <block id="4f2a0c0685e8129ff9ccf99a0212fda8" category="list-text">Um eine automatische Erstellung von Support-Cases zu verhindern, senden Sie eine AutoSupport Meldung, damit die Wartung läuft.</block>
   <block id="22a619e2119eac132eeee61c7997aae7" category="paragraph"><block ref="32cc4140f0787c4ae499ce159c205e21" prefix="" category="inline-code"></block> Gibt die Länge des Wartungsfensters an, mit maximal 72 Stunden. Wenn die Wartung vor dem Vergehen der Zeit abgeschlossen ist, können Sie eine AutoSupport-Meldung mit dem Ende des Wartungszeitraums aufrufen:</block>
-  <block id="89e7124fca5c192493e832d03a3de9d2" category="section-title">Umschalten der MetroCluster-Konfiguration</block>
   <block id="11f455c88de297768de186a1110cfdf6" category="paragraph">Nach Abschluss dieser Aufgabe ist Cluster_A aktiv und stellt Daten für beide Standorte bereit. Cluster_B ist inaktiv und bereit, den Upgrade-Prozess zu starten, wie in der folgenden Abbildung dargestellt.</block>
   <block id="803c81253d05dfea0833a4f1be138dea" category="image-alt">Upgrade von mcc Cluster A bei Switchover</block>
   <block id="385f02022cf6cb2f3cfc0aa026b7c3d7" category="list-text">Wählen Sie die Option aus, die Ihrer Konfiguration entspricht, und geben Sie den korrekten Befehl auf Cluster_A aus:</block>
@@ -6432,15 +6414,12 @@
   <block id="caa0bb28d7e90a537d89a447ec00dffc" category="paragraph">Informationen zur Portnutzung von Plattformmodellen finden Sie im<block ref="bf137fbaca3418d969a7cbbc6acb278c" category="inline-link-rx"></block></block>
   <block id="e465fd7874ef2b67011c612ab62f55a2" category="paragraph">Im folgenden Beispiel ist dies "e0d".</block>
   <block id="5db2619ab3a7ccb178b98644ee1d4e05" category="list-text">Ändern Sie Broadcast-Domänen, um vlan und physische Ports zu entfernen, die gelöscht werden müssen:</block>
-  <block id="9c72ecff6f02b2c92e12130effa540d4" category="section-title">Entfernen der alten Plattformen</block>
   <block id="fb7af1863497df9dda3e65ea0159d317" category="paragraph">Die alten Controller müssen aus der Konfiguration entfernt werden.</block>
   <block id="01ce1f1f81d9590f4d39efb56969c18e" category="list-text">Stellen Sie eine Verbindung mit der seriellen Konsole der alten Controller (Node_B_1-old und Node_B_2-old) an Site_B her, und überprüfen Sie, dass die LOADER-Eingabeaufforderung angezeigt wird.</block>
   <block id="5b720ae65bf7d21d6a225f04b05193ed" category="list-text">Trennen Sie die Speicher- und Netzwerkverbindungen auf Node_B_1-old und Node_B_2-old, und kennzeichnen Sie die Kabel, damit sie wieder mit den neuen Nodes verbunden werden können.</block>
   <block id="179dbbeb7c6a0fa6264cc8d28907ccfe" category="list-text">Trennen Sie die Stromkabel von Node_B_1-old und Node_B_2-old.</block>
   <block id="0f8df768c820d4ea7a6ff9e730270f41" category="list-text">Entfernen Sie die Controller Node_B_1-old und Node_B_2-old aus dem Rack.</block>
-  <block id="3cfa77e26dd6c256a6f41b6a62be5341" category="section-title">Konfigurieren der neuen Controller</block>
   <block id="4a9f94a6bfc29e6a892ce5bcc1a54ee2" category="paragraph">Sie müssen die Controller im Rack unterbringen und installieren, die erforderliche Einrichtung im Wartungsmodus durchführen und dann die Controller booten und die LIF-Konfiguration auf den Controllern überprüfen.</block>
-  <block id="b4c1503dedd04ac2f19bda6b60200205" category="section-title">Einstellen des HA-Status auf den neuen Controllern und dem Chassis</block>
   <block id="9c1c5be053b28ba5edd13b92cac80497" category="paragraph">der HA-Status für alle Komponenten sollte mcc sein.</block>
   <block id="fe8b2cbe27aeee8cf3fd12fd4f19075c" category="cell">Wenn die MetroCluster-Konfiguration...</block>
   <block id="7a0cb0e9d6bfae35a7d862f122269833" category="cell">Der HA-Status sollte...</block>
@@ -6466,7 +6445,6 @@
   <block id="e6e35a3f4ac372a4d2b484e43408358d" category="paragraph">Möglicherweise müssen Sie die ausgeben<block ref="70d44082cd4172de72eaf2a9466ffd5c" prefix=" " category="inline-code"></block> Befehl wird mehrmals am Boot-Menü angezeigt, bis die Nodes vollständig gebootet werden.</block>
   <block id="806422c50772a82e317db68491ffe3e4" category="paragraph">Führen Sie ein Giveback durch, wenn sich einer der beiden Knoten im Übernahmemodus befindet:</block>
   <block id="411fd118744e7bc163c41845c9fedb88" category="paragraph"><block ref="b27ff28f78c71d3027cc2fb76f6fe30c" prefix="" category="inline-code"></block></block>
-  <block id="c65b5a40a33c87dbddaf6f6ae7b632bb" category="paragraph"><block ref="c65b5a40a33c87dbddaf6f6ae7b632bb" category="inline-link-rx"></block></block>
   <block id="f1c8805fb744649f7072db9469a4b4ce" category="list-text">Fügen Sie den physischen Port hinzu, der die Intercluster LIFs der entsprechenden Broadcast Domain hostet.</block>
   <block id="c9616da62905adb15396b653b4d8475b" category="paragraph">Möglicherweise müssen Sie Cluster-Peering neu konfigurieren.</block>
   <block id="80d9624a4e183629cc80dcaae44aedaa" category="section-title">LIF-Konfiguration wird überprüft</block>
@@ -6477,24 +6455,18 @@
   <block id="4bf20a918b2c6b62364371fe4f4d9c7f" category="section-title">Installieren Sie die neuen Lizenzen</block>
   <block id="c24d2fcd8511c8b51a6aef773200e0d8" category="paragraph">Vor dem Wechsel-Back-Vorgang müssen Sie Lizenzen für die neuen Controller installieren.</block>
   <block id="07beb3f4161a6f204edf78213ee21dd3" category="list-text"><block ref="07beb3f4161a6f204edf78213ee21dd3" category="inline-link-macro-rx"></block></block>
-  <block id="101eb63fc89b71f07d6fd64ec364e567" category="section-title">Umschalten der MetroCluster-Konfiguration</block>
   <block id="dca37c43ff68fc6fc781f9dccaf1eb93" category="paragraph">Nachdem die neuen Controller konfiguriert wurden, schalten Sie die MetroCluster Konfiguration zurück und kehren den normalen Betrieb zurück.</block>
   <block id="1d3a92008f392950faeb257ca2a9e106" category="paragraph">In dieser Aufgabe führen Sie den Vorgang zum Zurückkehren aus und kehren die MetroCluster-Konfiguration in den normalen Betrieb zurück. Die Knoten auf Site_A warten noch auf das Upgrade.</block>
   <block id="11d18258d14c6b6638680b58c7d402a0" category="image-alt">upgrade von mcc Cluster A Switchback</block>
   <block id="6020286e609621d7a51cfb1ca1931a66" category="list-text">Stellen Sie das aus<block ref="4d06f3844212ac745a73965bbb3f6e51" prefix=" " category="inline-code"></block> Befehl auf Site_B und überprüfen Sie die Ausgabe.</block>
   <block id="4e13d70ad15aa48ae9a770aa54dd268d" category="paragraph">Der Umkehrvorgang ist abgeschlossen, wenn die Ausgabe angezeigt wird<block ref="fea087517c26fadd409bd4b9dc642555" prefix=" " category="inline-code"></block>:</block>
-  <block id="2d5e8e0b0617d8e83a29861c69918b2c" category="section-title">Überprüfen des Systemzustands der MetroCluster-Konfiguration</block>
   <block id="cdb3ffc955b34e17efd898def0d320a2" category="list-text">Durchführen einer MetroCluster-Prüfung:</block>
   <block id="d07bebb0e23926af3c78f855a3108b26" category="admonition">Nach dem Ausführen von<block ref="c2966f2f3bfc7e81dae5df7c44ce66ea" prefix=" " category="inline-code"></block> Und<block ref="da68e7539bf844a8366ded5d17b246d7" prefix=" " category="inline-code"></block>, Sie sehen eine Fehlermeldung ähnlich der folgenden:</block>
   <block id="0a52730597fb4ffa01fc117d9e71e3a9" category="listing-title">Beispiel</block>
   <block id="6870468a3fe6a4b5c829d30e0702c5fd" category="paragraph">Dieses Verhalten wird aufgrund einer Controller-Diskrepanz während des Upgrade-Prozesses erwartet und die Fehlermeldung kann sicher ignoriert werden.</block>
-  <block id="f181d34cde32a783c686d54cd89b5f4f" category="section-title">Aktualisieren der Knoten auf Cluster_A</block>
   <block id="0c3130a0855ad337dbe1f4a605eaacf9" category="paragraph">Sie müssen die Upgrade-Aufgaben auf „Cluster_A“ wiederholen</block>
-  <block id="ac95cad470acdacec0fa69881c030cfb" category="list-text">Wiederholen Sie die Schritte, um die Nodes auf Cluster_A zu aktualisieren. Beginnen Sie mit <block ref="355740dbae62093c04ee9cfd151fed4a" category="inline-link-macro-rx"></block>.</block>
-  <block id="491f4a55b5ac3a5330d799d5311315e8" category="paragraph">Während Sie die Aufgaben ausführen, werden alle Beispielreferenzen zu den Clustern und Nodes umgekehrt. Wenn das Beispiel für die Umschaltung von Cluster_A verwendet wird, erfolgt die Umschaltung von Cluster_B.</block>
   <block id="d60c50580eca8ffa48386ace1436021b" category="section-title">Senden einer benutzerdefinierten AutoSupport Meldung nach der Wartung</block>
   <block id="99e1566c550fe0f9db0d7ecf84e5a3d6" category="list-text">Um mit der automatischen Erstellung von Support-Cases fortzufahren, senden Sie eine AutoSupport Meldung, um anzugeben, dass die Wartung abgeschlossen ist.</block>
-  <block id="b196fb7a2e0b15c158585ec325406b3c" category="list-text">Verwenden Sie die Schritte in<block ref="abdcb9b507d42a49d77fa45291426271" category="inline-link-rx"></block> In _MetroCluster Tiebreaker Installation und Konfiguration_.</block>
   <block id="3a3fe29bce41cc439cab768ef6c51ea0" category="summary">Sie müssen den Befehl Storage Failover modify verwenden, um den Modus des vorhandenen Controller-Moduls einzustellen. Der Modus-Wert wird später aktiviert, nachdem Sie das Controller-Modul neu gebootet haben.</block>
   <block id="b6982e2513cfb04d6a59fdcd3b023101" category="doc">Einstellen des HA-Modus auf dem vorhandenen Controller-Modul</block>
   <block id="63913131852a8828687463e2ffb0a661" category="list-text">Setzen Sie den Modus auf HA:</block>
@@ -9906,12 +9878,7 @@
   <block id="d29b9ac8693b89c3d872bc186706e288" category="list-text">Vergewissern Sie sich, dass die automatische Umrüstung auf allen Cluster-LIFs aktiviert ist:<block ref="d268e7bf124a9f74e2dbe2e0127d951b" prefix=" " category="inline-code"></block></block>
   <block id="80161bd3062933aab7f174ce293237dc" category="summary">Nachdem Sie alle Anforderungen geprüft und sich auf den Umstieg vorbereitet haben, führen Sie das Übergangsverfahren durch. Sie müssen jede Aufgabe in der Reihenfolge ausführen und alle Schritte in jeder Aufgabe ausführen, bevor Sie zum nächsten wechseln. Sie sollten die neuen Controller oder Storage Shelves nicht mit der vorhandenen Konfiguration verbinden, bis sie weitergeleitet werden.</block>
   <block id="96ff13f92c4ce7113cad61adcc09704f" category="doc">Verschieben Sie die lokalen Cluster-Verbindungen</block>
-  <block id="68ca4c8699281e1858977752c796cd45" category="paragraph">Sie müssen die Cluster-Schnittstellen der MetroCluster FC-Konfiguration auf die IP-Switches verschieben.</block>
-  <block id="6257739eb87a755c28bf814ad261df2d" category="section-title">Verschieben Sie die Cluster-Verbindungen auf den MetroCluster FC-Nodes</block>
-  <block id="faa907fa21172fe5049a9e06b580a22f" category="paragraph">Sie müssen die Cluster-Verbindungen auf den MetroCluster-FC-Nodes zu den IP-Switches verschieben. Die Schritte hängen davon ab, ob Sie die vorhandenen IP-Switches verwenden oder neue IP-Switches verwenden.</block>
-  <block id="a4508902f6a0e0fe2638bb2698abffe9" category="paragraph">Sie müssen diese Aufgabe auf beiden MetroCluster-Sites ausführen.</block>
   <block id="9d8f122e284d64a31d50c5040fe4f338" category="section-title">Welche Verbindungen zu verschieben sind</block>
-  <block id="9a6a031361d5fc2d07e0496f2d3f35aa" category="paragraph">Bei der folgenden Aufgabe wird von einem Controller-Modul ausgegangen, in dem zwei Ports für die Cluster-Verbindungen verwendet werden. Einige Controller-Modulmodelle verwenden vier oder mehr Ports für die Cluster-Verbindung. In diesem Fall werden die Ports für die Zwecke dieses Beispiels in zwei Gruppen unterteilt, die abwechselnd Ports zwischen den beiden Gruppen</block>
   <block id="e3690631412410cb5e14d123997d91cb" category="paragraph">In der folgenden Tabelle sind die Beispielports aufgeführt, die in dieser Aufgabe verwendet werden.</block>
   <block id="aa1ccf5a59fb4b87223a8ad637a79f6e" category="cell">Anzahl der Cluster-Verbindungen am Controller-Modul</block>
   <block id="db3466b88d5f757d29e9341b7952b4e9" category="cell">Ports gruppieren</block>
@@ -9931,8 +9898,6 @@
   <block id="7c53e897834fa25afde16c0f88db2701" category="paragraph">1 - 6</block>
   <block id="22c9730efa04ff77f4d689d1554cb1af" category="paragraph">FAS8200/A300</block>
   <block id="44966f51999c176196bdbfe7e74f3762" category="paragraph">3, 4, 9, 10, 11 12</block>
-  <block id="41add71327ff82aa85f0074583131e05" category="section-title">Verschieben der lokalen Cluster-Verbindungen bei Verwendung neuer IP-Switches</block>
-  <block id="f96b1e8d8ce6fb44d55bd62523f1fffd" category="paragraph">Bei Verwendung neuer IP-Switches müssen die Cluster-Verbindungen der vorhandenen MetroCluster FC-Nodes physisch auf die neuen Switches verschoben werden.</block>
   <block id="971a965432d70710e6faba87f3271008" category="list-text">Verschieben Sie die Cluster-Verbindungen der MetroCluster-FC-Node-Gruppe A zu den neuen IP-Switches.</block>
   <block id="508763c5ecfa3096ab25520f14c971f5" category="paragraph">Verwenden Sie die in beschriebenen Ports <block ref="10769c5348734bed7e40370eea435ab1" category="inline-xref-macro-rx"></block>.</block>
   <block id="158a9eaed207074e679175ceadae600d" category="list-text">Trennen Sie alle Ports der Gruppe A vom Switch, oder trennen Sie die Ports der MetroCluster-FC-Konfiguration als Switch-freien Cluster vom Partner-Node.</block>
@@ -9946,8 +9911,6 @@
   <block id="d674fde4628671c3e1078935d12e7997" category="paragraph">Dies kann einige Minuten dauern.</block>
   <block id="8b823623a0b9f814903822d0b4e22769" category="list-text">Führen Sie die oben genannten Schritte auf beiden Knoten (Node_A_1-FC und Node_A_2-FC) durch, um die Gruppen-B-Ports der Clusterschnittstellen zu verschieben.</block>
   <block id="535ec980e99542a3e46527ed475d4ce5" category="list-text">Wiederholen Sie die oben genannten Schritte im Partner-Cluster „`Cluster_B`“.</block>
-  <block id="cf55ede06abe62887dc32793cdfd9bbd" category="section-title">Verschieben der lokalen Cluster-Verbindungen bei erneuter Nutzung vorhandener IP-Switches</block>
-  <block id="2eff4e6f516a51fa071f0dd51ef97adf" category="paragraph">Wenn Sie vorhandene IP-Switches erneut verwenden, müssen Sie die Firmware aktualisieren, die Switches mit dem korrekten Reference Configure Files (RCFs) neu konfigurieren und die Verbindungen jeweils an die richtigen Ports verschieben.</block>
   <block id="30b06baa6c7c1619d917876c364f7745" category="paragraph">Diese Aufgabe ist nur erforderlich, wenn die FC-Knoten mit vorhandenen IP-Switches verbunden sind und Sie die Switches erneut verwenden.</block>
   <block id="355050c57a45e185e0c77d3cafe8995d" category="list-text">Trennen Sie die lokalen Cluster-Verbindungen, die sich mit Switch_A_1_IP verbinden</block>
   <block id="eaab124dfff7034db019e452d97087c0" category="list-text">Trennen Sie die Ports der Gruppe A vom vorhandenen IP-Switch.</block>
@@ -9964,8 +9927,6 @@
   <block id="afdaa41b5df1e3c7f106953ec438e3be" category="list-text">Schließen Sie die lokalen Cluster-ISL-Ports wieder an.</block>
   <block id="e470656b8036e7f5882de8fbc378732c" category="list-text">Wiederholen Sie die oben genannten Schritte an Standort_B für Schalter B_1_IP und Schalter B_2_IP.</block>
   <block id="2855c2152991ed77e103e3f82c9f9ee2" category="list-text">Verbinden Sie die Remote-ISLs zwischen den Standorten.</block>
-  <block id="05ab5de1b64b7ffa583c25e602a5a02e" category="section-title">Überprüfen, ob die Cluster-Verbindungen verschoben und das Cluster in einem ordnungsgemäßen Zustand ist</block>
-  <block id="0e3c3cc7ec01dfea5815eb2e529e3dad" category="paragraph">Um sicherzustellen, dass die Konnektivität korrekt ist und die Konfiguration bereit ist, den Transitionsprozess fortzusetzen, müssen Sie überprüfen, ob die Cluster-Verbindungen ordnungsgemäß verschoben werden, die Cluster-Switches erkannt und der Cluster in einem ordnungsgemäßen Zustand ist.</block>
   <block id="df263d0c9cee0f502a35c7a48d5606b3" category="list-text">Vergewissern Sie sich, dass alle Cluster-Ports betriebsbereit sind:</block>
   <block id="407eedf4c99afddafe143a1c132d2205" category="paragraph">Das folgende Beispiel zeigt, dass alle Schnittstellen in der Spalte „`is Home`“ den Status „true“ aufweisen.</block>
   <block id="5897fef94dfa14e97e568fbdada721ad" category="list-text">Vergewissern Sie sich, dass die beiden lokalen IP-Switches von den Knoten erkannt werden:</block>
@@ -11595,7 +11556,6 @@
   <block id="55a7a35f233fa5c7dc761790158ed06d" category="list-text">Folgende Vorgehensweise eignet sich zum Upgrade von Controllern in einer MetroCluster IP-Konfiguration mit vier Nodes mithilfe von NSO-basiertem automatischem Switchover und Switchback.</block>
   <block id="77eb4e36d322d7ab218107d7c498326a" category="list-text">Sie müssen das automatische NSO-Controller-Upgrade durchführen, um die Controller an beiden Standorten nacheinander aktualisieren zu können.</block>
   <block id="3cc4806cb19cbb655dbea9a73d4aab85" category="paragraph"><block ref="4baef16133ebdeaa64de2abee5aaa778" prefix="" category="inline-code"></block></block>
-  <block id="ad84135061ac4d026b0f6b6b0b90c976" category="list-text">Wenn Sie den nicht ausführen<block ref="4baef16133ebdeaa64de2abee5aaa778" prefix=" " category="inline-code"></block> Befehl, das Controller-Upgrade wählt NSO basierte automatische Umschaltung und Switchback als Standardverfahren bei MetroCluster IP-Systemen.</block>
   <block id="c37cd78225bfd28b27aba6fdb4ffdb05" category="paragraph">Diese Aufgabe wird für die bestehende MetroCluster IP-Konfiguration ausgeführt.</block>
   <block id="41658c9a662bf36d1d1079b0d7e61f18" category="paragraph">Der<block ref="a7dd12b1dab17d25467b0b0a4c8d4a92" prefix=" " category="inline-code"></block> In der Befehlsausgabe werden drei Tabellen angezeigt, die die MetroCluster-Schnittstellen-IPs, System-IDs und System-UUIDs enthalten. Diese Informationen sind später im Verfahren zum Festlegen der Bootargs erforderlich, wenn Sie den neuen Node booten.</block>
   <block id="103e238a461bced8a19653fadfc6b06f" category="paragraph">In diesem Beispiel für eine MetroCluster-IP-Konfiguration mit vier Knoten werden die folgenden alten System-IDs abgerufen:</block>
@@ -12580,7 +12540,6 @@ Gilt für alle MetroCluster Konfigurationen.</block>
   <block id="453251ed281496384c5feb5900cc31ba" category="paragraph">Informationen zu den unterstützten Kombinationen aus Plattform-Upgrades finden Sie in der MetroCluster FC-Upgrade-Tabelle in  <block ref="9595cfad5a4deb04d4a443245fae3f76" category="inline-link-macro-rx"></block>.</block>
   <block id="3929d13da5d4b97eff76f8a6ec8c5501" category="list-text">Auf das zugreifen <block ref="a42716fdd3c80ae75cadfb8024b65de0" category="inline-link-macro-rx"></block> Zum Herunterladen der Dateien zum Ausführen des Netzboots des Systems.</block>
   <block id="94416aa661a92cc8d67b1bd6459ef472" category="list-text">Informationen zu den unterstützten Kombinationen aus Plattform-Upgrades finden Sie in der MetroCluster FC-Upgrade-Tabelle in  <block ref="9595cfad5a4deb04d4a443245fae3f76" category="inline-link-macro-rx"></block>.</block>
-  <block id="636a367cc04fb36c02707f67c1a70771" category="paragraph">Siehe <block ref="ff174d1e305f5f579b29dcdb0a617c23" category="inline-link-macro-rx"></block> Für zusätzliche Verfahren.</block>
   <block id="332fe4e638c485c04f214b0a13747f6d" category="list-text">Mit diesem Verfahren können Controller in einer MetroCluster FC-Konfiguration mit vier Nodes mithilfe von NSO basierter, automatisierter Umschaltung und zurückwechseln. Wenn Sie ein Controller-Upgrade mithilfe von Aggregate Relocation (ARL) durchführen möchten, lesen Sie <block ref="0fe967effd4f0eaf84576f897dbfd368" category="inline-link-macro-rx"></block>. Es wird empfohlen, das NSO-basierte automatische Verfahren zu verwenden.</block>
   <block id="75132a926df50e23a26bd72dde0371b7" category="list-text"><block ref="46f4c9c8d582aa241b60c75ea3bcb2c9" category="inline-link-macro-rx"></block> Über die Tiebreaker Software.</block>
   <block id="0b22fb8d0feec85055f45c8c4a298766" category="list-text">Wenn Sie aufgefordert werden, den Vorgang fortzusetzen, geben Sie ein<block ref="415290769594460e2e485922904f345d" prefix=" " category="inline-code"></block>, Und wenn Sie zur Eingabe des Pakets aufgefordert werden, geben Sie die URL ein:</block>
@@ -12713,7 +12672,6 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="1fc1c42abe6e66843d72990324979a36" category="paragraph">G620-1, G630-1</block>
   <block id="b611d537ec3462ead9e641968d17d570" category="paragraph">G630</block>
   <block id="7dd2a92fd3f41a5334edf46f95d77e71" category="paragraph">ONTAP 9.6</block>
-  <block id="2429e1917793f4046beb8fe2642382e4" category="doc">Neuerungen bei der Unterstützung der MetroCluster IP-Plattform</block>
   <block id="7616cb7bf661fe6377270c352ec2ff82" category="cell">Unterstützte Plattformen in MetroCluster IP-Konfigurationen</block>
   <block id="8a1d06fd27bf0bfc6535b6a49185e591" category="paragraph">AFF A150</block>
   <block id="f3975a91159eff9969dbd4feb2dec392" category="paragraph">ONTAP 9.12.1P1</block>
@@ -12999,7 +12957,6 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="04dfa0b1df6387b5be0fe6bbff1286f7" category="paragraph">Die folgenden Befehle legen die Geschwindigkeit für die MetroCluster-Schnittstellen<block ref="e9c5c6daf1a059d5e7448ef86c2b728e" prefix=" " category="inline-code"></block> und<block ref="aeef091266f2ea49353e0048626a93bf" prefix=" " category="inline-code"></block>fest:</block>
   <block id="9ec3477ddf53d3e8d6d42a2fb56d2dff" category="list-text">Verwenden Sie die Verfahren für ausgehandelte Umschaltung, Healing und Switchback, die in der beschrieben sind <block ref="bbee29d44b7926be9c2be6dc914059f5" category="inline-link-macro-rx"></block>.</block>
   <block id="65bd6763ac7ddd88c7008054cb6bc624" category="admonition">Führen Sie die folgenden Schritte aus, um Änderungen an OOD von der ONTAP-Software vorzunehmen: <block ref="b0ca457fe34ed30c44119bccf9b89d7d" category="inline-link-macro-rx"></block></block>
-  <block id="7b195fd8d412843052bdca8035a73b9b" category="paragraph">Informieren Sie sich über die Neuerungen bei der Unterstützung der MetroCluster IP-Plattform.</block>
   <block id="5fa70989a3e04b27c407da750f3d94fe" category="paragraph">AFF A70, AFF A90, AFF A1K</block>
   <block id="09165c2d4ac9e01ef347c57ffcbe1ce5" category="paragraph">ASA A150, ASA A250, ASA A400, ASA A800, ASA A900 ASA C250, ASA C400, ASA C800</block>
   <block id="2f709669cbfb385626cf55d7c80120be" category="paragraph">ASA AFF A220, ASA AFF A250, ASA AFF A400, ASA AFF A700, ASA AFF A800</block>
@@ -13887,7 +13844,6 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="fd62dc6a841ff0a9f6159888bf7d8458" category="inline-image-macro">Zeigt Kombinationen der von ASA unterstützten MetroCluster IP-Controller-Upgrade-Plattform an</block>
   <block id="d7aa961bff867be5607fff47afcc1269" category="paragraph"><block ref="d7aa961bff867be5607fff47afcc1269" category="inline-image-macro-rx" type="image"></block></block>
   <block id="48b9a403e4a45281e156e3aab3850410" category="list-text">Auf allen Nodes in der MetroCluster-Konfiguration muss dieselbe ONTAP-Version ausgeführt werden. Wenn Sie beispielsweise über eine Konfiguration mit acht Nodes verfügen, müssen alle acht Nodes dieselbe ONTAP-Version ausführen. Die unterstützte Mindestversion ONTAP für Ihre Kombination finden Sie im<block ref="b733b3de6818a363ac85112743571bca" category="inline-link-macro-rx"></block>.</block>
-  <block id="b994a29eaf12e18a7cce3c9305a59fad" category="paragraph">Kein passender Port. Erstellen Sie nach dem Upgrade die Clusterports neu. <block ref="2305a256def4f5c38d82352fac177e1d" category="inline-link-macro-rx"></block></block>
   <block id="31234814056be4e15bcffbd10fa0cd65" category="summary">Aktualisieren Sie die Switch RCF-Dateien für die neuen Plattformen und setzen Sie die MetroCluster IP Bootarg-Werte auf den Controller-Modulen.</block>
   <block id="572d3ffeed6df6220869d4a086c5f363" category="doc">Aktualisieren Sie die Switch-RCFs und legen Sie die MetroCluster IP-Bootarg-Werte fest</block>
   <block id="5787d7fabbad5b870fc2724fd3a9ecef" category="paragraph">Aktualisieren Sie die Switch-Referenzkonfigurationsdateien (RCFs) für die neuen Plattformen und legen Sie die MetroCluster IP-Bootarg-Werte auf den Controller-Modulen fest.</block>
@@ -14109,14 +14065,12 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="4653682314828cb5425dae789da06002" category="section-title">Überprüfung der Erreichbarkeit des Netzwerks</block>
   <block id="2f7033d68b421f3c87221d29b6075017" category="paragraph">Wenn bei der Überprüfung nach dem Upgrade keine Fehler gemeldet wurden, ist das Upgrade abgeschlossen.</block>
   <block id="37c813460b2b0635d69e528d1110fffc" category="list-text">Wiederholen Sie die Schritte, um die Knoten auf Cluster_A zu aktualisieren, beginnend mit <block ref="2e9e222a79bc86deb25c4111d82b6614" category="inline-link-macro-rx"></block>.</block>
-  <block id="e21d56847dfd42d679e8b2e0c0314d6e" category="paragraph">Während Sie die Aufgaben ausführen, werden alle Beispielreferenzen zu den Clustern und Nodes umgekehrt.</block>
   <block id="6055a0810b2c2df62e85dfcb8b447c2e" category="list-text">Verwenden Sie die Schritte in<block ref="9dc3875c163144dba4e47010e217fce8" category="inline-link-rx"></block>.</block>
   <block id="83162cb24e71760f89d5962835905ed0" category="doc">Aktivieren Sie die Konsolenprotokollierung vor dem MetroCluster IP-Upgrade</block>
   <block id="bab0338cc638de785269282fe0b4df1e" category="paragraph">Prüfen Sie die Informationen in<block ref="e0071a426543185e159ab522bd36850e" category="inline-link-macro-rx"></block>, um zu bestätigen, ob Sie einen erforderlichen Bootarg auf dem vorhandenen System festlegen müssen.</block>
   <block id="cb990f25bc5eb8215bf8eb74c16807f3" category="summary">Zur Vorbereitung auf das Controller-Upgrade führen Sie Systemprüfungen durch und erfassen die Konfigurationsinformationen.</block>
   <block id="c458b5225672f84c61d5b9931863ae60" category="paragraph">Um das Controller-Upgrade vorzubereiten, müssen Sie möglicherweise die Switch-Referenzkonfigurationsdateien (RCFs) je nach den alten und neuen Plattformmodellen aktualisieren. Anschließend führen Sie Systemvorprüfungen durch, sammeln die Konfigurationsinformationen und entfernen die vorhandene Überwachungssoftware.</block>
   <block id="0c21b75966b293902f32e19c44cfee40" category="list-text">Die Switch-RCF-Konfiguration ist nicht auf der Mindestversion.</block>
-  <block id="cbde96365d4f8077bc47cc3245bf5730" category="section-title">Durchführung von Systemvorprüfungen</block>
   <block id="2592dc8685229c73a77e91741c837a63" category="paragraph">Weitere Informationen finden Sie unter<block ref="8d2708bcc3f1eaf7281ec3a4227ab734" category="inline-link-rx"></block>.</block>
   <block id="0db7751284ee845ba2b1c67a8d8704db" category="section-title">Entfernen Sie die vorhandene Konfiguration aus Tiebreaker oder einer anderen Monitoring-Software</block>
   <block id="0cd4dc9ba4eb47708afdb2049d98c13a" category="paragraph">Bevor Sie mit dem Upgrade beginnen, entfernen Sie die vorhandene Konfiguration aus dem Tiebreaker oder einer anderen Überwachungssoftware.</block>
@@ -14864,8 +14818,6 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="467d42fef84e236db1f47c3587c7d61b" category="paragraph"><block ref="647ce27315841f29cbbfa6476808aa3a" category="inline-link-macro-rx"></block> im Abschnitt _MetroCluster IP-Installation und -Konfiguration_.</block>
   <block id="3e85cb460e24d971aa2fdfb16bdd62f2" category="paragraph"><block ref="647ce27315841f29cbbfa6476808aa3a" category="inline-link-macro-rx"></block>.</block>
   <block id="8c4be7f96d2a221be5676296eb0ed2f9" category="list-text">Verwenden Sie die Schritte in <block ref="b57db2992c51195e5ea40f358db2287c" category="inline-link-macro-rx"></block>.</block>
-  <block id="3a87d2978f2a15ce761167e415fd6848" category="inline-link-macro">ONTAP Mediator neu konfigurieren</block>
-  <block id="3f8e81dc1fd352800762ed073cd5264a" category="paragraph">Wenn der ONTAP Mediator installiert ist, wird er vor Beginn der Vorabprüfungen automatisch erkannt und entfernt. Um das Entfernen zu bestätigen, werden Sie aufgefordert, einen Benutzernamen und ein Passwort einzugeben. Wenn Sie das Upgrade abschließen oder die Vorabprüfungen fehlschlagen oder das Upgrade nicht fortsetzen möchten, müssen Sie manuell <block ref="45ecea135b28343f3e201d1ca7699d4b" category="inline-link-macro-rx"></block>.</block>
   <block id="90700c1e50cb21bc8204f5e8e63ff08f" category="inline-image-macro">Zeigt AFF- und FAS-Upgrade-Kombinationen der Gruppe 1</block>
   <block id="2b3092608ec3c36288b967b8d2e51cd0" category="paragraph"><block ref="2b3092608ec3c36288b967b8d2e51cd0" category="inline-image-macro-rx" type="image"></block></block>
   <block id="c86a11671a0682bdfafd478847f74282" category="inline-image-macro">Zeigt AFF- und FAS-Upgrade-Kombinationen der Gruppe 2</block>
@@ -14973,4 +14925,48 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="d44a3adbc7ddf926ace3174c29e594fe" category="paragraph">*Hinweis:* Um die Switch-Ports 11 und 12 zu verwenden, müssen Sie zwei Geschwindigkeitsmodi auswählen.</block>
   <block id="22e6a6026dec5bb5059565b00cc3631c" category="paragraph">Während der Umstellung, Aktualisierung, Installation von acht Knoten und Erweiterung von vier Knoten können Sie Ihrer MetroCluster-Konfiguration ein neues Plattformmodell hinzufügen. Wenn Ihre bestehende MetroCluster-Konfiguration zu irgendeinem Zeitpunkt eine Plattform mit *gemeinsamen Cluster-/HA-Ports* enthält, können Sie der Konfiguration keine Plattform mit *gemeinsamen MetroCluster-/HA-Ports* hinzufügen, ohne Ihre ONTAP-Version auf ONTAP 9.15.1P11 oder ONTAP 9.16.1P4 oder höher zu aktualisieren.</block>
   <block id="29c802ab86e25c329e4ce82ab207d848" category="sidebar">Plattform-Portzuweisungen für einen 12-Port Cisco 9336C-FX2-Switch</block>
+  <block id="a65cd2f2d334d9927f9c0f2a89dbb2d0" category="paragraph">Informieren Sie sich über die Neuerungen bei der MetroCluster-IP-Plattform und Switch-Unterstützung.</block>
+  <block id="cf42f488bd58e2f8f8819f7c720b93a1" category="paragraph">Sie müssen diesen Schritt auf jedem Cluster im erweiterten Berechtigungsmodus ausführen.</block>
+  <block id="c836d30393b0f25c968423f5df80b134" category="paragraph">Verschieben Sie die Clusterschnittstellen der MetroCluster FC-Konfiguration zu den IP-Switches.</block>
+  <block id="036d42aa7c6025107d4154a4eae998ad" category="section-title">Schritt 1: Verschieben Sie die Clusterverbindungen auf den MetroCluster FC-Knoten</block>
+  <block id="97a06e86dcad9f5f1a204e4e18aa5587" category="paragraph">Verschieben Sie die Clusterverbindungen der MetroCluster FC-Knoten zu den IP-Switches. Die Schritte hängen davon ab, ob Sie vorhandene oder neue IP-Switches verwenden.</block>
+  <block id="47b7fa620271bc0d65be97aba9478061" category="list-text">Sie führen diese Aufgabe auf beiden MetroCluster-Sites aus.</block>
+  <block id="4668bf30f5f14b9dd79deeee4cfbb82e" category="paragraph">Die folgende Aufgabe geht davon aus, dass ein Controllermodul zwei Ports für die Clusterverbindungen verwendet. Einige Controller-Modulmodelle verwenden vier oder mehr Ports für die Cluster-Verbindung. In diesem Beispiel sind die Ports in zwei Gruppen unterteilt, wobei die Ports zwischen den beiden Gruppen abwechselnd verwendet werden.</block>
+  <block id="d43283bd7e2e0dd9fa9a70ef441a163c" category="paragraph">Cisco 9336C-FX2 (12 Ports)</block>
+  <block id="f555518160d0f4ec7334c3fd0cfa3e7a" category="section-title">Verschieben der lokalen Clusterverbindungen bei Verwendung neuer IP-Switches</block>
+  <block id="8557ed3cfd8b031a64a0203ce8cde201" category="paragraph">Wenn Sie neue IP-Switches verwenden, verschieben Sie die Clusterverbindungen der vorhandenen MetroCluster FC-Knoten physisch auf die neuen Switches.</block>
+  <block id="e753dda2048534c92b6edc39dabe8c5b" category="section-title">Verschieben Sie die lokalen Clusterverbindungen, wenn Sie vorhandene IP-Switches wiederverwenden</block>
+  <block id="2cbb62835ce48b7e189acff1c7d6d1b8" category="paragraph">Wenn Sie vorhandene IP-Switches wiederverwenden, aktualisieren Sie die Firmware, konfigurieren die Switches mit den richtigen Referenzkonfigurationsdateien (RCFs) neu und verschieben die Verbindungen Switch für Switch auf die richtigen Ports.</block>
+  <block id="a25f5594b1ed1bf3a7c6a87384e601fd" category="section-title">Schritt 2: Überprüfen, ob die Clusterverbindungen verschoben wurden und der Cluster fehlerfrei ist</block>
+  <block id="4281f25941f74ed8eb6fd4a91fdb0244" category="paragraph">Um sicherzustellen, dass die Konnektivität ordnungsgemäß ist und die Konfiguration für den Übergangsprozess bereit ist, überprüfen Sie, ob die Clusterverbindungen richtig verschoben wurden, die Cluster-Switches erkannt werden und der Cluster fehlerfrei ist.</block>
+  <block id="e5f42a416489ba426aa3b5e5a99528be" category="admonition">Nachdem Sie die Controller am ersten Standort aktualisiert haben und bevor Sie den zweiten aktualisieren, wird ausgeführt <block ref="c2966f2f3bfc7e81dae5df7c44ce66ea" prefix=" " category="inline-code"></block> gefolgt von <block ref="da68e7539bf844a8366ded5d17b246d7" prefix=" " category="inline-code"></block> gibt einen Fehler zurück in der <block ref="74c687e9cfa94f775ac8c7b51ec31cd9" prefix=" " category="inline-code"></block> Feld. Dieser Fehler weist auf eine Nichtübereinstimmung der NVRAM-Größe zwischen den Knoten an jedem Standort hin und ist das erwartete Verhalten, wenn an beiden Standorten unterschiedliche Plattformmodelle vorhanden sind. Sie können den Fehler ignorieren, bis das Controller-Upgrade für alle Knoten in der DR-Gruppe abgeschlossen ist.</block>
+  <block id="a787053687877f10051bad9d8a2c320b" category="paragraph">Sie überprüfen den Zustand und die Konnektivität der MetroCluster-Konfiguration, bevor Sie das Upgrade durchführen.</block>
+  <block id="ac471314e8ba72086a54a227b4a6abe8" category="paragraph">Kein passender Port. Erstellen Sie nach dem Upgrade die Clusterports neu. <block ref="c40693a26d31adda8e50d2bd3c959775" category="inline-link-macro-rx"></block></block>
+  <block id="02f80d1409d40adabdcd4b00959239b0" category="inline-link-macro">MetroCluster-Konfigurationen entfernen</block>
+  <block id="c4a00ba197c84f92cac51496436d38e3" category="paragraph"><block ref="c4a00ba197c84f92cac51496436d38e3" category="inline-link-macro-rx"></block></block>
+  <block id="9950d05faf2c2104ac64b2891c5a8822" category="section-title">Entfernen Sie die alten Plattformen</block>
+  <block id="d723056ef76e64c3b3faae704eb71dd4" category="paragraph">Die alten System-IDs wurden in identifiziert <block ref="6b24ae8f1e4581fe7e87c8c4194af177" category="inline-link-macro-rx"></block>.</block>
+  <block id="75a193e4d11dd894af19600ff20d5c03" category="paragraph"><block ref="75a193e4d11dd894af19600ff20d5c03" category="inline-link-rx"></block></block>
+  <block id="a8c155984c849e4f60c4f4b7fa09827a" category="paragraph"><block ref="a8c155984c849e4f60c4f4b7fa09827a" category="inline-link-macro-rx"></block></block>
+  <block id="8758d509fe3fbac15620de0ba380f93d" category="list-text">Wiederholen Sie die Schritte, um die Knoten auf Cluster_A zu aktualisieren, beginnend mit <block ref="0e6ccb461a8e4072917a7db8187a2ba6" category="inline-link-macro-rx"></block>.</block>
+  <block id="d6841746fb065917e2837a0dda6d27b5" category="paragraph">Wenn Sie den Vorgang wiederholen, werden alle Beispielverweise auf die Cluster und Knoten umgekehrt. Wenn das Beispiel für die Umschaltung von Cluster_A verwendet wird, erfolgt die Umschaltung von Cluster_B.</block>
+  <block id="cbc2197d8e356cefd5c16b0e6b12733b" category="list-text">Verwenden Sie die Schritte in <block ref="903dcdb9cff1ed237b5a384a8899e234" category="inline-link-rx"></block> in _Installation und Konfiguration des MetroCluster-Tiebreakers_.</block>
+  <block id="86c26e1621d0bd8e2c4210c81fd2b539" category="doc">Aktualisieren Sie Controller in einer MetroCluster FC-Konfiguration mit vier Knoten mithilfe von Switchover und Switchback mit den Befehlen „System Controller Replace“ (ONTAP 9.10.1 und höher).</block>
+  <block id="eeda2a8f0828294ad51fab60acf4c866" category="paragraph">Weitere Verfahren finden Sie unter<block ref="8cbfebe03d7025df7187c11c17a18941" category="inline-link-macro-rx"></block>.</block>
+  <block id="7767fca1c0d3e02d34e1f2ec3fef20ef" category="list-text">Führen Sie den folgenden Befehl von Standort A aus, um die Controller an Standort B zu ersetzen:</block>
+  <block id="00799101d1f09c8fafcefe8296b49d8f" category="list-text">Wenn Sie den Vorgang an einem Standort wiederholen, nachdem Sie die Controller am anderen Standort bereits ausgetauscht haben, tritt aufgrund einer Nichtübereinstimmung der Knoten an beiden Standorten ein Fehler auf. Dies ist das erwartete Verhalten, wenn an beiden Standorten unterschiedliche Plattformmodelle vorhanden sind.</block>
+  <block id="a97ec5b5308c51ab2e1d07f3ac6b07f8" category="paragraph">Wenn nur der Fehler „Mismatch“ zurückgegeben wird, können Sie die <block ref="bf0b9d28548e0e53fb793faa9566bdc3" prefix=" " category="inline-code"></block> Option mit der <block ref="2b4e2bfd3f993678e0b6870d28304a76" prefix=" " category="inline-code"></block> Befehl, um die MetroCluster-Prüfungen zu überspringen.</block>
+  <block id="7530b73de7ae0c3f4a36c9d811a5cb93" category="paragraph">Die Prüfungen werden im automatisierten Betrieb durchgeführt. Wenn keine Probleme gefunden werden, wird der Vorgang angehalten, sodass Sie die konfigurationsbezogenen Informationen manuell erfassen können.</block>
+  <block id="9de208a34e24280ae2b31dec32ba42d3" category="paragraph">Das aktuelle Quellsystem und alle kompatiblen Zielsysteme werden angezeigt. Wenn Sie den Quellcontroller durch einen Controller mit einer anderen ONTAP-Version oder einer nicht kompatiblen Plattform ersetzt haben, wird der Automatisierungsvorgang nach dem Booten der neuen Knoten angehalten und meldet einen Fehler. Führen Sie die manuelle Wiederherstellung durch, um den Cluster wieder in einen fehlerfreien Zustand zu versetzen.</block>
+  <block id="05c698302b9abd36f7cf0a1dc90a86d3" category="section-title">Ersetzen Sie die alten Controller, und starten Sie die neuen Controller</block>
+  <block id="cf26e00f9d9d62aac6ab045ca55c7c29" category="list-text">Sie werden die in gesammelten Informationen verwenden <block ref="4349c160b4ba85d15c9d1b99e7fab03e" category="inline-xref-macro-rx"></block>.</block>
+  <block id="85712ea7206c9c772aaa7768f1e0353a" category="paragraph">Die alten System-IDs wurden in identifiziert <block ref="c90ff01403a996149cb5d17c8951ce45" category="inline-link-macro-rx"></block>.</block>
+  <block id="0915ed822e1ba9e1cdfa24d003dfbeb4" category="inline-xref">Bereiten Sie sich auf das Upgrade vor</block>
+  <block id="7425accfdceff5df29eb1bcc069522b4" category="list-text">Wiederholen Sie die Schritte, um die Knoten auf Cluster_A zu aktualisieren, beginnend mit <block ref="4c03382d918a1ade2291b20c09997610" category="inline-xref-macro-rx"></block>.</block>
+  <block id="fe0329da478f91bf09739c8563bb23f0" category="paragraph">Wenn Sie den Vorgang wiederholen, werden alle Beispielverweise auf die Cluster und Knoten umgekehrt.</block>
+  <block id="8641ecafe3cb9cda290c67fe2e7975a5" category="section-title">Starten Sie den Controller-Austauschvorgang</block>
+  <block id="7ac2bd5992f95f4f0bfc51ae90968d8c" category="paragraph">Wenn Sie den automatisierten Controller-Austauschvorgang starten, führt der Vorgang eine Reihe von Vorprüfungen durch und hält dann an, damit Sie die konfigurationsbezogenen Informationen manuell erfassen können.</block>
+  <block id="b5fe45c4891c6d19896e92fee5883a19" category="inline-link-macro">Konfigurieren Sie den ONTAP Mediator-Dienst neu</block>
+  <block id="6b28386c147e051088cbc4ae11351a61" category="paragraph">Bevor die MetroCluster-Prüfungen beginnen, wird ONTAP Mediator, falls installiert, automatisch erkannt und entfernt. Um das Entfernen zu bestätigen, werden Sie aufgefordert, einen Benutzernamen und ein Passwort einzugeben. Wenn Sie das Upgrade abgeschlossen haben, die Vorprüfungen fehlschlagen oder Sie das Upgrade nicht fortsetzen möchten, müssen Sie manuell <block ref="059689c27028be05419054623185eb12" category="inline-link-macro-rx"></block> .</block>
+  <block id="574eaa9b58d677670f6f75d0941c1eba" category="list-text">Wenn Sie die <block ref="880d39d0efc2f0e9e812ea98923bdc40" prefix=" " category="inline-code"></block> Parameter im Befehl: Das Controller-Upgradeverfahren wählt NSO-basiertes automatisches Umschalten und Zurückschalten als Standardverfahren auf MetroCluster-IP-Systemen.</block>
 </blocks>

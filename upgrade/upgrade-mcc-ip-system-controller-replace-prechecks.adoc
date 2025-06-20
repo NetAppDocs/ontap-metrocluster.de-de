@@ -115,25 +115,37 @@ Befolgen Sie die Schritte im Abschnitt für Ihren Switch-Anbieter:
 
 
 
-== Durchführung von Systemvorprüfungen
+== Starten Sie den Controller-Austauschvorgang
 
-Wenn der ONTAP Mediator installiert ist, wird er vor Beginn der Vorabprüfungen automatisch erkannt und entfernt. Um das Entfernen zu bestätigen, werden Sie aufgefordert, einen Benutzernamen und ein Passwort einzugeben. Wenn Sie das Upgrade abschließen oder die Vorabprüfungen fehlschlagen oder das Upgrade nicht fortsetzen möchten, müssen Sie manuell link:../install-ip/task_configuring_the_ontap_mediator_service_from_a_metrocluster_ip_configuration.html["ONTAP Mediator neu konfigurieren"].
+Wenn Sie den automatisierten Controller-Austauschvorgang starten, führt der Vorgang eine Reihe von Vorprüfungen durch und hält dann an, damit Sie die konfigurationsbezogenen Informationen manuell erfassen können.
+
+.Über diese Aufgabe
+Bevor die MetroCluster-Prüfungen beginnen, wird ONTAP Mediator, falls installiert, automatisch erkannt und entfernt. Um das Entfernen zu bestätigen, werden Sie aufgefordert, einen Benutzernamen und ein Passwort einzugeben. Wenn Sie das Upgrade abgeschlossen haben, die Vorprüfungen fehlschlagen oder Sie das Upgrade nicht fortsetzen möchten, müssen Sie manuell link:../install-ip/task_configuring_the_ontap_mediator_service_from_a_metrocluster_ip_configuration.html["Konfigurieren Sie den ONTAP Mediator-Dienst neu"] .
 
 Während des Upgrades können Sie die ausführen `system controller replace show` Oder `system controller replace show-details` Befehl von Standort A, um den Status zu überprüfen. Wenn die Befehle eine leere Ausgabe zurückgeben, warten Sie einige Minuten, und führen Sie den Befehl erneut aus.
 
 .Schritte
-. Starten Sie das Verfahren zum automatischen Austausch der Controller von Standort A, um die Controller an Standort B zu ersetzen:
+. Führen Sie den folgenden Befehl von Standort A aus, um die Controller an Standort B zu ersetzen:
 +
 `system controller replace start -nso true`
 
 +
-Der automatisierte Vorgang führt die Vorabprüfungen durch. Wenn keine Probleme gefunden werden, wird der Vorgang angehalten, sodass Sie die konfigurationsbezogenen Informationen manuell erfassen können.
-
-+
 [NOTE]
 ====
-** Wenn Sie den nicht ausführen `system controller replace start -nso true` Befehl, das Controller-Upgrade wählt NSO basierte automatische Umschaltung und Switchback als Standardverfahren bei MetroCluster IP-Systemen.
-** Das aktuelle Quellsystem und alle kompatiblen Zielsysteme werden angezeigt. Wenn Sie den Quell-Controller durch einen Controller mit einer anderen ONTAP-Version oder einer nicht kompatiblen Plattform ersetzt haben, wird der Automatisierungsvorgang angehalten und ein Fehler meldet, nachdem die neuen Nodes gestartet wurden. Um den Cluster wieder in einen ordnungsgemäßen Zustand zu versetzen, müssen Sie die manuelle Recovery-Prozedur befolgen.
+** Wenn Sie die  `-nso true` Parameter im Befehl: Das Controller-Upgradeverfahren wählt NSO-basiertes automatisches Umschalten und Zurückschalten als Standardverfahren auf MetroCluster-IP-Systemen.
+** Wenn Sie den Vorgang an einem Standort wiederholen, nachdem Sie die Controller am anderen Standort bereits ausgetauscht haben, tritt aufgrund einer Nichtübereinstimmung der Knoten an beiden Standorten ein Fehler auf. Dies ist das erwartete Verhalten, wenn an beiden Standorten unterschiedliche Plattformmodelle vorhanden sind.
++
+Wenn nur der Fehler „Mismatch“ zurückgegeben wird, können Sie die  `-skip-metrocluster-check true` Option mit der  `system controller replace start` Befehl, um die MetroCluster-Prüfungen zu überspringen.
+
+
+
+====
++
+Die Prüfungen werden im automatisierten Betrieb durchgeführt. Wenn keine Probleme gefunden werden, wird der Vorgang angehalten, sodass Sie die konfigurationsbezogenen Informationen manuell erfassen können.
+
++
+Das aktuelle Quellsystem und alle kompatiblen Zielsysteme werden angezeigt. Wenn Sie den Quellcontroller durch einen Controller mit einer anderen ONTAP-Version oder einer nicht kompatiblen Plattform ersetzt haben, wird der Automatisierungsvorgang nach dem Booten der neuen Knoten angehalten und meldet einen Fehler. Führen Sie die manuelle Wiederherstellung durch, um den Cluster wieder in einen fehlerfreien Zustand zu versetzen.
+
 +
 Der `system controller replace start` Der Befehl meldet möglicherweise den folgenden Vorprüffehler:
 
@@ -148,9 +160,6 @@ Node-A-1    Failed         MetroCluster check failed. Reason : MCC check showed 
 +
 Überprüfen Sie, ob dieser Fehler aufgetreten ist, weil Sie nicht gespiegelte Aggregate oder ein anderes Problem an Aggregaten haben. Vergewissern Sie sich, dass sich alle gespiegelten Aggregate in einem ordnungsgemäßen Zustand befinden und dass sie nicht beeinträchtigt bzw. gespiegelt werden. Wenn dieser Fehler nur auf nicht gespiegelte Aggregate zurückzuführen ist, können Sie diesen Fehler durch Auswahl des überschreiben `-skip-metrocluster-check true` Option auf der `system controller replace start` Befehl. Wenn auf Remote-Storage zugegriffen werden kann, sind die nicht gespiegelten Aggregate nach einer Umschaltung online. Falls die Remote-Storage-Verbindung ausfällt, können die nicht gespiegelten Aggregate nicht online geschaltet werden.
 
-
-
-====
 . Erfassen Sie manuell die Konfigurationsinformationen, indem Sie sich bei Standort B anmelden und den Befehlen folgen, die in der Konsolenmeldung unter der aufgeführt sind `system controller replace show` Oder `system controller replace show-details` Befehl.
 
 

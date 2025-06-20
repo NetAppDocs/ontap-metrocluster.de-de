@@ -132,6 +132,9 @@ Die MetroCluster Konfiguration auf einem AFF A900 oder FAS9500 erfordert 8 FC-VI
 
 Bevor Sie die RCF-Dateien und die Verkabelung für die Fabric MetroCluster-Konfiguration von AFF A900 oder FAS9500 aktualisieren, müssen Sie den Zustand und die Konnektivität der Konfiguration überprüfen.
 
+
+CAUTION: Nachdem Sie die Controller am ersten Standort aktualisiert haben und bevor Sie den zweiten aktualisieren, wird ausgeführt  `metrocluster check run` gefolgt von  `metrocluster check show` gibt einen Fehler zurück in der  `config-replication` Feld. Dieser Fehler weist auf eine Nichtübereinstimmung der NVRAM-Größe zwischen den Knoten an jedem Standort hin und ist das erwartete Verhalten, wenn an beiden Standorten unterschiedliche Plattformmodelle vorhanden sind. Sie können den Fehler ignorieren, bis das Controller-Upgrade für alle Knoten in der DR-Gruppe abgeschlossen ist.
+
 .Schritte
 . Überprüfen Sie den Betrieb der MetroCluster-Konfiguration in ONTAP:
 +
