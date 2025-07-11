@@ -162,5 +162,18 @@ Der Node sollte am anhalten `LOADER>` Eingabeaufforderung:
 . Umgebungsvariablen erfassen: `printenv`
 
 
+
+
+== Entfernen Sie interne Laufwerke aus dem Gehäuse des neuen Controllers
+
+Wenn Sie ein Upgrade von einem System mit ausschließlich externen Laufwerken auf ein System mit externen und internen Laufwerken (Festplatten und Controller im selben Gehäuse) durchführen, müssen Sie alle internen Laufwerke aus dem neuen System entfernen oder ausbauen, bis Sie das Upgrade abgeschlossen haben.
+
+
+CAUTION: Diese Aufgabe ist für ein erfolgreiches Controller-Upgrade auf betroffenen Systemen zwingend erforderlich.
+
+. Wenn Ihre Upgrade-Kombination mit *Hinweis 3* gekennzeichnet ist, müssen Sie die internen Laufwerke aus dem neuen System entfernen oder aus dem Sitz lösen
+
+Nach Abschluss dieser Aufgabe sollten keine internen Laufwerke mehr zugänglich sein. Sie fügen die Laufwerke später im Verfahren zum neuen Controller hinzu.
+
 .Was kommt als Nächstes?
 link:upgrade-mcc-ip-manual-apply-rcf-set-bootarg.html["Aktualisieren Sie die Switch-RCFs und legen Sie die MetroCluster IP-Bootarg-Werte fest"].
