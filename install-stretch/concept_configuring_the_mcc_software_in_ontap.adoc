@@ -1727,12 +1727,12 @@ https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-concepts/home.html["
 Sie müssen auf jedem Knoten in der DR-Gruppe ein gespiegeltes Datenaggregat erstellen.
 
 .Bevor Sie beginnen
-* Sie sollten wissen, welche Laufwerke oder Array LUNs im neuen Aggregat verwendet werden.
+* Sie sollten wissen, welche Laufwerke in dem neuen Aggregat verwendet werden.
 * Wenn Sie mehrere Laufwerktypen in Ihrem System haben (heterogener Speicher), sollten Sie verstehen, wie Sie sicherstellen können, dass der richtige Laufwerkstyp ausgewählt ist.
 
 
 .Über diese Aufgabe
-* Laufwerke und Array-LUNs sind Eigentum eines bestimmten Nodes. Wenn Sie ein Aggregat erstellen, müssen alle Laufwerke in diesem Aggregat Eigentum desselben Node sein, der zum Home Node für das Aggregat wird.
+* Laufwerke sind Eigentum eines bestimmten Nodes. Wenn Sie ein Aggregat erstellen, müssen alle Laufwerke in diesem Aggregat im Besitz desselben Nodes sein, der zum Home-Node für das Aggregat wird.
 * Aggregatnamen sollten dem Benennungsschema entsprechen, das Sie beim Planen Ihrer MetroCluster-Konfiguration ermittelt haben.
 +
 https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-psmg/home.html["Festplatten- und Aggregatmanagement"^]
@@ -1756,7 +1756,7 @@ Sie können die folgenden Optionen angeben:
 
 +
 ** Der Home Node des Aggregats (d. h. der Knoten, der das Aggregat im normalen Betrieb besitzt)
-** Liste bestimmter Laufwerke oder Array LUNs, die dem Aggregat hinzugefügt werden sollen
+** Liste spezifischer Laufwerke, die dem Aggregat hinzugefügt werden sollen
 ** Anzahl der zu einführenden Laufwerke
 +
 
@@ -1767,7 +1767,7 @@ NOTE: In der unterstützten Minimalkonfiguration, bei der eine begrenzte Anzahl 
 ** Die Größe der zu verwendenden Laufwerke
 ** Fahrgeschwindigkeit zu verwenden
 ** RAID-Typ für RAID-Gruppen auf dem Aggregat
-** Maximale Anzahl an Laufwerken oder Array-LUNs, die in einer RAID-Gruppe enthalten sein können
+** Maximale Anzahl an Laufwerken, die in eine RAID-Gruppe aufgenommen werden können
 ** Weitere Informationen zu diesen Optionen finden Sie im, ob Laufwerke mit unterschiedlichen U/min zulässig sind `storage aggregate create` Man-Page.
 +
 Mit dem folgenden Befehl wird ein gespiegeltes Aggregat mit 10 Festplatten erstellt:
@@ -1795,7 +1795,7 @@ cluster_A::> storage aggregate create aggr1_node_A_1 -diskcount 10 -node node_A_
 Optional können Sie nicht gespiegelte Datenaggregate für Daten erstellen, für die keine redundante Spiegelung von MetroCluster-Konfigurationen erforderlich ist.
 
 .Bevor Sie beginnen
-* Sie sollten wissen, welche Laufwerke oder Array LUNs im neuen Aggregat verwendet werden.
+* Sie sollten wissen, welche Laufwerke in dem neuen Aggregat verwendet werden.
 * Wenn Sie mehrere Laufwerktypen in Ihrem System haben (heterogener Speicher), sollten Sie verstehen, wie Sie überprüfen können, ob der richtige Laufwerkstyp ausgewählt ist.
 
 
@@ -1808,7 +1808,7 @@ Optional können Sie nicht gespiegelte Datenaggregate für Daten erstellen, für
 
 NOTE: Die nicht gespiegelten Aggregate müssen sich lokal an dem Node halten, auf dem sie sich enthalten.
 
-* Laufwerke und Array-LUNs sind Eigentum eines bestimmten Nodes. Wenn Sie ein Aggregat erstellen, müssen alle Laufwerke in diesem Aggregat Eigentum desselben Node sein, der zum Home Node für das Aggregat wird.
+* Laufwerke sind Eigentum eines bestimmten Nodes. Wenn Sie ein Aggregat erstellen, müssen alle Laufwerke in diesem Aggregat im Besitz desselben Nodes sein, der zum Home-Node für das Aggregat wird.
 * Aggregatnamen sollten dem Benennungsschema entsprechen, das Sie beim Planen Ihrer MetroCluster-Konfiguration ermittelt haben.
 * Der link:https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-psmg/home.html["Festplatten- und Aggregatmanagement"] Enthält weitere Informationen zur Spiegelung von Aggregaten.
 
@@ -1830,14 +1830,14 @@ Sie können die folgenden Optionen angeben:
 
 +
 ** Der Home Node des Aggregats (d. h. der Knoten, der das Aggregat im normalen Betrieb besitzt)
-** Liste bestimmter Laufwerke oder Array LUNs, die dem Aggregat hinzugefügt werden sollen
+** Liste spezifischer Laufwerke, die dem Aggregat hinzugefügt werden sollen
 ** Anzahl der zu einführenden Laufwerke
 ** Prüfsummenstil, den Sie für das Aggregat verwenden möchten
 ** Typ der zu verwendenden Laufwerke
 ** Die Größe der zu verwendenden Laufwerke
 ** Fahrgeschwindigkeit zu verwenden
 ** RAID-Typ für RAID-Gruppen auf dem Aggregat
-** Maximale Anzahl an Laufwerken oder Array-LUNs, die in einer RAID-Gruppe enthalten sein können
+** Maximale Anzahl an Laufwerken, die in eine RAID-Gruppe aufgenommen werden können
 ** Weitere Informationen zu diesen Optionen finden Sie im, ob Laufwerke mit unterschiedlichen U/min zulässig sind `storage aggregate create` Man-Page.
 +
 Mit dem folgenden Befehl wird ein nicht gespiegeltes Aggregat mit 10 Festplatten erstellt:

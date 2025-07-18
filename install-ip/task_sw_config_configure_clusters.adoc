@@ -2013,7 +2013,7 @@ Wiederholen Sie die vorherigen Aufgaben, um die Nodes in der zweiten DR-Gruppe z
 Optional können Sie nicht gespiegelte Datenaggregate für Daten erstellen, für die keine redundante Spiegelung von MetroCluster-Konfigurationen erforderlich ist.
 
 .Über diese Aufgabe
-* Sie sollten wissen, welche Laufwerke oder Array LUNs im neuen Aggregat verwendet werden.
+* Stellen Sie sicher, dass Sie wissen, welche Laufwerke im neuen Aggregat verwendet werden.
 * Wenn Sie mehrere Laufwerktypen in Ihrem System haben (heterogener Speicher), sollten Sie verstehen, wie Sie überprüfen können, ob der richtige Laufwerkstyp ausgewählt ist.
 
 
@@ -2023,7 +2023,7 @@ IMPORTANT: In MetroCluster IP-Konfigurationen können Remote-Aggregate nach eine
 
 NOTE: Die nicht gespiegelten Aggregate müssen sich lokal an dem Node halten, auf dem sie sich enthalten.
 
-* Laufwerke und Array-LUNs sind Eigentum eines bestimmten Nodes. Wenn Sie ein Aggregat erstellen, müssen alle Laufwerke in diesem Aggregat Eigentum desselben Node sein, der zum Home Node für das Aggregat wird.
+* Laufwerke sind Eigentum eines bestimmten Nodes. Wenn Sie ein Aggregat erstellen, müssen alle Laufwerke in diesem Aggregat im Besitz desselben Nodes sein, der zum Home-Node für das Aggregat wird.
 * Aggregatnamen sollten dem Benennungsschema entsprechen, das Sie beim Planen Ihrer MetroCluster-Konfiguration ermittelt haben.
 * _Festplatten- und Aggregatmanagement_ enthält weitere Informationen zur Spiegelung von Aggregaten.
 
@@ -2064,14 +2064,14 @@ Sie können die folgenden Optionen angeben:
 
 +
 ** Der Home Node des Aggregats (d. h. der Knoten, der das Aggregat im normalen Betrieb besitzt)
-** Liste bestimmter Laufwerke oder Array LUNs, die dem Aggregat hinzugefügt werden sollen
+** Liste spezifischer Laufwerke, die dem Aggregat hinzugefügt werden sollen
 ** Anzahl der zu einführenden Laufwerke
 ** Prüfsummenstil, den Sie für das Aggregat verwenden möchten
 ** Typ der zu verwendenden Laufwerke
 ** Die Größe der zu verwendenden Laufwerke
 ** Fahrgeschwindigkeit zu verwenden
 ** RAID-Typ für RAID-Gruppen auf dem Aggregat
-** Maximale Anzahl an Laufwerken oder Array-LUNs, die in einer RAID-Gruppe enthalten sein können
+** Maximale Anzahl an Laufwerken, die in eine RAID-Gruppe aufgenommen werden können
 ** Gibt an, ob Laufwerke mit unterschiedlichen U/min zulässig sind
 +
 Weitere Informationen zu diesen Optionen finden Sie auf der „Storage Aggregate create man page“.

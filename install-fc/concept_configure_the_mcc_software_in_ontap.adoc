@@ -2,7 +2,7 @@
 permalink: install-fc/concept_configure_the_mcc_software_in_ontap.html 
 sidebar: sidebar 
 keywords: configure, configuring, metrocluster, software, ontap 
-summary: Sie müssen jeden Node in der MetroCluster Konfiguration in ONTAP einrichten, einschließlich der Node-Konfiguration und der Konfiguration der Nodes an zwei Standorten. Sie müssen auch die MetroCluster Beziehung zwischen beiden Standorten implementieren. Die Schritte für Systeme mit nativen Festplatten-Shelfs unterscheiden sich leicht von denen für Systeme mit Array-LUNs. 
+summary: Sie müssen jeden Node in der MetroCluster Konfiguration in ONTAP einrichten, einschließlich der Node-Konfiguration und der Konfiguration der Nodes an zwei Standorten. 
 ---
 = Konfigurieren der MetroCluster-Software in ONTAP
 :allow-uri-read: 
@@ -11,7 +11,7 @@ summary: Sie müssen jeden Node in der MetroCluster Konfiguration in ONTAP einri
 
 
 [role="lead"]
-Sie müssen jeden Node in der MetroCluster Konfiguration in ONTAP einrichten, einschließlich der Node-Konfiguration und der Konfiguration der Nodes an zwei Standorten. Sie müssen auch die MetroCluster Beziehung zwischen beiden Standorten implementieren. Die Schritte für Systeme mit nativen Festplatten-Shelfs unterscheiden sich leicht von denen für Systeme mit Array-LUNs.
+Sie müssen jeden Node in der MetroCluster Konfiguration in ONTAP einrichten, einschließlich der Node-Konfiguration und der Konfiguration der Nodes an zwei Standorten. Sie müssen auch die MetroCluster Beziehung zwischen beiden Standorten implementieren.
 
 image::../media/workflow_high_level_node_and_cluster_configuration_software.gif[Workflow Node- und Cluster-Konfigurationssoftware auf hoher Ebene]
 
@@ -2505,9 +2505,9 @@ link:https://docs.netapp.com/us-en/ontap/volumes/index.html["Logisches Storage-M
 
 Sie müssen auf jedem Knoten in der DR-Gruppe ein gespiegeltes Datenaggregat erstellen.
 
-* Sie sollten wissen, welche Laufwerke oder Array LUNs im neuen Aggregat verwendet werden.
+* Sie sollten wissen, welche Laufwerke in dem neuen Aggregat verwendet werden.
 * Wenn Sie mehrere Laufwerktypen in Ihrem System haben (heterogener Speicher), sollten Sie verstehen, wie Sie sicherstellen können, dass der richtige Laufwerkstyp ausgewählt ist.
-* Laufwerke und Array-LUNs sind Eigentum eines bestimmten Nodes. Wenn Sie ein Aggregat erstellen, müssen alle Laufwerke in diesem Aggregat Eigentum desselben Node sein, der zum Home Node für das Aggregat wird.
+* Laufwerke sind Eigentum eines bestimmten Nodes. Wenn Sie ein Aggregat erstellen, müssen alle Laufwerke in diesem Aggregat im Besitz desselben Nodes sein, der zum Home-Node für das Aggregat wird.
 * Aggregatnamen sollten dem Benennungsschema entsprechen, das Sie beim Planen Ihrer MetroCluster-Konfiguration ermittelt haben. Siehe link:https://docs.netapp.com/us-en/ontap/disks-aggregates/index.html["Festplatten- und Aggregatmanagement"^].
 
 
@@ -2524,7 +2524,7 @@ Wenn Sie auf der Cluster-Managementoberfläche beim Cluster angemeldet sind, kö
 Sie können die folgenden Optionen angeben:
 
 ** Der Home Node des Aggregats (d. h. der Knoten, der das Aggregat im normalen Betrieb besitzt)
-** Liste bestimmter Laufwerke oder Array LUNs, die dem Aggregat hinzugefügt werden sollen
+** Liste spezifischer Laufwerke, die dem Aggregat hinzugefügt werden sollen
 ** Anzahl der zu einführenden Laufwerke
 
 
@@ -2536,7 +2536,7 @@ NOTE: In der minimal unterstützten Konfiguration, bei der eine begrenzte Anzahl
 ** Die Größe der zu verwendenden Laufwerke
 ** Fahrgeschwindigkeit zu verwenden
 ** RAID-Typ für RAID-Gruppen auf dem Aggregat
-** Maximale Anzahl an Laufwerken oder Array-LUNs, die in einer RAID-Gruppe enthalten sein können
+** Maximale Anzahl an Laufwerken, die in eine RAID-Gruppe aufgenommen werden können
 ** Gibt an, ob Laufwerke mit unterschiedlichen U/min zulässig sind
 
 
@@ -2568,14 +2568,14 @@ cluster_A::> storage aggregate create aggr1_node_A_1 -diskcount 10 -node node_A_
 Optional können Sie nicht gespiegelte Datenaggregate für Daten erstellen, für die keine redundante Spiegelung von MetroCluster-Konfigurationen erforderlich ist.
 
 .Bevor Sie beginnen
-* Sie sollten wissen, welche Laufwerke oder Array LUNs im neuen Aggregat verwendet werden.
+* Stellen Sie sicher, dass Sie wissen, welche Laufwerke im neuen Aggregat verwendet werden.
 * Wenn Sie mehrere Laufwerktypen in Ihrem System haben (heterogener Speicher), sollten Sie verstehen, wie Sie überprüfen können, ob der richtige Laufwerkstyp ausgewählt ist.
 
 
 
 IMPORTANT: Bei MetroCluster FC-Konfigurationen sind die nicht gespiegelten Aggregate erst nach einer Umschaltung online, wenn auf die Remote-Festplatten im Aggregat zugegriffen werden kann. Wenn die ISLs ausfallen, kann der lokale Knoten möglicherweise nicht auf die Daten auf den nicht gespiegelten Remote-Festplatten zugreifen. Der Ausfall eines Aggregats kann zu einem Neustart des lokalen Node führen.
 
-* Laufwerke und Array-LUNs sind Eigentum eines bestimmten Nodes. Wenn Sie ein Aggregat erstellen, müssen alle Laufwerke in diesem Aggregat Eigentum desselben Node sein, der zum Home Node für das Aggregat wird.
+* Laufwerke sind Eigentum eines bestimmten Nodes. Wenn Sie ein Aggregat erstellen, müssen alle Laufwerke in diesem Aggregat im Besitz desselben Nodes sein, der zum Home-Node für das Aggregat wird.
 
 
 
@@ -2600,14 +2600,14 @@ Wenn Sie auf der Cluster-Managementoberfläche beim Cluster angemeldet sind, kö
 Sie können die folgenden Optionen angeben:
 
 ** Der Home Node des Aggregats (d. h. der Knoten, der das Aggregat im normalen Betrieb besitzt)
-** Liste bestimmter Laufwerke oder Array LUNs, die dem Aggregat hinzugefügt werden sollen
+** Liste spezifischer Laufwerke, die dem Aggregat hinzugefügt werden sollen
 ** Anzahl der zu einführenden Laufwerke
 ** Prüfsummenstil, den Sie für das Aggregat verwenden möchten
 ** Typ der zu verwendenden Laufwerke
 ** Die Größe der zu verwendenden Laufwerke
 ** Fahrgeschwindigkeit zu verwenden
 ** RAID-Typ für RAID-Gruppen auf dem Aggregat
-** Maximale Anzahl an Laufwerken oder Array-LUNs, die in einer RAID-Gruppe enthalten sein können
+** Maximale Anzahl an Laufwerken, die in eine RAID-Gruppe aufgenommen werden können
 ** Gibt an, ob Laufwerke mit unterschiedlichen U/min zulässig sind
 
 

@@ -1,10 +1,10 @@
 ---
 permalink: install-ip/concept_considerations_unmirrored_aggrs.html 
 sidebar: sidebar 
-keywords: differences, eight-node, four-node, fabric-attached, stretch, metrocluster ip, storage, bridges, fc-to-sas, atto, fibrebridge, SAS, local HA, auso, automatic unplanned switchover, array luns, mediator, tiebreaker 
+keywords: differences, eight-node, four-node, fabric-attached, stretch, metrocluster ip, storage, bridges, fc-to-sas, atto, fibrebridge, SAS, local HA, auso, automatic unplanned switchover, mediator, tiebreaker 
 summary: Wenn Ihre Konfiguration nicht gespiegelte Aggregate umfasst, müssen potenzielle Zugriffsprobleme nach dem Switchover berücksichtigt werden. 
 ---
-= Verwendung von nicht gespiegelten Aggregaten
+= Erfahren Sie mehr über nicht gespiegelte Aggregate in MetroCluster -IP-Konfigurationen
 :allow-uri-read: 
 :icons: font
 :imagesdir: ../media/
@@ -15,34 +15,41 @@ Wenn Ihre Konfiguration nicht gespiegelte Aggregate umfasst, müssen potenzielle
 
 
 
-== Überlegungen für nicht gespiegelte Aggregate und hierarchische Namespaces
+== Ungespiegelte Aggregate und hierarchische Namespaces
 
 Wenn Sie hierarchische Namespaces verwenden, sollten Sie den Verbindungspfad so konfigurieren, dass alle Volumes in diesem Pfad sich entweder nur auf gespiegelten Aggregaten oder nur auf nicht gespiegelten Aggregaten befinden. Wenn Sie eine Kombination aus nicht gespiegelten und gespiegelten Aggregaten im Verbindungspfad konfigurieren, ist möglicherweise nach der Umschaltung der Zugriff auf nicht gespiegelte Aggregate verhindert.
 
 
 
-== Überlegungen für nicht gespiegelte Aggregate und CRS-Metadaten-Volume und Root-Volumes der Daten-SVM
+== Ungespiegelte Aggregate und Wartung, die eine Stromabschaltung erfordert
 
-Der Configuration Replication Service (CRS) Metadaten-Volume und Daten-SVM-Root-Volumes müssen sich in einem gespiegelten Aggregat befinden. Sie können diese Volumes nicht in ein nicht gespiegeltes Aggregat verschieben. Wenn sie sich auf einem nicht gespiegelten Aggregat befinden, sind über Switchover und Switchback-Vorgänge verhandelt es Vetos. Der befehl MetroCluster Check gibt eine Warnung aus, wenn dies der Fall ist.
+Wenn Sie zu Wartungszwecken eine vereinbarte Umschaltung durchführen, die eine standortweite Stromabschaltung erfordert, sollten Sie zunächst alle nicht gespiegelten Aggregate im Besitz des Notfallstandorts manuell offline schalten.
 
-
-
-== Überlegungen für nicht gespiegelte Aggregate und SVMs
-
-SVMs sollten nur auf gespiegelten Aggregaten oder nur auf nicht gespiegelten Aggregaten konfiguriert werden. Beim Konfigurieren einer Kombination aus nicht gespiegelten und gespiegelten Aggregaten kann ein Switchover von mehr als 120 Sekunden durchgeführt werden. So kann ein Datenausfall auftreten, wenn die nicht gespiegelten Aggregate nicht online geschaltet werden.
+Wenn Sie die nicht gespiegelten Aggregate des Notfallstandorts nicht offline schalten, können Knoten am verbleibenden Standort aufgrund von Multi-Disk-Panics ausfallen. Dies kann passieren, wenn umgeschaltete nicht gespiegelte Aggregate offline gehen oder fehlen, weil die Verbindung zum Speicher am Notfallstandort nach einem Stromausfall oder dem Verlust von ISLs verloren geht.
 
 
 
-== Überlegungen für nicht gespiegelte Aggregate und SAN
+== Ungespiegelte Aggregate, CRS-Metadatenvolumes und Daten-SVM-Root-Volumes
 
-Vor ONTAP 9.9 sollte sich eine LUN nicht auf einem nicht gespiegelten Aggregat befinden. Das Konfigurieren einer LUN auf einem nicht gespiegelten Aggregat kann zu einem Switchover von mehr als 120 Sekunden bei einem Ausfall der Daten führen.
-
-
-
-== Überlegungen beim Hinzufügen von Storage-Shelfs für nicht gespiegelte Aggregate
+Der Configuration Replication Service (CRS) Metadaten-Volume und Daten-SVM-Root-Volumes müssen sich in einem gespiegelten Aggregat befinden. Sie können diese Volumes nicht in ein nicht gespiegeltes Aggregat verschieben. Wenn sie sich auf einem nicht gespiegelten Aggregat befinden, werden ausgehandelte Switchover- und Switchback-Operationen blockiert und die  `metrocluster check` Befehl gibt eine Warnung zurück.
 
 
-NOTE: Wenn Sie Shelves hinzufügen, die in einer MetroCluster IP-Konfiguration für nicht gespiegelte Aggregate verwendet werden, müssen Sie Folgendes tun:
+
+== Ungespiegelte Aggregate und SVMs
+
+Sie sollten SVMs nur auf gespiegelten oder nicht gespiegelten Aggregaten konfigurieren. Die Konfiguration von SVMs auf einer Mischung aus nicht gespiegelten und gespiegelten Aggregaten kann zu einem Umschaltvorgang führen, der länger als 120 Sekunden dauert. Dies kann zu einem Datenausfall führen, wenn die nicht gespiegelten Aggregate nicht online gehen.
+
+
+
+== Ungespiegelte Aggregate und SAN
+
+Vor ONTAP 9.9.1 sollte sich eine LUN nicht auf einem nicht gespiegelten Aggregat befinden. Das Konfigurieren einer LUN auf einem nicht gespiegelten Aggregat kann zu einem Switchover von mehr als 120 Sekunden bei einem Ausfall der Daten führen.
+
+
+
+== Lagerregale für ungespiegelte Aggregate hinzufügen
+
+Wenn Sie Regale hinzufügen und diese für nicht gespiegelte Aggregate in einer MetroCluster -IP-Konfiguration verwenden möchten, müssen Sie Folgendes tun:
 
 . Bevor Sie das Verfahren zum Hinzufügen der Shelves starten, geben Sie den folgenden Befehl ein:
 +

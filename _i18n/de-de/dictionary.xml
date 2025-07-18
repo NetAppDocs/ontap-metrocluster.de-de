@@ -28,7 +28,6 @@
   <block id="fcc1179d9dc8927679bbc81b610ebfe5" category="list-text">Stellen Sie sicher, dass alle Komponenten für Ihre Konfiguration korrekt verkabelt sind.</block>
   <block id="45a90cf1797a736ff538fdca7b5c8902" category="list-text"><block ref="45a90cf1797a736ff538fdca7b5c8902" category="inline-link-macro-rx"></block></block>
   <block id="4e3b6dac43e0506da50eaa98573ccb1c" category="inline-link-macro">MetroCluster Fabric-Attached-Konfiguration</block>
-  <block id="e1b883336b514336526e9cd258980864" category="list-text"><block ref="e1b883336b514336526e9cd258980864" category="inline-link-macro-rx"></block></block>
   <block id="efc7bd2b93394141f506b62b353e26a8" category="paragraph">Nachdem Sie die gesamte Hardware am Disaster-Standort ausgetauscht haben, müssen Sie die System-IDs der ersetzten Controller-Module ermitteln. Sie benötigen die alten System-IDs, wenn Sie Festplatten den neuen Controller-Modulen neu zuweisen. Bei Systemen wie AFF A220, AFF A250, AFF A400, AFF A800, FAS2750 Modelle FAS500f, FAS8300 oder FAS8700 müssen auch die von den MetroCluster IP-Schnittstellen verwendeten VLAN-IDs ermittelt werden.</block>
   <block id="3093030037c9fc57bbabc09d91167ff4" category="paragraph">Alle Geräte am Disaster-Standort müssen ausgeschaltet sein.</block>
   <block id="822168a839dec742c54affa947049201" category="paragraph">Diese Diskussion enthält Beispiele für Konfigurationen mit zwei und vier Nodes. Bei Konfigurationen mit acht Nodes müssen Ausfälle in den zusätzlichen Nodes der zweiten DR-Gruppe berücksichtigt werden.</block>
@@ -410,139 +409,13 @@
   <block id="8bd0cd6715687fc71d09455137c040b9" category="paragraph"><block ref="8bd0cd6715687fc71d09455137c040b9" category="inline-link-macro-rx"></block></block>
   <block id="2cc78fe607addfc425964003bfef4c37" category="paragraph"><block ref="2cc78fe607addfc425964003bfef4c37" category="inline-link-macro-rx"></block></block>
   <block id="4c9e12fec4832bc4e599f3f834b24296" category="summary">Wenn Sie sich auf die MetroCluster Installation vorbereiten, sollten Sie sich mit der MetroCluster Hardwarearchitektur und den erforderlichen Komponenten vertraut machen.</block>
-  <block id="7b831eb812dd2b6fede966eed2e6593d" category="summary">Sie müssen eine der Switch-Fabrics deaktivieren, damit Sie deren Konfiguration ändern können. Nachdem Sie die Konfiguration abgeschlossen und die Switch-Fabric wieder aktiviert haben, wiederholen Sie den Vorgang auf der anderen Fabric.</block>
-  <block id="5a9d27de0e81ed1e9c65c8ae1bb271cb" category="doc">Deaktivieren eines der Switch-Fabrics</block>
-  <block id="3da36f821e9896cb94c0304f348f247a" category="paragraph">Sie müssen das dienstprogramm fmc_dc auf der vorhandenen 7-Mode Fabric MetroCluster Konfiguration ausführen und alle Probleme beheben, bevor Sie mit dem Konfigurationsprozess beginnen.</block>
-  <block id="403fffa2cd931d0a9c1d44aa728210c6" category="paragraph">Um einen weiteren Betrieb der MetroCluster-Konfiguration zu gewährleisten, dürfen Sie die zweite Fabric nicht deaktivieren, während die erste Fabric deaktiviert ist.</block>
-  <block id="b126157cb6dc26c65104d970cf85bb9e" category="paragraph">Wenn dieser Befehl nicht verfügbar ist, verwenden Sie den<block ref="61d3fceee0724f4ae096affe345438f5" prefix=" " category="inline-code"></block> Befehl.</block>
   <block id="3cf3eae7898bc6f0eec737e6a68a9cec" category="list-text">Im folgenden Beispiel wird der von FC_Switch_A_1 ausgegebene Befehl angezeigt:</block>
   <block id="fdf602b3f6a177da696cbba4294a693a" category="list-text">Im folgenden Beispiel wird der von FC_Switch_B_1 ausgegebene Befehl angezeigt:</block>
-  <block id="a147ba77b587976b23efb0cab251ec49" category="list-text">Stellen Sie mithilfe der redundanten Fabric sicher, dass die 7-Mode MetroCluster Konfiguration ordnungsgemäß funktioniert:</block>
-  <block id="c5a261fd95941fcb6c642a92e85a9c7f" category="list-text">Vergewissern Sie sich, dass der Controller-Failover ordnungsgemäß ist: +<block ref="c764de4ee76a267e5d14d84249b6d766" prefix=" " category="inline-code"></block></block>
-  <block id="303ac55e6ca0222f3e4f7511c42b6d50" category="list-text">Vergewissern Sie sich, dass die Datenträger sichtbar sind: +<block ref="bdde047727d80e96fabc600eccf33d6e" prefix=" " category="inline-code"></block></block>
-  <block id="a4624bf4e4cb6a15bc97fd7c39d6b621" category="list-text">Vergewissern Sie sich, dass die Aggregate gesund sind: +<block ref="83b38c3c445e1627bc74199655467ce8" prefix=" " category="inline-code"></block></block>
-  <block id="dcd39c14ed9181b99eedc066ac1d65c1" category="list-text">Konfigurieren Sie LIFs zwischen Clustern mithilfe des Verfahrens in:</block>
-  <block id="76171250896c5dfe6901a6c8c3fb3f68" category="paragraph"><block ref="76171250896c5dfe6901a6c8c3fb3f68" category="inline-link-macro-rx"></block></block>
-  <block id="0690a5c4248a898ac79d4ea42b64f808" category="list-text">Erstellen einer Cluster-Peer-Beziehung unter Verwendung der folgenden Schritte:</block>
-  <block id="dc4f0f08d29c6f89700794f3a34384f2" category="paragraph"><block ref="dc4f0f08d29c6f89700794f3a34384f2" category="inline-link-macro-rx"></block></block>
-  <block id="e3ae9940fbffd31f3b022a7e38fc3a88" category="summary">Wenn Sie eine Fabric-Attached MetroCluster-Konfiguration mit vier Nodes für Array-LUNs einrichten, müssen Sie die FC-VI-Ports und die HBA-Ports mit den Switch-Ports verkabeln.</block>
-  <block id="fe5772d11639aff667f09bb55dd4726b" category="doc">Verkabelung der FC-VI- und HBA-Ports in einer Fabric-Attached MetroCluster-Konfiguration mit vier Nodes und Array-LUNs</block>
-  <block id="0730001c1b3a9bf182126b7bfb9845ab" category="list-text">Sie müssen diese Aufgabe für jeden Controller an beiden MetroCluster-Standorten wiederholen.</block>
-  <block id="0b330ff5d92560115255d72e2d65164b" category="list-text">Wenn Sie in Ihrer MetroCluster-Konfiguration Festplatten zusätzlich zu Array-LUNs verwenden möchten, müssen Sie die HBA-Ports und Switch-Ports verwenden, die für die Konfiguration mit Festplatten angegeben sind.</block>
-  <block id="ac806aec6265809634e09b30a4132e8d" category="list-text">Verkabeln Sie die FC-VI-Ports von jedem Controller mit den Ports auf alternativen FC-Switches.</block>
-  <block id="839bbab9c47b80ce59f376113ae51b46" category="paragraph">Im folgenden Beispiel werden die Verbindungen zwischen den FC-VI-Ports und Switch-Ports an Standort A angezeigt:</block>
-  <block id="7f555680e47e89a10d18c1bd7deca2a2" category="image-alt">mcc mit vier Nodes für fc vi-Switch-Verbindungen</block>
-  <block id="5925a6a5a52b3caca8a0d82899ad4e16" category="list-text">Führen Sie an beiden MetroCluster Standorten die Controller/Switch-Verkabelung durch.</block>
-  <block id="1501a34a02832e5f146e25f23420d129" category="paragraph">Sie müssen Redundanz bei Verbindungen vom Controller zu den Switches gewährleisten. Daher müssen Sie für jeden Controller an einem Standort sicherstellen, dass beide der HBA-Ports im selben Port-Paar mit alternativen FC-Switches verbunden sind.</block>
-  <block id="76463ab3a4ce7f9fd7d1af70740c4fdb" category="paragraph">Das folgende Beispiel zeigt die Verbindungen zwischen den HBA-Ports und Switch-Ports an Standort A:</block>
-  <block id="3d02e71d3b6a29bc047a2e8e35939912" category="image-alt">mcc hba-Switch-Verbindungen mit vier Nodes</block>
-  <block id="e183b31085bae0f246bfc28900f575fa" category="paragraph">In der folgenden Tabelle werden die Verbindungen zwischen den HBA-Ports auf Controller_A_1 und den FC-Switch-Ports in der Abbildung aufgeführt:</block>
-  <block id="0805ade74966c90f6faa083e6ffe0944" category="cell">HBA-Ports</block>
-  <block id="dc3310fe82b8aa736508dff9756c1c6a" category="cell">Switch-Ports</block>
-  <block id="d77a4b02f2c33715a9263c3d71973023" category="cell">* Portpaar*</block>
-  <block id="172f431672cad316a2d2d9b742a2304d" category="paragraph">Port A</block>
-  <block id="7f54d1f2cabbe35f245d99c2ed8ea123" category="paragraph">FC_Switch_A_1, Port 2</block>
-  <block id="5721d2a077bcdadb83ea5006178fe7ed" category="paragraph">Port d</block>
-  <block id="8e86f45147ccf0ac737f7026c2a9a07d" category="paragraph">FC_Switch_A_2, Port 3</block>
-  <block id="64f3d4edf5527de7d3dd7136af076a41" category="paragraph">Port b</block>
-  <block id="db3e9838cac655d970657aee4aa91c64" category="paragraph">FC_Switch_A_2, Port 2</block>
-  <block id="60178183a41a41298abe58fd5982c3e1" category="paragraph">Port c</block>
-  <block id="82e7b6a00c7f7bfea586ccd977a765ed" category="paragraph">FC_Switch_A_1, Port 3</block>
-  <block id="36478ff48487a66154cdd1525efbfc6f" category="paragraph">In der folgenden Tabelle werden die Verbindungen zwischen den HBA-Ports auf Controller_A_2 und den FC-Switch-Ports in der Abbildung aufgeführt:</block>
-  <block id="235974f690166b5a37673990c904136b" category="paragraph">FC_Switch_A_1, Port 5</block>
-  <block id="cd5de81b330bab5c5937507e7754a4bd" category="paragraph">FC_Switch_A_2, Port 6</block>
-  <block id="425a8d79e9e6167c4f1a26cbad37adfa" category="paragraph">FC_Switch_A_2, Port 5</block>
-  <block id="c2fc34aee5387e476c0c882dba132312" category="paragraph">FC_Switch_A_1, Port 6</block>
-  <block id="de3a9779bda95b68b0ba21de688db620" category="paragraph">Sie sollten die ISLs zwischen den FC Switches über die MetroCluster Standorte hinweg verkabeln.</block>
-  <block id="fa1d5846fb86ab7458fc7fb29c179947" category="paragraph">Wenn Sie ONTAP-Systeme mit FC-Switches verbinden, um eine MetroCluster-Konfiguration mit Array LUNs einzurichten, müssen Sie FC-VI- und HBA-Ports von jedem Controller mit spezifischen Switch-Ports verbinden.</block>
-  <block id="4c8abe61a9f555c472220dec3b18291c" category="inline-link-macro">Erforderliche Switch-Ports für eine MetroCluster-Konfiguration mit Array-LUNs</block>
-  <block id="f7c6b8ed8135f0c2d169fb0831e7a0c0" category="paragraph"><block ref="f7c6b8ed8135f0c2d169fb0831e7a0c0" category="inline-link-macro-rx"></block></block>
-  <block id="864a46879aea9e809b12d7e54e89e27a" category="summary">Das Switch-Zoning definiert Pfade zwischen verbundenen Nodes. Beim Konfigurieren des Zoning können Sie festlegen, welche Array LUNs von bestimmten ONTAP Systemen angezeigt werden können.</block>
-  <block id="207c024d1855ef3c7e08eb0a0aceac8f" category="doc">Beispiel für das Switch-Zoning in einer MetroCluster-Konfiguration mit acht Nodes und den Array-LUNs</block>
-  <block id="c88edc4c15fee94b757ac367781bb561" category="paragraph">Eine MetroCluster Konfiguration mit acht Nodes besteht aus zwei DR-Gruppen mit vier Nodes. Die erste DR-Gruppe besteht aus den folgenden Knoten:</block>
-  <block id="6873448bb983f2d98dc888336e992a66" category="paragraph">Die zweite DR-Gruppe besteht aus den folgenden Knoten:</block>
-  <block id="eed30f9d99bbd7faa235645e344fed96" category="list-text">Controller_A_3</block>
-  <block id="978805a3a6abf9261e8e019354261f30" category="list-text">Controller_A_4</block>
-  <block id="16bcaa3538e88b0ec91eb7bc2706f2b9" category="list-text">Controller_B_3</block>
-  <block id="96ea41d688f79c1f69453f2e11f526d4" category="list-text">Controller_B_4</block>
-  <block id="e8d525684cd5e49193aace5d41cf9819" category="paragraph">Zum Konfigurieren des Switch-Zoning können Sie die Zoning-Beispiele für eine MetroCluster-Konfiguration mit vier Nodes für die erste DR-Gruppe verwenden.</block>
-  <block id="db08f81e8313778dec890ddaca5cb3d3" category="inline-link-macro">Beispiel für das Switch Zoning in einer MetroCluster-Konfiguration mit vier Nodes und Array LUNs</block>
-  <block id="da94a7db0f9882c4b3c67c4b02d65a87" category="paragraph"><block ref="da94a7db0f9882c4b3c67c4b02d65a87" category="inline-link-macro-rx"></block></block>
-  <block id="3ef6acae51a1b36c66c78b51d4585513" category="paragraph">Befolgen Sie zum Konfigurieren des Zoning für die zweite DR-Gruppe die gleichen Beispiele und Anforderungen für die FC-Initiator-Ports und die Array-LUNs, die zu den Controllern in der zweiten DR-Gruppe gehören.</block>
-  <block id="0bf5a919f9397252a1fb8ee826f70bcb" category="inline-link-macro">Beispiel für das Switch-Zoning in einer MetroCluster-Konfiguration mit zwei Nodes mit Array LUNs</block>
-  <block id="a90e829037a5fa8775e3eae393aa9ee4" category="paragraph"><block ref="a90e829037a5fa8775e3eae393aa9ee4" category="inline-link-macro-rx"></block></block>
-  <block id="76612d8038518e7aa7b303db3045593f" category="list-text">Bei der Verwendung von Switch Zoning in einer MetroCluster Konfiguration mit Array LUNs müssen Sie sicherstellen, dass bestimmte grundlegende Anforderungen erfüllt werden.</block>
-  <block id="67d003a4abde4b84eb28863c6288534e" category="inline-link-macro">Anforderungen für das Switch-Zoning in einer MetroCluster-Konfiguration mit Array LUNs</block>
-  <block id="f4b10c0ed251e84acdbc56fffb876121" category="paragraph"><block ref="f4b10c0ed251e84acdbc56fffb876121" category="inline-link-macro-rx"></block></block>
-  <block id="a9376b40838c95dc0e4da39abdfa72b0" category="summary">Sie müssen die FC-Switches über Inter-Switch-Links \ (ISLs\) an den Standorten verbinden, um Switch Fabric in Ihrer MetroCluster Konfiguration mit Array LUNs zu bilden.</block>
-  <block id="54ac487d2d6ff680a517207a9eced839" category="doc">Verkabelung der ISLs in einer MetroCluster-Konfiguration mit Array LUNs</block>
-  <block id="ba35d7d9c18ec17168ae6aa733de311d" category="paragraph">Sie müssen die FC-Switches über Inter-Switch Links (ISLs) an den Standorten verbinden, um Switch Fabrics in der MetroCluster Konfiguration mit Array LUNs zu bilden.</block>
-  <block id="86104e2083d4e42f39e08b4bf231db53" category="list-text">Verbinden Sie die Switches an jedem Standort mit ISL oder ISLs. Verwenden Sie dabei die Verkabelung in der Tabelle, die Ihrer Konfiguration und dem Switch-Modell entspricht.</block>
-  <block id="246805b2f5e8b3611b6b0467b8adcb2f" category="paragraph">Die folgenden Switch-Port-Nummern, die Sie für FC-ISLs verwenden können:</block>
-  <block id="013d9d1788f79068cc17e1128a0db3ad" category="cell">Schaltmodus l</block>
-  <block id="051877dc61179a5af3a2aea7072b0a87" category="cell">* Der Cisco 9250i-Switch verwendet die FCIP-Ports für die ISL. Für die Verwendung der FCIP-Ports gibt es bestimmte Einschränkungen und Verfahren.</block>
   <block id="cbbfaef273014b8355328497ea2a64a8" category="summary">FC-to-SAS-Bridges bieten Protokollüberbrückung zwischen SAS-verbundenen Festplatten und der FC Switch Fabric.</block>
   <block id="6ae03157542266ed3043d8026451ccf4" category="image-alt">mcc hw-Architektur-Shelf-Stacks</block>
   <block id="a022874e7e093c6eb907a009ffd5005e" category="paragraph"><block ref="a022874e7e093c6eb907a009ffd5005e" category="inline-link-macro-rx"></block></block>
-  <block id="257df35fd3fbc9a63102dd0f6f026234" category="summary">Sie müssen sicherstellen, dass sich die Inter-Switch-Links \ (ISLs\) in derselben Port-Gruppe befinden und das Zoning für die MetroCluster Konfigurationen konfigurieren, um die Switch-Fabrics erfolgreich zu teilen.</block>
-  <block id="0d5aa6202df4a0c6cdd0be57f7686057" category="doc">Sicherstellen, dass sich ISLs in derselben Portgruppe befinden und Zoning konfigurieren</block>
-  <block id="7c696c89bb9e1077a5f5aa7f1aa1cdac" category="paragraph">Sie müssen sicherstellen, dass sich die Inter-Switch-Links (ISLs) in derselben Port-Gruppe befinden und das Zoning für die MetroCluster-Konfigurationen konfigurieren, um die Switch Fabric erfolgreich zu teilen.</block>
-  <block id="14038cfc02361d0022c1b06e91cf2e65" category="list-text">Wenn sich die ISLs nicht in derselben Portgruppe befinden, verschieben Sie einen der ISL-Ports in dieselbe Port-Gruppe wie die andere.</block>
-  <block id="025d4fdb30387e506bc23ebe1a2b948c" category="paragraph">Sie können alle verfügbaren Ports außer 32 bis 45 verwenden, die von der neuen MetroCluster-Konfiguration verwendet werden. Die empfohlenen ISL-Ports sind 46 und 47.</block>
   <block id="e0be7ea022244db5d1c1da820a4f5ad8" category="inline-link-macro">Konfigurieren des Zoning auf Brocade FC-Switches</block>
-  <block id="affc2dad5d0c570ef33673937b9be675" category="list-text">Befolgen Sie die Schritte unter <block ref="3165f1b1a2826f5bf149f919c95e9838" category="inline-link-macro-rx"></block> Abschnitt zum Aktivieren von Trunking und QoS-Zone.</block>
-  <block id="b5b548972cd6ad9de463f417a7b88d65" category="inline-link-macro">Konfiguration der E-Ports (ISL-Ports) auf einem Brocade FC-Switch</block>
-  <block id="a33a00ea9f83279f39be404461d06dc1" category="paragraph">Die Port-Nummern beim Teilen von Fabrics unterscheiden sich von denen im Abschnitt. Verwenden Sie bei der Freigabe die Ports 46 und 47 für die ISL-Ports. Wenn Sie Ihre ISL-Ports verschoben haben, müssen Sie das Verfahren in verwenden <block ref="57ce78b7c8c4db3fb44a8dbd447a3f1f" category="inline-link-macro-rx"></block> Abschnitt zum Konfigurieren der Ports.</block>
-  <block id="f9fb6c5e4b8031455acc4725fedc46e3" category="inline-link-macro">Konfigurieren der nicht-E-Ports auf dem Brocade-Switch</block>
-  <block id="978310327d2cf95049892dccc0c3977b" category="list-text">[[ste3_Zones] Folgen Sie den Schritten im <block ref="b87ab593768bb285307eccf2a018cf92" category="inline-link-macro-rx"></block> Abschnitt zum Konfigurieren der nicht-E-Anschlüsse.</block>
-  <block id="853e75cf2478dbfaa7c7c69dda1f99f1" category="list-text">Löschen Sie nicht die Zonen oder Zonensätze, die bereits in den Backend-Switches (für den 7-Mode Fabric MetroCluster) vorhanden sind, mit Ausnahme der Traffic Isolation (TI)-Zonen in <block ref="bcf6119e8b5b0fd52fe08bbf1a5147d1" category="inline-xref-macro-rx"></block>.</block>
-  <block id="e330f533c615c9f14ec2e4e50d325424" category="list-text">Befolgen Sie die Schritte unter <block ref="57ce78b7c8c4db3fb44a8dbd447a3f1f" category="inline-link-macro-rx"></block> Abschnitt zum Hinzufügen der vom neuen MetroCluster benötigten Zonen zu den vorhandenen Zonensätzen.</block>
-  <block id="e94a402556eac1e8c6946a1a93250c32" category="paragraph">Im folgenden Beispiel werden Befehle und eine Systemausgabe zum Erstellen der Zonen angezeigt:</block>
-  <block id="2800f662942cd56689afae5d423911a1" category="summary">Wenn Sie eine Fabric-Attached MetroCluster-Konfiguration mit zwei Nodes für Array-LUNs einrichten, müssen Sie die FC-VI-Ports und die HBA-Ports mit den Switch-Ports verkabeln.</block>
-  <block id="c05e9825d7228d49f8ffdac3e463c19a" category="doc">Verkabelung der FC-VI- und HBA-Ports in einer Fabric-Attached MetroCluster-Konfiguration mit zwei Nodes und Array-LUNs</block>
-  <block id="a951c887d9b704391ce2444ecd9583e9" category="list-text">Verkabeln Sie die FC-VI-Ports des Controllers mit alternativen Switch-Ports.</block>
-  <block id="7ed6e41f08166c60018119e5afcdd18e" category="paragraph">Im folgenden Beispiel werden die Verbindungen zwischen den HBA-Ports an Controller A und den Ports an FC_Switch_A_1 und FC_Switch_A_2 angezeigt:</block>
-  <block id="f7c3bc386fad56fdbb486f0f05eaa8df" category="image-alt">mcc-hba-Verbindungen mit zwei Knoten</block>
-  <block id="fd1aa96777bed25bc9d45ab892b63ddd" category="paragraph">In der folgenden Tabelle werden die Verbindungen zwischen den HBA-Ports und den FC-Switch-Ports in der Abbildung aufgeführt:</block>
-  <block id="d66138e7de87b53a340e87e48042957d" category="summary">Die in MetroCluster Konfigurationen verwendeten ONTAP Systeme, Storage Arrays und FC Switches müssen die Anforderungen für solche Konfigurationen erfüllen. Zudem müssen die SyncMirror-Anforderungen für MetroCluster Konfigurationen mit Array LUNs berücksichtigt werden.</block>
-  <block id="aea48cdfc5800125bb39de01bb53c503" category="doc">Anforderungen für eine MetroCluster-Konfiguration mit Array-LUNs</block>
-  <block id="0d2543656d3d6ee0d0708750b1227727" category="section-title">Anforderungen für ONTAP Systeme</block>
-  <block id="31c7601b3ddd76c89bdb9c7f651e6565" category="list-text">Die ONTAP Systeme müssen als unterstützt für MetroCluster Konfigurationen identifiziert werden.</block>
   <block id="02bbbf38700dabcfb5519437d1e2d0bb" category="paragraph">Im<block ref="a5900d751cd970c3de875b616ebb9e28" category="inline-link-rx"></block>, Sie können im Feld Storage-Lösung die MetroCluster-Lösung auswählen. Sie verwenden den *Komponenten-Explorer*, um die Komponenten und die ONTAP-Version auszuwählen, um Ihre Suche zu verfeinern. Klicken Sie auf *Ergebnisse anzeigen*, um die Liste der unterstützten Konfigurationen anzuzeigen, die den Kriterien entsprechen.</block>
-  <block id="8f16a0302e18449a6fe9801e318a21ac" category="admonition">Sie müssen die Warndetails beachten, die mit jeder Konfiguration verknüpft sind, die Sie in der Interoperabilitäts-Matrix auswählen.</block>
-  <block id="b0a79d0ab79284c3f2f69466e99e3562" category="list-text">Alle ONTAP Systeme in einer MetroCluster Konfiguration müssen aus dem gleichen Modell stammen.</block>
-  <block id="1ed1490f1fedbec3aa46979875437d66" category="list-text">FC-VI-Adapter müssen je nach Modell in den entsprechenden Steckplätzen für jedes ONTAP-System installiert werden.</block>
-  <block id="d3e1f29d5998c9fd1a893993c7c437fc" category="section-title">Anforderungen für Storage Arrays erfüllt</block>
-  <block id="7c9e25bb04a28bc816b0d1b3f80cb8a3" category="list-text">Die Storage Arrays müssen als Unterstützung für MetroCluster-Konfigurationen identifiziert werden.</block>
-  <block id="7a7c50dc3d480e65fc0fc47e93a949d3" category="list-text">Die Speicher-Arrays in der MetroCluster Konfiguration müssen symmetrisch sein:</block>
-  <block id="90a3b4e9946334088a78dea287724e93" category="list-text">Die beiden Speicher-Arrays müssen von derselben unterstützten Anbieterfamilie stammen und dieselbe Firmware-Version installiert sein.</block>
-  <block id="82d37cddebcbc53beaf89f22ddf1f310" category="inline-link">FlexArray Virtualisierungs-Implementierung für NetApp E-Series Storage</block>
-  <block id="6dbb334cbf32f0f174c61a77a3bd9cf8" category="paragraph"><block ref="6dbb334cbf32f0f174c61a77a3bd9cf8" category="inline-link-rx"></block></block>
-  <block id="2e97596bf006ab4a63eb1ab1532e9166" category="inline-link">FlexArray Virtualisierungs-Implementierung für Storage von Drittanbietern</block>
-  <block id="ea99f1dcf0d09ce14e57dde04d25f1dc" category="paragraph"><block ref="ea99f1dcf0d09ce14e57dde04d25f1dc" category="inline-link-rx"></block></block>
-  <block id="98c912a8ebc7fe33bb468aeb86b73d0d" category="list-text">Festplattentypen (z. B. SATA, SSD oder SAS) für gespiegelten Storage müssen auf beiden Storage Arrays identisch sein.</block>
-  <block id="a5c2b9a46f707221354fce1142ddb350" category="list-text">Die Parameter für die Konfiguration von Speicher-Arrays, z. B. RAID-Typ und Tiering, müssen an beiden Standorten dieselben sein.</block>
-  <block id="4fde1977c0712026d27420be2b851917" category="section-title">Anforderungen für FC Switches</block>
-  <block id="d729ae9faac07f81f2be521fde99983b" category="list-text">Die Switches und die Switch-Firmware müssen als unterstützt für MetroCluster-Konfigurationen identifiziert werden.</block>
-  <block id="efe2f1a5b22c4c08760a2c8298133cbc" category="list-text">Jede Fabric muss über zwei FC-Switches verfügen.</block>
-  <block id="633329c29defa71e64bad7e22f7391d6" category="list-text">Jedes ONTAP System muss über redundante Komponenten an den Storage angeschlossen werden, damit bei Geräte- und Pfadausfällen Redundanz gewährleistet ist.</block>
-  <block id="e0477011a5767f5250fc49bfe9ab153c" category="list-text">Die AFF Storage-Systeme A700, FAS9000, AFF A900 und FAS9500 unterstützen bis zu acht ISLs pro Fabric. Andere Storage-System-Modelle unterstützen bis zu vier ISLs pro Fabric.</block>
-  <block id="00cf1532f7b3f1f9e9e57c27005e5afe" category="paragraph">Die Switches müssen die Basis-Switch-Konfiguration des MetroCluster, ISL-Einstellungen und FC-VI-Konfigurationen verwenden.</block>
-  <block id="bc8f1fcb589a975f8303117094ef8f50" category="section-title">SyncMirror-Anforderungen erfüllt</block>
-  <block id="3e033f133aa9e3ec8a824c1f70405edc" category="list-text">Für eine MetroCluster Konfiguration ist SyncMirror erforderlich.</block>
-  <block id="faa2c24aa0bff134c46b610cc5cad1bc" category="list-text">Für den gespiegelten Storage sind zwei separate Storage-Arrays erforderlich – eine an jedem Standort.</block>
-  <block id="620e8832cbaba361ae8b2c33837fb80f" category="list-text">Es sind zwei Gruppen von Array-LUNs erforderlich.</block>
-  <block id="019169cff6a8d33215c0a9ba8e769d33" category="paragraph">Für das Aggregat auf dem lokalen Storage Array (Pool0) ist ein Satz erforderlich und ein weiterer Satz ist am Remote Storage Array für die Spiegelung des Aggregats erforderlich (der andere Plex des Aggregats, Pool1).</block>
-  <block id="44bfd90bf25fc1afc744f3b97ad23cac" category="paragraph">Die Array LUNs müssen für die Spiegelung des Aggregats dieselbe Größe haben.</block>
-  <block id="84607472aeb104b5de394a50678b1615" category="list-text">Nicht gespiegelte Aggregate werden auch in der MetroCluster Konfiguration unterstützt.</block>
-  <block id="7ba040de83fb2facf86a7f32503e4830" category="paragraph">Sie sind im Falle eines Standortausfalls nicht geschützt.</block>
-  <block id="6e1085c3a7f7f5dad713d84dc9829d1d" category="summary">Sie müssen sicherstellen, dass die Hardwarekomponenten, die zum Einrichten einer MetroCluster Konfiguration erforderlich sind, wobei die Array-LUNs ordnungsgemäß im Rack verfügbar sind.</block>
-  <block id="38d158f9e55938f2b0dc9dd64167a8f9" category="doc">Führen Sie die Hardwarekomponenten in einer MetroCluster-Konfiguration mit Array-LUNs in Racks</block>
-  <block id="06b34b4d4fbdbda5eda4c6c60b4a50aa" category="paragraph">Sie müssen diese Aufgabe an beiden MetroCluster-Standorten ausführen.</block>
-  <block id="099521a7112509edbce04bcd0ca911e7" category="paragraph">Die Rack-Fläche hängt vom Plattformmodell der Storage Controller, den Switch-Typen und der Anzahl der Festplatten-Shelf-Stacks in Ihrer Konfiguration ab.</block>
-  <block id="173460488dce7240a263945ff8eca309" category="admonition">AFF Systeme werden mit Array-LUNs nicht unterstützt.</block>
-  <block id="dd23316b696cd08f3479c6e2d7baadc0" category="inline-link">Installationsverfahren für Ihr AFF oder FAS System</block>
-  <block id="17959b19c1c128d5d74608a22de28cf9" category="paragraph"><block ref="17959b19c1c128d5d74608a22de28cf9" category="inline-link-rx"></block></block>
   <block id="c8c3719034d9b9b752000ca4d3b5b2c2" category="list-text">Installieren Sie die FC-Switches im Rack oder Schrank.</block>
   <block id="0366d9269d29429c70a416504b9933a6" category="summary">Sie müssen die RCF-Datei auf jeden Switch der MetroCluster-Fabric-Konfiguration herunterladen.</block>
   <block id="3943df800bc20bb77a1a12e989c29d6f" category="doc">Herunterladen und Installieren der Cisco FC RCF-Dateien</block>
@@ -566,7 +439,6 @@
   <block id="f86146750d5caee0dd0ee6f541390137" category="list-text">Überprüfen Sie auf jedem Switch, ob die RCF-Datei auf den einzelnen Switches vorhanden ist<block ref="67b5ed08894c07eba0af4a7a7247711e" prefix=" " category="inline-code"></block> Verzeichnis:</block>
   <block id="e98444d7d3279149fb170762eaa09685" category="paragraph"><block ref="95d1664d5d3586d375111ee121bcf635" prefix="" category="inline-code"></block></block>
   <block id="7beedda8cb5d2fb431ddb232b7ee7fe0" category="summary">Sie können die MetroCluster-Konfiguration von allen Nodes in der MetroCluster-Konfiguration oder allen Nodes in einer Disaster-Recovery \(DR\)-Gruppe entfernen.</block>
-  <block id="0ea00d4fc48d7eb7ff02d29820696767" category="paragraph">Sie können die MetroCluster-Konfiguration von allen Nodes in der MetroCluster-Konfiguration oder allen Nodes einer Disaster Recovery-Gruppe (DR) entfernen. Nach dem Entfernen der MetroCluster-Konfiguration sollten alle Festplatten-Konnektivität und Interconnects auf einen unterstützten Zustand eingestellt werden. Wenden Sie sich an den technischen Support, wenn Sie die MetroCluster Konfiguration entfernen müssen.</block>
   <block id="96cf9ddcf3fc08fd3054be11d6e19c44" category="summary">Die Tabellen zeigen die maximal unterstützten Konfigurationen mit acht AFF A900 Controller-Modulen in einer DR-Gruppe.</block>
   <block id="f7326e6cfc29ebefdb936677ae7dd110" category="doc">Verwendung von Cisco Ports für AFF A900 oder FAS9500 Controller in einer MetroCluster Konfiguration mit ONTAP 9.10.1 oder höher</block>
   <block id="dfed8939b1f16a32e24cbf7db94e77b4" category="paragraph">In den Tabellen sind die maximal unterstützten Konfigurationen aufgeführt, mit acht AFF A900 oder FAS9500 Controller-Modulen in einer DR-Gruppe.</block>
@@ -686,61 +558,6 @@
   <block id="53b92dc74faa6cb21d248d206f657cf3" category="cell">LEM2-15</block>
   <block id="8ea7d7250e65620033ebe8e6de7604db" category="cell">ISL8</block>
   <block id="a443a45b4f59f90651355f5e7502dd6d" category="cell">LEM2-16</block>
-  <block id="eee9ac9add755308c95d6b192ee994a9" category="paragraph">Sie können das folgende Beispiel als Referenz beim Bestimmen des Zoning für eine Fabric-Attached MetroCluster-Konfiguration mit zwei Nodes mit Array-LUNs verwenden:</block>
-  <block id="ff03fa1ec9a5368dacb089cc3ddf3a5b" category="image-alt">Zoning von zwei Knoten mit mcc Fabric</block>
-  <block id="a1a6f8d15b87bea02a0b382a7103d7bb" category="paragraph">Das Beispiel zeigt den Single-Initiator im Einzel-Target-Zoning für die MetroCluster-Konfigurationen. Die Linien im Beispiel stellen Zonen statt Verbindungen dar; jede Linie ist mit ihrer Zonennummer gekennzeichnet.</block>
-  <block id="ec2e1b253e1f2bc7fe575feec245f8af" category="paragraph">Im Beispiel werden Array-LUNs auf jedem Speicher-Array zugewiesen. LUNs gleicher Größe werden auf den Storage Arrays an beiden Standorten bereitgestellt. Dies ist eine Anforderung von SyncMirror. Jedes ONTAP System verfügt über zwei Pfade zu den Array-LUNs. Die Ports auf dem Speicher-Array sind redundant.</block>
-  <block id="8865e044b5cae9c361459da496941229" category="paragraph">Die redundanten Array-Port-Paare für beide Standorte sind wie folgt:</block>
-  <block id="c332d936b257145c1cc3454af2388c2d" category="list-text">Storage-Array an Standort A:</block>
-  <block id="285e7ae75fae6bfd987ed78b335b0664" category="list-text">Anschlüsse 1A und 2A</block>
-  <block id="031886a195833ebbc083c70b7bf434fe" category="list-text">Die Anschlüsse 1B und 2B</block>
-  <block id="b52ad2a7748e6376363173eb3d2f5fd8" category="list-text">Storage-Array an Standort B:</block>
-  <block id="a6379b6cb1c8208cb3ace060d4d79291" category="list-text">Anschlüsse 1A' und 2A'</block>
-  <block id="8403f1370fb633d5e2f10178316c5125" category="list-text">Ports 1B' und 2B'</block>
-  <block id="c981fbe146de912c1d6ac296cc97304b" category="paragraph">Die redundanten Port-Paare auf jedem Storage-Array bilden alternative Pfade. Daher können beide Ports der Port-Paare auf die LUNs auf den jeweiligen Speicher-Arrays zugreifen.</block>
-  <block id="226fdabe43814b487f6bc80ba78ce7f8" category="paragraph">Die folgende Tabelle zeigt die Zonen für die Abbildungen:</block>
-  <block id="f8f6ae4305722fa58dcdf70d9c4ece5d" category="cell">ONTAP Controller und Initiator-Port</block>
-  <block id="bf4e8b9b80fd765928f4b38fe78a6032" category="cell">Storage-Array-Port</block>
-  <block id="06f47b6f3cf41b8d50ffeed35c737172" category="cell">*FC_Switch_A_1*</block>
-  <block id="3b770ebe9b04f171f0ead0e07d8e2882" category="paragraph">z1</block>
-  <block id="01b6a9b037a9428eeaa993882b105ea0" category="paragraph">Controller A: Port 0a</block>
-  <block id="937bc752933a1d2f43140d6838632208" category="paragraph">Port 1A</block>
-  <block id="a61d1457beb4684e254ce60379c8ae7b" category="paragraph">z3</block>
-  <block id="15833fe7a86a64ec49a86a5cc7a13229" category="paragraph">Controller A: Port 0c</block>
-  <block id="8ed7b758790091dc0f03580dc8cbdb2f" category="paragraph">Port 1 A'</block>
-  <block id="198a488c4e17ea8598f0627cd6cca5e7" category="cell">*FC_Switch_A_2*</block>
-  <block id="5cb7e380d019de63c643aef55b8534d0" category="paragraph">z2</block>
-  <block id="fcd4a1ee1dde89868898e398385930b1" category="paragraph">Controller A: Port 0b</block>
-  <block id="5233a229e5b7e573f46134d360071ce3" category="paragraph">Anschluss 2 A'</block>
-  <block id="8ed54f04419ffb305225370abdaba82d" category="paragraph">z4</block>
-  <block id="9d7686f1afdd5a4a71976e17e2761fb3" category="paragraph">Controller A: Port 0d</block>
-  <block id="9fb5ee9a2670bac76369240ae031e209" category="paragraph">Anschluss 2 A</block>
-  <block id="59064ad2a8c60c028df6bae1d172ef67" category="cell">*FC_Switch_B_1*</block>
-  <block id="4afbd36dfbe0916ea993c5ca93ffedb5" category="paragraph">z5</block>
-  <block id="c07d80f37d7e1a9223132980e54397c1" category="paragraph">Controller B: Port 0a</block>
-  <block id="81b11478027607d054c32ad485519ce5" category="paragraph">Port 1B'</block>
-  <block id="9ab4c1b5e09f493aa9b452766cddb7ee" category="paragraph">z7</block>
-  <block id="c3d510481d7702ec023d4a0221727e22" category="paragraph">Controller B: Port 0c</block>
-  <block id="13b92750c8ca93b93261b23d974fd8b2" category="paragraph">Port 1B</block>
-  <block id="cac05c8971d13247d1cd68d3070748db" category="cell">*FC_Switch_B_2*</block>
-  <block id="4d0ce1d0c3837c91f11658e2cf303259" category="paragraph">z6</block>
-  <block id="156dcc3e764a085bc3e61528c9eb5be4" category="paragraph">Controller B: Port 0b</block>
-  <block id="8e3deb9fe51ba100136489ababfe5b68" category="paragraph">Port 2B</block>
-  <block id="298a60807e4f1433233c2dc093f01258" category="paragraph">z8</block>
-  <block id="e5d71b14db9c42a420aacb199eb2012e" category="paragraph">Controller B: Port 0d</block>
-  <block id="87bb16d42cbb629fcc2c1d47ed8db016" category="paragraph">Port 2B'</block>
-  <block id="934ad02d03684df4e01cc1007f8491ce" category="paragraph">In der folgenden Tabelle werden die Zonen für die FC-VI-Verbindungen aufgeführt:</block>
-  <block id="62d022aa0f823c217b7e899a703898ae" category="cell">*Standort A*</block>
-  <block id="1f3c57dd04ac52fd92f3346ca51f00ec" category="paragraph">ZX</block>
-  <block id="ca5db0cf62275a7a7a7dfb94149dd7df" category="paragraph">Controller A: Port FC-VI A</block>
-  <block id="f48c79e2ae4ebf22cc206ee1cbd36607" category="paragraph">ZY</block>
-  <block id="d909a5c4df40fcfae94b0192fb76e4fa" category="paragraph">Controller A: Port FC-VI b</block>
-  <block id="42f816081f37ac884d6c90c0e99ec036" category="cell">*Standort B*</block>
-  <block id="0b663693f1c571e72e27497183e38ee4" category="paragraph">Controller B: Port FC-VI A</block>
-  <block id="32b2837586f2ffaf3da8eb6441d53979" category="paragraph">Controller B: Port FC-VI b</block>
-  <block id="f0237c84831c6f90ee896e4e970c25aa" category="list-text">Das Switch-Zoning definiert Pfade zwischen verbundenen Nodes. Beim Konfigurieren des Zoning können Sie festlegen, welche Array LUNs von einem bestimmten ONTAP System angezeigt werden können.</block>
-  <block id="18f32fa11e73a9fe745c10d58cd7d052" category="list-text">Wenn Sie Switch Zoning in einer MetroCluster Konfiguration mit Array LUNs verwenden, müssen Sie sicherstellen, dass bestimmte grundlegende Anforderungen erfüllt werden.</block>
-  <block id="6e2b6e2786426e2aeed4db0ecc5b8890" category="paragraph"><block ref="6e2b6e2786426e2aeed4db0ecc5b8890" category="inline-link-macro-rx"></block></block>
   <block id="6de9fb8b7b5d44322728235b0d0a7791" category="summary">In MetroCluster Konfigurationen mit acht oder vier Nodes besteht jeder Standort aus Storage-Controllern, die als ein oder zwei HA-Paare konfiguriert sind. Dadurch wird lokale Redundanz ermöglicht, sodass der lokale HA-Partner übernimmt, wenn ein Storage Controller ausfällt. Solche Ausfälle können ohne MetroCluster-Switchover-Operation behoben werden.</block>
   <block id="e68271ab52464fb615c82825f7290749" category="doc">Vorbereitung der MetroCluster-Installation</block>
   <block id="717147663a7e1842757987593cf07494" category="summary">Wenn Sie Ihre MetroCluster FC-Konfiguration planen, müssen Sie die erforderlichen und unterstützten Hardware- und Softwarekomponenten kennen. Für Einfachheit und Klarheit sollten Sie auch die Namenskonventionen verstehen, die für Komponenten in Beispielen in der gesamten Dokumentation verwendet werden. Ein Standort wird beispielsweise als Standort A bezeichnet, der andere Standort wird als Standort B bezeichnet</block>
@@ -786,25 +603,6 @@
   <block id="faf844ce6ce8135dec1b710eb9763ba5" category="paragraph">Position in Paar</block>
   <block id="8d3eb4cb77ea2bbd21bb7417b5cacaca" category="paragraph">Brücke innerhalb des Brückenpaares.Ein Paar Brücken verbinden sich mit einer bestimmten Stapelgruppe.</block>
   <block id="f7957f4fad1ef92794a3f4763851bc70" category="paragraph">A oder b</block>
-  <block id="752420a765705b56e0d18f0c93527266" category="summary">Array-LUNs müssen dem Node gehören, bevor sie einem Aggregat zur Verwendung als Storage hinzugefügt werden können.</block>
-  <block id="53f2462178712ede2ca2861f93c1e5d5" category="doc">Eigentümerschaft von Array LUNs wird zugewiesen</block>
-  <block id="65938c3330bedaa6834bdda7ac520511" category="list-text">Back-End-Konfigurationstests (Tests der Konnektivität und Konfiguration von Geräten hinter den ONTAP-Systemen) müssen abgeschlossen sein.</block>
-  <block id="309ab14cd8f12cb8629f1c861eca199b" category="list-text">Array-LUNs, die Sie zuweisen möchten, müssen den ONTAP Systemen vorgelegt werden.</block>
-  <block id="88627428a34504bf05af531d65851c29" category="paragraph">Sie können Array-LUNs mit den folgenden Eigenschaften zuweisen:</block>
-  <block id="d57ac8a739fe5a79b6d6e918dae44d1e" category="list-text">Sie sind ohne Besitzer.</block>
-  <block id="40603ec338b8ba195bb067fc323eb998" category="list-text">Es gibt keine Konfigurationsfehler für das Storage-Array, wie z. B. die folgenden:</block>
-  <block id="d24963140562f725a6ebfc5013c135f3" category="list-text">Die Array-LUN ist kleiner oder größer als die von ONTAP unterstützte Größe.</block>
-  <block id="077c35822587e579b6f9f7bf8dd018aa" category="list-text">Die LDEV ist nur auf einem Port zugeordnet.</block>
-  <block id="c080299df472c3b3d98b2e86c3cdbfb8" category="list-text">Der LDEV weist inkonsistente LUN-IDs zu.</block>
-  <block id="55d3dc722242b02d84ab2478e409889c" category="list-text">Die LUN ist nur auf einem Pfad verfügbar.</block>
-  <block id="90728b906a78c507b1e15fe5090db627" category="paragraph">ONTAP gibt eine Fehlermeldung aus, wenn Sie versuchen, die Eigentümerschaft einer Array-LUN mit Back-End-Konfigurationsfehlern zuzuweisen, die das ONTAP-System beeinträchtigen würden und das Storage-Array zusammen arbeiten. Sie müssen solche Fehler beheben, bevor Sie mit der Array-LUN-Zuweisung fortfahren können.</block>
-  <block id="f2ff71670cd376e228a30b5ba452b8c5" category="paragraph">ONTAP benachrichtigt Sie, wenn Sie versuchen, eine Array-LUN mit einem Redundanzfehler zuzuweisen: Zum Beispiel sind alle Pfade zu dieser Array-LUN mit dem gleichen Controller oder nur einem Pfad zur Array-LUN verbunden. Sie können einen Redundanzfehler vor oder nach dem Zuweisen des Eigentums an der LUN beheben.</block>
-  <block id="17abf9dec5e60d6f3fa370163fa1392c" category="list-text">Zeigen Sie die Array-LUNs an, die noch keinem Node zugewiesen wurden:</block>
-  <block id="374f507736292301c0def9697bcbea95" category="list-text">Weisen Sie diesem Knoten eine Array-LUN zu:</block>
-  <block id="5f13d85a2947066162a034c5f8f6ca1b" category="paragraph"><block ref="c0d5a069facbd8495639779fc3143ff7" prefix="" category="inline-code"></block></block>
-  <block id="290408f07cabf51b8bcef2a4892e46e9" category="paragraph">Wenn Sie einen Redundanzfehler nach der Festplattenzuordnung anstatt vorher beheben möchten, müssen Sie den verwenden<block ref="02e554f8f135bc49b80e8fc45a341757" prefix=" " category="inline-code"></block> Parameter mit dem Befehl „Storage Disk assign“.</block>
-  <block id="70894d5c0a41692947485c0d0a19e60a" category="inline-link">Installationsanforderungen für FlexArray Virtualisierung und Referenz</block>
-  <block id="cefd59017a4a065f49d52af021a7df7a" category="paragraph"><block ref="cefd59017a4a065f49d52af021a7df7a" category="inline-link-rx"></block></block>
   <block id="7264088d4f9d193f30e9a2464dab74fb" category="list-text">Starten Sie die Nodes vom Disaster-Site aus.</block>
   <block id="c10eeba0526766cc3188d9039a9c0ba2" category="list-text">Den Status der Knoten bestätigen:</block>
   <block id="8a44eeeb8eaf333a1671d90a5287fa8f" category="list-text">Stellen Sie sicher, dass die Laufwerke hinter der Bridge mit einem einzigen Pfad verfügbar sind:</block>
@@ -1335,108 +1133,12 @@
   <block id="99a578284ada1b8807f86cb25b927d6b" category="inline-link-macro">Port-Zuweisungen für FC-Switches bei Verwendung von AFF A900-Systemen</block>
   <block id="5383551238fc98d2f75e63be48523c04" category="list-text"><block ref="5383551238fc98d2f75e63be48523c04" category="inline-link-macro-rx"></block></block>
   <block id="72b3f4df9ba178ac37c68c3130df2a2c" category="list-text"><block ref="72b3f4df9ba178ac37c68c3130df2a2c" category="inline-link-macro-rx"></block></block>
-  <block id="7ca3f4cc3e8719be42bc9af9a1f301e9" category="doc">Überlegungen beim Wechsel von 7-Mode zu ONTAP</block>
-  <block id="d217125741b05656b3f76b2c03bf99c5" category="paragraph">Sie müssen die neue MetroCluster Konfiguration vollständig konfigurieren und in Betrieb nehmen, bevor Sie die Umstiegstools verwenden, um Daten von einer 7-Mode MetroCluster Konfiguration in eine ONTAP Konfiguration zu verschieben. Wenn die 7-Mode Konfiguration Brocade 6510-Switches verwendet, kann die neue Konfiguration die vorhandenen Fabrics gemeinsam nutzen, um die Hardwareanforderungen zu reduzieren.</block>
-  <block id="f75b95c3a1dfa9ff587686284536247d" category="paragraph">Wenn Sie Brocade 6510 Switches haben und die Switch-Fabrics zwischen dem 7-Mode Fabric MetroCluster und dem MetroCluster, das in ONTAP ausgeführt wird, gemeinsam nutzen Sie das spezifische Verfahren zur Konfiguration der MetroCluster Komponenten.</block>
-  <block id="448dad771b84bd40298b25d3b34702b9" category="inline-link-macro">Konfiguration der MetroCluster Hardware für die gemeinsame Nutzung einer 7-Mode Brocade 6510 FC Fabric während der Transition</block>
-  <block id="15fde4f082e6ff5ca3488be202f0dbcb" category="paragraph"><block ref="15fde4f082e6ff5ca3488be202f0dbcb" category="inline-link-macro-rx"></block></block>
   <block id="72fa0ea37e0389a6c2e6107de6bbcbe8" category="summary">Die folgende Tabelle zeigt die Verwendung des ISL-Ports für die Brocade Switches in einem AFF A900 System.</block>
   <block id="87ba2462050ce75d6d9915d834efe9b7" category="doc">AFF A900 oder FAS9500 – Verwendung des Brocade Ports für ISLs in einer MetroCluster-Konfiguration mit ONTAP 9.10.1 oder höher</block>
   <block id="801938c63db0b16215aa712c6d1fd12c" category="paragraph">Die folgende Tabelle zeigt die Verwendung des ISL-Ports für die Brocade Switches in einem AFF A900 oder FAS9500 System.</block>
   <block id="fd9b3eaeebb236fdcf40b5456ccc900e" category="admonition">AFF Systeme A900 und FAS9500 unterstützen acht ISLs. Acht ISLs werden von Brocade 6510, G620, G620-1, G630, G630-1, unterstützt. Und die Schalter G720.</block>
   <block id="81d4bf20c117cfe06c727511dd63382b" category="paragraph">6510, G620, G620-1, G630, G630-1, G720</block>
   <block id="f3089a69f0cb0a583fab7f5c1ea7226c" category="cell">6505, G610</block>
-  <block id="4efb93e6e74e61398b92661ce23351c2" category="summary">Wenn Sie eine Fabric-Attached MetroCluster-Konfiguration mit acht Nodes für Array-LUNs einrichten, müssen Sie die FC-VI-Ports und die HBA-Ports mit den Switch-Ports verkabeln.</block>
-  <block id="3b3f9b1e3b78cf5c7c6c5dd771ebcbe6" category="doc">Verkabelung der FC-VI- und HBA-Ports in einer Fabric-Attached MetroCluster Konfiguration mit acht Nodes und Array-LUNs</block>
-  <block id="db45d2962a244516b91cdcdb10eabed7" category="list-text">Verkabeln Sie die FC-VI-Ports und den HBA-Ports von jedem Controller mit den Ports an alternativen FC-Switches. Siehe folgende Tabellen:</block>
-  <block id="c53f3bcfbfbf43639df7a126107c5b72" category="section-title">Verkabelungskonfigurationen für FibreBridge 7500N oder 7600N mit beiden FC-Ports</block>
-  <block id="01b947c9660f7bd492362c0e04ea9733" category="cell">* Die Ports 12 bis 15 sind für die zweite MetroCluster oder DR-Gruppe auf dem Brocade 7840 Switch reserviert.</block>
-  <block id="fc2aa4a46638845f6620a574d1499700" category="cell">*Hinweis*: Zusätzliche Brücken können mit den Ports 16, 17, 20 und 21 mit den Schaltern G620, G630, G620-1 und G630-1 verkabelt werden.</block>
-  <block id="ec983aa599aee0ee199ad40c258bab91" category="section-title">Verkabelungskonfigurationen für Cisco 9250i</block>
-  <block id="3db30a6fa1c05224aef86dc9b48a9085" category="cell">Cisco 9250i*</block>
-  <block id="79d1eabb3b4c3024eae6de87ff7920f8" category="summary">An jedem Controller der Clustered ONTAP MetroCluster-Konfiguration müssen FC-VI-Adapter und HBAs mit spezifischen Ports der vorhandenen FC-Switches verbunden sein.</block>
-  <block id="2afb7d32516fb529a3e53b6573b3f8f5" category="doc">Verkabeln Sie die neuen MetroCluster Controller mit den vorhandenen FC-Fabrics</block>
-  <block id="2d010e96fad956349ccad086ca0223ca" category="list-text">FC-VI- und HBA-Ports gemäß der folgenden Tabelle verkabeln:</block>
-  <block id="acbfb20c99ccdab992cc5a41ff38ea28" category="cell">Verbinden Sie diese Site Mit einer Komponente und einem Port...</block>
-  <block id="8d6c98cf7663854efe9bfe3134475fe2" category="cell">FC_Switch_A_1-Port...</block>
-  <block id="081a8a034abff5e8a3aee345aa959d6e" category="cell">Verbinden Sie diese Komponente und den Port für Standort B...</block>
-  <block id="a0360cedb3a8fbc0f04ad6df5db7bd47" category="cell">FC_Switch_B_1-Port...</block>
-  <block id="e8e28248fd91c46dc9fe5215a6735b33" category="paragraph">Controller_A_1 FC-VI-Port 1</block>
-  <block id="c460339807572a76cb3f01377f95cb34" category="paragraph">Controller_B_1 FC-VI-Port 1</block>
-  <block id="898bb68e58a290882a9b0d524367bb15" category="paragraph">Controller_A_1 HBA-Port 1</block>
-  <block id="b0efbb5d6facee6761f5cbf2e18177f2" category="paragraph">Controller_B_1 HBA-Port 1</block>
-  <block id="62a6bacf4457b79667d0da60ac3ccb58" category="paragraph">Controller_A_1 HBA-Port 2</block>
-  <block id="1bf582444829b829b9f1b8aed9ad54c5" category="paragraph">Controller_B_1 HBA-Port 2</block>
-  <block id="617e42580d959b131d81bde3a43fbe81" category="paragraph">Controller_A_2 FC-VI-Port 1</block>
-  <block id="7db50023c9c431e8534499409c8db4d2" category="paragraph">Controller_B_2 FC-VI-Port 1</block>
-  <block id="21bb8913cacd0e92a9b024599ca51b29" category="paragraph">Controller_A_2 HBA 1</block>
-  <block id="26192731c7e8c8bb6fe12832bc0c0232" category="paragraph">Controller_B_2 HBA 1</block>
-  <block id="a042cc00f31537d30813f04d24803dcc" category="paragraph">Controller_A_2 HBA 2</block>
-  <block id="78ccb51c280c2b69d82288d2e5397072" category="paragraph">Controller_B_2 HBA 2</block>
-  <block id="c3cb0a9a37a1b24a86667c16a44f6dc2" category="list-text">Verkabeln Sie jede FC-SAS-Bridge in der ersten Switch-Fabric mit den FC-Switches.</block>
-  <block id="998b92bcb83db7f3d9b63a4bba6f97f4" category="paragraph">Die Anzahl der Bridges hängt von der Anzahl der SAS-Storage-Stacks ab.</block>
-  <block id="c46ab491f3f1db2ee40af91120c6721e" category="cell">Diese Seite mit einer Brücke verbinden...</block>
-  <block id="45cf5e837e53f8bad95e757f9b00492b" category="cell">Diese B-Brücke am Standort verkabeln...</block>
-  <block id="d8d2978490c3f3e8bc40e631c3b313ab" category="paragraph">Bridge_A_1_38</block>
-  <block id="3138a30dec63b4e834c6c55ecbbdf6d4" category="paragraph">Bridge_B_1_38</block>
-  <block id="cd6e62aee1c72b6bbc41d2930b4212e3" category="paragraph">Bridge_A_1_39</block>
-  <block id="43a95c4514832adb75c72ca204f48d8d" category="paragraph">Bridge_B_1_39</block>
-  <block id="383a7a87beac37121647140257311536" category="list-text">Verkabeln Sie jede Bridge in der zweiten Switch-Fabric mit den FC-Switches.</block>
-  <block id="5a5eae0a504aa3e55d62526d8bb6c817" category="cell">FC_Switch_A_2-Port...</block>
-  <block id="7ff2efb4c48f80117173d90c6b431c0c" category="cell">FC_Switch_B_2-Port...</block>
-  <block id="98df66de367366cf8d26c5d44eb29cd9" category="paragraph">Bridge_A_2_38</block>
-  <block id="afe5ba613963e18d8a7550d3db8483e8" category="paragraph">Bridge_B_2_38</block>
-  <block id="00df76c8f3daf21fd37b30cb58f87196" category="paragraph">Bridge_A_2_39</block>
-  <block id="2724870f9e9182322144fd6f560d824f" category="paragraph">Bridge_B_2_39</block>
-  <block id="d3eeac5beb8e07b719903a04da02d1bc" category="summary">In einer MetroCluster-Konfiguration mit Array-LUNs müssen Sie die Speicher-Array-Ports verbinden, die ein redundantes Port-Paar bilden, mit alternativen FC-Switches.</block>
-  <block id="1addc2812f42a224a528766398234c1c" category="doc">Beispiel für die Verkabelung von Storage Array-Ports mit FC-Switches in einer MetroCluster-Konfiguration mit vier Nodes</block>
-  <block id="3273b13a598da7072827c4fff2c6e3ee" category="paragraph">Die folgende Referenzabbildung zeigt die Verbindungen zwischen Storage Arrays und FC Switches in einer MetroCluster Konfiguration mit vier Nodes mit Array LUNs:</block>
-  <block id="4d1045be17a65ed688137aab3deb80b5" category="image-alt">Diese Abbildung zeigt eine Beispielkonfiguration von MetroCluster mit Array-LUNs. Die Grafik wird durch den umgebenden Text beschrieben.</block>
-  <block id="e6609ef3b852f1384712b8ac719fa7df" category="paragraph">Wenn Sie in Ihrer MetroCluster-Konfiguration zusätzlich zu Array-LUNs Festplatten verwenden möchten, müssen Sie die für die Konfiguration mit Festplatten angegebenen Switch-Ports verwenden.</block>
-  <block id="4ab4d970fb8af5d1f4c1e0cb6fd926a7" category="paragraph">In der Abbildung sind die redundanten Array-Port-Paare für beide Standorte wie folgt:</block>
-  <block id="079411045cab825a55a4a50c281aa6d9" category="list-text">Anschlüsse 1C und 2C</block>
-  <block id="be723993aaa605c3e026f84bcf88cfa9" category="list-text">Die Ports 1D und 2D</block>
-  <block id="2309541e9a6d2f4f4fe79a9494b03443" category="list-text">Ports 1C' und 2C'</block>
-  <block id="eed21cf5c84291c909da461e812530d7" category="list-text">Ports 1D' und 2D'</block>
-  <block id="6c9261f39674f261af1b4c72a79e0bc9" category="paragraph">FC_Switch_A_1 an Standort A und FC_Switch_B_1 an Standort B werden mit dem Formular Fabric_1 verbunden. Ähnlich werden FC_Switch_A_2 an Standort A und FC_Switch_B_2 mit Fabric_2 verbunden.</block>
-  <block id="2da198d4f6d2f72b9d990176ae47c5ed" category="paragraph">In der folgenden Tabelle sind die Verbindungen zwischen den Storage Array-Ports und den FC-Switches für die MetroCluster-Abbildung aufgeführt:</block>
-  <block id="ed468bfcdad1cc2741071425248f75c7" category="cell">Array-LUN-Ports</block>
-  <block id="e67c6ed583012dd4f53d11eeb663f51e" category="cell">FC Switch-Ports</block>
-  <block id="7fd8cd91ebe95d1e1d1f678239e69f78" category="cell">Switch-Fabrics</block>
-  <block id="0723dfd10075aee37a1804a728349dc3" category="paragraph">1A</block>
-  <block id="59c0034d2d9d0fe621407c76cd223cfa" category="paragraph">FC_Switch_A_1, Port 7</block>
-  <block id="9eee8129e6d14b921514cf91712c4c3a" category="paragraph">Fabric_1</block>
-  <block id="5f5468d54f2b86e7e60fac196581d7d0" category="paragraph">2 A</block>
-  <block id="aba66caaab3de396f32af719231f2413" category="paragraph">FC_Switch_A_2, Port 11</block>
-  <block id="046ec0714cdd1970caf1ae1431468d24" category="paragraph">Fabric_2</block>
-  <block id="aeaf67915b97d360e4d26f0659dd9b2a" category="paragraph">1 MRD.</block>
-  <block id="e6015ff43e98b5a572875fc519f9abdf" category="paragraph">FC_Switch_A_1, Port 8</block>
-  <block id="49ba7582631e47241f284a64b40e5a06" category="paragraph">2B</block>
-  <block id="deadeb2e7290916fb160d7e5719fe4cc" category="paragraph">FC_Switch_A_2, Port 10</block>
-  <block id="c1bf41d82adc8c5d53cce0ede0c16bbc" category="paragraph">1C</block>
-  <block id="d8b7c6b1c310f122ea66021cb1f3cf36" category="paragraph">FC_Switch_A_1, Port 9</block>
-  <block id="4754db5769c907992ef049f3e46ab107" category="paragraph">2C</block>
-  <block id="1e4491af51148429c32657e5c9b737cc" category="paragraph">FC_Switch_A_2, Port 9</block>
-  <block id="f149c23cf5b13e619e76d9f013ca0d5e" category="paragraph">1D</block>
-  <block id="dca96968aedf5e8f8f269d63910400ad" category="paragraph">FC_Switch_A_1, Port 10</block>
-  <block id="8c94134f25efe7680f9743b2774e8e1f" category="paragraph">2D</block>
-  <block id="049576c6d6f621038ae59f92574a2859" category="paragraph">FC_Switch_A_2, Port 8</block>
-  <block id="6979db78a9a662e2fbb4b2e0b6b8263b" category="paragraph">1 A'</block>
-  <block id="b7692c2449d6631289728f44611a701f" category="paragraph">FC_Switch_B_1, Port 7</block>
-  <block id="8242137e048583013e5ef4e7ab1807bb" category="paragraph">2 A'</block>
-  <block id="7372b1dfc54767cd6edc9fae878bf133" category="paragraph">FC_Switch_B_2, Port 11</block>
-  <block id="1fa13f8170bb3e4edd56a10609265afc" category="paragraph">1 MRD.</block>
-  <block id="2f1b3b18be838c3d25904fbe68c4e779" category="paragraph">FC_Switch_B_1, Port 8</block>
-  <block id="0e2193fc06e659bc886d6d30bb3e3f42" category="paragraph">2B'</block>
-  <block id="03cf313d0b727563bff93017f0c613cc" category="paragraph">FC_Switch_B_2, Port 10</block>
-  <block id="5a6fe8791caa69a2e616883aaa276b66" category="paragraph">1C'</block>
-  <block id="b545dbe2381a07e6fd7252d18c829008" category="paragraph">FC_Switch_B_1, Port 9</block>
-  <block id="141a8908bae6697438460e5309d01d54" category="paragraph">2C'</block>
-  <block id="dafd2efa90620ebf28016d4d5f8de8f0" category="paragraph">FC_Switch_B_2, Port 9</block>
-  <block id="475c4d5fd174cf47065b7660550ebae9" category="paragraph">1D'</block>
-  <block id="db106db5cbbf033794be16d74552d5e7" category="paragraph">FC_Switch_B_1, Port 10</block>
-  <block id="594f3713c946f8f145b1b0fe9347dfcc" category="paragraph">2D'</block>
-  <block id="893b12a1608cb12c1decd0a94ca1f909" category="paragraph">FC_Switch_B_2, Port 8</block>
   <block id="c283e6d33e5ab7ba05309d0bdb85144e" category="summary">Sie benötigen bestimmte Lizenzen für die Switches in einer MetroCluster-Konfiguration. Sie müssen diese Lizenzen auf allen vier Switches installieren.</block>
   <block id="1895119723122826713ca9b3d616a96b" category="doc">Überprüfung der Brocade Lizenzanforderungen</block>
   <block id="020376a3fd370a6b9dfc23a3f92f2cba" category="paragraph">Die MetroCluster-Konfiguration erfüllt die folgenden Anforderungen an die Brocade-Lizenz:</block>
@@ -1976,34 +1678,13 @@
   <block id="5f54259a5f9e2ed501dcd8fc387862ef" category="cell">*Brocade 6505, 6510 oder DCX 8510-8*</block>
   <block id="6977c96a61a5177850b42609237488c3" category="cell">*FC_Switch_x_1*</block>
   <block id="0b2c75644662ed2b76683bc2b8eaf012" category="cell">*FC_Switch_x_2*</block>
-  <block id="00d4cbf182edd341649687e5a604f3be" category="summary">Sie müssen Datenaggregate auf jedem Node erstellen, die MetroCluster Konfiguration implementieren und überprüfen.</block>
-  <block id="7be9a52451d19cd9d90976cf283647b2" category="doc">Erstellung von Datenaggregaten zur, Implementierung und Überprüfung der MetroCluster Konfiguration</block>
-  <block id="f53bbb5c5322a9297f53af7bd98a2d9f" category="list-text">Erstellen von Datenaggregaten auf jedem Node:</block>
-  <block id="b8a418bfdd11bf6855f54b269c217252" category="list-text">Erstellen Sie auf jedem Node ein gespiegeltes Datenaggregat:</block>
   <block id="f6a27c7799db7275b366d6aa5824f156" category="inline-link-macro">Spiegeln Sie die Root-Aggregate</block>
-  <block id="4b7160ab170e2ce4f8b900945b99bba0" category="paragraph"><block ref="9be599aa0e226aea6f088a2fa4d362aa" category="inline-link-macro-rx"></block>.</block>
-  <block id="970a6efa6508b55722a891bc57572c0d" category="list-text">Erstellen Sie bei Bedarf nicht gespiegelte Datenaggregate:</block>
   <block id="2c406d90770788a5a37dd44ddf644295" category="inline-link-macro">Erstellen Sie auf jedem Node ein gespiegeltes Datenaggregat</block>
-  <block id="f87dd08c00f70b3a575fa9699d2f3d13" category="paragraph"><block ref="89893a7120b70c9352d55ab698293fc3" category="inline-link-macro-rx"></block>.</block>
   <block id="cf2536b9d0ad43a511c5a32c1e924ea9" category="inline-link-macro">Implementieren der MetroCluster-Konfiguration</block>
-  <block id="0c7efc3f8f259556bd2f3da69ebf54d7" category="list-text"><block ref="8f08cb1055cdb4a369896e616b0773db" category="inline-link-macro-rx"></block>.</block>
-  <block id="cbc27474ad8404f4ab4c0b0d46510f3f" category="inline-link-macro">Konfigurieren Sie die MetroCluster FC-Switches für das Monitoring des Systemzustands</block>
-  <block id="51f74944bdea22bdfce54f66e54c71c8" category="list-text"><block ref="bbfeae7503afad1c4e0a2cd3684b1825" category="inline-link-macro-rx"></block>.</block>
-  <block id="0a7ce847789e8e3505b0d6b947a9a554" category="list-text">Überprüfen und überprüfen Sie die Konfiguration:</block>
   <block id="0686a40a013d93595f8f86de2753f9f5" category="inline-link-macro">Überprüfen Sie die MetroCluster-Konfiguration</block>
-  <block id="18030bfb91f5e4d63267e26fb1ebcff8" category="list-text"><block ref="5c7e447fa493cc50fe35282654f2e1be" category="inline-link-macro-rx"></block>.</block>
   <block id="862af1b6897b484b4c8140d8ad62c5f4" category="inline-link-macro">Überprüfen Sie mit Config Advisor auf MetroCluster-Konfigurationsfehler</block>
-  <block id="8c947225988c013e9d09a9c97527a784" category="list-text"><block ref="305e316eb8a443f60a624c250c5e15ea" category="inline-link-macro-rx"></block>.</block>
   <block id="9759ad3dfabdb9631ec5fba47d71c313" category="inline-link-macro">Überprüfung von UmschalttaFunktionen, Healing und Switchback</block>
-  <block id="2081e48017a6ee75217a36fd8b2f7d8a" category="list-text"><block ref="769446b4dc032ab58f2f17b2a80ec492" category="inline-link-macro-rx"></block>.</block>
-  <block id="2d938722cbdc0e27f1bf8a4621b922c8" category="list-text">MetroCluster Tiebreaker Software installieren und konfigurieren:</block>
-  <block id="dfbddd6e1165ec700e2c766fc53a826c" category="inline-link-macro">Installieren Sie die Tiebreaker Software</block>
-  <block id="aa746e8f9884e017b8a2cf95d83c6f98" category="list-text"><block ref="6a656079a634d1dbb37fdd6960f90ddd" category="inline-link-macro-rx"></block>.</block>
-  <block id="f4435460af1eceef12baf7f16d269716" category="inline-link-macro">Konfigurieren der Tiebreaker Software</block>
-  <block id="287644c0dd9dfb3768d110055e197bde" category="list-text"><block ref="bfaa51242e41c04376a31866ee30c54d" category="inline-link-macro-rx"></block>.</block>
-  <block id="922d574d4eea7d46f1335f2c544e277e" category="list-text">Legen Sie das Ziel für Backup-Dateien der Konfiguration fest:</block>
   <block id="de45266e760bc51404ead34f9f895183" category="inline-link-macro">Sichern Sie Backup-Dateien für die Konfiguration</block>
-  <block id="7edc9ae22c0cf875e5a35338bef1bdef" category="paragraph"><block ref="07c84706bf0793d59796fc2be1470117" category="inline-link-macro-rx"></block>.</block>
   <block id="22352eb03ff7e6b8795e4f237f27d8d1" category="paragraph">Dieses Verfahren wird mit der Annahme geschrieben, dass Sie die empfohlenen Bridge Management-Schnittstellen verwenden: Die ATTO ExpressNAV GUI und ATTO Quicknav Dienstprogramm.</block>
   <block id="e824a21e3028938aa47fe624ef80f849" category="paragraph">Bridge-CLI-Befehle können über die ONTAP-Schnittstelle ausgegeben werden<block ref="a4eebdf41596af4a8e3786060287e543" prefix=" " category="inline-code"></block> Befehl über die ONTAP-Schnittstelle.</block>
   <block id="b9af642f4c94393d1d86928e1df7b939" category="paragraph">Wenn Sie die Installation der Brücken als Teil Ihres neuen MetroCluster-Systems vorbereiten, müssen Sie sicherstellen, dass Ihr System bestimmte Anforderungen erfüllt, einschließlich der Erfüllung von Setup- und Konfigurationsanforderungen für die Brücken. Weitere Anforderungen sind das Herunterladen der erforderlichen Dokumente, das Dienstprogramm ATTO Quicknav und die Bridge-Firmware.</block>
@@ -2051,41 +1732,12 @@
   <block id="9b29c7d440706a3b6701509f3b6512fe" category="paragraph"><block ref="aab98eca66cf5c3025497ed9463dbfbf" prefix="" category="inline-code"></block></block>
   <block id="2622744a230b337241ab6444c641a6cb" category="paragraph"><block ref="7ec551c92f08acc74450330c4ce34cc2" prefix="" category="inline-code"></block></block>
   <block id="def2bebf11566298ccfc0636cb9cff59" category="paragraph"><block ref="356bc6ff51ea4862686263d4cef037e0" prefix="" category="inline-code"></block></block>
-  <block id="300a0492b022851e50376a948b5ecdca" category="summary">Wenn Sie ONTAP für die Verwendung mit Array-LUNs konfigurieren möchten, müssen Sie das Root-Aggregat und das Root-Volume, den reservierten Speicherplatz für Diagnose- und Recovery-Vorgänge konfigurieren und das Cluster einrichten.</block>
-  <block id="6a478f2c1aa3b5c071c7350c437211ff" category="doc">Konfigurieren von ONTAP auf einem System, das nur Array-LUNs verwendet</block>
-  <block id="d1b9838e152135ce9ffe100e6014cb3a" category="list-text">Das ONTAP System muss mit dem Storage-Array verbunden sein.</block>
-  <block id="38319872cf169982110419df88248d72" category="list-text">Der Administrator des Storage Arrays muss LUNs erstellt und ONTAP zur Verfügung gestellt haben.</block>
-  <block id="6b32da1f7cce9cb3998793b8ef2e7d47" category="list-text">Der Administrator des Speicherarrays muss die LUN-Sicherheit konfiguriert haben.</block>
-  <block id="7750f529ccd4dfc7797bfc40a22ade86" category="paragraph">Sie müssen jeden Node konfigurieren, den Sie mit Array LUNs verwenden möchten. Wenn sich der Node in einem HA-Paar befindet, müssen Sie den Konfigurationsprozess auf einem Node abschließen, bevor Sie mit der Konfiguration auf dem Partner-Node fortfahren.</block>
-  <block id="96cede592ba750ee2979e747848a4443" category="list-text">Schalten Sie den primären Node ein und unterbrechen Sie den Boot-Prozess, indem Sie Strg-C drücken, wenn auf der Konsole die folgende Meldung angezeigt wird:</block>
-  <block id="5a6b0c07d1959bfdcc4073773ad61d4e" category="paragraph"><block ref="14d268e0b5110346378922ba7c9f0dae" prefix="" category="inline-code"></block></block>
-  <block id="83e35738db40dde0a1373bf0ccffd063" category="list-text">Wählen Sie im Startmenü die Option *4 (Konfiguration reinigen und alle Festplatten initialisieren)* aus.</block>
-  <block id="a98eb1e6d9dfd94b037faeb2a3d5ee4a" category="paragraph">Die Liste der Array-LUNs, die ONTAP zur Verfügung gestellt werden, wird angezeigt. Außerdem wird die für die Erstellung des Root-Volumes erforderliche Array-LUN-Größe angegeben. Die für die Erstellung des Root-Volumes erforderliche Größe unterscheidet sich von einem ONTAP System zu einem anderen.</block>
-  <block id="232ff69144efec75e69fe200f1be2c22" category="list-text">Wenn zuvor keine Array-LUNs zugewiesen wurden, erkennt ONTAP die verfügbaren Array-LUNs und zeigt sie an, wie im folgenden Beispiel dargestellt:</block>
-  <block id="b7e852993928c4e804ad159f81b18dd3" category="list-text">Wenn Array LUNs zuvor zugewiesen wurden, beispielsweise im Wartungsmodus, werden sie entweder als lokal oder als Partner in der Liste der verfügbaren Array LUNs gekennzeichnet, je nachdem, ob die Array LUNs auf dem Node ausgewählt wurden, auf dem Sie ONTAP oder seinen HA-Partner installieren:</block>
-  <block id="b1a8f267ececa17f8208e3711d27356c" category="paragraph">In diesem Beispiel werden Array-LUNs mit den Indexnummern 3 und 6 als „lokal“ markiert, da sie zuvor diesem Knoten zugewiesen waren:</block>
-  <block id="d079f2e30de913d73887a98d1cee68af" category="list-text">Wählen Sie die Indexnummer für die Array-LUN aus, die Sie als Root-Volume zuweisen möchten.</block>
-  <block id="0a6510897dc1ff3e4879e54d5d9b1945" category="paragraph">Die Array-LUN muss ausreichend groß sein, um das Root-Volume zu erstellen.</block>
-  <block id="726f5d4cf933f75d16ab4a8cab070408" category="paragraph">Die für die Erstellung des Root-Volumes ausgewählte Array-LUN ist mit „local (root)“ gekennzeichnet.</block>
-  <block id="f92afc3b026d78a33abacb0eee1d4b6b" category="paragraph">Im folgenden Beispiel ist die Array-LUN mit Indexnummer 3 für die Erstellung des Root-Volumes markiert:</block>
-  <block id="19a35567fb97930c9e7468e6db094640" category="list-text">Wählen Sie die Indexnummer für die Array-LUN aus, die Sie für die Diagnose- und Wiederherstellungsoptionen zuweisen möchten.</block>
-  <block id="a49550c8bd50a25526042b3f4e8eee41" category="paragraph">Die Array-LUN muss für die Verwendung in Diagnose- und Recovery-Optionen ausreichend groß sein. Bei Bedarf können Sie auch mehrere Array-LUNs mit einer kombinierten Größe auswählen, die größer oder gleich der angegebenen Größe ist. Um mehrere Einträge auszuwählen, müssen Sie die kommagetrennten Werte aller Indexnummern eingeben, die den Array-LUNs entsprechen, die Sie für Diagnose- und Wiederherstellungsoptionen auswählen möchten.</block>
-  <block id="c58db60c9a8af2206e008f65968c9335" category="paragraph">Das folgende Beispiel zeigt eine Liste der Array-LUNs, die für die Erstellung des Root-Volumes sowie für Diagnose- und Recovery-Optionen ausgewählt wurden:</block>
-  <block id="a56ca1bced28ab8c76d1e02d951c4242" category="admonition">Durch Auswahl von „`no`“ wird die LUN-Auswahl gelöscht.</block>
-  <block id="576cf228c62281f16ae7e9209f20e477" category="list-text">Eingabe<block ref="13a9c4ec1810b3cc11a9e77c220f41c9" prefix=" " category="inline-code"></block> Wenn Sie vom System aufgefordert werden, den Installationsvorgang fortzusetzen.</block>
-  <block id="e79badcaf0b3c7829bf21e2008722e24" category="paragraph">Das Root-Aggregat und das Root-Volume werden erstellt und der Rest des Installationsvorgangs wird fortgesetzt.</block>
-  <block id="e6db32df0d7371b10a45ab8ee955ef22" category="list-text">Geben Sie die zum Erstellen der Node-Managementoberfläche erforderlichen Details ein.</block>
-  <block id="e054c18e078c1fcdf1a17bbe019cf061" category="paragraph">Im folgenden Beispiel wird der Bildschirm der Node-Managementoberfläche mit einer Meldung angezeigt, die das Erstellen der Node-Managementoberfläche bestätigt:</block>
-  <block id="42852d7e6ae9d60030cef736173c2dc5" category="inline-link">Für die Cluster-Einrichtung</block>
-  <block id="34d298a9dd158abbbe5e88976e2de31e" category="paragraph">Nach der Konfiguration von ONTAP für alle Nodes, die Sie mit den Array LUNs verwenden möchten, sollten Sie die abgeschlossen haben<block ref="062e8840bdcbe73415320ae1d4fd5e29" category="inline-link-rx"></block></block>
   <block id="3951cf3a9a587c843554ac26e7752f92" category="doc">Konfigurationsarbeitsblätter für FC Switches und FC-to-SAS-Bridges</block>
   <block id="373ea37ba723150abb88f58c48ffcdae" category="paragraph">Bevor Sie mit der Konfiguration der MetroCluster-Standorte beginnen, können Sie die folgenden Worksheets verwenden, um Ihre Standortinformationen aufzuzeichnen:</block>
   <block id="371aac449125501b960a40e2f00f6a08" category="inline-link-macro">Arbeitsblatt für Standort A</block>
   <block id="79b482a227e1595f7ab841ee8be94f5a" category="paragraph"><block ref="79b482a227e1595f7ab841ee8be94f5a" category="inline-link-macro-rx"></block></block>
   <block id="96bbb7fffd6c295d8680b093897365fc" category="inline-link-macro">Arbeitsblatt für Standort B</block>
   <block id="bd9a676bb80dff5cc6dc6052bee08f56" category="paragraph"><block ref="bd9a676bb80dff5cc6dc6052bee08f56" category="inline-link-macro-rx"></block></block>
-  <block id="7d327c8684dadf853cfb8ee6a8c362c8" category="summary">Durch die Erstellung eines detaillierten Plans für Ihre MetroCluster Konfiguration können Sie die speziellen Anforderungen einer MetroCluster Konfiguration verstehen, die LUNs auf Storage Arrays verwendet. Die Installation einer MetroCluster-Konfiguration umfasst das Verbinden und Konfigurieren einer Reihe von Geräten. Dies kann von verschiedenen Personen durchgeführt werden. Daher hilft Ihnen der Plan auch, mit anderen an der Installation beteiligten Personen zu kommunizieren.</block>
-  <block id="a3d19320c14020f923dda13e7501b231" category="doc">Planen einer MetroCluster-Konfiguration mit Array-LUNs</block>
   <block id="8a1bb3556c5253b390b70da7c5d3cb7c" category="paragraph">Das _ATTO FibreBridge Installations- und Bedienungshandbuch_ für Ihr Bridge-Modell enthält weitere Informationen und eine Abbildung der Installation.</block>
   <block id="ce24d226f8ee508a2ea1001f5b67e265" category="admonition">Für einen ausreichenden Zugriff auf Port-Speicherplatz und FRU-Wartungsfreundlichkeit müssen Sie 1U-Platz unter dem Brückenpaar lassen und diesen Platz mit einem werkzeuglosen Blindpanel abdecken.</block>
   <block id="5fbb52ab0ccc2914c72b1ce04d94f538" category="summary">Jede Switch-Fabric umfasst Inter-Switch-Links \(ISLs\), die die Standorte verbinden. Die Daten werden von Standort zu Standort über ISL repliziert. Um die Redundanz zu gewährleisten, muss sich jede Switch Fabric auf unterschiedlichen physischen Pfaden befinden.</block>
@@ -2114,15 +1766,6 @@
   <block id="b3597a38069ce88bd5e71904ddba930d" category="paragraph">Wenn Sie den ausführen<block ref="cebf74479b2272b4850814937a5307b5" prefix=" " category="inline-code"></block> Befehl nach einer MetroCluster-Umschaltung ist der Status von plex0 des Switched über das Root-Aggregat unbestimmt und wird als „fehlgeschlagen“ angezeigt. Während dieser Zeit wird die umschaltete Root nicht aktualisiert. Der tatsächliche Status dieses Plex kann nur nach der MetroCluster-Heilungsphase ermittelt werden.</block>
   <block id="15036251faefea85ea9b6ffa4f283c29" category="list-text">Aktivieren Sie die MetroCluster-Konfiguration, um NVFAIL bei der Umschaltung auszulösen, indem Sie den einstellen<block ref="cb836b02ffb0910a6d31ddd09e1ce5b0" prefix=" " category="inline-code"></block> Parameter zu „ein“:</block>
   <block id="a0672ab43d6a3c035ef982f4bbdf4ec8" category="paragraph"><block ref="0076ec279deece279663568bd3cbc67c" prefix="" category="inline-code"></block></block>
-  <block id="362e2d2a6e8982e15e2256010f520f95" category="summary">Switch-Konfigurationsverfahren und -Befehle unterscheiden sich je nach Switch-Anbieter.</block>
-  <block id="0e4e5f5b554c7c950c50cf7c70e283f3" category="summary">Zum Einrichten einer MetroCluster Konfiguration mit vier Nodes mit nativen Festplatten und Array LUNs müssen Sie FC-to-SAS-Bridges verwenden, um die ONTAP Systeme über FC-Switches mit den Festplatten-Shelfs zu verbinden. Sie können Array-LUNs über die FC-Switches mit den ONTAP-Systemen verbinden.</block>
-  <block id="ecc31eabe27d6246e7698a7bf860c23b" category="doc">Beispiel einer MetroCluster-Konfiguration mit vier Nodes und Festplatten und Array LUNs</block>
-  <block id="28e93f86c8423ba4281e1a3fe65f7edd" category="paragraph">Es sind mindestens acht Initiator-Ports erforderlich, damit ein ONTAP-System sowohl native Festplatten als auch Array-LUNs verbinden kann.</block>
-  <block id="226d65578ffcfe4912277bbf0f5b32f0" category="paragraph">Die folgenden Abbildungen zeigen Beispiele für eine MetroCluster-Konfiguration mit Festplatten und Array LUNs. Beide Lösungen stellen dieselbe MetroCluster-Konfiguration dar. Die Darstellungen von Festplatten und Array-LUNs werden nur zur Vereinfachung getrennt.</block>
-  <block id="c66b146c7ac8e4bd0dc36455f8c17999" category="paragraph">In der folgenden Abbildung, die die Konnektivität zwischen ONTAP Systemen und Festplatten zeigt, werden die HBA-Ports 1a bis 1d für die Verbindung mit Festplatten über die FC-to-SAS-Bridges verwendet:</block>
-  <block id="bdeabf77afacd398dedff72c9d8d51e6" category="image-alt">mcc-Konfiguration mit Festplatten und Array luns 1</block>
-  <block id="df0ddc6b2606b325169b0db05e673efc" category="paragraph">In der folgenden Abbildung, die die Konnektivität zwischen ONTAP-Systemen und Array-LUNs zeigt, werden die HBA-Ports 0a bis 0d für die Konnektivität mit Array-LUNs verwendet, da Ports 1a bis 1d für die Konnektivität mit Festplatten verwendet werden:</block>
-  <block id="ec31df7d1f18c6948a41ebc1330adb9e" category="image-alt">Diese Abbildung zeigt eine Beispiel-MetroCluster-Konfiguration. Die Grafik wird im umgebenden Text erläutert.</block>
   <block id="6a3afd8e0bd4d7b0e5cc9f66134c7c8d" category="summary">Die folgenden Tabellen zeigen die Port-Nutzung auf Brocade Switches für AFF A900-Systeme</block>
   <block id="1dcd768f9d116bda4a2253d295e01fb8" category="doc">Verwendung von Brocade Ports für AFF A900 oder FAS9500 Controller in einer MetroCluster Konfiguration mit ONTAP 9.10.1 oder höher</block>
   <block id="e33ab3eabb81d3db08bba17fee6ed399" category="paragraph">Die folgenden Tabellen zeigen die Portnutzung auf Brocade Switches. Die Tabellen zeigen die maximal unterstützte Konfiguration mit acht Controller-Modulen in vier DR-Gruppen. Die AFF Systeme A900 und FAS9500 verfügen über acht FC-VI-Ports (A, b, c und d für FC-VI-1 und FC-VI-2).</block>
@@ -2192,19 +1835,6 @@
   <block id="895acf4af7af3f77c54c0691f25e4108" category="list-text">Die externen Verschlüsselungsgeräte oder WDM-Geräte wurden vom Anbieter mit dem entsprechenden FC-Switch selbst zertifiziert.</block>
   <block id="b002ba611394912797400c0ed08ba298" category="paragraph">Die Selbstzertifizierung sollte den Betriebsmodus (wie Trunking und Verschlüsselung) abdecken.</block>
   <block id="e17ca788f6c66549a66b7b032db9b795" category="list-text">Die zusätzliche Latenz aufgrund der Verschlüsselung sollte nicht mehr als 10 Mikrosekunden enthalten.</block>
-  <block id="5da1ba53dad54d5e6efca627cd4e913f" category="summary">Sie müssen das vorhandene TI-Zoning löschen und die Einstellungen für die in-Order-Delivery \(IOD\) auf der Switch-Fabric neu konfigurieren.</block>
-  <block id="bda671bafb9e307e601d1f48d41ee87e" category="doc">Löschen von TI-Zoning und Konfigurieren von IOD-Einstellungen</block>
-  <block id="393345450fdab1c4a8707cdc5ac357e1" category="paragraph">Sie müssen das vorhandene TI-Zoning löschen und die IOD-Einstellungen (in-Order-Delivery) auf der Switch-Fabric neu konfigurieren.</block>
-  <block id="9593ac79e77c9f1bdc7761a29356b43b" category="list-text">Identifizieren Sie die TI-Zonen, die auf der Fabric konfiguriert sind:</block>
-  <block id="865ddca429147e4550622a4faf410a07" category="paragraph"><block ref="04c55c99f791d87173666024c55fc4d5" prefix="" category="inline-code"></block></block>
-  <block id="e76a2e6193256d5905ebdad93c975dac" category="paragraph">Das folgende Beispiel zeigt die Zone FCVI_TI_FAB_2.</block>
-  <block id="872fd99863394fd03b49ac281e05c37f" category="list-text">Löschen Sie die TI-Zonen:</block>
-  <block id="bf3eac6d426cdce2672ed22591953fd5" category="paragraph"><block ref="4724e3807d57aeab254a9d271f883a6e" prefix="" category="inline-code"></block></block>
-  <block id="d541030421372525eadee31c0c3196d3" category="paragraph">Das folgende Beispiel zeigt das Löschen der Zone FCVI_TI_FAB_2.</block>
-  <block id="8dd2ba92d37be5f033feede59afb1372" category="list-text">Bestätigen Sie, dass die Zonen gelöscht wurden:</block>
-  <block id="ac0321498317235c480942be9e861d45" category="list-text">In-Order-Delivery aktivieren:</block>
-  <block id="4f3c80eb4c7058a48ce3a8802614c67e" category="list-text">Wählen Sie die APT-Richtlinie (Advanced Performance Tuning) 1, die Port-basierte Routing-Richtlinie:</block>
-  <block id="186580027a6082f2b0bf52acc31fef23" category="list-text">Überprüfen Sie die IOD-Einstellungen:</block>
   <block id="29262d4c1e8420636829557b35f0fad4" category="summary">Bevor Sie eine neue Softwareversion und RCF-Dateien installieren, müssen Sie die aktuelle Switch-Konfiguration löschen und eine grundlegende Konfiguration durchführen.</block>
   <block id="07c4c56523ee49c0877a89240f5a605e" category="doc">Zurücksetzen des Brocade FC-Switch auf die Werkseinstellungen</block>
   <block id="23e45cf3abd0aff81c5f4280c3e76000" category="paragraph">Sie müssen diese Schritte bei jedem der FC-Switches in der MetroCluster Fabric-Konfiguration wiederholen.</block>
@@ -2243,17 +1873,7 @@
   <block id="bad3a2380613a08cffd8b317771de374" category="list-text">Führen Sie das dienstprogramm fmc_dc aus, um sicherzustellen, dass das 7-Mode Fabric MetroCluster korrekt funktioniert.</block>
   <block id="f2a62a2226a776063a92a12ed167e429" category="paragraph">Sie können Fehler im Zusammenhang mit Traffic Isolation (TI) Zoning und Trunking ignorieren.</block>
   <block id="ee964d83d74573b3328048ead7b3c04e" category="list-text">Wiederholen Sie die Aufgaben für die zweite Switch-Fabric.</block>
-  <block id="81f0867bac9efadacfd599f0fb66c839" category="summary">Die MetroCluster Konfiguration unterstützt Installationen mit nativen (NetApp) Festplatten-Shelfs, nur mit Array LUNs oder mit einer Kombination aus beiden.</block>
-  <block id="8e98ddf5c7184de31606d8ca05864c67" category="doc">Überlegungen für MetroCluster Konfigurationen mit nativen Festplatten-Shelfs oder Array-LUNs</block>
-  <block id="b75a46fc53502d73a9aba497366b09e6" category="paragraph">AFF-Systeme unterstützen keine Array-LUNs.</block>
-  <block id="12b05343ddb9ee449eb02e9df256be16" category="paragraph"><block ref="12b05343ddb9ee449eb02e9df256be16" category="inline-link-macro-rx"></block></block>
-  <block id="33cb94ec8653b1f632148976c8a040cd" category="inline-link-macro">Planung und Installation einer MetroCluster Konfiguration mit Array LUNs</block>
-  <block id="bc08b638ff7480a2fa85e0dcdee0d692" category="paragraph"><block ref="bc08b638ff7480a2fa85e0dcdee0d692" category="inline-link-macro-rx"></block></block>
-  <block id="478ccac00464b99572734ae91318d07a" category="summary">Um eine MetroCluster-Konfiguration mit Array-LUNs einzurichten, müssen Sie die Storage Controller an die FC-Switches verkabeln und dann die ISLs verkabeln, um die Standorte zu verbinden. Außerdem müssen die Storage Arrays mit den FC-Switches verbunden werden.</block>
-  <block id="3ca39819e2e07c2104732811215f1a97" category="doc">Installation und Verkabelung der MetroCluster Komponenten in einer Konfiguration mit Array LUNs</block>
-  <block id="70367474f34c61043e3966733d8833ab" category="summary">Bei der Konfiguration eines Storage-Systems in einer MetroCluster Konfiguration müssen Sie sicherstellen, dass der Hochverfügbarkeits- \(HA\)-Status des Controller-Moduls und der Gehäusekomponenten mcc oder mcc-2n lautet, damit diese Komponenten ordnungsgemäß booten.</block>
   <block id="23d8ab4e8486ac34b4198e32edee8347" category="doc">Überprüfen und Konfigurieren des HA-Status von Komponenten im Wartungsmodus</block>
-  <block id="37d5ffce46489714232e65f691577fa4" category="paragraph">Bei der Konfiguration eines Storage-Systems in einer MetroCluster Konfiguration müssen Sie sicherstellen, dass der Hochverfügbarkeits- (HA) -Zustand des Controller-Moduls und der Gehäusekomponenten „mcc“ oder „mcc-2n“ lautet, damit diese Komponenten ordnungsgemäß booten.</block>
   <block id="5c6c610b9df037c3c93893e9123552e5" category="paragraph">Diese Aufgabe ist für Systeme, die vom Werk empfangen werden, nicht erforderlich.</block>
   <block id="a557db64e7a1a7811ee58be8f70a14b6" category="list-text">Booten des Node zu ONTAP:</block>
   <block id="a8c0ae0c364bde84c9214317e190e454" category="summary">Sie müssen ermitteln, wie viele ISLs in der MetroCluster Konfiguration für jedes FC Switch Fabric benötigt werden.</block>
@@ -2287,153 +1907,16 @@
   <block id="da7f70f0d336d8136bbf9793f9953df9" category="list-text">Enthält die DR-Gruppe 1 vier AFF A700 Systeme, sind sechs ISLs erforderlich.</block>
   <block id="a4909c9a8501be1b83be0e99627fbac1" category="list-text">Wenn DR-Gruppe 2 vier FAS8200 Systeme enthält, sind zwei ISLs erforderlich.</block>
   <block id="f1112ee4c5c62e63ac5c07e89a792360" category="list-text">Die Gesamtzahl der empfohlenen ISLs für das Switch Fabric beträgt acht.</block>
-  <block id="538b94639e6cbcf51578ca8e73fa1108" category="summary">Bei der Planung Ihrer MetroCluster Konfiguration für Festplatten und Array-LUNs müssen Sie verschiedene Faktoren berücksichtigen, z. B. die Reihenfolge der Einrichtung von Zugriff auf Storage, das Root-Aggregatverzeichnis und die Verwendung von FC Initiator-Ports, Switches und FC-to-SAS-Bridges.</block>
-  <block id="510ef9f96e237cda2b6cc4ad3c1ead0f" category="doc">Überlegungen bei der Implementierung einer MetroCluster Konfiguration mit Festplatten und Array LUNs</block>
-  <block id="94bbfdcfaed5ce2a4bd4fda59231e633" category="paragraph">Berücksichtigen Sie bei der Planung der Konfiguration die Informationen in der folgenden Tabelle:</block>
-  <block id="1424e9d02955a063766be77a82c6d273" category="cell">Überlegungen</block>
-  <block id="6862765a8295e08416a8dec36208faf0" category="paragraph">Reihenfolge der Einrichtung des Zugriffs auf den Speicher</block>
-  <block id="4a72767bf087b503af409e5bc1b0c8be" category="paragraph">Sie können zuerst den Zugriff auf Festplatten- oder Array-LUNs einrichten. Sie müssen die gesamte Einrichtung für diesen Storage-Typ abschließen und vor der Einrichtung des anderen Storage-Typs überprüfen, ob er korrekt eingerichtet ist.</block>
-  <block id="566a6125da9a04a1062506e783e3c147" category="paragraph">Speicherort des Root-Aggregats</block>
-  <block id="d0d3305da640b52679a3566b8de7dfe3" category="list-text">Wenn Sie eine _neue_ MetroCluster-Bereitstellung mit Festplatten und Array LUNs einrichten, müssen Sie das Root-Aggregat auf nativen Festplatten erstellen.</block>
-  <block id="6ae15bf56376ed9cca59e060d3cd9ce5" category="paragraph">Stellen Sie dabei sicher, dass _mindestens ein_ Festplatten-Shelf (mit 24 Festplatten) an jedem Standort eingerichtet ist.</block>
-  <block id="d94f4daf8b9866dbbf5b2f6780afa978" category="list-text">Wenn Sie einer _vorhandenen_ MetroCluster Konfiguration native Festplatten hinzufügen, die Array LUNs verwendet, kann das Root-Aggregat auf einer Array LUN verbleiben.</block>
-  <block id="e667b860cf8d51a6b38cec65edf15da9" category="paragraph">Verwendung von Switches und FC-to-SAS-Bridges</block>
-  <block id="2cf96570d05093e79354fdebf6a25c6f" category="paragraph">Für Konfigurationen mit vier Nodes sind FC-to-SAS-Bridges und Fabric-Attached-Konfigurationen mit zwei Nodes erforderlich, um die ONTAP Systeme über die Switches mit den Festplatten-Shelfs zu verbinden.</block>
-  <block id="f1b073b17d11b6a85cff8fafe775f23e" category="paragraph">Sie müssen dieselben Switches verwenden, um eine Verbindung zu den Storage Arrays und den FC-to-SAS-Bridges herzustellen.</block>
-  <block id="209a28f98adf7a11fd98e407f778da76" category="paragraph">Verwenden von FC Initiator-Ports</block>
-  <block id="ef12494cb70befc7ca544b62bf01bf89" category="paragraph">Die Initiator-Ports, die für die Verbindung zu einer FC-to-SAS-Bridge verwendet werden, müssen sich von den Ports unterscheiden, die für die Verbindung mit den Switches verwendet werden.</block>
-  <block id="3ebd69be8f45faaa179163c252992c0c" category="paragraph">Mindestens acht Initiator-Ports sind erforderlich, um ein ONTAP-System mit Festplatten und Array-LUNs zu verbinden.</block>
-  <block id="0bcabcdf892c04cd4dc85578329f2f27" category="paragraph"><block ref="0bcabcdf892c04cd4dc85578329f2f27" category="inline-link-macro-rx"></block></block>
-  <block id="bc9a0903e5b84a09704b1124717ea8e7" category="paragraph"><block ref="bc9a0903e5b84a09704b1124717ea8e7" category="inline-link-macro-rx"></block></block>
-  <block id="5d80f4634e8ee066c641d17f726ec994" category="paragraph"><block ref="5d80f4634e8ee066c641d17f726ec994" category="inline-link-macro-rx"></block></block>
-  <block id="ef420f89026ee115708305b6c2890190" category="paragraph">Wenn Sie in der MetroCluster-Konfiguration sowohl Array-LUNs als auch Festplatten verwenden, müssen Sie sicherstellen, dass die Controller-Ports mit den für die Konfiguration mit Festplatten empfohlenen Switch-Ports verbunden sind, und dann die restlichen Ports für die Konfiguration mit Array-LUNs verwenden.</block>
-  <block id="21cc04de9b4e43b74a0ebdb43d82128a" category="paragraph">In der folgenden Tabelle werden die spezifischen FC-Switch-Ports aufgeführt, mit denen Sie die verschiedenen Controller-Ports in einer MetroCluster-Konfiguration mit acht Nodes und Array-LUNs verbinden müssen.</block>
-  <block id="c70273bf25434e94ddf0a0a169f3ce69" category="section-title">Allgemeine Verkabelungsrichtlinien mit Array LUNs</block>
-  <block id="c6d0df845a3b8a38a01661bcc6106c57" category="list-text">FAS8200 Storage-Systeme können mit einer oder zwei Optionen für FC-VI-Konnektivität bestellt werden:</block>
-  <block id="6db2108e71ff83caaec94293aa2cf458" category="list-text">FAS9000 Storage-Systeme erfordern vier FC-VI-Ports. Die folgenden Tabellen zeigen die Verkabelung für die FC Switches mit vier FC-VI-Ports auf jedem Controller.</block>
-  <block id="f4ea8e671475f27580e6f99503c8a19c" category="section-title">Verwendung von Brocade Ports für Controller in einer MetroCluster-Konfiguration</block>
-  <block id="d46eb15689b894ebe07f0a4793cadbf8" category="paragraph">Die folgenden Tabellen zeigen die Portnutzung auf Brocade Switches. Die Tabellen zeigen die maximal unterstützte Konfiguration mit acht Controller-Modulen in zwei DR-Gruppen. Bei kleineren Konfigurationen ignorieren Sie die Zeilen für die zusätzlichen Controller-Module. Beachten Sie, dass acht ISLs der Brocade 6510 und G620 Switches unterstützt werden.</block>
-  <block id="aba82c87f118329e288f10e6f42dbe23" category="admonition">Die Portnutzung für den Brocade 6505-Switch in einer MetroCluster-Konfiguration mit acht Nodes wird nicht angezeigt. Aufgrund der begrenzten Anzahl an Ports müssen abhängig vom Controller-Modulmodell und der Anzahl der verwendeten ISLs und Brückenpaare standortabhängig Port-Zuweisungen vorgenommen werden.</block>
-  <block id="1814dedb1c790c23078fe46b6940b212" category="paragraph">Die folgende Tabelle zeigt die Verkabelung der ersten DR-Gruppe:</block>
-  <block id="2611efab71dc5ad5e6a3700e648dc52b" category="cell">Brocade 6520, 6510, 6505, G620, G610, Oder 7840 Schalter</block>
-  <block id="72be3cab576c552263b273dfbaea5e16" category="cell">*Schalter 1*</block>
-  <block id="bb12412086f61c678c1c222a3af43eca" category="cell">*Schalter 2*</block>
-  <block id="8e0f977b7c0c1dee57d9b995dabcdbfc" category="paragraph">Die folgende Tabelle zeigt die Verkabelung der zweiten DR-Gruppe:</block>
-  <block id="813a305fd70f4862aee889950c31f869" category="cell">Brocade 6510</block>
   <block id="1dde0a938f669adb0ba03f105ef1eb58" category="cell">Brocade G620</block>
-  <block id="42fcd78062a81a04d2e4877d8f54bccf" category="cell">*ISLs*</block>
-  <block id="7722ff24296d2f8d65961c1711971328" category="paragraph">ISL 5</block>
-  <block id="589bdc08f2808f49e7f406733b5df633" category="paragraph">ISL 6</block>
-  <block id="51727c22119966c8bba12291937d46b6" category="paragraph">ISL 7</block>
-  <block id="e6022c6ed129f3537ce8c59725dbe8e6" category="paragraph">ISL 8</block>
-  <block id="3748d9307fea4a17476891841b1c77f8" category="paragraph">Die Tabellen zeigen die maximal unterstützte Konfiguration mit acht Controller-Modulen in zwei DR-Gruppen. Bei kleineren Konfigurationen ignorieren Sie die Zeilen für die zusätzlichen Controller-Module.</block>
-  <block id="673fe878b4e386d90c155e4e3a9dd011" category="section-title">Verwendung von Cisco 9396S-Ports</block>
-  <block id="309e1f2c9f2c466159e70783bd606770" category="section-title">Verwendung von Cisco 9148S-Ports</block>
-  <block id="b3442e9eecb3975a759a9ce14ac644c4" category="section-title">Verwendung von Cisco 9132T-Ports</block>
-  <block id="bae1aad05f778b08fcdd54d3fd3ea761" category="cell">*MDS-Modul 2*</block>
-  <block id="9903cabc0b19b07a1afc7f881e87d454" category="section-title">Verwendung von Cisco 9250 Ports</block>
-  <block id="84025710c8716672d86db32fd2ba79ca" category="cell">Der Cisco 9250i Switch wird für MetroCluster Konfigurationen mit acht Nodes nicht unterstützt.</block>
-  <block id="8d37a99e8b575522e0a290291ef1d44a" category="section-title">Shared Initiator- und Shared Target-Unterstützung für MetroCluster-Konfiguration mit Array LUNs</block>
-  <block id="45b7bd1bce2e60e45d43effa073a2382" category="paragraph">Die Möglichkeit, einen bestimmten FC-Initiator-Port oder Ziel-Ports gemeinsam zu nutzen, ist für Unternehmen nützlich, die die Anzahl der verwendeten Initiator- oder Ziel-Ports minimieren möchten. Ein Unternehmen, das beispielsweise eine geringe I/O-Nutzung über einen FC-Initiator-Port oder Ziel-Ports erwartet, möchte FC-Initiator-Port oder Ziel-Ports möglicherweise lieber gemeinsam nutzen, anstatt jeden FC-Initiator-Port einem einzelnen Ziel-Port zuzuweisen.</block>
-  <block id="6ee4ac48a4e5ef238551d28b737ce993" category="paragraph">Allerdings kann die gemeinsame Nutzung von Initiator- oder Ziel-Ports negative Auswirkungen auf die Performance haben.</block>
-  <block id="d41c1579eb4eae4520d18e1d89c0324f" category="inline-link">So unterstützen Sie die Konfiguration von Shared Initiator und Shared Target mit Array LUNs in einer MetroCluster-Umgebung</block>
-  <block id="7f983eabd66fb53d7d43c6cfad62b74d" category="paragraph"><block ref="7f983eabd66fb53d7d43c6cfad62b74d" category="inline-link-rx"></block></block>
   <block id="3da8861d57a1131794010a43bb8c0022" category="summary">Bei MetroCluster Konfigurationen mit acht oder vier Nodes müssen Sie den Cluster-Interconnect zwischen den lokalen Controller-Modulen an jedem Standort verkabeln.</block>
   <block id="26a54024c23fd925658f9c07af7f45f3" category="doc">Verkabelung des Cluster Interconnect in Konfigurationen mit acht oder vier Nodes</block>
   <block id="a5a5f58f8b4f49c67db8ac8769e18a9e" category="paragraph">In MetroCluster-Konfigurationen mit zwei Nodes ist diese Aufgabe nicht erforderlich.</block>
   <block id="eb952ac83e127d9e9c609c32989ebbf0" category="list-text">Verkabeln Sie den Cluster-Interconnect von einem Controller-Modul zum anderen oder falls Cluster-Interconnect-Switches verwendet werden, von jedem Controller-Modul zu den Switches.</block>
-  <block id="e7c51f571509030a8b7301dc8bc8a7fe" category="summary">Bevor Sie mit der Einrichtung von ONTAP-Systemen in einer MetroCluster-Konfiguration mit Array-LUNs beginnen können, muss der Storage-Array-Administrator den Speicher für die Verwendung mit ONTAP vorbereiten.</block>
-  <block id="0298c9d72aff4562d5434fe4a448c6a1" category="doc">Vorbereiten eines Speicher-Arrays für die Verwendung mit ONTAP-Systemen</block>
-  <block id="6ceeef6f6fdaf06b95cae87e460cfe9b" category="paragraph">Die Speicher-Arrays, Firmware und Switches, die Sie in der Konfiguration verwenden möchten, müssen von der jeweiligen ONTAP Version unterstützt werden.</block>
-  <block id="a011aa6047381b9696e67c3b40f1802e" category="inline-link">NetApp Interoperabilität (IMT)</block>
-  <block id="567997ebab95ad5c797a8c2164e69988" category="paragraph">Sie müssen sich mit dem Storage Array-Administrator abstimmen, um diese Aufgabe auf dem Storage Array durchzuführen.</block>
-  <block id="c6d70523707016c24377e7ebb500eef1" category="list-text">Erstellen Sie auf dem Storage-Array LUNs abhängig von der Anzahl der Nodes in der MetroCluster-Konfiguration.</block>
-  <block id="b30da40dcd4e32f00364fe223122c3ab" category="paragraph">Jeder Knoten in der MetroCluster-Konfiguration erfordert Array-LUNs für das Root-Aggregat, das Daten-Aggregat und die Ersatzteile.</block>
-  <block id="4040897121df220e5ae9b68b9fe58f41" category="list-text">Konfigurieren Sie Parameter auf dem Storage Array, die für die Nutzung mit ONTAP erforderlich sind.</block>
   <block id="4cd1110435955b3b14ac2d145c6baae1" category="paragraph">Jede MetroCluster Website ist als Peer-to-dessen Partner-Website konfiguriert. Sie sollten die Voraussetzungen und Richtlinien für die Konfiguration der Peering-Beziehungen kennen und bei der Entscheidung, ob für diese Beziehungen freigegebene oder dedizierte Ports verwendet werden sollen.</block>
   <block id="bafe4bc75cd2dda40df8007d783f6a0b" category="paragraph"><block ref="bafe4bc75cd2dda40df8007d783f6a0b" category="inline-link-macro-rx"></block></block>
-  <block id="706480a61d9e0992be9182b5010a6f28" category="doc">Beispiel für die Verkabelung von Storage Array-Ports mit FC Switches in einer MetroCluster-Konfiguration mit zwei Nodes</block>
-  <block id="98c5e9ced1b91fd70bc3cbf2050260a7" category="paragraph">In der folgenden Abbildung werden die Verbindungen zwischen den Storage Arrays und FC Switches in einer Fabric-Attached MetroCluster Konfiguration mit zwei Nodes mit Array-LUNs dargestellt:</block>
-  <block id="fe5c83ba1ba3a36ad5d4ca3acb30c79e" category="image-alt">Mit zwei Knoten verbundene mcc-Konfiguration</block>
-  <block id="926641fa5f513d7cc22f4efc08afd65a" category="paragraph">Die Verbindungen zwischen Storage-Array-Ports und FC-Switch-Ports sind bei Stretch- und Fabric-Attached-Varianten von MetroCluster-Konfigurationen mit zwei Nodes und Array-LUNs ähnlich.</block>
-  <block id="d2dda80f1fff01d0e113ebb44b5f1ed8" category="paragraph">In der folgenden Tabelle werden die Verbindungen zwischen den Storage Array-Ports und den FC-Switches für die Beispieldarstellung „MetroCluster“ aufgeführt:</block>
-  <block id="85b8c51389720a3d7d709e4a1462d7ae" category="summary">Sie müssen das korrekte Installationsverfahren anhand der jeweiligen Einstellung auswählen, ob Sie FlexArray LUNs, die Anzahl der Nodes in der MetroCluster Konfiguration und ob Sie eine vorhandene FC Switch Fabric nutzen, die von einem 7-Mode Fabric MetroCluster verwendet wird.</block>
-  <block id="1d82097ca48b595918af9c2a939393d9" category="image-alt">Workflow Wählen Sie Ihre MetroCluster Konfigurations-Fabric</block>
-  <block id="9a7522c7f21e36b291f1a44da46f7bcb" category="paragraph">Fabric-Attached-Konfiguration mit NetApp (nativen) Festplatten</block>
-  <block id="60bd1a2e6e7581b5d37f41673f11b0bf" category="list-text"><block ref="60bd1a2e6e7581b5d37f41673f11b0bf" category="inline-link-macro-rx"></block></block>
-  <block id="7979981215c4c0559046a0fa0a757edd" category="paragraph">Fabric-Attached-Konfiguration bei Freigabe mit einem vorhandenen FC Switch Fabric</block>
-  <block id="cb83c34f31283467f133410ad28c7f21" category="paragraph">Dies wird nur als temporäre Konfiguration mit einer 7-Mode Fabric MetroCluster Konfiguration unter Verwendung von Brocade 6510 Switches unterstützt.</block>
-  <block id="81af25de9f68ba8cc7b0883b71b9d3cb" category="doc">Beispiel für die Verkabelung von Storage Array-Ports mit FC-Switches in einer MetroCluster-Konfiguration mit acht Nodes</block>
-  <block id="8664664e713a383e7208ad181c9a1484" category="paragraph">Um die Array-Ports für die erste DR-Gruppe zu verkabeln, können Sie die Verkabelungsbeispiele für eine MetroCluster-Konfiguration mit vier Knoten für die erste DR-Gruppe verwenden.</block>
-  <block id="9eecc3d31e1dca8ff5a3adf6988fa6d7" category="paragraph"><block ref="9eecc3d31e1dca8ff5a3adf6988fa6d7" category="inline-link-macro-rx"></block></block>
-  <block id="3e50d9cbf27f15e843e5239619287ac0" category="paragraph">Folgen Sie zum Ververkabeln der Array-Ports für die zweite DR-Gruppe denselben Beispielen, und extrapolieren Sie für die FC-VI-Ports und FC-Initiator-Ports, die zu den Controllern in der zweiten DR-Gruppe gehören.</block>
-  <block id="90ca2ba118d725d3d2c212d37d698f66" category="summary">Sie müssen die Root-Aggregate in Ihrer MetroCluster Konfiguration spiegeln, um die Datensicherung zu gewährleisten.</block>
-  <block id="7c9ce51ecda69bd6b8e4f23c6195b311" category="paragraph">Sie müssen sicherstellen, dass die SyncMirror-Anforderungen für die MetroCluster-Konfiguration mit Array-LUNs erfüllt sind. Siehe<block ref="dde9fbc727f8cd4c9b4ba4b7030d98ee" category="inline-link-macro-rx"></block>.</block>
-  <block id="0e4fdb537ab94dcc88ee68afa6872a59" category="paragraph">Sie müssen diese Aufgabe für jeden Controller in der MetroCluster-Konfiguration wiederholen.</block>
-  <block id="213c74678d0f02b098b6031dd389187f" category="list-text">Spiegelung des nicht gespiegelten Root-Aggregats:</block>
-  <block id="eab8b55bcdb4287e02366668fee8df5a" category="paragraph">Das Root-Aggregat wird mit Array-LUNs aus Pool1 gespiegelt.</block>
   <block id="cf9793806e6e4a04213f68a860b2fd56" category="summary">Um einen Cisco FC-Switch zu konfigurieren, müssen Sie die Switch-Einstellungen auf die Werkseinstellungen zurücksetzen, die Switch-Software installieren und die Referenzkonfigurations- \(RCF\)-Dateien herunterladen und anwenden, die die vollständigen Switch-Einstellungen für bestimmte Konfigurationen bereitstellen.</block>
   <block id="64fb3fc78b6d09b80f739c2efaebdd9d" category="doc">Konfigurieren der Cisco FC-Switches mit RCF-Dateien</block>
   <block id="02043b3a3b802db01041709dec8e7509" category="paragraph">Um einen Cisco FC-Switch zu konfigurieren, müssen Sie die Switch-Einstellungen auf die Werkseinstellungen zurücksetzen, die Switch-Software installieren und die RCF-Dateien (Referenzkonfigurationsdateien) herunterladen und anwenden, die die vollständigen Switch-Einstellungen für bestimmte Konfigurationen bereitstellen.</block>
-  <block id="37e9679eddc91b6127c75399d29f2bd4" category="summary">Das Switch-Zoning definiert Pfade zwischen verbundenen Nodes. Beim Konfigurieren des Zoning können Sie festlegen, welche Array LUNs von einem bestimmten ONTAP System angezeigt werden können.</block>
-  <block id="d9308227a30c606613f4fa3412e37ce9" category="paragraph">Sie können das folgende Beispiel als Referenz beim Bestimmen des Zoning für eine MetroCluster-Konfiguration mit vier Nodes mit Array-LUNs verwenden. Das Beispiel zeigt den Single-Initiator im Einzel-Target-Zoning für eine MetroCluster-Konfiguration. Die Linien im folgenden Beispiel stellen Zonen statt Verbindungen dar; jede Zeile ist mit ihrer Zonennummer beschriftet:</block>
-  <block id="c148ee17ac2c6ca06fe9e799a4345ca2" category="image-alt">Diese Abbildung zeigt die Switch-Zonen in einer Beispiel-MetroCluster-Konfiguration mit Array-LUNs. Die Grafik wird durch den umgebenden Text beschrieben.</block>
-  <block id="1d01bb12bbd3ba0f599885c78fe9f103" category="paragraph">In der Abbildung sind auf jedem Speicher-Array für die MetroCluster-Konfiguration Array-LUNs zugewiesen. LUNs gleicher Größe werden auf den Storage Arrays an beiden Standorten bereitgestellt. Dies ist eine Anforderung von SyncMirror. Jedes ONTAP System verfügt über zwei Pfade zu den Array-LUNs. Die Ports auf dem Speicher-Array sind redundant.</block>
-  <block id="468c4e31b83836c58547baa1d09db6fc" category="paragraph">Für dieses Beispiel werden die Zonen angezeigt:</block>
-  <block id="0050758146bf0e40ef606abb0aa7e067" category="section-title">Zonen für FC_Switch_A_1</block>
-  <block id="028f2b49f446d208a687c241fe0e8daf" category="paragraph">Controller_A_1: Port 0a</block>
-  <block id="5e8fd592b1a82470ec63db47be9f4741" category="paragraph">Controller_A_1: Port 0c</block>
-  <block id="3e33ad5ebf04c4a12ec2f4748e6b2002" category="paragraph">Controller_A_2: Port 0a</block>
-  <block id="bb8b604f83bef79b7a51f5f757fc1401" category="paragraph">Controller_A_2: Port 0c</block>
-  <block id="24a276862acd14eb7c7208da4e845d52" category="section-title">Zonen für FC_Switch_A_2</block>
-  <block id="7ec0e9c61514dd4136c437463f0215a2" category="paragraph">Controller_A_1: Port 0b</block>
-  <block id="24c46c09a44df294142a98187e64b907" category="paragraph">Controller_A_1: Port 0d</block>
-  <block id="3a37195aa888a33ccb894eccf8aecd71" category="paragraph">Controller_A_2: Port 0b</block>
-  <block id="840b0d10d6134ca37eb25e7c6b72b7d9" category="paragraph">Controller_A_2: Port 0d</block>
-  <block id="e1cd84eb6479ce1c4e21561421bdf4c5" category="section-title">Zonen für FC_Switch_B_1</block>
-  <block id="1fde6c364c9c1516fd4e14b266863cd6" category="paragraph">z9</block>
-  <block id="83f43352c70a43e4c94460322053d520" category="paragraph">Controller_B_1: Port 0a</block>
-  <block id="8a7c2aa0bcfbcd3b3db1a51373e911e5" category="paragraph">Port 1C'</block>
-  <block id="dfcc19b25601ee11aa171e7ea9a985eb" category="paragraph">z11</block>
-  <block id="08a6b244dbd521e4118d1f87826a36bf" category="paragraph">Controller_B_1: Port 0c</block>
-  <block id="0786a53a28b0fabd58ea34b6fd56f1c4" category="paragraph">Port 1C</block>
-  <block id="8e1f7d9525fb0fcbfd0942397a892b6f" category="paragraph">z13</block>
-  <block id="5647278de7cea4bad4f55da433713a4d" category="paragraph">Controller_B_2: Port 0a</block>
-  <block id="823a6aedb3b721942a09edfaf29a95ac" category="paragraph">Port 1D'</block>
-  <block id="50a146fe02adea49f66d85b5c0dc1d1a" category="paragraph">z15</block>
-  <block id="ca1b1a191c8fe348e8effff7dc7c3f44" category="paragraph">Controller_B_2: Port 0c</block>
-  <block id="452f196c5b73b7bbe9fee407ba02c7a5" category="paragraph">Port 1D</block>
-  <block id="ce01dade681445bf0352e4096f1cc5d1" category="section-title">Zonen für FC_Switch_B_2</block>
-  <block id="71b743082db14682f473f43d4540a5d0" category="paragraph">z10</block>
-  <block id="72320c5074125979dc10f75936de77c8" category="paragraph">Controller_B_1: Port 0b</block>
-  <block id="c8551f217c315bd77dd0be859adf3b09" category="paragraph">Anschluss 2C</block>
-  <block id="1cfd85b4b16bd74555013b09a732afbd" category="paragraph">z12</block>
-  <block id="34cdcdc6c5ba02b62b5cf3dfe9a2f25f" category="paragraph">Controller_B_1: Port 0d</block>
-  <block id="28aa98cc9da8d95b3582775cfe2d95aa" category="paragraph">Port 2C'</block>
-  <block id="e91c0434f606153c3646f60e4c52fa61" category="paragraph">z14</block>
-  <block id="1ee24aa1696fef4e47195ad72926cdb5" category="paragraph">Controller_B_2: Port 0b</block>
-  <block id="fb69a17305c61b25876dda372f59d99b" category="paragraph">Port 2D</block>
-  <block id="bf73b5318257eb20d832e72af8b83eca" category="paragraph">z16</block>
-  <block id="4dc68403e9770c97674af560295ee1b9" category="paragraph">Controller_B_2: Port 0d</block>
-  <block id="fc3b457225fd8e608f075aa7fc9a72b5" category="paragraph">Port 2D'</block>
-  <block id="710f465b190acd2b3eaa58df7ef07228" category="section-title">Zonen für die FC-VI-Verbindungen an Standort A</block>
-  <block id="a3b9005346e50e7b1b754b4bbb8499a4" category="cell">ONTAP Controller und FC Initiator-Port</block>
-  <block id="1430685283edcfd3c27aa67406bde7fa" category="paragraph">Controller_A_1: FC-VI A-Port</block>
-  <block id="ed7dfe40a73d09564f0297a5570b5df3" category="paragraph">Controller_A_1: Port FC-VI b</block>
-  <block id="ccdaaaa8fea5344bdff3988854ee5d0d" category="paragraph">Controller_A_2: FC-VI A-Port</block>
-  <block id="13fe4be471f6120acdff84d95d02a458" category="paragraph">Controller_A_2: Port FC-VI b</block>
-  <block id="9518d05b4d3b9ea347fd7aea2307cd60" category="section-title">Zonen für FC-VI-Verbindungen an Standort B</block>
-  <block id="83db2b1266b3a9bec7a67961d39abec9" category="paragraph">Controller_B_1: FC-VI A-Port</block>
-  <block id="575e1ed1d3138b38fdd685736a6a47b9" category="paragraph">Controller_B_1: Port FC-VI b</block>
-  <block id="e48060ce0dce850ba08838b0bbacf939" category="paragraph">Controller_B_2: FC-VI A-Port</block>
-  <block id="05d031d4d0c0ba6aad9ddd1f447198d6" category="paragraph">Controller_B_2: FC-VI-Port b</block>
-  <block id="c2b6b0e868d1d64740864a0e6e2839e1" category="summary">Um eine MetroCluster-Konfiguration mit nativen Festplatten und Array-LUNs zu implementieren, müssen Sie sicherstellen, dass die in der Konfiguration verwendeten ONTAP-Systeme mit Speicher-Arrays verknüpft werden können.</block>
-  <block id="16a5724d7c98fb4a344abbd866c29d17" category="doc">Implementieren einer MetroCluster-Konfiguration mit Festplatten und Array LUNs</block>
-  <block id="8d567693df21dd007bca2cab1786c41e" category="paragraph">Eine MetroCluster-Konfiguration mit Festplatten und Array-LUNs kann zwei oder vier Nodes haben. Obwohl die MetroCluster Konfiguration mit vier Nodes Fabric-Attached sein muss, kann die Konfiguration mit zwei Nodes entweder Stretch oder Fabric-Attached sein.</block>
-  <block id="64d6dcdca907cf2218bf062bdef6f301" category="paragraph">Zum Einrichten einer Fabric-Attached MetroCluster Konfiguration mit zwei Nodes oder einer MetroCluster Konfiguration mit vier Nodes mit nativen Festplatten und Array-LUNs müssen Sie die ONTAP Systeme über FC-to-SAS Bridges mit den Festplatten-Shelfs verbinden. Sie können Array-LUNs über die FC-Switches mit den ONTAP-Systemen verbinden.</block>
-  <block id="0ef1bc9fe8d1512f00aec0835ae1b38a" category="inline-link-macro">Beispiel einer Fabric-Attached MetroCluster-Konfiguration mit zwei Nodes mit Festplatten und Array-LUNs</block>
-  <block id="133e5cbc5686e035d77f84f694299e20" category="paragraph"><block ref="133e5cbc5686e035d77f84f694299e20" category="inline-link-macro-rx"></block></block>
-  <block id="a2a2dcbf66bceb16c822e146bfd4ee0d" category="paragraph"><block ref="a2a2dcbf66bceb16c822e146bfd4ee0d" category="inline-link-macro-rx"></block></block>
   <block id="7bff7ee71aa08abe16552f96511c6124" category="doc">Zurücksetzen des Cisco FC-Switches auf die Werkseinstellungen</block>
   <block id="da490e4cad45c10def878a2b7c965b5e" category="list-text">Löschen Sie die vorhandene Konfiguration: +<block ref="43096fa330be8d71c6ed5901dc69dba4" prefix=" " category="inline-code"></block></block>
   <block id="4eec5768b0acba2b883e4b34537af3c1" category="list-text">Laden Sie die Switch-Software neu: +<block ref="028b52916c7d5b7a2995800816715f4c" prefix=" " category="inline-code"></block></block>
@@ -2443,17 +1926,6 @@
   <block id="5a50560fb9b26d7fc2c92b7d5f6ae1b1" category="list-text">Geben Sie grundlegende Informationen in die nächsten Eingabeaufforderungen ein, einschließlich Switch-Name, Verwaltungsadresse und Gateway, und geben Sie ein<block ref="a0fe78743fb6bc45634f8b9a01868edc" prefix=" " category="inline-code"></block> Für den SSH-Schlüssel, wie im Beispiel dargestellt:</block>
   <block id="1b4782ce89069f77ed7b432f97688c96" category="paragraph">Die letzte Eingabeaufforderung vervollständigt die Konfiguration:</block>
   <block id="f9d1d88dc50b4154bc11fca12fdf231e" category="list-text">Wiederholen Sie die vorherigen Schritte auf den anderen drei Switches der MetroCluster Fabric Konfiguration.</block>
-  <block id="753f32245e09a5cb3c0f8ea57c219e5d" category="summary">Wenn Ihre 7-Mode Fabric MetroCluster Konfiguration Brocade 6510 Switches verwendet, können Sie die vorhandene Switch-Fabric-Architektur mit der neuen Clustered MetroCluster Konfiguration gemeinsam nutzen. Dank Shared Switch Fabric ist für die neue MetroCluster Konfiguration keine neue separate Switch Fabric erforderlich. Diese temporäre Konfiguration wird nur vom Brocade 6510 Switch zu Migrationszwecken unterstützt.</block>
-  <block id="5a567289b578af5903f3224cb335d3fb" category="doc">Konfiguration von Hardware zur gemeinsamen Nutzung einer Brocade 6510 FC-Fabric während der Umstellung</block>
-  <block id="27e6c2849190239762206fcf113f7086" category="list-text">Das 7-Mode Fabric MetroCluster muss Brocade 6510 Switches verwenden.</block>
-  <block id="87628103a6b8c7eaf8360ed724a64ebf" category="paragraph">Wenn die MetroCluster Konfiguration derzeit keine Brocade 6510 Switches verwendet, müssen die Switches vor Nutzung dieses Verfahrens auf Brocade 6510 aktualisiert werden.</block>
-  <block id="a050d7522cdf278d0ebc45dfd612aa47" category="list-text">Die MetroCluster-Konfiguration für die 7-Mode Fabric muss nur SAS Storage Shelves verwenden.</block>
-  <block id="eba3539147e0d862df33659bc68c3062" category="paragraph">Wenn die vorhandene Konfiguration FC Storage Shelfs umfasst (wie DS14mk4 FC), wird die FC Switch Fabric-Freigabe nicht unterstützt.</block>
-  <block id="d64f0a03e0ff9a67e55d8cbd83c6dc5c" category="list-text">Die SFPs auf den Switch-Ports, die von der neuen Clustered MetroCluster Konfiguration verwendet werden, müssen 16 Gbit/s unterstützen.</block>
-  <block id="0216568f67e5d703868ec3f45bbaaa79" category="paragraph">Die vorhandenen 7-Mode Fabric MetroCluster können mit 8-Gbit/s- oder 16-Gbit/s-SFPs an Ports angeschlossen bleiben.</block>
-  <block id="05d631d42f259bf07f58147a7f7c98d4" category="list-text">An jedem der vier Brocade 6510-Switches müssen die Ports 24 bis 45 zur Verbindung der neuen MetroCluster-Komponenten verfügbar sein.</block>
-  <block id="a009195558b1c4cd3b61cdf61cb6fb25" category="list-text">Sie sollten überprüfen, ob sich die vorhandenen Inter-Switch Links (ISLs) auf den Ports 46 und 47 befinden.</block>
-  <block id="121789800a2a17c2b44944d1aba6cec3" category="paragraph">Nach Freigabe der Fabric und Abschluss der MetroCluster Konfiguration können Sie die Daten aus der 7-Mode Fabric MetroCluster Konfiguration umstellen.</block>
   <block id="26c467a24332bb8d92780a3eb059ce38" category="summary">Sie müssen die Referenzkonfigurationsdatei \(RCF\) auf jeden Switch der MetroCluster-Fabric-Konfiguration herunterladen.</block>
   <block id="4fbbc0ce852ccef3a7adceb0f9bc2c27" category="doc">Herunterladen der RCF-Datei des Brocade FC-Switch</block>
   <block id="b5909b79c9831ace5a37a88ecc8d8221" category="paragraph">Sie müssen die Referenzkonfigurationsdatei (RCF) auf jeden Switch der MetroCluster Fabric-Konfiguration herunterladen.</block>
@@ -2517,22 +1989,8 @@
   <block id="592c191df8a18376b1323c0c806866e6" category="paragraph">Beide Ausgaben sollten für beide Switches die gleichen Konfigurationsinformationen und Zoning-Informationen zeigen.</block>
   <block id="94d54d70c5d7ee5cc198da3e79246db2" category="list-text">Wenn das Trunking verwendet wird, bestätigen Sie das Trunking:</block>
   <block id="3c4e32c4ec392d71a4445aa8de2c38a3" category="paragraph"><block ref="ee2c754b77dd1cecae3dc492ea4a6a75" prefix="" category="inline-code"></block></block>
-  <block id="06064d055f6d7447dfd3dcd333779a7c" category="summary">Zum Einrichten einer Fabric-Attached MetroCluster Konfiguration mit zwei Nodes für native Festplatten und Array-LUNs müssen Sie über FC-to-SAS-Bridges die ONTAP Systeme über FC-Switches mit den Festplatten-Shelfs verbinden. Sie können Array-LUNs über die FC-Switches mit den ONTAP-Systemen verbinden.</block>
-  <block id="80e82def12ca4d8fe60bc7a3e4a368e0" category="paragraph">Die folgenden Abbildungen zeigen Beispiele für eine Fabric-Attached MetroCluster-Konfiguration mit zwei Knoten mit Festplatten und Array-LUNs. Beide Lösungen stellen dieselbe MetroCluster-Konfiguration dar. Die Darstellungen von Festplatten und Array-LUNs werden nur zur Vereinfachung getrennt.</block>
-  <block id="463edce3dc5dcbbb41e7db373b98fdc2" category="paragraph">In der folgenden Abbildung, die die Konnektivität zwischen ONTAP Systemen und Festplatten zeigt, werden die HBA-Ports 1a bis 1d für die Verbindung mit Festplatten über die FC-to-SAS-Bridges verwendet:</block>
-  <block id="49c1b21db78bd2699cc6cdc18d922d3a" category="image-alt">mcc-Laufwerke mit zwei Knoten kombiniert</block>
-  <block id="263427407c4a9482adc0747a4e1c97cb" category="paragraph">In der folgenden Abbildung, die die Konnektivität zwischen ONTAP-Systemen und Array-LUNs zeigt, werden die HBA-Ports 0a bis 0d für die Konnektivität mit Array-LUNs verwendet, da Ports 1a bis 1d für die Konnektivität mit Festplatten verwendet werden:</block>
-  <block id="accc2dacc412db66a942735964423c25" category="image-alt">Kombinierter Fabric Carrayluns mit zwei Nodes</block>
-  <block id="5fd8df07f07be8ba9b4318226aef95c2" category="summary">Sie können eine MetroCluster-Konfiguration mit Array-LUNs einrichten. Es werden sowohl Stretch- als auch Fabric-Attached-Konfigurationen unterstützt. AFF Systeme werden mit Array-LUNs nicht unterstützt.</block>
-  <block id="d7d568faf1e89736369daad49b871f32" category="doc">Unterstützte MetroCluster-Konfiguration mit Array-LUNs</block>
-  <block id="5bb8727e41ba71e243518e25b55701c5" category="paragraph">Die in den MetroCluster Konfigurationen unterstützten Funktionen variieren je nach Konfigurationstypen. In der folgenden Tabelle sind die Funktionen aufgeführt, die von den verschiedenen Typen von MetroCluster-Konfigurationen mit Array-LUNs unterstützt werden:</block>
-  <block id="754122881e650d3d6c0d6e0a7e765f05" category="cell">Fabric-Attached-Konfigurationen</block>
   <block id="4250e51248bc5d54f8b7bf7f3f4a57f6" category="cell">Acht Nodes</block>
   <block id="95e351a6be60cc62a4dd8db3ec98a00f" category="cell">Vier Nodes</block>
-  <block id="a8729440d8cdaab0e3c51cb11e55074a" category="cell">Zwei Nodes</block>
-  <block id="3a0a89576bfaaff699e1f3de4f7b9103" category="cell">Unterstützt automatische Umschaltung</block>
-  <block id="21c13c7f9394de1842ff80b5397e9e79" category="paragraph"><block ref="21c13c7f9394de1842ff80b5397e9e79" category="inline-link-macro-rx"></block></block>
-  <block id="713771fbe82877a6f1defe1e3ba7da98" category="summary">Sie müssen jeden Node in der MetroCluster Konfiguration in ONTAP einrichten, einschließlich der Node-Konfiguration und der Konfiguration der Nodes an zwei Standorten. Sie müssen auch die MetroCluster Beziehung zwischen beiden Standorten implementieren. Die Schritte für Systeme mit nativen Festplatten-Shelfs unterscheiden sich leicht von denen für Systeme mit Array-LUNs.</block>
   <block id="0e10a4686c50286be43ddc081aadc85a" category="section-title">Arbeitsblatt für IP-Netzwerkinformationen für Standort A</block>
   <block id="301c604b31537e51dee2712cb5564939" category="section-title">Switch-Informationen Standort A (Switch-Cluster)</block>
   <block id="5bbaf8bfd4ec4ca633710382799ad91f" category="paragraph">Wenn Sie das System verkabeln, benötigen Sie für jeden Cluster-Switch einen Host-Namen und eine Management-IP-Adresse. Diese Informationen sind nicht erforderlich, wenn Sie ein 2-Node-Cluster ohne Switches oder eine MetroCluster Konfiguration mit zwei Nodes (ein Node an jedem Standort) verwenden.</block>
@@ -2751,20 +2209,6 @@
   <block id="cbd86c7e400750482e3be58c7ef33b28" category="paragraph">Der Schalter wird nach der Installation der Switch-Software automatisch neu gestartet.</block>
   <block id="618e4240a8fc7b99797de82ab415ba5a" category="list-text">Vergewissern Sie sich, dass die Switch-Software installiert ist:</block>
   <block id="8ad53292346af0e49ae9217c0cd8ff40" category="list-text">Wiederholen Sie diese Schritte auf den verbleibenden drei FC-Switches in der MetroCluster-Fabric-Konfiguration.</block>
-  <block id="326883a949c64d870c3948f5ef42eb94" category="summary">Sie müssen Storage-Arrays mit FC-Switches verbinden, damit die ONTAP Systeme in der MetroCluster Konfiguration über mindestens zwei Pfade auf eine bestimmte Array-LUN zugreifen können.</block>
-  <block id="6f2e49325d4369f56d3fd8abdc32fecd" category="doc">Verkabelung der Storage Arrays mit FC-Switches in einer MetroCluster Konfiguration</block>
-  <block id="2cf27dfe3b49602bd7cbe0f68237179e" category="list-text">Die Speicher-Arrays müssen eingerichtet sein, um ONTAP Array-LUNs zur Verfügung zu stellen.</block>
-  <block id="dfdd5e97717bb8a40f71d55c0c79448a" category="list-text">Die ONTAP Controller müssen mit den FC-Switches verbunden sein.</block>
-  <block id="8ee39baac7c1da189386fc75fe841bdb" category="list-text">Die ISLs müssen zwischen den FC Switches über die MetroCluster Standorte verkabelt sein.</block>
-  <block id="ae6dfff9523938f205e9cf68c702f717" category="list-text">Sie müssen diese Aufgabe für jedes Storage Array an beiden MetroCluster-Standorten wiederholen.</block>
-  <block id="71dcc8069f5f74b92ceef1d5c9db2841" category="list-text">Sie müssen die Controller in einer MetroCluster Konfiguration über FC Switches mit den Storage-Arrays verbinden.</block>
-  <block id="03e323a28bbe7c699090507bcdefa17d" category="list-text">Verbinden Sie die Speicher-Array-Ports mit FC-Switch-Ports.</block>
-  <block id="030467ecaf0ffcaec3cc6f902037c1d1" category="paragraph">Verbinden Sie an jedem Standort die redundanten Port-Paare im Storage Array mit FC Switches in alternativen Fabrics. Dies bietet Redundanz in den Pfaden für den Zugriff auf die Array LUNs.</block>
-  <block id="99fa0f82949c7aac46618689ac0fcdbe" category="list-text">Beim Konfigurieren von Switch Zoning können Sie festlegen, welche Array LUNs in der MetroCluster-Konfiguration von einem bestimmten ONTAP-System angezeigt werden können.</block>
-  <block id="4a2fdc22a1eb9a68e0facd6612db20d8" category="inline-link-macro">Wechseln Sie das Zoning in einer MetroCluster Konfiguration mit Array LUNs</block>
-  <block id="f44903a02a813582e3877d0c017bdfcb" category="paragraph"><block ref="f44903a02a813582e3877d0c017bdfcb" category="inline-link-macro-rx"></block></block>
-  <block id="3d46a6eeb65ebe391571feddc1cc5164" category="paragraph"><block ref="3d46a6eeb65ebe391571feddc1cc5164" category="inline-link-macro-rx"></block></block>
-  <block id="2740d289d4d49097464e045111134762" category="paragraph"><block ref="2740d289d4d49097464e045111134762" category="inline-link-macro-rx"></block></block>
   <block id="a67eabd25a14e4d0c90e1d8b28411988" category="paragraph">Beispiel, das in diesem Handbuch verwendet wird: Site_A</block>
   <block id="b4d7baf41cc0c5cafe8cdf28d3c7d4a9" category="paragraph">Beispiel für dieses Handbuch: Controller_A_1</block>
   <block id="1ccec885efe14190b68ea60168729b15" category="paragraph">Beispiel für dieses Handbuch: Controller_A_2</block>
@@ -2819,26 +2263,6 @@
   <block id="06eff1ae70df860b6c817c9ab3858d3d" category="list-text">Verwenden Sie die im genannten Verfahren für die ausgehandelte Umschaltung, die Reparatur und den Wechsel zurück<block ref="6d6ef49fcb406c2ba2bda06977913f53" category="inline-link-rx"></block>.</block>
   <block id="267f48079d5a0c20b3bac37bdeae2c4e" category="paragraph"><block ref="44b2f25d75b18863833dc90317518de4" prefix="" category="inline-code"></block></block>
   <block id="8c9ca8086755018358ea4d5d0c638cf9" category="paragraph">Sie können die Management-Ports des Controllers und des Cluster Switches mit vorhandenen Switches im Netzwerk oder mit neuen dedizierten Netzwerk-Switches wie den NetApp CN1601 Cluster Management Switches verbinden.</block>
-  <block id="a84d3843dc1716053ed4001478a35595" category="summary">Sie müssen die V_StorageAttach-Lizenz auf jedem MetroCluster-Knoten installieren, den Sie mit Array LUNs verwenden möchten. Sie können Array-LUNs in einem Aggregat erst verwenden, wenn die Lizenz installiert ist.</block>
-  <block id="9d61f0176cee0faa3e591c2beb64eb10" category="doc">Installieren der Lizenz für die Verwendung von Array-LUNs in einer MetroCluster-Konfiguration</block>
-  <block id="6dce6a8d34576d6e6d2f961c8b413963" category="list-text">Das Cluster muss installiert sein.</block>
-  <block id="46828fa53ffc65db6a237d68a35398f5" category="list-text">Sie müssen über den Lizenzschlüssel für die V_StorageAttach Lizenz verfügen.</block>
-  <block id="4075d07234c68dc30461eda09f77ca39" category="paragraph">Sie müssen für jeden Knoten, auf dem Sie die V_StorageAttach-Lizenz installieren möchten, einen separaten Lizenzschlüssel verwenden.</block>
-  <block id="a7ee2c4a10e1570860b0601ec209e4e8" category="list-text">Installieren Sie die V_StorageAttach-Lizenz.</block>
-  <block id="5da2b156280daaa1fc2fe1cb2772416f" category="paragraph"><block ref="6c25ae7b27db9a62b5c245ad70b9d7cc" prefix="" category="inline-code"></block></block>
-  <block id="0e6c46605ec1bda2ec4ae95381224c25" category="paragraph">Wiederholen Sie diesen Schritt für jeden Clusterknoten, auf dem Sie die Lizenz installieren möchten.</block>
-  <block id="b2b6e23ab57653d1006049cf37bfed5b" category="list-text">Vergewissern Sie sich, dass die V_StorageAttach Lizenz auf allen erforderlichen Nodes in einem Cluster installiert ist.</block>
-  <block id="c4f2ecfddbca137434d6171dc1d881dd" category="paragraph">Die folgende Ausgabe zeigt, dass die V_StorageAttach-Lizenz auf den Knoten von Cluster_A installiert ist:</block>
-  <block id="5163480f9a9877452e514b2b8e14d3b9" category="paragraph">Folgende Anforderungen gelten für das Switch-Zoning in einer MetroCluster-Konfiguration mit Array LUNs:</block>
-  <block id="84a9505accf67e9e387d354ed58a7611" category="list-text">Die MetroCluster-Konfiguration muss dem Einzel-Initiator- zum Einzel-Ziel-Zoning-Schema folgen.</block>
-  <block id="57f1c6242da9740173e005e0cdb2561d" category="paragraph">Einzel-Initiator auf Einzel-Ziel-Zoning beschränkt jede Zone auf einen einzelnen FC-Initiator-Port und einen einzelnen Ziel-Port.</block>
-  <block id="2b2c8f585b721e9343a9f5be4b8c163a" category="list-text">Die FC-VI-Ports müssen über die Fabric hinweg begrenzt werden.</block>
-  <block id="9377aa6f276f8ec401ff97cad8c3288f" category="list-text">Die gemeinsame Nutzung mehrerer Initiator-Ports mit einem einzelnen Ziel-Port kann zu Performance-Problemen führen.</block>
-  <block id="4213e2e4219d8c646fb0d77e759bd1e7" category="paragraph">Ebenso kann die gemeinsame Nutzung mehrerer Ziel-Ports mit einem einzelnen Initiator-Port zu Performance-Problemen führen.</block>
-  <block id="a97092f773742097739d9703f62392b9" category="list-text">Sie müssen eine Basiskonfiguration der in der MetroCluster-Konfiguration verwendeten FC-Switches durchgeführt haben.</block>
-  <block id="ed167884ebcfbf8e54d556f8a50a60c2" category="list-text">Das Switch-Zoning definiert Pfade zwischen verbundenen Nodes. Beim Konfigurieren des Zoning können Sie festlegen, welche Array LUNs von bestimmten ONTAP Systemen angezeigt werden können.</block>
-  <block id="34ba78cbd58ca4736a4ec9afcd4a2529" category="summary">Das Einrichten des Clusters umfasst die Einrichtung jedes Nodes, das Erstellen des Clusters auf dem ersten Node und das Hinzufügen aller verbleibenden Nodes zum Cluster.</block>
-  <block id="b418e6f88f4c95341a5b126a8b9b98f9" category="doc">Einrichten des Clusters</block>
   <block id="e90535a051902416d901e147c4c59930" category="summary">Hier wird beschrieben, wie die MetroCluster Tiebreaker Software installiert und konfiguriert ist.</block>
   <block id="884324de7d536976016cc7e2b34b0da9" category="paragraph">Sie sollten diese Informationen für die Installation der MetroCluster Tiebreaker Software verwenden.</block>
   <block id="37e24b9beaec6e2d80c28ff203bbbdac" category="summary">MetroCluster Tiebreaker nutzt eine Reihe von Ports, um mit bestimmten Services zu kommunizieren.</block>
@@ -3067,7 +2491,6 @@
   <block id="10fb6eda16d44576f048cbbd98a21f49" category="sidebar">Bereiten Sie sich auf die MetroCluster Installation vor</block>
   <block id="06800b31fe5394b22e1a11163137b326" category="sidebar">Entscheidung zwischen ONTAP Mediator und MetroCluster Tiebreaker</block>
   <block id="4ae1141d3ba10797d5f82641406d5702" category="sidebar">Automatische Antriebszuweisung und ADP-Systeme in ONTAP 9.4 und höher</block>
-  <block id="d3afb6862c8b819caa7f03082d2af919" category="sidebar">Nicht gespiegelte Aggregate in einer MetroCluster IP-Konfiguration</block>
   <block id="b8e55c88d2ead2425b022ce67ac4bb75" category="sidebar">Die Hardwarekomponenten in Racks zu konfigurieren</block>
   <block id="5a4d16a157dad9438b527caaa9b4b2ab" category="sidebar">MetroCluster IP-Switches verkabeln</block>
   <block id="e42ae5049bd4441f35fc1a5c789393b6" category="sidebar">So verwenden Sie die Porttabellen mit dem RcfFileGenerator-Tool oder mehreren MetroCluster-Konfigurationen</block>
@@ -3250,33 +2673,6 @@
   <block id="00b95021ee9d17915062023af515e24c" category="sidebar">Setzen Sie den Cisco FC-Switch auf die Werkseinstellungen zurück</block>
   <block id="04feb40ba41d7f08a0ed11c320036b50" category="sidebar">Laden Sie die Cisco FC Switch NX-OS Software herunter, und installieren Sie sie</block>
   <block id="3c25e8c40f06568b29ce946fd777d561" category="sidebar">Laden Sie die Cisco FC RCF-Dateien herunter, und installieren Sie sie</block>
-  <block id="a843b71ec15aadada63575eb83031c0b" category="sidebar">Hardware für die gemeinsame Nutzung einer Brocade 6510 FC-Fabric während der Umstellung konfigurieren</block>
-  <block id="7a624101744abdf7e3500edd9f2b8245" category="sidebar">Brocade Lizenzanforderungen prüfen</block>
-  <block id="bf3919a06ddf0ec27a0504fe47bad7b2" category="sidebar">Die neuen MetroCluster Controller mit den vorhandenen FC-Fabrics verkabeln</block>
-  <block id="7bd89e108931ce636e15123e89248e50" category="sidebar">Konfigurieren Sie die Switch Fabric-Freigabe zwischen 7-Mode und Clustered MetroCluster Konfiguration</block>
-  <block id="1c2eab36143e7d0d27484d242e30fa69" category="sidebar">Deaktivieren Sie eine Switch-Fabric</block>
-  <block id="6dcbc3ddfa4366cb8ba086eccc404332" category="sidebar">Löschen Sie TI-Zoning und konfigurieren Sie IOD-Einstellungen</block>
-  <block id="a0d866aecd15331d9714ca9e4532bbc9" category="sidebar">Stellen Sie sicher, dass sich ISLs in derselben Portgruppe befinden, und konfigurieren Sie das Zoning</block>
-  <block id="cd6d15e2b46d3e2f47014c4828615a8e" category="sidebar">Die Switch-Fabric wieder aktivieren und den Betrieb überprüfen</block>
-  <block id="80f976c9a0f2d21f314ed374e33cd352" category="sidebar">Planung und Installation einer MetroCluster Konfiguration mit Array-LUNs</block>
-  <block id="c8b19b92d4a50bed297998d47df26051" category="sidebar">Planen einer MetroCluster-Konfiguration mit Array-LUNs</block>
-  <block id="93a308f93d8d5ca19cae9d08e22adb09" category="sidebar">Installieren und verkabeln Sie die MetroCluster-Komponenten in einer Konfiguration mit Array-LUNs</block>
-  <block id="fee2d524a67123cd96bfd7853ae5408a" category="sidebar">Rack-Höheneinheiten der Hardwarekomponenten in einer MetroCluster Konfiguration mit Array LUNs</block>
-  <block id="70c598f8277affd6e17085bb627890ca" category="sidebar">Bereiten Sie ein Storage-Array für die Verwendung mit ONTAP-Systemen vor</block>
-  <block id="da4b9b1e8c5a8c0384dc20493d174c59" category="sidebar">FC-VI- und HBA-Ports in einer MetroCluster-Konfiguration mit Array-LUNs verkabeln</block>
-  <block id="d017c47eb70c050107462722a35d0b3a" category="sidebar">FC-VI- und HBA-Ports in einer Fabric-Attached MetroCluster-Konfiguration mit zwei Nodes mit Array-LUNs verkabeln</block>
-  <block id="f804d68a8997c439232d5fdd9ef960d8" category="sidebar">FC-VI- und HBA-Ports in einer Fabric-Attached MetroCluster Konfiguration mit vier Nodes mit Array-LUNs verkabeln</block>
-  <block id="6f735fbd16bebf7e5bc182e7c89a7f5c" category="sidebar">Verkabeln Sie die FC-VI- und HBA-Ports in einer Fabric-Attached MetroCluster-Konfiguration mit acht Nodes mit Array-LUNs</block>
-  <block id="08e9dda3455a57aa7a1a245e6ea0f304" category="sidebar">Verkabeln Sie die ISLs in einer MetroCluster-Konfiguration mit Array-LUNs</block>
-  <block id="c57c9eb0f376e2aa407c1ab2c90aa9b4" category="sidebar">Verkabeln Sie den Cluster Interconnect in Konfigurationen mit acht oder vier Nodes</block>
-  <block id="b98d15dba7d8fefd8d980d63a4e11a61" category="sidebar">Kabel von Storage Arrays mit FC-Switches in einer MetroCluster Konfiguration</block>
-  <block id="8226496b91995cbdb411fc748863b4a9" category="sidebar">Richten Sie ONTAP in einer MetroCluster-Konfiguration mit Array-LUNs ein</block>
-  <block id="e23243448b3ec49d7f5b13275d7f6335" category="sidebar">Richten Sie das Cluster ein</block>
-  <block id="731325ca2f2fc3bced1b8025aca12524" category="sidebar">Installieren Sie die Lizenz für die Verwendung von Array-LUNs in einer MetroCluster-Konfiguration</block>
-  <block id="273c4b6f5e2cdfbb64c441af81ec9535" category="sidebar">Weisen Sie Array-LUNs zu</block>
-  <block id="34e36cd434217e95f9efd2a4ff5396a5" category="sidebar">Peer-to-Peer-Cluster</block>
-  <block id="58a2e0468310e7617d4e119676028f57" category="sidebar">Erstellung von Datenaggregaten zur, Implementierung und Überprüfung der MetroCluster-Konfiguration</block>
-  <block id="625658dcf56e073788050ba3b314f569" category="sidebar">Implementieren Sie eine MetroCluster-Konfiguration mit Festplatten- und Array-LUNs</block>
   <block id="8b3aeec8c25c17c966b0b882195c6050" category="sidebar">Synchronisieren Sie die Systemzeit mit NTP</block>
   <block id="38484792ce18e1ac90df07df1cbe4040" category="sidebar">Installation der Tiebreaker Software</block>
   <block id="77d873129b2551d3791bd53918453706" category="sidebar">Konfigurieren der Tiebreaker Software</block>
@@ -3665,11 +3061,9 @@
   <block id="5526d75deed345c5b83d6ead8ab0bdad" category="paragraph">Wiederholen Sie die vorherigen Aufgaben, um die Nodes in der zweiten DR-Gruppe zu konfigurieren.</block>
   <block id="3bb62bd0db01d5a91a87b5aad29c21cf" category="section-title">Erstellen von nicht gespiegelten Datenaggregaten</block>
   <block id="bf2497e5dbebaf427ad038e5a165371f" category="paragraph">Optional können Sie nicht gespiegelte Datenaggregate für Daten erstellen, für die keine redundante Spiegelung von MetroCluster-Konfigurationen erforderlich ist.</block>
-  <block id="e8918a09def2aeb7defc8280332cfebd" category="list-text">Sie sollten wissen, welche Laufwerke oder Array LUNs im neuen Aggregat verwendet werden.</block>
   <block id="397974d0ae4f4d3b113de9be111199f8" category="list-text">Wenn Sie mehrere Laufwerktypen in Ihrem System haben (heterogener Speicher), sollten Sie verstehen, wie Sie überprüfen können, ob der richtige Laufwerkstyp ausgewählt ist.</block>
   <block id="7ef4b332b4b48ccab13ab1bb737930c5" category="admonition">In MetroCluster IP-Konfigurationen können Remote-Aggregate nach einem Switchover nicht zugänglich gemacht werden</block>
   <block id="e9634520326541bac31db4b18c1f9afb" category="admonition">Die nicht gespiegelten Aggregate müssen sich lokal an dem Node halten, auf dem sie sich enthalten.</block>
-  <block id="fb5b647ceadafa64bdabb02e963b9224" category="list-text">Laufwerke und Array-LUNs sind Eigentum eines bestimmten Nodes. Wenn Sie ein Aggregat erstellen, müssen alle Laufwerke in diesem Aggregat Eigentum desselben Node sein, der zum Home Node für das Aggregat wird.</block>
   <block id="4b8414b2021cbbd4b58cc5b95bc166cd" category="list-text">_Festplatten- und Aggregatmanagement_ enthält weitere Informationen zur Spiegelung von Aggregaten.</block>
   <block id="1f28277756aaed1f919fd03c2fa92a26" category="list-text">Implementierung von nicht gespiegelten Aggregaten:</block>
   <block id="e4aa649e735d4adbdb401bf82feea340" category="paragraph"><block ref="919e78dd502349ac52b15ba545c06e89" prefix="" category="inline-code"></block></block>
@@ -3681,8 +3075,6 @@
   <block id="ede7d62c56c4e8cc1ce19b17eeb92770" category="paragraph"><block ref="1b40ef6e34df7d2fb54b5d639e14412d" prefix="" category="inline-code"></block></block>
   <block id="6d6f602efa1b388ca6264b6013787a0e" category="paragraph">Wenn Sie auf der Cluster-Managementoberfläche beim Cluster angemeldet sind, können Sie auf jedem Node im Cluster ein Aggregat erstellen. Um zu überprüfen, ob das Aggregat auf einem bestimmten Node erstellt wird, sollten Sie den Parameter -Node verwenden oder Laufwerke angeben, die Eigentum dieses Node sind.</block>
   <block id="c867a6fd725cedea57bb7663de5a37c2" category="paragraph">Darüber hinaus müssen Sie sicherstellen, dass Sie nur Laufwerke in das nicht gespiegelte Shelf zum Aggregat aufnehmen.</block>
-  <block id="a6480a829f17700a2c732897b3a46dd7" category="list-text">Liste bestimmter Laufwerke oder Array LUNs, die dem Aggregat hinzugefügt werden sollen</block>
-  <block id="ad222f1b99fd82273d6e96c71c66a371" category="list-text">Maximale Anzahl an Laufwerken oder Array-LUNs, die in einer RAID-Gruppe enthalten sein können</block>
   <block id="ef2f43e3af3c4fa749e73a7911ab793f" category="list-text">Gibt an, ob Laufwerke mit unterschiedlichen U/min zulässig sind</block>
   <block id="aee39fa61ef32d1a40e13054914c36df" category="paragraph">Weitere Informationen zu diesen Optionen finden Sie auf der „Storage Aggregate create man page“.</block>
   <block id="0c14f54e968697b22703046426aae7f1" category="paragraph">Mit dem folgenden Befehl wird ein nicht gespiegeltes Aggregat mit 10 Festplatten erstellt:</block>
@@ -3880,9 +3272,7 @@
   <block id="25a32d3efa36abb5de7814f6a8b70c72" category="paragraph">Aktivieren der MetroCluster-Konfiguration</block>
   <block id="5b949d2101e596971b2c4b786ea9661d" category="paragraph">Nicht zutreffend</block>
   <block id="ff63653e290a8e5b339966cb9855555f" category="summary">Nach dem Entfernen der MetroCluster-Konfiguration sollten alle Festplatten-Konnektivität und Interconnects auf einen unterstützten Zustand eingestellt werden. Wenden Sie sich an den technischen Support, wenn Sie die MetroCluster Konfiguration entfernen müssen.</block>
-  <block id="882861c4cbc2720bbf7b9b7ae1dbada9" category="doc">Überlegungen beim Entfernen von MetroCluster-Konfigurationen</block>
   <block id="a0bc38f50488b4f686bd2fe145def041" category="inline-link-macro">Entfernen von Knoten aus einer MetroCluster Konfiguration - Auflösungsleitfaden.</block>
-  <block id="8b54a6608c7aceee8d4dfde954124547" category="admonition">Die Konfiguration von MetroCluster kann nicht rückgängig gemacht werden. Dieses Verfahren sollte nur mit Unterstützung durch den technischen Support erfolgen. Wenden Sie sich an den technischen Support von NetApp und verweisen Sie auf den entsprechenden Leitfaden für Ihre Konfiguration im <block ref="c2ef60fcbce343052d34da400cf98089" category="inline-link-macro-rx"></block></block>
   <block id="b01c69e71056e83cb48170b9d503ceca" category="summary">Um Ihre MetroCluster IP-Konfiguration zu installieren, müssen Sie eine Reihe von Verfahren in der richtigen Reihenfolge durchführen.</block>
   <block id="3b878279a04dc47d60932cb294d96259" category="doc">Überblick</block>
   <block id="44c8f7e829aa8aa08ac1dd41d05668a8" category="inline-link-macro">Bereiten Sie sich auf die Installation vor und verstehen Sie alle Anforderungen</block>
@@ -3914,10 +3304,6 @@
   <block id="acaaad9afa094fcde3c31cd0610a8bdc" category="paragraph"><block ref="acaaad9afa094fcde3c31cd0610a8bdc" category="inline-link-macro-rx"></block></block>
   <block id="acb19996aff6d0b774650f9aa4d7212a" category="inline-link-macro">MetroCluster IP-Setup-Arbeitsblatt, Site_B</block>
   <block id="08fcfce40ddd768f4ab6ad0534a40c73" category="paragraph"><block ref="08fcfce40ddd768f4ab6ad0534a40c73" category="inline-link-macro-rx"></block></block>
-  <block id="2ac5b29f2d20bbfbdc32651d31618463" category="summary">Eine Konfiguration mit acht Nodes besteht aus zwei DR-Gruppen. Konfigurieren Sie die erste DR-Gruppe mithilfe der Aufgaben in diesem Abschnitt.</block>
-  <block id="146d142d8ea797f93d593a6fe9556787" category="doc">Handhabung von Konfigurationen mit acht Nodes</block>
-  <block id="0cd02877aca872fed2b891e70e7d6d9d" category="inline-link-macro">Erweitern einer MetroCluster IP-Konfiguration mit vier Nodes auf eine Konfiguration mit acht Nodes</block>
-  <block id="dd42913fad72868b65fced98cfecfcd6" category="paragraph">Führen Sie dann die Aufgaben in aus <block ref="3e70f7d1f526cf6dd7a89a97c88d0cc8" category="inline-link-macro-rx"></block></block>
   <block id="7e756142ca24020ffa4d2170bdd9c135" category="summary">Sie können Fehlerszenarien testen, um den korrekten Betrieb der MetroCluster-Konfiguration zu bestätigen.</block>
   <block id="feda56ed0396074f051138ea4466f982" category="doc">Testen der MetroCluster-Konfiguration</block>
   <block id="397065d1ea76a7267c1165f18aff1479" category="section-title">Überprüfung der ausgehandelten Umschaltung</block>
@@ -4091,20 +3477,15 @@
   <block id="c4ce4761e466527d26b3e3d5ed1006fd" category="paragraph">NetApp, das NETAPP Logo und die auf der NetApp Markenseite aufgeführten Marken sind Marken von NetApp Inc. Andere Firmen- und Produktnamen können Marken der jeweiligen Eigentümer sein.</block>
   <block id="f99aa604031e5049799e73b5c3748a98" category="paragraph"><block ref="f99aa604031e5049799e73b5c3748a98" category="inline-link-rx"></block></block>
   <block id="e23227abfbbf3f39097241194ae51e5e" category="summary">Wenn Ihre Konfiguration nicht gespiegelte Aggregate umfasst, müssen potenzielle Zugriffsprobleme nach dem Switchover berücksichtigt werden.</block>
-  <block id="6e951796cc7b3ef0b3cbdf6750702b5c" category="doc">Verwendung von nicht gespiegelten Aggregaten</block>
   <block id="3867ac83522577ac1e3b5b5d7cd98009" category="section-title">Überlegungen für nicht gespiegelte Aggregate bei Wartungsarbeiten, die einen Stromausfall erfordern</block>
   <block id="db90962864d575501326aa078b763137" category="paragraph">Wenn Sie aus Wartungsgründen eine Umschaltung durchführen möchten, die ein standortweites Herunterfahren erfordert, sollten Sie zuerst alle nicht gespiegelten Aggregate des Disaster-Standorts manuell offline schalten.</block>
   <block id="57039a40a88640f58fa3d2e40f388c8b" category="paragraph">Ist dies nicht der Fall, können Nodes am verbleibenden Standort aufgrund einer „Panik mit mehreren Festplatten“ ausfallen. Wenn Switched-over-nicht gespiegelte Aggregate offline geschaltet werden oder aufgrund des Verlusts der Verbindung zum Storage am DR-Standort aufgrund des Stromausfalls oder des Verlusts von ISLs fehlen.</block>
   <block id="659e0582c65f61e8b4d3a9e29353485a" category="section-title">Überlegungen für nicht gespiegelte Aggregate und hierarchische Namespaces</block>
   <block id="ce02e334c176443baacfb1d15850936c" category="paragraph">Wenn Sie hierarchische Namespaces verwenden, sollten Sie den Verbindungspfad so konfigurieren, dass alle Volumes in diesem Pfad sich entweder nur auf gespiegelten Aggregaten oder nur auf nicht gespiegelten Aggregaten befinden. Wenn Sie eine Kombination aus nicht gespiegelten und gespiegelten Aggregaten im Verbindungspfad konfigurieren, ist möglicherweise nach der Umschaltung der Zugriff auf nicht gespiegelte Aggregate verhindert.</block>
   <block id="bb00fbc514d8616f8f15c47e99d5a5cb" category="section-title">Überlegungen für nicht gespiegelte Aggregate und CRS-Metadaten-Volume und Root-Volumes der Daten-SVM</block>
-  <block id="794fb422ed7feaa8e2fd8e01503528af" category="paragraph">Der Configuration Replication Service (CRS) Metadaten-Volume und Daten-SVM-Root-Volumes müssen sich in einem gespiegelten Aggregat befinden. Sie können diese Volumes nicht in ein nicht gespiegeltes Aggregat verschieben. Wenn sie sich auf einem nicht gespiegelten Aggregat befinden, sind über Switchover und Switchback-Vorgänge verhandelt es Vetos. Der befehl MetroCluster Check gibt eine Warnung aus, wenn dies der Fall ist.</block>
   <block id="8d0403b9deec1058b07790ba46b5072c" category="section-title">Überlegungen für nicht gespiegelte Aggregate und SVMs</block>
   <block id="2bdd511f4580eff308a5d77e78e121e5" category="paragraph">SVMs sollten nur auf gespiegelten Aggregaten oder nur auf nicht gespiegelten Aggregaten konfiguriert werden. Beim Konfigurieren einer Kombination aus nicht gespiegelten und gespiegelten Aggregaten kann ein Switchover von mehr als 120 Sekunden durchgeführt werden. So kann ein Datenausfall auftreten, wenn die nicht gespiegelten Aggregate nicht online geschaltet werden.</block>
   <block id="708d7124490b473687f7923a27935eab" category="section-title">Überlegungen für nicht gespiegelte Aggregate und SAN</block>
-  <block id="691a1c982701a36663600612625b18c0" category="paragraph">Vor ONTAP 9.9 sollte sich eine LUN nicht auf einem nicht gespiegelten Aggregat befinden. Das Konfigurieren einer LUN auf einem nicht gespiegelten Aggregat kann zu einem Switchover von mehr als 120 Sekunden bei einem Ausfall der Daten führen.</block>
-  <block id="aeaa739c92ec82faf927b61679580290" category="section-title">Überlegungen beim Hinzufügen von Storage-Shelfs für nicht gespiegelte Aggregate</block>
-  <block id="88e934baa541b7e8fd87cf4d8e9c9b2d" category="admonition">Wenn Sie Shelves hinzufügen, die in einer MetroCluster IP-Konfiguration für nicht gespiegelte Aggregate verwendet werden, müssen Sie Folgendes tun:</block>
   <block id="bcf2ba64f8ca400962c78be17e4f72b5" category="list-text">Bevor Sie das Verfahren zum Hinzufügen der Shelves starten, geben Sie den folgenden Befehl ein:</block>
   <block id="9a2a15d781f7232859f638bf1caffe2c" category="paragraph"><block ref="8ca3072828d53a2d04de01ec9e7fd330" prefix="" category="inline-code"></block></block>
   <block id="015a5eb76cbc28273197c813cce60b75" category="list-text">Vergewissern Sie sich, dass die automatische Festplattenzuordnung deaktiviert ist:</block>
@@ -4253,7 +3634,6 @@
   <block id="9998da0c6596ccc4b44b68b91eee576b" category="list-text">MetroCluster Konfigurationen mit acht Nodes</block>
   <block id="68ce13809f636bb102d35b897931709c" category="list-text">Der Wechsel von MetroCluster FC- zu MetroCluster IP-Konfigurationen</block>
   <block id="541a17569d4a90ee94a9fd4035349deb" category="list-text">Aktualisieren einer MetroCluster IP-Konfiguration mit vier Nodes (ONTAP 9.8 und höher)</block>
-  <block id="673f5a3eeb8366a43231216d5889b9fc" category="inline-link-macro">Verwenden der Porttabellen mit dem RcfFileGenerator-Tool oder mehreren MetroCluster-Konfigurationen</block>
   <block id="1a9a81b41cb8cc01a9f2179bc3aa4309" category="summary">Wenn Sie ONTAP in einer MetroCluster-Konfiguration verwenden, sollten Sie bestimmte Überlegungen bei der Lizenzierung, beim Peering an Cluster außerhalb der MetroCluster-Konfiguration, bei der Durchführung von Volume-Vorgängen, NVFAIL-Vorgängen und anderen ONTAP-Vorgängen beachten.</block>
   <block id="ae19a3c74896bca309c7c670ba16f62d" category="doc">Überlegungen bei der Verwendung von ONTAP in einer MetroCluster-Konfiguration</block>
   <block id="ab6f20f5b829d0d0c601421db2ea7500" category="paragraph">Die ONTAP Konfiguration der beiden Cluster einschließlich Netzwerk sollte identisch sein, da die MetroCluster Funktion darauf setzt, dass ein Cluster bei einem Switchover Daten nahtlos für seinen Partner bereitstellen kann.</block>
@@ -4488,8 +3868,6 @@
   <block id="86290de1e3dc18d66aadd1f00e3ca1b1" category="list-text">Wiederholen Sie den vorherigen Schritt auf den anderen drei Switches der MetroCluster IP-Konfiguration.</block>
   <block id="52ad3b024ecc6eae02e8415cef1140ba" category="summary">Sie müssen die IP-Switches konfigurieren, um eine Back-End-MetroCluster-IP-Konnektivität bereitzustellen.</block>
   <block id="9e93b10c56fcff9e0d1564e5ad629c03" category="doc">Konfigurieren der Switches</block>
-  <block id="fdf0e783eca74a7abe3d6795a4f8efc9" category="doc">Überlegungen bei nicht gespiegelten Aggregaten</block>
-  <block id="8e1b87e111c6a25dd28266989f14eb98" category="paragraph">Der Configuration Replication Service (CRS) Metadaten-Volume und Daten-SVM-Root-Volumes müssen sich in einem gespiegelten Aggregat befinden. Sie können diese Volumes nicht in ein nicht gespiegeltes Aggregat verschieben. Wenn sie sich auf einem nicht gespiegelten Aggregat befinden, sind über Switchover und Switchback-Vorgänge verhandelt es Vetos. Der Befehl` MetroCluster Check` gibt eine Warnung aus, wenn dies der Fall ist.</block>
   <block id="853e6bb3641c0d71f39b6809c0ac2110" category="paragraph">In älteren Versionen als ONTAP 9.9 sollte sich eine LUN nicht auf einem nicht gespiegelten Aggregat befinden. Das Konfigurieren einer LUN auf einem nicht gespiegelten Aggregat kann zu einem Switchover von mehr als 120 Sekunden bei einem Ausfall der Daten führen.</block>
   <block id="a7413038d86d8757b33477e80819b54d" category="summary">Die verschiedenen MetroCluster Konfigurationen weisen wesentliche Unterschiede in den erforderlichen Komponenten auf.</block>
   <block id="9a7cf14a520bc88a1cb91bca39d69926" category="doc">Unterschiede zwischen ONTAP Mediator und MetroCluster Tiebreaker</block>
@@ -5042,9 +4420,7 @@
   <block id="0dc1c4c70bff26c7c3ae5646d99a32f7" category="list-text">Verkabeln Sie bei MetroCluster 2 (der zweiten DR-Gruppe) die Cisco 3132Q-V-Switches mithilfe der Tabelle für die AFF A700 Plattform und der Zeilen für MetroCluster 2-Schnittstellen.</block>
   <block id="a1bf01274d938e19b1e43eb57fc3c557" category="summary">Sie sollten die Umschalttavorgänge, die Reparatur und den Wechsel der MetroCluster Konfiguration überprüfen.</block>
   <block id="328809e93421c332a5773a41c7dbc7c5" category="doc">Überprüfung von Umschaltung, Reparatur und Wechsel zurück</block>
-  <block id="3771e54725752637c5b1cf7cce911622" category="list-text">Verwenden Sie die Verfahren für ausgehandelte Umschaltung, Reparatur und zurückwechseln, die im _MetroCluster-Leitfaden für Management und Disaster Recovery_ aufgeführt sind.</block>
   <block id="cee14a47b638f8dc20d2b5241487a64a" category="inline-link">MetroCluster Management und Disaster Recovery</block>
-  <block id="e60d9e6a9fb9bfbe61031a7440923aa7" category="paragraph"><block ref="e60d9e6a9fb9bfbe61031a7440923aa7" category="inline-link-rx"></block></block>
   <block id="e229d395b1fbe6b50f6d7c10696e4b23" category="summary">Wenn Sie die werkseitig konfigurierten Systeme nicht empfangen haben, müssen Sie die Pool-0-Laufwerke möglicherweise manuell zuweisen. Je nach Plattformmodell und ob das System ADP nutzt, müssen Sie für jeden Knoten der MetroCluster-IP-Konfiguration Laufwerke manuell dem Pool 0 zuweisen. Das von Ihnen verwendete Verfahren hängt von der Version von ONTAP ab.</block>
   <block id="109a1f0f213be873d0671ba7010786cf" category="doc">Manuelles Zuweisen von Laufwerken zu Pool 0</block>
   <block id="9db419369e9211f992a02b77873b9294" category="section-title">Manuelles Zuweisen von Laufwerken für Pool 0 (ONTAP 9.4 und höher)</block>
@@ -5130,7 +4506,6 @@
   <block id="ef7e136a1fd917ac9e6587b12e4cfbad" category="paragraph">Unterstützt ONTAP Automatic ungeplante Switchover (AUSO)</block>
   <block id="a43cff4f46ece5ce4e0cdb1c7a0fd40e" category="paragraph">Unterstützt nicht gespiegelte Aggregate</block>
   <block id="a27983e963a18385eebdc3381062e49b" category="paragraph">Ja (ab ONTAP 9.8)</block>
-  <block id="3a7525345e0b5c609b38b98f11a46394" category="paragraph">Unterstützt Array-LUNs</block>
   <block id="5679e05fd5a83a4470281f9a9fff0881" category="paragraph">Unterstützt den ONTAP Mediator</block>
   <block id="098fadefd1319cbc560b7d741aa7210e" category="paragraph">Ja (ab ONTAP 9.7)</block>
   <block id="c14e505d04b15e11337934ec4262ec2b" category="paragraph">Unterstützung von MetroCluster Tiebreaker</block>
@@ -7472,7 +6847,6 @@
   <block id="2cb05e4bb7830be982f0922fed86b4cd" category="cell">Komponente</block>
   <block id="60aaf44d4b562252c04db7f98497e9aa" category="cell">Port</block>
   <block id="d151432733d339221bd143c714a56a84" category="cell">Verbindung mit FC-Switch...</block>
-  <block id="b23f9c7f7d005f5b0859bf207898cd47" category="cell">Verbindung zum Switch-Port wird hergestellt...</block>
   <block id="85e2ca58f06c6fc43bb1278027917574" category="paragraph">Controller_x_1</block>
   <block id="65698eca856b16c1879cd89757f6c190" category="paragraph">FC-VI-Port A</block>
   <block id="cfcd208495d565ef66e7dff9f98764da" category="paragraph">0</block>
@@ -8208,17 +7582,11 @@
   <block id="1c383cd30b7c298ab50293adfecb7b18" category="paragraph">35</block>
   <block id="093f65e080a295f8076b1c5722a46aa2" category="paragraph">59</block>
   <block id="49fd30fd43d4f8a06753b8f9677ba26a" category="cell">Konfigurationen mit FibreBridge 7500N oder 7600N mit beiden FC-Ports (FC1 und FC2)</block>
-  <block id="f5ab0ecfb91169073465c75b07499fce" category="cell">Brocade Switch-Modelle 6505, 6510, 6520, 7810, 7840 G610, G620, G620-1, G630, G630-1, Und DCX 8510-8</block>
-  <block id="d67bdc8865becf65979a7e07c7541fe7" category="cell">Brocade Switch G720</block>
   <block id="d752b12b0fc874dddc6f67101b900706" category="paragraph">FC1</block>
   <block id="ff9971710c5b208a0619e9b58d986c82" category="paragraph">FC2</block>
   <block id="e4d23e9ee95792ff4779580e194ca64b" category="paragraph">Bridge_x_1B</block>
   <block id="0ff59550d91336dce7c587ecb719fd1e" category="paragraph">Bridge_x_2B</block>
-  <block id="b662e152b43011e1e0296b8084a2d147" category="paragraph">12*</block>
   <block id="0444d322c0716ad675e8eb52f423fbe6" category="paragraph">Bridge_x_3B</block>
-  <block id="4fcb10feecff8bf153e2155f987003d3" category="paragraph">13*</block>
-  <block id="6d8c2a2025c082966f6b8171ae6d840e" category="paragraph">14*</block>
-  <block id="f5edf414716a52037ee3226c67a63760" category="paragraph">15*</block>
   <block id="19ca14e7ea6328a42e0eb13d585e4c22" category="paragraph">36</block>
   <block id="072b030ba126b2f4b2374f342be9ed44" category="paragraph">60</block>
   <block id="c2125bffc7f055acd5daa68020a0fc3d" category="paragraph">Bridge_x_53b</block>
@@ -8276,8 +7644,6 @@
   <block id="e79bc5599ed43bf573992c327fb00274" category="cell">Schalter 1</block>
   <block id="14b42c7d1896b7605692e8c1af5df50d" category="cell">Schalter 2</block>
   <block id="9e56f2203627e1f0f852b03165f1f73c" category="cell">Cisco 9148S</block>
-  <block id="4d5ea9cc493e38f0bd25ce9f073330be" category="cell">Cisco 9132T</block>
-  <block id="0f39a39e2e8a1309b826dae2289dd8fb" category="cell">MDS-Modul 1</block>
   <block id="14f265c9ad9a81b21c667b4042fc7575" category="admonition">In der folgenden Tabelle werden die Systeme mit zwei FC-VI-Ports angezeigt. Die AFF Systeme A700 und FAS9000 verfügen über vier FC-VI-Ports (A, b, c und d). Bei Verwendung eines AFF A700 oder FAS9000 Systems bewegen sich die Port-Zuweisungen an einer Position entlang. FC-VI-Ports c und d beispielsweise zu Switch-Port 2 und HBA-Ports A und b gelangen zu Switch-Port 3.</block>
   <block id="cab785737f7e01bc6cf334a3297e22c3" category="cell">Cisco 9250i Hinweis: Der Cisco 9250i-Switch wird für MetroCluster-Konfigurationen mit acht Nodes nicht unterstützt.</block>
   <block id="7454ecd5190b690ccf9ee77f2e438c0c" category="section-title">Cisco Port-Einsatz für FC-to-SAS-Bridges in einer MetroCluster-Konfiguration mit ONTAP 9.1 oder höher</block>
@@ -8301,10 +7667,6 @@
   <block id="d218ff19674f8525bccde81cb4f28d00" category="paragraph">ISL 4</block>
   <block id="26657d5ff9020d2abefe558796b99584" category="paragraph">96</block>
   <block id="670a9fef898ab1cd3ff1896d659f86f0" category="paragraph">Cisco 9250i mit 24-Port-Lizenz</block>
-  <block id="8b55f988e917813fe6beb8fdb5bd7199" category="paragraph">MDS-Modul 1 Anschluss 13</block>
-  <block id="1d1d1c73cc531c7d72d9f4366c2896d6" category="paragraph">MDS-Modul 1 Anschluss 14</block>
-  <block id="efeb11e85e07a24cb0d088e6f9190e1e" category="paragraph">MDS-Modul 1 Anschluss 15</block>
-  <block id="f18a998f4fcf5bb3410843686e56a3b4" category="paragraph">MDS-Modul 1 Anschluss 16</block>
   <block id="409af61506044b29e17ba065ed936a41" category="summary">Unter Umständen müssen Sie Root-Volumes in ein anderes Root-Aggregat innerhalb einer MetroCluster Konfiguration mit zwei oder vier Nodes verschieben.</block>
   <block id="751d545fc5bc71e5b2323bef5e403749" category="doc">Wann werden Root-Volumes zu einem neuen Ziel migriert</block>
   <block id="00aa76fa0ef150ad11418ea2b694ba07" category="section-title">Migration von Root-Volumes innerhalb einer MetroCluster Konfiguration mit zwei Nodes</block>
@@ -8489,7 +7851,6 @@
   <block id="f45a5dfbad730578f92e4a3f9a408df1" category="paragraph">Sie können die Befehle des Verfahrens über die Systemkonsole eines der beiden Controller-Module ausführen.</block>
   <block id="70ea1a14bb2c19fadc97fea6c6203981" category="admonition">Wenn Sie die Eigentumsrechte eines einzigen Stacks an Festplatten-Shelfs auf mehrere Controller-Module verteilen, müssen Sie die automatische Festplattenzuweisung auf beiden Nodes im Cluster deaktivieren <block ref="bdefdb189a50bac7eca8c2092c06daf4" prefix="(" category="inline-code"></block>) Vor der Zuweisung von Festplatteneigentum; andernfalls werden bei der Zuweisung eines einzelnen Laufwerks die übrigen Laufwerke möglicherweise automatisch demselben Controller-Modul und Pool zugewiesen.</block>
   <block id="84a71a9e63ead8784cd365088a3be8c4" category="cell">ISL-Ports</block>
-  <block id="4389b93bd76334095ae6f5fdb926d4ee" category="paragraph">Die Ports 40 bis 48 sind 10 GbE-Ports und werden in der MetroCluster-Konfiguration nicht verwendet.</block>
   <block id="2fb10535c586c96b3774f785a3997a21" category="paragraph"><block ref="69cfa26d6e6345bb4eef9a298daa32f3" prefix="" category="inline-code"></block></block>
   <block id="9d9aef7264cbb39bb4c46c285f3b1647" category="paragraph"><block ref="c55b2fab97bf32977f3799d9d5689c0b" prefix="" category="inline-code"></block></block>
   <block id="43f3f166376065e515d7eb33479e4f37" category="paragraph"><block ref="0f0a05e9497053a21c6cfccec36a35fa" prefix="" category="inline-code"></block></block>
@@ -10418,11 +9779,6 @@
   <block id="7e72ba2bd92bb9c0b0de47edfc1e195c" category="paragraph">Bridge_B_1b IP-Adresse</block>
   <block id="5371e95fe07850551246ecd1987010d5" category="paragraph">Bridge_B_1b Benutzername</block>
   <block id="b7ea0803dbd642d0e5327dc2439d3171" category="paragraph">Bridge_B_1b Passwort</block>
-  <block id="4de79eb6151b19b810b541965efd86d3" category="summary">In einer Stretch-MetroCluster Konfiguration mit E-Series Storage-Array LUNs können Sie die Storage-Controller und die Storage-Arrays direkt verbinden. Im Gegensatz zu anderen Array LUNs sind FC-Switches nicht erforderlich.</block>
-  <block id="3abc441c70e965211102be1acce8f4a1" category="doc">Beispiel für eine Stretch-MetroCluster Konfiguration mit E-Series Storage-Arrays</block>
-  <block id="56d23b4bd36ea7e836bbc1283db551b3" category="paragraph">In einer Stretch-MetroCluster Konfiguration mit E-Series Storage Array LUNs können Sie die Storage-Controller und die Storage-Arrays direkt verbinden. Im Gegensatz zu anderen Array LUNs sind FC-Switches nicht erforderlich.</block>
-  <block id="0ec188bebf461562e9c65ab306049b07" category="inline-link-macro">Direct Attach-Support für Stretch-MetroCluster-Konfiguration mit NetApp E-Series Arrays</block>
-  <block id="3194674804f66d71138f3d227b29f143" category="paragraph">Der <block ref="58ed8621fbf888b6b052231ede94da3e" category="inline-link-macro-rx"></block> Der Knowledgebase Artikel enthält Beispiele für Konfigurationen mit E-Series Array-LUNs.</block>
   <block id="58eb0a3f95df2104f4ac005bbd51d244" category="list-text">Das System muss bereits in einem Rack installiert sein, wenn es nicht in einem Systemschrank ausgeliefert wurde.</block>
   <block id="f824444af694573f23438938a9e1aa1e" category="list-text">Ihre Konfiguration muss unterstützte Hardware-Modelle und Software-Versionen verwenden.</block>
   <block id="00e5a61f0c8d5ed59c07710910d01063" category="list-text">Sie müssen sich vertraut machen mit dem Umgang mit SAS-Kabeln und den Überlegungen und Best Practices für die Installation und Verkabelung von Platten-Shelves.</block>
@@ -10457,8 +9813,6 @@
   <block id="5366fe8e6a583070b8536329d2fb2c42" category="paragraph">Ab ONTAP 9.8 werden _in-Band-Management_ der Brücken standardmäßig unterstützt und die bandexterne SNMP-Verwaltung ist veraltet.</block>
   <block id="f4a6a04204d80f2884055d8da7f250ae" category="paragraph"><block ref="39ce37a4ba621b15824f25d3ead980cb" prefix="" category="inline-code"></block> Folgende Optionen stehen zur Verfügung:</block>
   <block id="9edea398610f8b9e7bf8eb4d72f75daa" category="summary">Sie können die MetroCluster-Konfiguration von allen Nodes einer Disaster Recovery \(DR\)-Gruppe entfernen. Nach dem Entfernen der MetroCluster-Konfiguration sollten alle Festplatten-Konnektivität und Interconnects auf einen unterstützten Zustand eingestellt werden. Wenden Sie sich an den technischen Support, wenn Sie die MetroCluster Konfiguration entfernen müssen.</block>
-  <block id="9a220a3f22f8641906ad7cfa0dd3502b" category="paragraph">Sie können die MetroCluster-Konfiguration von allen Nodes einer Disaster Recovery-Gruppe (DR) entfernen. Nach dem Entfernen der MetroCluster-Konfiguration sollten alle Festplatten-Konnektivität und Interconnects auf einen unterstützten Zustand eingestellt werden. Wenden Sie sich an den technischen Support, wenn Sie die MetroCluster Konfiguration entfernen müssen.</block>
-  <block id="babbebe817de4ac640d017ba3dca7743" category="summary">Die MetroCluster Komponenten müssen an beiden geografischen Standorten physisch installiert, verkabelt und konfiguriert sein. Die Schritte unterscheiden sich für ein System mit nativen Festplatten-Shelfs im Gegensatz zu einem System mit Array-LUNs.</block>
   <block id="90fc932ee050a39faa7916b30886ecf0" category="doc">Verkabelung einer Stretch MetroCluster Konfiguration mit zwei über Bridge angebundenen Nodes</block>
   <block id="4db2eceaa8145339affc67a0413885ce" category="image-alt">Installation und Konfiguration der Workflow-Hardware mit 2-Node-Bridge</block>
   <block id="198c714a4bb6842827adc2e8110de106" category="summary">Um Ihre Stretch MetroCluster Konfiguration zu installieren, müssen Sie eine Reihe von Verfahren in der richtigen Reihenfolge durchführen.</block>
@@ -10549,18 +9903,6 @@
   <block id="debcce82c611702acb08dd65c65bba26" category="list-text">Überprüfen Sie die MetroCluster Konfiguration auf Fehler und überprüfen Sie, ob sie funktionsfähig ist.</block>
   <block id="bce6e50d132e2d8b90bf22b569c48d10" category="paragraph">Sie sollten die Verfahren in den folgenden Abschnitten des verwenden <block ref="a1fd01e320574c534b3b8a75cd17d943" category="inline-link-macro-rx"></block>:</block>
   <block id="f6593cf23130819e409398933f0aaaf0" category="list-text">Überprüfen des lokalen HA-Vorgangs</block>
-  <block id="966e300bc237c2583e3926b37d7a021b" category="summary">Zum Einrichten einer Stretch-MetroCluster-Konfiguration mit nativen Festplatten und Array-LUNs müssen Sie zum Anschluss der ONTAP Systeme an die Festplatten-Shelfs entweder über FC-to-SAS-Bridges oder über optische SAS-Kabel verfügen. Sie müssen FC-Switches verwenden, um Array-LUNs mit den ONTAP-Systemen zu verbinden.</block>
-  <block id="766c566dbd5b91e42bf430eaa1f8283e" category="doc">Beispiele für Stretch-MetroCluster-Konfigurationen mit zwei Nodes und Festplatten und Array-LUNs</block>
-  <block id="9c99fef0430bb16c4a28d231ae5f8299" category="paragraph">Zum Einrichten einer Stretch-MetroCluster-Konfiguration mit nativen Festplatten und Array-LUNs müssen Sie zum Anschluss der ONTAP Systeme an die Festplatten-Shelfs entweder über FC-to-SAS-Bridges oder über optische SAS-Kabel verfügen. Darüber hinaus müssen FC Switches verwendet werden, um Array-LUNs mit den ONTAP-Systemen zu verbinden.</block>
-  <block id="f1ab023e5e9e9bdeb7a934c85edec3d1" category="paragraph">Es sind mindestens acht HBA-Ports erforderlich, damit ein ONTAP-System mit nativen Festplatten und Array-LUNs verbunden werden kann.</block>
-  <block id="920da881cae411ea78d6cb953a970a64" category="paragraph">In den folgenden Beispielen, die Stretch-MetroCluster-Konfigurationen mit zwei Nodes mit Festplatten und Array-LUNs veranschaulichen, werden HBA-Ports 0a bis 0d zur Verbindung mit Array-LUNs verwendet. Für Verbindungen mit nativen Festplatten werden HBA-Ports 1a bis 1d verwendet.</block>
-  <block id="cd05172187157436bfb2ba5bf1f04694" category="paragraph">Die folgende Abbildung zeigt eine Stretch-MetroCluster-Konfiguration mit zwei Nodes, in der die nativen Festplatten über optische SAS-Kabel mit den ONTAP-Systemen verbunden sind:</block>
-  <block id="6a948ca671c2d574b369b36c9b564cfe" category="image-alt">mcc mit zwei Knoten kombiniert mit Glaswurm</block>
-  <block id="ea8debab29aa9d3caee7fdbdd472b388" category="paragraph">Die folgende Abbildung zeigt eine Stretch-MetroCluster-Konfiguration mit zwei Nodes, bei der die nativen Festplatten über FC-to-SAS-Bridges mit den ONTAP-Systemen verbunden werden:</block>
-  <block id="61b0bed0c90072afb0d78607c64b82d6" category="image-alt">kombinierte Armarmadillo mit zwei Knoten</block>
-  <block id="aec5f0d4a94e162c2240aba8a39d6d3b" category="paragraph">Die folgende Abbildung zeigt eine Stretch-MetroCluster-Konfiguration mit zwei Nodes mit den Array-LUN-Verbindungen:</block>
-  <block id="4af712bd642e4d41dbe4210b1548a13d" category="image-alt">mcc-kombinierte Array-luns mit zwei Nodes</block>
-  <block id="8f00d8c4d67b46b0db1826d8ba6477c7" category="admonition">Bei Bedarf können Sie auch dieselben FC Switches verwenden, um sowohl native Festplatten als auch die Array-LUNs mit den Controllern in der MetroCluster-Konfiguration zu verbinden.</block>
   <block id="52f712c2fbff067a3f9ecef9e0c00853" category="paragraph">Wenn Ihre Konfiguration nicht gespiegelte Aggregate umfasst, müssen potenzielle Zugriffsprobleme erkennen, die einem Switchover folgen.</block>
   <block id="2a2f14d553a58533b16ebe9c6aeee86d" category="paragraph">Wenn Sie aus Wartungsgründen eine Umschaltung durchführen möchten, die ein standortweites Herunterfahren erfordert, sollten Sie zuerst alle nicht gespiegelten Aggregate des Disaster-Standorts manuell offline schalten.</block>
   <block id="a7713bac791ac8cc787ef32f9fe12631" category="paragraph">Wenn Sie keine nicht gespiegelten Aggregate offline schalten, so können Nodes am verbleibenden Standort aufgrund einer „Panik mit mehreren Festplatten“ möglicherweise ausfallen. Wenn die Umschaltung über nicht gespiegelte Aggregate offline erfolgt oder fehlt, ist die Verbindung zum Storage am DR-Standort verloren. Dies ist das Ergebnis eines Power Shutdowns oder eines Verlusts von ISLs.</block>
@@ -10590,10 +9932,6 @@
   <block id="981db1aa49a6ebb733f68a8d0f82b483" category="paragraph">*ONTAP 9.4 oder früher*</block>
   <block id="29431d66f3109c0b5ee445b6502a5c33" category="list-text">Wenn Ethernet-Port MP1 aktiviert ist, führen Sie folgende Schritte aus:</block>
   <block id="6d6d091bdd8c4127ee8d80f23b429e80" category="list-text">Verwenden Sie nach Abschluss der MetroCluster-Konfiguration das<block ref="c27e24b8b45de3e3c43ee4f5da981459" prefix=" " category="inline-code"></block> Befehl zum Überprüfen der Version der FibreBridge-Firmware und, wenn die Brücken nicht die neueste unterstützte Version verwenden, aktualisieren Sie die Firmware auf allen Brücken in der Konfiguration.</block>
-  <block id="b38ee4e0ef85030df13c9983cc2db8fe" category="summary">Bei einer Stretch-MetroCluster-Konfiguration mit Array-LUNs müssen Sie die FC-VI-Ports über Controller hinweg verbinden. Die direkte Konnektivität zwischen den Controllern und den E-Series Storage-Arrays wird unterstützt. Für alle anderen LUN-Konfigurationen des Arrays müssen Sie in der Konfiguration FC-Switches verwenden.</block>
-  <block id="4af4320fd946843f703662b771726b60" category="doc">Verbindungen in Stretch-MetroCluster-Konfigurationen mit Array-LUNs</block>
-  <block id="3abb76413b81aeec2b1531b8193b98d1" category="paragraph">Bei einer Stretch-MetroCluster-Konfiguration mit Array-LUNs müssen Sie die FC-VI-Ports über Controller hinweg verbinden. Die direkte Konnektivität zwischen den Controllern und den E-Series Storage-Arrays wird unterstützt. Für alle anderen LUN-Konfigurationen-Arrays müssen Sie in der Konfiguration FC-Switches verwenden.</block>
-  <block id="3d13d30ef61321e1bd349933232825f8" category="paragraph">Sie können auch eine Stretch-MetroCluster-Konfiguration mit Festplatten und Array-LUNs einrichten. In dieser Konfiguration müssen Sie entweder FC-to-SAS-Bridges oder SAS-optische Kabel verwenden, um die Controller mit Festplatten zu verbinden.</block>
   <block id="ba47f416cbc346bd4f20db246cb5ea02" category="summary">Nachdem Sie sichergestellt haben, dass das System alle Anforderungen im Abschnitt „Vorbereitungen für die Installation“ erfüllt, können Sie Ihr neues System installieren.</block>
   <block id="edf7f1b6b2a6033eca74c6ef56b34a95" category="doc">Installation der FC-to-SAS-Bridge und der SAS-Shelfs</block>
   <block id="44cf292b45fcf91c7481e1ee996ccaec" category="paragraph">Nachdem Sie sichergestellt haben, dass das System alle Anforderungen im Abschnitt „`Vorbereitung für die Installation`“ erfüllt, können Sie Ihr neues System installieren.</block>
@@ -10688,7 +10026,6 @@
   <block id="24ee0b1ca6a6bb24b7f88b8b0f675d6a" category="paragraph">Die obige Abbildung ist eine typische Darstellung der erforderlichen Verkabelung. Die spezifischen FC-VI-Ports variieren je nach Controller-Modul.</block>
   <block id="a587e4f5b1fc4bdc10a14ae34d3ae14e" category="list-text">Die Controller-Module AFF A300 und FAS8200 können mit einer der zwei Optionen für die FC-VI-Konnektivität bestellt werden:</block>
   <block id="93ba9bcaf75f3b305567eed2f5797513" category="summary">Wenn Sie der Konfiguration neuen Speicher hinzufügen, installieren und verkabeln Sie ATTO FibreBridge Bridges und SAS-Platten-Shelves.</block>
-  <block id="a9ed40443a225cecce5742ada138b243" category="doc">Installation von FC-to-SAS-Bridges und SAS-Platten-Shelves</block>
   <block id="a2d4b828805dc92004efb97c8e85045a" category="paragraph">Bei den werkseitig eingegangenen Systemen sind die FC-zu-SAS-Bridges vorkonfiguriert und erfordern keine zusätzliche Konfiguration.</block>
   <block id="b6b0aa1e441ae0f9c94362e6f0aae763" category="paragraph">Stattdessen können Sie bei Bedarf andere Managementoberflächen verwenden, z. B. einen seriellen Port oder Telnet, um eine Bridge zu konfigurieren und zu verwalten, den Ethernet Management 1-Port zu konfigurieren und FTP, um die Bridge-Firmware zu aktualisieren.</block>
   <block id="76545d4e8668be942098ed242d25351a" category="image-alt">Workflow Bridge-Installation und -Konfiguration</block>
@@ -10709,14 +10046,6 @@
   <block id="46f29459ff32d2b60601d58541d9c5a8" category="list-text">Schließen Sie jede Brücke an eine Stromquelle an, die eine richtige Masse liefert.</block>
   <block id="65a3af466c2fb91c6909c746ff5328aa" category="list-text">Schalten Sie die einzelnen Brücken ein.</block>
   <block id="2eaa58d2258442643b025b53c3265153" category="admonition">Für eine maximale Ausfallsicherheit müssen Brücken, die mit demselben Stack an Platten-Shelfs verbunden sind, mit unterschiedlichen Stromquellen verbunden werden.</block>
-  <block id="4edc653428a721030056cbd92bbca350" category="summary">Bei einer Stretch-MetroCluster-Konfiguration mit Array-LUNs müssen Sie die FC-VI-Ports verkabeln, um die direkte Verbindung zwischen den Controllern zu erreichen. Darüber hinaus müssen Sie jeden Controller-HBA-Port verkabeln, um Switch-Ports auf den entsprechenden FC-Switches zu Switch. Die Verkabelung zu den Array-LUNs erfolgt wie bei einem Fabric-Attached MetroCluster, mit Ausnahme von Array-LUNs der E-Serie, die direkt verbunden werden können.</block>
-  <block id="ef9c0fffdd4221e0f411cf0eb8571a76" category="doc">Beispiel einer Stretch-MetroCluster-Konfiguration mit Array-LUNs</block>
-  <block id="0ffc0e2ae7ba61a77fa089b0c2d828c4" category="paragraph">Die folgende Abbildung zeigt die FC-VI-Ports, die in einer Stretch-MetroCluster-Konfiguration über die Controller A und B hinweg verkabelt sind:</block>
-  <block id="cfb8ca2ced7d2725056a8a692aebe95e" category="image-alt">fc vi Connections Campus</block>
-  <block id="9adf86b613b71705284eb2183a603ee7" category="admonition">Die FAS9000 Storage-Systeme Controller-Module verwenden jeweils vier FC-VI-Ports.</block>
-  <block id="d7b5e0a93ac97158d874e410a750d532" category="paragraph">Bei Konfigurationen mit E-Series Array LUNs können Sie die E-Series LUNs direkt anschließen.</block>
-  <block id="534cf18dc088a1002737c913b7090410" category="paragraph"><block ref="534cf18dc088a1002737c913b7090410" category="inline-link-rx"></block></block>
-  <block id="eb4c2154e73813f8ea66d1960d562b2e" category="paragraph">Mit Ausnahme der Verbindung der FC-VI-Ports werden während des weiteren Verfahrens eine MetroCluster-Konfiguration mit den Array-LUNs eingerichtet, die keine LUNs der E-Series verwenden. Dazu müssen FC Switches verwendet werden, die mit den Array-LUNs in Fabric-Attached-Konfigurationen identisch sind.</block>
   <block id="a55812aab9a776c32d1e16fe37018c12" category="summary">Sie müssen jeden Node in der MetroCluster-Konfiguration in ONTAP einrichten. Dazu gehören die Konfigurationen auf Node-Ebene und die Konfiguration der Nodes in zwei Standorten. Sie müssen auch die MetroCluster Beziehung zwischen beiden Standorten implementieren.</block>
   <block id="ed9e684b86d9ba9268bfa7bb05da68e3" category="image-alt">Workflow Node- und Cluster-Konfigurationssoftware auf hoher Ebene</block>
   <block id="0f70569a0bcb298f0f36659f72d7b82d" category="list-text">Sammeln Sie die erforderlichen IP-Adressen für die Controller-Module, bevor Sie mit dem Konfigurationsprozess beginnen.</block>
@@ -10930,9 +10259,7 @@
   <block id="3e203d1fe20288fbdc8e4b477bffda73" category="paragraph">Bei der SAS-Attached Stretch MetroCluster Konfiguration sind mindestens zwei SAS-Festplatten-Shelfs erforderlich. Wir empfehlen vier SAS-Platten-Shelves.</block>
   <block id="a862108f875d286d39adac239f0619d5" category="paragraph">Es werden zwei Shelves an jedem Standort empfohlen, damit die Festplatteneigentümer pro Shelf sind. Es wird mindestens ein Shelf an jedem Standort unterstützt.</block>
   <block id="e5e4a159b56e91f667faa79be11c280f" category="paragraph">Weitere Informationen zum Anmischen von Regalen finden Sie unter:<block ref="96c52bfd2d59063b848ae852888ce36d" category="inline-link-rx"></block></block>
-  <block id="e0dd1e85604316427a557d67b3079843" category="summary">Sie müssen die korrekte Installation basierend darauf auswählen, ob Sie FlexArray LUNs verwenden und wie die Storage-Controller mit Storage-Shelfs verbinden.</block>
   <block id="c4680bcc4ac229ac4b7d5d145927a0ea" category="doc">Auswahl des richtigen Installationsverfahrens für Ihre Konfiguration</block>
-  <block id="e754262d6877963456252dcb8071c9a7" category="image-alt">Workflow Wählen Sie Ihre MetroCluster-Konfiguration aus</block>
   <block id="76d06141fa1529c2e8193f48995d1030" category="cell">Für diesen Installationstyp...</block>
   <block id="0f59b15f885e3a80b7effe6a49fde4a8" category="cell">Verwenden Sie diese Verfahren...</block>
   <block id="4925c3e92cbc558459ac4884fe1553e3" category="paragraph">Stretch-Konfiguration mit zwei Nodes und FC-zu-SAS-Bridges</block>
@@ -10940,8 +10267,6 @@
   <block id="358a1869f6f880774e4bc077827b15a6" category="list-text"><block ref="358a1869f6f880774e4bc077827b15a6" category="inline-link-macro-rx"></block></block>
   <block id="427173fb02da33c03f2d6549b04b93e9" category="paragraph">Stretch-Konfiguration mit zwei Nodes und Direct-Attached SAS-Verkabelung</block>
   <block id="0c0fa1382f3ba1efffa3113209ab5940" category="list-text"><block ref="0c0fa1382f3ba1efffa3113209ab5940" category="inline-link-macro-rx"></block></block>
-  <block id="8630c587ad199d5d6526081d02e02b77" category="paragraph">Installation mit Array LUNs</block>
-  <block id="1447ee27cf944008f8e33d4ce56f25cb" category="paragraph"><block ref="1447ee27cf944008f8e33d4ce56f25cb" category="inline-link-macro-rx"></block></block>
   <block id="dddcbe39d238e711998c52c432aeaa31" category="summary">Für die Verkabelung Ihrer Platten-Shelves müssen die richtigen FC-to-SAS-Bridges verwendet werden.</block>
   <block id="db7c7fcb177be4b76e7cfd3b25b6911b" category="summary">Sie sollten die Voraussetzungen und Richtlinien für die Konfiguration von MetroCluster Peering-Beziehungen kennen.</block>
   <block id="fbe01200b5d7a3c4261e8ea34a15d550" category="list-text">Planen Sie die Positionierung der MetroCluster Komponenten.</block>
@@ -10974,7 +10299,6 @@
   <block id="090182ab3424eee2fbfc86e2a955ec1d" category="paragraph">Die Storage-Controller sind über SAS-Kabel direkt mit dem Storage verbunden.</block>
   <block id="ec7770ca503ad90a46ee5c3850ef8ae5" category="list-text">Kupfer-SAS-Kabel können für kürzere Entfernungen verwendet werden.</block>
   <block id="e510f66049d1338325f0a62dd3ffc0f4" category="list-text">Optische SAS-Kabel können über größere Entfernungen verwendet werden.</block>
-  <block id="6262d156e479edd8f826ba586e43575b" category="admonition">Bei Systemen mit E-Series Array-LUNs können die Storage-Controller direkt mit den E-Series Storage-Arrays verbunden werden. Bei anderen Array LUNs sind Verbindungen über FC-Switches erforderlich.</block>
   <block id="12e1a43f9bf6da32583b815f8c9f66e1" category="summary">Nach der Konfiguration der Bridge können Sie die Verkabelung des Systems starten.</block>
   <block id="c53ab245e3b357260ea30380dfbae527" category="doc">Verkabelung einer FibreBridge 7600N oder 7500N Bridge mit Platten-Shelves mit IOM12-Modulen</block>
   <block id="6fd15be7f6a37829673663b10699e3a1" category="paragraph">Setzen Sie bei Festplatten-Shelfs einen SAS-Kabelanschluss ein, wobei die Zuglasche nach unten (auf der Unterseite des Connectors) ausgerichtet ist.</block>
@@ -11509,7 +10833,6 @@
   <block id="3e0a52646b307379f47860044c088d60" category="paragraph">Die Laufwerke auf jedem externen Shelf werden in zwei gleiche Gruppen (Hälften) aufgeteilt. Jedes halbe Shelf wird automatisch einem separaten Pool zugewiesen.</block>
   <block id="8e65b308ba381d7e7d885330e749b55d" category="list-text">Wenn Sie zwei MetroCluster-Konfigurationen des Typs AFF A700 mit vier Nodes verkabeln, verbinden Sie die erste MetroCluster, die als „MetroCluster 1“ angezeigt wird, und die zweite MetroCluster, die in der AFF A700 Tabelle als „MetroCluster 2“ dargestellt ist.</block>
   <block id="e5c3d25338f9cf52b0644af8df5dd491" category="admonition">Die Ports 13 und 14 können im nativen Geschwindigkeitsmodus mit Unterstützung von 40 Gbit/s und 100 Gbit/s oder im Breakout-Modus zur Unterstützung von 4 × 25 Gbit/s oder 4 × 10 Gbit/s verwendet werden. Wenn sie den einheitlichen Geschwindigkeitsmodus verwenden, werden sie als Ports 13 und 14 dargestellt. Wenn sie den Breakout-Modus verwenden, entweder 4 × 25 Gbit/s oder 4 × 10 Gbit/s, dann werden sie als Ports 13s0-3 und 14s0-3 dargestellt.</block>
-  <block id="52d00daf67aaaf387590e09043aff43a" category="list-text"><block ref="52d00daf67aaaf387590e09043aff43a" category="inline-link-macro-rx"></block></block>
   <block id="49cc90fa19d302674a7ac32a31b7a0c8" category="list-text"><block ref="49cc90fa19d302674a7ac32a31b7a0c8" category="inline-link-macro-rx"></block></block>
   <block id="566b66a4b36764e94944f56424f3b3ca" category="paragraph">Führen Sie den Befehl aus:<block ref="fdb848f6761ac46e0ea7678b5269bd3c" prefix=" " category="inline-code"></block></block>
   <block id="65cc666ecd4a5bdf3c624b12e425c91f" category="admonition">Sie müssen den Controller neu booten, um die Konfiguration zu ändern.</block>
@@ -11745,7 +11068,6 @@
   <block id="3c8938b87b13dff113f84a2814ddff39" category="paragraph"><block ref="f7fd6058274b87da3f8cba419f53bb7e" prefix="" category="inline-code"></block></block>
   <block id="1ad5a70ead9bdd722df6000495e21c24" category="list-text">Wenn Sie Fabric OS 8.2.x und eine frühere Version verwenden, müssen Sie die Lizenzmethode in „dynamisch“ ändern:</block>
   <block id="7fafa568d6f3c9a0ee98323f64b1c01c" category="admonition">In Fabric OS 9.0 und höher ist die Lizenzmethode standardmäßig dynamisch. Die statische Lizenzmethode wird nicht unterstützt.</block>
-  <block id="0b6c4085e3a8dba280dd11e4bbbbeee1" category="paragraph">Mit dem Befehl 'license' können Sie überprüfen, ob die Lizenzen installiert sind.</block>
   <block id="6c05b41ac12af301a1c1201b16997220" category="paragraph">Sie müssen die in diesem Verfahren beschriebenen Schritte von beiden Standorten aus gleichzeitig ausführen.</block>
   <block id="a934aebb7868eacad4999d15212ac85f" category="list-text">Verwenden Sie für eine MetroCluster-Konfiguration mit vier oder acht Nodes die<block ref="1f019d491fcfc3956d780ccfd54601ba" prefix=" " category="inline-code"></block> Und<block ref="6c99881ddd2f188436900ed8d41d99ba" prefix=" " category="inline-code"></block> Parameter:</block>
   <block id="28289de886d4bf23487d962fb6a696a3" category="summary">Sie können einem vorhandenen Paar FibreBridge 7600N- oder 7500N-Bridges mit verfügbaren Ports im laufenden Betrieb einen Stack aus SAS-Platten-Shelfs hinzufügen.</block>
@@ -12065,7 +11387,6 @@
   <block id="7d04b9af5dfbfc78c7040183f68afdc4" category="cell">Red Hat 8.1 - 8.7</block>
   <block id="003d136e5089a4f9ae0f1df3f6fc37fa" category="cell">Rocky Linux 9.0</block>
   <block id="c422062a1c7b3d9ed9b2282378699dc7" category="paragraph"><block ref="c422062a1c7b3d9ed9b2282378699dc7" category="inline-link-macro-rx"></block></block>
-  <block id="f54824b249675e35c90a450877126d13" category="inline-link-macro">Konfigurieren Sie Brocade FC-Switches manuell</block>
   <block id="94d0fc55d9356d3d18534836cae75c1d" category="doc">FC Switch-Konfiguration – Übersicht</block>
   <block id="67af9bc4271944d43da3bdca5451bf73" category="paragraph">Sie können Cisco- und Brocade-FC-Switches mithilfe von RCF-Dateien konfigurieren oder, falls erforderlich, die Switches manuell konfigurieren.</block>
   <block id="02d80d458a48a16bd927a203d6bb2c73" category="list-text">Überprüfen Sie die Zoning-Konfiguration:</block>
@@ -12628,7 +11949,6 @@ Gilt für alle MetroCluster Konfigurationen.</block>
   <block id="06aef4d1d6158c53520054dd04cc3a52" category="inline-link-macro">Installieren Sie Tiebreaker 1.4</block>
   <block id="bd7d740c7178aa2df12a81e3a095cf7a" category="paragraph"><block ref="bd7d740c7178aa2df12a81e3a095cf7a" category="inline-link-macro-rx"></block></block>
   <block id="afd755a1fe90c01febccbd2e397b9780" category="summary">Führen Sie eine Neuinstallation oder ein Upgrade auf Tiebreaker 1.6 auf Ihrem Linux-Host-Betriebssystem durch, um die MetroCluster-Konfigurationen zu überwachen.</block>
-  <block id="92cf4933e9c8bfb818863f455e477af5" category="paragraph"><block ref="92cf4933e9c8bfb818863f455e477af5" category="inline-link-macro-rx"></block></block>
   <block id="00395061ba5a721f2a906e4ac75f9fde" category="inline-link-macro">Richten Sie Objektspeicher für FabricPool in einer MetroCluster-Konfiguration ein</block>
   <block id="e0e300856a5e4a2a419fdf0d5fb20e62" category="admonition">Bevor Sie das Aggregat konfigurieren, müssen Sie Objektspeicher wie in beschrieben einrichten <block ref="bf6f1feb5dfb0381998cf99478ab26ea" category="inline-link-macro-rx"></block>.</block>
   <block id="39998026607048d04a8bc09fac18fa8f" category="paragraph">Ab ONTAP 9.11.1 <block ref="7a1a77fa3bd3a175233cd6cdfe493836" category="inline-link-macro-rx"></block> Werden in MetroCluster-Konfigurationen unterstützt.</block>
@@ -12872,7 +12192,6 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="c9dd6bad4c7d561872f2e2d498a990bf" category="inline-link-macro">Interoperabilitäts-Matrix-Tool (IMT)</block>
   <block id="c5dcd35af16918a17ee9c3a5c153f0af" category="inline-link">IMT</block>
   <block id="24d65add9a27d74b80e9a9cebdfc8e56" category="paragraph">Ihre Version von ONTAP muss Shelf-Mix unterstützen. Informieren Sie sich im Interoperabilitäts-Matrix-Tool (IMT), ob Ihre Version von ONTAP Shelf-Mischungen unterstützt.<block ref="30796bf173a80af0dc9c120f98ffaed6" category="inline-link-rx"></block></block>
-  <block id="8872b0d09737dfd9b6fcafd4e8c2356b" category="list-text"><block ref="8872b0d09737dfd9b6fcafd4e8c2356b" category="inline-link-rx"></block></block>
   <block id="80d79e74efb3cf7c2ad45e7e1c96223d" category="inline-link-macro">Setzen Sie den NVIDIA IP SN2100-Switch auf die Werkseinstellungen zurück</block>
   <block id="9dce4db3e352a666d92ce25dd5f94a51" category="list-text"><block ref="9dce4db3e352a666d92ce25dd5f94a51" category="inline-link-macro-rx"></block></block>
   <block id="59908dc1540a829f2e5b2241e8bda0cd" category="inline-link-macro">Laden Sie die NVIDIA IP RCF-Dateien herunter, und installieren Sie sie</block>
@@ -13389,7 +12708,6 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="330acb0fa4964235e5dabc85b0488f57" category="list-text">Wiederholen Sie dieses gesamte Verfahren, um den HA-Status auf jedem Node in der MetroCluster-Konfiguration zu überprüfen.</block>
   <block id="84afb0fe12dfc2a5fa1e2e978393b33c" category="paragraph">Wenn Sie ein Speichersystem in einer MetroCluster FC-Konfiguration konfigurieren, müssen Sie sicherstellen, dass der Hochverfügbarkeitsstatus (HA) des Controller-Moduls und der Gehäusekomponenten mcc oder mcc-2n ist, damit diese Komponenten ordnungsgemäß booten. Obwohl dieser Wert auf werkseitig empfangene Systeme vorkonfiguriert sein sollte, sollten Sie die Einstellung dennoch überprüfen, bevor Sie fortfahren.</block>
   <block id="cbc29e9b371b7013e6625c2fa3c7ec20" category="paragraph">In einer MetroCluster IP-Konfiguration müssen Sie überprüfen, ob der ha-Konfigurationsstatus der Controller- und Chassis-Komponenten auf „`mccip`“ eingestellt ist, damit sie ordnungsgemäß booten. Obwohl dieser Wert auf werkseitig empfangene Systeme vorkonfiguriert sein sollte, sollten Sie die Einstellung dennoch überprüfen, bevor Sie fortfahren.</block>
-  <block id="b6eb7f38a057c8f63ffc29f23e6be071" category="sidebar">Konfigurieren von Konfigurationen mit acht Nodes</block>
   <block id="37887b7927053bae8056fe215242ac04" category="list-text">Führen Sie in einer MetroCluster IP-Konfiguration die Schritte in <block ref="e39e92837d61810422f20d9c0acf650b" category="inline-link-macro-rx"></block>aus.</block>
   <block id="654458233d1a8772886f997ae2b46c7c" category="paragraph">Die Existenz des v0a (v0b usw.) überprüft kontinuierlich die Konnektivität und garantiert, dass eine LIF-Migration oder ein Failover erfolgreich ist (im Gegensatz zu L2, wo eine defekte Konfiguration nur nach dem Ausfall sichtbar ist).</block>
   <block id="705abb444ac66e0442a9ae4646471061" category="list-text">Deaktivieren Sie die neuen Switches, indem Sie den folgenden Befehl auf beiden Switches ausführen:</block>
@@ -14170,9 +13488,6 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="f4c0383379a5ae93d0b5e4c4f8586e47" category="open-title">Systeme mit gemeinsam genutzten Cluster/HA-Ports</block>
   <block id="fce1683696c48d3d34e98e19d634ae19" category="open-title">Systeme mit gemeinsam genutzten MetroCluster/HA-Ports</block>
   <block id="d28dfcbdf9345468d87d930393f61e28" category="list-text">Legen Sie an der<block ref="82b8350d28f0a14e36de1958b3be9205" prefix=" " category="inline-code"></block> Eingabeaufforderung für jeden Disaster-Standort-Node den Bootarg-Wert fest, je nachdem, ob Ihr Plattformmodell gemeinsam genutzte Cluster/HA-Ports oder gemeinsam genutzte MetroCluster/HA-Ports verwendet:</block>
-  <block id="e29199cddef5792300b3b221f3ce1de2" category="paragraph">Auf jedem Controller in der ONTAP MetroCluster-Konfiguration müssen der FC-VI-Adapter und HBAs mit spezifischen Ports der vorhandenen FC-Switches verkabelt sein.</block>
-  <block id="7c18898ad95897990e485c3e2e9a3d5a" category="list-text">Auf den Brocade 6510-Switches muss eine FOS-Firmware-Version ausgeführt werden, die sowohl von der Fabric MetroCluster- als auch von der ONTAP MetroCluster-Konfiguration mit 7-Mode unterstützt wird.</block>
-  <block id="f408004d3c0a89f19911c0f8ff32d59b" category="paragraph">Nach dem Überführen der Daten können Sie die 7-Mode Fabric MetroCluster-Verkabelung entfernen und bei Bedarf die ONTAP MetroCluster-Verkabelung auf die Ports verschieben, die zuvor für die 7-Mode MetroCluster-Verkabelung verwendet wurden, mit der niedrigeren Nummer. Die Ports sind im Abschnitt „Überprüfen der FC-Switch-Port-Zuweisungen für eine MetroCluster mit vier Nodes“ dargestellt. Sie müssen das Zoning für die neu arrangierten Ports anpassen.</block>
   <block id="f6c5a69060b62d046efbd190570cf383" category="admonition">Dieses Beispiel zeigt die minimalen Informationen, die für die Konfiguration des RCF erforderlich sind. Nach der Anwendung des RCF können weitere Optionen konfiguriert werden. Sie können beispielsweise SNMPv3, NTP oder SCP/SFTP konfigurieren, nachdem Sie den RCF installiert haben.</block>
   <block id="6ca034f6a518722187e6a10bfc2df9e6" category="admonition">Schalten Sie die Shelfs vor dem Einschalten der Controller nicht ein. Dadurch wird verhindert, dass die Controller unbeabsichtigt in ONTAP booten.</block>
   <block id="604b473cd250fb4d83bbbab434f091fb" category="paragraph">Das Beispiel zeigt die Befehle zum Offline-Ausstellen von Plexen für einen Controller, auf dem ONTAP ausgeführt wird.</block>
@@ -14665,7 +13980,6 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="ca243f374acfb56a77236e0d30935f7f" category="list-text">Der Benutzer muss Zugriff auf die Switch-Befehle haben<block ref="a7dd12b1dab17d25467b0b0a4c8d4a92" prefix=" " category="inline-code"></block> . Wenn diese nicht verfügbar sind, erstellen Sie einen neuen Benutzer und erteilen Sie dem Benutzer die erforderlichen Berechtigungen.</block>
   <block id="8d36506446d5ad8477c75d9150e6528f" category="list-text">Die Switch-Statusüberwachung muss für den Switch aktiviert sein. Überprüfen Sie dies, indem Sie sicherstellen, dass <block ref="83bb5774e6e4dc96959b12bfa4334f18" prefix=" " category="inline-code"></block> Feld ist in der Ausgabe des <block ref="db3929a8e897b02a87f7f4bc42f38fc1" prefix=" " category="inline-code"></block> Befehl.</block>
   <block id="40b03f9635c63b20aade0ff8145eafb8" category="list-text">Für die Protokollerfassung mit Broadcom- und Cisco-Switches:</block>
-  <block id="89f1dd995a5c07ea1e13abc5993d9d59" category="list-text">Benutzer müssen über Privileges für Netzwerkadministratoren verfügen.</block>
   <block id="60f743043272b873831b17c5e7290445" category="list-text">Für jedes Cluster-Setup sollte auf dem Switch ein neuer Benutzer erstellt werden, bei dem die Protokollerfassung aktiviert ist. Diese Switches unterstützen nicht mehrere SSH-Schlüssel für denselben Benutzer. Bei jeder weiteren Einrichtung der Protokollerfassung werden alle bereits vorhandenen SSH-Schlüssel für den Benutzer überschrieben.</block>
   <block id="c1433b541d8d99faed86a93460cb0bad" category="list-text">Für die Unterstützung der Log-Erfassung mit NVIDIA-Switches muss der _user_ für die Log-Sammlung berechtigt sein<block ref="c85737d6a0d20328583b59ea7320a5ef" prefix=" " category="inline-code"></block>, den Befehl auszuführen, ohne ein Passwort angeben zu müssen. Führen Sie den folgenden Befehl aus, um diese Verwendung zuzulassen:</block>
   <block id="a0379ee208b1ca86b0ce11e60c0e73eb" category="paragraph"><block ref="83e3f80a08612b0113ac48e3b9a3432e" prefix="" category="inline-code"></block></block>
@@ -14982,4 +14296,32 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="b8aa75f85ab89774f69f787c3912bd4a" category="section-title">Fügen Sie interne Laufwerke erneut zum neuen Controller hinzu</block>
   <block id="a5418696f5bd16fb72497595b65b899d" category="admonition">Diese Aufgabe gilt nur für bestimmte Upgrade-Kombinationen. Weitere Informationen finden Sie unter <block ref="63ae90b2306cb4f5a770ba51c50d383a" category="inline-link-macro-rx"></block> .</block>
   <block id="f98f4af1e88acc06b614726a822ddb15" category="paragraph">. Wenn Ihre Upgrade-Kombination mit *Hinweis 2* gekennzeichnet ist, müssen Sie die internen Laufwerke aus dem neuen System entfernen oder aus dem Sitz lösen</block>
+  <block id="39e8057e214765dae86d121a785344c8" category="list-text"><block ref="39e8057e214765dae86d121a785344c8" category="inline-link-macro-rx"></block></block>
+  <block id="e499949cff5b1814cf723856fb14bc68" category="summary">Sie müssen jeden Node in der MetroCluster Konfiguration in ONTAP einrichten, einschließlich der Node-Konfiguration und der Konfiguration der Nodes an zwei Standorten.</block>
+  <block id="1015149d257695c82b3ee87b4d5e55b7" category="list-text">Stellen Sie sicher, dass Sie wissen, welche Laufwerke im neuen Aggregat verwendet werden.</block>
+  <block id="f4aae2f587ce3bbaed06f1f3e8edfafe" category="paragraph">Wenden Sie sich an den technischen Support, wenn Sie die MetroCluster Konfiguration entfernen müssen.</block>
+  <block id="cadbbddc821f7f9f40f0ee060234d48b" category="paragraph">Kontaktieren Sie den technischen Support von NetApp und lesen Sie das entsprechende Handbuch für Ihre Konfiguration von <block ref="c2ef60fcbce343052d34da400cf98089" category="inline-link-macro-rx"></block></block>
+  <block id="8acdc5308983b14f48ef0491a4b7dca2" category="admonition">Die Konfiguration von MetroCluster kann nicht rückgängig gemacht werden. Dieses Verfahren sollte nur mit Unterstützung durch den technischen Support erfolgen. Nach dem Entfernen der MetroCluster-Konfiguration sollten alle Festplatten-Konnektivität und Interconnects auf einen unterstützten Zustand eingestellt werden.</block>
+  <block id="34dbe0f08a22a7e96d372d8f047dd0aa" category="summary">Die MetroCluster Komponenten müssen an beiden geografischen Standorten physisch installiert, verkabelt und konfiguriert sein.</block>
+  <block id="c5ec40ca0858141f1dfc6090c1afe26a" category="section-title">Konfigurieren Sie MetroCluster IP-Konfigurationen mit acht Knoten</block>
+  <block id="baf389d8079bcd40a8512f15620a6504" category="inline-link-macro">Erweitern Sie eine MetroCluster IP-Konfiguration mit vier Knoten auf eine Konfiguration mit acht Knoten</block>
+  <block id="da5260de1bd80de8e37a9ab8f4f2535c" category="paragraph">Eine MetroCluster Konfiguration mit acht Nodes besteht aus zwei DR-Gruppen. Um die erste DR-Gruppe zu konfigurieren, führen Sie die Aufgaben in diesem Abschnitt aus. Nachdem Sie die erste DR-Gruppe konfiguriert haben, können Sie die folgenden Schritte ausführen: <block ref="ca181c37200e98f54ddb8db46d698258" category="inline-link-macro-rx"></block> .</block>
+  <block id="bc538e17b00371638bfeff8aa7231dc1" category="doc">Erfahren Sie mehr über nicht gespiegelte Aggregate in MetroCluster -IP-Konfigurationen</block>
+  <block id="bfc0c2345be1e56a7198a484e17e4342" category="section-title">Ungespiegelte Aggregate und hierarchische Namespaces</block>
+  <block id="26a653ff364d1b6a39f4759a824c3c1a" category="section-title">Ungespiegelte Aggregate und Wartung, die eine Stromabschaltung erfordert</block>
+  <block id="c714c7e022d3dca698d41798c7772c9e" category="paragraph">Wenn Sie zu Wartungszwecken eine vereinbarte Umschaltung durchführen, die eine standortweite Stromabschaltung erfordert, sollten Sie zunächst alle nicht gespiegelten Aggregate im Besitz des Notfallstandorts manuell offline schalten.</block>
+  <block id="b948fd74f64e5338e8ffa07d28662207" category="paragraph">Wenn Sie die nicht gespiegelten Aggregate des Notfallstandorts nicht offline schalten, können Knoten am verbleibenden Standort aufgrund von Multi-Disk-Panics ausfallen. Dies kann passieren, wenn umgeschaltete nicht gespiegelte Aggregate offline gehen oder fehlen, weil die Verbindung zum Speicher am Notfallstandort nach einem Stromausfall oder dem Verlust von ISLs verloren geht.</block>
+  <block id="499fa42e89a3bcf83d69094c44340ab1" category="section-title">Ungespiegelte Aggregate, CRS-Metadatenvolumes und Daten-SVM-Root-Volumes</block>
+  <block id="56ea87073f92be67542e7a1d2954ab40" category="paragraph">Der Configuration Replication Service (CRS) Metadaten-Volume und Daten-SVM-Root-Volumes müssen sich in einem gespiegelten Aggregat befinden. Sie können diese Volumes nicht in ein nicht gespiegeltes Aggregat verschieben. Wenn sie sich auf einem nicht gespiegelten Aggregat befinden, werden ausgehandelte Switchover- und Switchback-Operationen blockiert und die <block ref="76dc6201d136e34774708961e9b61505" prefix=" " category="inline-code"></block> Befehl gibt eine Warnung zurück.</block>
+  <block id="abdaef6a3d1ec476877395bc542ad2eb" category="section-title">Ungespiegelte Aggregate und SVMs</block>
+  <block id="a74f73bf026b4aedceebc15d2a039449" category="paragraph">Sie sollten SVMs nur auf gespiegelten oder nicht gespiegelten Aggregaten konfigurieren. Die Konfiguration von SVMs auf einer Mischung aus nicht gespiegelten und gespiegelten Aggregaten kann zu einem Umschaltvorgang führen, der länger als 120 Sekunden dauert. Dies kann zu einem Datenausfall führen, wenn die nicht gespiegelten Aggregate nicht online gehen.</block>
+  <block id="2c19869470daf1847ae41e2fd8e9afed" category="section-title">Ungespiegelte Aggregate und SAN</block>
+  <block id="a2b50dd773b41712ce2e75c040d9bb4d" category="paragraph">Vor ONTAP 9.9.1 sollte sich eine LUN nicht auf einem nicht gespiegelten Aggregat befinden. Das Konfigurieren einer LUN auf einem nicht gespiegelten Aggregat kann zu einem Switchover von mehr als 120 Sekunden bei einem Ausfall der Daten führen.</block>
+  <block id="2fc694052b4d0c9fddb171c279d9ff41" category="section-title">Lagerregale für ungespiegelte Aggregate hinzufügen</block>
+  <block id="340ee9c6b389308075f20882f44ee863" category="paragraph">Wenn Sie Regale hinzufügen und diese für nicht gespiegelte Aggregate in einer MetroCluster -IP-Konfiguration verwenden möchten, müssen Sie Folgendes tun:</block>
+  <block id="fb945b959f6754639fad6c6e9e9469b9" category="list-text">Der lokale Benutzer muss über Netzwerkadministratorrechte verfügen.</block>
+  <block id="5ea27988b4071e332e850721389e951a" category="doc">Wählen Sie das richtige Konfigurationsverfahren für den MetroCluster IP-Switch</block>
+  <block id="b9b3d7865c01f9cccab728c6d2bb7296" category="paragraph">Sie müssen die IP-Switches konfigurieren, um eine Back-End-MetroCluster-IP-Konnektivität bereitzustellen. Das von Ihnen zu befolgende Verfahren hängt von Ihrem Switch-Anbieter ab.</block>
+  <block id="528aafe8fc362d0088ddcc230e89b62a" category="doc">So verwenden Sie die Porttabellen mit mehreren MetroCluster IP-Konfigurationen</block>
+  <block id="760419501f92fb637e39b91dbfd2ea18" category="summary">Sie müssen das richtige Installationsverfahren basierend darauf auswählen, wie die Speichercontroller mit den Speicherregalen verbunden werden.</block>
 </blocks>
