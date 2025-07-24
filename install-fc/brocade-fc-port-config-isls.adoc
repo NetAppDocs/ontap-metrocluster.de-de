@@ -1,0 +1,162 @@
+---
+permalink: install-fc/brocade-fc-port-config-isls.html 
+sidebar: sidebar 
+keywords: ONTAP, FAS, FC, Brocade, metrocluster 
+summary: Die folgenden Tabellen zeigen die Portnutzung auf Brocade -Switches. 
+---
+= Brocade -Port-Nutzung für ISLs in einer MetroCluster FC-Konfiguration
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Informieren Sie sich über die Portzuweisungen, die zum Verkabeln von Brocade FC-Switches mit ISLs erforderlich sind.
+
+[NOTE]
+====
+* AFF A900 und FAS9500 Systeme unterstützen acht ISLs. Acht ISLs werden auf den Switches Brocade 6510, G620, G620-1, G630, G630-1, G720 und G730 unterstützt.
+* Brocade 6520-Switches unterstützen acht ISLs, jedoch keine AFF A900 und FAS9500 Systeme.
+
+
+====
+[cols="2a,2a,2a,2a,2a,2a,2a"]
+|===
+| *ISL-Anschluss* | *6505-, G610-, G710-Anschluss* | *6520-Anschluss* | *7810-Anschluss* | *7840 (10-Gbit/s)-Anschluss* | *7840 (40-Gbit/s)-Anschluss* | *6510-, G620-, G620-1-, G630-, G630-1-, G720-, G730-Anschluss* 
+
+
+ a| 
+ISL-Port 1
+ a| 
+20
+ a| 
+22
+ a| 
+ge2
+ a| 
+ge2
+ a| 
+ge0
+ a| 
+40
+
+
+
+ a| 
+ISL-Port 2
+ a| 
+21
+ a| 
+23
+ a| 
+ge3
+ a| 
+ge3
+ a| 
+ge1
+ a| 
+41
+
+
+
+ a| 
+ISL-Port 3
+ a| 
+22
+ a| 
+46
+ a| 
+ge4
+ a| 
+ge10
+ a| 
+n/a
+ a| 
+42
+
+
+
+ a| 
+ISL-Port 4
+ a| 
+23
+ a| 
+47
+ a| 
+ge5
+ a| 
+ge11
+ a| 
+n/a
+ a| 
+43
+
+
+
+ a| 
+ISL-Port 5
+ a| 
+n/a
+ a| 
+70
+ a| 
+ge6
+ a| 
+n/a
+ a| 
+n/a
+ a| 
+44
+
+
+
+ a| 
+ISL-Port 6
+ a| 
+n/a
+ a| 
+71
+ a| 
+ge7
+ a| 
+n/a
+ a| 
+n/a
+ a| 
+45
+
+
+
+ a| 
+ISL-Port 7
+ a| 
+n/a
+ a| 
+94
+ a| 
+n/a
+ a| 
+n/a
+ a| 
+n/a
+ a| 
+46
+
+
+
+ a| 
+ISL-Port 8
+ a| 
+n/a
+ a| 
+95
+ a| 
+n/a
+ a| 
+n/a
+ a| 
+n/a
+ a| 
+47
+
+|===

@@ -1,0 +1,1258 @@
+---
+permalink: install-fc/cisco-fc-port-config-bridges.html 
+sidebar: sidebar 
+keywords: ONTAP, FAS, FC, Cisco, metrocluster 
+summary: Informieren Sie sich über die erforderlichen Portzuweisungen zum Verkabeln der Cisco 9124V-, 9148S-, 9148V-, 9250i- und 9396S-FC-Switches mit FC-zu-SAS-Brücken. 
+---
+= Cisco -Port-Nutzung für FC-zu-SAS-Brücken in einer MetroCluster FC-Konfiguration
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Erfahren Sie mehr über die erforderlichen Portzuweisungen für die Verkabelung der Cisco 9124V-, 9148S-, 9148V-, 9250i- und 9396S-FC-Switches mit FC-zu-SAS-Brücken. Die Portzuweisungen variieren je nachdem, ob die Brücken einen oder zwei FC-Ports verwenden.
+
+
+NOTE: Informationen zu Cisco 9132T finden Sie unter link:cisco-9132t-fc-port-config-bridges.html["Cisco 9132t-Portnutzung für FC-zu-SAS-Brücken in einer MetroCluster FC-Konfiguration"] .
+
+
+
+== Shelf-Konfigurationen mit FibreBridge 7500N oder 7600N mit beiden FC-Ports (FC1 und FC2)
+
+
+
+=== MetroCluster 1 oder DR-Gruppe 1
+
+Die folgende Tabelle zeigt die unterstützten Shelf-Konfigurationen in MetroCluster 1 oder DR-Gruppe 1 mit FibreBridge 7500N- oder 7600N-Brücken und den beiden FC-Ports (FC1 und FC2) auf Cisco Switches (außer 9132T). Beachten Sie bei der Verwendung dieser Konfigurationstabelle Folgendes:
+
+* Bei Cisco -Switches 9124V und 9148V können Sie zusätzliche MetroCluster 1- oder DR-Gruppe-1-Bridges an die Ports 21–24 anschließen.
+* Auf Cisco 9250i-Switches können Sie zusätzliche MetroCluster 1- oder DR-Gruppe 1-Bridges an die Ports 17–40 anschließen.
+* Auf Cisco 9396S-Switches können Sie zusätzliche MetroCluster 1- oder DR-Gruppe 1-Bridges an die Ports 17–32 anschließen.
+
+
+[cols="2a,2a,2a,2a,2a,2a,2a,2a,2a"]
+|===
+2+| * Komponente* | *Port* | *Anschluss an FC-Switch...* | *9124V-Anschluss* | *9148S-Anschluss* | *9148V-Anschluss* | *9250i-Anschluss* | *9396S-Anschluss* 
+
+
+ a| 
+Stack 1
+ a| 
+Bridge_x_1a
+ a| 
+FC1
+ a| 
+1
+ a| 
+13
+ a| 
+9
+ a| 
+13
+ a| 
+9
+ a| 
+9
+
+
+
+ a| 
+FC2
+ a| 
+2
+ a| 
+13
+ a| 
+9
+ a| 
+13
+ a| 
+9
+ a| 
+9
+
+
+
+ a| 
+Bridge_x_1b
+ a| 
+FC1
+ a| 
+1
+ a| 
+14
+ a| 
+10
+ a| 
+14
+ a| 
+10
+ a| 
+10
+
+
+
+ a| 
+FC2
+ a| 
+2
+ a| 
+14
+ a| 
+10
+ a| 
+14
+ a| 
+10
+ a| 
+10
+
+
+
+ a| 
+Stack 2
+ a| 
+Bridge_x_2a
+ a| 
+FC1
+ a| 
+1
+ a| 
+15
+ a| 
+11
+ a| 
+15
+ a| 
+11
+ a| 
+11
+
+
+
+ a| 
+FC2
+ a| 
+2
+ a| 
+15
+ a| 
+11
+ a| 
+15
+ a| 
+11
+ a| 
+11
+
+
+
+ a| 
+Bridge_x_2b
+ a| 
+FC1
+ a| 
+1
+ a| 
+16
+ a| 
+12
+ a| 
+16
+ a| 
+12
+ a| 
+12
+
+
+
+ a| 
+FC2
+ a| 
+2
+ a| 
+16
+ a| 
+12
+ a| 
+16
+ a| 
+12
+ a| 
+12
+
+
+
+ a| 
+Stapel 3
+ a| 
+Bridge_x_3a
+ a| 
+FC1
+ a| 
+1
+ a| 
+17
+ a| 
+13
+ a| 
+17
+ a| 
+13
+ a| 
+13
+
+
+
+ a| 
+FC2
+ a| 
+2
+ a| 
+17
+ a| 
+13
+ a| 
+17
+ a| 
+13
+ a| 
+13
+
+
+
+ a| 
+Bridge_x_3b
+ a| 
+FC1
+ a| 
+1
+ a| 
+18
+ a| 
+14
+ a| 
+18
+ a| 
+14
+ a| 
+14
+
+
+
+ a| 
+FC2
+ a| 
+2
+ a| 
+18
+ a| 
+14
+ a| 
+18
+ a| 
+14
+ a| 
+14
+
+
+
+ a| 
+Stapel 4
+ a| 
+Bridge_x_4a
+ a| 
+FC1
+ a| 
+1
+ a| 
+19
+ a| 
+15
+ a| 
+19
+ a| 
+15
+ a| 
+15
+
+
+
+ a| 
+FC2
+ a| 
+2
+ a| 
+19
+ a| 
+15
+ a| 
+19
+ a| 
+15
+ a| 
+15
+
+
+
+ a| 
+Bridge_x_4b
+ a| 
+FC1
+ a| 
+1
+ a| 
+20
+ a| 
+16
+ a| 
+20
+ a| 
+16
+ a| 
+16
+
+
+
+ a| 
+FC2
+ a| 
+2
+ a| 
+20
+ a| 
+16
+ a| 
+20
+ a| 
+16
+ a| 
+16
+
+|===
+
+
+=== MetroCluster 2 oder DR-Gruppe 2
+
+Die folgende Tabelle zeigt die unterstützten Shelf-Konfigurationen in MetroCluster 2 oder DR-Gruppe 2 mit FibreBridge 7500N oder 7600N und beiden FC-Ports (FC1 und FC2) auf Cisco Switches (außer 9132T). Beachten Sie bei der Verwendung der Verkabelungstabellen Folgendes:
+
+* Cisco 9124V- und 9250i-Switches werden für MetroCluster -Konfigurationen mit acht Knoten nicht unterstützt
+* Auf Cisco 9148V-Switches können Sie zusätzliche MetroCluster 2-Bridges (DR-Gruppe 2) an die Ports 45–48 anschließen.
+* Auf Cisco 9396S-Switches können Sie zusätzliche MetroCluster 2-Bridges (DR-Gruppe 2) an die Ports 65–80 anschließen.
+
+
+[cols="2a,2a,2a,2a,2a,2a,2a,2a,2a"]
+|===
+2+| * Komponente* | *Port* | *Anschluss an FC-Switch...* | *9124V-Anschluss* | *9148S-Anschluss* | *9148V-Anschluss* | *9250i-Anschluss* | *9396S-Anschluss* 
+
+
+ a| 
+Stack 1
+ a| 
+Bridge_x_1a
+ a| 
+FC1
+ a| 
+1
+ a| 
+n/a
+ a| 
+33
+ a| 
+37
+ a| 
+n/a
+ a| 
+57
+
+
+
+ a| 
+FC2
+ a| 
+2
+ a| 
+n/a
+ a| 
+33
+ a| 
+37
+ a| 
+n/a
+ a| 
+57
+
+
+
+ a| 
+Bridge_x_1b
+ a| 
+FC1
+ a| 
+1
+ a| 
+n/a
+ a| 
+34
+ a| 
+38
+ a| 
+n/a
+ a| 
+58
+
+
+
+ a| 
+FC2
+ a| 
+2
+ a| 
+n/a
+ a| 
+34
+ a| 
+38
+ a| 
+n/a
+ a| 
+58
+
+
+
+ a| 
+Stack 2
+ a| 
+Bridge_x_2a
+ a| 
+FC1
+ a| 
+1
+ a| 
+n/a
+ a| 
+35
+ a| 
+39
+ a| 
+n/a
+ a| 
+59
+
+
+
+ a| 
+FC2
+ a| 
+2
+ a| 
+n/a
+ a| 
+35
+ a| 
+39
+ a| 
+n/a
+ a| 
+59
+
+
+
+ a| 
+Bridge_x_2b
+ a| 
+FC1
+ a| 
+1
+ a| 
+n/a
+ a| 
+36
+ a| 
+40
+ a| 
+n/a
+ a| 
+60
+
+
+
+ a| 
+FC2
+ a| 
+2
+ a| 
+n/a
+ a| 
+36
+ a| 
+40
+ a| 
+n/a
+ a| 
+60
+
+
+
+ a| 
+Stapel 3
+ a| 
+Bridge_x_3a
+ a| 
+FC1
+ a| 
+1
+ a| 
+n/a
+ a| 
+37
+ a| 
+41
+ a| 
+n/a
+ a| 
+61
+
+
+
+ a| 
+FC2
+ a| 
+2
+ a| 
+n/a
+ a| 
+37
+ a| 
+41
+ a| 
+n/a
+ a| 
+61
+
+
+
+ a| 
+Bridge_x_3b
+ a| 
+FC1
+ a| 
+1
+ a| 
+n/a
+ a| 
+38
+ a| 
+42
+ a| 
+n/a
+ a| 
+62
+
+
+
+ a| 
+FC2
+ a| 
+2
+ a| 
+n/a
+ a| 
+38
+ a| 
+42
+ a| 
+n/a
+ a| 
+62
+
+
+
+ a| 
+Stapel 4
+ a| 
+Bridge_x_4a
+ a| 
+FC1
+ a| 
+1
+ a| 
+n/a
+ a| 
+39
+ a| 
+43
+ a| 
+n/a
+ a| 
+63
+
+
+
+ a| 
+FC2
+ a| 
+2
+ a| 
+n/a
+ a| 
+39
+ a| 
+43
+ a| 
+n/a
+ a| 
+63
+
+
+
+ a| 
+Bridge_x_4b
+ a| 
+FC1
+ a| 
+1
+ a| 
+n/a
+ a| 
+40
+ a| 
+44
+ a| 
+n/a
+ a| 
+64
+
+
+
+ a| 
+FC2
+ a| 
+2
+ a| 
+n/a
+ a| 
+40
+ a| 
+44
+ a| 
+n/a
+ a| 
+64
+
+|===
+
+
+== Shelf-Konfigurationen mit FibreBridge 7500N oder 7600N und nur einem FC-Port (FC1 oder FC2)
+
+
+
+=== MetroCluster 1 oder DR-Gruppe 1
+
+Die folgende Tabelle zeigt die unterstützten Shelf-Konfigurationen in MetroCluster 1 oder DR-Gruppe 1 für FibreBridge 7500N- oder 7600N-Bridges mit einem FC-Port (FC1 oder FC2) auf Cisco Switches (außer 9132T). Die Referenzkonfigurationsdatei (RCF) unterstützt keinen FC-Port auf FibreBridge-Bridges. Daher müssen Sie die Back-End-Fibre-Channel-Switches manuell konfigurieren.
+
+link:../install-fc/task_fcsw_cisco_configure_a_cisco_switch_supertask.html["Konfigurieren Sie Cisco FC-Switches manuell"]
+
+Folgendes sollten Sie bei der Verwendung der Verkabelungstabellen beachten:
+
+* Bei Cisco -Switches 9124V und 9148V können Sie zusätzliche MetroCluster 1- oder DR-Gruppe-1-Bridges an die Ports 21–24 anschließen.
+* Auf Cisco 9250i-Switches können Sie zusätzliche MetroCluster 1- oder DR-Gruppe 1-Bridges an die Ports 17–40 anschließen.
+* Auf Cisco 9396S-Switches können Sie zusätzliche MetroCluster 1- oder DR-Gruppe 1-Bridges an die Ports 17–32 anschließen.
+
+
+[cols="2a,2a,2a,2a,2a,2a,2a,2a"]
+|===
+| * Komponente* | *Port* | *Anschluss an FC-Switch...* | *9124V-Anschluss* | *9148S-Anschluss* | *9148V-Anschluss* | *9250i-Anschluss* | *9396S-Anschluss* 
+
+
+ a| 
+Stack 1
+ a| 
+Bridge_x_1a
+ a| 
+1
+ a| 
+13
+ a| 
+9
+ a| 
+13
+ a| 
+9
+ a| 
+9
+
+
+
+ a| 
+Bridge_x_1b
+ a| 
+2
+ a| 
+13
+ a| 
+9
+ a| 
+13
+ a| 
+9
+ a| 
+9
+
+
+
+ a| 
+Stack 2
+ a| 
+Bridge_x_2a
+ a| 
+1
+ a| 
+14
+ a| 
+10
+ a| 
+14
+ a| 
+10
+ a| 
+10
+
+
+
+ a| 
+Bridge_x_2b
+ a| 
+2
+ a| 
+14
+ a| 
+10
+ a| 
+14
+ a| 
+10
+ a| 
+10
+
+
+
+ a| 
+Stapel 3
+ a| 
+Bridge_x_3a
+ a| 
+1
+ a| 
+15
+ a| 
+11
+ a| 
+15
+ a| 
+11
+ a| 
+11
+
+
+
+ a| 
+Bridge_x_3b
+ a| 
+2
+ a| 
+15
+ a| 
+11
+ a| 
+15
+ a| 
+11
+ a| 
+11
+
+
+
+ a| 
+Stapel 4
+ a| 
+Bridge_x_4a
+ a| 
+1
+ a| 
+16
+ a| 
+12
+ a| 
+16
+ a| 
+12
+ a| 
+12
+
+
+
+ a| 
+Bridge_x_4b
+ a| 
+2
+ a| 
+16
+ a| 
+12
+ a| 
+16
+ a| 
+12
+ a| 
+12
+
+
+
+ a| 
+Stapel 5
+ a| 
+Bridge_x_5a
+ a| 
+1
+ a| 
+17
+ a| 
+13
+ a| 
+17
+ a| 
+13
+ a| 
+13
+
+
+
+ a| 
+Bridge_x_5b
+ a| 
+2
+ a| 
+17
+ a| 
+13
+ a| 
+17
+ a| 
+13
+ a| 
+13
+
+
+
+ a| 
+Stapel 6
+ a| 
+Bridge_x_6a
+ a| 
+1
+ a| 
+18
+ a| 
+14
+ a| 
+18
+ a| 
+14
+ a| 
+14
+
+
+
+ a| 
+Bridge_x_6b
+ a| 
+2
+ a| 
+18
+ a| 
+14
+ a| 
+18
+ a| 
+14
+ a| 
+14
+
+
+
+ a| 
+Stapel 7
+ a| 
+Bridge_x_7a
+ a| 
+1
+ a| 
+19
+ a| 
+15
+ a| 
+19
+ a| 
+15
+ a| 
+15
+
+
+
+ a| 
+Bridge_x_7b
+ a| 
+2
+ a| 
+19
+ a| 
+15
+ a| 
+19
+ a| 
+15
+ a| 
+15
+
+
+
+ a| 
+Stapel 8
+ a| 
+Bridge_x_8a
+ a| 
+1
+ a| 
+20
+ a| 
+16
+ a| 
+20
+ a| 
+16
+ a| 
+16
+
+
+
+ a| 
+Bridge_x_8b
+ a| 
+2
+ a| 
+20
+ a| 
+16
+ a| 
+20
+ a| 
+16
+ a| 
+16
+
+|===
+
+
+=== MetroCluster 2 oder DR-Gruppe 2
+
+Die folgende Tabelle zeigt die unterstützten Shelf-Konfigurationen in MetroCluster 2 oder DR-Gruppe 2 für FibreBridge 7500N- oder 7600N-Bridges mit einem FC-Port (FC1 oder FC2) auf Cisco Switches (außer 9132T). Beachten Sie bei der Verwendung dieser Konfigurationstabelle Folgendes:
+
+* Die Cisco Switches 9124V und 9250i werden für MetroCluster -Konfigurationen mit acht Knoten nicht unterstützt.
+* Auf Cisco 9148V-Switches können Sie zusätzliche MetroCluster 2- oder DR-Gruppe 2-Bridges an die Ports 45–48 anschließen.
+* Auf Cisco 9396S-Switches können Sie zusätzliche MetroCluster 2- oder DR-Gruppe 2-Bridges an die Ports 65–80 anschließen.
+
+
+[cols="2a,2a,2a,2a,2a,2a,2a,2a"]
+|===
+| * Komponente* | *Port* | *Anschluss an FC-Switch...* | *9124V-Anschluss* | *9148S-Anschluss* | *9148V-Anschluss* | *9250i-Anschluss* | *9396S-Anschluss* 
+
+
+ a| 
+Stack 1
+ a| 
+Bridge_x_1a
+ a| 
+1
+ a| 
+n/a
+ a| 
+33
+ a| 
+37
+ a| 
+n/a
+ a| 
+57
+
+
+
+ a| 
+Bridge_x_1b
+ a| 
+2
+ a| 
+n/a
+ a| 
+33
+ a| 
+37
+ a| 
+n/a
+ a| 
+57
+
+
+
+ a| 
+Stack 2
+ a| 
+Bridge_x_2a
+ a| 
+1
+ a| 
+n/a
+ a| 
+34
+ a| 
+38
+ a| 
+n/a
+ a| 
+58
+
+
+
+ a| 
+Bridge_x_2b
+ a| 
+2
+ a| 
+n/a
+ a| 
+34
+ a| 
+38
+ a| 
+n/a
+ a| 
+58
+
+
+
+ a| 
+Stapel 3
+ a| 
+Bridge_x_3a
+ a| 
+1
+ a| 
+n/a
+ a| 
+35
+ a| 
+39
+ a| 
+n/a
+ a| 
+59
+
+
+
+ a| 
+Bridge_x_3b
+ a| 
+2
+ a| 
+n/a
+ a| 
+35
+ a| 
+39
+ a| 
+n/a
+ a| 
+59
+
+
+
+ a| 
+Stapel 4
+ a| 
+Bridge_x_4a
+ a| 
+1
+ a| 
+n/a
+ a| 
+36
+ a| 
+40
+ a| 
+n/a
+ a| 
+60
+
+
+
+ a| 
+Bridge_x_4b
+ a| 
+2
+ a| 
+n/a
+ a| 
+36
+ a| 
+40
+ a| 
+n/a
+ a| 
+60
+
+
+
+ a| 
+Stapel 5
+ a| 
+Bridge_x_5a
+ a| 
+1
+ a| 
+n/a
+ a| 
+37
+ a| 
+41
+ a| 
+n/a
+ a| 
+61
+
+
+
+ a| 
+Bridge_x_5b
+ a| 
+2
+ a| 
+n/a
+ a| 
+37
+ a| 
+41
+ a| 
+n/a
+ a| 
+61
+
+
+
+ a| 
+Stapel 6
+ a| 
+Bridge_x_6a
+ a| 
+1
+ a| 
+n/a
+ a| 
+38
+ a| 
+42
+ a| 
+n/a
+ a| 
+62
+
+
+
+ a| 
+Bridge_x_6b
+ a| 
+2
+ a| 
+n/a
+ a| 
+38
+ a| 
+42
+ a| 
+n/a
+ a| 
+62
+
+
+
+ a| 
+Stapel 7
+ a| 
+Bridge_x_7a
+ a| 
+1
+ a| 
+n/a
+ a| 
+39
+ a| 
+43
+ a| 
+n/a
+ a| 
+63
+
+
+
+ a| 
+Bridge_x_7b
+ a| 
+2
+ a| 
+n/a
+ a| 
+39
+ a| 
+43
+ a| 
+n/a
+ a| 
+63
+
+
+
+ a| 
+Stapel 8
+ a| 
+Bridge_x_8a
+ a| 
+1
+ a| 
+n/a
+ a| 
+40
+ a| 
+44
+ a| 
+n/a
+ a| 
+64
+
+
+
+ a| 
+Bridge_x_8b
+ a| 
+2
+ a| 
+n/a
+ a| 
+40
+ a| 
+44
+ a| 
+n/a
+ a| 
+64
+
+|===

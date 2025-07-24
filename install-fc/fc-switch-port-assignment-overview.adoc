@@ -1,0 +1,62 @@
+---
+permalink: install-fc/fc-switch-port-assignment-overview.html 
+sidebar: sidebar 
+keywords: ONTAP, FAS, FC, Brocade, ISL, Cisco, metrocluster, switch, cabling, port, assignment 
+summary: Sie müssen beim Verkabeln der FC-Switches sicherstellen, dass Sie die angegebenen Portzuweisungen verwenden. 
+---
+= Portzuweisungen für MetroCluster FC-Switches
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen beim Verkabeln der FC-Switches sicherstellen, dass Sie die angegebenen Portzuweisungen verwenden.
+
+Sie können Ports, die nicht zum Anschließen von Initiator-Ports, FC-VI-Ports oder ISLs verwendet werden, als Speicher-Ports neu konfigurieren. Wenn Sie jedoch die unterstützten RCFs verwenden, müssen Sie die Zoneneinteilung entsprechend ändern.
+
+Wenn Sie die unterstützten RCFs verwenden, stellen ISL-Ports möglicherweise keine Verbindung zu denselben angezeigten Ports her und müssen möglicherweise manuell neu konfiguriert werden.
+
+Wenn Sie Ihre Switches mit den Portzuweisungen für ONTAP 9 konfiguriert haben, können Sie die älteren Zuweisungen weiterhin verwenden. Neue Konfigurationen mit ONTAP 9.1 oder höher sollten jedoch die hier gezeigten Portzuweisungen verwenden.
+
+
+
+== Allgemeine Verkabelungsrichtlinien
+
+Beachten Sie bei der Verwendung der Verkabelungstabellen die folgenden Richtlinien:
+
+* Brocade- und Cisco-Switches verwenden unterschiedliche Port-Nummerierung:
++
+** Bei Brocade Switches wird der erste Port mit der Nummer 0 nummeriert.
+** Bei Cisco Switches wird der erste Port mit der Nummer 1 nummeriert.
+
+
+* Für jeden FC-Switch im Switch Fabric ist die Verkabelung identisch.
+* Sie können AFF A300 und FAS8200 Storage-Systeme über eine der zwei Optionen für FC-VI-Konnektivität bestellen:
++
+** Die integrierten Ports 0e und 0f sind im FC-VI-Modus konfiguriert.
+** Die Ports 1a und 1b auf einer FC-VI-Karte in Steckplatz 1.
+
+
+* Für die AFF A700 und FAS9000 Storage-Systeme sind vier FC-VI-Ports erforderlich. Die folgenden Tabellen zeigen die Verkabelung für die FC Switches mit vier FC-VI-Ports an jedem Controller, außer für den Cisco 9250i Switch.
++
+Verwenden Sie für andere Storage-Systeme die in den Tabellen gezeigten Kabel, ignorieren Sie jedoch die Verkabelung für FC-VI-Ports c und d.
+
++
+Sie können diese Ports leer lassen.
+
+* Die Storage-Systeme der AFF A400 und FAS8300 verwenden die Ports 2a und 2b für FC-VI-Konnektivität.
+* Wenn zwei MetroCluster-Konfigurationen ISLs gemeinsam nutzen, verwenden Sie für eine MetroCluster-Verkabelung mit acht Nodes die gleichen Port-Zuweisungen wie diese.
+* Die Anzahl der von Ihnen verkabelten ISLs kann je nach den Anforderungen des Standorts variieren.
+* Weitere Informationen zu den Überlegungen zu ISL finden Sie im Abschnitt.
++
+link:concept_considerations_isls_mcfc.html["Überlegungen für ISLs"]
+
+
+
+
+
+== AFF A900 und FAS9500 Verkabelungsrichtlinien
+
+* Für AFF A900 oder FAS9500 Storage-Systeme sind acht FC-VI-Ports erforderlich. Wenn Sie ein AFF A900 oder FAS9500 verwenden, müssen Sie die Konfiguration mit acht Ports verwenden. Wenn die Konfiguration die anderen Modelle des Storage-Systems umfasst, verwenden Sie die in den Tabellen dargestellte Verkabelung, ignorieren Sie jedoch die Verkabelung für nicht benötigte FC-VI-Ports.
+
