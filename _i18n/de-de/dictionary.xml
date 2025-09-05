@@ -558,10 +558,8 @@
   <block id="e53dc72303557c1105d977a8451912b3" category="paragraph">Bei der Fabric-Attached MetroCluster FC-Konfiguration sind für jede SAS-Stapelgruppe ein Paar FC-to-SAS-Bridges erforderlich.</block>
   <block id="b70216f5078d65c8860a010a7ccdbdd8" category="list-text">FibreBridge 7600N oder 7500N-Brücken unterstützen bis zu vier SAS-Stacks.</block>
   <block id="520e16a62f58f9e73a16fda005e8fe2f" category="list-text">Jeder Stack kann verschiedene IOM-Modelle verwenden.</block>
-  <block id="8db51e2a7c564cc042e840346cc8e77f" category="paragraph">Unterstützte IOM-Module hängen von der Version der ONTAP ab, die Sie ausführen.</block>
   <block id="9df6f19f1ce5cd3044ae4a6c42240fb1" category="paragraph">Die MetroCluster-Konfiguration erfordert die Minimalkonfiguration an jedem Standort:</block>
   <block id="6b921594086cf3be722aefbdc64a10c1" category="paragraph">Bei einer MetroCluster-Konfiguration mit vier Nodes und zwei Nodes an jedem Standort sind beispielsweise an jedem Standort vier Pools erforderlich.</block>
-  <block id="d963cd5338d788b5f26861ebd6ae6f27" category="paragraph">Weitere Informationen zum Regalmischvorgang finden Sie unter:<block ref="96c52bfd2d59063b848ae852888ce36d" category="inline-link-rx"></block></block>
   <block id="2577b62ff20a44feeb798ea94e578a0b" category="section-title">Namenskonventionen für Bridge</block>
   <block id="9683bc886e03bf0b6fb2555eb820a5b9" category="paragraph">Die Brücken verwenden das folgende Beispiel:</block>
   <block id="bb2f4cb66d4e9c0b103783ed18a0a7af" category="paragraph"><block ref="239fcf9665f818e2d52e17b67307b3b4" prefix="" category="inline-code"></block></block>
@@ -1029,7 +1027,6 @@
   <block id="5eb35a1a2b36a57cb8278edbb8e4c431" category="paragraph">Sie müssen die Switch-Ports separaten Zonen zuweisen, um den Storage- (HBA) und Controller-Datenverkehr (FC-VI) zu isolieren.</block>
   <block id="622398e58840c2e545c17c5553d40b89" category="paragraph">Diese Schritte müssen auf beiden FC Switch Fabrics ausgeführt werden.</block>
   <block id="f10d463e2d297fe413356e23e7923de9" category="inline-link-macro">Zoning für FC-VI-Ports</block>
-  <block id="5cd4b63d4d313b63fb7fdd85a23fa4b0" category="paragraph">Verwenden Sie die folgenden Schritte das im Abschnitt Zoning für eine FibreBridge 7500N in einer MetroCluster-Konfiguration mit vier Knoten beschriebene Zoning. Siehe <block ref="5cec33f3319ecc6a14f118eb655e94d7" category="inline-link-macro-rx"></block>.</block>
   <block id="c27c7bc6d232fb55015ebabb19c6746e" category="list-text">Löschen Sie gegebenenfalls die vorhandenen Zonen und den Zonensatz.</block>
   <block id="abdcf12223b4762d5f98706b47d9bd0e" category="list-text">Bestimmen Sie, welche Zonen und welche Zonensätze aktiv sind:</block>
   <block id="70d65fcccd0bf1367f69f663e93a954d" category="paragraph"><block ref="02a271cf42cee92f9c8ce798576e4b8e" prefix="" category="inline-code"></block></block>
@@ -1649,8 +1646,6 @@
   <block id="fcf216ba8187b4017a22716585d4a6fa" category="paragraph">Nach der Konfiguration der Bridge können Sie mit der Verkabelung Ihres neuen Systems beginnen.</block>
   <block id="46fee005531651ebcbae735c06b5ef74" category="list-text">Schalten Sie die Festplatten-Shelfs ein und legen Sie dann die Shelf-IDs fest.</block>
   <block id="a7a19c162ddb589e248198c402b08a0c" category="list-text">Verkabeln Sie für den ersten Stack der Festplatten-Shelfs IOM A des ersten Shelfs zu SAS-Port A auf FibreBridge A und verkabeln Sie IOM B des letzten Shelfs zum SAS-Port A auf FibreBridge B</block>
-  <block id="2c5e8c1a90d9fac55613816da8484fd4" category="paragraph">Nach der Konfiguration der Bridge können Sie mit der Verkabelung Ihres neuen Systems beginnen. Die FibreBridge 7600N oder 7500N Bridge nutzt Mini-SAS-Anschlüsse und unterstützt Shelfs, die IOM6- oder IOM3-Module verwenden.</block>
-  <block id="f7e3d93b4c145bf696a9e6f193ce4fb7" category="list-text">Wiederholen Sie für weitere Shelf-Stacks die vorherigen Schritte mithilfe des nächsten verfügbaren SAS-Ports der FibreBridge-Brücken, wobei Port B für einen zweiten Stack, Port C für einen dritten Stack und Port D für einen vierten Stack verwendet wird.</block>
   <block id="605157b79e898676481d263489be287d" category="paragraph">Sie sollten überprüfen, ob jede Bridge alle Festplattenlaufwerke erkennen kann, und jede Bridge mit den lokalen FC-Switches verkabeln.</block>
   <block id="8bfac37f0565c6922aeced47caf18f6a" category="list-text">[[step1_Bridge]] Prüfen Sie, ob jede Bridge alle Festplattenlaufwerke und Platten-Shelfs erkennen kann, mit denen sie verbunden ist:</block>
   <block id="bf532d59144bc55a10c7ae835f098f56" category="paragraph">Sie werden auf die ATTO FibreBridge Homepage der Brücke gebracht, für die Sie die IP-Adresse eingegeben haben, die einen Link hat.</block>
@@ -2502,7 +2497,6 @@
   <block id="8d07a21c40606b1098d1a2ff5a5b5f1c" category="sidebar">Hot Add a Stack von SAS-Platten-Shelves zu einem vorhandenen FibreBridge 7500N-Paar</block>
   <block id="8780e2c60443de7cb84cd78e41b4b572" category="sidebar">Hot Add-Stack für SAS-Platten-Shelves und Bridges zu einem MetroCluster System</block>
   <block id="404bb11b70239a316af681095fbdeff7" category="sidebar">Fügen Sie ein SAS-Platten-Shelf zu einem Stack von SAS-Platten-Shelves hinzu</block>
-  <block id="26efac9be7856206ad935a9151a6a64c" category="sidebar">Hot-Add-on-IOM12-Platten-Shelf zu einem Stack von IOM6-Platten-Shelfs in einer über Bridge verbundenen MetroCluster-Konfiguration</block>
   <block id="cabfdbae66cbee4984c63ed2d5544390" category="sidebar">Hot-remove-Speicher aus einer MetroCluster-FC-Konfiguration</block>
   <block id="40a09e232a862af1f1a00bbe4b0defb8" category="sidebar">Ersetzen Sie ein Shelf unterbrechungsfrei in einer Stretch-MetroCluster-Konfiguration</block>
   <block id="6a739570036228dc1447eb1b941f12a0" category="sidebar">Ein Shelf kann unterbrechungsfrei in einer Fabric-Attached MetroCluster-Konfiguration ersetzt werden</block>
@@ -3916,7 +3910,6 @@
   <block id="8d48afc2af7642b1eb38cbfe7c3b33d8" category="list-text">Im dritten Quartal vier Laufwerke: 12, 13, 14, 15</block>
   <block id="807910399f003942a09396612760caef" category="list-text">Vier Laufwerke im vierten Quartal: 18, 19, 20, 21</block>
   <block id="2ad434ab593fd445c83cdbf1d5d00216" category="section-title">Mischen von IOM12 und IOM 6 Modulen in einem Stack</block>
-  <block id="420766222a929fd9b32b65dbb060314b" category="inline-link">Hot-Adding-Shelfs mit IOM12-Modulen werden in einem Shelf-Stack mit IOM6-Modulen ausgeführt</block>
   <block id="7a56c93af328a3c1fa4e3fccdc177cb5" category="summary">In einer MetroCluster IP-Konfiguration, die nicht werkseitig vorkonfiguriert ist, müssen Sie überprüfen, ob der HA-Konfigurationsstatus der Controller- und Chassis-Komponenten auf mccip eingestellt ist, damit sie ordnungsgemäß hochfahren. Bei Systemen, die vom Werk empfangen werden, ist dieser Wert vorkonfiguriert, und Sie müssen ihn nicht überprüfen.</block>
   <block id="6260a0c66ccd92620d9889772b65cffe" category="doc">Überprüfen des HA-Konfigurationsstatus von Komponenten</block>
   <block id="3293f2fb312a722f96251c9029636630" category="paragraph">Das System muss sich im Wartungsmodus befinden.</block>
@@ -6683,9 +6676,6 @@
   <block id="4844b6a2b007af265e80282e7822ba27" category="paragraph"><block ref="d7c628cb013f1d72c1a290f5fbf9d231" prefix="" category="inline-code"></block></block>
   <block id="b974604035f7175a0ad2f478b81c3613" category="list-text">Wiederholen Sie die vorherigen Schritte auf der zweiten Switch Fabric.</block>
   <block id="4868aa5e5fc13bb8953ff0f45bcf7ca8" category="paragraph">Nach Wiederholung der Schritte wurden alle vier Switches aktualisiert und die MetroCluster-Konfiguration befindet sich im normalen Betrieb.</block>
-  <block id="d57e84b8163149c21e12029ec296e524" category="summary">Je nach Ihrer Version von ONTAP können Sie in einer über die Bridge angeschlossenen MetroCluster-Konfiguration ein IOM12 Festplatten-Shelf zu einem Stack mit IOM6-Platten-Shelfs hinzufügen.</block>
-  <block id="c0b0a005c66dec25318b8f77ccd43de1" category="doc">Hot-Adding eines IOM12-Platten-Shelf zu einem Stack von IOM6-Platten-Shelfs in einer Bridge-Attached MetroCluster-Konfiguration</block>
-  <block id="a3d256f1f161df27a47bc7770faf92e4" category="paragraph">Informationen zum Ausführen dieses Verfahrens finden Sie unter<block ref="96c52bfd2d59063b848ae852888ce36d" category="inline-link-rx"></block>.</block>
   <block id="8b9a7a187e2b48592caca596db2450b8" category="summary">Sie müssen die gesamte MetroCluster FC-Konfiguration und alle Geräte ausschalten, bevor die Wartungsarbeiten oder Standortwechsel beginnen können.</block>
   <block id="5df316ddd8657b8b45d7df6c93ef002a" category="doc">Herunterfahren einer gesamten MetroCluster FC-Konfiguration</block>
   <block id="330b7770e81504eae12777c67ca4c41a" category="admonition">Ab ONTAP 9.8 beginnt der<block ref="83412e15b5bcfdddad769d9990b7226b" prefix=" " category="inline-code"></block> Befehl wird durch ersetzt<block ref="37091a4aa9f2c5c050d68526480446b9" prefix=" " category="inline-code"></block>. Die folgenden Schritte zeigen das<block ref="83412e15b5bcfdddad769d9990b7226b" prefix=" " category="inline-code"></block> Befehl, aber wenn Sie ONTAP 9.8 oder höher ausführen, der<block ref="37091a4aa9f2c5c050d68526480446b9" prefix=" " category="inline-code"></block> Befehl ist bevorzugt.</block>
@@ -6717,8 +6707,6 @@
   <block id="623d27fb1a71775c853589b6aa232fcb" category="paragraph">Möglicherweise möchten Sie die Festplatten- und Shelf-Firmware während der MetroCluster-Konfiguration aktualisieren, bevor Sie Shelfs hinzufügen.</block>
   <block id="f9cf9415d2ebe0c1351e0f7a1221a2d8" category="inline-link">Upgrade, Zurücksetzen oder Downgrade</block>
   <block id="c3204e26e12ab80395709eeaa0f8642d" category="paragraph"><block ref="c3204e26e12ab80395709eeaa0f8642d" category="inline-link-rx"></block></block>
-  <block id="64974d0b5eb2e258428a89835ce229c9" category="list-text">Starten eines neuen Stacks auf einem neuen SAS-Port (sofern vom Bridge-Paar unterstützt)</block>
-  <block id="ad45a06e82c1f0983fdfd0e3d30dc8f8" category="list-text">Starten Sie einen neuen Stack auf einem weiteren Brückenpaar.</block>
   <block id="b7b17808a6e64c132f3bf8c4f253b38d" category="list-text">Laden Sie folgende Dokumente von der NetApp Support-Website herunter oder lesen Sie sie:</block>
   <block id="8e916218cb72668e639a5859eade4041" category="list-text">Das _Installation Guide_ für Ihr Festplatten-Shelf-Modell.</block>
   <block id="55276018e99703958158b6e0fb364ef6" category="list-text">Überprüfen Sie, ob das Festplatten-Shelf, das Sie hinzufügen, unterstützt wird.</block>
@@ -7558,8 +7546,6 @@
   <block id="fc8abd12993bfb9d058197d8db6d03fb" category="paragraph">Alle Shelf-Wartungsarbeiten Die Standardverfahren können verwendet werden.</block>
   <block id="612b0bea750a7c462182730d395e1bde" category="inline-link">Überlegungen bei der Verwendung von nicht gespiegelten Aggregaten</block>
   <block id="08b87b0df84f23bedc3bd35f30bfa073" category="paragraph">Wenn Sie Shelfs für ein nicht gespiegeltes Aggregat hinzufügen, lesen Sie<block ref="a4e92f124c7c2dcbe4223de70278d181" category="inline-link-rx"></block></block>
-  <block id="4739016d267c9c4917ce4213d11c83cd" category="paragraph">Hot-Hinzufügen von IOM12-Shelfs zu einem Stack von IOM6-Shelfs</block>
-  <block id="d9c753202dcda649fdbebfcfe01fdbf3" category="paragraph"><block ref="d9c753202dcda649fdbebfcfe01fdbf3" category="inline-link-rx"></block></block>
   <block id="29a14686d79f5076a368c0039ffef9c5" category="paragraph">FC Switch</block>
   <block id="4840c7b4ba05af1f60579692dfa76f34" category="inline-link-macro">Austausch eines Cisco FC-Switches</block>
   <block id="5713f2c18fca6cff15f3222aca93a2a6" category="summary">Bei Konfigurationen mit Tiebreaker oder Mediator Monitoring muss die Software vor der Wartung nicht konfiguriert sein</block>
@@ -7597,8 +7583,6 @@
   <block id="e2e6b585638362a969fab38296cbf402" category="list-text">Senden Sie eine AutoSupport-Nachricht von beiden Standorten, die das Ende der Wartung angibt.</block>
   <block id="181e081727fe2d7b5ddb9d52ce8e9a59" category="summary">Sie können mit optischen SAS-Kabeln ein SAS-Platten-Shelf zu einem vorhandenen Stack von SAS-Platten-Shelfs in einer Direct-Attached MetroCluster FC-Konfiguration oder als neuer Stack zu einem SAS HBA oder einem integrierten SAS-Port am Controller hinzufügen.</block>
   <block id="2ec528ff0528a7d8030d507a7a972248" category="doc">Hinzufügen eines SAS-Festplatten-Shelfs in einer Direct-Attached MetroCluster FC-Konfiguration mit optischen SAS-Kabeln</block>
-  <block id="d0c324a5f50ea99fae56351b15b63897" category="inline-link-macro">Hot-Adding-IOM12-Shelfs zu einem Stack mit IOM6-Shelfs</block>
-  <block id="dab11e3a0cd5b24fb8bd82d98e637c80" category="list-text">Informationen zum Hinzufügen eines IOM12-Shelfs zu einem Stack von IOM6-Shelfs finden Sie unter <block ref="338189ebc463a222285c1fe3ffe9a61e" category="inline-link-macro-rx"></block>.</block>
   <block id="d544662f9663ae63e285220cbcd631e6" category="paragraph">Dieser Schritt betrifft eine MetroCluster FC-Konfiguration, in der der Storage über SAS-Kabel direkt mit den Storage Controllern verbunden ist. Dies gilt nicht für MetroCluster FC-Konfigurationen, die FC-to-SAS-Bridges oder FC-Switch-Fabrics verwenden.</block>
   <block id="26e4dc74b07d1aac080f56a5026ee8ff" category="list-text">Befolgen Sie die Anweisungen zum Hinzufügen eines SAS-Festplatten-Shelfs im _Installation Guide_, um Ihr Festplatten-Shelf-Modell die folgenden Aufgaben auszuführen, damit Sie ein Festplatten-Shelf im laufenden Betrieb hinzufügen:</block>
   <block id="0f17aebeed55756948f09eb1338a33df" category="list-text">Installieren Sie ein Festplatten-Shelf für eine Hot-Add-Installation.</block>
@@ -9648,21 +9632,7 @@
   <block id="e1e77b7559e73e7da0cd695a2c7ad2e9" category="paragraph">Sie sollten den Standardbenutzernamen und das Standardpasswort ändern.</block>
   <block id="946d5b388bd0add5de571fd9bce92cdc" category="list-text">Bei der Konfiguration für die IP-Verwaltung der Brücken benötigen Sie das abgeschirmte Ethernet-Kabel mit den Brücken (das vom Bridge Ethernet Management 1-Port mit Ihrem Netzwerk verbunden wird).</block>
   <block id="c6eaf2a37a80db46264a4e2661c4948c" category="list-text">Wenn Sie für das IP-Management der Brücken konfigurieren, benötigen Sie eine IP-Adresse, eine Subnetzmaske und Gateway-Informationen für den Ethernet-Management-Port 1 auf jeder Bridge.</block>
-  <block id="9f7478d92348559576a9b780c5262d0e" category="summary">Nach der Konfiguration der Bridge können Sie die Verkabelung des Systems starten. Die FibreBridge 7600N oder 7500N Bridge nutzt Mini-SAS-Anschlüsse und unterstützt Shelfs, die IOM6- oder IOM3-Module verwenden.</block>
-  <block id="f80a33b608fae76a65bf5266714d4698" category="doc">Verkabelung einer FibreBridge 7600N oder 7500N Bridge mit Shelfs unter Verwendung von IOM6- oder IOM3-Modulen</block>
-  <block id="d9d70d3ed9a2589db6cb3f63716e81bd" category="paragraph">IOM3-Module werden von FibreBridge 7600N-Brücken nicht unterstützt.</block>
   <block id="3745e1eacc753de05da3d0afc4e15cea" category="paragraph">Bei Festplatten-Shelfs stecken Sie einen SAS-Kabelanschluss mit nach unten (auf der Unterseite des Connectors) gerichteter Zuglasche.</block>
-  <block id="11089272dcca0cecd2093a1fdf859bbd" category="list-text">Schalten Sie die Regale in den einzelnen Stapeln in Reihe.</block>
-  <block id="d8a4e77f7d12ed2eb1cf6c9b7b853624" category="list-text">Verkabeln Sie beim ersten Stapel von Shelves IOM Einen quadratischen Port des ersten Shelfs zu SAS-Port A auf FibreBridge A</block>
-  <block id="b706cab575b233baa53a76973c0150a1" category="list-text">Verkabeln Sie für den ersten Stapel von Shelves IOM B-Kreis-Port des letzten Shelfs zu SAS-Port A auf FibreBridge B.</block>
-  <block id="9d7c91d036b8eef01d1ca3cf21b9ab13" category="paragraph">Das _Installation and Service Guide_ für Ihr Shelf-Modell enthält detaillierte Informationen zum Verketten von Shelfs.</block>
-  <block id="3b12133410a029964ca42ff42d351d26" category="inline-link">Installation und Service Guide für SAS-Platten-Shelfs für DS4243, DS2246, DS4486 und DS4246</block>
-  <block id="dffac67a0b66f79e4f2ff0361643edd1" category="paragraph"><block ref="dffac67a0b66f79e4f2ff0361643edd1" category="inline-link-rx"></block></block>
-  <block id="e2ecca96265ea99bc9158ee49830c008" category="paragraph">Die folgende Abbildung zeigt eine Reihe von Brücken, die mit einem Regal verbunden sind:</block>
-  <block id="47657524e16e342883a282cfc5c1a756" category="image-alt">mcc-Verkabelung – Bridge und sas Stack mit 7500n und einem einzelnen Stack</block>
-  <block id="1c0a5ccd8d43c6efa0824e4f1aaa5610" category="list-text">Wiederholen Sie für weitere Regalstapel die vorherigen Schritte mit dem nächsten verfügbaren SAS-Port der FibreBridge-Brücken. Verwenden Sie Port B für einen zweiten Stack, Port C für einen dritten Stack und Port D für einen vierten Stack.</block>
-  <block id="9111bd303b0cb06989b91c9e131eb156" category="paragraph">Die folgende Abbildung zeigt vier Stapel, die mit einem Paar FibreBridge 7600N oder 7500N-Brücken verbunden sind.</block>
-  <block id="6704e0f472546c04c5cdc225c2656ec5" category="image-alt">mcc-Verkabelung, Bridge und sas Stack mit 7500n vier Stacks</block>
   <block id="786bcd5bd1b18eea716b58462b00e890" category="summary">Wenn Sie eine ONTAP-Version vor 9.5 verwenden oder planen, Out-of-Band-Zugriff auf die FibreBridge 7600N-Bridge mit Telnet oder anderen IP-Port-Protokollen und -Diensten \ (FTP, ExpressNAV, ICMP oder Quicknav\) zu nutzen, können Sie die Zugriffsservices über den Konsolen-Port aktivieren.</block>
   <block id="ef402cf927be6e8ac7911e7437ce8e76" category="paragraph">Wenn Sie eine ONTAP-Version vor 9.5 verwenden oder einen Out-of-Band-Zugriff auf die FibreBridge 7600N-Bridge mit Telnet oder anderen IP-Port-Protokollen und -Diensten (FTP, ExpressNAV, ICMP oder Quicknav) planen, können Sie die Zugriffsservices über den Konsolen-Port aktivieren.</block>
   <block id="52812075c78ece551ae010bb2c3594ea" category="paragraph">Ab ONTAP 9.5 werden _in-Band-Management_ der Brücken unterstützt. Das bedeutet, dass die Brücken über die FC-Verbindung zur Bridge von der ONTAP-CLI konfiguriert und überwacht werden können. Physischer Zugang zur Bridge über die Bridge-Ethernet-Ports ist nicht erforderlich und die Bridge-Benutzeroberflächen sind nicht erforderlich.</block>
@@ -9795,7 +9765,6 @@
   <block id="0a6ebed5cb86332bcb0a52f5f59af845" category="paragraph">Wenn ein nicht gespiegeltes Aggregat verwendet wird, kann die Festplatten- und Shelf-Konfiguration an jedem Standort unterschiedlich sein.</block>
   <block id="45cf701b8697cab4c349ec98dae373d6" category="admonition">Alle Festplatten in der Disaster Recovery-Gruppe (DR) müssen denselben Verbindungstyp verwenden und für alle Nodes innerhalb der Disaster Recovery-Gruppe sichtbar sein. Dabei ist es unerheblich, welche Festplatten für ein gespiegeltes oder nicht gespiegeltes Aggregat verwendet werden.</block>
   <block id="9978ead9e34b37e88036a109e9bf9f10" category="list-text">Die Anforderungen an die Systemkonnektivität für maximale Entfernungen von Platten-Shelfs, FC-Switches und Backup-Bandgeräten mit 50-Mikron- und Multimode-Glasfaserkabeln gelten auch für FibreBridge-Brücken.</block>
-  <block id="2e98de4abcb4474d7596c55b7adad11e" category="list-text">Eine Kombination aus IOM12-Modulen und IOM3-Modulen wird im selben Storage-Stack nicht unterstützt. Wenn auf dem System eine unterstützte Version von ONTAP ausgeführt wird, wird im selben Storage Stack eine Kombination aus IOM12-Modulen und IOM6-Modulen unterstützt.</block>
   <block id="6deefaedded3b5fa6c69b4ccb8bfdfe5" category="paragraph">In-Band ACP wird ohne zusätzliche Verkabelung in den folgenden Shelves und FibreBridge 7500N oder 7600N Bridge unterstützt:</block>
   <block id="7c9eaf72100abb3448a96804d4b4eea7" category="list-text">IOM12 (DS460C) hinter einer 7500N bzw. 7600N Brücke mit ONTAP 9.2 und höher</block>
   <block id="7dfec405bf1e3b57bc2b7121ec1943b8" category="list-text">IOM12 (DS212C und DS224C) hinter einer 7500N oder 7600N Brücke mit ONTAP 9.1 und höher</block>
@@ -9875,7 +9844,6 @@
   <block id="f230aa9272cfae103f41403290ae21df" category="list-text">Shelf_A_1_2</block>
   <block id="3045f5f4f1093cf13cd0757dba1576cb" category="list-text">Shelf_B_1_1</block>
   <block id="1a10354dd8ac3ce1f01a352c0c19ac1d" category="list-text">Shelf_B_1_2</block>
-  <block id="40478efcbffc865e999b3e1e2108a0cc" category="paragraph">Weitere Informationen zum Anmischen von Regalen finden Sie unter:<block ref="532c1f47a9370f9e21538610051f3830" category="inline-link-rx"></block></block>
   <block id="5380d63de85a85219611f8b45f5c6e20" category="summary">Die FC-VI-Adapter jedes Controllers müssen direkt mit dem Partner verbunden sein.</block>
   <block id="c30a34e27a8f90d73144f28a874b413d" category="doc">Verkabeln Sie die Controller miteinander</block>
   <block id="6ece5477355fab540a1f9e5dcaa54c95" category="paragraph">Die FC-VI-Adapter jedes Controllers müssen direkt mit seinem Partner verbunden sein.</block>
@@ -10114,7 +10082,6 @@
   <block id="e11100cda92220a37aefe15b3df72fc6" category="section-title">Mindestens vier SAS-Platten-Shelves (empfohlen)</block>
   <block id="3e203d1fe20288fbdc8e4b477bffda73" category="paragraph">Bei der SAS-Attached Stretch MetroCluster Konfiguration sind mindestens zwei SAS-Festplatten-Shelfs erforderlich. Wir empfehlen vier SAS-Platten-Shelves.</block>
   <block id="a862108f875d286d39adac239f0619d5" category="paragraph">Es werden zwei Shelves an jedem Standort empfohlen, damit die Festplatteneigentümer pro Shelf sind. Es wird mindestens ein Shelf an jedem Standort unterstützt.</block>
-  <block id="e5e4a159b56e91f667faa79be11c280f" category="paragraph">Weitere Informationen zum Anmischen von Regalen finden Sie unter:<block ref="96c52bfd2d59063b848ae852888ce36d" category="inline-link-rx"></block></block>
   <block id="c4680bcc4ac229ac4b7d5d145927a0ea" category="doc">Auswahl des richtigen Installationsverfahrens für Ihre Konfiguration</block>
   <block id="76d06141fa1529c2e8193f48995d1030" category="cell">Für diesen Installationstyp...</block>
   <block id="0f59b15f885e3a80b7effe6a49fde4a8" category="cell">Verwenden Sie diese Verfahren...</block>
@@ -10123,7 +10090,6 @@
   <block id="358a1869f6f880774e4bc077827b15a6" category="list-text"><block ref="358a1869f6f880774e4bc077827b15a6" category="inline-link-macro-rx"></block></block>
   <block id="427173fb02da33c03f2d6549b04b93e9" category="paragraph">Stretch-Konfiguration mit zwei Nodes und Direct-Attached SAS-Verkabelung</block>
   <block id="0c0fa1382f3ba1efffa3113209ab5940" category="list-text"><block ref="0c0fa1382f3ba1efffa3113209ab5940" category="inline-link-macro-rx"></block></block>
-  <block id="dddcbe39d238e711998c52c432aeaa31" category="summary">Für die Verkabelung Ihrer Platten-Shelves müssen die richtigen FC-to-SAS-Bridges verwendet werden.</block>
   <block id="db7c7fcb177be4b76e7cfd3b25b6911b" category="summary">Sie sollten die Voraussetzungen und Richtlinien für die Konfiguration von MetroCluster Peering-Beziehungen kennen.</block>
   <block id="fbe01200b5d7a3c4261e8ea34a15d550" category="list-text">Planen Sie die Positionierung der MetroCluster Komponenten.</block>
   <block id="ff3374bc6b913cd83c99bdca241ba935" category="paragraph">Die erforderliche Rack-Fläche hängt vom Plattformmodell der Storage Controller, den Switch-Typen und der Anzahl von Festplatten-Shelf-Stacks in Ihrer Konfiguration ab.</block>
@@ -10166,7 +10132,6 @@
   <block id="0a54e8b976b2ba4c62dba5071a41e674" category="list-text">Verkabeln Sie die Platten-Shelves mit den FibreBridge Bridges.</block>
   <block id="0a479816abce55af3acdeba610f5c4aa" category="list-text">Verkabeln Sie beim ersten Stack der Festplatten-Shelfs IOM A des ersten Shelfs mit SAS-Port A auf FibreBridge A Verkabeln Sie IOM B des letzten Shelf mit SAS-Port A auf FibreBridge B</block>
   <block id="51072c7a051a0ed5cd0de02f8572141d" category="list-text">Wiederholen Sie für weitere Shelf-Stacks den vorherigen Schritt mit dem nächsten verfügbaren SAS-Port der FibreBridge-Brücken, wobei Port B für den zweiten Stack, Port C für den dritten Stack und Port D für den vierten Stack verwendet wird.</block>
-  <block id="949c6ddc1bce2ecc53639893363a0be7" category="list-text">Schließen Sie während der Verkabelung die auf IOM12- und IOM3-/IOM6-Modulen basierenden Stacks an dieselbe Bridge an, solange sie mit separaten SAS-Ports verbunden sind.</block>
   <block id="f3159eb6d9bf0d2640aa5c47f1ccf18e" category="admonition">Jeder Stack kann unterschiedliche IOM-Modelle verwenden. Alle Festplatten-Shelfs in einem Stack müssen jedoch dasselbe Modell verwenden.</block>
   <block id="027117a19a991f10e8054babbc4d5966" category="paragraph">Die folgende Abbildung zeigt die mit einem Paar FibreBridge 7600N- oder 7500N-Brücken verbundenen Platten-Shelves:</block>
   <block id="cabad1bab748f10f52cecc964ba3c574" category="image-alt">mcc-Kabelbrücke und sas3-Stack mit 7500n und mehreren Stacks</block>
@@ -10939,7 +10904,6 @@
   <block id="3e3df3be76a18ca2c89904765d97f078" category="list-text">Mit dem folgenden Befehl auf beiden Clustern bestätigen Sie, dass ein Takeover möglich ist und die Nodes verbunden sind:</block>
   <block id="3963205d7c5d1cb2f000d61f16c10f1d" category="paragraph">24 interne Laufwerke</block>
   <block id="7632b8724806890acaf96c668d641251" category="inline-link-macro">Erfahren Sie mehr über die automatische Laufwerkszuordnung und ADP-Systeme in MetroCluster IP-Konfigurationen</block>
-  <block id="5fdc7ff67ace146413ecd7d44157aca4" category="paragraph">Weitere Informationen zum Anmischen von Regalen finden Sie unter<block ref="532c1f47a9370f9e21538610051f3830" category="inline-link-rx"></block></block>
   <block id="e868bded76541295e018b74bb15a7920" category="inline-link-macro">Überblick über Installation und Konfiguration von NVIDIA SN2100-Switches</block>
   <block id="b86c7f3554d9472f6a1e417c7f70fb18" category="admonition">Weitere Informationen zur Installation von Cumulus Linux finden Sie unter <block ref="ac21c0d53d9fcd547ee85e9d73d53854" category="inline-link-macro-rx"></block></block>
   <block id="d173c8f64c2c9e1ca6a4cc8814f4c2ec" category="paragraph"><block ref="04a1df006b1c7589273df10cf6fc5ac4" category="inline-link-macro-rx"></block>.</block>
@@ -12017,7 +11981,6 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="e528d26e96f91b34e70a35c4661d620d" category="list-text">ONTAP 9.4 und höher ist für die Verwendung von ADP mit MetroCluster IP Konfigurationen auf AFF und ASA Systemen erforderlich.</block>
   <block id="bc8be72fdc9d6054f356bb2b7f80fd12" category="inline-link">NetApp Interoperabilitätsmatrix</block>
   <block id="769db6797bc8c70f9ceb0ea238fcfef2" category="list-text"><block ref="769db6797bc8c70f9ceb0ea238fcfef2" category="inline-link-rx"></block></block>
-  <block id="c9dd6bad4c7d561872f2e2d498a990bf" category="inline-link-macro">Interoperabilitäts-Matrix-Tool (IMT)</block>
   <block id="c5dcd35af16918a17ee9c3a5c153f0af" category="inline-link">IMT</block>
   <block id="24d65add9a27d74b80e9a9cebdfc8e56" category="paragraph">Ihre Version von ONTAP muss Shelf-Mix unterstützen. Informieren Sie sich im Interoperabilitäts-Matrix-Tool (IMT), ob Ihre Version von ONTAP Shelf-Mischungen unterstützt.<block ref="30796bf173a80af0dc9c120f98ffaed6" category="inline-link-rx"></block></block>
   <block id="80d79e74efb3cf7c2ad45e7e1c96223d" category="inline-link-macro">Setzen Sie den NVIDIA IP SN2100-Switch auf die Werkseinstellungen zurück</block>
@@ -12810,15 +12773,9 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="ff48ad0dc104d3885573fa0f45161299" category="paragraph"><block ref="77d54c8e2e9adc9e2bc031facbe82b7c" prefix="" category="inline-code"></block></block>
   <block id="a21e2af264b592c03f6b1f88af93dd36" category="paragraph"><block ref="a32ef1a4f91191b408d6aa3ceeed03a8" prefix="" category="inline-code"></block></block>
   <block id="49cc2eac13c61da60904b157e05ec5dc" category="paragraph"><block ref="e9580cd86794b774ad27b65b0a805b73" prefix="" category="inline-code"></block></block>
-  <block id="b2c196d04c27ee6d1c55877714d8d6f9" category="section-title">Verkabeln Sie die Platten-Shelfs mit den Bridges</block>
   <block id="4273704f66fca16606c90100e4c57808" category="inline-xref">Verkabeln Sie eine FibreBridge 7600N- oder 7500N-Bridge mit Festplatten-Shelfs mit IOM12-Modulen</block>
-  <block id="242108261e892329ec8e41357fad0678" category="list-text"><block ref="57fecdddd64dc6d4f5e9d97874ea43bc" category="inline-xref-macro-rx"></block></block>
-  <block id="e3136c071e40d473a2ed2f7295c2ead2" category="inline-xref">Verkabeln Sie eine FibreBridge 7600N- oder 7500N-Bridge mit Festplatten-Shelfs mit IOM6- oder IOM3-Modulen</block>
-  <block id="e88d980772f7b12fbca752322a5e5307" category="list-text"><block ref="e59f261da41fd9be2eaf7f1b955dc162" category="inline-xref-macro-rx"></block></block>
   <block id="e42bb9af7fd1e3b1641a18782a424fb0" category="list-text">Beginnend mit dem logischen ersten Shelf im Stack verbinden Sie IOM A-Port 3 mit IOM A-Port 1 im nächsten Shelf, bis jedes IOM A im Stack verbunden ist.</block>
-  <block id="df728bff4207a1d17e007189ab445eaa" category="section-title">Verkabeln Sie eine FibreBridge 7600N- oder 7500N-Bridge mit Shelfs mit IOM6- oder IOM3-Modulen</block>
   <block id="8a6b192e89e003168a9dec4c4b9059a7" category="section-title">Überprüfen Sie die Bridge-Konnektivität und verkabeln Sie die Bridge-FC-Ports</block>
-  <block id="1127370baf663b49c7993f8a6ab9f41e" category="paragraph"><block ref="eba7ba40406886cad3add195d043cd08" category="inline-xref-macro-rx"></block></block>
   <block id="d277bf5cc4237c95ff26e4f98eefaf07" category="paragraph">Installieren und verkabeln Sie ATTO FibreBridge Bridges und SAS-Platten-Shelfs, wenn Sie der Konfiguration neuen Speicher hinzufügen.</block>
   <block id="760e34100c7db8b067f655d415a342c1" category="paragraph">Bei der bandinternen Verwaltung können die Bridges über die ONTAP-CLI über die FC-Verbindung zur Bridge verwaltet und überwacht werden. Der physische Zugriff auf die Bridge über die Ethernet-Ports der Bridge ist nicht erforderlich, wodurch die Sicherheitslücke der Bridge verringert wird.</block>
   <block id="74f6533c5153d90867b32b519b275c65" category="list-text">Vor ONTAP 9.5 wird nur die bandexterne SNMP-Verwaltung unterstützt.</block>
@@ -13059,7 +13016,6 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="bf35733b2711515e1aa7614ca7dd1ef0" category="list-text">AFF A50, AFF A20, AFF A30</block>
   <block id="b1a7d02f89c62c97fedf60bb09caa4bc" category="list-text">AFF C30, AFF C60</block>
   <block id="55aa8632230fb0a23186560320c2411c" category="inline-link-macro">Bereiten Sie das System für das Upgrade vor</block>
-  <block id="f5c6ae4b822813aea6f2b6fda7d434b4" category="admonition">Wenn Sie ein Upgrade auf eines der aufgeführten Systeme durchführen, müssen Sie * einen erforderlichen Bootarg auf dem vorhandenen System festlegen, bevor Sie das Upgrade durchführen. Für alle anderen Upgrades können Sie diese Aufgabe überspringen und direkt zu gehen <block ref="727f54dda0b5a83234ee2910d3353f77" category="inline-link-macro-rx"></block>.</block>
   <block id="05c6aa6eca73dc8505cf4bcf7e51677a" category="paragraph">Bei den meisten Upgrades von Systemen, die in ONTAP 9.15.1 oder höher eingeführt wurden, müssen Sie den Bootarg auf den alten Controllern einstellen<block ref="ee06f9ce95f0e4407845e7566ca3219e" prefix=" " category="inline-code"></block>. Bestimmte Upgrade-Pfade erfordern jedoch, dass Sie stattdessen den Bootarg einstellen<block ref="547c6b727c1ad89e0e0a9fab4efaf59d" prefix=" " category="inline-code"></block>.</block>
   <block id="ffe782ee595f504f732429ce74813c9c" category="paragraph">Verwenden Sie die folgende Tabelle, um zu bestimmen, welche Bootarg Sie für Ihre spezifische Upgrade-Kombination einstellen müssen.</block>
   <block id="9a5481a4499f03b428516e1e655b2247" category="cell">Für dieses Upgrade...</block>
@@ -13319,7 +13275,6 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="1078b9b6fada180d5d2977e8dc4eb310" category="list-text">Stellen Sie sicher, dass Ihr System eine unterstützte Konfiguration ist und eine unterstützte Version von ONTAP ausführt.</block>
   <block id="a68f0e2c7746e4949e616e09deefa430" category="list-text">Überprüfen Sie, ob auf allen Festplattenlaufwerken und Festplatten-Shelfs im System die neueste Firmware-Version ausgeführt wird.</block>
   <block id="658991cef9031aff484b78a0f664f5f0" category="paragraph">Möglicherweise möchten Sie die Festplatten- und Shelf-Firmware in der gesamten MetroCluster Konfiguration aktualisieren, bevor Sie Shelfs hinzufügen.</block>
-  <block id="7cbe99d38a9a2492f41bfc34788b6fac" category="paragraph">Eine Kombination aus IOM12-Modulen und IOM6-Modulen wird im selben Stack unterstützt, wenn auf Ihrem System eine unterstützte ONTAP-Version ausgeführt wird. Informationen darüber, ob Ihre ONTAP-Version Shelf-Mischen unterstützt, finden Sie im <block ref="cd3982462c40dc1b1a511ada7c72bab9" category="inline-link-macro-rx"></block>. Wenn Ihre Version von ONTAP nicht unterstützt wird und Sie die IOM-Module im vorhandenen Stack oder das neue Shelf, das einer unterstützten Kombination von IOM-Modulen hinzugefügt werden soll, nicht aktualisieren oder herunterstufen können, müssen Sie einen der folgenden Schritte durchführen:</block>
   <block id="918d32b75f0ab883abba3a8dc0c3ae8d" category="inline-link">Interoperabilitäts-Matrix-Tool</block>
   <block id="5ea32bc696ea7fb5909f26eb6fb24417" category="list-text"><block ref="5ea32bc696ea7fb5909f26eb6fb24417" category="inline-link-rx"></block></block>
   <block id="0f0f148d21dd2972977d97fb2e7ff5e9" category="paragraph"><block ref="0f0f148d21dd2972977d97fb2e7ff5e9" category="inline-link-rx"></block></block>
@@ -13643,11 +13598,9 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="2077cee62d2dc819ca10d6e3f6a4f59b" category="list-text">Hinweis 2: Für diese Kombinationen ist ONTAP 9.13.1 oder höher (oder die minimale ONTAP-Version, die auf der Plattform unterstützt wird) erforderlich.</block>
   <block id="9bc3cb19080afd7c3475f6c80b5ee013" category="paragraph">Prüfen Sie die Erweiterungskombinationen für AFF A150, AFF A20, FAS2750, FAS8300, FAS500f, AFF C250, AFF A250, FAS50, AFF C30, AFF A30, FAS8200, AFF A300, AFF A400, AFF A220, AFF C400, AFF A320 und FAS8700 Systeme.</block>
   <block id="99032e371bac241eac644b68481b2c7c" category="paragraph">Prüfen Sie die Erweiterungskombinationen für AFF C60, AFF A50, FAS70, FAS9000, AFF A700, AFF A70, AFF C800, AFF A800, FAS9500, AFF A900, AFF C80, FAS90, AFF A90 und AFF A1K Systeme.</block>
-  <block id="5667d434150380e4826a9c5749e3611d" category="cell">Alle anderen unterstützten Upgrades auf AFF A70, AFF A90, AFF A1K, FAS70, FAS90, AFF C80, AFF A50, AFF A20, AFF A30, AFF C30, AFF C60 oder FAS50 Systeme</block>
   <block id="1f33c4b21d6c848bec5712e27807c50a" category="paragraph">Diese Aufgabe ist *nur* erforderlich, wenn Sie ein Upgrade auf ein AFF A70, AFF A90, AFF A1K, FAS70, FAS90, AFF C80, AFF A50, AFF A20, AFF A30, AFF C30, AFF C60 oder FAS50 System durchführen.</block>
   <block id="63856cfb46890240aad0d97a958b298b" category="paragraph">Die folgende Tabelle zeigt die unterstützten Plattformkombinationen zum Upgrade eines AFF- oder FAS-Systems in einer MetroCluster IP-Konfiguration mit Befehlen zum Ersetzen des System-Controllers, aufgeteilt in zwei Gruppen.</block>
   <block id="e94f3a81af196da788fa0f158f9d57fc" category="sidebar">Erfahren Sie, wie Sie mit Active IQ Unified Manager und System Manager weitere Konfigurations- und Überwachungsfunktionen nutzen</block>
-  <block id="5c1f1ec5000a0efcdda7a9cf624dafe7" category="paragraph">Controller-Upgrades für Systeme, die in ONTAP 9.15.1 oder höher eingeführt wurden, erfordern es, dass Sie ein Boot-arg auf den alten Controllern einrichten, bevor Sie mit dem Upgrade beginnen können.</block>
   <block id="d7aa339b18c7637dfafa2ace54386b6c" category="admonition">Sie müssen den erforderlichen Bootarg auf allen alten Knoten an beiden Standorten festlegen, bevor Sie mit dem Upgrade beginnen.</block>
   <block id="ac37738788377720cfa00ec2fd76c841" category="list-text">Halten Sie einen Node an beiden Standorten an und erlauben Sie dem HA-Partner, einen Storage-Takeover des Node durchzuführen:</block>
   <block id="0fd6026f96835994e1e5d178235825d6" category="list-text">Wiederholen Sie die Schritte für alle Nodes in der DR-Gruppe oder DR-Gruppen, die Sie aktualisieren.</block>
@@ -13912,7 +13865,6 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="2812633e4be142ea6fef81aa2fc3b357" category="list-text"><block ref="2812633e4be142ea6fef81aa2fc3b357" category="inline-link-macro-rx"></block></block>
   <block id="647ce27315841f29cbbfa6476808aa3a" category="paragraph"><block ref="647ce27315841f29cbbfa6476808aa3a" category="inline-link-macro-rx"></block></block>
   <block id="36cd648a4936aded88f52937ad165653" category="paragraph"><block ref="36cd648a4936aded88f52937ad165653" category="inline-link-macro-rx"></block></block>
-  <block id="999478e5c5f08d315895f0b8ce0c4f9e" category="paragraph"><block ref="999478e5c5f08d315895f0b8ce0c4f9e" category="inline-image-macro-rx" type="image"></block></block>
   <block id="8dd25dc01f672f7f9138b09d96be9fc9" category="paragraph"><block ref="eb2e2a96b50d4592c6a439044f60d9a8" category="inline-link-macro-rx"></block> in der _MetroCluster IP-Installation und -Konfiguration_.</block>
   <block id="467d42fef84e236db1f47c3587c7d61b" category="paragraph"><block ref="647ce27315841f29cbbfa6476808aa3a" category="inline-link-macro-rx"></block> im Abschnitt _MetroCluster IP-Installation und -Konfiguration_.</block>
   <block id="3e85cb460e24d971aa2fdfb16bdd62f2" category="paragraph"><block ref="647ce27315841f29cbbfa6476808aa3a" category="inline-link-macro-rx"></block>.</block>
@@ -14401,4 +14353,25 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="5667ca92a697e03bc95d429bfe20fda5" category="inline-link">System-Switch-Ethernet-Konfigurations-Health-Monitor</block>
   <block id="a7692359e6ab53408219d1f4fbab4614" category="paragraph">Siehe die<block ref="e8f3e733a7456e37aaeb3c329fac3e94" category="inline-link-rx"></block> Befehl für weitere Details.</block>
   <block id="d2d6100dc04e04ad658d21c2678b2c9e" category="list-text">Aktualisieren Sie die MetroCluster -Konfiguration auf einem der neu hinzugefügten Knoten:</block>
+  <block id="ba5335bcde9d44f534e3d1f52ca0bc09" category="paragraph">Die folgenden Schritte verwenden die im Abschnitt „Zoning für eine FibreBridge 7500N in einer MetroCluster -Konfiguration mit vier Knoten“ beschriebene Zoning.</block>
+  <block id="ebcbebb3418f0f51f4443340ff325a84" category="list-text">Schließen Sie beim Verkabeln die auf IOM12-Modulen basierenden Stacks an dieselbe Brücke an, solange sie an separate SAS-Ports angeschlossen sind.</block>
+  <block id="11824150050e29484950961f3f0906e9" category="paragraph"><block ref="fb3f1acbe91ec35c5f5605a9b6d4efef" category="inline-xref-macro-rx"></block></block>
+  <block id="317e4f171d10313b7d9f57b9ee71c757" category="paragraph"><block ref="317e4f171d10313b7d9f57b9ee71c757" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="eaf2dec7a97ec668369075c4f3865b63" category="paragraph">Wenn Sie auf ein System aktualisieren, das in ONTAP 9.15.1 oder höher eingeführt wurde, müssen Sie normalerweise ein Bootarg auf den alten Controllern festlegen, bevor Sie mit dem Upgrade beginnen können.</block>
+  <block id="c845c22e49c5544061c5d10f7d34b798" category="admonition">Wenn Ihre Upgrade-Kombination betroffen ist, ist für ein erfolgreiches Upgrade das Festlegen eines Bootarg auf allen alten Controllern erforderlich.  Lesen Sie die Informationen in diesem Abschnitt sorgfältig durch, um zu prüfen, ob für Ihre Upgrade-Kombination die Festlegung eines Bootargs erforderlich ist und wie Sie das richtige Bootarg für Ihre Kombination festlegen.</block>
+  <block id="97009239e0cfec412eecee57adec7fbb" category="section-title">Schritt 1: Bestimmen Sie, ob Sie auf den alten Controllern ein Bootarg festlegen müssen</block>
+  <block id="4562de78a80791e72df05ddefb3bd680" category="paragraph">Verwenden Sie die folgenden Informationen, um zu überprüfen, ob Sie vor dem Starten des Upgrades ein erforderliches Bootarg festlegen müssen:</block>
+  <block id="61cf51d7e6639bbabc9b0e1161cf9d1a" category="list-text">Sie *müssen* auf den alten Controllern ein Bootarg für unterstützte Upgrades auf die folgenden Systeme festlegen, sofern nicht anders angegeben:</block>
+  <block id="8279d52ff386b78e641d51f228ca0759" category="list-text">Sie müssen auf den alten Controllern *kein* Bootarg festlegen, wenn Ihr Upgrade eine der folgenden Kombinationen ist:</block>
+  <block id="a208bde2bbdb812d3731f4621c803c41" category="list-text">Von einem AFF A70 -System zu einem AFF A90 -System</block>
+  <block id="5b659b58fce2ec874d7c90658e51b35c" category="list-text">Von einem FAS70-System zu einem FAS90-System</block>
+  <block id="289b9127d341366aeb4d65fc8462e224" category="admonition">Wenn Sie für Ihr Upgrade kein Bootarg festlegen müssen, können Sie diese Aufgabe überspringen und direkt zu<block ref="727f54dda0b5a83234ee2910d3353f77" category="inline-link-macro-rx"></block> .</block>
+  <block id="49e575725de1f3e6c7107fb68eee5e25" category="section-title">Schritt 2: Bestimmen Sie das Bootarg, das Sie auf den alten Controllern einstellen müssen</block>
+  <block id="fc58626cb0a62669060e433e85889541" category="paragraph">Bei den meisten betroffenen Upgrades müssen Sie Folgendes einstellen:<block ref="ee06f9ce95f0e4407845e7566ca3219e" prefix=" " category="inline-code"></block> Bootarg auf den alten Controllern.  Für bestimmte Upgrade-Pfade müssen Sie jedoch die<block ref="547c6b727c1ad89e0e0a9fab4efaf59d" prefix=" " category="inline-code"></block> bootarg stattdessen.</block>
+  <block id="50bb0724e98833a5ad53f4aca5baebaf" category="paragraph">Alle anderen Upgrades für AFF A70, AFF A90, AFF A1K, FAS70-, FAS90-, AFF C80-, AFF A50-, AFF A30-, AFF C30-, AFF C60- oder FAS50-Systeme</block>
+  <block id="9cd6725fb8f6020f90629ee4847213aa" category="paragraph">*Hinweis:* Sie müssen kein Bootarg festlegen, wenn Ihr Upgrade von einem AFF A70 auf ein AFF A90 -System oder von einem FAS70- auf ein FAS90-System erfolgt.</block>
+  <block id="7a8f8d0a76afd2956fbc911927b76065" category="section-title">Schritt 3: Stellen Sie das erforderliche Bootarg auf den alten Controllern ein</block>
+  <block id="ada21e32b58b8c3670abec0c9bd43b39" category="paragraph">Nachdem Sie das für Ihre Upgrade-Kombination erforderliche Bootarg ermittelt haben, befolgen Sie die Schritte zum Festlegen des Bootarg auf den alten Controllern.  Diese Aufgabe ist *nur* für betroffene Upgrades erforderlich.</block>
+  <block id="5c60cc2ba2a9eb0236f0d3ba52d42179" category="admonition">Sie müssen das Bootarg auf allen alten Knoten an beiden Standorten festlegen, bevor Sie mit dem Upgrade beginnen.</block>
+  <block id="51e9ae39fa32c368d27f8e565c6a0512" category="cell">Alle anderen unterstützten Upgrades für AFF A70, AFF A90, AFF A1K, FAS70-, FAS90-, AFF C80-, AFF A50-, AFF A30-, AFF C30-, AFF C60- oder FAS50-Systeme</block>
 </blocks>

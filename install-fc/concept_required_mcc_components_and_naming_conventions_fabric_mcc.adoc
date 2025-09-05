@@ -108,12 +108,6 @@ NOTE: FibreBridge 6500N-Brücken werden in Konfigurationen mit ONTAP 9.8 und hö
 
 * FibreBridge 7600N oder 7500N-Brücken unterstützen bis zu vier SAS-Stacks.
 * Jeder Stack kann verschiedene IOM-Modelle verwenden.
-+
-Eine Kombination aus IOM12-Modulen und IOM3-Modulen wird im selben Storage-Stack nicht unterstützt. Wenn auf dem System eine unterstützte Version von ONTAP ausgeführt wird, wird im selben Storage Stack eine Kombination aus IOM12-Modulen und IOM6-Modulen unterstützt.
-
-+
-Unterstützte IOM-Module hängen von der Version der ONTAP ab, die Sie ausführen.
-
 * Die Benennung muss innerhalb der MetroCluster Konfiguration eindeutig sein.
 
 
@@ -161,8 +155,6 @@ Bei einer Konfiguration mit einem teilweise bestückten Shelf müssen die Laufwe
 == Mischen von IOM12 und IOM 6 Modulen in einem Stack
 
 Ihre Version von ONTAP muss Shelf-Mix unterstützen. Informieren Sie sich im Interoperabilitäts-Matrix-Tool (IMT), ob Ihre Version von ONTAP Shelf-Mischungen unterstützt. https://imt.netapp.com/matrix/["IMT"^]
-
-Weitere Informationen zum Regalmischvorgang finden Sie unter: https://docs.netapp.com/platstor/topic/com.netapp.doc.hw-ds-mix-hotadd/home.html["Hot-Adding-Shelfs mit IOM12-Modulen werden in einem Shelf-Stack mit IOM6-Modulen ausgeführt"]
 
 
 

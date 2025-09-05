@@ -1,46 +1,8 @@
 ---
 permalink: install-stretch/task_cable_a_fibrebridge_7600n_or_7500n_bridge_fb_new_install_cable_7500_pangolin.html 
-sidebar: sidebar 
-keywords: metrocluster, stretch, installation, cable, fibrebridge, iom3, iom6, modules, shelves, bridge 
-summary: Nach der Konfiguration der Bridge können Sie die Verkabelung des Systems starten. Die FibreBridge 7600N oder 7500N Bridge nutzt Mini-SAS-Anschlüsse und unterstützt Shelfs, die IOM6- oder IOM3-Module verwenden. 
+redirect: ontap-metrocluster/index.html 
 ---
-= Verkabelung einer FibreBridge 7600N oder 7500N Bridge mit Shelfs unter Verwendung von IOM6- oder IOM3-Modulen
+= 
 :allow-uri-read: 
-:icons: font
-:imagesdir: ../media/
-
-
-[role="lead"]
-Nach der Konfiguration der Bridge können Sie die Verkabelung des Systems starten. Die FibreBridge 7600N oder 7500N Bridge nutzt Mini-SAS-Anschlüsse und unterstützt Shelfs, die IOM6- oder IOM3-Module verwenden.
-
-IOM3-Module werden von FibreBridge 7600N-Brücken nicht unterstützt.
-
-Bei Festplatten-Shelfs stecken Sie einen SAS-Kabelanschluss mit nach unten (auf der Unterseite des Connectors) gerichteter Zuglasche.
-
-.Schritte
-. Schalten Sie die Regale in den einzelnen Stapeln in Reihe.
-+
-.. Verkabeln Sie beim ersten Stapel von Shelves IOM Einen quadratischen Port des ersten Shelfs zu SAS-Port A auf FibreBridge A
-.. Verkabeln Sie für den ersten Stapel von Shelves IOM B-Kreis-Port des letzten Shelfs zu SAS-Port A auf FibreBridge B.
-+
-Das _Installation and Service Guide_ für Ihr Shelf-Modell enthält detaillierte Informationen zum Verketten von Shelfs.
-
-+
-https://library.netapp.com/ecm/ecm_download_file/ECMP1119629["Installation und Service Guide für SAS-Platten-Shelfs für DS4243, DS2246, DS4486 und DS4246"^]
-
-+
-Die folgende Abbildung zeigt eine Reihe von Brücken, die mit einem Regal verbunden sind:
-
-+
-image::../media/mcc_cabling_bridge_and_sas_stack_with_7500n_and_single_stack.gif[mcc-Verkabelung – Bridge und sas Stack mit 7500n und einem einzelnen Stack]
-
-
-
-. Wiederholen Sie für weitere Regalstapel die vorherigen Schritte mit dem nächsten verfügbaren SAS-Port der FibreBridge-Brücken. Verwenden Sie Port B für einen zweiten Stack, Port C für einen dritten Stack und Port D für einen vierten Stack.
-+
-Die folgende Abbildung zeigt vier Stapel, die mit einem Paar FibreBridge 7600N oder 7500N-Brücken verbunden sind.
-
-+
-image::../media/mcc_cabling_bridge_and_sas_stack_with_7500n_four_stacks.gif[mcc-Verkabelung, Bridge und sas Stack mit 7500n vier Stacks]
 
 

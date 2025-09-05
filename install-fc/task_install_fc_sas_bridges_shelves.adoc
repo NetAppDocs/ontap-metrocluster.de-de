@@ -159,7 +159,6 @@ NOTE: Alle Festplatten in der Disaster Recovery-Gruppe müssen denselben Verbind
 +
 https://hwu.netapp.com["NetApp Hardware Universe"^]
 
-* Eine Kombination aus IOM12-Modulen und IOM3-Modulen wird im selben Storage-Stack nicht unterstützt. Wenn auf dem System eine unterstützte Version von ONTAP ausgeführt wird, wird im selben Storage Stack eine Kombination aus IOM12-Modulen und IOM6-Modulen unterstützt.
 
 
 [NOTE]
@@ -489,18 +488,7 @@ link:../maintain/index.html["Warten von MetroCluster-Komponenten"]
 
 
 
-=== Verkabeln Sie die Platten-Shelfs mit den Bridges
-
-Für die Verkabelung Ihrer Platten-Shelves müssen die richtigen FC-to-SAS-Bridges verwendet werden.
-
-.Wahlmöglichkeiten
-* <<cabling_fb_7600N_7500N_with_iom12,Verkabeln Sie eine FibreBridge 7600N- oder 7500N-Bridge mit Festplatten-Shelfs mit IOM12-Modulen>>
-* <<cabling_fb_7600N_7500N_with_iom6_iom3,Verkabeln Sie eine FibreBridge 7600N- oder 7500N-Bridge mit Festplatten-Shelfs mit IOM6- oder IOM3-Modulen>>
-
-
-
-
-==== Verkabeln Sie eine FibreBridge 7600N- oder 7500N-Bridge mit Festplatten-Shelfs mit IOM12-Modulen
+=== Verkabeln Sie eine FibreBridge 7600N- oder 7500N-Bridge mit Festplatten-Shelfs mit IOM12-Modulen
 
 Nach der Konfiguration der Bridge können Sie mit der Verkabelung Ihres neuen Systems beginnen.
 
@@ -528,7 +516,7 @@ Das _Installation and Service Guide_ für Ihr Festplatten-Shelf-Modell bietet de
 +
 .. Verkabeln Sie für den ersten Stack der Festplatten-Shelfs IOM A des ersten Shelfs zu SAS-Port A auf FibreBridge A und verkabeln Sie IOM B des letzten Shelfs zum SAS-Port A auf FibreBridge B
 .. Wiederholen Sie für weitere Shelf-Stacks den vorherigen Schritt mit dem nächsten verfügbaren SAS-Port der FibreBridge-Brücken, wobei Port B für den zweiten Stack, Port C für den dritten Stack und Port D für den vierten Stack verwendet wird.
-.. Schließen Sie während der Verkabelung die auf IOM12- und IOM3-/IOM6-Modulen basierenden Stacks an dieselbe Bridge an, solange sie mit separaten SAS-Ports verbunden sind.
+.. Schließen Sie beim Verkabeln die auf IOM12-Modulen basierenden Stacks an dieselbe Brücke an, solange sie an separate SAS-Ports angeschlossen sind.
 +
 --
 
@@ -540,43 +528,6 @@ image::../media/mcc_cabling_bridge_and_sas3_stack_with_7500n_and_multiple_stacks
 
 --
 
-
-
-
-
-
-==== Verkabeln Sie eine FibreBridge 7600N- oder 7500N-Bridge mit Shelfs mit IOM6- oder IOM3-Modulen
-
-Nach der Konfiguration der Bridge können Sie mit der Verkabelung Ihres neuen Systems beginnen. Die FibreBridge 7600N oder 7500N Bridge nutzt Mini-SAS-Anschlüsse und unterstützt Shelfs, die IOM6- oder IOM3-Module verwenden.
-
-.Über diese Aufgabe
-IOM3-Module werden von FibreBridge 7600N-Brücken nicht unterstützt.
-
-Bei Festplatten-Shelfs stecken Sie einen SAS-Kabelanschluss mit nach unten (auf der Unterseite des Connectors) gerichteter Zuglasche.
-
-.Schritte
-. Schalten Sie die Regale in den einzelnen Stapeln in Reihe.
-+
---
-.. Verkabeln Sie beim ersten Stapel von Shelves IOM Einen quadratischen Port des ersten Shelfs zu SAS-Port A auf FibreBridge A
-.. Verkabeln Sie für den ersten Stapel von Shelves IOM B-Kreis-Port des letzten Shelfs zu SAS-Port A auf FibreBridge B.
-
-
-Das _Installation and Service Guide_ für Ihr Shelf-Modell enthält detaillierte Informationen zum Verketten von Shelfs.
-
-https://library.netapp.com/ecm/ecm_download_file/ECMP1119629["Installation und Service Guide für SAS-Platten-Shelfs für DS4243, DS2246, DS4486 und DS4246"^]
-
-Die folgende Abbildung zeigt eine Reihe von Brücken, die mit einem Regal verbunden sind:
-
-image::../media/mcc_cabling_bridge_and_sas_stack_with_7500n_and_single_stack.gif[mcc-Verkabelung – Bridge und sas Stack mit 7500n und einem einzelnen Stack]
-
---
-. Wiederholen Sie für weitere Shelf-Stacks die vorherigen Schritte mithilfe des nächsten verfügbaren SAS-Ports der FibreBridge-Brücken, wobei Port B für einen zweiten Stack, Port C für einen dritten Stack und Port D für einen vierten Stack verwendet wird.
-+
-Die folgende Abbildung zeigt vier Stapel, die mit einem Paar FibreBridge 7600N oder 7500N-Brücken verbunden sind.
-
-+
-image::../media/mcc_cabling_bridge_and_sas_stack_with_7500n_four_stacks.gif[mcc-Verkabelung, Bridge und sas Stack mit 7500n vier Stacks]
 
 
 
@@ -664,7 +615,7 @@ Nicht richtig
  a| 
 .. Überprüfen Sie, ob sich lose SAS-Kabel befinden oder korrigieren Sie die SAS-Verkabelung, indem Sie die Verkabelung wiederholen.
 +
-<<Verkabeln Sie die Platten-Shelfs mit den Bridges>>
+<<Verkabeln Sie eine FibreBridge 7600N- oder 7500N-Bridge mit Festplatten-Shelfs mit IOM12-Modulen>>
 
 .. Wiederholen <<step1_bridge,Schritt 1>>.
 

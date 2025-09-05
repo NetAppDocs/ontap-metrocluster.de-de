@@ -11,29 +11,43 @@ summary: Für Upgrades von Systemen, die in ONTAP 9.15.1 oder höher eingeführt
 
 
 [role="lead"]
-Controller-Upgrades für Systeme, die in ONTAP 9.15.1 oder höher eingeführt wurden, erfordern es, dass Sie ein Boot-arg auf den alten Controllern einrichten, bevor Sie mit dem Upgrade beginnen können.
+Wenn Sie auf ein System aktualisieren, das in ONTAP 9.15.1 oder höher eingeführt wurde, müssen Sie normalerweise ein Bootarg auf den alten Controllern festlegen, bevor Sie mit dem Upgrade beginnen können.
 
 
-NOTE: Sie müssen den erforderlichen Bootarg auf allen alten Knoten an beiden Standorten festlegen, bevor Sie mit dem Upgrade beginnen.
-
-
-
-== Schritt 1: Bestimmen Sie den Bootarg, den Sie auf den alten Controllern einstellen müssen
-
-Für alle unterstützten Upgrades auf den folgenden Systemen müssen Sie vor der Durchführung des Controller-Upgrades ein Boot-arg auf den alten Controllern einrichten:
-
-* AFF A70, AFF A90, AFF A1K
-* FAS70, FAS90
-* AFF C80
-* AFF A50, AFF A20, AFF A30
-* AFF C30, AFF C60
-* FAS50
+NOTE: Wenn Ihre Upgrade-Kombination betroffen ist, ist für ein erfolgreiches Upgrade das Festlegen eines Bootarg auf allen alten Controllern erforderlich.  Lesen Sie die Informationen in diesem Abschnitt sorgfältig durch, um zu prüfen, ob für Ihre Upgrade-Kombination die Festlegung eines Bootargs erforderlich ist und wie Sie das richtige Bootarg für Ihre Kombination festlegen.
 
 
 
-CAUTION: Wenn Sie ein Upgrade auf eines der aufgeführten Systeme durchführen, müssen Sie * einen erforderlichen Bootarg auf dem vorhandenen System festlegen, bevor Sie das Upgrade durchführen. Für alle anderen Upgrades können Sie diese Aufgabe überspringen und direkt zu gehen link:upgrade-mcc-ip-prepare-system.html["Bereiten Sie das System für das Upgrade vor"].
+== Schritt 1: Bestimmen Sie, ob Sie auf den alten Controllern ein Bootarg festlegen müssen
 
-Bei den meisten Upgrades von Systemen, die in ONTAP 9.15.1 oder höher eingeführt wurden, müssen Sie den Bootarg auf den alten Controllern einstellen `hw.cxgbe.toe_keepalive_disable`. Bestimmte Upgrade-Pfade erfordern jedoch, dass Sie stattdessen den Bootarg einstellen `bootarg.siw.interop_enabled`.
+Verwenden Sie die folgenden Informationen, um zu überprüfen, ob Sie vor dem Starten des Upgrades ein erforderliches Bootarg festlegen müssen:
+
+* Sie *müssen* auf den alten Controllern ein Bootarg für unterstützte Upgrades auf die folgenden Systeme festlegen, sofern nicht anders angegeben:
++
+** AFF A70, AFF A90, AFF A1K
+** FAS70, FAS90
+** AFF C80
+** AFF A50, AFF A20, AFF A30
+** AFF C30, AFF C60
+** FAS50
+
+
+* Sie müssen auf den alten Controllern *kein* Bootarg festlegen, wenn Ihr Upgrade eine der folgenden Kombinationen ist:
++
+** Von einem AFF A70 -System zu einem AFF A90 -System
+** Von einem FAS70-System zu einem FAS90-System
+
+
+
+
+
+CAUTION: Wenn Sie für Ihr Upgrade kein Bootarg festlegen müssen, können Sie diese Aufgabe überspringen und direkt zulink:upgrade-mcc-ip-prepare-system.html["Bereiten Sie das System für das Upgrade vor"] .
+
+
+
+== Schritt 2: Bestimmen Sie das Bootarg, das Sie auf den alten Controllern einstellen müssen
+
+Bei den meisten betroffenen Upgrades müssen Sie Folgendes einstellen: `hw.cxgbe.toe_keepalive_disable` Bootarg auf den alten Controllern.  Für bestimmte Upgrade-Pfade müssen Sie jedoch die `bootarg.siw.interop_enabled` bootarg stattdessen.
 
 Verwenden Sie die folgende Tabelle, um zu bestimmen, welche Bootarg Sie für Ihre spezifische Upgrade-Kombination einstellen müssen.
 
@@ -54,13 +68,20 @@ Verwenden Sie die folgende Tabelle, um zu bestimmen, welche Bootarg Sie für Ihr
 | Von AFF A220 nach AFF A20 | `bootarg.siw.interop_enabled` 
 
 
-| Alle anderen unterstützten Upgrades auf AFF A70, AFF A90, AFF A1K, FAS70, FAS90, AFF C80, AFF A50, AFF A20, AFF A30, AFF C30, AFF C60 oder FAS50 Systeme | `hw.cxgbe.toe_keepalive_disable` 
+ a| 
+Alle anderen Upgrades für AFF A70, AFF A90, AFF A1K, FAS70-, FAS90-, AFF C80-, AFF A50-, AFF A30-, AFF C30-, AFF C60- oder FAS50-Systeme
+
+*Hinweis:* Sie müssen kein Bootarg festlegen, wenn Ihr Upgrade von einem AFF A70 auf ein AFF A90 -System oder von einem FAS70- auf ein FAS90-System erfolgt.
+| `hw.cxgbe.toe_keepalive_disable` 
 |===
 
 
-== Schritt 2: Stellen Sie den erforderlichen Bootarg auf den alten Controllern ein
+== Schritt 3: Stellen Sie das erforderliche Bootarg auf den alten Controllern ein
 
-Diese Aufgabe ist *nur* erforderlich, wenn Sie ein Upgrade auf ein AFF A70, AFF A90, AFF A1K, FAS70, FAS90, AFF C80, AFF A50, AFF A20, AFF A30, AFF C30, AFF C60 oder FAS50 System durchführen.
+Nachdem Sie das für Ihre Upgrade-Kombination erforderliche Bootarg ermittelt haben, befolgen Sie die Schritte zum Festlegen des Bootarg auf den alten Controllern.  Diese Aufgabe ist *nur* für betroffene Upgrades erforderlich.
+
+
+NOTE: Sie müssen das Bootarg auf allen alten Knoten an beiden Standorten festlegen, bevor Sie mit dem Upgrade beginnen.
 
 .Schritte
 . Halten Sie einen Node an beiden Standorten an und erlauben Sie dem HA-Partner, einen Storage-Takeover des Node durchzuführen:
