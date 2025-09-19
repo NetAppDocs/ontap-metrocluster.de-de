@@ -3909,7 +3909,6 @@
   <block id="89cd18493d151ae11e875d4edf6b6e66" category="list-text">Im zweiten Quartal vier Laufwerke: 6, 7, 8, 9</block>
   <block id="8d48afc2af7642b1eb38cbfe7c3b33d8" category="list-text">Im dritten Quartal vier Laufwerke: 12, 13, 14, 15</block>
   <block id="807910399f003942a09396612760caef" category="list-text">Vier Laufwerke im vierten Quartal: 18, 19, 20, 21</block>
-  <block id="2ad434ab593fd445c83cdbf1d5d00216" category="section-title">Mischen von IOM12 und IOM 6 Modulen in einem Stack</block>
   <block id="7a56c93af328a3c1fa4e3fccdc177cb5" category="summary">In einer MetroCluster IP-Konfiguration, die nicht werkseitig vorkonfiguriert ist, müssen Sie überprüfen, ob der HA-Konfigurationsstatus der Controller- und Chassis-Komponenten auf mccip eingestellt ist, damit sie ordnungsgemäß hochfahren. Bei Systemen, die vom Werk empfangen werden, ist dieser Wert vorkonfiguriert, und Sie müssen ihn nicht überprüfen.</block>
   <block id="6260a0c66ccd92620d9889772b65cffe" category="doc">Überprüfen des HA-Konfigurationsstatus von Komponenten</block>
   <block id="3293f2fb312a722f96251c9029636630" category="paragraph">Das System muss sich im Wartungsmodus befinden.</block>
@@ -5119,52 +5118,31 @@
   <block id="dc84e8d14fad94fb8bffb0a3c6dc082a" category="paragraph">Das folgende Beispiel zeigt ein Cluster, in dem der erste Node (cluster1-01) sich in einem ordnungsgemäßen Zustand befindet und zur Teilnahme berechtigt ist:</block>
   <block id="fae6bfcb094f1b66307d8fb8df61d369" category="paragraph">Wenn eine der Einstellungen, die Sie für die Admin-SVM oder Node-SVM eingegeben haben, geändert werden muss, können Sie über den auf den Assistenten * Cluster Setup* zugreifen<block ref="e7b4220f08514c4b215d35c3f6967167" prefix=" " category="inline-code"></block>.</block>
   <block id="ad227e6a4e6deeee2a76bd6b755dad7e" category="summary">Ab ONTAP 9.8 können Sie eine DR-Gruppe aus einer MetroCluster Konfiguration mit acht Nodes entfernen, um eine MetroCluster Konfiguration mit vier Nodes zu erstellen.</block>
-  <block id="8c6cfac074d0567f4c5a941062f42343" category="paragraph">Dieses Verfahren wird unter ONTAP 9.8 und höher unterstützt. Informationen zu Systemen mit ONTAP 9.7 oder einer älteren Version finden Sie im Knowledge Base-Artikel</block>
   <block id="d5d6932337b2af2eda1bd96fd5aa3832" category="inline-link-macro">So entfernen Sie eine DR-Gruppe aus einer MetroCluster-Konfiguration</block>
-  <block id="44fa5f61d97cbf15ad67ee9c5aedc1c6" category="paragraph"><block ref="44fa5f61d97cbf15ad67ee9c5aedc1c6" category="inline-link-macro-rx"></block></block>
   <block id="09ea0908fbfc4cde85bf416e35dc55c8" category="inline-link">NetApp Support</block>
-  <block id="cba784dbb6dad30cadc1fcb2d1b5ee81" category="paragraph"><block ref="cba784dbb6dad30cadc1fcb2d1b5ee81" category="inline-link-rx"></block></block>
   <block id="19df577c80891b37cfa2f1b29c518f6e" category="paragraph">Eine Konfiguration mit acht Nodes umfasst acht Nodes, die als zwei DR-Gruppen mit vier Nodes organisiert sind.</block>
   <block id="efe4097a762524c1e1628fcad46084ae" category="image-alt">mcc dr Gruppen 8 Knoten</block>
-  <block id="e66e23247af7503f663027daef188754" category="paragraph">Durch Entfernen einer DR-Gruppe verbleiben vier Knoten in der Konfiguration.</block>
-  <block id="1c08e40b56822a43e7877e2eb26a97fd" category="section-title">Entfernen der DR-Gruppen-Nodes aus jedem Cluster</block>
   <block id="50c188ed93e1182ae7f08e39dbbb2ec5" category="list-text">Sie müssen diesen Schritt auf beiden Clustern durchführen.</block>
   <block id="f2bf546b53e3f6cc54f274876ab2cb36" category="list-text">Der<block ref="4adce10a097546797e77202c6d30906e" prefix=" " category="inline-code"></block> Befehl wird nur auf ONTAP 9.8 und höher unterstützt.</block>
-  <block id="cdfb112bdd5ad036d9715bddf30e7912" category="list-text">Bereiten Sie sich auf das Entfernen der DR-Gruppe vor, falls noch nicht.</block>
   <block id="95e7c6b72cfdf5397dbe8a6653bdc7c1" category="list-text">Verschieben Sie alle Daten-Volumes in eine andere DR-Gruppe.</block>
   <block id="25898a6422d7ded47f2936026a1df6c1" category="list-text">Löschen Sie alle MDV_aud-Metadaten-Volumes, die in der zu entfernenden DR-Gruppe vorhanden sein könnten.</block>
-  <block id="92cccd899142da5e06923ac8991bc5fc" category="list-text">Löschen Sie alle Datenaggregate in der DR-Gruppe, die entfernt werden sollen, wie im folgenden Beispiel gezeigt:</block>
   <block id="73f68d9b46d6064cae47a18da8004723" category="admonition">Root-Aggregate werden nicht gelöscht.</block>
-  <block id="b79001d76282bba800ccc9b5187d2ad4" category="list-text">Verschieben Sie die Daten-LIFs offline.<block ref="58d060d8bc95409e743c7b8e95e72710" prefix=" " category="inline-code"></block></block>
-  <block id="29771e568737c4148ab90cda182257df" category="list-text">Migrieren Sie alle Daten-LIFs auf Home Nodes in einer anderen DR-Gruppe. +<block ref="191a1b4ffe7599d6b279767d21daa9db" prefix=" " category="inline-code"></block></block>
-  <block id="3c01c02ef0bb0d39aaf5f9cbc5c8ea4b" category="paragraph"><block ref="6b5ac3bb2bcffd222567cf972f8a2548" prefix="" category="inline-code"></block></block>
-  <block id="f7967c2b46538ede39d7960526ce1fa4" category="list-text">Verschieben Sie die Daten-LIFs wieder online.<block ref="c5b63f9c60f25a11e5c1cde65fb540f1" prefix=" " category="inline-code"></block></block>
   <block id="4ed819934d8eb4ecfa162dc35324fc32" category="list-text">Migrieren Sie die Cluster-Management-LIF auf einen Home-Node in einer anderen DR-Gruppe.</block>
   <block id="91f41d8c6028070fa5f4cd7a2c56f7be" category="paragraph"><block ref="253b4100066f0d3983139342730b6b59" prefix="" category="inline-code"></block></block>
-  <block id="f677111a20e676139c4a865021fafa0d" category="paragraph"><block ref="850d7b5cf3d569632a8982fc791023b0" prefix="" category="inline-code"></block></block>
-  <block id="0eb68bef79fda0557a1bd86cd43b0afa" category="paragraph">Das Node-Management und logische Schnittstellen zwischen Clustern werden nicht migriert.</block>
   <block id="85d38d4ee3b9248e142229cf9e215620" category="list-text">Übertragen Sie Epsilon auf einen Node in einer anderen DR-Gruppe, falls erforderlich.</block>
   <block id="aac7ac3bfa9117ebc1368d396b746e00" category="list-text">Identifizieren und entfernen Sie die DR-Gruppe.</block>
   <block id="b32745668eaff06c12feb45539c339e0" category="list-text">Identifizieren Sie die richtige DR-Gruppe für das Entfernen:</block>
   <block id="0373e81430a1cc22dafabd61d4a3cd0e" category="list-text">Entfernen Sie die Knoten der DR-Gruppe: +<block ref="485c31afa19dfe8599f35cc3307033a1" prefix=" " category="inline-code"></block></block>
   <block id="c31e08573cdaea3b8de26a9f74105469" category="paragraph">Im folgenden Beispiel wird das Entfernen der Konfiguration der DR-Gruppe auf „Cluster_A“ gezeigt</block>
   <block id="d9b49bc2577d68e37a84f80273248aee" category="list-text">Wiederholen Sie den vorherigen Schritt im Partner-Cluster.</block>
-  <block id="4ed5c490b4a22cb265bc48e25109096a" category="list-text">Entfernen Sie bei einer MetroCluster IP-Konfiguration die MetroCluster-Verbindungen auf den Nodes der alten DR-Gruppe.</block>
-  <block id="a64d27abe280b12e33befc92f146357d" category="paragraph">Diese Befehle können von beiden Clustern ausgegeben werden und gelten für die gesamte DR-Gruppe, die beide Cluster abdeckt.</block>
   <block id="d172777a2cbbb0c3ec9b70dc45780c5f" category="list-text">Trennen Sie die Verbindungen:</block>
-  <block id="08a665929056fef6a8490b5b0b04f474" category="paragraph"><block ref="afb15fdd6a9dc3aa613a61a4039f0a42" prefix="" category="inline-code"></block></block>
   <block id="e18600ad5da962c033022e8657b0fab3" category="list-text">Löschen Sie die MetroCluster-Schnittstellen auf den Knoten der alten DR-Gruppe:</block>
   <block id="eb5c2cb295b7a9fd5ee2ed559f176f9e" category="paragraph"><block ref="f6dcf8fef0b40f9ec60771b2c98849ae" prefix="" category="inline-code"></block></block>
   <block id="deba5df0dea3cbba9463f219100e5ba4" category="list-text">Löschen Sie die Konfiguration der alten DR-Gruppe. +<block ref="cd90838db53304393981e5da6c9b9f7e" prefix=" " category="inline-code"></block></block>
   <block id="8d3c998ce16ecd4cdc06e3ddd8c757e6" category="list-text">Heben Sie die Verbindung zu den Knoten in der alten DR-Gruppe auf.</block>
   <block id="b30c893d5895266607a2a417b5123132" category="paragraph">Sie müssen diesen Schritt für jedes Cluster durchführen.</block>
   <block id="ef5472688f1420b45325cbf6180440eb" category="list-text">Legen Sie die erweiterte Berechtigungsebene fest:</block>
-  <block id="ed2e5c7ebbd6b2c749bdb92415d9787c" category="list-text">Deaktivieren des Speicher-Failover:</block>
-  <block id="f6d453c97574893aee9bca0a4faee686" category="paragraph"><block ref="2272fec77dcd7afc65986085c999a68d" prefix="" category="inline-code"></block></block>
-  <block id="cdab15f9840a783bfc35d8f8baa514e9" category="list-text">Heben Sie die Verbindung zum Knoten auf: +<block ref="28573907c93cccf42d4d45b792f8aa49" prefix=" " category="inline-code"></block></block>
   <block id="ff6434ad658fa9ed7826817a3f9f0dff" category="paragraph">Wiederholen Sie diesen Schritt für den anderen lokalen Knoten in der alten DR-Gruppe.</block>
-  <block id="06b28530123c83dfb519d35b8e3e11f5" category="list-text">Legen Sie die Administrator-Berechtigungsebene fest: +<block ref="0a654c13d63710f829bc02c4cbec79ee" prefix=" " category="inline-code"></block></block>
-  <block id="47b7f94ac9af47dcafeea8d4a5f0d377" category="list-text">Cluster-HA in der neuen DR-Gruppe erneut aktivieren:</block>
   <block id="c1f192f6d626bc5f27fc74b0848a1250" category="paragraph"><block ref="acc3b99f812f210de5147296e269009d" prefix="" category="inline-code"></block></block>
   <block id="8917e80351843363583600f118c2fa84" category="list-text">Halten Sie den Vorgang an, schalten Sie ihn aus und entfernen Sie die alten Controller-Module und Storage-Shelfs.</block>
   <block id="f14857e5bc0d17b964ddec1059e6c698" category="doc">Senden einer benutzerdefinierten AutoSupport Meldung vor dem Hinzufügen von Nodes zur MetroCluster Konfiguration</block>
@@ -11201,7 +11179,6 @@
   <block id="9dc72cfc812a43dbca6ba4e6357b2b04" category="paragraph">Ab ONTAP 9.13.1 können Sie eine MetroCluster Konfiguration mit acht Nodes vorübergehend erweitern, um die Controller und Storage zu aktualisieren. Siehe <block ref="df5e6373f54c9330727709bb1055a079" category="inline-link-macro-rx"></block> Finden Sie weitere Informationen.</block>
   <block id="e6f19b92e0e69fc5d74e94088b442a26" category="inline-link-macro">Aktualisieren einer MetroCluster-IP-Konfiguration mit vier oder acht Nodes</block>
   <block id="ae236ebe2cd05ce4da7fe73d504f4946" category="list-text">Wenn Sie es sind <block ref="54f4a86aff0fc5aba4d6e37b225734c0" category="inline-link-macro-rx"></block>, Die neuen Knoten müssen über genügend Speicher verfügen, um die Daten der alten Knoten aufzunehmen, zusammen mit geeigneten Platten für Root-Aggregate und freie Platten.</block>
-  <block id="30db39dffca5d3a3ab759b48303153b1" category="list-text">Wenn die zu entfernende DR-Gruppe Spiegelvolumes mit der Lastverteilung enthält, können sie nicht verschoben werden.  Erstellen Sie alle Spiegelvolumes mit Lastenfreigabe in einer anderen DR-Gruppe erneut, und löschen Sie dann die Spiegelvolumes mit Lastenfreigabe in der zu entfernenden DR-Gruppe.</block>
   <block id="0108924065f583138162139c8d2325c4" category="list-text">Führen Sie die Schritte jeweils an einem Schalter in der folgenden Reihenfolge aus: Switch_A_1, Switch_B_1, Switch_A_2, Switch_B_2.</block>
   <block id="61cdeb097cfdf5250ae69244ebf01a62" category="list-text">Wenn Sie eine xWDM-Konfiguration verwenden, benötigen Sie möglicherweise zusätzliche Einstellungen für die ISLs. Weitere Informationen finden Sie in der xWDM-Herstellerdokumentation.</block>
   <block id="91debec19d39d0379223807f0659efab" category="section-title">Reparatur der Konfiguration in einer MetroCluster-Konfiguration</block>
@@ -11976,13 +11953,11 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="0ab751f551b18333e82474f5ca9b4122" category="list-text">Überprüfen Sie, ob der Port der MetroCluster IP-Schnittstelle online ist.</block>
   <block id="124ba57298a92342f8aec06ebcfb6415" category="inline-link-macro">Ermitteln Sie die System-IDs der alten Controller-Module</block>
   <block id="3ac27de4b4347c98785ff06870fe7221" category="paragraph"><block ref="3ac27de4b4347c98785ff06870fe7221" category="inline-link-macro-rx"></block></block>
-  <block id="a786547181c9c8f446791420d2be691f" category="paragraph">Ihre Version von ONTAP muss Shelf-Mix unterstützen. Siehe<block ref="f93341e63c1888be05256ff042174623" category="inline-link-rx"></block> Um zu prüfen, ob Ihre Version von ONTAP Shelf-Mischungen unterstützt.</block>
   <block id="27211cf5d485f8491ca9b566aefe2d6d" category="paragraph">Ab ONTAP 9.4 unterstützen MetroCluster IP-Konfigurationen neue Installationen mithilfe von automatischer Festplattenzuweisung und ADP (Advanced Drive Partitioning).</block>
   <block id="e528d26e96f91b34e70a35c4661d620d" category="list-text">ONTAP 9.4 und höher ist für die Verwendung von ADP mit MetroCluster IP Konfigurationen auf AFF und ASA Systemen erforderlich.</block>
   <block id="bc8be72fdc9d6054f356bb2b7f80fd12" category="inline-link">NetApp Interoperabilitätsmatrix</block>
   <block id="769db6797bc8c70f9ceb0ea238fcfef2" category="list-text"><block ref="769db6797bc8c70f9ceb0ea238fcfef2" category="inline-link-rx"></block></block>
   <block id="c5dcd35af16918a17ee9c3a5c153f0af" category="inline-link">IMT</block>
-  <block id="24d65add9a27d74b80e9a9cebdfc8e56" category="paragraph">Ihre Version von ONTAP muss Shelf-Mix unterstützen. Informieren Sie sich im Interoperabilitäts-Matrix-Tool (IMT), ob Ihre Version von ONTAP Shelf-Mischungen unterstützt.<block ref="30796bf173a80af0dc9c120f98ffaed6" category="inline-link-rx"></block></block>
   <block id="80d79e74efb3cf7c2ad45e7e1c96223d" category="inline-link-macro">Setzen Sie den NVIDIA IP SN2100-Switch auf die Werkseinstellungen zurück</block>
   <block id="9dce4db3e352a666d92ce25dd5f94a51" category="list-text"><block ref="9dce4db3e352a666d92ce25dd5f94a51" category="inline-link-macro-rx"></block></block>
   <block id="59908dc1540a829f2e5b2241e8bda0cd" category="inline-link-macro">Laden Sie die NVIDIA IP RCF-Dateien herunter, und installieren Sie sie</block>
@@ -13975,7 +13950,6 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="c82f2ff1cbd6e1d62e65daba43978db4" category="paragraph">Cisco 9336C-FX2 gemeinsam genutzt (36-Port)</block>
   <block id="d44a3adbc7ddf926ace3174c29e594fe" category="paragraph">*Hinweis:* Um die Switch-Ports 11 und 12 zu verwenden, müssen Sie zwei Geschwindigkeitsmodi auswählen.</block>
   <block id="22e6a6026dec5bb5059565b00cc3631c" category="paragraph">Während der Umstellung, Aktualisierung, Installation von acht Knoten und Erweiterung von vier Knoten können Sie Ihrer MetroCluster-Konfiguration ein neues Plattformmodell hinzufügen. Wenn Ihre bestehende MetroCluster-Konfiguration zu irgendeinem Zeitpunkt eine Plattform mit *gemeinsamen Cluster-/HA-Ports* enthält, können Sie der Konfiguration keine Plattform mit *gemeinsamen MetroCluster-/HA-Ports* hinzufügen, ohne Ihre ONTAP-Version auf ONTAP 9.15.1P11 oder ONTAP 9.16.1P4 oder höher zu aktualisieren.</block>
-  <block id="29c802ab86e25c329e4ce82ab207d848" category="sidebar">Plattform-Portzuweisungen für einen 12-Port Cisco 9336C-FX2-Switch</block>
   <block id="a65cd2f2d334d9927f9c0f2a89dbb2d0" category="paragraph">Informieren Sie sich über die Neuerungen bei der MetroCluster-IP-Plattform und Switch-Unterstützung.</block>
   <block id="cf42f488bd58e2f8f8819f7c720b93a1" category="paragraph">Sie müssen diesen Schritt auf jedem Cluster im erweiterten Berechtigungsmodus ausführen.</block>
   <block id="c836d30393b0f25c968423f5df80b134" category="paragraph">Verschieben Sie die Clusterschnittstellen der MetroCluster FC-Konfiguration zu den IP-Switches.</block>
@@ -14374,4 +14348,56 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="ada21e32b58b8c3670abec0c9bd43b39" category="paragraph">Nachdem Sie das für Ihre Upgrade-Kombination erforderliche Bootarg ermittelt haben, befolgen Sie die Schritte zum Festlegen des Bootarg auf den alten Controllern.  Diese Aufgabe ist *nur* für betroffene Upgrades erforderlich.</block>
   <block id="5c60cc2ba2a9eb0236f0d3ba52d42179" category="admonition">Sie müssen das Bootarg auf allen alten Knoten an beiden Standorten festlegen, bevor Sie mit dem Upgrade beginnen.</block>
   <block id="51e9ae39fa32c368d27f8e565c6a0512" category="cell">Alle anderen unterstützten Upgrades für AFF A70, AFF A90, AFF A1K, FAS70-, FAS90-, AFF C80-, AFF A50-, AFF A30-, AFF C30-, AFF C60- oder FAS50-Systeme</block>
+  <block id="9f0a4554064856ae78dbf1c08bc876ce" category="doc">Entfernen einer DR-Gruppe aus einer MetroCluster -Konfiguration</block>
+  <block id="2f5075fd2401e26a07990d72f3087874" category="paragraph">Ab ONTAP 9.8 können Sie eine Disaster Recovery (DR)-Gruppe aus einer MetroCluster Konfiguration mit acht Knoten entfernen, um eine MetroCluster Konfiguration mit vier Knoten zu erstellen.</block>
+  <block id="73ac4183b96cb40ebb14a9dc72a13298" category="admonition">Sie verwenden diese Schritte während der Übergangs- und Systemaktualisierungs-Workflows.</block>
+  <block id="a17f6afa75b317e25d154b29624badd3" category="section-title">Entfernen Sie die DR-Gruppenknoten aus jedem Cluster</block>
+  <block id="b928a73ca232c9fc08d935ad673557de" category="paragraph">Dieses Verfahren wird ab ONTAP 9.8 unterstützt.  Informationen zu Systemen mit ONTAP 9.7 oder früher finden Sie im Knowledge Base-Artikel:<block ref="806d9b447def65eba3e3e2e790c033b4" category="inline-link-macro-rx"></block> .</block>
+  <block id="622b8cea53ef096337834121912a63f3" category="paragraph">Wenn Sie eine DR-Gruppe entfernen, verbleiben vier Knoten in der Konfiguration.</block>
+  <block id="c1e5c91114c66e4b9a57d82fcc652acd" category="list-text">Bereiten Sie das Entfernen der DR-Gruppe vor, falls Sie dies noch nicht getan haben.</block>
+  <block id="8ab89d8f614450ad9b0a76ce08cf67b8" category="list-text">Wenn die zu entfernende DR-Gruppe über Load-Sharing-Spiegelvolumes verfügt, erstellen Sie alle Load-Sharing-Spiegelvolumes in einer anderen DR-Gruppe neu und löschen Sie sie aus der zu entfernenden DR-Gruppe.</block>
+  <block id="a59820a1c3cb9db44ad34809c30b9b83" category="list-text">Löschen Sie alle Datenaggregate in der zu entfernenden DR-Gruppe:</block>
+  <block id="18fa955273f3f4dcd76a502f9692c60d" category="list-text">Migrieren Sie alle NAS-Daten-LIFs, die Sie für NFS und CIFS (SMB) verwenden, auf Home-Knoten in einer anderen DR-Gruppe. + <block ref="7317cdd2b96cce163d969aceb2ba0c1d" prefix=" " category="inline-code"></block></block>
+  <block id="8e0e33777ea372d5fe416dcfc835ca44" category="paragraph"><block ref="8eceacf63a83bbfbc3898284abfafa5f" prefix="" category="inline-code"></block></block>
+  <block id="2b3b2e728783f7895871de7434a53e12" category="list-text">Verschieben Sie die Daten-LIFs auf den neuen Home-Knoten in einer anderen DR-Gruppe.<block ref="80e0d406ea5fcb2ea137507fb844b0fb" prefix=" " category="inline-code"></block></block>
+  <block id="a91858ed54f0d68645cd08be7b25782c" category="paragraph"><block ref="e5bd5c510f2d91722adf52ff19bb0ab9" prefix="" category="inline-code"></block></block>
+  <block id="d92e3b22372c2adfe757906a8734d8f4" category="list-text">Knotenverwaltung und LIFs zwischen Clustern werden nicht migriert.  Erstellen Sie nach Bedarf neue Knotenverwaltungs- und Cluster-übergreifende LIFs auf Knoten der DR-Gruppe.</block>
+  <block id="6a16ef52c4b06b07d8c8d1060e0d49d8" category="list-text">Sie können FCP-Schnittstellen, die für den Blockzugriff (SAN) verwendet werden, nicht zwischen den Knoten migrieren oder verschieben.  Erstellen Sie nach Bedarf neue FCP-Schnittstellen.</block>
+  <block id="e4abc9f15e37b97db879c5cf483a2d4b" category="list-text">iSCSI SAN LIFs müssen ausgefallen sein, bevor der Home-Knoten und der Home-Port aktualisiert werden können.</block>
+  <block id="8f13be73804a56335a7ee2724f13e633" category="list-text">Deaktivieren Sie das Speicherfailover auf den Knoten der alten DR-Gruppe:</block>
+  <block id="696370864f4b1ce13a84661501b202e5" category="paragraph"><block ref="8c709b243402dd4272dff4833554f25c" prefix="" category="inline-code"></block></block>
+  <block id="05b39754e7e99ec7d60818c2d3ef5bba" category="list-text">Wenn Sie sich in einer MetroCluster -IP-Konfiguration befinden, führen Sie die folgenden Schritte aus, um die Remote-Plexes der Root-Aggregate zu löschen und den Festplattenbesitz auf den Knoten der alten DR-Gruppe zu entfernen.</block>
+  <block id="fd413373865c0b35424cdf1d99f3c10f" category="paragraph">Diese Schritte müssen für beide Knoten im HA-Paar an jedem Standort ausgeführt werden.</block>
+  <block id="84822d6e81d1f35f15b06141981b397f" category="list-text">Zeigen Sie die Remote-Plexes der Root-Aggregate auf den Knoten in der DR-Gruppe an, die gelöscht werden soll:</block>
+  <block id="0bd15b64439187d8dac987c630d7df6d" category="paragraph"><block ref="1bb66b043b34f4120f55cc168b2da3dc" prefix="" category="inline-code"></block></block>
+  <block id="eab2196a69a6fdade5e5bf5d4f300856" category="list-text">Löschen Sie die Remote-Plexes:</block>
+  <block id="7e159c5d7c595db32d7b3fef9000ac19" category="paragraph"><block ref="9f7f42d9161c2d3ca3716315c375f827" prefix="" category="inline-code"></block></block>
+  <block id="fe068f70e1fc61243b2a0632bd6f34cb" category="list-text">Identifizieren Sie die Remote-Datenträger, die den Knoten in der DR-Gruppe gehören.</block>
+  <block id="15ce741616536c482daa7a0532c76ca8" category="paragraph">Die zu verwendenden Befehle hängen davon ab, ob Sie partitionierte/gemeinsam genutzte Festplatten oder ganze Festplatten verwenden:</block>
+  <block id="176b8742a87f8e897cb6ea9548977e72" category="admonition">Verwenden Sie eine durch Kommas getrennte Liste in der<block ref="0953dae02add83b063cc8af7a6dbbff8" prefix=" " category="inline-code"></block> , um die Knotennamen in der DR-Gruppe anzugeben, die gelöscht werden soll.</block>
+  <block id="4bb92469cfa95bb7785c0e8c0cdc02eb" category="open-title">Partitionierte/gemeinsam genutzte Datenträger:</block>
+  <block id="0279e95982eb46292810910c2a4325ef" category="list-text">Zeigen Sie die Remote-Festplatten an:</block>
+  <block id="3c1f3ce500e52cec2b93fb29390a174e" category="paragraph"><block ref="749c9bcb383ea88a6558e404e0fa8cb5" prefix="" category="inline-code"></block></block>
+  <block id="52bb09b18cdb1e6dd2fb3324062c1c47" category="open-title">Ganze Festplatten:</block>
+  <block id="0d1726dab779821975a9ad578a9f0677" category="paragraph"><block ref="6e0d34e5eb1c8ece221755c754743354" prefix="" category="inline-code"></block></block>
+  <block id="3e9c37ca50692bcf4d950da60ba31dd1" category="list-text">Automatische Datenträgerzuweisung deaktivieren:</block>
+  <block id="b2bd91ffa581589b010f7b0cee5b040a" category="paragraph"><block ref="c24efecdd42a886db73de2bcc158cbdc" prefix="" category="inline-code"></block></block>
+  <block id="b06a58f7c6886b9c75c2b66e25e3b03c" category="list-text">Entfernen Sie den Besitz der Pool1-Datenträger auf jedem zu löschenden DR-Gruppenknoten.  Führen Sie diese Schritte auf jedem zu entfernenden Knoten aus.</block>
+  <block id="e352d5e820576fb81acd295d2fa6b382" category="list-text">Gehen Sie zur Node-Shell:</block>
+  <block id="48b6c5e6c91f5afdf4db95fdce26e45f" category="paragraph"><block ref="1bdb752f72609d817a6beb669061c8b6" prefix="" category="inline-code"></block></block>
+  <block id="0d5dee87e76c9a9f9127dd55f7b1e2eb" category="list-text">Identifizieren Sie die Pool1-Festplatten:</block>
+  <block id="7cb1b8282d7b16c1d998b3403dc7a91f" category="paragraph"><block ref="978a127cc866f54e1830776b846eb9b8" prefix="" category="inline-code"></block></block>
+  <block id="c0b861216beaceb3d375fd9c6df6e6c3" category="paragraph">Es werden alle Ersatzfestplatten angezeigt, einschließlich der Ersatzfestplatten Pool0 und Pool1, die dem Knoten gehören.</block>
+  <block id="6e07f225393b79b609cb8fc3d86279bf" category="list-text">Entfernen Sie den Festplattenbesitz für jede Ersatzfestplatte von Pool1:</block>
+  <block id="8d0b8b84becd485c7891597b01240458" category="paragraph"><block ref="a2548e43cec4e94df11e259aa9a83a68" prefix="" category="inline-code"></block></block>
+  <block id="c218a756cd011fd52e8951a24e6900e7" category="paragraph">Entfernen Sie bei partitionierten Datenträgern den Partitionsbesitz und dann den Containerdatenträgerbesitz.</block>
+  <block id="096ee0b68ed0c4989612306aa1e3fbb5" category="list-text">Wenn Sie sich in einer MetroCluster -IP-Konfiguration befinden, entfernen Sie die MetroCluster Verbindungen auf den Knoten der alten DR-Gruppe.</block>
+  <block id="bac7003f0be2f7c1ffe91ec5e8146e9e" category="paragraph">Diese Befehle können von beiden Clustern ausgegeben werden und gelten für die gesamte DR-Gruppe, die beide Cluster umfasst.</block>
+  <block id="d30c3b2671a8fe1038b0b3608133c703" category="paragraph"><block ref="6864950bb23886bbe435bbce576bc0d6" prefix="" category="inline-code"></block></block>
+  <block id="b1bd9ffb7ba04ba41a6ed8fd479dceb1" category="admonition">Dieser Schritt muss auf jedem Knoten der DR-Gruppe wiederholt werden.</block>
+  <block id="d321eb0a25003ddc996afe17a7149d6f" category="paragraph">Führen Sie diesen Schritt auf jedem Cluster aus.</block>
+  <block id="5dd0fc60033d456ae0a90e5edc267878" category="list-text">Knoten trennen: +<block ref="1f9e5247574dddf29bedc560cf209d11" prefix=" " category="inline-code"></block></block>
+  <block id="e1bde148bbf0582fd279d9a3c915b31a" category="list-text">Legen Sie die Administratorberechtigungsstufe fest:</block>
+  <block id="5465fc7f055cf03040fda6f777f9a2da" category="list-text">Überprüfen Sie, ob Cluster-HA in der neuen DR-Gruppe aktiviert ist.  Aktivieren Sie Cluster HA bei Bedarf erneut:</block>
+  <block id="4e7f0491b8337902ce9619e04977796b" category="sidebar">Plattform-Portzuweisungen für 36-Port- Cisco 9336C-FX2-Switches, die NS224-Speicher verbinden</block>
 </blocks>
