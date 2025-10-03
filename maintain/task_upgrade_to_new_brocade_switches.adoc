@@ -31,7 +31,7 @@ Die Switch-Fabrics werden nacheinander aktualisiert.
 
 Am Ende dieses Verfahrens werden alle vier Schalter auf neue Schalter aktualisiert.
 
-image::../media/brocade_upgr_to_g620_replacement_completed.gif[brocade-Upgrade auf g620 abgeschlossen]
+image::../media/brocade_upgr_to_g620_replacement_completed.gif[Brocade -Upgrade auf G620 nach Abschluss]
 
 .Schritte
 . Deaktivierung der ersten Switch Fabric:
@@ -44,14 +44,14 @@ image::../media/brocade_upgr_to_g620_replacement_completed.gif[brocade-Upgrade a
 FC_switch_A_1:admin> switchCfgPersistentDisable
 ----
 +
-image::../media/brocade_upgr_to_g620_fab_1_down.gif[brocade upgr auf g620 Fab 1 runter]
+image::../media/brocade_upgr_to_g620_fab_1_down.gif[Brocade -Upgrade auf G620 mit heruntergefahrenem Fabric 1]
 
 . Ersetzen Sie die alten Schalter an einem MetroCluster-Standort.
 +
 .. Trennen Sie die Verkabelung, und entfernen Sie den deaktivierten Schalter.
 .. Setzen Sie den neuen Schalter in das Rack ein.
 +
-image::../media/brocade_upgr_to_g620_replaced_a_1.gif[brocade Upgr auf g620 ersetzt eine 1]
+image::../media/brocade_upgr_to_g620_replaced_a_1.gif[Brocade -Upgrade auf G620 mit A1-Ersatz]
 
 .. Deaktivieren Sie die neuen Switches, indem Sie den folgenden Befehl auf beiden Switches ausführen:
 +
@@ -71,7 +71,7 @@ link:concept_port_assignments_for_fc_switches_when_using_ontap_9_1_and_later.htm
 Beide Schalter in Fabric 1 wurden ersetzt.
 
 +
-image::../media/brocade_upgr_to_g620_replaced_b_1.gif[brocade Upgr auf g620 ersetzt b 1]
+image::../media/brocade_upgr_to_g620_replaced_b_1.gif[Brocade -Upgrade auf G620 mit B1-Ersatz]
 
 
 
@@ -175,4 +175,4 @@ Sie müssen mit „`y`“ antworten, wenn Sie dazu aufgefordert werden, den erwe
 
 Nach Wiederholung der Schritte wurden alle vier Switches aktualisiert und die MetroCluster-Konfiguration befindet sich im normalen Betrieb.
 
-image::../media/brocade_upgr_to_g620_replacement_completed.gif[brocade-Upgrade auf g620 abgeschlossen]
+image::../media/brocade_upgr_to_g620_replacement_completed.gif[Workflow für MetroCluster nach dem Austausch des Brocade G620-Switches und Abschluss des Upgrades]

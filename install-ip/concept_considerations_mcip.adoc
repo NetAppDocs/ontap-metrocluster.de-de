@@ -29,7 +29,7 @@ Sie sollten wissen, wie die MetroCluster IP-Adressen und Schnittstellen in einer
 
 In einer MetroCluster IP-Konfiguration werden die Replizierung von Storage und nichtflüchtigem Cache zwischen den HA-Paaren und den DR-Partnern über dedizierte Links mit hoher Bandbreite im MetroCluster IP-Fabric durchgeführt. Für die Storage-Replikation werden iSCSI-Verbindungen verwendet. Die IP-Switches werden auch für den gesamten clusterinternen Datenverkehr innerhalb der lokalen Cluster verwendet. Der MetroCluster-Datenverkehr wird mithilfe separater IP-Subnetze und VLANs vom clusterinternen Datenverkehr getrennt. Die MetroCluster IP Fabric unterscheidet sich von dem Cluster-Peering-Netzwerk.
 
-image::../media/mcc_ip_ip_subnets.gif[mcc ip-ip-Subnetze]
+image::../media/mcc_ip_ip_subnets.gif[MetroCluster -IP-Subnetze und VLAN-Trennung]
 
 Die MetroCluster IP-Konfiguration erfordert auf jedem Node zwei IP-Adressen, die dem Back-End MetroCluster IP Fabric vorbehalten sind. Die reservierten IP-Adressen werden während der Erstkonfiguration MetroCluster IP Logical Interfaces (LIFs) zugewiesen. Sie haben folgende Anforderungen:
 

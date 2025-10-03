@@ -387,14 +387,14 @@ Eine Quelle kann eine synchrone Quell-SVM vor der Umschaltung oder eine synchron
 Das folgende Bild zeigt das Verhalten der SVM Disaster Recovery in einem stabilen Zustand:
 
 +
-image::../media/svm_dr_normal_behavior.gif[svm-dr – normales Verhalten]
+image::../media/svm_dr_normal_behavior.gif[SVM-Notfallwiederherstellung im Dauerbetrieb]
 
 * Wenn die synchrone SVM-Quelle die Quelle einer SVM-DR-Beziehung ist, werden die Quell-SVM-DR-Beziehungsinformationen zum MetroCluster Partner repliziert.
 +
 Dadurch können die SVM-DR-Updates nach einer Umschaltung fortgesetzt werden, wie im folgenden Image dargestellt:
 
 +
-image::../media/svm_dr_image_2.gif[svm-dr-Image 2]
+image::../media/svm_dr_image_2.gif[SVM-Updates nach der Umstellung]
 
 * Während der Switchover- und Switchover-Prozesse kann die Replizierung zur SVM-DR-Ziel fehlschlagen.
 +
@@ -412,7 +412,7 @@ Während der Resynchronisierung wird die Disaster-Recovery-Quelle (DR) der Stora
 
 Während der Resynchronisierung fungiert die Quell-SVM (Cluster_A) als Ziel-SVM, wie in dem folgenden Image dargestellt:
 
-image::../media/svm_dr_resynchronization.gif[Resynchronisierung der svm-dr]
+image::../media/svm_dr_resynchronization.gif[SVM-Neusynchronisierung bei der Notfallwiederherstellung]
 
 
 

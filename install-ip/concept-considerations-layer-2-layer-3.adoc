@@ -60,7 +60,7 @@ Link-Sharing-Dienste wie Multiprotocol Label Switching (MPLS)-Links werden nicht
 
 Die MetroCluster Backend-Switches sind mit dem Kundennetzwerk verbunden.
 
-image::../media/MCC_layer2.png[MCC-ebene2]
+image::../media/MCC_layer2.png[MetroCluster Layer 2-Netzwerkkonfiguration]
 
 Die vom Kunden bereitgestellten Zwischenschalter müssen die folgenden Anforderungen erfüllen:
 
@@ -101,7 +101,7 @@ Bei allen anderen Systemen müssen Sie das VLAN konfigurieren, wenn Sie die Metr
 
 Die Back-End-Switches von MetroCluster sind mit dem gerouteten IP-Netzwerk verbunden, entweder direkt mit Routern (wie im folgenden vereinfachten Beispiel dargestellt) oder über andere intervenierenden Switches.
 
-image::../media/mcc_layer3_backend.png[mcc layer3-Backend]
+image::../media/mcc_layer3_backend.png[MetroCluster Layer 3-Backend-Netzwerkkonfiguration]
 
 Die MetroCluster Umgebung ist wie in beschrieben als MetroCluster IP-Standardkonfiguration konfiguriert und verkabelt link:https://docs.netapp.com/us-en/ontap-metrocluster/install-ip/concept_parts_of_an_ip_mcc_configuration_mcc_ip.html["Konfigurieren Sie die Hardwarekomponenten von MetroCluster"]. Wenn Sie das Installations- und Verkabelungsverfahren durchführen, müssen Sie die für eine Layer-3-Konfiguration spezifischen Schritte ausführen. Folgendes gilt für Layer-3-Konfigurationen:
 
@@ -138,11 +138,11 @@ Wenn MetroCluster-Verkehr in einem mittleren Netzwerk eine ISL durchquert, sollt
 
 Das folgende Diagramm gibt eine Übersicht über die erforderlichen Einstellungen bei Verwendung von NetApp Validated Cisco Switches:
 
-image::../media/switch_traffic_with_cisco_switches.png[Switch-Datenverkehr mit cisco Switches]
+image::../media/switch_traffic_with_cisco_switches.png[Erforderliche Einstellungen bei Verwendung von NetApp -validierten Cisco -Switches für MetroCluster -Verkehr]
 
 Das folgende Diagramm gibt einen Überblick über die erforderlichen Einstellungen für ein freigegebenes Netzwerk, wenn es sich bei den externen Switches um Broadcom-IP-Switches handelt.
 
-image::../media/switch_traffic_with_broadcom_switches.png[Switch-Datenverkehr mit broadcom-Switches]
+image::../media/switch_traffic_with_broadcom_switches.png[Erforderliche Einstellungen für das gemeinsam genutzte Netzwerk bei Verwendung von Broadcom IP-Switches]
 
 In diesem Beispiel werden für den MetroCluster-Datenverkehr die folgenden Richtlinien und Zuordnungen erstellt:
 

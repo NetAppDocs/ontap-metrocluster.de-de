@@ -115,7 +115,7 @@ In diesem Fall sollten Sie mit dem folgenden Schritt beginnen, um die untere Fib
 
 Das folgende Diagramm zeigt ein Beispiel für die Erstkonfiguration, in der vier FibreBridge 6500N-Brücken zwei SAS-Storage-Stacks verbinden:
 
-image::../media/consolidating_stacks_before.gif[Konsolidierung von Stacks bereits vor]
+image::../media/consolidating_stacks_before.gif[Konsolidierung von Stacks vor dem Austausch von FibreBridge]
 
 .Schritte
 . Gemäß den folgenden Richtlinien tauschen Sie die obere FibreBridge 6500N Bridge unter Verwendung des Verfahrens in mit einer FibreBridge 7600N oder 7500N aus link:task_replace_a_sle_fc_to_sas_bridge.html#hot_swap_6500n["Hot-Swap einer FibreBridge 6500N-Bridge mit FibreBridge 7600N oder 7500N-Brücke"]:
@@ -128,7 +128,7 @@ Dies ist die gleiche Verbindung, die zum Anschluss FibreBridge 6500N Bridge FC1 
 
 
 +
-image::../media/consolidating_stacks_1st_7500n_in_place.gif[Konsolidieren von Stacks über die ersten 7500n bereits vorhanden]
+image::../media/consolidating_stacks_1st_7500n_in_place.gif[Konsolidierung von Stacks mit der ersten installierten FibreBridge 7500N]
 
 . Überprüfen Sie die Verbindung zu den mit der Bridge verbundenen Festplatten und die Tatsache, dass die neue FibreBridge 7500N in der Konfiguration sichtbar ist:
 +
@@ -188,7 +188,7 @@ slot 0: FC Host Adapter 0g (QLogic 8324 rev. 2, N-port, <UP>)**<=== Initiator po
 +
 Dies ist die gleiche Verbindung, die zum Anschluss FibreBridge 6500N Bridge FC1 hergestellt wurde.
 
-** Schließen Sie den Anschluss FibreBridge 7600N oder 7500N Bridge FC1 derzeit nicht an.image:../media/consolidating_stacks_2nd_7500n_in_place.gif[""]
+** Schließen Sie den FC1-Port der FibreBridge 7600N oder 7500N Bridge zu diesem Zeitpunkt nicht an.image:../media/consolidating_stacks_2nd_7500n_in_place.gif["Konsolidierung von Stapeln mit einer zweiten FibreBridge 7500N"]
 
 
 . Überprüfen Sie die Verbindung zu den mit der Bridge verbundenen Festplatten:
@@ -267,28 +267,28 @@ NOTE: Warten Sie mindestens 10 Sekunden, bevor Sie den Anschluss anschließen. D
 Das Kabel wird im folgenden Beispiel blau angezeigt:
 
 +
-image::../media/consolidating_stacks_sas_top_before.gif[Konsolidieren von Stacks über sas]
+image::../media/consolidating_stacks_sas_top_before.gif[Konsolidierung von SAS-Stacks vor der Verkabelung mit FibreBridge 7500N]
 
 . Verbinden Sie mithilfe eines Kabels mit einem Mini-SAS-Anschluss denselben SAS-Port am Storage Shelf mit dem SAS B-Port der oberen FibreBridge 7600N oder 7500N-Brücke.
 +
 Das Kabel wird im folgenden Beispiel blau angezeigt:
 
 +
-image::../media/consolidating_stacks_sas_top_after.gif[Konsolidieren von Stacks über sas]
+image::../media/consolidating_stacks_sas_top_after.gif[SAS-Top-Verkabelung nach der Konsolidierung]
 
 . Entfernen Sie das Kabel, das den SAS A-Port der unteren FibreBridge 6500N-Bridge mit dem oberen SAS-Shelf verbindet. Achten Sie darauf, den SAS-Port am Storage-Shelf zu notieren, mit dem er verbunden ist.
 +
 Das Kabel wird im folgenden Beispiel grün angezeigt:
 
 +
-image::../media/consolidating_stacks_sas_bottom_before.gif[Konsolidierung von Stacks über sas unten vor]
+image::../media/consolidating_stacks_sas_bottom_before.gif[Grüne SAS-Verkabelung vor der Konsolidierung im unteren Regal]
 
 . Verbinden Sie mithilfe eines Kabels mit einem Mini-SAS-Anschluss denselben SAS-Port am Storage Shelf mit dem SAS B-Port der unteren FibreBridge 7600N oder 7500N-Brücke.
 +
 Das Kabel wird im folgenden Beispiel grün angezeigt:
 
 +
-image::../media/consolidating_stacks_sas_bottom_after.gif[Konsolidieren von Stacks sas unten nach]
+image::../media/consolidating_stacks_sas_bottom_after.gif[SAS-Unterverkabelung nach der Konsolidierung]
 
 . Überprüfen Sie die Verbindung zu den mit der Bridge verbundenen Festplatten:
 +
@@ -351,7 +351,7 @@ slot 0: FC Host Adapter 0g (QLogic 8324 rev. 2, N-port, <UP>)**<=== Initiator po
 Jeder SAS-Stack muss mit demselben SAS-Port an der oberen und unteren Brücke verbunden sein. Wenn zum Beispiel die obere Verbindung des Stacks mit dem oberen Bridge-SAS B-Port verbunden ist, muss die untere Verbindung mit dem SAS B-Port der unteren Brücke verbunden sein.
 
 +
-image::../media/consolidation_sas_bottom_connection_4_stacks.gif[Konsolidierung sas untere Verbindung 4 Stacks]
+image::../media/consolidation_sas_bottom_connection_4_stacks.gif[SAS-Bodenverkabelung für vier Stapel]
 
 
 
@@ -374,7 +374,7 @@ Die Änderungen beim Zoning sind erforderlich, um Probleme mit ONTAP zu vermeide
 
 Das folgende Diagramm zeigt das Zoning vor den Änderungen an Site_A:
 
-image::../media/zoning_consolidation_site_a_before.gif[Zoning von Konsolidierungsstandort A vorher]
+image::../media/zoning_consolidation_site_a_before.gif[Zonenkonsolidierung am Standort A vor FibreBridge-Änderungen]
 
 .Schritte
 . Aktualisieren Sie die Speicherzonen für die FC-Switches, indem Sie die Hälfte der Initiator-Ports aus jeder vorhandenen Zone entfernen und neue Zonen für die FibreBridge 7500N FC2-Ports erstellen.
@@ -479,7 +479,7 @@ Gestrichelt braun + orange
 |===
 Das folgende Diagramm zeigt das Zoning von Site_A nach der Konsolidierung:
 
-image::../media/zoning_consolidation_site_a_after.gif[Zoning von Konsolidierungsort A nach]
+image::../media/zoning_consolidation_site_a_after.gif[Zonenkonsolidierung am Standort A nach FibreBridge-Änderungen]
 
 
 
@@ -519,11 +519,11 @@ Das Zoning muss angepasst werden, um Zonen für die zweiten FC-Ports bereitzuste
 .Schritte
 . Schließen Sie den FC2-Port der oberen Brücke an den richtigen Port an FC_Switch_A_2 an.
 +
-image::../media/consolidating_stacks_sas_ports_recabled.gif[Konsolidierung von Stacks über sas-Ports wird reaktiviert]
+image::../media/consolidating_stacks_sas_ports_recabled.gif[FC2-Portverkabelung nach der Konsolidierung zu FC_switch_A_2]
 
 . Schließen Sie den FC1-Port der unteren Brücke an den richtigen Port an FC_Switch_A_1 an.
 +
-image::../media/consolidating_stacks_final.gif[Konsolidieren von Stacks endgültig]
+image::../media/consolidating_stacks_final.gif[Endgültige Stack-Konsolidierungsverkabelung]
 
 . Überprüfen Sie die Verbindung zu den mit der Bridge verbundenen Festplatten:
 +

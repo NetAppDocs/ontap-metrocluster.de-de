@@ -30,7 +30,7 @@ Diese Schritte müssen auf jedem der MetroCluster IP Knoten durchgeführt werden
 
 Im folgenden Beispiel werden an jedem Standort zwei zusätzliche Storage Shelfs hinzugefügt, um den Storage für die neuen Controller-Module bereitzustellen.
 
-image::../media/transition_2n_4_new_ip_nodes_and_shelves.png[Wechsel 2n 4 neue ip-Knoten und Shelves]
+image::../media/transition_2n_4_new_ip_nodes_and_shelves.png[Verkabelung neuer IP-Knoten und -Regale für den Übergang]
 
 .Schritte
 . Planen Sie die Positionierung der neuen Controller-Module und Storage Shelves je nach Bedarf.
@@ -588,7 +588,7 @@ Auf den folgenden Knoten werden diese Schritte durchgeführt:
 * Node_B_2-IP
 
 
-image::../media/transition_2n_booting_a_2_and_b_2.png[Übergang 2n Boot A 2 und b 2]
+image::../media/transition_2n_booting_a_2_and_b_2.png[Booten neuer IP-Knoten während der Umstellung]
 
 .Schritte
 . Starten Sie die neuen Nodes mithilfe der Boot-Option „`9c`“.
@@ -802,7 +802,8 @@ node_A_1-IP
              Data: interface_reachable
              ICMP: interface_reachable true       true            true
 node_A_2-IP
-           cluster_B                   node_B_1-IP
+
+image::../media/transition_2n_booting_a_2_and_b_2.png["Booting new IP nodes during transition"]
              Data: interface_reachable
              ICMP: interface_reachable true       true            true
                                        node_B_2-IP

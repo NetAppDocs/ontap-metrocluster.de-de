@@ -78,7 +78,7 @@ Siehe Knowledge Base-Artikel link:https://kb.netapp.com/Support_Bulletins/Custom
 
 Mithilfe des Workflow-Diagramms können Sie Upgrade-Aufgaben planen.
 
-image::../media/workflow_ip_upgrade.png[Workflow-ip-Upgrade]
+image::../media/workflow_ip_upgrade.png[Workflow zum Aktualisieren von Controllern in der MetroCluster -IP-Konfiguration]
 
 
 
@@ -444,7 +444,7 @@ Diese Aufgabe muss auf Site_A ausgeführt werden
 
 Nach Abschluss dieser Aufgabe ist Site_A aktiv und stellt Daten für beide Standorte bereit. Site_B ist inaktiv und bereit, den Upgrade-Prozess zu starten.
 
-image::../media/mcc_upgrade_cluster_a_in_switchover_A900.png[upgrade von mcc Cluster A bei Switchover A900]
+image::../media/mcc_upgrade_cluster_a_in_switchover_A900.png[Site_B inaktiv und bereit für ein Upgrade nach der MetroCluster -Umschaltung]
 
 .Schritte
 . Wechseln Sie über die MetroCluster-Konfiguration zu Site_A, damit Site_B-Knoten aktualisiert werden können:
@@ -499,7 +499,7 @@ Gehen Sie wie folgt vor, um das AFF A700 oder das FAS9000 Controller-Modul zu en
 +
 .. Schieben Sie die orangefarbene Taste am Nockengriff nach unten, bis sie entsperrt ist.
 +
-image::../media/drw_9500_remove_PCM.png[Controller-Modul]
+image::../media/drw_9500_remove_PCM.png[Controllermodul aus dem Gehäuse entfernen: entriegeln und herausziehen]
 
 +
 |===
@@ -530,7 +530,7 @@ Hinweis: Das NVS-Modul befindet sich in Steckplatz 6 und ist doppelt so hoch wie
 .. Drehen Sie die Nockenverriegelung nach unten, bis sie sich in horizontaler Position befindet. Der NVS löst sich aus dem Gehäuse und bewegt sich ein paar Zentimeter.
 .. Entfernen Sie den NVS aus dem Gehäuse, indem Sie an den Zuglaschen an den Seiten der Modulfläche ziehen.
 +
-image::../media/drw_a900_move-remove_NVRAM_module.png[Modul entfernen]
+image::../media/drw_a900_move-remove_NVRAM_module.png[Entfernen des NVRAM -Moduls aus dem Gehäuse: Entriegeln und Ziehen der Laschen]
 
 +
 |===
@@ -565,7 +565,7 @@ Gehen Sie wie folgt vor, um den AFF A900 oder FAS9500 NVS in Steckplatz 6 beider
 . Richten Sie den NVS an den Kanten der Gehäuseöffnung in Steckplatz 6 aus.
 . Schieben Sie den NVS vorsichtig in den Schlitz, bis der vorletzte und nummerierte E/A-Nockenriegel mit dem E/A-Nockenstift einrastet. Drücken Sie dann den E/A-Nockenverschluss bis zum Verriegeln des NVS.
 +
-image::../media/drw_a900_move-remove_NVRAM_module.png[Modul entfernen]
+image::../media/drw_a900_move-remove_NVRAM_module.png[Installieren des NVRAM -Moduls im Gehäuse: Ausrichten und einrasten]
 
 +
 |===
@@ -589,7 +589,7 @@ Gehen Sie wie folgt vor, um das AFF A900 oder FAS9500 Controller-Modul zu instal
 . Drücken Sie das Controller-Modul fest in das Gehäuse, bis es auf die Mittelebene trifft und vollständig sitzt. Die Verriegelung steigt, wenn das Controller-Modul voll eingesetzt ist. Achtung: Um Schäden an den Anschlüssen zu vermeiden, verwenden Sie keine übermäßige Kraft, wenn Sie das Controller-Modul in das Gehäuse schieben.
 . Verkabeln Sie die Management- und Konsolen-Ports mit dem Controller-Modul.
 +
-image::../media/drw_9500_remove_PCM.png[Controller-Modul]
+image::../media/drw_9500_remove_PCM.png[Installieren des Controllermoduls im Gehäuse: Ausrichten, Einsetzen und Verkabeln]
 
 +
 |===
@@ -1337,7 +1337,7 @@ Führen Sie diesen Schritt bei allen SVMs aus, falls erforderlich.
 
 In dieser Aufgabe führen Sie den Vorgang zum zurückwechseln durch, und die MetroCluster-Konfiguration kehrt in den normalen Betrieb zurück. Die Knoten auf Site_A warten noch auf das Upgrade.
 
-image::../media/mcc_upgrade_cluster_a_switchback_A900.png[mcc Upgrade Cluster A Switchback A900]
+image::../media/mcc_upgrade_cluster_a_switchback_A900.png[Site_A wartet auf Upgrade nach MetroCluster -Switchback]
 
 .Schritte
 . Stellen Sie das aus `metrocluster node show` Führen Sie den Befehl von Site_B aus, und überprüfen Sie die Ausgabe.

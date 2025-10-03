@@ -41,7 +41,7 @@ Das Cluster-Peering-Netzwerk bietet Konnektivität zur Spiegelung der Cluster-Ko
 
 
 
-image::../media/mcc_ip_hardware_architecture_mcc_ip.gif[mcc ip Hardwarearchitektur mcc ip]
+image::../media/mcc_ip_hardware_architecture_mcc_ip.gif[MetroCluster IP-Hardwarearchitektur]
 
 
 
@@ -51,7 +51,7 @@ Eine MetroCluster IP-Konfiguration besteht aus einer DR-Gruppe mit vier Nodes.
 
 Die folgende Abbildung zeigt die Organisation der Nodes in einer MetroCluster Konfiguration mit vier Nodes:
 
-image::../media/mcc_dr_groups_4_node.gif[mcc dr Gruppen 4 Knoten]
+image::../media/mcc_dr_groups_4_node.gif[MetroCluster -DR-Gruppen in einer Konfiguration mit vier Knoten]
 
 
 
@@ -61,7 +61,7 @@ Jeder MetroCluster Standort besteht aus Storage Controllern, die als HA-Paar kon
 
 Lokale HA-Failover- und Giveback-Vorgänge werden mit Storage Failover-Befehlen auf gleiche Weise durchgeführt wie eine andere Konfiguration von MetroCluster.
 
-image::../media/mcc_ip_hardware_architecture_ha_pairs.gif[mcc ip Hardware-Architektur ha-Paare]
+image::../media/mcc_ip_hardware_architecture_ha_pairs.gif[MetroCluster IP-Hardwarearchitektur HA-Paare]
 
 .Verwandte Informationen
 https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-concepts/home.html["ONTAP-Konzepte"]
@@ -72,7 +72,7 @@ https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-concepts/home.html["
 
 ONTAP Cluster verfügen normalerweise über ein Cluster-Interconnect-Netzwerk für den Datenverkehr zwischen den Nodes im Cluster. In MetroCluster IP-Konfigurationen wird dieses Netzwerk auch für das übertragen von Daten-Replizierungsdatenverkehr zwischen den MetroCluster Standorten verwendet.
 
-image::../media/mcc_ip_hardware_architecture_ip_interconnect.png[mcc ip-Hardwarearchitektur ip-Interconnect]
+image::../media/mcc_ip_hardware_architecture_ip_interconnect.png[MetroCluster IP-Hardwarearchitektur IP-Verbindung]
 
 Jeder Node in der MetroCluster IP-Konfiguration verfügt über dedizierte Schnittstellen zur Verbindung mit dem Back-End IP-Netzwerk:
 
@@ -82,7 +82,7 @@ Jeder Node in der MetroCluster IP-Konfiguration verfügt über dedizierte Schnit
 
 Die folgende Abbildung zeigt diese Schnittstellen. Die angegebene Port-Nutzung gilt für ein AFF A700 oder FAS9000 System.
 
-image::../media/mcc_ip_lif_usage.gif[Verwendung von mcc ip-Lif]
+image::../media/mcc_ip_lif_usage.gif[MetroCluster IP LIF-Nutzung]
 
 .Verwandte Informationen
 link:concept_considerations_mcip.html["Überlegungen für MetroCluster IP-Konfigurationen"]
@@ -95,7 +95,7 @@ Die beiden Cluster in der MetroCluster Konfiguration werden über ein vom Kunden
 
 Intercluster-LIFs müssen auf jedem Node in der MetroCluster-Konfiguration konfiguriert werden, und die Cluster müssen für Peering konfiguriert sein. Die Ports mit den Intercluster-LIFs sind mit dem vom Kunden bereitgestellten Cluster-Peering-Netzwerk verbunden. Die Replizierung der SVM-Konfiguration erfolgt über dieses Netzwerk über den Configuration Replication Service.
 
-image::../media/mcc_ip_hardware_architecture_cluster_peering_network.gif[mcc ip-Hardwarearchitektur Cluster-Peering-Netzwerk]
+image::../media/mcc_ip_hardware_architecture_cluster_peering_network.gif[MetroCluster IP-Hardwarearchitektur Cluster-Peering-Netzwerk]
 
 .Verwandte Informationen
 http://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-clus-peer/home.html["Express-Konfiguration für Cluster und SVM-Peering"]
