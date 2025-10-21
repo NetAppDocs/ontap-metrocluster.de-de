@@ -19,7 +19,7 @@ Sie können Fehlerszenarien testen, um den korrekten Betrieb der MetroCluster-Ko
 
 Sie können einen ausgehandelten (geplanten) Switchover-Vorgang testen, um die unterbrechungsfreie Datenverfügbarkeit zu bestätigen.
 
-Dieser Test überprüft, ob sich die Datenverfügbarkeit nicht auf die Protokolle Microsoft Server Message Block (SMB) und Solaris Fibre Channel auswirkt (ausgenommen Microsoft Server Message Block), indem der Cluster in das zweite Rechenzentrum umgeschaltet wird.
+Dieser Test bestätigt, dass die Datenverfügbarkeit durch die Umstellung des Clusters auf das zweite Rechenzentrum nicht beeinträchtigt wird (mit Ausnahme der SMB- und Fibre Channel-Protokolle).
 
 Dieser Test dauert etwa 30 Minuten.
 
@@ -99,8 +99,6 @@ Remote: cluster_B               not-reachable          -
 +
 [listing]
 ----
-cluster_A::>  metrocluster operation show
-
 cluster_A::> metrocluster operation show
   Operation: switchover
       State: successful
@@ -140,7 +138,7 @@ Group Cluster Node               State          Mirroring Mode
               node_A_1         configured     enabled   heal roots completed
       cluster_B
               node_B_2         unreachable    -         switched over
-42 entries were displayed.metrocluster operation show
+42 entries were displayed.
 ----
 . Vergewissern Sie sich, dass alle Aggregate sind `mirrored`:
 +

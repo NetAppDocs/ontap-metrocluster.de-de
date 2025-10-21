@@ -92,9 +92,9 @@ Sie müssen diese Schritte auf beiden MetroCluster FC Nodes durchführen.
 +
 `halt`
 
-.. Booten des Node zu Maintenance:
+.. Starten Sie den Knoten im Wartungsmodus:
 +
-`mode:boot_ontap maint`
+`boot_ontap maint`
 
 
 
@@ -149,7 +149,7 @@ Falls erforderlich, können Sie die Boot_Recovery und rdb_Corrupt_bootargs zurü
 +
 [listing]
 ----
-node_A_1::*> halt -node _node-name_
+siteA::*> halt -node <node-name>
 ----
 . Überprüfen Sie, ob die folgenden Bootargs eingestellt sind:
 +

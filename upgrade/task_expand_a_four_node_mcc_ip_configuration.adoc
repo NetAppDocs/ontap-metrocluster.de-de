@@ -17,7 +17,7 @@ Ab ONTAP 9.13.1 können Sie eine MetroCluster Konfiguration mit acht Nodes vorü
 
 Ab ONTAP 9.9 können Sie der MetroCluster IP-Konfiguration vier neue Nodes als zweite DR-Gruppe hinzufügen. Dadurch wird eine MetroCluster-Konfiguration mit acht Nodes erstellt.
 
-.Wichtige Informationen
+.Wichtige Informationen, wenn Sie ein älteres Plattformmodell hinzufügen
 Die folgende Anleitung gilt für ein ungewöhnliches Szenario, in dem Sie einer vorhandenen MetroCluster -Konfiguration, die ein neueres Plattformmodell enthält (Plattformen, die in ONTAP 9.15.1 oder höher veröffentlicht wurden), ein älteres Plattformmodell (Plattformen, die vor ONTAP 9.15.1 veröffentlicht wurden) hinzufügen müssen.
 
 Wenn Ihre vorhandene MetroCluster -Konfiguration eine Plattform enthält, die *gemeinsam genutzte Cluster-/HA-Ports* verwendet (Plattformen, die in ONTAP 9.15.1 oder höher veröffentlicht wurden), können Sie keine Plattform hinzufügen, die *gemeinsam genutzte MetroCluster/HA-Ports* verwendet (Plattformen, die vor ONTAP 9.15.1 veröffentlicht wurden), ohne alle Knoten in der Konfiguration auf ONTAP 9.15.1P11 oder ONTAP 9.16.1P4 oder höher zu aktualisieren.
