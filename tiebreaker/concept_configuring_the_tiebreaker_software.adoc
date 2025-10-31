@@ -4,7 +4,7 @@ sidebar: sidebar
 keywords: installation, tiebreaker, software, add, modify, metrocluster, configuration, remove, configuring, configure, launch, cli, add, command, modify, removing 
 summary: Nach der Installation der Tiebreaker Software können MetroCluster Konfigurationen hinzugefügt oder geändert oder aus der Tiebreaker Software entfernt werden. 
 ---
-= Konfigurieren der Tiebreaker Software
+= Konfigurieren Sie die MetroCluster Tiebreaker-Software
 :allow-uri-read: 
 :icons: font
 :imagesdir: ../media/
@@ -15,7 +15,7 @@ Nach der Installation der Tiebreaker Software können MetroCluster Konfiguration
 
 
 
-== Starten der Tiebreaker Software-CLI
+== Starten Sie die Tiebreaker-Software-Befehlszeilenschnittstelle.
 
 Nach der Installation der Tiebreaker Software müssen Sie die CLI starten, um die Software zu konfigurieren.
 
@@ -28,7 +28,7 @@ Nach der Installation der Tiebreaker Software müssen Sie die CLI starten, um di
 
 
 
-== Hinzufügen von MetroCluster Konfigurationen
+== Fügen Sie MetroCluster-Konfigurationen hinzu
 
 Nach der Installation der NetApp MetroCluster Tiebreaker Software können mehrere MetroCluster Konfigurationen gleichzeitig hinzugefügt werden.
 
@@ -78,6 +78,39 @@ Are you sure you want to enable automatic switchover capability for monitor "8pa
 
 .Verwandte Informationen
 link:concept_risks_and_limitation_of_using_mcc_tiebreaker_in_active_mode.html["Risiken und Einschränkungen bei der Verwendung von MetroCluster Tiebreaker im aktiven Modus"]
+
+
+
+== Importzertifikate
+
+Um eine nahtlose Überwachung in Tiebreaker 1.6 oder höher zu ermöglichen, müssen Sie das Server-SSL-Zertifikat (Secure Sockets Layer), das Zwischenzertifikat (falls vorhanden) und das Stammzertifikat von ONTAP in den Schlüsselspeicher der Java Virtual Machine (JVM) importieren.
+
+.Über diese Aufgabe
+* Diese Aufgabe ist in Tiebreaker 1.6 oder höher erforderlich.
+* Diese Aufgabe führen Sie aus, nachdem Sie eine MetroCluster -Konfiguration erfolgreich zu Tiebreaker hinzugefügt haben oder wenn Ihre Zertifikate ablaufen.
+
+
+.Schritt
+. Führen Sie für jedes Zertifikat, das Sie importieren müssen (SSL-Server-, Zwischen- oder Stammzertifikat), den folgenden Befehl aus.
++
+`/opt/netapp/java/bin/keytool -import -trustcacerts -file <certificate_file_name> -keystore "/opt/netapp/java/lib/security/cacerts" -alias <certificate>`
+
++
+** Der `<certificate_file_name>` Der Wert gibt den Dateinamen des Zertifikats an, das Sie importieren möchten.
+** Der `-alias <certificate>` Der Wert gibt den Namen an, unter dem das Zertifikat nach dem Import in die JVM gespeichert werden soll.
++
+Das folgende Beispiel zeigt, wie man ein Stammzertifikat mit dem Dateinamen importiert `root.crt` und ein SSL-Serverzertifikat mit dem Dateinamen `ssl_cert.crt`:
+
++
+[listing]
+----
+/opt/netapp/java/bin/keytool -import -trustcacerts -file root.crt -keystore "/opt/netapp/java/lib/security/cacerts" -alias root
+
+/opt/netapp/java/bin/keytool -import -trustcacerts -file ssl_cert.crt -keystore "/opt/netapp/java/lib/security/cacerts" -alias ssl_cert
+----
+
+
+
 
 
 
@@ -180,7 +213,7 @@ Das Benutzerpasswort wurde erfolgreich aktualisiert
 |===
 
 
-== Entfernen von MetroCluster-Konfigurationen
+== MetroCluster-Konfigurationen entfernen
 
 Sie können die MetroCluster-Konfiguration entfernen, die von der Tiebreaker Software überwacht wird, wenn Sie keine MetroCluster-Konfiguration mehr überwachen möchten.
 
