@@ -9244,7 +9244,6 @@
   <block id="1a6ef31c02bc656e4fbac4327c5198d9" category="cell">Unterbrechungsfrei oder unterbrechungsfrei</block>
   <block id="5a2ebfb8baa378cfcfcba58bbb1380c2" category="cell">Anforderungen</block>
   <block id="b8910962b1d031cc1eb8e8ad588c4c48" category="paragraph">Unterbrechungsfrei</block>
-  <block id="b1967383562a98a66ed0eff3ea640595" category="paragraph">Unterstützung neuer Storage Shelfs auf neuen Plattformen</block>
   <block id="5c85f685c62c106f7c5565f5f9efa724" category="paragraph">Zwei Nodes</block>
   <block id="fb36a3d5cdf2e3b5ecef9b3c9fbab504" category="paragraph">Unterbrechungen</block>
   <block id="8377dec7f2f76b3e412145b87daa08da" category="paragraph">Neue Storage Shelves werden sowohl auf ursprünglichen als auch auf neuen Plattformen unterstützt.</block>
@@ -10548,7 +10547,6 @@
   <block id="7bfd4ffe50f69a1805344bce9b252c81" category="section-title">Workflow für den Umstellungsprozess</block>
   <block id="feb6447b54e85b35757c82bf8e07abf7" category="summary">Ab ONTAP 9.13.1 lassen sich Workloads und Daten unterbrechungsfrei von einer bestehenden MetroCluster FC Konfiguration mit acht Nodes auf eine neue MetroCluster IP Konfiguration übertragen.</block>
   <block id="3d24a5eddf097cddc7e369398b35f959" category="paragraph">Sie können unterbrechungsfreie Übergänge von Workloads und Daten von einer bestehenden MetroCluster FC Konfiguration in eine neue MetroCluster IP Konfiguration durchführen.</block>
-  <block id="31c4d6a80fe871ada10a219d5727c166" category="paragraph">Ab ONTAP 9.8 lassen sich unterbrechungsfreie Workloads und Daten von einer bestehenden MetroCluster FC Konfiguration mit vier Nodes auf eine neue MetroCluster IP Konfiguration übertragen.</block>
   <block id="1bf2c57ed29fc24c2ccb26dcba0c45be" category="list-text">Dieses Verfahren gilt nur für MetroCluster FC-Konfigurationen mit vier und acht Nodes.</block>
   <block id="99e6dcb4734e7eef8858b52e3c36d08c" category="list-text">In diesem Verfahren werden die Schritte beschrieben, die für den Übergang einer FC-DR-Gruppe mit vier Nodes erforderlich sind. Wenn Sie über eine Konfiguration mit acht Nodes (zwei FC DR-Gruppen) verfügen, müssen Sie den gesamten Vorgang für jede FC DR-Gruppe wiederholen.</block>
   <block id="7085ef0783c3069c714c62b941d51195" category="summary">Sie können diese geführte automatische MetroCluster-Umschaltung verwenden, um ein unterbrechungsfreies Controller-Upgrade für eine MetroCluster IP-Konfiguration mit vier Nodes durchzuführen.</block>
@@ -13636,7 +13634,6 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="74d14036e96594d67869316b84c6d566" category="paragraph">Das heruntergeladene CSHM-Paket wurde erfolgreich verarbeitet.</block>
   <block id="89c6b3e5f896b8d329ae4e4fe91cc812" category="paragraph">Sollte ein Fehler auftreten, wenden Sie sich an den NetApp Support.</block>
   <block id="a6fd16052b19595c024aa4e5bcb0b366" category="list-text">[[step6]]Warten Sie bis zu zweimal das Abfrageintervall der Ethernet-Switch-Integritätsüberwachung, das durch Ausführen gefunden<block ref="c9e6cd6140c9d8677df821c7cce2aac1" prefix=" " category="inline-code"></block>wird, bevor Sie den nächsten Schritt abschließen.</block>
-  <block id="c947c5faccdddd0a9a87be7895f50511" category="list-text">Führen Sie den Befehl auf dem ONTAP-System aus<block ref="db3929a8e897b02a87f7f4bc42f38fc1" prefix=" " category="inline-code"></block> , und stellen Sie sicher, dass die Cluster-Switches erkannt werden, wobei das überwachte Feld auf *true* und das Seriennummernfeld nicht *Unknown* anzeigt.</block>
   <block id="d57382f230671f8cd52f47dc80838934" category="admonition">Wenn Ihr Modell nach der Anwendung der Konfigurationsdatei immer noch *ANDERE* anzeigt, wenden Sie sich an den NetApp-Support.</block>
   <block id="58a19c530e54f6364edd838f35b1830e" category="inline-link-macro">Konfigurieren Sie die Überwachung des Switch-Systemzustands</block>
   <block id="d47e3b820b4e0ef60cfed3bd03049a46" category="paragraph"><block ref="402ba92b413c133107b7e0b0a0255bc4" category="inline-link-macro-rx"></block>.</block>
@@ -14435,4 +14432,17 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="50579aa28b2b0ac01c180e6e07119273" category="paragraph"><block ref="50579aa28b2b0ac01c180e6e07119273" category="inline-link-macro-rx"></block></block>
   <block id="9a1a464601bee502d12616aa9be06bb3" category="list-text"><block ref="d77847ddf2a5535e4974575f39191ae2" category="inline-link-macro-rx"></block> aus der Tiebreaker-Software.</block>
   <block id="ba13dd5c52c50f7bb5ef919e4d340c98" category="paragraph"><block ref="83029083d25b0153769c6039afb8beb5" category="inline-link-macro-rx"></block>.</block>
+  <block id="62633c6c7bc1e478b0c226fc706ce7d1" category="list-text">Führen Sie den Befehl aus<block ref="350d65f100fdbc8d411ce22a179f4b29" prefix=" " category="inline-code"></block> Stellen Sie im ONTAP -System sicher, dass die Cluster-Switches erkannt werden, wobei das überwachte Feld auf *True* gesetzt ist und das Feld für die Seriennummer nicht *Unknown* anzeigt.</block>
+  <block id="f53c5f8d2c3b0e3b1854e0c8f280aac0" category="list-text">Starten Sie die Tiebreaker-Software neu:</block>
+  <block id="3b879e464448b1abbc76cb49a3e48f67" category="paragraph"><block ref="5c46787eed9475e8e2a2351216605e90" prefix="" category="inline-code"></block></block>
+  <block id="f4c717f63bbf7bf7a91d2fde6f9051f1" category="paragraph">Auf den neuen Bahnsteigen werden neue Lagerregale benötigt.  Nach Abschluss der Umstellung werden die alten Controller, Gehäuse und Festplatten aus dem Cluster entfernt.</block>
+  <block id="0c6fc3d80e5d75918b6f2d338a395bfe" category="paragraph">*Hinweis:* Dieses Verfahren unterstützt die folgenden FC-zu-IP-Übergänge:</block>
+  <block id="b9a67b79bf8805e04026764220f5644c" category="list-text">Von einer MetroCluster -FC-Konfiguration mit vier Knoten zu einer MetroCluster IP-Konfiguration mit vier Knoten</block>
+  <block id="b5c21ffa00510d1334f85119eb48a645" category="list-text">Von einer MetroCluster -FC-Konfiguration mit acht Knoten zu einer MetroCluster IP-Konfiguration mit acht Knoten</block>
+  <block id="7a2504e84fd0f2574207d002a4e82d9a" category="paragraph">Ab ONTAP 9.13.1 können Sie eine unterbrechungsfreie Migration von Workloads und Daten von einer bestehenden MetroCluster FC-Konfiguration mit acht Knoten zu einer neuen MetroCluster IP-Konfiguration mit acht Knoten durchführen.  Mit diesem Verfahren wird eine FC-DR-Gruppe mit vier Knoten umgestellt, die leere FC-DR-Gruppe entfernt und das Verfahren anschließend für die zweite FC-DR-Gruppe wiederholt. </block>
+  <block id="e59a63f4705f92f189efd0bae23c593c" category="paragraph">Ab ONTAP 9.8 können Sie eine unterbrechungsfreie Migration von Workloads und Daten von einer bestehenden MetroCluster FC-Konfiguration mit vier Knoten zu einer neuen MetroCluster IP-Konfiguration mit vier Knoten durchführen.  Nach Abschluss der Umstellung können Sie bei Bedarf auf eine MetroCluster -IP-Konfiguration mit acht Knoten erweitern. Sehen<block ref="3a5645d9f79878fa2875b4b5fe2e8c9e" category="inline-link-macro-rx"></block> .</block>
+  <block id="584e8e12c74fdc178c6cb5a7049fb874" category="admonition">Wenn Sie im Rahmen dieses Verfahrens eine DR-Gruppe hinzufügen oder entfernen, müssen Sie überprüfen, ob das Hinzufügen oder Entfernen der DR-Gruppe erfolgreich war, bevor Sie eine weitere DR-Gruppe hinzufügen oder entfernen.</block>
+  <block id="d134f3e8bbc2dfac90ce02f2d628c649" category="list-text">Wenn Sie den Onboard Key Manager verwenden, führen Sie die folgenden Schritte in dem Cluster aus, in dem Sie einen neuen Knoten hinzugefügt haben:</block>
+  <block id="87f7e23221d5cdfbe745a1b00fcf1068" category="list-text">Synchronisieren Sie die Konfiguration des Schlüsselmanagers:</block>
+  <block id="65ce095af1b3ce283b41ed1ff6456ed9" category="list-text">Geben Sie bei Aufforderung die Passphrase des Onboard Key Managers ein.</block>
 </blocks>

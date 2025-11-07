@@ -90,7 +90,7 @@ Um eine nahtlose Überwachung in Tiebreaker 1.6 oder höher zu ermöglichen, mü
 * Diese Aufgabe führen Sie aus, nachdem Sie eine MetroCluster -Konfiguration erfolgreich zu Tiebreaker hinzugefügt haben oder wenn Ihre Zertifikate ablaufen.
 
 
-.Schritt
+.Schritte
 . Führen Sie für jedes Zertifikat, das Sie importieren müssen (SSL-Server-, Zwischen- oder Stammzertifikat), den folgenden Befehl aus.
 +
 `/opt/netapp/java/bin/keytool -import -trustcacerts -file <certificate_file_name> -keystore "/opt/netapp/java/lib/security/cacerts" -alias <certificate>`
@@ -109,6 +109,10 @@ Das folgende Beispiel zeigt, wie man ein Stammzertifikat mit dem Dateinamen impo
 /opt/netapp/java/bin/keytool -import -trustcacerts -file ssl_cert.crt -keystore "/opt/netapp/java/lib/security/cacerts" -alias ssl_cert
 ----
 
+
+. Starten Sie die Tiebreaker-Software neu:
++
+`systemctl restart netapp-metrocluster-tiebreaker-software`
 
 
 

@@ -15,9 +15,9 @@ Sie können unterbrechungsfreie Übergänge von Workloads und Daten von einer be
 
 Ab ONTAP 9.13.1 wird dieses Verfahren in MetroCluster IP-Konfigurationen unterstützt, bei denen die MetroCluster und die Festplatten-Shelfs mit denselben IP-Switches verbunden sind (eine Konfiguration mit einem Shared Storage Switch).
 
-Ab ONTAP 9.13.1 lassen sich Workloads und Daten unterbrechungsfrei von einer bestehenden MetroCluster FC Konfiguration mit acht Nodes auf eine neue MetroCluster IP Konfiguration übertragen.
+Ab ONTAP 9.13.1 können Sie eine unterbrechungsfreie Migration von Workloads und Daten von einer bestehenden MetroCluster FC-Konfiguration mit acht Knoten zu einer neuen MetroCluster IP-Konfiguration mit acht Knoten durchführen.  Mit diesem Verfahren wird eine FC-DR-Gruppe mit vier Knoten umgestellt, die leere FC-DR-Gruppe entfernt und das Verfahren anschließend für die zweite FC-DR-Gruppe wiederholt. 
 
-Ab ONTAP 9.8 lassen sich unterbrechungsfreie Workloads und Daten von einer bestehenden MetroCluster FC Konfiguration mit vier Nodes auf eine neue MetroCluster IP Konfiguration übertragen.
+Ab ONTAP 9.8 können Sie eine unterbrechungsfreie Migration von Workloads und Daten von einer bestehenden MetroCluster FC-Konfiguration mit vier Knoten zu einer neuen MetroCluster IP-Konfiguration mit vier Knoten durchführen.  Nach Abschluss der Umstellung können Sie bei Bedarf auf eine MetroCluster -IP-Konfiguration mit acht Knoten erweitern. Sehenlink:../upgrade/task_expand_a_four_node_mcc_ip_configuration.html["Erweitern Sie eine MetroCluster IP-Konfiguration"] .
 
 * Dieses Verfahren ist unterbrechungsfrei.
 +
@@ -28,6 +28,10 @@ Die MetroCluster Konfiguration kann während des Vorgangs weiterhin Daten bereit
 Wenn Sie über eine MetroCluster-FC-Konfiguration mit zwei Nodes verfügen, finden Sie Informationen unter link:concept_choosing_your_transition_procedure_mcc_transition.html["Auswahl des Migrationsverfahrens"].
 
 * In diesem Verfahren werden die Schritte beschrieben, die für den Übergang einer FC-DR-Gruppe mit vier Nodes erforderlich sind. Wenn Sie über eine Konfiguration mit acht Nodes (zwei FC DR-Gruppen) verfügen, müssen Sie den gesamten Vorgang für jede FC DR-Gruppe wiederholen.
++
+
+NOTE: Wenn Sie im Rahmen dieses Verfahrens eine DR-Gruppe hinzufügen oder entfernen, müssen Sie überprüfen, ob das Hinzufügen oder Entfernen der DR-Gruppe erfolgreich war, bevor Sie eine weitere DR-Gruppe hinzufügen oder entfernen.
+
 * Sie müssen alle Anforderungen erfüllen und alle Schritte des Verfahrens befolgen.
 
 
