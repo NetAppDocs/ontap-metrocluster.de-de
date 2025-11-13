@@ -21,9 +21,9 @@ Die folgenden Anforderungen gelten für eine Disaster Recovery-Gruppe (DR-Gruppe
 +
 Die Konnektivität zwischen dem ONTAP Mediator und jedem Standort muss aus zwei separaten Ausfall-Domains bestehen.
 
-* ONTAP Mediator kann bis zu fünf MetroCluster-Konfigurationen gleichzeitig unterstützen.
 * Die automatische ungeplante Umschaltung wird in ONTAP 9.7 und höher unterstützt.
-* IPv6 wird mit ONTAP Mediator nicht unterstützt.
+* Ab ONTAP 9.18.1 und ONTAP Mediator 1.11 kann eine einzelne ONTAP Mediator-Instanz bis zu zehn MetroCluster Konfigurationen gleichzeitig verwalten.  In früheren Versionen konnte ONTAP Mediator bis zu fünf MetroCluster Konfigurationen gleichzeitig unterstützen.
+* Ab ONTAP 9.18.1 wird IPv6 für ONTAP Mediator 1.11 oder höher in einer MetroCluster IP-Konfiguration unterstützt.
 
 
 
@@ -64,7 +64,6 @@ Es ist eine unabhängige Verbindung zwischen jedem Standort und dem ONTAP Mediat
 Sie müssen sicherstellen, dass die Konfiguration mehrere Host-Anforderungen erfüllt.
 
 * ONTAP Mediator muss an einem externen Standort installiert sein, der physisch von den beiden ONTAP Clustern getrennt ist.
-* ONTAP Mediator unterstützt maximal fünf MetroCluster-Konfigurationen.
 * ONTAP Mediator benötigt nicht mehr als die Mindestanforderungen des Host-Betriebssystems an CPU und Arbeitsspeicher (RAM).
 * Zusätzlich zu den Mindestanforderungen des Host-Betriebssystems muss mindestens 30 GB zusätzlicher nutzbarer Festplattenspeicher zur Verfügung stehen.
 +

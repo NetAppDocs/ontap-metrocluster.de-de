@@ -3758,7 +3758,6 @@
   <block id="5213788f29292b96ef1a650e5fce6938" category="list-text">Diese Aufgabe ermöglicht standardmäßig automatische ungeplante Umschaltung.</block>
   <block id="ada003c5d7b06ea1b392045334928823" category="list-text">Diese Aufgabe kann auf der ONTAP-Schnittstelle eines beliebigen Knotens der MetroCluster IP-Konfiguration ausgeführt werden.</block>
   <block id="f8dc7177731310562718d80a3440fa9d" category="paragraph"><block ref="3514c4a480186e54ede98b5d0a79cc77" prefix="" category="inline-code"></block></block>
-  <block id="1645e08f0bfdf72de9dd9cf2ec8208de" category="admonition">Sie werden aufgefordert, den Benutzernamen und das Kennwort für das Mediator Admin-Benutzerkonto einzugeben.</block>
   <block id="5c0eb063c7de9ced4fcf06367dc8cf49" category="list-text">Überprüfen Sie, ob der Mediator jetzt ausgeführt wird.</block>
   <block id="241c04bf46a427ee9559a37db9cfc64c" category="list-text">Zeigen Sie die virtuellen Mediator-Laufwerke an:</block>
   <block id="549e9ae28a978e7598586f13c962b013" category="paragraph"><block ref="01f27107dbd6f005bff7ffa285edb3da" prefix="" category="inline-code"></block></block>
@@ -4079,7 +4078,6 @@
   <block id="d4fda9bf787c3a38a379763f5d621600" category="paragraph">Es ist eine unabhängige Verbindung zwischen jedem Standort und dem ONTAP Mediator erforderlich. Ein Ausfall an einem Standort darf die IP-Verbindung zwischen den anderen beiden nicht betroffenen Standorten nicht unterbrechen.</block>
   <block id="fec21bcdc858f42f1c942fd943d09de4" category="paragraph">Sie müssen sicherstellen, dass die Konfiguration mehrere Host-Anforderungen erfüllt.</block>
   <block id="aecf60a0046b893cbed6332405eb3aa3" category="list-text">ONTAP Mediator muss an einem externen Standort installiert sein, der physisch von den beiden ONTAP Clustern getrennt ist.</block>
-  <block id="6f044e53b0f973c21b9f45e9f29dd890" category="list-text">ONTAP Mediator unterstützt maximal fünf MetroCluster-Konfigurationen.</block>
   <block id="00dcc4021e9b5b5c4107ab832d8a3b22" category="list-text">ONTAP Mediator benötigt nicht mehr als die Mindestanforderungen des Host-Betriebssystems an CPU und Arbeitsspeicher (RAM).</block>
   <block id="3238177a17500506d8e25597811d95a1" category="list-text">Zusätzlich zu den Mindestanforderungen des Host-Betriebssystems muss mindestens 30 GB zusätzlicher nutzbarer Festplattenspeicher zur Verfügung stehen.</block>
   <block id="d87323d7c443195bdfe43686953d17da" category="list-text">Jede DR-Gruppe benötigt bis zu 200 MB Festplattenspeicher.</block>
@@ -4208,7 +4206,6 @@
   <block id="7b1967ab8b38aa7f5c2c50d91fb6d616" category="section-title">ADP- und Festplattenzuordnungsunterschiede nach System in MetroCluster IP-Konfigurationen</block>
   <block id="a9a5083f94ce7d550f0b47f6cc2c908f" category="paragraph">Der Betrieb von ADP (Advanced Drive Partitioning) und die automatische Festplattenzuordnung in MetroCluster IP Konfigurationen variiert je nach Systemmodell.</block>
   <block id="d28feffd6ede91f566713f192c5dfd64" category="admonition">In Systemen mit ADP werden Aggregate mithilfe von Partitionen erstellt, in denen jedes Laufwerk in die Partitionen P1, P2 und P3 partitioniert wird. Das Root-Aggregat wird mithilfe von P3-Partitionen erstellt.</block>
-  <block id="bfaf3f06462f8d34cf668e3270ad1d65" category="paragraph">Sie müssen die MetroCluster-Grenzwerte für die maximale Anzahl unterstützter Laufwerke und anderer Richtlinien einhalten.</block>
   <block id="81c8a8438f05c7253ddb8e89ac70d5d9" category="section-title">ADP und Festplattenzuordnung auf AFF A320-Systemen</block>
   <block id="a3928106022ce5ea0abce2ce87ea7487" category="cell">Richtlinie</block>
   <block id="d466ded16012c3dc3fc619cdfe020258" category="cell">Laufwerke pro Standort</block>
@@ -10965,7 +10962,6 @@
   <block id="fdf5e2eb479f201de0c9c62e9a32e769" category="paragraph">Wenn Sie einem vorhandenen Cluster neue Nodes ohne standardmäßige Broadcast-Domäne hinzufügen, werden für die neuen Nodes Node-Management-LIFs erstellt, die nicht die erwarteten Namen verwenden, sondern UIDs (Universal Unique Identifiers). Weitere Informationen finden Sie im Knowledge Base-Artikel<block ref="4808e3ddae1b3b2c14dc148b67bd36ea" category="inline-link-rx"></block>.</block>
   <block id="f6410291c32fa961402f5a821c332f6c" category="list-text">Stellen Sie sicher, dass die alten und neuen Plattformmodelle für die gemeinsame Verwendung der Plattformen unterstützt werden.</block>
   <block id="e220a628f1c5f8fb65824aaeb387520e" category="list-text">Überprüfen Sie, ob die alten und die neuen Plattformmodelle von den IP-Switches unterstützt werden.</block>
-  <block id="72a38a5af8be1c706e478add3356ba90" category="paragraph">Bei der Verwendung von ADP mit MetroCluster IP-Konfigurationen sollten Sie die folgenden Überlegungen beachten:</block>
   <block id="959bb45d9851a2b3efaeb05db74e0a80" category="list-text">ADPv2 wird in MetroCluster IP-Konfigurationen unterstützt.</block>
   <block id="a393732e5defe7b7a921a586e53ec51d" category="list-text">Das Root-Aggregat muss sich in Partition 3 für alle Knoten auf beiden Standorten befinden.</block>
   <block id="9ef6aecb7d030435d81fe80cacca477e" category="list-text">Die Partitionierung und Festplattenzuordnung erfolgt automatisch bei der Erstkonfiguration der MetroCluster Standorte.</block>
@@ -11658,8 +11654,6 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="6165c4352e1504dbaeef34d0cc50c187" category="paragraph">Konsistenzgruppen</block>
   <block id="3fb697436dcc4f2ae2cdd29dc91fd043" category="paragraph">Konsistenzgruppen werden in MetroCluster-Konfigurationen unterstützt.</block>
   <block id="47d81ac708cab22da7ea952550b6f757" category="summary">Mit jeder Version werden neue Funktionen des ONTAP Mediators bereitgestellt.  Was ist neu?</block>
-  <block id="3261bd656e2112e78b0313c87c039420" category="doc">Was ist neu in ONTAP Mediator Unterstützung</block>
-  <block id="e8467e9b509c4924668c01eb7ab2adde" category="cell">ONTAP-Version</block>
   <block id="63b6c1d0d10ce89604932c62d9b6f4d7" category="doc">Neuerungen bei MetroCluster</block>
   <block id="3100460fa3d7ba2ea001abefda93f3bc" category="cell">Beschreibung und wo man mehr erfahren kann</block>
   <block id="677eca4ee8daca8d2b9156735c70729b" category="paragraph">Wechsel von MetroCluster FC zu MetroCluster IP mit einem Shared Switch für MetroCluster IP und Ethernet Attached Storage</block>
@@ -13207,7 +13201,6 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="d98545518df18c073a4a75d72759ddfe" category="list-text">FabricPool unterstützt die SVM-Migration nicht, wenn die Quelle oder das Ziel ein MetroCluster-Cluster ist.</block>
   <block id="de60962ea114e8e20b41343aa7431cbf" category="inline-link-macro">Erfahren Sie mehr über SVM-Datenmobilität</block>
   <block id="cb692d9778a8fa1464d6b442ab90722f" category="paragraph"><block ref="53c488ccbc80272b509e45a126fd033b" category="inline-link-macro-rx"></block>.</block>
-  <block id="b4911e786bbd878f489a84835fcee570" category="list-text">IPv6 wird mit ONTAP Mediator nicht unterstützt.</block>
   <block id="d247a27201590148c4ea6bf493729fd1" category="list-text">Der 22/tcp-Port ist für den normalen Betrieb nicht erforderlich, Sie können ihn jedoch vorübergehend für Wartungsarbeiten aktivieren und deaktivieren, wenn die Wartungssitzung beendet ist.</block>
   <block id="02674a4ef33e11c879283629996c8ff8" category="cell">Richtung</block>
   <block id="c5df47f9068f6d11f238ec77908abf18" category="paragraph">22/tcp</block>
@@ -13485,7 +13478,6 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="a02702c70aea42098864f08e7416a2d3" category="list-text">Wenn Sie Ihre Linux-Version aktualisieren möchten, tun Sie dies, bevor Sie die aktuellste Version von ONTAP Mediator installieren.</block>
   <block id="c53d5657445f71b92e34d86103a86f85" category="list-text">Die ONTAP Mediator- und MetroCluster Tiebreaker-Software sollten nicht beide mit derselben MetroCluster-Konfiguration verwendet werden.</block>
   <block id="059b37c83fb6387899a2deb16d02458f" category="list-text">ONTAP Mediator muss auf einem Linux-Host an einem anderen Standort als den MetroCluster-Sites installiert werden.</block>
-  <block id="857725e43c3ed86c03193f33f6382417" category="list-text">ONTAP Mediator kann bis zu fünf MetroCluster-Konfigurationen gleichzeitig unterstützen.</block>
   <block id="c9ffad835642fcae631d9df1be00fc38" category="section-title">Netzwerkanforderungen für die Verwendung von ONTAP Mediator in einer MetroCluster-Konfiguration</block>
   <block id="4f7415d27a43620353acfcd34858e996" category="paragraph">Um ONTAP Mediator in einer MetroCluster-Konfiguration zu installieren, müssen Sie sicherstellen, dass die Konfiguration mehrere Netzwerkanforderungen erfüllt.</block>
   <block id="f96926f4c01d2573af8b25445cc69961" category="paragraph">Die Verbindung zwischen ONTAP Mediator und einer DR-Gruppe muss über eine Bandbreite von mindestens 20 Mbit/s verfügen.</block>
@@ -13651,8 +13643,6 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="c9c78db1df5763fa1ed9a33d8364ecd6" category="list-text">ONTAP Mediator muss erfolgreich an einem Netzwerkstandort installiert worden sein, der von beiden MetroCluster-Standorten aus erreichbar ist.</block>
   <block id="f3a4ed516d3573c05bec448b098ee829" category="list-text">Sie müssen über die IP-Adresse des Hosts verfügen, auf dem ONTAP Mediator ausgeführt wird.</block>
   <block id="81526f6b8e9033c7824d444ad8950ae4" category="list-text">Sie müssen über den Benutzernamen und das Passwort für ONTAP Mediator verfügen.</block>
-  <block id="c69fdc77c5b94d40ff8bd9d1129290c3" category="list-text">Eine einzelne Installation von ONTAP Mediator kann mit bis zu fünf MetroCluster-IP-Konfigurationen konfiguriert werden.</block>
-  <block id="5954e0574dae3d22be232db113f0f328" category="list-text">Fügen Sie ONTAP Mediator zu ONTAP hinzu:</block>
   <block id="fffcc6d8d0cf061a4a3bb3e984bed6a4" category="summary">Sie können den ONTAP-Mediator aus der MetroCluster-IP-Konfiguration entfernen.</block>
   <block id="7f0eed44b544654d8519a5ce7f8a8e69" category="doc">Dekonfigurieren Sie ONTAP Mediator aus der MetroCluster-IP-Konfiguration</block>
   <block id="0ca0841611aff3d2fa5059343e27e7fa" category="paragraph">Sie können ONTAP Mediator aus der MetroCluster-IP-Konfiguration dekonfigurieren.</block>
@@ -13675,8 +13665,6 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="11e389769edd0ffd96bc52520e736666" category="paragraph">Wenn Sie beide Switches im Netzwerk umbenennen, verwenden Sie auf jedem Switch denselben Befehl.</block>
   <block id="daf179095240111942b292cddbac4271" category="list-text">Sie benötigen das Administratorkennwort und Zugriff auf einen HTTP-, FTP- oder TFTP-Server (Trivial File Transfer Protocol).</block>
   <block id="dfd2868dd5a4b44891e23870faf6ecda" category="list-text"><block ref="dfd2868dd5a4b44891e23870faf6ecda" category="inline-link-macro-rx"></block></block>
-  <block id="54485326fb6c0b4a273ca75c003d6a9d" category="paragraph">Mit jeder Version werden neue Verbesserungen für ONTAP Mediator bereitgestellt. Was ist neu?</block>
-  <block id="0294813eff3958ef43f353e390bb4729" category="paragraph">Weitere Informationen zur Installation oder Aktualisierung von ONTAP Mediator in Ihrer MetroCluster-Konfiguration finden Sie unter <block ref="f7ab7b3d6222d761ab5a933510823b89" category="inline-link-macro-rx"></block> .</block>
   <block id="3114aeea55539bf595af1665b8572d3a" category="paragraph"><block ref="3114aeea55539bf595af1665b8572d3a" category="inline-link-rx"></block></block>
   <block id="f818e428c62e3fad315884b1e49da0dc" category="paragraph">Erste Unterstützung für ONTAP Mediator in MetroCluster-IP-Konfigurationen</block>
   <block id="8fa6539999f2d3aff134c30600c80e41" category="inline-link-macro">Laden Sie die NVIDIA RCF-Dateien herunter, und installieren Sie sie</block>
@@ -13715,7 +13703,6 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="0eaedccc418ca7fe214ff0e2f2fb9d4f" category="sidebar">Konfigurieren der Protokollsammlung auf MetroCluster-IP-Switches</block>
   <block id="fa19a8bee183bfbc767660e140eae8dc" category="sidebar">Verwalten der Ethernet-Switch-Überwachung</block>
   <block id="eb781ca5db4579a64062bcf161d91cbe" category="sidebar">Überprüfen der Ethernet-Switch-Überwachung</block>
-  <block id="3ef38a7332e8a3a92f8540dfdb80708d" category="sidebar">Konfigurieren von ONTAP Mediator aus einer MetroCluster-IP-Konfiguration</block>
   <block id="84e085c408a358fe4e512066e45c3837" category="sidebar">Verwalten Sie ONTAP Mediator mit System Manager</block>
   <block id="d2dfa94f0ec6119f137b05b65f72b726" category="open-title">Wenn ein Plex fehlschlägt:</block>
   <block id="a3d50ad07bbec0a08b055954bb66cfcb" category="list-text">Zerstöre den ausgefallenen Plex:</block>
@@ -14114,7 +14101,6 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="dbbd0d3a920fcce3e934fa0740097c19" category="doc">Anforderungen für Inter-Switch Links (ISLs) in MetroCluster -IP-Konfigurationen</block>
   <block id="e7a6b008ef2ebf568f593e71d5f62762" category="doc">Einrichten der ONTAP Knoten und -Cluster in der MetroCluster -IP-Konfiguration</block>
   <block id="c6929b82d09d520230d3410f013a4beb" category="doc">Supportmatrix für ONTAP MetroCluster -Konfigurationen</block>
-  <block id="26e7329446b9653c1afcd63d2340cfbf" category="doc">MetroCluster IP-Überlegungen für automatische Laufwerkszuweisung und ADP-Systeme</block>
   <block id="a2e3b015ada3007372f3890d911b3685" category="doc">Firewall-Portanforderungen für MetroCluster IP-Konfigurationen</block>
   <block id="1bcaecfd01f4e5a2ce59bf09e79ab95f" category="doc">Erfahren Sie mehr über die Verwendung von virtueller IP und Border Gateway Protocol mit einer MetroCluster -IP-Konfiguration</block>
   <block id="75ab17da123365d00f2ec499305169d8" category="doc">Erfahren Sie mehr über Remote-Speicher und MetroCluster IP-Konfigurationen</block>
@@ -14445,4 +14431,55 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="d134f3e8bbc2dfac90ce02f2d628c649" category="list-text">Wenn Sie den Onboard Key Manager verwenden, führen Sie die folgenden Schritte in dem Cluster aus, in dem Sie einen neuen Knoten hinzugefügt haben:</block>
   <block id="87f7e23221d5cdfbe745a1b00fcf1068" category="list-text">Synchronisieren Sie die Konfiguration des Schlüsselmanagers:</block>
   <block id="65ce095af1b3ce283b41ed1ff6456ed9" category="list-text">Geben Sie bei Aufforderung die Passphrase des Onboard Key Managers ein.</block>
+  <block id="2105de6863814cadf13f4a5adf30bcf8" category="doc">MetroCluster IP-Anforderungen für automatische Antriebszuweisung und ADP-Systeme</block>
+  <block id="8407092afa5cdc22ea9a94ffac556a37" category="paragraph">Bei der Verwendung von ADP mit MetroCluster -IP-Konfigurationen sollten Sie Folgendes beachten:</block>
+  <block id="a88e04c5993ff7e8b685db2d115453a3" category="paragraph">Bitte beachten Sie die folgenden Anforderungen, bevor Sie die Tabellen verwenden:</block>
+  <block id="28b8efa498ff52a7274720a8171ce1d8" category="list-text">Sie müssen die MetroCluster Vorgaben hinsichtlich der maximalen Anzahl unterstützter Laufwerke und anderer Richtlinien einhalten. Weitere Informationen finden Sie im<block ref="ed4326c3351d8ac0e334b8b4d9b37c82" category="inline-link-rx"></block> .</block>
+  <block id="d13c49a2255fa0364f3eb44e91f11a98" category="inline-link-macro">ONTAP Besitzrechte von einer Festplatte entfernen</block>
+  <block id="207c7128f49aebfb0e6e2a985d7331f7" category="list-text">Wenn Sie ein externes Festplattengehäuse wiederverwenden, vergewissern Sie sich, dass die Festplattenzugehörigkeit auf dem externen Festplattengehäuse entfernt wurde, bevor Sie es an den Controller anschließen. Siehe<block ref="472eb82215883a6679f6be68392349e7" category="inline-link-macro-rx"></block> .</block>
+  <block id="2c3b5a5bcad371b696f81fddf09453f4" category="section-title">Festplattenzuordnung auf FAS50-Systemen mit Flash-Cache</block>
+  <block id="10d1ab0c8cf052d4ea0d37de04e41090" category="paragraph">Ab ONTAP 9.18.1 wird Flash Cache auf FAS50-Systemen für MetroCluster IP-Konfigurationen unterstützt.</block>
+  <block id="6b3168d94d2d3e334f52748aea390dba" category="list-text">Es ist nicht möglich, sowohl Datenaggregate als auch das Stammaggregat mit Flash-Cache-Laufwerken auf dem internen Gehäuse zu betreiben.</block>
+  <block id="653607d5d7d3af18614ca6042833ed8a" category="list-text">Die Steckplätze 0 und 23 werden für Flash-Cache-Laufwerke verwendet.</block>
+  <block id="8e61d02677cd63addf1b7c325e4f7ac0" category="list-text">Wenn Sie ein externes Festplattengehäuse wiederverwenden, vergewissern Sie sich, dass die Festplattenzugehörigkeit auf dem externen Festplattengehäuse entfernt wurde, bevor Sie es an den Controller anschließen. Siehe<block ref="a28575c3c82c68e34920359e77fd18f4" category="inline-link-macro-rx"></block> .</block>
+  <block id="da0670d9828b0c4a39fd70e8176cd286" category="paragraph">36 Laufwerke (12 interne und 24 externe Laufwerke – die Datenaggregate befinden sich auf dem externen Gehäuse, das Stammaggregat auf dem internen Gehäuse)</block>
+  <block id="13825b1621d2d8ab9420fd458a556917" category="paragraph">Die internen Laufwerke sind in vier gleich große Gruppen (Viertel) unterteilt.  Jedes Quartal wird automatisch einem separaten Pool zugeordnet.  Die Laufwerke auf den externen Einschüben sind in vier gleich große Gruppen (Viertel) unterteilt.  Jedes Viertelregal wird automatisch einem separaten Pool zugeordnet.</block>
+  <block id="fcbd19b726fdd6160dfe2ab43f285a55" category="paragraph">*Anmerkungen:*</block>
+  <block id="db7a2b68018b688d638484b17a61fde8" category="list-text">Wenn Sie interne und externe Laufwerke verwenden, müssen Sie zuerst ONTAP installieren und den lokalen Cluster nur mit den internen Laufwerken konfigurieren.  Anschließend schließen Sie das externe Regal manuell an, nachdem Sie Ihre Installations- oder Einrichtungsaufgabe abgeschlossen haben.</block>
+  <block id="f1839293460380c463f11487c07a0a03" category="list-text">Für das Root-Aggregat werden mindestens 12 interne Laufwerke benötigt.  Die internen Root-Laufwerke sollten Sie aus Steckplatz 1 einsetzen.  Für beispielsweise 12 interne Laufwerke verwenden Sie die Steckplätze 1-3, 6-8, 12-14 und 18-20.</block>
+  <block id="ebe553e3b0c5ac8c6b06cd6914cd1875" category="paragraph">24 externe Laufwerke</block>
+  <block id="8fe5d17841821de914d5209eef34ab37" category="list-text">Ab ONTAP 9.18.1 und ONTAP Mediator 1.11 kann eine einzelne ONTAP Mediator-Instanz bis zu zehn MetroCluster Konfigurationen gleichzeitig verwalten.  In früheren Versionen konnte ONTAP Mediator bis zu fünf MetroCluster Konfigurationen gleichzeitig unterstützen.</block>
+  <block id="ed0eda41e396ef5ea6f36bac23db4825" category="list-text">Ab ONTAP 9.18.1 wird IPv6 für ONTAP Mediator 1.11 oder höher in einer MetroCluster IP-Konfiguration unterstützt.</block>
+  <block id="760ee33a4b5ef0f8b6e53de05243e44d" category="paragraph">Sie müssen den ONTAP Mediator auf dem ONTAP Knoten konfigurieren, um ihn in einer MetroCluster -IP-Konfiguration verwenden zu können.</block>
+  <block id="f0fe71516e304fd8465b87447ccb2410" category="list-text">Fügen Sie ONTAP Mediator zu ONTAP hinzu.  Die einzelnen Schritte hängen davon ab, ob Sie eine IPv4- oder eine IPv6-Adresse verwenden möchten.</block>
+  <block id="2123705c6998ca910a5e950a54dcbe12" category="list-text">Sie benötigen ONTAP 9.18.1 oder höher und ONTAP Mediator 1.11 oder höher, um IPv6 nutzen zu können.</block>
+  <block id="fa66e734e4c55bd261d853e5039fbe1f" category="list-text">Wenn Sie IPv6 auf einem Cluster aktivieren, können Sie es später nicht mehr deaktivieren.</block>
+  <block id="3b84df93f9af27f6e1ffc9a619bab72d" category="open-title">IPv4 verwenden</block>
+  <block id="a1c25aeecadb66052deb23e0403a5921" category="list-text">Führen Sie folgenden Befehl aus, um den ONTAP Mediator hinzuzufügen:</block>
+  <block id="43af59b9fd4e41413d9a6f0348be897c" category="paragraph"><block ref="d795c90e620cf7aa453d5e920147531a" prefix="" category="inline-code"></block></block>
+  <block id="6abf1e89985863ce5f318d51791232d7" category="admonition">Sie werden zur Eingabe des Benutzernamens und des Passworts für das Mediator-Administratorkonto aufgefordert.</block>
+  <block id="5be30efa94af9b795d71ee2d7b145d2b" category="open-title">IPv6 verwenden</block>
+  <block id="612061c2bc2a413707af3751bd332876" category="list-text">Führen Sie auf beiden Clustern folgenden Befehl aus:</block>
+  <block id="d957a10f1dd8c769f317478657c276ae" category="paragraph"><block ref="a9f92466cd774c45f91bfd0c0a18c08e" prefix="" category="inline-code"></block></block>
+  <block id="36aef5098db9d54c0f3f8908f76cf3f9" category="list-text">Konfigurieren Sie die node-mgmt IP-Adresse mit IPv6-Adressen auf allen vier Knoten.</block>
+  <block id="a5ae27866152c64d13caa7491b407c4f" category="list-text">Fügen Sie den ONTAP Mediator hinzu:</block>
+  <block id="3bd8e4fdfb5d625cdaa4c9ff27e8ce16" category="paragraph"><block ref="26623cc20cef21441276d0bbf177cf0e" prefix="" category="inline-code"></block></block>
+  <block id="6ed3fcc536a033a1e0dbf1249734de16" category="paragraph">Erfahren Sie mehr über die Neuerungen der MetroCluster FC-Plattform und die Switch-Unterstützung.</block>
+  <block id="29a236ce865da06e20bbbd8ea0ab52a7" category="doc">Was ist neu in der ONTAP Mediator-Unterstützung für MetroCluster?</block>
+  <block id="5bf7798853f8a5c7ca4569ca703439aa" category="paragraph">Erfahren Sie mehr über die neuen MetroCluster -Funktionen und Verbesserungen für die ONTAP Mediator-Unterstützung.</block>
+  <block id="7f29812fdda9b63b5432343e48888f3e" category="inline-link-macro">Was ist neu in ONTAP Mediator?</block>
+  <block id="ddb6a6aeab3697bf98a9f8ec6246d66d" category="paragraph">Einzelheiten zu den Funktionen und Verbesserungen jeder Version von ONTAP Mediator finden Sie unter<block ref="e9f46c418b00d5917fe7eb2e94490962" category="inline-link-macro-rx"></block> Die</block>
+  <block id="0812efe70fdb78c8000d6ba26954775e" category="paragraph">IPv6 wird für ONTAP Mediator 1.11 oder höher in MetroCluster IP-Konfigurationen unterstützt.</block>
+  <block id="f2048d473088527114dc19a006677413" category="paragraph"><block ref="f2048d473088527114dc19a006677413" category="inline-link-macro-rx"></block></block>
+  <block id="e48e73e576f724fd4213ab1eca7edb4a" category="paragraph">ONTAP 9.18.1</block>
+  <block id="9e56101ef16e61af6d774b1081c9574f" category="paragraph">ONTAP Mediator 1.11 bietet Unterstützung für die Verwaltung von bis zu zehn MetroCluster -IP-Konfigurationen mit einer einzigen ONTAP Mediator-Instanz.</block>
+  <block id="6cd038268950ad67448da19d251b8b00" category="inline-link-macro">Bereiten Sie die Installation des ONTAP Mediators in einer MetroCluster -IP-Konfiguration vor.</block>
+  <block id="1089521b875f07ae57f1135eb98b2377" category="paragraph"><block ref="1089521b875f07ae57f1135eb98b2377" category="inline-link-macro-rx"></block></block>
+  <block id="112400235efe61457dd84a5025980501" category="paragraph">Flash-Cache-Unterstützung für FAS50-Systeme in MetroCluster -IP-Konfigurationen</block>
+  <block id="d29d70f24544dd96e722beaa46df1aab" category="paragraph">Flash Cache wird auf FAS50-Systemen in MetroCluster IP-Konfigurationen unterstützt.</block>
+  <block id="05d0c37c094748aa6cfa52ca49f7fc2a" category="paragraph"><block ref="05d0c37c094748aa6cfa52ca49f7fc2a" category="inline-link-macro-rx"></block></block>
+  <block id="cef6c5c1ddb810d5c9674f38a9521196" category="sidebar">Bereiten Sie sich auf die MetroCluster FC-Installation vor</block>
+  <block id="163074dbb0b4f8b495d1b19b615e87eb" category="sidebar">Bereiten Sie die MetroCluster IP-Installation vor</block>
+  <block id="42f362146dbe8748970967efe562f3c8" category="sidebar">Konfigurieren Sie ONTAP Mediator für eine MetroCluster -IP-Konfiguration</block>
+  <block id="9ac9cffddfe08e79e2955f5af452fef4" category="sidebar">Bereiten Sie sich auf die MetroCluster Stretch-Installation vor</block>
 </blocks>
