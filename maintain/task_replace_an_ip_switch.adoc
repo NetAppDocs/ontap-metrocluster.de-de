@@ -240,6 +240,10 @@ NOTE: Wenn Sie die Netzwerke aktualisieren oder herunterstufen, dann wiederholen
 ----
 network interface modify -vserver <vserver_name> -lif <lif_name> -auto-revert true
 ----
+. Alle Cluster-LIFs, die sich derzeit nicht auf ihren Heimatports befinden, werden auf ihre Heimatports zurückgesetzt:
++
+`network interface revert -vserver * -lif *`
+
 . Verschieben Sie optional die NS224-Shelfs.
 +
 Wenn Sie eine MetroCluster IP-Konfiguration neu konfigurieren, bei der keine NS224-Shelfs mit den MetroCluster IP-Switches verbunden werden, gehen Sie wie folgt vor, um die NS224-Shelfs hinzuzufügen oder zu verschieben:
