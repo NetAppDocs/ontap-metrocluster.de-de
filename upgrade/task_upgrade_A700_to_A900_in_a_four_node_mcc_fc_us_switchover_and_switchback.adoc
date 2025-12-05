@@ -796,12 +796,22 @@ NOTE: Ignorieren Sie die folgende Meldung: `This procedure is not supported for 
 
 . Führen Sie die folgenden Teilschritte durch, um das Controller-Modul neu zu booten:
 +
-.. Eingabe `n` So überspringen Sie die Backup-Recovery, wenn folgende Eingabeaufforderung angezeigt wird:
-`Do you want to restore the backup configuration now? {y|n}`
-.. Eingabe `y` Um den Neustart zu starten, wenn die folgende Eingabeaufforderung angezeigt wird:
-`The node must be rebooted to start using the newly installed software. Do you want to reboot now? {y|n}`
+.. Eingeben `n` Um die Wiederherstellung der Sicherung zu überspringen, wenn die folgende Aufforderung angezeigt wird:
++
+[listing]
+----
+Do you want to restore the backup configuration now? {y|n} n
+----
+.. Eingeben `y` Starten Sie das System neu, wenn die folgende Aufforderung angezeigt wird:
++
+`The node must be rebooted to start using the newly installed software. Do you want to reboot now? {y|n} y`
+
 +
 Das Controller-Modul wird neu gestartet, stoppt aber im Startmenü, da das Boot-Gerät neu formatiert wurde und die Konfigurationsdaten wiederhergestellt werden müssen.
+
++
+
+NOTE: Um die neu installierte Software nutzen zu können, müssen Sie den Knoten neu starten.
 
 
 

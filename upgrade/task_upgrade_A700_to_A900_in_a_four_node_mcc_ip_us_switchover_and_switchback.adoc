@@ -705,10 +705,23 @@ Aktualisieren Sie den neuen Node immer als Netzboot auf das gewünschte Image. W
 `\http://<web_server_ip/path_to_web-accessible_directory>/<ontap_version>\_image.tgz`
 . Führen Sie die folgenden Teilschritte durch, um das Controller-Modul neu zu booten:
 +
-.. Eingabe `n` So überspringen Sie die Backup-Recovery, wenn folgende Eingabeaufforderung angezeigt wird:
-`Do you want to restore the backup configuration now? {y|n}`
-.. Eingabe ``y to reboot when you see the following prompt:
-`The node must be rebooted to start using the newly installed software. Do you want to reboot now? {y|n}``Das Controller-Modul wird neu gestartet, stoppt aber im Startmenü, da das Boot-Gerät neu formatiert wurde und die Konfigurationsdaten wiederhergestellt werden müssen.
+.. Eingeben `n` Um die Wiederherstellung der Sicherung zu überspringen, wenn die folgende Aufforderung angezeigt wird:
++
+....
+Do you want to restore the backup configuration now? {y|n} n
+....
+.. Eingeben `y` Starten Sie das System neu, wenn die folgende Aufforderung angezeigt wird:
++
+....
+The node must be rebooted to start using the newly installed software. Do you want to reboot now? {y|n} y
+....
++
+Das Controller-Modul wird neu gestartet, stoppt aber im Startmenü, da das Boot-Gerät neu formatiert wurde und die Konfigurationsdaten wiederhergestellt werden müssen.
+
++
+
+NOTE: Um die neu installierte Software nutzen zu können, müssen Sie den Knoten neu starten.
+
 
 
 . Führen Sie an der Eingabeaufforderung den aus `wipeconfig` Befehl zum Löschen einer früheren Konfiguration auf dem Startmedium:
