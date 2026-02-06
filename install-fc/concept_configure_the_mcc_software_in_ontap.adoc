@@ -4,14 +4,14 @@ sidebar: sidebar
 keywords: configure, configuring, metrocluster, software, ontap 
 summary: Sie müssen jeden Node in der MetroCluster Konfiguration in ONTAP einrichten, einschließlich der Node-Konfiguration und der Konfiguration der Nodes an zwei Standorten. 
 ---
-= Konfigurieren der MetroCluster-Software in ONTAP
+= Konfigurieren Sie die MetroCluster FC-Software in ONTAP
 :allow-uri-read: 
 :icons: font
 :imagesdir: ../media/
 
 
 [role="lead"]
-Sie müssen jeden Node in der MetroCluster Konfiguration in ONTAP einrichten, einschließlich der Node-Konfiguration und der Konfiguration der Nodes an zwei Standorten. Sie müssen auch die MetroCluster Beziehung zwischen beiden Standorten implementieren.
+Sie müssen jeden Knoten in der MetroCluster FC-Konfiguration in ONTAP einrichten, einschließlich der Konfigurationen auf Knotenebene und der Konfiguration der Knoten zu zwei Standorten. Sie müssen außerdem die MetroCluster-Beziehung zwischen den beiden Standorten implementieren.
 
 image::../media/workflow_high_level_node_and_cluster_configuration_software.gif[Workflow für die Knoten- und Clusterkonfiguration auf hoher Ebene]
 
@@ -89,7 +89,7 @@ Wenn Sie zum ersten Mal das Cluster erstellen, benötigen Sie die folgenden Info
  a| 
 Cluster-Name
 
-Beispiel, das in diesem Handbuch verwendet wird: Site_A
+Beispiel für dieses Verfahren: Site_A
  a| 
 
 
@@ -132,7 +132,7 @@ Für jeden Node im Cluster benötigen Sie eine Management-IP-Adresse, eine Netzw
  a| 
 Knoten 1
 
-Beispiel für dieses Handbuch: Controller_A_1
+Beispiel für dieses Verfahren: Controller_A_1
  a| 
  a| 
  a| 
@@ -145,7 +145,7 @@ Knoten 2
 
 Nicht erforderlich, wenn eine MetroCluster Konfiguration mit zwei Nodes verwendet wird (ein Node an jedem Standort).
 
-Beispiel für dieses Handbuch: Controller_A_2
+Beispiel für dieses Verfahren: Controller_A_2
  a| 
  a| 
  a| 
@@ -388,7 +388,7 @@ Wenn Sie zum ersten Mal das Cluster erstellen, benötigen Sie die folgenden Info
  a| 
 Cluster-Name
 
-Beispiel für dieses Handbuch: Site_B
+Beispiel, das in diesem Verfahren verwendet wird: site_B
  a| 
 
 
@@ -431,7 +431,7 @@ Für jeden Node im Cluster benötigen Sie eine Management-IP-Adresse, eine Netzw
  a| 
 Knoten 1
 
-In diesem Handbuch verwendetes Beispiel: Controller_B_1
+Beispiel, das in diesem Verfahren verwendet wird: controller_B_1
  a| 
  a| 
  a| 
@@ -444,7 +444,7 @@ Knoten 2
 
 Nicht erforderlich für MetroCluster Konfigurationen mit zwei Nodes (ein Node an jedem Standort)
 
-In diesem Handbuch verwendetes Beispiel: Controller_B_2
+Beispiel, das in diesem Verfahren verwendet wird: controller_B_2
  a| 
  a| 
  a| 
@@ -2509,6 +2509,7 @@ Sie müssen auf jedem Knoten in der DR-Gruppe ein gespiegeltes Datenaggregat ers
 * Wenn Sie mehrere Laufwerktypen in Ihrem System haben (heterogener Speicher), sollten Sie verstehen, wie Sie sicherstellen können, dass der richtige Laufwerkstyp ausgewählt ist.
 * Laufwerke sind Eigentum eines bestimmten Nodes. Wenn Sie ein Aggregat erstellen, müssen alle Laufwerke in diesem Aggregat im Besitz desselben Nodes sein, der zum Home-Node für das Aggregat wird.
 * Aggregatnamen sollten dem Benennungsschema entsprechen, das Sie beim Planen Ihrer MetroCluster-Konfiguration ermittelt haben. Siehe link:https://docs.netapp.com/us-en/ontap/disks-aggregates/index.html["Festplatten- und Aggregatmanagement"^].
+* Die Namen der Aggregate müssen auf allen MetroCluster-Standorten eindeutig sein. Das bedeutet, dass Sie nicht zwei verschiedene Aggregate mit demselben Namen auf Standort A und Standort B haben können.
 
 
 .Schritte

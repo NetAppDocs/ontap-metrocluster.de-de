@@ -1187,9 +1187,13 @@ NOTE: Die Nodes müssen nicht in einer bestimmten Reihenfolge neu gebootet werde
 `storage aggregate create -aggregate <aggregate-name> -node <node-name> -diskcount <no-of-disks> -mirror true`
 
 +
+[NOTE]
+====
+** Sie müssen mindestens ein gespiegeltes Datenaggregat pro Standort erstellen. Es wird empfohlen, zwei gespiegelte Datenaggregate pro Standort auf MetroCluster IP-Knoten zu haben, um die MDV-Volumes zu hosten. Allerdings wird ein einzelnes Aggregat pro Standort unterstützt (jedoch nicht empfohlen). Es ist akzeptabel, dass ein Standort der MetroCluster ein einziges gespiegeltes Datenaggregat hat und der andere Standort mehr als ein gespiegeltes Datenaggregat hat.
+** Die Namen der Aggregate müssen auf allen MetroCluster-Standorten eindeutig sein. Das bedeutet, dass Sie nicht zwei verschiedene Aggregate mit demselben Namen auf Standort A und Standort B haben können.
 
-NOTE: Sie müssen mindestens ein gespiegeltes Datenaggregat pro Standort erstellen. Es wird empfohlen, zwei gespiegelte Datenaggregate pro Standort auf MetroCluster IP-Knoten zu haben, um die MDV-Volumes zu hosten. Allerdings wird ein einzelnes Aggregat pro Standort unterstützt (jedoch nicht empfohlen). Es ist akzeptabel, dass ein Standort der MetroCluster ein einziges gespiegeltes Datenaggregat hat und der andere Standort mehr als ein gespiegeltes Datenaggregat hat.
 
+====
 +
 Das folgende Beispiel zeigt die Erstellung eines Aggregats auf Node_A_1-New.
 
