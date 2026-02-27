@@ -26,11 +26,24 @@ Wenn Sie einen 12-Port Cisco 9336C-FX2 Switch haben, verwenden Sie die Tabellen 
 
 NOTE: Der 12-Port-Switch Cisco 9336C-FX2 unterstützt nicht den Anschluss von NS224-Shelves an den MetroCluster-Switch.
 
-* Wenn Sie einen Cisco 9336C-FX2 Switch mit NS224 Storage verkabeln, können Sie maximal zwei MetroCluster Konfigurationen oder DR-Gruppen haben. Mindestens eine MetroCluster Konfiguration oder DR-Gruppe muss NS224 Shelves mit dem MetroCluster Switch verbinden. Wenn eine Ihrer MetroCluster Konfigurationen oder DR-Gruppen ein System ist, das NS224 Shelves nicht unterstützt, kann es nur als zweite MetroCluster Konfiguration oder DR-Gruppe angeschlossen werden.
+* Wenn Sie einen Cisco 9336C-FX2 Switch mit NS224 Storage verkabeln, können Sie maximal zwei MetroCluster Konfigurationen oder DR-Gruppen haben. Mindestens eine MetroCluster Konfiguration oder DR-Gruppe muss NS224 Shelves mit dem MetroCluster Switch verbinden.
 +
-Wenn Ihr zweiter MetroCluster oder Ihre DR-Gruppe keine NS224-Shelves mit dem MetroCluster-Switch verbindet, folgen Sie den <<tables_not_connecting_ns224,Verkabelungstabellen für Controller, die keine über einen Switch angeschlossenen NS224-Regale verbinden>> .
+Falls eine Ihrer MetroCluster-Konfigurationen oder DR-Gruppen keine NS224-Shelfs mit dem MetroCluster-Switch verbindet, folgen Sie dem <<tables_not_connecting_ns224,Verkabelungstabellen für Controller, die keine über einen Switch angeschlossenen NS224-Regale verbinden>>.
 
 * Der RcfFileGenerator zeigt nur geeignete Plattformen an, wenn die erste Plattform ausgewählt ist.
+* Wenn Sie eine reguläre MetroCluster Konfiguration erweitern, die keinen Switch-gebundenen NS224-Speicher unterstützt, und eine MetroCluster Konfiguration mit Switch-gebundenem NS224-Speicher hinzufügen möchten, beachten Sie die folgenden Informationen:
++
+** Im link:https://mysupport.netapp.com/site/tools/tool-eula/rcffilegenerator["RCfFileGenerator"^] Tool müssen Sie zuerst die Plattform auswählen, die Switch-gebundenen NS224-Speicher unterstützt, dann die Plattform, die keinen Switch-gebundenen NS224-Speicher unterstützt.
++
+Das bedeutet, dass Sie beim Generieren der RCF für Ihre neue Konfiguration die Plattformen im RcfFileGenerator Tool möglicherweise in der folgenden Reihenfolge auswählen müssen:
+
++
+... Wählen Sie die Plattform aus, die Switch-gebundenen NS224-Speicher aus dem *zweiten Dropdown-Feld* unterstützt.
+... Wählen Sie die Plattform aus, die keinen Switch-gebundenen NS224-Speicher aus dem *ersten Dropdown-Feld* unterstützt.
+
+
+
+
 * Für das Verbinden von MetroCluster Konfigurationen mit einem oder zwei vier Nodes ist ONTAP 9.14.1 oder höher erforderlich.
 
 

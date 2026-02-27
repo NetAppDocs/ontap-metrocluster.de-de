@@ -1,0 +1,42 @@
+---
+permalink: install-ip/update-mediator-timeout.html 
+sidebar: sidebar 
+keywords: ontap, metrocluster, mediator, timeout, settings, change, update, default, value 
+summary:  
+---
+= Erhöhen Sie die standardmäßige ONTAP Mediator-Mailbox-Zeitüberschreitung in MetroCluster IP-Konfigurationen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+MetroCluster IP-Knoten können mithilfe von iSCSI-Sitzungen auf ONTAP Mediator-Mailbox-Disks zugreifen, die eine standardmäßige Verbindungs-Zeitüberschreitung von 10 Sekunden haben, einschließlich eines einmaligen Wiederholungsversuchs nach 5 Sekunden. Abhängig von Ihrer ONTAP Version und Umgebung können Sie die Mailbox-Zeitüberschreitung auf maximal 60 Sekunden erhöhen, um Unterbrechungen bei Mediator-unterstütztem ungeplantem Switchover (MAUSO) zu vermeiden.
+
+NetApp empfiehlt, die Standard-Zeitüberschreitung für die Postfachverbindung zu erhöhen, wenn Sie Netzwerkredundanzprotokolle (wie HSRP oder VRRP), Schleifenvermeidungsprotokolle (wie STP) verwenden oder wenn die Netzwerklatenz in Ihrer Umgebung die Standard-Zeitüberschreitung von 10 Sekunden überschreitet.
+
+.Bevor Sie beginnen
+Sie sollten das Ausfallfenster bewerten, also die Zeit, die benötigt wird, um MetroCluster IP-Knoten wieder mit dem ONTAP Mediator zu verbinden. Wenn es länger als 10 Sekunden dauert, sollten Sie den Zeitüberschreitungswert auf einige Sekunden mehr als die Zeit einstellen, die benötigt wird, um die MetroCluster IP-Knoten wieder zu verbinden.
+
+Wenn die Konnektivität von jedem Standort aus unabhängig aufrechterhalten wird und der Ausfall an einem Standort die Konnektivität zum ONTAP Mediator vom verbleibenden Standort aus nicht beeinträchtigt, ist der Standardwert von 10 Sekunden ausreichend und Sie sollten die Mailbox-Zeitüberschreitung nicht ändern.
+
+.Über diese Aufgabe
+* Die folgenden ONTAP Versionen unterstützen die Erhöhung des ONTAP Mediator-Mailbox-Zeitüberschreitung:
++
+** ONTAP 9.18.1GA oder höher
+** ONTAP 9.17.1P3 oder spätere Patch-Releases von ONTAP 9.17.1
+** ONTAP 9.16.1P10 oder spätere Patch-Releases von ONTAP 9.16.1
+** ONTAP 9.15.1P16 oder spätere Patch-Releases von ONTAP 9.15.1
+
+
+* Die Erhöhung der Mailbox-Zeitüberschreitung wird von allen Versionen von ONTAP Mediator unterstützt.
+* Der unterstützte Bereich für den Zeitüberschreitungswert liegt zwischen 10 und 60 Sekunden. Wenn Sie einen Wert außerhalb dieses Bereichs angeben, ändert ONTAP ihn automatisch auf den Standardwert von 10 Sekunden zurück.
+* Wenn es länger als 10 Sekunden dauert, bis die MetroCluster Knoten die Verbindung zum ONTAP Mediator wiederherstellen, sollten Sie den Zeitüberschreitungswert auf ein paar Sekunden länger als die Zeit einstellen, die die Knoten zum Verbinden benötigen.
+
+
+.Schritt
+. Um die standardmäßige ONTAP Mediator-Mailbox-Zeitüberschreitung zu erhöhen, lesen Sie den link:https://kb.netapp.com/on-prem/ontap/mc/MC-KBs/How_to_Increase_Mediator_Mailbox_Timeout_for_environments_where_network_latency_exceeds_10_seconds["NetApp Knowledge Base Artikel: So erhöhen Sie das Mediator-Mailbox-Zeitüberschreitung für Umgebungen, in denen die Netzwerklatenz 10 Sekunden überschreitet"^]
+
+
+.Verwandte Informationen
+link:concept-ontap-mediator-supports-automatic-unplanned-switchover.html["Erfahren Sie mehr darüber, wie der ONTAP Mediator die automatische ungeplante Umschaltung in MetroCluster IP-Konfigurationen unterstützt."]
