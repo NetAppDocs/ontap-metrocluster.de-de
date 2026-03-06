@@ -13,7 +13,11 @@ summary:
 [role="lead"]
 MetroCluster IP-Knoten können mithilfe von iSCSI-Sitzungen auf ONTAP Mediator-Mailbox-Disks zugreifen, die eine standardmäßige Verbindungs-Zeitüberschreitung von 10 Sekunden haben, einschließlich eines einmaligen Wiederholungsversuchs nach 5 Sekunden. Abhängig von Ihrer ONTAP Version und Umgebung können Sie die Mailbox-Zeitüberschreitung auf maximal 60 Sekunden erhöhen, um Unterbrechungen bei Mediator-unterstütztem ungeplantem Switchover (MAUSO) zu vermeiden.
 
-NetApp empfiehlt, die Standard-Zeitüberschreitung für die Postfachverbindung zu erhöhen, wenn Sie Netzwerkredundanzprotokolle (wie HSRP oder VRRP), Schleifenvermeidungsprotokolle (wie STP) verwenden oder wenn die Netzwerklatenz in Ihrer Umgebung die Standard-Zeitüberschreitung von 10 Sekunden überschreitet.
+NetApp empfiehlt, dass Sie die Standard-Zeitüberschreitung für die Postfachverbindung erhöhen, wenn eine der folgenden Bedingungen auf Ihre Umgebung zutrifft:
+
+* Sie verwenden Netzwerkredundanzprotokolle (wie HSRP oder VRRP) oder Schleifenvermeidungsprotokolle (wie STP).
+* Die Netzwerk-Rekonvergenzzeit (zum Beispiel wenn sich Routing-Protokolle stabilisieren oder HSRP/VRRP nach einer Neuwahl aktiv werden) kann die Standard-Zeitüberschreitung von 10 Sekunden überschreiten.
+
 
 .Bevor Sie beginnen
 Sie sollten das Ausfallfenster bewerten, also die Zeit, die benötigt wird, um MetroCluster IP-Knoten wieder mit dem ONTAP Mediator zu verbinden. Wenn es länger als 10 Sekunden dauert, sollten Sie den Zeitüberschreitungswert auf einige Sekunden mehr als die Zeit einstellen, die benötigt wird, um die MetroCluster IP-Knoten wieder zu verbinden.

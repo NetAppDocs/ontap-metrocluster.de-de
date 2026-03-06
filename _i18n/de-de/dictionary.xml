@@ -11150,7 +11150,6 @@ Das Netzwerk kann aus einer Reihe von xWDM und TDM und Switches bestehen, aber i
   <block id="f530740ac9e609fc21d073ac7a1005eb" category="list-text">COS 5 einstellen</block>
   <block id="905698c568b08ffae010badfede2c3d9" category="list-text">Optional : Ratenformung bis 20Gbps</block>
   <block id="6f9086eed365c3a2db1521fa98bb7fad" category="list-text">Klassifizierung für iSCSI-Datenverkehr:</block>
-  <block id="bfee253ff06448698780744ab1762cba" category="list-text">Übereinstimmung : TCP-Port 62500, Quelle, Ziel oder beides</block>
   <block id="b6b4cd52ee0814cd111c7646f3ec71cf" category="list-text">Optionale Übereinstimmung: COS 4</block>
   <block id="bc0161255c709f2bfdb09ade9fbc1364" category="list-text">Optionales Match: DSCP 32</block>
   <block id="18b58e1c9302e2acb18218c02c62dab7" category="list-text">Legen Sie DSCP 32 fest</block>
@@ -14476,7 +14475,6 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="6671def4e7da861590fb38e5fc66314e" category="list-text">Wählen Sie die Plattform aus, die keinen Switch-gebundenen NS224-Speicher aus dem *ersten Dropdown-Feld* unterstützt.</block>
   <block id="ddbce4d78273fadb6714307de4be2067" category="doc">Erhöhen Sie die standardmäßige ONTAP Mediator-Mailbox-Zeitüberschreitung in MetroCluster IP-Konfigurationen</block>
   <block id="2782611b81a323af0ab55dcdc0bed9b0" category="paragraph">MetroCluster IP-Knoten können mithilfe von iSCSI-Sitzungen auf ONTAP Mediator-Mailbox-Disks zugreifen, die eine standardmäßige Verbindungs-Zeitüberschreitung von 10 Sekunden haben, einschließlich eines einmaligen Wiederholungsversuchs nach 5 Sekunden. Abhängig von Ihrer ONTAP Version und Umgebung können Sie die Mailbox-Zeitüberschreitung auf maximal 60 Sekunden erhöhen, um Unterbrechungen bei Mediator-unterstütztem ungeplantem Switchover (MAUSO) zu vermeiden.</block>
-  <block id="dc2661dcef8886857b7dbbc6bea4baa5" category="paragraph">NetApp empfiehlt, die Standard-Zeitüberschreitung für die Postfachverbindung zu erhöhen, wenn Sie Netzwerkredundanzprotokolle (wie HSRP oder VRRP), Schleifenvermeidungsprotokolle (wie STP) verwenden oder wenn die Netzwerklatenz in Ihrer Umgebung die Standard-Zeitüberschreitung von 10 Sekunden überschreitet.</block>
   <block id="5989de7ef1290d3b1851ce9197407a9a" category="paragraph">Sie sollten das Ausfallfenster bewerten, also die Zeit, die benötigt wird, um MetroCluster IP-Knoten wieder mit dem ONTAP Mediator zu verbinden. Wenn es länger als 10 Sekunden dauert, sollten Sie den Zeitüberschreitungswert auf einige Sekunden mehr als die Zeit einstellen, die benötigt wird, um die MetroCluster IP-Knoten wieder zu verbinden.</block>
   <block id="96da1e735aedafb1dcf6dc852a630b69" category="paragraph">Wenn die Konnektivität von jedem Standort aus unabhängig aufrechterhalten wird und der Ausfall an einem Standort die Konnektivität zum ONTAP Mediator vom verbleibenden Standort aus nicht beeinträchtigt, ist der Standardwert von 10 Sekunden ausreichend und Sie sollten die Mailbox-Zeitüberschreitung nicht ändern.</block>
   <block id="d7960d10ef798af16bf54c0dcc02e80b" category="list-text">Die folgenden ONTAP Versionen unterstützen die Erhöhung des ONTAP Mediator-Mailbox-Zeitüberschreitung:</block>
@@ -14497,4 +14495,8 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="33e1bc7f8120f8d7e792eda1953f5c0d" category="list-text">Überprüfen Sie, ob die Partner-Sysid korrekt ist:</block>
   <block id="d9e511ce59427a6a6f5e2d82b3caa85c" category="list-text">Sobald die Intercluster-LIFs aktiv sind, überprüfen Sie den Cluster-Peer-Status und stellen Sie das Cluster-Peering bei Bedarf wieder her.</block>
   <block id="9aadb95a414b8c0423f92f9ec9df69d8" category="sidebar">Erhöhen Sie die standardmäßige ONTAP Mediator-Mailbox-Zeitüberschreitung</block>
+  <block id="27a4277d57a9c4676312c7a5013a9b75" category="list-text">Übereinstimmung: TCP-Port 65200, Quelle, Ziel oder beides</block>
+  <block id="e2bba64dd4e20eb5cd27b969fbf8dbce" category="paragraph">NetApp empfiehlt, dass Sie die Standard-Zeitüberschreitung für die Postfachverbindung erhöhen, wenn eine der folgenden Bedingungen auf Ihre Umgebung zutrifft:</block>
+  <block id="d57bb94baa67d066f16fc9fc5b6def7e" category="list-text">Sie verwenden Netzwerkredundanzprotokolle (wie HSRP oder VRRP) oder Schleifenvermeidungsprotokolle (wie STP).</block>
+  <block id="29c1e5df7e26dbc34a0230732d8e3a0c" category="list-text">Die Netzwerk-Rekonvergenzzeit (zum Beispiel wenn sich Routing-Protokolle stabilisieren oder HSRP/VRRP nach einer Neuwahl aktiv werden) kann die Standard-Zeitüberschreitung von 10 Sekunden überschreiten.</block>
 </blocks>
