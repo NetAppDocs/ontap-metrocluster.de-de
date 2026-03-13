@@ -4,19 +4,19 @@ sidebar: sidebar
 keywords: metrocluster, maintain, service, power, off, entire, metrocluster, ip, configuration 
 summary: Bevor die Wartung oder Umsiedlung beginnen kann, müssen Sie die gesamte MetroCluster IP-Konfiguration und alle Geräte ausschalten. 
 ---
-= Ausschalten einer gesamten MetroCluster IP-Konfiguration
+= Schalten Sie eine gesamte MetroCluster IP-Konfiguration aus
 :allow-uri-read: 
 :icons: font
 :imagesdir: ../media/
 
 
 [role="lead"]
-Bevor die Wartung oder Umsiedlung beginnen kann, müssen Sie die gesamte MetroCluster IP-Konfiguration und alle Geräte ausschalten.
+Schalten Sie die gesamte MetroCluster IP-Konfiguration und alle Geräte aus, bevor Sie mit Wartungsarbeiten oder einer Standortverlagerung beginnen.
 
 
 NOTE: Ab ONTAP 9.8 beginnt der `*storage switch*` Befehl wird durch ersetzt `*system switch*`. Die folgenden Schritte zeigen das `*storage switch*` Befehl, aber wenn Sie ONTAP 9.8 oder höher ausführen, der `*system switch*` Befehl ist bevorzugt.
 
-. Überprüfen Sie die MetroCluster Konfiguration von beiden Standorten in der MetroCluster Konfiguration.
+. Überprüfen Sie die MetroCluster-Konfiguration von beiden Standorten aus.
 +
 .. Vergewissern Sie sich, dass die MetroCluster-Konfiguration und der Betriebsmodus normal sind. +
 `*metrocluster show*`
@@ -53,7 +53,7 @@ cluster_A_site_A::*>metrocluster modify -auto-switchover-failure-domain auso-dis
 ----
 +
 
-NOTE: In einer MetroCluster-IP-Konfiguration ist die AUSO-Fehlerdomäne bereits auf „deaktiviert“ gesetzt, es sei denn, die Konfiguration ist mit dem ONTAP-Mediator konfiguriert.
+NOTE: In einer MetroCluster IP-Konfiguration ist die AUSO-Fehlerdomäne bereits auf 'auso-disabled' eingestellt, es sei denn, die Konfiguration verwendet ONTAP Mediator.
 
 . Die Änderung wird mit dem Befehl überprüft
 +
@@ -70,14 +70,12 @@ NOTE: In einer MetroCluster-IP-Konfiguration ist die AUSO-Fehlerdomäne bereits 
         End Time: 4/25/2020 20:20:36
           Errors: -
 ----
-. Anhalten der Knoten:
-+
-`*halt*`
-
+. Halten Sie die Knoten an beiden Standorten an:
 +
 [listing]
 ----
-system node halt -node node1_SiteA -inhibit-takeover true -ignore-quorum-warnings true
+cluster_A::*>system node halt -node * -inhibit-takeover true -ignore-quorum-warnings true
+cluster_B::*>system node halt -node * -inhibit-takeover true -ignore-quorum-warnings true
 ----
 . Schalten Sie die folgenden Geräte am Standort aus:
 +
