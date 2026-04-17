@@ -5797,7 +5797,6 @@
   <block id="91271938ac44f690cd5a064a6a92425f" category="paragraph">Jede Cluster-LIF sollte True für IS Home anzeigen und einen Status Admin/Oper von up/Up haben</block>
   <block id="e74ba48b87be882bffe68906351b713a" category="list-text">Vergewissern Sie sich, dass die automatische Umrüstung auf allen Cluster-LIFs aktiviert ist:</block>
   <block id="e4490c39e3c7c690b2b28793dd430b44" category="paragraph"><block ref="d268e7bf124a9f74e2dbe2e0127d951b" prefix="" category="inline-code"></block></block>
-  <block id="0bc247e1fb33acc5636986c990aa1e9a" category="section-title">Entfernen der Konfiguration aus Überwachungsanwendungen</block>
   <block id="ae81bff40f90f640ae14eb37aaf345ea" category="paragraph">Wenn die vorhandene Konfiguration mit der MetroCluster Tiebreaker Software, dem ONTAP Mediator oder anderen Anwendungen von Drittanbietern (z. B. ClusterLion) überwacht wird, die eine Umschaltung initiieren können, müssen Sie die MetroCluster-Konfiguration vor dem Upgrade von der Monitoring-Software entfernen.</block>
   <block id="a4aa69385ab0a1b92a7a5635cdb2f2b2" category="paragraph"><block ref="903819e2154a41f8227f7c0192db71f6" category="inline-link-macro-rx"></block>.</block>
   <block id="bd8a7d1e50d9cef875e2b2f7b0a4f4bc" category="section-title">Vorbereiten der neuen Controller-Module</block>
@@ -5858,7 +5857,6 @@
   <block id="3f95b2ea711d433e26a8b5eb63bbd17a" category="paragraph"><block ref="02b924a96c72679822883a70dfe48211" prefix="" category="inline-code"></block></block>
   <block id="2494cf3ea6304f13d911614b50a2449f" category="admonition">Diesen Schritt müssen Sie bei jedem MetroCluster IP Node abschließen.</block>
   <block id="4fbb06a55d361d0cd8cf430f9a799e67" category="list-text">Überprüfen Sie, ob die Root-Aggregate gespiegelt wurden:</block>
-  <block id="6c46e592d5f16891d3a16e5f364e031b" category="section-title">Beenden des Hinzufügung der neuen Nodes</block>
   <block id="756f29d7bcbe7decf6b979c0706fc9a1" category="paragraph">Sie müssen die neue DR-Gruppe in die MetroCluster Konfiguration einbinden und gespiegelte Datenaggregate auf den neuen Nodes erstellen.</block>
   <block id="b24de9180a5deb759a394eebcd1a0305" category="list-text">Erstellen von gespiegelten Datenaggregaten auf jedem der neuen MetroCluster Nodes:</block>
   <block id="7062dd7205e5ed0cba84efd4203bc9cc" category="paragraph">Das folgende Beispiel zeigt die Erstellung eines Aggregats auf Node_A_1-New.</block>
@@ -12545,10 +12543,6 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="be4fd0012ddc006ea303591c9df6f76d" category="paragraph"><block ref="39b06b9a26b49c3db6d9409a6abaa9d8" prefix="" category="inline-code"></block></block>
   <block id="9e1d9b9e8b88355df08194559af6865a" category="summary">Während einer Umschaltung sollten bestimmte Vorgänge nicht ausgeführt werden.</block>
   <block id="fa33dcb38c0cd6e15dd757f1ef3072ee" category="doc">Einschränkungen, wenn die MetroCluster-Konfiguration umgeschaltet wird</block>
-  <block id="5722cde27dfa05f795a5466b6d0859c9" category="paragraph">Wenn sich das System im Umschaltvorgang befindet, sollten bestimmte Vorgänge nicht ausgeführt werden. Informieren Sie sich über eingeschränkte Vorgänge, wenn das System umgeschaltet wird.</block>
-  <block id="b72a4837907e7fef0771c42da901c811" category="section-title">Eingeschränkte Vorgänge bei Umschaltung</block>
-  <block id="1b5f91752d52b3bac4319cf07ea0efb8" category="paragraph">Die folgenden Vorgänge werden nicht unterstützt, wenn sich das System in Umschaltung befindet:</block>
-  <block id="272c8dfc8e0821088d85ed5d0fe037a8" category="list-text">Erstellen oder Löschen von Aggregaten und Volumes</block>
   <block id="d825dd35fde2fe33a56ef95c52f545a0" category="list-text">Erstellen oder Löschen von SVMs</block>
   <block id="8c120d60e412429a6f43b748c02dc233" category="list-text">Erstellen oder Löschen von LIFs</block>
   <block id="9cc6607cba1650bc799439425f9b085e" category="list-text">Hinzufügen oder Entfernen von Festplatten (nur wenn Sie sie im Rahmen eines Wiederherstellungsverfahrens ersetzen)</block>
@@ -13436,7 +13430,6 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="4e4facc560c88d40d47ce2b1369d5552" category="doc">Konfigurieren der Protokollsammlung auf einem MetroCluster-IP-Switch</block>
   <block id="d5a5c9619599da12d87af6daeab1ece6" category="paragraph">In einer MetroCluster-IP-Konfiguration können Sie die Protokollsammlung so konfigurieren, dass Switch-Protokolle zu Debugzwecken gesammelt werden.</block>
   <block id="7c51c84110459cf460a444094be133c4" category="admonition">Auf Broadcom- und Cisco-Switches ist für jeden Cluster mit Protokollsammlung ein neuer Benutzer erforderlich. Beispielsweise erfordern MetroCluster 1, MetroCluster 2, MetroCluster 3 und MetroCluster 4 die Konfiguration eines separaten Benutzers auf den Switches. Mehrere SSH-Schlüssel für denselben Benutzer werden nicht unterstützt.</block>
-  <block id="8ac20e3719b6b58e94e5a4385e87b52e" category="paragraph">Die Ethernet-Switch-Integritätsüberwachung (CSHM) ist für die Sicherstellung des Betriebszustands von Cluster- und Speichernetzwerk-Switches und das Sammeln von Switch-Protokollen für Debugging-Zwecke verantwortlich. Dieses Verfahren führt Sie durch den Prozess der Einrichtung der Erfassung, der Anforderung detaillierter *Support* Protokolle und der Aktivierung einer stündlichen Erfassung von *periodischen* Daten, die von AutoSupport gesammelt werden.</block>
   <block id="2ded3ff3862adfc6f54d2a2f3ebf1147" category="paragraph">*HINWEIS:* Wenn Sie den FIPS-Modus aktivieren, müssen Sie Folgendes ausführen:</block>
   <block id="81f0d5b127adfd87f50ce10bc85e1e65" category="list-text">Generieren Sie SSH-Schlüssel auf dem Switch mithilfe der Herstelleranweisungen neu.</block>
   <block id="a60a00967db7342947b326a8f7618f52" category="list-text">Regenerieren Sie SSH-Schlüssel in ONTAP mit<block ref="c079360670e0f4f9441a54ac1d262788" prefix=" " category="inline-code"></block></block>
@@ -14500,4 +14493,15 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="108a4ad72df5c318a77dad90928d8770" category="admonition">In einer MetroCluster IP-Konfiguration ist die AUSO-Fehlerdomäne bereits auf 'auso-disabled' eingestellt, es sei denn, die Konfiguration verwendet ONTAP Mediator.</block>
   <block id="6ba9661e38afca32fe30fec08ca5c4ab" category="list-text">Halten Sie die Knoten an beiden Standorten an:</block>
   <block id="f759ce596ef74c921d7bddaf277a11c8" category="paragraph">*Hinweis:* 25 GbE Geschwindigkeit erfordert den MAM1Q00A-QSA28 Transceiver-Adapter.</block>
+  <block id="316fa55db721e45107647fc0de79704f" category="paragraph">Der Ethernet Switch Health Monitor (CSHM) ist dafür zuständig, den Betriebszustand der Netzwerk-Switches sicherzustellen und Switch-Protokolle zu Debugging-Zwecken zu sammeln. Diese Anleitung führt Sie durch die Einrichtung der Protokollerfassung, die Anforderung detaillierter *Support*-Protokolle und die Aktivierung der stündlichen Erfassung von *periodischen* Daten, die von AutoSupport erfasst werden.</block>
+  <block id="4526d2820ba573572df0eafdc557014c" category="paragraph">Wenn sich das System im Umschaltmodus befindet, empfiehlt NetApp, bestimmte Vorgänge zu vermeiden.</block>
+  <block id="6efa43350457e5d9dbe5d6c555eb32f9" category="paragraph">Die folgenden Vorgänge werden während der Systemumstellung nicht empfohlen und sollten nur unter Anleitung des NetApp Supports durchgeführt werden:</block>
+  <block id="9ea78d85c08becd89d5d23daef8687fa" category="list-text">Aggregate erstellen oder löschen</block>
+  <block id="56f10876ae2bed5f3da63c125772429f" category="list-text">Erstellen oder Löschen von Volumes (einschließlich verschlüsselter Volumes)</block>
+  <block id="6e05136dba32fad75bd64f601602c77e" category="section-title">Entfernen Sie die Konfiguration aus den Überwachungsanwendungen</block>
+  <block id="a8b426026583d79d39676c969bdc3456" category="section-title">Bereiten Sie die neuen Controller-Module vor</block>
+  <block id="af8fde2f19f4ba506d9bb950533f5776" category="list-text">Im Wartungsmodus geben Sie den Befehl „halt“ ein, um den Wartungsmodus zu verlassen:</block>
+  <block id="b8bbebbdaa85ea395d4339565372cafe" category="list-text">Starten Sie das System und rufen Sie die Cluster-Einrichtung auf:</block>
+  <block id="e219586e70791b35867f7d4dc343163f" category="section-title">Konfigurieren Sie Intercluster-LIFs, erstellen Sie die MetroCluster-Schnittstellen und spiegeln Sie Root-Aggregate</block>
+  <block id="8780af330d271744603135da4ae91fd9" category="section-title">Schließen Sie das Hinzufügen der neuen Knoten ab</block>
 </blocks>

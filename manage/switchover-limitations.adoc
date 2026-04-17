@@ -11,15 +11,12 @@ summary: Während einer Umschaltung sollten bestimmte Vorgänge nicht ausgeführ
 
 
 [role="lead"]
-Wenn sich das System im Umschaltvorgang befindet, sollten bestimmte Vorgänge nicht ausgeführt werden. Informieren Sie sich über eingeschränkte Vorgänge, wenn das System umgeschaltet wird.
+Wenn sich das System im Umschaltmodus befindet, empfiehlt NetApp, bestimmte Vorgänge zu vermeiden.
 
+Die folgenden Vorgänge werden während der Systemumstellung nicht empfohlen und sollten nur unter Anleitung des NetApp Supports durchgeführt werden:
 
-
-== Eingeschränkte Vorgänge bei Umschaltung
-
-Die folgenden Vorgänge werden nicht unterstützt, wenn sich das System in Umschaltung befindet:
-
-* Erstellen oder Löschen von Aggregaten und Volumes
+* Aggregate erstellen oder löschen
+* Erstellen oder Löschen von Volumes (einschließlich verschlüsselter Volumes)
 * Erstellen oder Löschen von SVMs
 * Erstellen oder Löschen von LIFs
 * Hinzufügen oder Entfernen von Festplatten (nur wenn Sie sie im Rahmen eines Wiederherstellungsverfahrens ersetzen)
