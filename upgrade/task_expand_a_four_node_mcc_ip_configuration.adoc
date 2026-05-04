@@ -704,9 +704,284 @@ Do you want to use this configuration? {yes, no} [yes]: yes
 
 
 
-== Konfigurieren Sie Intercluster-LIFs, erstellen Sie die MetroCluster-Schnittstellen und spiegeln Sie Root-Aggregate
+== Konfigurieren Sie Intercluster-LIFs für Cluster-Peering
 
-Sie müssen Cluster-Peering-LIFs erstellen, die MetroCluster-Schnittstellen auf den neuen MetroCluster IP-Nodes erstellen.
+Sie müssen Intercluster-LIFs an Ports erstellen, die für die Kommunikation zwischen den MetroCluster-Partner-Clustern verwendet werden. Sie können dedizierte Ports oder Ports verwenden, die auch Datenverkehr haben.
+
+[role="tabbed-block"]
+====
+.Konfigurieren Sie Intercluster-LIFs auf dedizierten Ports
+--
+Sie können Intercluster-LIFs auf dedizierten Ports konfigurieren. Dadurch wird typischerweise die verfügbare Bandbreite für den Replizierungsverkehr erhöht.
+
+.Schritte
+. Liste der Ports im Cluster:
++
+`network port show`
+
++
+Die vollständige Befehlssyntax finden Sie in der link:https://docs.netapp.com/us-en/ontap-cli["ONTAP-Befehlsreferenz"^].
+
++
+Im folgenden Beispiel werden die Netzwerk-Ports in „cluster01“ angezeigt:
+
++
+[listing]
+----
+
+cluster01::> network port show
+                                                             Speed (Mbps)
+Node   Port      IPspace      Broadcast Domain Link   MTU    Admin/Oper
+------ --------- ------------ ---------------- ----- ------- ------------
+cluster01-01
+       e0a       Cluster      Cluster          up     1500   auto/1000
+       e0b       Cluster      Cluster          up     1500   auto/1000
+       e0c       Default      Default          up     1500   auto/1000
+       e0d       Default      Default          up     1500   auto/1000
+       e0e       Default      Default          up     1500   auto/1000
+       e0f       Default      Default          up     1500   auto/1000
+cluster01-02
+       e0a       Cluster      Cluster          up     1500   auto/1000
+       e0b       Cluster      Cluster          up     1500   auto/1000
+       e0c       Default      Default          up     1500   auto/1000
+       e0d       Default      Default          up     1500   auto/1000
+       e0e       Default      Default          up     1500   auto/1000
+       e0f       Default      Default          up     1500   auto/1000
+----
+. Bestimmen Sie, welche Ports für die Intercluster-Kommunikation verfügbar sind:
++
+`network interface show -fields home-port,curr-port`
+
++
+Die vollständige Befehlssyntax finden Sie in der link:https://docs.netapp.com/us-en/ontap-cli["ONTAP-Befehlsreferenz"^].
+
++
+Das folgende Beispiel zeigt, dass den Ports „e0e“ und „e0f“ keine LIFs zugewiesen wurden:
+
++
+[listing]
+----
+
+cluster01::> network interface show -fields home-port,curr-port
+vserver lif                  home-port curr-port
+------- -------------------- --------- ---------
+Cluster cluster01-01_clus1   e0a       e0a
+Cluster cluster01-01_clus2   e0b       e0b
+Cluster cluster01-02_clus1   e0a       e0a
+Cluster cluster01-02_clus2   e0b       e0b
+cluster01
+        cluster_mgmt         e0c       e0c
+cluster01
+        cluster01-01_mgmt1   e0c       e0c
+cluster01
+        cluster01-02_mgmt1   e0c       e0c
+----
+. Erstellen Sie eine Failover-Gruppe für die dedizierten Ports:
++
+`network interface failover-groups create -vserver <system_svm> -failover-group <failover_group> -targets <physical_or_logical_ports>`
+
++
+Im folgenden Beispiel werden die Ports "e0e" und "e0f" der Failover-Gruppe "intercluster01" auf der SVM "cluster01" zugewiesen:
+
++
+[listing]
+----
+cluster01::> network interface failover-groups create -vserver cluster01 -failover-group
+intercluster01 -targets
+cluster01-01:e0e,cluster01-01:e0f,cluster01-02:e0e,cluster01-02:e0f
+----
+. Vergewissern Sie sich, dass die Failover-Gruppe erstellt wurde:
++
+`network interface failover-groups show`
+
++
+Die vollständige Befehlssyntax finden Sie in der link:https://docs.netapp.com/us-en/ontap-cli["ONTAP-Befehlsreferenz"^].
+
++
+[listing]
+----
+cluster01::> network interface failover-groups show
+                                  Failover
+Vserver          Group            Targets
+---------------- ---------------- --------------------------------------------
+Cluster
+                 Cluster
+                                  cluster01-01:e0a, cluster01-01:e0b,
+                                  cluster01-02:e0a, cluster01-02:e0b
+cluster01
+                 Default
+                                  cluster01-01:e0c, cluster01-01:e0d,
+                                  cluster01-02:e0c, cluster01-02:e0d,
+                                  cluster01-01:e0e, cluster01-01:e0f
+                                  cluster01-02:e0e, cluster01-02:e0f
+                 intercluster01
+                                  cluster01-01:e0e, cluster01-01:e0f
+                                  cluster01-02:e0e, cluster01-02:e0f
+----
+. Erstellen Sie Intercluster-LIFs auf der System-SVM und weisen Sie sie der Failover-Gruppe zu.
++
+`network interface create -vserver <system_svm> -lif <lif_name> -service-policy default-intercluster -home-node <node_name> -home-port <port_name> -address <port_ip_address> -netmask <netmask_address> -failover-group <failover_group>`
+
++
+Im folgenden Beispiel werden Intercluster-LIFs „cluster01_ic.01“ und „cluster01_ic02“ in Failover-Gruppe „intercluster01“ erstellt:
+
++
+[listing]
+----
+cluster01::> network interface create -vserver cluster01 -lif cluster01_icl01 -service-
+policy default-intercluster -home-node cluster01-01 -home-port e0e -address 192.168.1.201
+-netmask 255.255.255.0 -failover-group intercluster01
+
+cluster01::> network interface create -vserver cluster01 -lif cluster01_icl02 -service-
+policy default-intercluster -home-node cluster01-02 -home-port e0e -address 192.168.1.202
+-netmask 255.255.255.0 -failover-group intercluster01
+----
+. Überprüfen Sie, ob die Intercluster-LIFs erstellt wurden:
++
+`network interface show -service-policy default-intercluster`
+
++
+[listing]
+----
+cluster01::> network interface show -service-policy default-intercluster
+            Logical    Status     Network            Current       Current Is
+Vserver     Interface  Admin/Oper Address/Mask       Node          Port    Home
+----------- ---------- ---------- ------------------ ------------- ------- ----
+cluster01
+            cluster01_icl01
+                       up/up      192.168.1.201/24   cluster01-01  e0e     true
+            cluster01_icl02
+                       up/up      192.168.1.202/24   cluster01-02  e0e     true
+----
+. Vergewissern Sie sich, dass die Intercluster-LIFs redundant sind:
++
+`network interface show -service-policy default-intercluster -failover`
+
++
+Das folgende Beispiel zeigt, dass die Intercluster-LIFs "cluster01_icl01" und "cluster01_icl02" auf Port "e0e" auf Port "e0f" ausfallen.
+
++
+[listing]
+----
+cluster01::> network interface show -service-policy default-intercluster -failover
+         Logical         Home                  Failover        Failover
+Vserver  Interface       Node:Port             Policy          Group
+-------- --------------- --------------------- --------------- --------
+cluster01
+         cluster01_icl01 cluster01-01:e0e   local-only      intercluster01
+                            Failover Targets:  cluster01-01:e0e,
+                                               cluster01-01:e0f
+         cluster01_icl02 cluster01-02:e0e   local-only      intercluster01
+                            Failover Targets:  cluster01-02:e0e,
+                                               cluster01-02:e0f
+----
+
+
+--
+.Konfigurieren Sie Intercluster-LIFs an gemeinsam genutzten Datenports
+--
+Sie können Intercluster-LIFs an Ports konfigurieren, die gemeinsam mit dem Datennetzwerk verwendet werden. Auf diese Weise wird die Anzahl der Ports reduziert, die Sie für Intercluster-Netzwerke benötigen.
+
+.Schritte
+. Liste der Ports im Cluster:
++
+`network port show`
+
++
+Die vollständige Befehlssyntax finden Sie in der link:https://docs.netapp.com/us-en/ontap-cli["ONTAP-Befehlsreferenz"^].
+
++
+Im folgenden Beispiel werden die Netzwerk-Ports in „cluster01“ angezeigt:
+
++
+[listing]
+----
+
+cluster01::> network port show
+                                                             Speed (Mbps)
+Node   Port      IPspace      Broadcast Domain Link   MTU    Admin/Oper
+------ --------- ------------ ---------------- ----- ------- ------------
+cluster01-01
+       e0a       Cluster      Cluster          up     1500   auto/1000
+       e0b       Cluster      Cluster          up     1500   auto/1000
+       e0c       Default      Default          up     1500   auto/1000
+       e0d       Default      Default          up     1500   auto/1000
+cluster01-02
+       e0a       Cluster      Cluster          up     1500   auto/1000
+       e0b       Cluster      Cluster          up     1500   auto/1000
+       e0c       Default      Default          up     1500   auto/1000
+       e0d       Default      Default          up     1500   auto/1000
+----
+. Intercluster-LIFs auf der System-SVM erstellen:
++
+`network interface create -vserver <system_svm> -lif <lif_name> -service-policy default-intercluster -home-node <node_name> -home-port <port_name> -address <port_ip_address> -netmask <netmask>`
+
++
+Im folgenden Beispiel werden Intercluster-LIFs „cluster01_ic.01“ und „cluster01_ic.02“ erstellt:
+
++
+[listing]
+----
+
+cluster01::> network interface create -vserver cluster01 -lif cluster01_icl01 -service-
+policy default-intercluster -home-node cluster01-01 -home-port e0c -address 192.168.1.201
+-netmask 255.255.255.0
+
+cluster01::> network interface create -vserver cluster01 -lif cluster01_icl02 -service-
+policy default-intercluster -home-node cluster01-02 -home-port e0c -address 192.168.1.202
+-netmask 255.255.255.0
+----
+. Überprüfen Sie, ob die Intercluster-LIFs erstellt wurden:
++
+`network interface show -service-policy default-intercluster`
+
++
+Sie sollten eine Ausgabe wie im folgenden Beispiel sehen:
+
++
+[listing]
+----
+cluster01::> network interface show -service-policy default-intercluster
+            Logical    Status     Network            Current       Current Is
+Vserver     Interface  Admin/Oper Address/Mask       Node          Port    Home
+----------- ---------- ---------- ------------------ ------------- ------- ----
+cluster01
+            cluster01_icl01
+                       up/up      192.168.1.201/24   cluster01-01  e0c     true
+            cluster01_icl02
+                       up/up      192.168.1.202/24   cluster01-02  e0c     true
+----
+. Vergewissern Sie sich, dass die Intercluster-LIFs redundant sind:
++
+`network interface show -service-policy default-intercluster -failover`
+
++
+Das folgende Beispiel zeigt, dass Intercluster LIFs „cluster01_ic.01“ und „cluster01_ic.02“ auf dem „e0c“-Port an den „e0d“-Port scheitern.
+
++
+[listing]
+----
+cluster01::> network interface show -service-policy default-intercluster -failover
+         Logical         Home                  Failover        Failover
+Vserver  Interface       Node:Port             Policy          Group
+-------- --------------- --------------------- --------------- --------
+cluster01
+         cluster01_icl01 cluster01-01:e0c   local-only         Default
+                            Failover Targets: cluster01-01:e0c,
+                                              cluster01-01:e0d
+         cluster01_icl02 cluster01-02:e0c   local-only         Default
+                            Failover Targets: cluster01-02:e0c,
+                                              cluster01-02:e0d
+----
+
+
+--
+====
+
+
+== Erstellen Sie die MetroCluster-Schnittstellen und spiegeln Sie die Root-Aggregate
+
+Sie müssen die MetroCluster-Schnittstellen auf den neuen MetroCluster-IP-Knoten erstellen und Root-Aggregate spiegeln.
 
 .Über diese Aufgabe
 * Der in den Beispielen verwendete Home-Port ist plattformspezifisch. Sie sollten den für Ihre MetroCluster IP Node-Plattform spezifischen Home Port verwenden.
@@ -714,12 +989,18 @@ Sie müssen Cluster-Peering-LIFs erstellen, die MetroCluster-Schnittstellen auf 
 
 
 .Schritte
-. Konfigurieren Sie auf den neuen MetroCluster IP-Nodes die Intercluster-LIFs wie folgt:
+. Fügen Sie auf jedem Standort die neuen Intercluster-LIFs zur Peer-Beziehung hinzu.
 +
-link:../install-ip/task_sw_config_configure_clusters.html#peering-the-clusters["Konfigurieren von Intercluster-LIFs auf dedizierten Ports"]
+Führen Sie auf cluster_A den folgenden Befehl aus:
 
 +
-link:../install-ip/task_sw_config_configure_clusters.html#peering-the-clusters["Konfigurieren von Intercluster-LIFs auf gemeinsam genutzten Datenports"]
+`cluster peer modify -cluster cluster_B -peer-addrs <node_B_1-old IC port_ip_address>,<node_B_2-old IC port_ip_address>,<node_B_1-new IC port_ip_address>,<node_B_2-new IC port_ip_address>`
+
++
+Führen Sie auf cluster_B den folgenden Befehl aus:
+
++
+`cluster peer modify -cluster cluster_A -peer-addrs <node_A_1-old IC port_ip_address>,<node_A_2-old IC port_ip_address>,<node_A_1-new IC port_ip_address>,<node_A_2-new IC port_ip_address>`
 
 . Vergewissern Sie sich an jedem Standort, dass Cluster-Peering konfiguriert ist:
 +
@@ -735,6 +1016,7 @@ cluster_A:> cluster peer show
 Peer Cluster Name         Cluster Serial Number Availability   Authentication
 ------------------------- --------------------- -------------- --------------
 cluster_B                 1-80-000011           Available      ok
+cluster_A::>
 ----
 +
 Das folgende Beispiel zeigt die Cluster-Peering-Konfiguration auf Cluster_B:

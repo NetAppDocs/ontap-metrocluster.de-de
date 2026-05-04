@@ -14,7 +14,7 @@ summary: Ab ONTAP 9.8 können Sie eine DR-Gruppe aus einer MetroCluster Konfigur
 Ab ONTAP 9.8 können Sie eine Disaster Recovery (DR)-Gruppe aus einer MetroCluster Konfiguration mit acht Knoten entfernen, um eine MetroCluster Konfiguration mit vier Knoten zu erstellen.
 
 
-NOTE: Sie verwenden diese Schritte während der Übergangs- und Systemaktualisierungs-Workflows.
+NOTE: Diese Schritte verwenden Sie während der Übergangs- und Systemaktualisierungsprozesse. Möglicherweise haben Sie einige Schritte dieses Verfahrens bereits im Rahmen dieser Prozesse durchgeführt.
 
 
 
@@ -37,17 +37,17 @@ Siehe Knowledge Base-Artikel link:https://kb.netapp.com/Support_Bulletins/Custom
 Dieses Verfahren wird ab ONTAP 9.8 unterstützt.  Informationen zu Systemen mit ONTAP 9.7 oder früher finden Sie im Knowledge Base-Artikel:link:https://kb.netapp.com/Advice_and_Troubleshooting/Data_Protection_and_Security/MetroCluster/How_to_remove_a_DR-Group_from_a_MetroCluster["So entfernen Sie eine DR-Gruppe aus einer MetroCluster-Konfiguration"^] .
 
 .Über diese Aufgabe
-Eine Konfiguration mit acht Nodes umfasst acht Nodes, die als zwei DR-Gruppen mit vier Nodes organisiert sind.
-
+* Sie müssen diese Aufgabe für beide Cluster ausführen.
+* Eine Konfiguration mit acht Nodes umfasst acht Nodes, die als zwei DR-Gruppen mit vier Nodes organisiert sind.
++
 image::../media/mcc_dr_groups_8_node.gif[MetroCluster Konfiguration mit acht Knoten in zwei DR-Gruppen]
 
++
 Wenn Sie eine DR-Gruppe entfernen, verbleiben vier Knoten in der Konfiguration.
 
++
 image::../media/mcc_dr_groups_4_node.gif[MetroCluster -Konfiguration mit vier Knoten nach der Entfernung der DR-Gruppe]
 
-.Bevor Sie beginnen
-* Sie müssen diesen Schritt auf beiden Clustern durchführen.
-* Der `metrocluster remove-dr-group` Befehl wird nur auf ONTAP 9.8 und höher unterstützt.
 
 
 .Schritte
@@ -97,13 +97,13 @@ NOTE: Root-Aggregate werden nicht gelöscht.
 +
 [listing]
 ----
-ClusterA::> set advanced
+ClusterA::> set advanced -prompt-timestamp above
 ClusterA::*> cluster show
 Move epsilon if needed
 ClusterA::*> cluster modify -node nodename -epsilon false
 ClusterA::*> cluster modify -node nodename -epsilon true
 
-ClusterB::> set advanced
+ClusterB::> set advanced -prompt-timestamp above
 ClusterB::*> cluster show
 ClusterB::*> cluster modify -node nodename -epsilon false
 ClusterB::*> cluster modify -node nodename -epsilon true
@@ -119,6 +119,10 @@ ClusterB::*> set admin
 
 .. Entfernen Sie die Knoten der DR-Gruppe: +
 `metrocluster remove-dr-group -dr-group-id 1`
++
+
+NOTE: Der `metrocluster remove-dr-group` Befehl wird nur auf ONTAP 9.8 und höher unterstützt.
+
 +
 Im folgenden Beispiel wird das Entfernen der Konfiguration der DR-Gruppe auf „Cluster_A“ gezeigt
 
@@ -169,6 +173,9 @@ cluster_A::*>
 
 . Wenn Sie sich in einer MetroCluster -IP-Konfiguration befinden, führen Sie die folgenden Schritte aus, um die Remote-Plexes der Root-Aggregate zu löschen und den Festplattenbesitz auf den Knoten der alten DR-Gruppe zu entfernen.
 +
+Bei einer MetroCluster FC-Konfiguration gehen Sie zum Schritt für <<fc_step_7_remove_nodes,Entfernen der alten DR-Gruppenknoten>>.
+
++
 Diese Schritte müssen für beide Knoten im HA-Paar an jedem Standort ausgeführt werden.
 
 +
@@ -195,7 +202,7 @@ NOTE: Verwenden Sie eine durch Kommas getrennte Liste in der `-owner <node_names
 --
 ... Legen Sie die Berechtigungsebene auf erweitert fest:
 +
-`set advanced`
+`set advanced -prompt-timestamp above`
 
 ... Zeigen Sie die Remote-Festplatten an:
 +
@@ -208,7 +215,7 @@ NOTE: Verwenden Sie eine durch Kommas getrennte Liste in der `-owner <node_names
 --
 ... Legen Sie die Berechtigungsebene auf erweitert fest:
 +
-`set advanced`
+`set advanced -prompt-timestamp above`
 
 ... Zeigen Sie die Remote-Festplatten an:
 +
@@ -222,7 +229,7 @@ NOTE: Verwenden Sie eine durch Kommas getrennte Liste in der `-owner <node_names
 +
 `disk option modify -node <node_names_in_the_DR_group_to_be_deleted>  -autoassign off`
 
-.. Entfernen Sie den Besitz der Pool1-Datenträger auf jedem zu löschenden DR-Gruppenknoten.  Führen Sie diese Schritte auf jedem zu entfernenden Knoten aus.
+.. Entfernen Sie die Besitzrechte für die Pool1-Datenträger auf jedem zu löschenden DR-Gruppenknoten. Führen Sie diese Schritte auf jedem zu entfernenden Knoten aus. In den in diesem Schritt verwendeten Beispielen wird node_A_1 entfernt.
 +
 ... Gehen Sie zur Node-Shell:
 +
@@ -230,23 +237,62 @@ NOTE: Verwenden Sie eine durch Kommas getrennte Liste in der `-owner <node_names
 
 ... Identifizieren Sie die Pool1-Festplatten:
 +
-`aggr status -s`
+`disk show`
 
 +
-Es werden alle Ersatzfestplatten angezeigt, einschließlich der Ersatzfestplatten Pool0 und Pool1, die dem Knoten gehören.
+Alle Datenträger werden angezeigt, einschließlich der dem Knoten zugeordneten Pool1-Datenträger. Das folgende Beispiel zeigt eine gekürzte Ausgabe, in der Datenträger 0n.4 und seine Partitionen Pool1 zugeordnet sind. Die Ausgabe kann je nach Ihrer Konfiguration variieren.
 
-... Entfernen Sie den Festplattenbesitz für jede Ersatzfestplatte von Pool1:
++
+[listing]
+----
+  DISK       OWNER                 POOL   SERIAL NUMBER         HOME                    DR HOME
+------------ -------------         -----  -------------         -------------           -------------
+0n.4         node_A1(537102267)    Pool1  S3N9NX0J500267        node_A1(537102267)
+0n.4P1       node_A1(537102267)    Pool1  S3N9NX0J500267NP001   node_A1(537102267)
+0n.4P2       node_A1(537102267)    Pool1  S3N9NX0J500267NP002   node_A1(537102267)
+0n.4P3       node_A1(537102267)    Pool1  S3N9NX0J500267NP003   node_A1(537102267)
+----
+... Legen Sie die Berechtigungsebene auf erweitert fest:
++
+`set -privilege advanced -prompt-timestamp above`
+
+... Entfernen Sie die Festplattenzugehörigkeit für jede Pool1-Festplatte:
++
+Wenn Ihre Konfiguration partitionierte Festplatten enthält, entfernen Sie zuerst die Besitzrechte jeder partitionierten Festplatte und anschließend die Besitzrechte der Containerfestplatte:
+
 +
 `disk remove_ownership <disk_name>`
 
 +
-Entfernen Sie bei partitionierten Datenträgern den Partitionsbesitz und dann den Containerdatenträgerbesitz.
+Im folgenden Beispiel wird die Eigentümerschaft der partitionierten Festplatten entfernt, bevor die Eigentümerschaft der Containerfestplatte `0n.4` entfernt wird:
 
++
+[listing]
+----
+*> disk remove_ownership 0n.4P1
+Volumes must be taken offline. Are all impacted volumes offline(y/n)?? y
+Removing the ownership of aggregate disks may lead to partition of aggregates between high-availability pair.
+Do you want to continue(y/n)? y
+*> disk remove_ownership 0n.4P2
+Volumes must be taken offline. Are all impacted volumes offline(y/n)?? y
+Removing the ownership of aggregate disks may lead to partition of aggregates between high-availability pair.
+Do you want to continue(y/n)? y
+*> disk remove_ownership 0n.4P3
+Volumes must be taken offline. Are all impacted volumes offline(y/n)?? y
+Removing the ownership of aggregate disks may lead to partition of aggregates between high-availability pair.
+Do you want to continue(y/n)? y
+*> disk remove_ownership 0n.4
+Volumes must be taken offline. Are all impacted volumes offline(y/n)?? y
+*>
+----
 
 
 
 
 . Wenn Sie sich in einer MetroCluster -IP-Konfiguration befinden, entfernen Sie die MetroCluster Verbindungen auf den Knoten der alten DR-Gruppe.
++
+Bei einer MetroCluster FC-Konfiguration gehen Sie zum Schritt für <<fc_step_7_remove_nodes,Entfernen der alten DR-Gruppenknoten>>.
+
 +
 Diese Befehle können von beiden Clustern ausgegeben werden und gelten für die gesamte DR-Gruppe, die beide Cluster umfasst.
 
@@ -287,17 +333,17 @@ NOTE: Dieser Schritt muss auf jedem Knoten der DR-Gruppe wiederholt werden.
 `metrocluster configuration-settings dr-group delete`
 
 
-. Heben Sie die Verbindung zu den Knoten in der alten DR-Gruppe auf.
+. [[fc_step_7_remove_nodes]]Entferne die Knoten in der alten DR-Gruppe.
 +
 Führen Sie diesen Schritt auf jedem Cluster aus.
 
 +
 .. Legen Sie die erweiterte Berechtigungsebene fest:
 +
-`set -privilege advanced`
+`set -privilege advanced -prompt-timestamp above`
 
-.. Knoten trennen: +
-`cluster unjoin -node <node-name>`
+.. Knoten entfernen: +
+`cluster remove-node -node <node-name>`
 +
 Wiederholen Sie diesen Schritt für den anderen lokalen Knoten in der alten DR-Gruppe.
 
@@ -316,3 +362,6 @@ Führen Sie diesen Schritt auf jedem Cluster aus.
 
 . Halten Sie den Vorgang an, schalten Sie ihn aus und entfernen Sie die alten Controller-Module und Storage-Shelfs.
 
+
+.Verwandte Informationen
+Mehr über die in diesem Verfahren verwendeten Befehle erfahren Sie in der link:https://docs.netapp.com/us-en/ontap-cli/["ONTAP-Befehlsreferenz"^].
