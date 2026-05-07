@@ -731,7 +731,7 @@ Nach Austausch des AFF A900 oder FAS9500 Controller-Moduls und der NVS müssen S
 Es ist nicht möglich, die auf den Boot-Medien eines AFF A900 oder FAS9500 Controller-Moduls installierte ONTAP Version zu überprüfen, es sei denn, sie ist in einem Chassis installiert und eingeschaltet. Die ONTAP Version auf dem AFF A900 oder FAS9500 Startmedium muss mit der ONTAP Version übereinstimmen, die auf dem AFF A700 oder FAS9000 System ausgeführt wird und bei dem Upgrade sowohl die Primär- als auch die Backup-Boot-Images übereinstimmen. Sie können die Bilder konfigurieren, indem Sie eine ausführen `netboot` Gefolgt von `wipeconfig` Befehl aus dem Startmenü. Wenn das Controller-Modul zuvor in einem anderen Cluster verwendet wurde, führt das aus `wipeconfig` Mit dem Befehl wird die Restkonfiguration auf dem Boot-Medium gelöscht.
 
 .Bevor Sie beginnen
-* Vergewissern Sie sich, dass Sie mit dem System auf einen HTTP-Server zugreifen können.
+* Überprüfen Sie, ob Sie mit dem System auf einen HTTP-Server zugreifen können.
 * Sie müssen die erforderlichen Systemdateien für Ihr System und die korrekte Version von ONTAP von der herunterladen link:https://mysupport.netapp.com/site/["NetApp Support"^] Standort. Über diese Aufgabe müssen Sie wissen `netboot` Die neuen Controller, wenn die installierte ONTAP Version nicht mit der auf den ursprünglichen Controllern installierten Version identisch ist. Nachdem Sie jeden neuen Controller installiert haben, starten Sie das System über das auf dem Webserver gespeicherte ONTAP 9-Image. Anschließend können Sie die richtigen Dateien auf das Boot-Medium herunterladen, um später das System zu booten.
 
 

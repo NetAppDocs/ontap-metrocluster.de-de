@@ -42,7 +42,22 @@ There are no entries matching your query.
 ....
 
 
-. Bestätigen Sie, dass ONTAP Mediator aus der MetroCluster-Konfiguration entfernt wurde, indem Sie die folgenden Befehle auf beiden Clustern ausführen:
+. Wenn Sie einen ONTAP Mediator verwenden, der HTTPS für die Kommunikation nutzt, löschen Sie die CA-Zertifikate, nachdem Sie den ONTAP Mediator entfernt haben:
++
+.. Die installierten CA-Zertifikate anzeigen:
++
+`security certificate show -common-name ONTAPMediatorCA`
+
+.. Entfernen Sie die installierten Stamm- und Zwischenzertifikate:
++
+`security certificate delete -vserver cluster-A -common-name ONTAPMediatorCA -cert-name <root_certificate_name> -type server-ca -ca "ONTAP Mediator CA"`
+
++
+`security certificate delete -vserver cluster-A -common-name ONTAPMediatorCA -cert-name <intermediate_certificate_name> -type server-ca -ca "ONTAP Mediator CA"`
+
+
+
+. Bestätigen Sie, dass ONTAP Mediator aus der MetroCluster-Konfiguration entfernt wurde, indem Sie den folgenden Befehl auf beiden Clustern ausführen:
 +
 .. `metrocluster configuration-settings mediator show`
 +
@@ -52,15 +67,6 @@ There are no entries matching your query.
 [listing]
 ----
 This table is currently empty.
-----
-.. `storage iscsi-initiator show -label mediator`
-+
-*Beispiel*
-
-+
-[listing]
-----
-There are no entries matching your query.
 ----
 
 
