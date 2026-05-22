@@ -2,37 +2,33 @@
 permalink: install-ip/task_switch_config_cisco_macsec.html 
 sidebar: sidebar 
 keywords: cisco, MACsec encryption 
-summary: Sie müssen die MACsec-Verschlüsselung nur für die WAN-ISL-Ports konfigurieren, die zwischen den Standorten ausgeführt werden. Sie müssen MACsec konfigurieren, nachdem Sie die korrekte RCF-Datei angewendet haben. 
+summary: Konfigurieren Sie die MACsec-Verschlüsselung bei Bedarf nur auf den WAN-ISL-Ports, die zwischen den Standorten verlaufen. Wenn Sie die MACsec-Verschlüsselung verwenden möchten, konfigurieren Sie sie nach dem Anwenden der korrekten RCF-Datei. 
 ---
-= Konfigurieren Sie die MACsec-Verschlüsselung auf Cisco 9336C-Switches in einem MetroCluster IP-Standort
+= Konfigurieren der MACsec-Verschlüsselung auf Cisco 9336C-Switches in einem MetroCluster IP-Standort (optional)
 :allow-uri-read: 
 :icons: font
 :imagesdir: ../media/
-:firstname: [.lead]
-:author: [.lead]
-:authorinitials: [
-:authors: [.lead]
-:revdate: You can configure MACsec encryption on the WAN ISL ports that run between the sites. You must configure MACsec after applying the correct RCF file.
 
 
+[role="lead"]
+Bei Bedarf können Sie die MACsec-Verschlüsselung auf den WAN-ISL-Ports konfigurieren, die zwischen den Standorten verlaufen. Wenn Sie die MACsec-Verschlüsselung verwenden möchten, müssen Sie diese nach dem Anwenden der richtigen RCF-Datei konfigurieren.
 
-NOTE: Die MACsec-Verschlüsselung kann nur auf die WAN-ISL-Ports angewendet werden.
-
-
-
-== Konfigurieren Sie die MACsec-Verschlüsselung auf Cisco 9336C-Switches
-
-Sie müssen die MACsec-Verschlüsselung nur für die WAN-ISL-Ports konfigurieren, die zwischen den Standorten ausgeführt werden. Sie müssen MACsec konfigurieren, nachdem Sie die korrekte RCF-Datei angewendet haben.
-
+[NOTE]
+====
+* Die MACsec-Verschlüsselung kann nur auf die WAN-ISL-Ports angewendet werden, die zwischen den Standorten verlaufen.
+* Die Konfiguration der MACsec-Verschlüsselung ist bei der Konfiguration von Cisco 9336C Switches optional.
 
 
-=== Lizenzierungsanforderungen für MACsec
+====
+
+
+== Lizenzierungsanforderungen für MACsec
 
 MACsec erfordert eine Sicherheitslizenz. Eine vollständige Erläuterung des Cisco NX-OS-Lizenzschemas und der Beschaffung und Anwendung von Lizenzen finden Sie im https://www.cisco.com/c/en/us/td/docs/switches/datacenter/sw/nx-os/licensing/guide/b_Cisco_NX-OS_Licensing_Guide/b_Cisco_NX-OS_Licensing_Guide_chapter_01.html["Cisco NX-OS Licensing Guide"^]
 
 
 
-=== Aktivierung von Cisco MACs Encryption WAN-ISLs in MetroCluster IP-Konfigurationen
+== Aktivierung von Cisco MACs Encryption WAN-ISLs in MetroCluster IP-Konfigurationen
 
 Sie können die MACsec-Verschlüsselung für Cisco 9336C-Switches auf WAN-ISLs in einer MetroCluster IP-Konfiguration aktivieren.
 
@@ -69,7 +65,7 @@ IP_switch_A_1(config)# copy running-config startup-config
 
 
 
-=== Konfigurieren Sie eine MACsec-Schlüsselkette und -Tasten
+== Konfigurieren Sie eine MACsec-Schlüsselkette und -Tasten
 
 Sie können eine MACsec-Schlüsselkette oder Schlüssel für Ihre Konfiguration erstellen.
 
@@ -172,7 +168,7 @@ IP_switch_A_1(config-macseckeychain-macseckey)# show key chain 1
 
 
 
-=== Konfigurieren einer MACsec-Richtlinie
+== Konfigurieren einer MACsec-Richtlinie
 
 .Schritte
 . Globalen Konfigurationsmodus aufrufen:
@@ -296,7 +292,7 @@ IP_switch_A_1(config-macsec-policy)# show macsec policy
 
 
 
-=== Aktivieren Sie die Verschlüsselung von Cisco MACsec an den Schnittstellen
+== Aktivieren Sie die Verschlüsselung von Cisco MACsec an den Schnittstellen
 
 . Globalen Konfigurationsmodus aufrufen:
 +
@@ -341,7 +337,7 @@ IP_switch_A_1(config)# copy running-config startup-config
 
 
 
-=== Deaktivieren Sie Cisco MACs Verschlüsselungs-WAN-ISLs in MetroCluster IP-Konfigurationen
+== Deaktivieren Sie Cisco MACs Verschlüsselungs-WAN-ISLs in MetroCluster IP-Konfigurationen
 
 Möglicherweise müssen Sie die MACsec-Verschlüsselung für Cisco 9336C-Switches auf WAN-ISLs in einer MetroCluster IP-Konfiguration deaktivieren.
 
@@ -402,7 +398,7 @@ IP_switch_A_1(config)# copy running-config startup-config
 
 
 
-=== Überprüfen der MACsec-Konfiguration
+== Überprüfen der MACsec-Konfiguration
 
 .Schritte
 . Wiederholen Sie * alle* der vorherigen Vorgänge auf dem zweiten Schalter innerhalb der Konfiguration, um eine MACsec-Sitzung einzurichten.
