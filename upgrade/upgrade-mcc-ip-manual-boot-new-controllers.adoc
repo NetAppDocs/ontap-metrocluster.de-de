@@ -51,7 +51,7 @@ Falls Partner-sysid nicht richtig ist, stellen Sie es fest:
 +
 `boot_ontap menu`
 
-. Wenn die Stammverschlüsselung verwendet wird, wählen Sie die Startmenü-Option für Ihre Konfiguration für die Schlüsselverwaltung aus.
+. Wenn die Administrator-SVM des MetroCluster Systems mit einem Schlüsselmanager konfiguriert ist, wählen Sie die richtige Bootmenüoption für Ihre Schlüsselverwaltungskonfiguration aus.
 +
 |===
 
@@ -64,7 +64,10 @@ Integriertes Verschlüsselungsmanagement
  a| 
 Option `10`
 
-Befolgen Sie die Anweisungen, um die erforderlichen Eingaben zur Wiederherstellung und Wiederherstellung der Schlüsselmanager-Konfiguration bereitzustellen.
+Folgen Sie den Anweisungen, um die folgenden Eingaben bereitzustellen, um die Konfiguration des Schlüsselmanagers wiederherzustellen und wiederherzustellen:
+
+** Die Sicherung und Passphrase des Onboard Key Managers
+
 
 
 
@@ -73,7 +76,14 @@ Externes Verschlüsselungskeymanagement
  a| 
 Option `11`
 
-Befolgen Sie die Anweisungen, um die erforderlichen Eingaben zur Wiederherstellung und Wiederherstellung der Schlüsselmanager-Konfiguration bereitzustellen.
+Folgen Sie den Anweisungen, um die folgenden Eingaben bereitzustellen, um die Konfiguration des Schlüsselmanagers wiederherzustellen und wiederherzustellen:
+
+** Die Portnummer und Adresse eines der primären Schlüsselserver für die Admin-SVM
+** Der Benutzername und das Passwort, falls eines mit dem ausgewählten Primärschlüsselserver verknüpft ist
+** Die Keystore-UUID für die Admin-SVM (erforderlich in ONTAP 9.16.1 oder höher)
+
+
+*Hinweis:* Obwohl die Admin-SVM bis zu vier primäre Schlüsselserver haben kann, können während des Wiederherstellungsprozesses nur Informationen für einen primären Schlüsselserver angegeben werden.
 
 |===
 . Wählen Sie im Startmenü „`(6) Flash-Update aus Backup config`“ aus.
@@ -105,7 +115,7 @@ Falls Partner-sysid nicht richtig ist, stellen Sie es fest:
 +
 `setenv partner-sysid <partner-sysID>`
 
-. Wenn die Stammverschlüsselung verwendet wird, wählen Sie die Startmenü-Option erneut für Ihre Schlüsselverwaltungskonfiguration aus.
+. Wenn die Root-Volume-Verschlüsselung verwendet wird, wählen Sie die Bootmenü-Option für Ihre Schlüsselverwaltungskonfiguration erneut aus.
 +
 |===
 
@@ -118,26 +128,36 @@ Integriertes Verschlüsselungsmanagement
  a| 
 Option `10`
 
-Befolgen Sie die Anweisungen, um die erforderlichen Eingaben zur Wiederherstellung und Wiederherstellung der Schlüsselmanager-Konfiguration bereitzustellen.
+Folgen Sie den Anweisungen, um die folgenden Eingaben bereitzustellen, um die Konfiguration des Schlüsselmanagers wiederherzustellen und wiederherzustellen:
+
+** Die Sicherung und Passphrase des Onboard Key Managers
+
 
 
 
  a| 
 Externes Verschlüsselungskeymanagement
  a| 
-Option „`11`“
+Option `11`
 
-Befolgen Sie die Anweisungen, um die erforderlichen Eingaben zur Wiederherstellung und Wiederherstellung der Schlüsselmanager-Konfiguration bereitzustellen.
+Folgen Sie den Anweisungen, um die folgenden Eingaben bereitzustellen, um die Konfiguration des Schlüsselmanagers wiederherzustellen und wiederherzustellen:
+
+** Die Portnummer und Adresse eines der primären Schlüsselserver für die Admin-SVM
+** Der Benutzername und das Passwort, falls eines mit dem ausgewählten Primärschlüsselserver verknüpft ist
+** Die Keystore-UUID für die Admin-SVM (erforderlich in ONTAP 9.16.1 oder höher)
+
+
+*Hinweis:* Obwohl die Admin-SVM bis zu vier primäre Schlüsselserver haben kann, können während des Wiederherstellungsprozesses nur Informationen für einen primären Schlüsselserver angegeben werden.
 
 |===
 +
-Führen Sie je nach Einstellung des Schlüsselmanagers den Wiederherstellungsvorgang durch, indem Sie die Option „`10`“ oder die Option „`11`“ und anschließend die Option auswählen `6` Bei der ersten Eingabeaufforderung für das Startmenü. Um die Knoten vollständig zu booten, müssen Sie möglicherweise den Wiederherstellungsvorgang mit Option „`1`“ (normaler Start) wiederholen.
+Je nach Schlüsselmanagertyp führen Sie die Wiederherstellungsprozedur durch, indem Sie Option „10“ oder Option „11“ auswählen, gefolgt von Option `6` beim ersten Startmenü-Prompt. Um die Knoten vollständig zu starten, müssen Sie die Wiederherstellungsprozedur möglicherweise wiederholen, gefolgt von Option „1“ (normaler Start).
 
 . Warten Sie, bis die ausgetauschten Nodes gebootet werden.
 +
 Wenn sich einer der beiden Nodes im Übernahmemodus befindet, geben Sie sie mithilfe der wieder `storage failover giveback` Befehl.
 
-. Stellen Sie bei Verwendung der Verschlüsselung die Schlüssel mithilfe des korrekten Befehls für Ihre Verschlüsselungsmanagementkonfiguration wieder her.
+. Wenn die Verschlüsselung auf der Admin-SVM aktiviert ist, stellen Sie die Schlüssel mit dem für Ihre Schlüsselverwaltungskonfiguration korrekten Befehl wieder her.
 +
 |===
 
@@ -157,7 +177,7 @@ Weitere Informationen finden Sie unter https://docs.netapp.com/ontap-9/topic/com
  a| 
 Externes Verschlüsselungskeymanagement
  a| 
-`security key-manager external restore -vserver <SVM> -node <node> -key-server <host_name|IP_address:port> -key-id key_id -key-tag key_tag <node_name>`
+`security key-manager external restore -vserver <admin-svm> -key-server <host_name|IP_address:port>`
 
 Weitere Informationen finden Sie unter https://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-nve/GUID-32DA96C3-9B04-4401-92B8-EAF323C3C863.html["Wiederherstellung der externen Verschlüsselungsschlüssel für das Verschlüsselungsmanagement"^].
 

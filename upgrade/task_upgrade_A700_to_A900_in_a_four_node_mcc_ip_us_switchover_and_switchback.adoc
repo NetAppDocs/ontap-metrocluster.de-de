@@ -333,19 +333,99 @@ Sie sollten die Ausgabe der folgenden Befehle erfassen:
 ** `ucadmin show`
 
 
-. Wenn das Root-Volume verschlüsselt ist, erfassen und speichern Sie die für das Schlüsselmanagement verwendete Passphrase:
-`security key-manager backup show`
-. Wenn die MetroCluster Nodes Verschlüsselung für Volumes oder Aggregate nutzen, kopieren Sie Informationen zu Schlüsseln und Passphrases. Weitere Informationen finden Sie unter https://docs.netapp.com/us-en/ontap/encryption-at-rest/backup-key-management-information-manual-task.html["Manuelles Backup der integrierten Verschlüsselungsmanagementinformationen"^].
+. Wenn die MetroCluster Knoten mit einem externen Schlüsselmanager für die admin SVM (Cluster) konfiguriert sind, kopieren Sie die Key-Server-Informationen an einen sicheren Ort. Wenn der Onboard Key Manager konfiguriert ist, kopieren Sie die Backup-Informationen und die Passphrase an einen sicheren Ort.
 +
-.. Wenn Onboard Key Manager konfiguriert ist: `security key-manager onboard show-backup`+ Sie benötigen die Passphrase später im Upgrade-Verfahren.
-.. Wenn das Enterprise-Verschlüsselungsmanagement (KMIP) konfiguriert ist, geben Sie die folgenden Befehle ein:
+[role="tabbed-block"]
+====
+.Onboard Key Manager
+--
+.. Führen Sie folgenden Befehl aus, um die Sicherung des Onboard Key Managers anzuzeigen:
 +
-....
-security key-manager external show -instance
-security key-manager key query
-....
+`security key-manager onboard show-backup`
+
++
+Sie benötigen im weiteren Verlauf des Upgrade-Vorgangs auch die aktuellste Passphrase für den Onboard Key Manager.
+
++
+Weitere Informationen finden Sie unter https://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-nve/GUID-1677AE0A-FEF7-45FA-8616-885AA3283BCF.html["Manuelles Backup der integrierten Informationen für das Verschlüsselungsmanagement"].
 
 
+
+--
+.Externer Schlüsselmanager
+--
+Sammeln Sie die externen Schlüsselverwaltungsinformationen, die Sie benötigen, um die Schlüsselmanager-Konfiguration später im Verfahren wiederherzustellen.
+
+.. Zeigen Sie den Namen der Admin-SVM (Cluster) an.
++
+`vserver show -type admin`
+
++
+In diesem Beispiel lautet der Name der Admin-SVM cluster_B:
+
++
+[listing]
+----
+cluster_B::*> vserver show -type admin
+                               Admin      Operational Root
+Vserver     Type    Subtype    State      State       Volume     Aggregate
+----------- ------- ---------- ---------- ----------- ---------- ----------
+cluster_B
+            admin   -          -          -           -          -
+----
+.. Ermitteln Sie die Adresse und die Portnummer eines primären Schlüsselservers, der mit dem auf der Admin-SVM (Cluster) konfigurierten externen Schlüsselmanager verbunden ist:
++
+[NOTE]
+====
+*** Der Admin-SVM kann bis zu vier primäre Schlüsselserver haben, aber Sie benötigen nur die Portnummer und die Adresse eines der primären Schlüsselserver, um die Schlüsselverwaltungskonfiguration später im Verfahren wiederherzustellen.
+*** Falls dem von Ihnen gewählten primären Schlüsselserver ein Benutzername und ein Passwort zugeordnet sind, benötigen Sie diese Informationen auch für den Wiederherstellungsprozess.
+
+
+====
++
+`security key-manager external show -instance -vserver <admin_svm_name>`
+
++
+[listing]
+----
+cluster_B::> security key-manager external show -instance -vserver cluster_B
+
+                  Vserver: cluster_B
+       Client Certificate: NTAPKM_C
+   Server CA Certificates: NTAPKM_I, NTAPKM_R
+       Primary Key Server: 172.18.27.34:12014
+                  Timeout: 25
+                 Username:
+              Policy name: -
+    Secondary Key Servers: -
+    Create/Remove Timeout: 10
+
+----
+.. Wenn Sie ONTAP 9.16.1 oder höher verwenden, beschaffen Sie sich die Keystore-UUID für die Admin-SVM.
++
+`security key-manager show-key-store -vserver <admin_svm_name> -fields uuid`
+
++
+[listing]
+----
+cluster_B::*>  security key-manager show-key-store -vserver cluster_B -fields uuid
+vserver         uuid
+--------------- ------------------------------------
+cluster_B        f281aa55-d635-11f0-93bc-005056bb68f2
+
+cluster_B::*
+----
+.. Speichern Sie die gesammelten Informationen an einem sicheren Ort, um sie später im Verfahren zu verwenden. Sie sollten nun folgende Informationen gesammelt haben:
++
+*** Die Portnummer und Adresse eines der primären Schlüsselserver für die Admin-SVM
+*** Benutzername und Passwort, falls einer mit dem ausgewählten Primärschlüsselserver verknüpft ist
+*** Die Keystore-UUID für die Admin-SVM (erforderlich in ONTAP 9.16.1 oder höher)
+
+
+
+
+--
+====
 . Ermitteln Sie die System-IDs der vorhandenen Nodes:
 `metrocluster node show -fields node-systemid,ha-partner-systemid,dr-partner-systemid,dr-auxiliary-systemid`
 +
@@ -1176,7 +1256,7 @@ Falls Partner-sysid nicht richtig ist, stellen Sie es fest:
 +
 `boot_ontap menu`
 
-. Wenn die Stammverschlüsselung verwendet wird, wählen Sie die Startmenü-Option für Ihre Konfiguration für die Schlüsselverwaltung aus.
+. Wenn die Administrator-SVM des MetroCluster Systems mit einem Schlüsselmanager konfiguriert ist, wählen Sie die richtige Bootmenüoption für Ihre Schlüsselverwaltungskonfiguration aus.
 +
 |===
 
@@ -1187,14 +1267,28 @@ Falls Partner-sysid nicht richtig ist, stellen Sie es fest:
  a| 
 Integriertes Verschlüsselungsmanagement
  a| 
-Option 10 und befolgen Sie die Anweisungen, um die erforderlichen Eingaben zur Wiederherstellung oder Wiederherstellung der Schlüsselmanager-Konfiguration bereitzustellen
+Option `10`
+
+Folgen Sie den Anweisungen, um die folgenden Eingaben bereitzustellen, um die Konfiguration des Schlüsselmanagers wiederherzustellen und wiederherzustellen:
+
+** Die Sicherung und Passphrase des Onboard Key Managers
+
 
 
 
  a| 
 Externes Verschlüsselungskeymanagement
  a| 
-Option 11 und befolgen Sie die Anweisungen, um die erforderlichen Eingaben zur Wiederherstellung oder Wiederherstellung der Schlüsselmanager-Konfiguration bereitzustellen
+Option `11`
+
+Folgen Sie den Anweisungen, um die folgenden Eingaben bereitzustellen, um die Konfiguration des Schlüsselmanagers wiederherzustellen und wiederherzustellen:
+
+** Die Portnummer und Adresse eines der primären Schlüsselserver für die Admin-SVM
+** Der Benutzername und das Passwort, falls eines mit dem ausgewählten Primärschlüsselserver verknüpft ist
+** Die Keystore-UUID für die Admin-SVM (erforderlich in ONTAP 9.16.1 oder höher)
+
+
+*Hinweis:* Obwohl die Admin-SVM bis zu vier primäre Schlüsselserver haben kann, können während des Wiederherstellungsprozesses nur Informationen für einen primären Schlüsselserver angegeben werden.
 
 |===
 . Wählen Sie im Startmenü die Option `(6) Update flash from backup config`.
@@ -1227,7 +1321,7 @@ Falls Partner-sysid nicht richtig ist, stellen Sie es fest:
 +
 `setenv partner-sysid _partner-sysID_`
 
-. Wenn die Stammverschlüsselung verwendet wird, wählen Sie die Startmenü-Option für Ihre Konfiguration für die Schlüsselverwaltung aus.
+. Wenn die Root-Volume-Verschlüsselung verwendet wird, wählen Sie die Bootmenü-Option für Ihre Schlüsselverwaltungskonfiguration erneut aus.
 +
 |===
 
@@ -1238,14 +1332,28 @@ Falls Partner-sysid nicht richtig ist, stellen Sie es fest:
  a| 
 Integriertes Verschlüsselungsmanagement
  a| 
-Option 10 und befolgen Sie die Anweisungen, um die erforderlichen Eingaben zur Wiederherstellung oder Wiederherstellung der Schlüsselmanager-Konfiguration bereitzustellen
+Option `10`
+
+Folgen Sie den Anweisungen, um die folgenden Eingaben bereitzustellen, um die Konfiguration des Schlüsselmanagers wiederherzustellen und wiederherzustellen:
+
+** Die Sicherung und Passphrase des Onboard Key Managers
+
 
 
 
  a| 
 Externes Verschlüsselungskeymanagement
  a| 
-Option 11 und befolgen Sie die Anweisungen, um die erforderlichen Eingaben zur Wiederherstellung oder Wiederherstellung der Schlüsselmanager-Konfiguration bereitzustellen
+Option `11`
+
+Folgen Sie den Anweisungen, um die folgenden Eingaben bereitzustellen, um die Konfiguration des Schlüsselmanagers wiederherzustellen und wiederherzustellen:
+
+** Die Portnummer und Adresse eines der primären Schlüsselserver für die Admin-SVM
+** Der Benutzername und das Passwort, falls eines mit dem ausgewählten Primärschlüsselserver verknüpft ist
+** Die Keystore-UUID für die Admin-SVM (erforderlich in ONTAP 9.16.1 oder höher)
+
+
+*Hinweis:* Obwohl die Admin-SVM bis zu vier primäre Schlüsselserver haben kann, können während des Wiederherstellungsprozesses nur Informationen für einen primären Schlüsselserver angegeben werden.
 
 |===
 +
@@ -1275,7 +1383,7 @@ Weitere Informationen finden Sie unter https://docs.netapp.com/us-en/ontap/encry
  a| 
 Externes Verschlüsselungskeymanagement
  a| 
-`security key-manager external restore -vserver _SVM_ -node _node_ -key-server _host_name|IP_address:port_ -key-id key_id -key-tag key_tag _node-name_`
+`security key-manager external restore -vserver <admin-svm> -key-server <host_name|IP_address:port>`
 
 Weitere Informationen finden Sie unter https://docs.netapp.com/us-en/ontap/encryption-at-rest/restore-external-encryption-keys-93-later-task.html["Wiederherstellen der externen Schlüssel für das Verschlüsselungsmanagement"^].
 
