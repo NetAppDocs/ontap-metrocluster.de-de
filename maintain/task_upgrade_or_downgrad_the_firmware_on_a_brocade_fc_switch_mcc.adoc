@@ -4,7 +4,7 @@ sidebar: sidebar
 keywords: metrocluster, maintain, service, upgrade, downgrade, firmware, brocade, fc, switch 
 summary: Zum Upgrade oder Downgrade der Firmware auf einem Brocade FC-Switch müssen Sie den Switch mit den spezifischen Brocade Befehlen deaktivieren, die Firmware-Änderung durchführen und überprüfen sowie den Switch neu starten und wieder aktivieren. 
 ---
-= Upgrade oder Downgrade der Firmware auf einem Brocade FC-Switch
+= Die Firmware eines Brocade MetroCluster FC Switches kann aktualisiert oder auf eine frühere Version zurückgesetzt werden
 :allow-uri-read: 
 :icons: font
 :imagesdir: ../media/
@@ -12,6 +12,24 @@ summary: Zum Upgrade oder Downgrade der Firmware auf einem Brocade FC-Switch mü
 
 [role="lead"]
 Zum Upgrade oder Downgrade der Firmware auf einem Brocade FC-Switch müssen Sie den Switch mit den spezifischen Brocade Befehlen deaktivieren, die Firmware-Änderung durchführen und überprüfen sowie den Switch neu starten und wieder aktivieren.
+
+.Bevor Sie beginnen
+Die folgenden Informationen sollten sorgfältig geprüft werden, bevor dieses Verfahren verwendet wird:
+
+* Ab Fabric OS 10.x unterstützt Brocade für die SNMP-Authentifizierung nur noch SHA-512. ONTAP unterstützt derzeit kein SHA-512, die Unterstützung ist auf SHA-256 beschränkt.
++
+Wenn die Firmware Ihres MetroCluster FC-Switches auf Fabric OS 10.x aktualisiert wird, geht die SNMP-Überwachbarkeit von ONTAP verloren. Dies führt zu einem erhöhten Risiko bei der Fehlerbehebung und zum Verlust proaktiver Warnmeldungen.
+
++
+Wenn Sie ein Upgrade auf oder ein Downgrade von Fabric OS 10.x durchführen, müssen die obligatorischen Aufgaben ausgeführt werden, die in link:https://techdocs.broadcom.com/us/en/fibre-channel-networking/fabric-os/fabric-os-software-upgrade/10-0-x/Upgrading-and-Downgrading-Firmware/v24512876.html["Brocade Fabric OS Software Upgrade Leitfaden, 10.0.x – Voraussetzungen für Upgrade oder Downgrade"^] aufgeführt sind.
+
++
+
+CAUTION: Diese Einschränkungen sollten sorgfältig abgewogen werden, bevor ein Upgrade auf oder ein Downgrade von Fabric OS 10.x oder höher erfolgt.
+
+* Ab Fabric OS 9.0.1 wird SNMPv2 auf Brocade Switches nicht mehr unterstützt. Bei einem Upgrade auf Fabric OS 9.0.1 oder höher ist für die Zustandsüberwachung SNMPv3 zu verwenden. Weitere Informationen finden sich unter link:../install-fc/concept_configure_the_mcc_software_in_ontap.html#snmpv3-mcc-fc["Konfigurieren von SNMPv3 in einer MetroCluster-Konfiguration"].
+* Wenn Sie auf Fabric OS 9.2.x oder höher aktualisieren, muss ein Brocade TruFOS-Zertifikat installiert sein. Weitere Informationen finden Sie unter link:https://techdocs.broadcom.com/us/en/fibre-channel-networking/fabric-os/fabric-os-software-upgrade/9-2-x/Obtaining-Firmware/download-prerequisites-new/brocade-trufos-certificates.html["Upgrade-Handbuch für Brocade Fabric OS Software, 9.2.x"^].
+
 
 .Über diese Aufgabe
 Vergewissern Sie sich, dass Sie die folgenden Aufgaben für Ihre Konfiguration überprüft und ausgeführt haben:
@@ -32,10 +50,6 @@ link:enable-console-logging-before-maintenance.html["Aktivieren Sie die Konsolen
 
 
 Die Switch-Fabric wird während eines Firmware-Upgrades oder Downgrades deaktiviert, wobei die MetroCluster-Konfiguration den Betrieb über die zweite Fabric fortsetzt.
-
-Ab Fabric OS 9.0 wird SNMPv2 auf Brocade-Switches nicht unterstützt. Wenn Sie ein Upgrade auf Fabric OS 9.0.1 oder höher durchführen, müssen Sie SNMPv3 für die Statusüberwachung verwenden. Weitere Informationen finden Sie unter link:../install-fc/concept_configure_the_mcc_software_in_ontap.html#configuring-snmpv3-in-a-metrocluster-configuration["Konfigurieren von SNMPv3 in einer MetroCluster-Konfiguration"].
-
-Wenn Sie ein Upgrade auf Fabric OS V 9.2.x oder höher durchführen, müssen Sie ein Brocade TruFOS-Zertifikat installiert haben. Weitere Informationen finden Sie unterlink:https://techdocs.broadcom.com/us/en/fibre-channel-networking/fabric-os/fabric-os-software-upgrade/9-2-x/Obtaining-Firmware/download-prerequisites-new/brocade-trufos-certificates.html["Upgrade-Handbuch für Brocade Fabric OS Software, 9.2.x"^].
 
 Diese Aufgabe muss nacheinander an jeder Switch-Fabric ausgeführt werden, damit alle Switches dieselbe Firmware-Version ausführen.
 

@@ -2901,14 +2901,21 @@ mcc4-b2      mlx4_0          IB      Up     false     192.0.2.10  	ib2b
 
 
 
-=== Konfigurieren von SNMPv3 in einer MetroCluster-Konfiguration
+=== Konfigurieren von SNMPv3 in einer MetroCluster FC-Konfiguration
 
 .Bevor Sie beginnen
 Die Authentifizierungs- und Datenschutzprotokolle auf den Switches und auf dem ONTAP System müssen identisch sein.
 
 .Über diese Aufgabe
-ONTAP unterstützt derzeit AES-128-Verschlüsselung.
+ONTAP unterstützt derzeit AES-128 für die Verschlüsselung (Privacy) und SHA-256 für die Authentifizierung.
 
+[CAUTION]
+====
+* In Fabric OS 10.x und höher unterstützt Brocade für die SNMP-Authentifizierung nur SHA-512. ONTAP unterstützt derzeit kein SHA-512, die Unterstützung ist auf SHA-256 beschränkt.
+* Wenn auf Ihren MetroCluster FC Switches Fabric OS 10.x oder höher ausgeführt wird, ist die Konfiguration von SNMP nicht möglich und diese Switches können nicht zur ONTAP Zustandsüberwachung hinzugefügt werden. Wenn ein Downgrade der Switch-Firmware gewünscht ist, können die Schritte in link:../maintain/task_upgrade_or_downgrad_the_firmware_on_a_brocade_fc_switch_mcc.html["Upgrade oder Downgrade der Firmware auf einem Brocade FC-Switch"] befolgt werden.
+
+
+====
 .Schritte
 . Erstellen Sie einen SNMP-Benutzer für jeden Switch von der Controller-Eingabeaufforderung:
 +
@@ -2983,7 +2990,7 @@ node_A_1 SVM 4 snmpv3user     snmp        usm                   10.10.10.13
 +
 [role="tabbed-block"]
 ====
-.Brocade -Switches (FOS 9.0 und höher)
+.Brocade Switches (FOS 9.x)
 --
 `snmpconfig --add snmpv3 -index <index> -user <user_name> -groupname <rw/ro> -auth_proto <auth_protocol> -auth_passwd <auth_password> -priv_proto <priv_protocol> -priv_passwd <priv_password>`
 
@@ -3033,7 +3040,7 @@ NOTE: Zur Verbesserung der Sicherheit empfiehlt NetApp, SNMPv2 oder SNMPv3 zur �
 .Über diese Aufgabe
 Diese Aufgaben gelten nur für Systeme mit FC-to-SAS-Bridges.
 
-Ab Fabric OS 9.0 wird SNMPv2 für die Integritätsüberwachung auf Brocade-Switches nicht unterstützt. Stattdessen müssen Sie SNMPv3 verwenden. Wenn Sie SNMPv3 verwenden, müssen Sie SNMPv3 in ONTAP konfigurieren, bevor Sie mit dem folgenden Abschnitt fortfahren. Weitere Informationen finden Sie unter <<Konfigurieren von SNMPv3 in einer MetroCluster-Konfiguration>>.
+Ab Fabric OS 9.0.1 wird SNMPv2 für die Zustandsüberwachung auf Brocade Switches nicht unterstützt, stattdessen ist SNMPv3 zu verwenden. Bei Verwendung von SNMPv3 ist SNMPv3 in ONTAP zu konfigurieren, bevor mit dem folgenden Abschnitt fortgefahren wird. Weitere Details finden sich unter <<snmpv3-mcc-fc,Konfigurieren von SNMPv3 in einer MetroCluster FC-Konfiguration>>.
 
 [NOTE]
 ====
