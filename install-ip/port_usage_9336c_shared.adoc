@@ -49,6 +49,7 @@ Das bedeutet, dass Sie beim Generieren der RCF für Ihre neue Konfiguration die 
 
 
 
+[[choose-the-correct-cabling-table-for-your-configuration]]
 == Wählen Sie die richtige Verkabelungstabelle für Ihre Konfiguration aus
 
 Überprüfen Sie die Tabelle mit den korrekten Portzuweisungen für Ihre Konfiguration. In diesem Abschnitt gibt es zwei Sätze von Verkabelungstabellen:
@@ -59,6 +60,8 @@ Das bedeutet, dass Sie beim Generieren der RCF für Ihre neue Konfiguration die 
 
 
 
+[[controllers-connecting-switch-attached-ns224-shelves]]
+[[tables_connecting_ns224]]
 === Controller, die Switch-Attached NS224 Shelfs verbinden
 
 Legen Sie fest, welche Portzuweisungstabelle Sie für Controller befolgen sollten, die Switch-verbundene NS224-Shelfs verbinden.
@@ -88,6 +91,7 @@ Die folgende Tabelle hängt davon ab, ob Sie eine 25G (Gruppe 1a) oder 100G (Gru
 
 | AFF A70 AFF C80 AFF A90 AFF A1K | <<table_5_cisco_9336c_fx2,Cisco 9336C-FX2-Switch zur Verbindung von NS224-Port-Zuordnungen der Speicherplattform (Gruppe 5)>> 
 |===
+[[table_1a_cisco_9336c_fx2]]
 .Cisco 9336C-FX2-Switch, der NS224-Speicherplattform-Port-Zuweisungen verbindet (Gruppe 1a)
 Überprüfen Sie die Zuordnungen der Plattform-Ports, um ein AFF A30-, AFF C30- oder AFF C60-System zu verkabeln, bei dem Switch-verbundene NSS24-Shelfs über eine 25-Gbit-Ethernet-Karte mit vier Ports an einen Cisco 9336C-FX2-Switch angeschlossen werden.
 
@@ -96,6 +100,7 @@ NOTE: Diese Konfiguration erfordert eine 25-Gbit-Ethernet-Karte mit vier Ports i
 
 image:../media/mccip-cabling-greeley-connecting-a30-c30-fas50-c60-25G.png["Zeigt den Cisco 9336C-FX2-Switch an, der die Port-Zuordnungen der NS224-Speicherplattform verbindet"]
 
+[[table_1b_cisco_9336c_fx2]]
 .Cisco 9336C-FX2-Switch zur Verbindung von NS224-Speicherplattform-Portzuweisungen (Gruppe 1b)
 Überprüfen Sie die Zuweisung der Plattform-Ports, um ein AFF A30-, AFF C30- oder AFF C60-System zu verkabeln, das Switch-angeschlossene NSS24-Shelfs mit einem Cisco 9336C-FX2-Switch über eine 100G-Ethernet-Karte mit zwei Ports verbindet.
 
@@ -104,16 +109,19 @@ NOTE: Für diese Konfiguration ist eine 100-GB-Ethernet-Karte mit zwei Ports in 
 
 image:../media/mccip-cabling-greeley-connecting-a30-c30-fas50-c60-100G.png["Zeigt den Cisco 9336C-FX2-Switch an, der die Port-Zuordnungen der NS224-Speicherplattform verbindet"]
 
+[[table_2_cisco_9336c_fx2]]
 .Cisco 9336C-FX2-Switch zur Verbindung von NS224-Port-Zuordnungen der Speicherplattform (Gruppe 2)
 Plattform-Port-Zuweisungen prüfen, um ein AFF A320-, AFF C400-, ASA C400-, AFF A400- oder ASA A400-System zu verkabeln, bei dem die Switch-Attached NSS24-Shelfs mit einem Cisco 9336C-FX2-Switch verbunden werden:
 
 image::../media/mcc_ip_cabling_a320_c400_a400_to_cisco_9336c_shared_switch.png[Zeigt den Cisco 9336C-FX2-Switch an, der die Port-Zuordnungen der NS224-Speicherplattform verbindet]
 
+[[table_3_cisco_9336c_fx2]]
 .Cisco 9336C-FX2-Switch zur Verbindung von NS224-Port-Zuordnungen der Speicherplattform (Gruppe 3)
 Prüfen Sie die Zuordnungen der Plattform-Ports, um ein AFF A50-System zu verkabeln, das Switch-verbundene NSS24-Shelfs mit einem Cisco 9336C-FX2-Switch verbindet:
 
 image:../media/mccip-cabling-greeley-connecting-a50-updated.png["Zeigt den Cisco 9336C-FX2-Switch an, der die Port-Zuordnungen der NS224-Speicherplattform verbindet"]
 
+[[table_4_cisco_9336c_fx2]]
 .Cisco 9336C-FX2-Switch zur Verbindung von NS224-Port-Zuordnungen der Speicherplattform (Gruppe 4)
 Plattform-Port-Zuweisungen prüfen, um ein AFF A700-, AFF C800-, ASA C800-, AFF A800-, AFF A900- oder ASA A900-System zu verkabeln, bei dem die Switch-Attached NSS24-Shelfs mit einem Cisco 9336C-FX2-Switch verbunden werden:
 
@@ -121,6 +129,7 @@ image:../media/mcc_ip_cabling_a700_c800_a800_a900_to_cisco_9336c_shared_switch.p
 
 *Hinweis 1*: Verwenden Sie entweder die Ports e4a und e4e oder e4a und e8a, wenn Sie einen X91440A Adapter (40Gbps) verwenden. Verwenden Sie entweder die Ports e4a und e4b oder e4a und e8a, wenn Sie einen X91153A-Adapter (100 Gbit/s) verwenden.
 
+[[table_5_cisco_9336c_fx2]]
 .Cisco 9336C-FX2-Switch zur Verbindung von NS224-Port-Zuordnungen der Speicherplattform (Gruppe 5)
 Prüfen Sie die Zuweisungen der Plattform-Ports, um ein AFF A70-, AFF C80-, AFF A90- oder AFF A1K-System zu verkabeln, bei dem die Switch-Attached NSS24-Shelfs mit einem Cisco 9336C-FX2-Switch verbunden werden:
 
@@ -128,6 +137,8 @@ image::../media/mccip-cabling-greeley-connecting-a70-c80-a-90-fas90-a1k.png[Zeig
 
 
 
+[[controllers-not-connecting-switch-attached-ns224-shelves]]
+[[tables_not_connecting_ns224]]
 === Controller verbinden keine Switch-Attached NS224 Shelfs
 
 Legen Sie fest, welche Portzuweisungstabelle Sie für Controller befolgen sollten, die keine Switch-verbundenen NS224-Shelfs verbinden.
@@ -169,21 +180,25 @@ Die folgende Tabelle hängt davon ab, ob Sie eine 25G (Gruppe 9a) oder 100G (Gru
 
 | FAS70, AFF A70 AFF C80 FAS90, AFF A90 AFF A1K | <<table_14_cisco_9336c_fx2,Cisco 9336C-FX2-Switch verbindet NS224-Speicherplattform-Port-Zuweisungen nicht (Gruppe 14)>> 
 |===
+[[table_6_cisco_9336c_fx2]]
 .Cisco 9336C-FX2-Switch verbindet NS224-Speicherplattform-Port-Zuweisungen nicht (Gruppe 6)
 Plattform-Port-Zuweisungen prüfen, um ein AFF A150-, ASA A150-, FAS2750- oder AFF A220-System zu verkabeln, bei dem keine Switch-Attached NSS24-Shelfs mit einem Cisco 9336C-FX2-Switch verbunden sind:
 
 image::../media/mcc-ip-cabling-a-aff-a150-asa-a150-fas2750-aff-a220-to-a-cisco-9336c-shared-switch.png[Zeigt den Cisco 9336C-FX2-Switch an, der keine NS224-Port-Zuordnungen der Speicherplattform verbindet]
 
+[[table_7_cisco_9336c_fx2]]
 .Cisco 9336C-FX2-Switch verbindet NS224-Speicherplattform-Port-Zuweisungen nicht (Gruppe 7)
 Prüfen Sie die Zuordnungen der Plattform-Ports, um ein AFF A20-System zu verkabeln, bei dem keine Switch-angeschlossenen NSS24-Shelfs mit einem Cisco 9336C-FX2-Switch verbunden sind:
 
 image:../media/mcc-ip-aff-a20-to-a-cisco-9336c-shared-switch-not-connecting.png["Zeigt den Cisco 9336C-FX2-Switch an, der keine NS224-Port-Zuordnungen der Speicherplattform verbindet"]
 
+[[table_8_cisco_9336c_fx2]]
 .Cisco 9336C-FX2-Switch verbindet NS224-Speicherplattform-Port-Zuweisungen nicht (Gruppe 8)
 Plattform-Port-Zuweisungen prüfen, um ein FAS500f-, AFF C250-, ASA C250-, AFF A250- oder ASA A250-System zu verkabeln, bei dem keine Switch-Attached NSS24-Shelfs mit einem Cisco 9336C-FX2-Switch verbunden sind:
 
 image::../media/mcc-ip-cabling-c250-asa-c250-a250-asa-a250-to-cisco-9336c-shared-switch.png[Zeigt den Cisco 9336C-FX2-Switch an, der keine NS224-Port-Zuordnungen der Speicherplattform verbindet]
 
+[[table_9a_cisco_9336c_fx2]]
 .Cisco 9336C-FX2-Switch verbindet NS224-Speicherplattform-Port-Zuweisungen nicht (Gruppe 9a)
 Prüfen Sie die Zuordnungen der Plattform-Ports, um ein AFF A30-, AFF C30-, AFF C60- oder FAS50-System zu verkabeln, bei dem keine Switch-Attached NSS24-Shelfs über eine 25-Gbit-Ethernet-Karte mit vier Ports an einen Cisco 9336C-FX2-Switch angeschlossen sind.
 
@@ -192,6 +207,7 @@ NOTE: Diese Konfiguration erfordert eine 25-Gbit-Ethernet-Karte mit vier Ports i
 
 image:../media/mccip-cabling-greeley-not-connecting-a30-c30-fas50-c60-25G.png["Zeigt den Cisco 9336C-FX2-Switch an, der keine NS224-Port-Zuordnungen der Speicherplattform verbindet"]
 
+[[table_9b_cisco_9336c_fx2]]
 .Cisco 9336C-FX2-Switch verbindet NS224-Speicherplattform-Port-Zuweisungen nicht (Gruppe 9b)
 Prüfen Sie die Zuweisung der Plattform-Ports, um ein AFF A30-, AFF C30-, AFF C60- oder FAS50-System zu verkabeln, bei dem keine Switch-Attached NSS24-Shelfs über eine 100-GB-Ethernet-Karte mit zwei Ports an einen Cisco 9336C-FX2-Switch angeschlossen sind.
 
@@ -200,21 +216,25 @@ NOTE: Für diese Konfiguration ist eine 100-GB-Ethernet-Karte mit zwei Ports in 
 
 image:../media/mccip-cabling-greeley-not-connecting-a30-c30-fas50-c60-100G.png["Zeigt den Cisco 9336C-FX2-Switch an, der die Port-Zuordnungen der NS224-Speicherplattform verbindet"]
 
+[[table_10_cisco_9336c_fx2]]
 .Cisco 9336C-FX2-Switch verbindet NS224-Speicherplattform-Port-Zuweisungen nicht (Gruppe 10)
 Plattform-Port-Zuordnungen prüfen, um ein FAS8200- oder AFF A300-System zu verkabeln, bei dem keine Switch-Attached NSS24-Shelfs mit einem Cisco 9336C-FX2-Switch verbunden sind:
 
 image::../media/mcc-ip-cabling-fas8200-affa300-to-cisco-9336c-shared-switch.png[Zeigt den Cisco 9336C-FX2-Switch an, der die Port-Zuordnungen der NS224-Speicherplattform verbindet]
 
+[[table_11_cisco_9336c_fx2]]
 .Cisco 9336C-FX2-Switch verbindet NS224-Speicherplattform-Port-Zuweisungen nicht (Gruppe 11)
 Plattform-Port-Zuweisungen prüfen, um ein AFF A320-, FAS8300-, AFF C400-, ASA C400-, FAS8700-, AFF A400- oder ASA A400-System zu verkabeln, bei dem keine Switch-Attached NSS24-Shelfs mit einem Cisco 9336C-FX2-Switch verbunden sind:
 
 image::../media/mcc_ip_cabling_a320_fas8300_a400_fas8700_to_a_cisco_9336c_shared_switch.png[Zeigt den Cisco 9336C-FX2-Switch an, der keine NS224-Port-Zuordnungen der Speicherplattform verbindet]
 
+[[table_12_cisco_9336c_fx2]]
 .Cisco 9336C-FX2-Switch verbindet NS224-Speicherplattform-Port-Zuweisungen nicht (Gruppe 12)
 Prüfen Sie die Zuweisungen der Plattform-Ports, um ein AFF A50-System zu verkabeln, bei dem keine Switch-Attached NSS24-Shelfs mit einem Cisco 9336C-FX2-Switch verbunden sind.
 
 image::../media/mcc-ip-cabling-aff-a50-cisco-9336c-shared-switch-not-connecting.png[Zeigt den Cisco 9336C-FX2-Switch an, der keine NS224-Port-Zuordnungen der Speicherplattform verbindet]
 
+[[table_13_cisco_9336c_fx2]]
 .Cisco 9336C-FX2-Switch verbindet NS224-Speicherplattform-Port-Zuweisungen nicht (Gruppe 13)
 Plattform-Port-Zuordnungen prüfen, um ein FAS9000, AFF A700, AFF C800, ASA C800, AFF A800, ASA A800, FAS9500, AFF A900 oder ASA A900 System zu verkabeln, bei dem keine Switch-Attached NSS24-Shelfs mit einem Cisco 9336C-FX2 Switch verbunden sind:
 
@@ -222,6 +242,7 @@ image::../media/mcc_ip_cabling_a700_a800_fas9000_fas9500_to_cisco_9336c_shared_s
 
 *Hinweis 1*: Verwenden Sie entweder die Ports e4a und e4e oder e4a und e8a, wenn Sie einen X91440A Adapter (40Gbps) verwenden. Verwenden Sie entweder die Ports e4a und e4b oder e4a und e8a, wenn Sie einen X91153A-Adapter (100 Gbit/s) verwenden.
 
+[[table_14_cisco_9336c_fx2]]
 .Cisco 9336C-FX2-Switch verbindet NS224-Speicherplattform-Port-Zuweisungen nicht (Gruppe 14)
 Prüfen Sie die Plattform-Port-Zuweisungen, um ein AFF A70-, FAS70-, AFF C80-, FAS90-, AFF A90- oder AFF A1K-System zu verkabeln, bei dem keine Switch-Attached NSS24-Shelfs mit einem Cisco 9336C-FX2 Switch verbunden sind:
 

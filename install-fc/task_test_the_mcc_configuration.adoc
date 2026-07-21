@@ -15,6 +15,7 @@ Sie können Fehlerszenarien testen, um den korrekten Betrieb der MetroCluster-Ko
 
 
 
+[[verifying-negotiated-switchover]]
 == Überprüfung der ausgehandelten Umschaltung
 
 Sie können die ausgehandelte (geplante) Umschaltung testen, um die unterbrechungsfreie Datenverfügbarkeit zu bestätigen.
@@ -112,6 +113,7 @@ cluster_A::> metrocluster operation show
 
 
 
+[[verifying-healing-and-manual-switchback]]
 == Überprüfung der Heilung und manueller Umkehrschalter
 
 Sie können die Healing- und manuellen Switchback-Vorgänge testen, um zu überprüfen, ob die Datenverfügbarkeit nicht beeinträchtigt ist (außer bei SMB- und Solaris-FC-Konfigurationen), indem Sie nach einer ausgehandelten Umschaltung das Cluster wieder zum ursprünglichen Datacenter wechseln.
@@ -241,6 +243,7 @@ cluster_A::> metrocluster operation show
 
 
 
+[[loss-of-a-single-fc-to-sas-bridge]]
 == Ausfall einer einzelnen FC-to-SAS-Bridge
 
 Sie können den Ausfall einer einzelnen FC-to-SAS-Bridge testen, um sicherzustellen, dass es keinen Single Point of Failure gibt.
@@ -296,6 +299,7 @@ Disk             Error Type        Error Text
 
 
 
+[[verifying-operation-after-power-line-disruption]]
 == Überprüfung des Betriebs nach Stromunterbrechung
 
 Sie können die Antwort der MetroCluster-Konfiguration auf den Ausfall einer PDU testen.
@@ -357,6 +361,7 @@ Power               Critical condition is detected in storage shelf power supply
 
 
 
+[[verifying-operation-after-a-switch-fabric-failure]]
 == Überprüfung des Betriebs nach einem Switch Fabric-Ausfall
 
 Sie können eine Switch-Fabric deaktivieren, um zu zeigen, dass die Datenverfügbarkeit nicht durch den Verlust beeinträchtigt wird.
@@ -434,6 +439,7 @@ FC_switch_B_1::> switchenable
 
 
 
+[[verifying-operation-after-loss-of-a-single-storage-shelf]]
 == Überprüfung des Betriebs nach Ausfall eines einzelnen Storage Shelfs
 
 Sie können den Ausfall eines einzelnen Storage Shelf testen, um sicherzustellen, dass es keinen Single Point of Failure gibt.

@@ -16,6 +16,7 @@ ONTAP Mediator stellt Postfach-LUNs zur Speicherung von Statusinformationen zu d
 
 NOTE: MAUSO wird in MetroCluster FC-Konfigurationen nicht unterstützt.
 
+[[default_scenarios]]
 Wenn ein Node einen Standortausfall erkennt, der ein Switchover erfordert, so wird nur schrittweise bestätigt, dass die Umschaltung angemessen ist und falls ja, auch die Umschaltung durchgeführt wird. Standardmäßig wird ein MAUSO für die folgenden Szenarien initiiert:
 
 * Zum Zeitpunkt des Ausfalls werden sowohl SyncMirror-Spiegelung als auch DR-Spiegelung des nichtflüchtigen Cache jedes Node ausgeführt. Die Caches und Spiegelungen werden synchronisiert.

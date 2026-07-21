@@ -81,6 +81,7 @@ link:task_recover_from_a_multi_controller_and_or_storage_failure.html["Wiederher
 |===
 
 
+[[controller-module-failure-scenarios-during-metrocluster-installation]]
 == Ausfallszenarien für Controller-Module während der MetroCluster-Installation
 
 Die Reaktion auf einen Ausfall eines Controller-Moduls während des MetroCluster-Konfigurationsverfahrens hängt davon ab, ob der `metrocluster configure` Befehl erfolgreich abgeschlossen.
@@ -95,6 +96,7 @@ NOTE: Führen Sie die Schritte in aus link:https://docs.netapp.com/us-en/ontap-m
 
 
 
+[[controller-module-failure-scenarios-during-metrocluster-fc-to-ip-transition]]
 == Ausfallszenarien für Controller-Module bei der Umstellung von MetroCluster FC zu IP
 
 Das Recovery-Verfahren kann angewendet werden, wenn während der Umstellung ein Standortausfall auftritt. Sie kann jedoch nur verwendet werden, wenn die Konfiguration eine stabile gemischte Konfiguration ist, bei der FC DR-Gruppe und der IP DR-Gruppe beide vollständig konfiguriert sind. Die Ausgabe des `metrocluster node show` Der Befehl sollte beide DR-Gruppen mit allen acht Nodes anzeigen.
@@ -104,6 +106,7 @@ IMPORTANT: Wenn während der Transition der Fehler aufgetreten ist, während die
 
 
 
+[[controller-module-failure-scenarios-in-eight-node-metrocluster-configurations]]
 == Szenarien für Controller-Module in MetroCluster Konfigurationen mit acht Nodes
 
 Ausfallszenarien:
@@ -116,6 +119,7 @@ Ausfallszenarien:
 
 
 
+[[single-controller-module-failures-in-a-single-dr-group]]
 === Ausfall eines einzelnen Controller-Moduls in einer einzelnen DR-Gruppe
 
 In diesem Fall ist der Fehler auf ein HA-Paar beschränkt.
@@ -138,6 +142,7 @@ image::../media/mcc_dr_groups_8_node_with_a_single_controller_failure.gif[MetroC
 
 
 
+[[two-controller-module-failures-in-a-single-dr-group]]
 === Zwei Controller-Modulfehler in einer einzelnen DR-Gruppe
 
 In diesem Fall erfordert der Ausfall eine Umschaltung. Sie können das Wiederherstellungsverfahren für Fehler mit mehreren Controllern verwenden.
@@ -150,6 +155,7 @@ image::../media/mcc_dr_groups_8_node_with_a_multi_controller_failure.gif[MetroCl
 
 
 
+[[single-controller-module-failures-in-separate-dr-groups]]
 === Ausfall eines einzelnen Controller-Moduls in separaten DR-Gruppen
 
 In diesem Fall ist der Fehler auf separate HA-Paare beschränkt.
@@ -171,6 +177,7 @@ image::../media/mcc_dr_groups_8_node_with_two_single_controller_failures.gif[Met
 
 
 
+[[three-controller-module-failures-spread-across-the-dr-groups]]
 === Drei Controller-Ausfälle verteilen sich auf die DR-Gruppen
 
 In diesem Fall erfordert der Ausfall eine Umschaltung. Sie können das Wiederherstellungsverfahren für die Wiederherstellung von Multicontrollermodulen für DR-Gruppe 1 verwenden.
@@ -185,6 +192,7 @@ image::../media/mcc_dr_groups_8_node_with_a_3_controller_failure.gif[MetroCluste
 
 
 
+[[controller-module-failure-scenarios-in-two-node-metrocluster-configurations]]
 == Szenarien für Fehler im Controller-Modul in MetroCluster-Konfigurationen mit zwei Nodes
 
 Das Verfahren, das Sie verwenden, hängt vom Umfang des Fehlers ab.

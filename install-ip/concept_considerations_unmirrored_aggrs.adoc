@@ -15,12 +15,14 @@ Wenn Ihre Konfiguration nicht gespiegelte Aggregate umfasst, müssen potenzielle
 
 
 
+[[unmirrored-aggregates-and-hierarchical-namespaces]]
 == Ungespiegelte Aggregate und hierarchische Namespaces
 
 Wenn Sie hierarchische Namespaces verwenden, sollten Sie den Verbindungspfad so konfigurieren, dass alle Volumes in diesem Pfad sich entweder nur auf gespiegelten Aggregaten oder nur auf nicht gespiegelten Aggregaten befinden. Wenn Sie eine Kombination aus nicht gespiegelten und gespiegelten Aggregaten im Verbindungspfad konfigurieren, ist möglicherweise nach der Umschaltung der Zugriff auf nicht gespiegelte Aggregate verhindert.
 
 
 
+[[unmirrored-aggregates-and-maintenance-that-requires-power-shutdown]]
 == Ungespiegelte Aggregate und Wartung, die eine Stromabschaltung erfordert
 
 Wenn Sie zu Wartungszwecken eine vereinbarte Umschaltung durchführen, die eine standortweite Stromabschaltung erfordert, sollten Sie zunächst alle nicht gespiegelten Aggregate im Besitz des Notfallstandorts manuell offline schalten.
@@ -29,24 +31,28 @@ Wenn Sie die nicht gespiegelten Aggregate des Notfallstandorts nicht offline sch
 
 
 
+[[unmirrored-aggregates-crs-metadata-volumes-and-data-svm-root-volumes]]
 == Ungespiegelte Aggregate, CRS-Metadatenvolumes und Daten-SVM-Root-Volumes
 
 Der Configuration Replication Service (CRS) Metadaten-Volume und Daten-SVM-Root-Volumes müssen sich in einem gespiegelten Aggregat befinden. Sie können diese Volumes nicht in ein nicht gespiegeltes Aggregat verschieben. Wenn sie sich auf einem nicht gespiegelten Aggregat befinden, werden ausgehandelte Switchover- und Switchback-Operationen blockiert und die  `metrocluster check` Befehl gibt eine Warnung zurück.
 
 
 
+[[unmirrored-aggregates-and-svms]]
 == Ungespiegelte Aggregate und SVMs
 
 Sie sollten SVMs nur auf gespiegelten oder nicht gespiegelten Aggregaten konfigurieren. Die Konfiguration von SVMs auf einer Mischung aus nicht gespiegelten und gespiegelten Aggregaten kann zu einem Umschaltvorgang führen, der länger als 120 Sekunden dauert. Dies kann zu einem Datenausfall führen, wenn die nicht gespiegelten Aggregate nicht online gehen.
 
 
 
+[[unmirrored-aggregates-and-san]]
 == Ungespiegelte Aggregate und SAN
 
 Vor ONTAP 9.9.1 sollte sich eine LUN nicht auf einem nicht gespiegelten Aggregat befinden. Das Konfigurieren einer LUN auf einem nicht gespiegelten Aggregat kann zu einem Switchover von mehr als 120 Sekunden bei einem Ausfall der Daten führen.
 
 
 
+[[add-storage-shelves-for-unmirrored-aggregates]]
 == Lagerregale für ungespiegelte Aggregate hinzufügen
 
 Wenn Sie Regale hinzufügen und diese für nicht gespiegelte Aggregate in einer MetroCluster -IP-Konfiguration verwenden möchten, müssen Sie Folgendes tun:

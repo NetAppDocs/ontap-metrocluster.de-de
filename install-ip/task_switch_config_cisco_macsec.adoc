@@ -22,12 +22,14 @@ Bei Bedarf können Sie die MACsec-Verschlüsselung auf den WAN-ISL-Ports konfigu
 ====
 
 
+[[licensing-requirements-for-macsec]]
 == Lizenzierungsanforderungen für MACsec
 
 MACsec erfordert eine Sicherheitslizenz. Eine vollständige Erläuterung des Cisco NX-OS-Lizenzschemas und der Beschaffung und Anwendung von Lizenzen finden Sie im https://www.cisco.com/c/en/us/td/docs/switches/datacenter/sw/nx-os/licensing/guide/b_Cisco_NX-OS_Licensing_Guide/b_Cisco_NX-OS_Licensing_Guide_chapter_01.html["Cisco NX-OS Licensing Guide"^]
 
 
 
+[[enable-cisco-macsec-encryption-wan-isls-in-metrocluster-ip-configurations]]
 == Aktivierung von Cisco MACs Encryption WAN-ISLs in MetroCluster IP-Konfigurationen
 
 Sie können die MACsec-Verschlüsselung für Cisco 9336C-Switches auf WAN-ISLs in einer MetroCluster IP-Konfiguration aktivieren.
@@ -65,6 +67,7 @@ IP_switch_A_1(config)# copy running-config startup-config
 
 
 
+[[configure-a-macsec-key-chain-and-keys]]
 == Konfigurieren Sie eine MACsec-Schlüsselkette und -Tasten
 
 Sie können eine MACsec-Schlüsselkette oder Schlüssel für Ihre Konfiguration erstellen.
@@ -168,6 +171,7 @@ IP_switch_A_1(config-macseckeychain-macseckey)# show key chain 1
 
 
 
+[[configure-a-macsec-policy]]
 == Konfigurieren einer MACsec-Richtlinie
 
 .Schritte
@@ -292,6 +296,7 @@ IP_switch_A_1(config-macsec-policy)# show macsec policy
 
 
 
+[[enable-cisco-macsec-encryption-on-the-interfaces]]
 == Aktivieren Sie die Verschlüsselung von Cisco MACsec an den Schnittstellen
 
 . Globalen Konfigurationsmodus aufrufen:
@@ -337,6 +342,7 @@ IP_switch_A_1(config)# copy running-config startup-config
 
 
 
+[[disable-cisco-macsec-encryption-wan-isls-in-metrocluster-ip-configurations]]
 == Deaktivieren Sie Cisco MACs Verschlüsselungs-WAN-ISLs in MetroCluster IP-Konfigurationen
 
 Möglicherweise müssen Sie die MACsec-Verschlüsselung für Cisco 9336C-Switches auf WAN-ISLs in einer MetroCluster IP-Konfiguration deaktivieren.
@@ -398,6 +404,7 @@ IP_switch_A_1(config)# copy running-config startup-config
 
 
 
+[[verifying-the-macsec-configuration]]
 == Überprüfen der MACsec-Konfiguration
 
 .Schritte

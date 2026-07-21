@@ -15,6 +15,7 @@ Führen Sie die erforderlichen Aufgaben aus, um die Wiederherstellung nach einem
 
 
 
+[[reestablishing-object-stores-for-fabricpool-configurations]]
 == Wiederherstellung von Objektspeichern für FabricPool-Konfigurationen
 
 Wenn einer der Objektspeicher in einer FabricPool Spiegelung sich gemeinsam mit dem Disaster-Standort MetroCluster befand und zerstört wurde, müssen Sie den Objektspeicher und die FabricPool Spiegelung wiederherstellen.
@@ -30,6 +31,7 @@ Wenn einer der Objektspeicher in einer FabricPool Spiegelung sich gemeinsam mit 
 
 
 
+[[verifying-licenses-on-the-replaced-nodes]]
 == Überprüfung der Lizenzen auf den ersetzten Nodes
 
 Sie müssen neue Lizenzen für die Ersatzknoten installieren, wenn die beeinträchtigten Knoten ONTAP-Funktionen verwenden, die eine Standard-Lizenz (Node-locked) erfordern. Bei Standardlizenzen sollte jeder Node im Cluster über seinen eigenen Schlüssel für die Funktion verfügen.
@@ -116,6 +118,7 @@ NOTE: Die neuen Lizenzschlüssel, die Sie benötigen, werden automatisch generie
 
 
 
+[[restoring-key-management]]
 == Wiederherstellung von Verschlüsselungsmanagement
 
 Sind die Daten-Volumes verschlüsselt, müssen Sie das Verschlüsselungsmanagement wiederherstellen. Ist das Root-Volume verschlüsselt, müssen Sie das Verschlüsselungsmanagement wiederherstellen.
@@ -152,6 +155,7 @@ Weitere Informationen finden Sie unter https://docs.netapp.com/ontap-9/topic/com
 
 
 
+[[performing-a-switchback]]
 == Zurückwechseln
 
 Nachdem Sie die MetroCluster-Konfiguration repariert haben, können Sie den MetroCluster-Switchback-Vorgang ausführen. Der MetroCluster Switchback-Vorgang gibt die Konfiguration wieder in den normalen Betriebsstatus zurück, wobei die Virtual Machines (SVMs) am Disaster-Standort aktiv sind und die Daten aus den lokalen Festplattenpools bereitstellen.
@@ -249,6 +253,7 @@ In ONTAP 8.3 müssen Sie nach dem Wechsel zum MetroCluster eine verlorene SnapMi
 
 
 
+[[verifying-a-successful-switchback]]
 == Überprüfen eines erfolgreichen Umschalttasches
 
 Nach dem Wechsel zurück möchten Sie sicherstellen, dass alle Aggregate und Storage Virtual Machines (SVMs) zurück und wieder online geschaltet werden.
@@ -344,6 +349,7 @@ Sie müssen die vorherigen Abschnitte wiederholen, um den Umschalter in die entg
 
 
 
+[[mirroring-the-root-aggregates-of-the-replacement-nodes]]
 == Spiegelung der Root-Aggregate der Ersatz-Nodes
 
 Falls Festplatten ausgetauscht wurden, müssen die Root-Aggregate der neuen Nodes am Disaster Site gespiegelt werden.
@@ -448,6 +454,7 @@ Jedes Root-Aggregat, das keinen Status der Spiegelung hat, muss gespiegelt werde
 
 
 
+[[reconfiguring-ontap-mediator-metrocluster-ip-configurations]]
 == Neukonfiguration des ONTAP-Mediators (MetroCluster-IP-Konfigurationen)
 
 Wenn Sie eine MetroCluster-IP-Konfiguration haben, die mit ONTAP Mediator konfiguriert wurde, müssen Sie die Zuordnung mit ONTAP Mediator entfernen und neu konfigurieren.
@@ -470,6 +477,7 @@ Wenn Sie eine MetroCluster-IP-Konfiguration haben, die mit ONTAP Mediator konfig
 
 
 
+[[verifying-the-health-of-the-metrocluster-configuration]]
 == Überprüfen des Systemzustands der MetroCluster-Konfiguration
 
 Sie sollten den Systemzustand der MetroCluster-Konfiguration überprüfen, um einen ordnungsgemäßen Betrieb zu gewährleisten.

@@ -15,6 +15,7 @@ Bevor Sie mit dem Umstieg beginnen, müssen Sie sicherstellen, dass die Konfigur
 
 
 
+[[enable-console-logging]]
 == Aktivieren Sie die Konsolenprotokollierung
 
 NetApp empfiehlt dringend, die Konsolenprotokollierung auf den von Ihnen verwendeten Geräten zu aktivieren und folgende Aktionen durchzuführen:
@@ -29,6 +30,7 @@ Siehe Knowledge Base-Artikel link:https://kb.netapp.com/Support_Bulletins/Custom
 
 
 
+[[general-requirements-for-disruptive-fc-to-ip-transition]]
 == Allgemeine Anforderungen für die disruptive FC-to-IP Umstellung
 
 Die vorhandene MetroCluster FC-Konfiguration muss die folgenden Anforderungen erfüllen:
@@ -52,12 +54,14 @@ Sie müssen über Remote-Konsolenzugriff für alle sechs Nodes von einem MetroCl
 
 
 
+[[drive-shelf-reuse-and-drive-requirements-for-disruptive-fc-to-ip-transition]]
 == Wiederverwendung von Festplatten-Shelfs und Festplattenanforderungen für einen unterbrechungsfreien Wechsel von FC zu IP
 
 Es muss sichergestellt werden, dass auf den Storage-Shelves ausreichend freie Laufwerke und Root-Aggregatspeicherplatz zur Verfügung stehen.
 
 
 
+[[reusing-the-existing-storage-shelves]]
 === Wiederverwendung der vorhandenen Storage Shelfs
 
 Bei Verwendung dieses Verfahrens werden die vorhandenen Storage-Shelfs zur Verwendung durch die neue Konfiguration beibehalten. Wenn Node_A_1-FC und Node_B_1-FC entfernt werden, werden die vorhandenen Laufwerk-Shelfs auf Cluster_A_1-IP und Node_A_2-IP auf Cluster_A sowie Node_B_1-IP und Node_B_2-IP auf Cluster_B verbunden
@@ -74,6 +78,7 @@ https://hwu.netapp.com["NetApp Hardware Universe"^]
 
 
 
+[[storage-requirements-for-the-additional-controllers]]
 === Storage-Anforderungen für die zusätzlichen Controller
 
 Falls erforderlich muss zusätzlicher Storage hinzugefügt werden, um die beiden zusätzlichen Controller unterzubringen (Node_A_2-IP und Node_B_2-ip), da die Konfiguration von einer Anordnung mit zwei Nodes auf vier Nodes geändert wird.
@@ -106,6 +111,7 @@ https://hwu.netapp.com["NetApp Hardware Universe"^]
 
 
 
+[[workflow-for-disruptive-transition]]
 == Workflow für Unterbrechungen
 
 Um eine erfolgreiche Umstellung sicherzustellen, müssen Sie den spezifischen Workflow einhalten.
@@ -116,6 +122,7 @@ image::../media/workflow_2n_transition_bsaic.png[Workflow für den Zwei-Knoten-�
 
 
 
+[[mapping-ports-from-the-metrocluster-fc-nodes-to-the-metrocluster-ip-nodes]]
 == Zuordnen von Ports von den MetroCluster FC-Nodes zu den MetroCluster IP-Nodes
 
 Sie müssen die Port- und LIF-Konfiguration des MetroCluster FC-Node anpassen, damit er mit dem MetroCluster IP-Node kompatibel ist, der den Node ersetzt.
@@ -566,6 +573,7 @@ Intercluster-Port
 
 
 
+[[preparing-the-metrocluster-ip-controllers]]
 == Vorbereiten der MetroCluster IP-Controller
 
 Sie müssen die vier neuen MetroCluster IP-Knoten vorbereiten und die korrekte ONTAP-Version installieren.
@@ -687,6 +695,7 @@ Nach Abschluss von „`9a`“ kehren die Nodes automatisch zum Startmenü zurüc
 
 
 
+[[verifying-the-health-of-the-metrocluster-fc-configuration]]
 == Überprüfen des Systemzustands der MetroCluster FC-Konfiguration
 
 Sie müssen vor der Umstellung den Zustand und die Konnektivität der MetroCluster FC-Konfiguration überprüfen
@@ -734,6 +743,7 @@ https://mysupport.netapp.com/site/tools/tool-eula/activeiq-configadvisor["NetApp
 
 
 
+[[removing-the-existing-configuration-from-the-tiebreaker-or-other-monitoring-software]]
 == Entfernen der vorhandenen Konfiguration über den Tiebreaker oder eine andere Monitoring-Software
 
 Wenn die vorhandene Konfiguration mit der MetroCluster Tiebreaker Konfiguration oder anderen Applikationen anderer Anbieter (z. B. ClusterLion) überwacht wird, die eine Umschaltung initiieren können, müssen Sie die MetroCluster Konfiguration vor dem Umstieg aus dem Tiebreaker oder einer anderen Software entfernen.

@@ -21,6 +21,7 @@ Nachdem die Systeme am Disaster-Standort Wartungsarbeiten oder Ersatz durchgefü
 
 
 
+[[enable-console-logging]]
 == Aktivieren Sie die Konsolenprotokollierung
 
 NetApp empfiehlt dringend, die Konsolenprotokollierung auf den von Ihnen verwendeten Geräten zu aktivieren und folgende Aktionen durchzuführen:
@@ -35,6 +36,7 @@ Siehe Knowledge Base-Artikel link:https://kb.netapp.com/Support_Bulletins/Custom
 
 
 
+[[healing-the-configuration-in-a-metrocluster-configuration]]
 == Reparatur der Konfiguration in einer MetroCluster-Konfiguration
 
 In MetroCluster FC-Konfigurationen führen Sie die Heilungsvorgänge in einer bestimmten Reihenfolge aus, um die MetroCluster-Funktion nach einer Umschaltung wiederherzustellen.
@@ -57,6 +59,7 @@ Die Reparatur muss zunächst auf den Datenaggregaten und anschließend auf den R
 
 
 
+[[healing-the-data-aggregates]]
 === Reparieren der Datenaggregate
 
 Die Datenaggregate müssen nach der Reparatur und dem Austausch beliebiger Hardware am Disaster-Standort repariert und ausgetauscht werden. In diesem Prozess werden die Datenaggregate neu synchronisiert und der (jetzt reparierte) Disaster-Standort wird auf den normalen Betrieb vorbereitet. Die Datenaggregate müssen vor dem Healing der Root-Aggregate repariert werden.
@@ -124,6 +127,7 @@ aggr_b2   227.1GB  227.1GB   0%    online  0      mcc1-a2      raid_dp, mirrored
 
 
 
+[[healing-the-root-aggregates-after-a-disaster]]
 === Reparatur der Root-Aggregate nach einem Ausfall
 
 Nachdem die Datenaggregate geheilt wurden, müssen Sie die Root-Aggregate heilen, um den Switchback-Betrieb zu ermöglichen.
@@ -164,6 +168,7 @@ mcc1A::> metrocluster operation show
 
 
 
+[[verifying-that-your-system-is-ready-for-a-switchback]]
 == Überprüfen, ob das System für einen Wechsel bereit ist
 
 Wenn sich Ihr System bereits im Umschaltzustand befindet, können Sie das verwenden `-simulate` Option, um eine Vorschau der Ergebnisse eines zurückkehrenden Vorgangs anzuzeigen.
@@ -241,6 +246,7 @@ Die Ausgabe zeigt an, ob der Switchback-Betrieb zu Fehlern führen würde.
 
 
 
+[[example-of-verification-results]]
 === Beispiel für Überprüfungsergebnisse
 
 Das folgende Beispiel zeigt die erfolgreiche Überprüfung eines Switchback-Vorgangs:
@@ -272,6 +278,7 @@ Job ID Name                 Vserver    Node           State
 ----
 
 
+[[performing-a-switchback]]
 == Zurückwechseln
 
 Nachdem Sie die MetroCluster-Konfiguration repariert haben, können Sie den MetroCluster-Switchback-Vorgang ausführen. Der MetroCluster Switchback-Vorgang gibt die Konfiguration wieder in den normalen Betriebsstatus zurück, wobei die Virtual Machines (SVMs) am Disaster-Standort aktiv sind und die Daten aus den lokalen Festplattenpools bereitstellen.
@@ -372,6 +379,7 @@ In ONTAP 8.3 müssen Sie nach dem Wechsel zum MetroCluster eine verlorene SnapMi
 
 
 
+[[verifying-a-successful-switchback]]
 == Überprüfen eines erfolgreichen Umschalttasches
 
 Nach dem Wechsel zurück möchten Sie sicherstellen, dass alle Aggregate und Storage Virtual Machines (SVMs) zurück und wieder online geschaltet werden.
@@ -469,6 +477,7 @@ Sie müssen die vorherigen Abschnitte wiederholen, um den Umschalter in die entg
 
 
 
+[[deleting-stale-aggregate-listings-after-switchback]]
 == Löschen von veralteten Aggregat-Auflistungen nach dem Wechsel zurück
 
 Unter Umständen nach dem Wechsel zurück können Sie feststellen, dass _veraltete_ Aggregate vorhanden sind. Veraltete Aggregate sind Aggregate, die aus ONTAP entfernt wurden, deren Informationen jedoch auf der Festplatte gespeichert bleiben. Veraltete Aggregate werden mit dem angezeigt `nodeshell aggr status -r` Befehl, aber nicht mit dem `storage aggregate show` Befehl. Sie können diese Datensätze so löschen, dass sie nicht mehr angezeigt werden.

@@ -18,6 +18,7 @@ NOTE: Wenn Ihre Upgrade-Kombination betroffen ist, ist für ein erfolgreiches Up
 
 
 
+[[step-1-determine-whether-you-need-to-set-a-bootarg-on-the-old-controllers]]
 == Schritt 1: Bestimmen Sie, ob Sie auf den alten Controllern ein Bootarg festlegen müssen
 
 Bevor Sie mit dem Upgrade beginnen, bestimmen Sie anhand der folgenden Informationen, ob Sie auf den alten Controllern ein bootarg festlegen müssen:
@@ -45,12 +46,14 @@ CAUTION: Wenn Sie für Ihr Upgrade keine Boot-Argumente festlegen müssen, könn
 
 
 
+[[step-2-determine-the-bootarg-you-need-to-set-on-the-old-controllers]]
 == Schritt 2: Bestimmen Sie das Bootarg, das Sie auf den alten Controllern einstellen müssen
 
 Bei den meisten betroffenen Upgrades müssen Sie Folgendes einstellen: `hw.cxgbe.toe_keepalive_disable` Bootarg auf den alten Controllern.  Für bestimmte Upgrade-Pfade müssen Sie jedoch die `bootarg.siw.interop_enabled` bootarg stattdessen.
 
 Verwenden Sie die folgende Tabelle, um zu bestimmen, welche Bootarg Sie für Ihre spezifische Upgrade-Kombination einstellen müssen.
 
+[[upgrade_paths_bootarg_assisted]]
 [cols="2*"]
 |===
 | Für dieses Upgrade... | Bootarg festlegen... 
@@ -76,6 +79,7 @@ Alle anderen Upgrades für AFF A70, AFF A90, AFF A1K, FAS70-, FAS90-, AFF C80-, 
 |===
 
 
+[[step-3-set-the-required-bootarg-on-the-old-controllers]]
 == Schritt 3: Stellen Sie das erforderliche Bootarg auf den alten Controllern ein
 
 Nachdem Sie das für Ihre Upgrade-Kombination erforderliche bootarg ermittelt haben, befolgen Sie die Schritte, um das bootarg auf den alten Controllern festzulegen.

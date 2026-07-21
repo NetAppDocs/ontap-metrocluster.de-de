@@ -15,6 +15,7 @@ Wenn Sie Ihre MetroCluster Konfiguration planen, sollten Sie sich mit den Hardwa
 
 
 
+[[disaster-recovery-dr-groups]]
 == Disaster-Recovery-Gruppen (DR)
 
 Eine Fabric MetroCluster Konfiguration besteht aus einer oder zwei DR-Gruppen, abhängig von der Anzahl der Nodes in der MetroCluster Konfiguration. Jede DR-Gruppe besteht aus vier Nodes.
@@ -33,6 +34,7 @@ image::../media/mcc_dr_groups_4_node.gif[MetroCluster DR gruppiert vier Knoten]
 
 
 
+[[key-hardware-elements]]
 == Wichtige Hardwarekomponenten
 
 Eine MetroCluster Konfiguration umfasst die folgenden wichtigen Hardware-Elemente:
@@ -57,6 +59,7 @@ Das Cluster-Peering-Netzwerk bietet Konnektivität zur Spiegelung der Cluster-Ko
 
 
 
+[[eight-node-fabric-metrocluster-configuration]]
 == Fabric MetroCluster Konfiguration mit acht Nodes
 
 Eine Konfiguration mit acht Nodes besteht aus zwei Clustern, eines an jedem geografisch getrennten Standort. „Cluster_A“ befindet sich am ersten MetroCluster-Standort. „Cluster_B“ befindet sich am zweiten MetroCluster-Standort. Jeder Standort verfügt über ein SAS-Storage-Stack. Zusätzliche Storage-Stacks werden unterstützt, aber nur einer wird an jedem Standort angezeigt. Die HA-Paare sind als Cluster ohne Switch konfiguriert, ohne Cluster Interconnect Switches. Eine geschaltete Konfiguration wird unterstützt, wird aber nicht angezeigt.
@@ -79,6 +82,7 @@ Die SVM-Konfiguration wird über das Cluster-Peering-Netzwerk repliziert.
 
 
 
+[[four-node-fabric-metrocluster-configuration]]
 == Fabric MetroCluster Konfiguration mit vier Nodes
 
 Die folgende Abbildung zeigt eine vereinfachte Ansicht einer Fabric MetroCluster Konfiguration mit vier Nodes. Bei einigen Verbindungen stellt eine einzelne Leitung mehrere redundante Verbindungen zwischen den Komponenten dar. Verbindungen zu Daten und Management-Netzwerken werden nicht angezeigt.
@@ -91,6 +95,7 @@ image::../media/mcc_hardware_architecture_cluster_a_with_7500n.gif[MetroCluster 
 
 
 
+[[two-node-fabric-metrocluster-configuration]]
 == Fabric MetroCluster Konfiguration mit zwei Nodes
 
 Die folgende Abbildung zeigt eine vereinfachte Ansicht einer Fabric MetroCluster Konfiguration mit zwei Nodes. Bei einigen Verbindungen stellt eine einzelne Leitung mehrere redundante Verbindungen zwischen den Komponenten dar. Verbindungen zu Daten und Management-Netzwerken werden nicht angezeigt.

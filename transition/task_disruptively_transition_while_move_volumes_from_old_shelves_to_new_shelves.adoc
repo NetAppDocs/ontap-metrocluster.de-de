@@ -26,6 +26,7 @@ Wenn Sie über eine MetroCluster-FC-Konfiguration mit vier Nodes verfügen, find
 
 
 
+[[enable-console-logging]]
 == Aktivieren Sie die Konsolenprotokollierung
 
 NetApp empfiehlt dringend, die Konsolenprotokollierung auf den von Ihnen verwendeten Geräten zu aktivieren und folgende Aktionen durchzuführen:
@@ -40,6 +41,7 @@ Siehe Knowledge Base-Artikel link:https://kb.netapp.com/Support_Bulletins/Custom
 
 
 
+[[requirements-for-transition-when-retiring-old-shelves]]
 == Anforderungen für den Umstieg beim Ausmustern alter Shelfs
 
 Bevor Sie mit dem Umstieg beginnen, müssen Sie sicherstellen, dass die vorhandene MetroCluster FC-Konfiguration die Anforderungen erfüllt.
@@ -88,6 +90,7 @@ Sie müssen über Remote-Konsolenzugriff für alle sechs Nodes von einem MetroCl
 
 
 
+[[workflow-for-disruptive-transition-when-moving-data-and-retiring-old-storage-shelves]]
 == Workflow für Unterbrechungen beim Verschieben von Daten und Aussortieren alter Storage Shelves
 
 Um eine erfolgreiche Umstellung sicherzustellen, müssen Sie den spezifischen Workflow einhalten.
@@ -98,6 +101,7 @@ image::../media/workflow_2n_transition_moving_data_to_new_shelves.png[Workflow z
 
 
 
+[[transitioning-the-configuration]]
 == Umstellung der Konfiguration
 
 Sie müssen das detaillierte Übergangsverfahren befolgen.
@@ -136,6 +140,7 @@ Führen Sie die Schritte unter aus link:task_configure_the_new_nodes_and_complet
 
 
 
+[[migrating-the-root-aggregates]]
 == Migration der Root-Aggregate
 
 Migrieren Sie nach Abschluss der Transition die bestehenden Stammaggregate von der MetroCluster FC-Konfiguration auf neue Shelfs in der MetroCluster IP-Konfiguration.
@@ -183,6 +188,7 @@ Mit dem Befehl „Storage Aggregate show“ können Sie den Synchronisierungssta
 
 
 
+[[migrating-the-data-aggregates]]
 == Und die Daten-Aggregate migrieren
 
 Erstellen Sie Datenaggregate auf den neuen Shelfs und verschieben Sie die Daten-Volumes von den alten Shelfs zu den Aggregaten auf den neuen Shelfs.
@@ -195,6 +201,7 @@ http://docs.netapp.com/platstor/topic/com.netapp.doc.hw-upgrade-controller/GUID-
 
 
 
+[[retiring-shelves-moved-from-nodea1-fc-and-nodea2-fc]]
 == Ausmustern von Shelfs, die von Node_A_1-FC und Node_A_2-FC verschoben wurden
 
 Sie haben die alten Storage Shelfs aus der ursprünglichen MetroCluster FC-Konfiguration entfernt. Ursprünglich waren die Shelfs Node_A_1-FC und Node_A_2-FC im Besitz dieser Shelfs.
@@ -274,6 +281,7 @@ cluster_B::>
 
 
 
+[[completing-transition]]
 == Übergang abschließen
 
 Wenn die alten Controller-Module entfernt wurden, können Sie den Umstieg abschließen.

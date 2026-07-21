@@ -15,6 +15,7 @@ Verschieben Sie die Clusterschnittstellen der MetroCluster FC-Konfiguration zu d
 
 
 
+[[step-1-move-the-cluster-connections-on-the-metrocluster-fc-nodes]]
 == Schritt 1: Verschieben Sie die Clusterverbindungen auf den MetroCluster FC-Knoten
 
 Verschieben Sie die Clusterverbindungen der MetroCluster FC-Knoten zu den IP-Switches. Die Schritte hängen davon ab, ob Sie vorhandene oder neue IP-Switches verwenden.
@@ -25,6 +26,7 @@ Verschieben Sie die Clusterverbindungen der MetroCluster FC-Knoten zu den IP-Swi
 
 
 
+[[which-connections-to-move]]
 === Welche Verbindungen zu verschieben sind
 
 Die folgende Aufgabe geht davon aus, dass ein Controllermodul zwei Ports für die Clusterverbindungen verwendet. Einige Controller-Modulmodelle verwenden vier oder mehr Ports für die Cluster-Verbindung. In diesem Beispiel sind die Ports in zwei Gruppen unterteilt, wobei die Ports zwischen den beiden Gruppen abwechselnd verwendet werden.
@@ -155,6 +157,7 @@ Lokale Cluster-Schnittstelle am FC-Node
 |===
 
 
+[[move-the-local-cluster-connections-when-using-new-ip-switches]]
 === Verschieben der lokalen Clusterverbindungen bei Verwendung neuer IP-Switches
 
 Wenn Sie neue IP-Switches verwenden, verschieben Sie die Clusterverbindungen der vorhandenen MetroCluster FC-Knoten physisch auf die neuen Switches.
@@ -278,6 +281,7 @@ cluster_A::*>
 
 
 
+[[move-the-local-cluster-connections-when-reusing-existing-ip-switches]]
 === Verschieben Sie die lokalen Clusterverbindungen, wenn Sie vorhandene IP-Switches wiederverwenden
 
 Wenn Sie vorhandene IP-Switches wiederverwenden, aktualisieren Sie die Firmware, konfigurieren die Switches mit den richtigen Referenzkonfigurationsdateien (RCFs) neu und verschieben die Verbindungen Switch für Switch auf die richtigen Ports.
@@ -409,6 +413,7 @@ Cluster-A::*>
 
 
 
+[[step-2-verify-that-the-cluster-connections-are-moved-and-the-cluster-is-healthy]]
 == Schritt 2: Überprüfen, ob die Clusterverbindungen verschoben wurden und der Cluster fehlerfrei ist
 
 Um sicherzustellen, dass die Konnektivität ordnungsgemäß ist und die Konfiguration für den Übergangsprozess bereit ist, überprüfen Sie, ob die Clusterverbindungen richtig verschoben wurden, die Cluster-Switches erkannt werden und der Cluster fehlerfrei ist.

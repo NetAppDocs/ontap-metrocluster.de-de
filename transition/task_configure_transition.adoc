@@ -15,6 +15,7 @@ Um die Konfiguration für den Umstieg vorzubereiten, fügen Sie die neuen Nodes 
 
 
 
+[[sending-a-custom-autosupport-message-prior-to-maintenance]]
 == Senden einer benutzerdefinierten AutoSupport Meldung vor der Wartung
 
 Bevor Sie die Wartung durchführen, sollten Sie eine AutoSupport Meldung ausgeben, um den technischen Support von NetApp über die laufende Wartung zu informieren. Die Mitteilung des technischen Supports über laufende Wartungsarbeiten verhindert, dass ein Fall eröffnet wird, wenn eine Störung aufgetreten ist.
@@ -38,6 +39,7 @@ Diese Aufgabe muss auf jedem MetroCluster-Standort ausgeführt werden.
 
 
 
+[[enabling-transition-mode-and-disabling-cluster-ha]]
 == Aktivieren des Übergangsmodus und Deaktivieren von Cluster HA
 
 Sie müssen den MetroCluster Transition-Modus aktivieren, damit die alten und neuen Nodes in der MetroCluster Konfiguration gemeinsam arbeiten und die Cluster HA deaktivieren können.
@@ -157,6 +159,7 @@ cluster_B::>
 
 
 
+[[joining-the-metrocluster-ip-nodes-to-the-clusters]]
 == Verbinden der MetroCluster IP-Nodes mit den Clustern
 
 Sie müssen die vier neuen MetroCluster IP-Nodes der bestehenden MetroCluster-Konfiguration hinzufügen.
@@ -236,6 +239,7 @@ Do you want to use this configuration? {yes, no} [yes]: yes
 
 
 
+[[configuring-intercluster-lifs-creating-the-metrocluster-interfaces-and-mirroring-root-aggregates]]
 == Konfigurieren von Intercluster-LIFs, Erstellen der MetroCluster-Schnittstellen und Spiegeln von Root-Aggregaten
 
 Sie müssen Cluster-Peering-LIFs erstellen, die MetroCluster-Schnittstellen auf den neuen MetroCluster IP-Nodes erstellen.
@@ -608,6 +612,7 @@ aggr_data_a2
 
 
 
+[[finalizing-the-addition-of-the-metrocluster-ip-nodes]]
 == Abschließen des Hinzufügung der MetroCluster IP-Nodes
 
 Sie müssen die neue DR-Gruppe in die MetroCluster Konfiguration einbinden und gespiegelte Datenaggregate auf den neuen Nodes erstellen.

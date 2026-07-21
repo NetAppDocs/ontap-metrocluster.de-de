@@ -25,6 +25,7 @@ Wenn Sie über eine MetroCluster-FC-Konfiguration mit vier Nodes verfügen, find
 
 
 
+[[enable-console-logging]]
 == Aktivieren Sie die Konsolenprotokollierung
 
 NetApp empfiehlt dringend, die Konsolenprotokollierung auf den von Ihnen verwendeten Geräten zu aktivieren und folgende Aktionen durchzuführen:
@@ -39,6 +40,7 @@ Siehe Knowledge Base-Artikel link:https://kb.netapp.com/Support_Bulletins/Custom
 
 
 
+[[requirements-for-transition-when-shelves-are-not-supported-on-the-new-nodes]]
 == Anforderungen für den Umstieg, wenn Shelfs auf den neuen Nodes nicht unterstützt werden
 
 Bevor Sie mit dem Umstieg beginnen, müssen Sie sicherstellen, dass die Konfiguration die Anforderungen erfüllt.
@@ -87,6 +89,7 @@ https://hwu.netapp.com["NetApp Hardware Universe"]
 
 
 
+[[workflow-for-disruptive-transition-when-shelves-are-not-supported-by-new-controllers]]
 == Workflow für Unterbrechungen beim Übergang, wenn Shelfs nicht von neuen Controllern unterstützt werden
 
 Wenn die vorhandenen Shelf-Modelle von den neuen Plattformmodellen nicht unterstützt werden, müssen Sie die neuen Shelfs an die alte Konfiguration anbinden, die Daten in die neuen Shelfs verschieben und schließlich in die neue Konfiguration übergehen.
@@ -97,6 +100,7 @@ image::../media/workflow_2n_transition_old_shelves_not_supported.png[Workflow f�
 
 
 
+[[preparing-the-new-controller-modules]]
 == Vorbereiten der neuen Controller-Module
 
 Sie müssen die Konfiguration und die Festplatteneigentümer für die neuen Controller-Module und die neuen Storage-Shelves löschen.
@@ -108,6 +112,7 @@ Sie müssen die Konfiguration und die Festplatteneigentümer für die neuen Cont
 
 
 
+[[attaching-the-new-disk-shelves-to-the-existing-metrocluster-fc-controllers]]
 == Anschließen der neuen Platten-Shelfs an die vorhandenen MetroCluster FC-Controller
 
 Vor dem Wechsel zu einer MetroCluster IP-Konfiguration müssen Sie die neuen Festplatten-Shelfs an die vorhandenen Controller-Module anschließen.
@@ -136,6 +141,7 @@ Siehe Anforderungen und Verfahren in link:../maintain/task_hot_add_a_sas_disk_sh
 
 
 
+[[migrate-root-aggregates-and-move-data-to-the-new-disk-shelves]]
 == Migrieren Sie Root-Aggregate und verschieben Sie Daten in die neuen Platten-Shelves
 
 Sie müssen die Root-Aggregate von den alten Laufwerk-Shelfs auf die neuen Festplatten-Shelfs verschieben, die von den MetroCluster IP-Nodes verwendet werden.
@@ -490,6 +496,7 @@ Siehe http://docs.netapp.com/platstor/topic/com.netapp.doc.hw-upgrade-controller
 
 
 
+[[transitioning-the-configuration]]
 == Umstellung der Konfiguration
 
 Sie müssen das detaillierte Übergangsverfahren befolgen.

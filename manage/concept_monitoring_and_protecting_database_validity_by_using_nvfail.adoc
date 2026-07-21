@@ -19,6 +19,7 @@ Nach dem Verlust von NVRAM-Daten während des Failover oder der Boot-Recovery k�
 
 
 
+[[how-nvfail-impacts-access-to-nfs-volumes-or-luns]]
 == Auswirkungen von NV-Fehler auf den Zugriff auf NFS-Volumes oder LUNs
 
 Der NV-Fehler-Status wird festgelegt, wenn ONTAP beim Booten, bei einem MetroCluster-Switchover oder während eines HA-Takeover-Vorgangs NVRAM-Fehler erkennt, wenn die Option NVFAIL auf dem Volume festgelegt ist. Wenn beim Start keine Fehler erkannt werden, wird der Dateidienst normal gestartet. Wenn jedoch NVRAM-Fehler erkannt oder die NVFAIL-Verarbeitung bei einem Disaster Switchover durchgesetzt wird, verhindert ONTAP, dass Datenbankinstanzen auf diese reagieren.
@@ -75,6 +76,7 @@ LUNs in diesem Volume werden in den Offline-Modus versetzt. Der `in-nvfailed-sta
 |===
 
 
+[[commands-for-monitoring-data-loss-events]]
 == Befehle für das Monitoring von Datenverlusten
 
 Wenn Sie die Option NVFAIL aktivieren, erhalten Sie eine Benachrichtigung, wenn ein Systemabsturz aufgrund von NVRAM-Inkonsistenzen oder einer MetroCluster-Umschaltung auftritt.
@@ -117,6 +119,7 @@ Weitere Informationen finden Sie auf der man-Page für jeden Befehl.
 
 
 
+[[accessing-volumes-in-nvfail-state-after-a-switchover]]
 == Zugriff auf Volumes im Status „NV-Fehler“ nach einer Umschaltung
 
 Nach einer Umschaltung müssen Sie den NV-Fehler-Status löschen, indem Sie den zurücksetzen `-in-nvfailed-state` Parameter von `volume modify` Befehl, um die Einschränkung von Clients für den Zugriff auf Daten zu entfernen.
@@ -141,6 +144,7 @@ link:../manage/concept_monitoring_and_protecting_database_validity_by_using_nvfa
 
 
 
+[[recovering-luns-in-nvfail-states-after-switchover]]
 == Die Wiederherstellung von LUNs in NV-Fehler-Status nach dem Switchover erfolgt
 
 Nach einer Umschaltung hat der Host nicht mehr Zugriff auf Daten auf den LUNs, die sich im Status „NV-Fehler“ befinden. Sie müssen eine Reihe von Aktionen durchführen, bevor die Datenbank Zugriff auf die LUNs hat.

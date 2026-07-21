@@ -25,6 +25,7 @@ Ab ONTAP 9.9 können MetroCluster IP-Konfigurationen mit IP-Routing (Layer 3)-Ba
 ====
 
 
+[[isl-requirements-for-layer-2-and-layer-3-networks]]
 == ISL-Anforderungen für Layer-2- und Layer-3-Netzwerke
 
 Folgendes gilt für Layer-2- und Layer-3-Netzwerke:
@@ -56,6 +57,7 @@ Link-Sharing-Dienste wie Multiprotocol Label Switching (MPLS)-Links werden nicht
 
 
 
+[[considerations-for-layer-2-networks]]
 == Überlegungen für Layer-2-Netzwerke
 
 Die MetroCluster Backend-Switches sind mit dem Kundennetzwerk verbunden.
@@ -97,6 +99,7 @@ Bei allen anderen Systemen müssen Sie das VLAN konfigurieren, wenn Sie die Metr
 
 
 
+[[considerations-for-layer-3-networks]]
 == Überlegungen für Layer-3-Netzwerke
 
 Die Back-End-Switches von MetroCluster sind mit dem gerouteten IP-Netzwerk verbunden, entweder direkt mit Routern (wie im folgenden vereinfachten Beispiel dargestellt) oder über andere intervenierenden Switches.
@@ -132,6 +135,7 @@ Wenn Sie Router und Gateway-IP-Adressen konfigurieren, müssen Sie die folgenden
 
 
 
+[[required-settings-for-intermediate-switches]]
 == Erforderliche Einstellungen für Zwischenschalter
 
 Wenn MetroCluster-Verkehr in einem mittleren Netzwerk eine ISL durchquert, sollten Sie überprüfen, ob die Konfiguration der mittleren Switches sicherstellt, dass der MetroCluster-Verkehr (RDMA und Storage) über den gesamten Pfad zwischen den MetroCluster Standorten die erforderlichen Service-Level erfüllt.

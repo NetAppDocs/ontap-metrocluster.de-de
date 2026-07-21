@@ -41,6 +41,8 @@ Red Hat Enterprise Linux 8
 
 
 
+[[install-jdk]]
+[[install-java-1-8]]
 == Installieren Sie JDK
 
 Sie müssen JDK auf Ihrem Hostsystem installieren, bevor Sie die Tiebreaker Software installieren oder aktualisieren. Tiebreaker 1.4 und frühere Versionen unterstützen JDK 1.8.0. (JRE 8).
@@ -90,6 +92,8 @@ Complete!
 
 
 
+[[install-mysql-server-5-5-30-or-later-and-5-6-x-versions-on-red-hat-enterprise-linux-7-or-centos-7]]
+[[install-mysql-redhat]]
 == Installieren Sie MySQL Server 5.5.30 oder höher und 5.6.x-Versionen unter Red hat Enterprise Linux 7 oder CentOS 7
 
 Sie müssen MySQL Server 5.5.30 oder höher und 5.6.x-Version auf Ihrem Hostsystem installieren, bevor Sie die Tiebreaker-Software installieren oder aktualisieren.  Für Red Hat Enterprise Linux 8 <<install-mariadb,Installieren Sie den MariaDB-Server>>.
@@ -389,6 +393,7 @@ Wenn die MySQL-Anmeldung wie erwartet funktioniert, endet die Ausgabe am `mysql>
 
 
 
+[[enable-the-mysql-autostart-setting]]
 === Aktivieren Sie die Einstellung MySQL Autostart
 
 Sie sollten überprüfen, ob die Autostart-Funktion für den MySQL-Daemon aktiviert ist. Durch Aktivieren des MySQL-Daemon wird MySQL automatisch neu gestartet, wenn das System, auf dem die MetroCluster Tiebreaker Software ausgeführt wird, neu gestartet wird. Wenn der MySQL-Daemon nicht ausgeführt wird, wird die Tiebreaker-Software weiterhin ausgeführt, kann aber nicht neu gestartet werden und Konfigurationsänderungen können nicht vorgenommen werden.
@@ -413,6 +418,8 @@ Wenn MySQL beim Starten nicht aktiviert ist, lesen Sie die MySQL-Dokumentation, 
 
 
 
+[[install-mariadb-server-on-red-hat-enterprise-linux-8]]
+[[install-mariadb]]
 == Installieren Sie den MariaDB-Server unter Red hat Enterprise Linux 8
 
 Sie müssen MariaDB Server auf Ihrem Hostsystem installieren, bevor Sie die Tiebreaker Software installieren oder aktualisieren.  Für Red hat Enterprise Linux 7 oder CentOS 7, <<install-mysql-redhat,Installieren Sie MySQL Server>>.
@@ -583,6 +590,7 @@ Thanks for using MariaDB!
 
 
 
+[[enable-the-autostart-setting-for-the-mariadb-server]]
 === Aktivieren Sie die Autostart-Einstellung für den MariaDB-Server
 
 Überprüfen Sie, ob die Autostart-Funktion für den MariaDB-Server aktiviert ist. Wenn Sie die Autostart-Funktion nicht aktivieren und das System, auf dem sich die MetroCluster Tiebreaker Software befindet, neu gestartet werden muss, wird die Tiebreaker Software ausgeführt, der MariaDB-Service kann jedoch nicht neu gestartet werden und Konfigurationsänderungen können nicht vorgenommen werden.

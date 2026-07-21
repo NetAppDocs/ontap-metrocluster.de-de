@@ -15,6 +15,7 @@ Führen Sie das automatische Controller-Upgrade durch, indem Sie die Erreichbark
 
 
 
+[[verify-network-reachability]]
 == Überprüfung der Erreichbarkeit des Netzwerks
 
 Der Automatisierungsvorgang führt Überprüfungen des Verifikationssystems durch und hält anschließend Pausen ein, um die Erreichbarkeit des Netzwerks zu überprüfen. Nach der Überprüfung wird die Rückgewinnungsphase für die Ressourcen eingeleitet und der Automatisierungsvorgang führt den Wechsel zurück an Standort A durch und hält die Prüfungen nach dem Upgrade an. Nachdem Sie den Automatisierungsvorgang fortgesetzt haben, führt er die Prüfungen nach dem Upgrade durch und markiert, wenn keine Fehler erkannt werden, das Upgrade als abgeschlossen.
@@ -42,6 +43,7 @@ Wenn bei der Überprüfung nach dem Upgrade keine Fehler gemeldet wurden, ist da
 
 
 
+[[upgrade-the-nodes-on-clustera]]
 == Aktualisieren Sie die Nodes auf Cluster_A
 
 Sie müssen die Upgrade-Tasks wiederholen, um die Nodes auf „Cluster_A“ an Standort A zu aktualisieren
@@ -55,6 +57,7 @@ Wenn Sie den Vorgang wiederholen, werden alle Beispielverweise auf die Cluster u
 
 
 
+[[re-add-internal-drives-to-the-new-controller]]
 == Fügen Sie interne Laufwerke erneut zum neuen Controller hinzu
 
 Wenn Sie ein System mit ausschließlich externen Laufwerken auf ein System mit externen und internen Laufwerken (Festplatten und Controller im selben Gehäuse) aktualisiert haben, können Sie die aus den internen Steckplätzen des neuen Systems entfernten oder entfernten Festplatten hinzufügen oder neu einsetzen. Dies ist jederzeit möglich, nachdem das Upgrade an beiden Standorten abgeschlossen ist und der Cluster fehlerfrei ist.
@@ -66,6 +69,7 @@ NOTE: Diese Aufgabe gilt nur für bestimmte Upgrade-Kombinationen. Weitere Infor
 
 
 
+[[reconfigure-ontap-mediator]]
 == Konfigurieren Sie ONTAP Mediator neu
 
 Konfigurieren Sie ONTAP Mediator manuell, der vor dem Start des Upgrades automatisch entfernt wurde.
@@ -75,6 +79,7 @@ Konfigurieren Sie ONTAP Mediator manuell, der vor dem Start des Upgrades automat
 
 
 
+[[restore-tiebreaker-monitoring]]
 == Wiederherstellung des Tiebreaker Monitoring
 
 Wenn die MetroCluster Konfiguration zuvor für das Monitoring über die Tiebreaker Software konfiguriert war, können Sie die Tiebreaker Verbindung wiederherstellen.
@@ -84,6 +89,7 @@ Wenn die MetroCluster Konfiguration zuvor für das Monitoring über die Tiebreak
 
 
 
+[[configure-end-to-end-encryption]]
 == Konfigurieren Sie die End-to-End-Verschlüsselung
 
 Falls es von Ihrem System unterstützt wird, können Sie zwischen den MetroCluster IP-Standorten den Back-End-Verkehr, wie NVLOG- und Storage-Replizierungsdaten, verschlüsseln. Siehe link:../maintain/task-configure-encryption.html["Konfigurieren Sie die End-to-End-Verschlüsselung"] Finden Sie weitere Informationen.

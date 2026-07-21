@@ -15,6 +15,7 @@ Mit dem MetroCluster Switchover profitieren Kunden von unterbrechungsfreiem Serv
 
 
 
+[[supported-platform-combinations]]
 == Unterstützte Plattformkombinationen
 
 Bei bestimmten Plattformen können Sie in einer MetroCluster FC-Konfiguration über den Switchover- und Switchback-Betrieb aufrüsten.
@@ -25,6 +26,7 @@ Siehe https://docs.netapp.com/us-en/ontap-metrocluster/upgrade/concept_choosing_
 
 
 
+[[about-this-task]]
 == Über diese Aufgabe
 
 * Sie können diese Vorgehensweise nur für Controller-Upgrades verwenden.
@@ -99,6 +101,7 @@ Folgende Beispielnamen werden in diesem Verfahren verwendet:
 
 
 
+[[enable-console-logging]]
 == Aktivieren Sie die Konsolenprotokollierung
 
 NetApp empfiehlt dringend, die Konsolenprotokollierung auf den von Ihnen verwendeten Geräten zu aktivieren und folgende Aktionen durchzuführen:
@@ -113,12 +116,14 @@ Siehe Knowledge Base-Artikel link:https://kb.netapp.com/Support_Bulletins/Custom
 
 
 
+[[prepare-for-the-upgrade]]
 == Bereiten Sie sich auf das Upgrade vor
 
 Bevor Sie Änderungen an der bestehenden MetroCluster Konfiguration vornehmen, müssen Sie den Zustand der Konfiguration überprüfen, die neuen Plattformen vorbereiten und andere verschiedene Aufgaben ausführen.
 
 
 
+[[verify-the-health-of-the-metrocluster-configuration]]
 === Überprüfen Sie den Systemzustand der MetroCluster-Konfiguration
 
 Sie überprüfen den Zustand und die Konnektivität der MetroCluster-Konfiguration, bevor Sie das Upgrade durchführen.
@@ -211,6 +216,7 @@ https://mysupport.netapp.com/site/tools/tool-eula/activeiq-configadvisor["NetApp
 
 
 
+[[map-ports-from-the-old-nodes-to-the-new-nodes]]
 === Weisen Sie den neuen Nodes Ports von den alten Nodes zu
 
 Sie müssen die Zuordnung der LIFs zu physischen Ports auf den alten Nodes zu den physischen Ports auf den neuen Nodes planen.
@@ -404,6 +410,7 @@ Intercluster-Port
 
 
 
+[[gather-information-before-the-upgrade]]
 === Sammeln Sie vor dem Upgrade Informationen
 
 Vor der Aktualisierung müssen Sie Informationen für jeden der alten Knoten erfassen und bei Bedarf die Netzwerk-Broadcast-Domänen anpassen, VLANs und Schnittstellengruppen entfernen und Verschlüsselungsinformationen sammeln.
@@ -583,6 +590,7 @@ cluster_B::*
 
 
 
+[[remove-the-existing-configuration-from-the-tiebreaker-or-other-monitoring-software]]
 === Entfernen Sie die vorhandene Konfiguration über den Tiebreaker oder eine andere Monitoring-Software
 
 Wenn die vorhandene Konfiguration mit der MetroCluster Tiebreaker Konfiguration oder anderen Applikationen anderer Anbieter (z. B. ClusterLion) überwacht wird, die eine Umschaltung initiieren können, müssen Sie die MetroCluster Konfiguration vor dem Umstieg aus dem Tiebreaker oder einer anderen Software entfernen.
@@ -600,6 +608,7 @@ Informationen zur Anwendung finden Sie in der Dokumentation.
 
 
 
+[[send-a-custom-autosupport-message-prior-to-maintenance]]
 === Senden Sie vor der Wartung eine individuelle AutoSupport Nachricht
 
 Bevor Sie die Wartung durchführen, sollten Sie eine AutoSupport Meldung ausgeben, um den technischen Support von NetApp über die laufende Wartung zu informieren. Die Mitteilung des technischen Supports über laufende Wartungsarbeiten verhindert, dass ein Fall eröffnet wird, wenn eine Störung aufgetreten ist.
@@ -627,6 +636,7 @@ Diese Aufgabe muss auf jedem MetroCluster-Standort ausgeführt werden.
 
 
 
+[[switch-over-the-metrocluster-configuration]]
 == Wechseln Sie über die MetroCluster-Konfiguration
 
 Sie müssen die Konfiguration auf Site_A umschalten, damit die Plattformen auf Site_B aktualisiert werden können.
@@ -717,6 +727,7 @@ cluster_A::> metrocluster operation show
 
 
 
+[[prepare-the-network-configuration-of-the-old-controllers]]
 == Vorbereiten der Netzwerkkonfiguration der alten Controller
 
 Um sicherzustellen, dass das Netzwerk auf den neuen Controllern ordnungsgemäß fortgesetzt wird, müssen Sie LIFs auf einen gemeinsamen Port verschieben und dann die Netzwerkkonfiguration der alten Controller entfernen.
@@ -818,6 +829,7 @@ Dieser Schritt muss auf beiden Knoten durchgeführt werden.
 
 
 
+[[remove-the-old-platforms]]
 == Entfernen Sie die alten Plattformen
 
 Die alten Controller müssen aus der Konfiguration entfernt werden.
@@ -834,12 +846,14 @@ Diese Aufgabe wird auf Site_B. ausgeführt
 
 
 
+[[configure-the-new-controllers]]
 == Konfigurieren Sie die neuen Controller
 
 Sie müssen die Controller im Rack unterbringen und installieren, die erforderliche Einrichtung im Wartungsmodus durchführen und dann die Controller booten und die LIF-Konfiguration auf den Controllern überprüfen.
 
 
 
+[[set-up-the-new-controllers]]
 === Richten Sie die neuen Controller ein
 
 Sie müssen die neuen Controller im Rack unterbringen und verkabeln.
@@ -870,6 +884,7 @@ https://docs.netapp.com/platstor/index.jsp["Dokumentation zu ONTAP Hardwaresyste
 
 
 
+[[netboot-the-new-controllers]]
 === Booten Sie die neuen Controller ein
 
 Nachdem Sie die neuen Nodes installiert haben, müssen Sie als Netzboot fahren, damit die neuen Nodes dieselbe Version von ONTAP wie die ursprünglichen Nodes ausführen. Der Begriff Netzboot bedeutet, dass Sie über ein ONTAP Image, das auf einem Remote Server gespeichert ist, booten. Wenn Sie das Netzboot vorbereiten, müssen Sie eine Kopie des ONTAP 9 Boot Images auf einem Webserver ablegen, auf den das System zugreifen kann.
@@ -942,6 +957,7 @@ NOTE: Um die neu installierte Software nutzen zu können, müssen Sie den Knoten
 
 
 
+[[clear-the-configuration-on-a-controller-module]]
 === Löschen Sie die Konfiguration auf einem Controller-Modul
 
 Bevor Sie in der MetroCluster-Konfiguration ein neues Controller-Modul verwenden, müssen Sie die vorhandene Konfiguration löschen.
@@ -981,6 +997,7 @@ Antworten `yes` An die Bestätigungsaufforderung.
 
 
 
+[[restore-the-hba-configuration]]
 === Wiederherstellung der HBA-Konfiguration
 
 Je nach Vorhandensein und Konfiguration der HBA-Karten im Controller-Modul müssen Sie diese für die Verwendung Ihres Standorts richtig konfigurieren.
@@ -1063,6 +1080,7 @@ FC
 
 
 
+[[set-the-ha-state-on-the-new-controllers-and-chassis]]
 === Legen Sie den HA-Status für die neuen Controller und das Chassis fest
 
 Sie müssen den HA-Status der Controller und des Chassis überprüfen. Bei Bedarf müssen Sie den Status entsprechend Ihrer Systemkonfiguration aktualisieren.
@@ -1124,6 +1142,7 @@ mcc
 
 
 
+[[reassign-root-aggregate-disks]]
 === Neuzuweisung von Root-Aggregat-Festplatten
 
 Weisen Sie die Root-Aggregat-Festplatten dem neuen Controller-Modul unter Verwendung der zuvor gesammelten Sysiden wieder zu
@@ -1239,6 +1258,7 @@ aggr0_node_b_1-root    online      raid_dp, aggr    root, nosnap=on,
 
 
 
+[[boot-up-the-new-controllers]]
 === Booten der neuen Controller
 
 Sie müssen die Controller aus dem Boot-Menü neu booten, um das Controller-Flash-Image zu aktualisieren. Bei Konfiguration der Verschlüsselung sind weitere Schritte erforderlich.
@@ -1501,6 +1521,7 @@ Weitere Informationen finden Sie unter https://docs.netapp.com/ontap-9/topic/com
 
 
 
+[[verify-lif-configuration]]
 === LIF-Konfiguration überprüfen
 
 Stellen Sie vor dem Wechsel sicher, dass LIFs auf den entsprechenden Nodes/Ports gehostet werden. Folgende Schritte sind auszuführen
@@ -1537,6 +1558,7 @@ Führen Sie diesen Schritt bei allen SVMs aus, falls erforderlich.
 
 
 
+[[install-the-new-licenses]]
 === Installieren Sie die neuen Lizenzen
 
 Vor dem Wechsel-Back-Vorgang müssen Sie Lizenzen für die neuen Controller installieren.
@@ -1547,6 +1569,7 @@ Vor dem Wechsel-Back-Vorgang müssen Sie Lizenzen für die neuen Controller inst
 
 
 
+[[switch-back-the-metrocluster-configuration]]
 == Schalten Sie die MetroCluster-Konfiguration zurück
 
 Nachdem die neuen Controller konfiguriert wurden, schalten Sie die MetroCluster Konfiguration zurück und kehren den normalen Betrieb zurück.
@@ -1610,6 +1633,7 @@ Wenn ein Wechsel eine lange Zeit in Anspruch nimmt, können Sie den Status der i
 
 
 
+[[check-the-health-of-the-metrocluster-configuration]]
 == Überprüfen Sie den Systemzustand der MetroCluster-Konfiguration
 
 Nach dem Upgrade der Controller-Module müssen Sie den Systemzustand der MetroCluster Konfiguration überprüfen.
@@ -1652,6 +1676,7 @@ Dieses Verhalten wird aufgrund einer Controller-Diskrepanz während des Upgrade-
 
 
 
+[[upgrade-the-nodes-on-clustera]]
 == Aktualisieren Sie die Nodes auf Cluster_A
 
 Sie müssen die Upgrade-Aufgaben auf „Cluster_A“ wiederholen
@@ -1665,6 +1690,7 @@ Wenn Sie den Vorgang wiederholen, werden alle Beispielverweise auf die Cluster u
 
 
 
+[[send-a-custom-autosupport-message-after-maintenance]]
 == Senden Sie eine individuelle AutoSupport Nachricht nach der Wartung
 
 Nach Abschluss des Upgrades sollten Sie eine AutoSupport Meldung mit Angaben zum Ende der Wartung senden. Die automatische Case-Erstellung kann also fortgesetzt werden.
@@ -1683,6 +1709,7 @@ Nach Abschluss des Upgrades sollten Sie eine AutoSupport Meldung mit Angaben zum
 
 
 
+[[restore-tiebreaker-monitoring]]
 == Wiederherstellung des Tiebreaker Monitoring
 
 Wenn die MetroCluster Konfiguration zuvor für das Monitoring über die Tiebreaker Software konfiguriert war, können Sie die Tiebreaker Verbindung wiederherstellen.

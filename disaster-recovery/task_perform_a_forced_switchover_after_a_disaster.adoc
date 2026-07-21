@@ -22,6 +22,7 @@ Ermitteln, ob ein Notfall aufgetreten ist, erfolgt durch:
 
 
 
+[[fencing-off-the-disaster-site]]
 == Fechten vor dem Disaster-Standort
 
 Falls die Disaster-Site-Nodes nach dem Ausfall ausgetauscht werden müssen, müssen diese unterbrochen werden, um einen Wiederaufnahme des Service am Standort zu verhindern. Andernfalls riskieren Sie die Gefahr einer Beschädigung von Daten, wenn Clients vor dem Abschluss des Austauschvorgangs auf die Nodes zugreifen.
@@ -38,6 +39,7 @@ Wenn die Disaster-Site-Nodes zerstört wurden oder nicht angehalten werden könn
 
 
 
+[[performing-a-forced-switchover]]
 == Erzwungene Umschaltung durchführen
 
 Neben dem unterbrechungsfreien Betrieb bei Test und Wartung ermöglicht die Umschaltung mit einem einzigen Befehl ein Recovery nach einem Standortausfall.
@@ -93,12 +95,14 @@ SnapMirror Beziehungen müssen nach der Umschaltung neu hergestellt werden.
 
 
 
+[[output-for-the-storage-aggregate-plex-show-command-is-indeterminate-after-a-metrocluster-switchover]]
 == Die Ausgabe des Befehls „Plex show“ für das Storage-Aggregat ist nach einer MetroCluster-Umschaltung nicht bestimmt
 
 Wenn Sie den ausführen `storage aggregate plex show` Befehl nach einer MetroCluster-Umschaltung ist der Status von Plex0 des über das Root-Aggregat umgeschalteten Zustands unbestimmt und wird als fehlgeschlagen angezeigt. Während dieser Zeit wird die umschaltete Root nicht aktualisiert. Der tatsächliche Status dieses Plex kann nur nach der MetroCluster-Heilungsphase ermittelt werden.
 
 
 
+[[accessing-volumes-in-nvfail-state-after-a-switchover]]
 == Zugriff auf Volumes im Status „NV-Fehler“ nach einer Umschaltung
 
 Nach einer Umschaltung müssen Sie den NV-Fehler-Status löschen, indem Sie den zurücksetzen `-in-nvfailed-state` Parameter von `volume modify` Befehl, um die Einschränkung von Clients für den Zugriff auf Daten zu entfernen.

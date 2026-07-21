@@ -15,6 +15,7 @@ Wenn Sie Ihre MetroCluster FC-Konfiguration planen, müssen Sie die erforderlich
 
 
 
+[[supported-software-and-hardware]]
 == Unterstützte Software und Hardware
 
 Hardware und Software müssen für die MetroCluster FC-Konfiguration unterstützt werden.
@@ -28,12 +29,14 @@ NOTE: Langwierige SFPs werden von den MetroCluster Storage-Switches nicht unters
 
 
 
+[[hardware-redundancy-in-the-metrocluster-fc-configuration]]
 == Hardwareredundanz in der MetroCluster FC Konfiguration
 
 Aufgrund der Hardware-Redundanz in der MetroCluster FC-Konfiguration gibt es an jedem Standort zwei Komponenten. Den Standorten werden die Buchstaben A und B willkürlich zugeordnet und den einzelnen Komponenten werden die Zahlen 1 und 2 willkürlich zugeordnet.
 
 
 
+[[requirement-for-two-ontap-clusters]]
 == Notwendigkeit für zwei ONTAP Cluster
 
 Die Fabric-Attached MetroCluster FC-Konfiguration erfordert zwei ONTAP Cluster, einen an jedem MetroCluster Standort.
@@ -48,6 +51,7 @@ Beispielnamen:
 
 
 
+[[requirement-for-four-fc-switches]]
 == Anforderung für vier FC Switches
 
 Für die Fabric-Attached MetroCluster FC-Konfiguration sind vier FC-Switches erforderlich (unterstützte Brocade oder Cisco Modelle).
@@ -58,6 +62,7 @@ Die Benennung muss innerhalb der MetroCluster Konfiguration eindeutig sein.
 
 
 
+[[requirement-for-two-four-or-eight-controller-modules]]
 == Anforderungen für zwei, vier oder acht Controller-Module
 
 Die Fabric-Attached MetroCluster FC Konfiguration erfordert zwei, vier oder acht Controller-Module.
@@ -91,6 +96,7 @@ Beispielnamen:
 
 
 
+[[requirement-for-four-cluster-interconnect-switches]]
 == Anforderung für vier Cluster Interconnect Switches
 
 Für die Fabric-Attached MetroCluster FC-Konfiguration sind vier Cluster Interconnect Switches erforderlich (wenn Sie keine 2-Node-Cluster ohne Switch verwenden).
@@ -99,6 +105,7 @@ Diese Switches sorgen für eine Cluster-Kommunikation zwischen den Controller-Mo
 
 
 
+[[requirement-for-fc-to-sas-bridges]]
 == Notwendigkeit für FC-to-SAS-Bridges
 
 Bei der Fabric-Attached MetroCluster FC-Konfiguration sind für jede SAS-Stapelgruppe ein Paar FC-to-SAS-Bridges erforderlich.
@@ -115,6 +122,7 @@ Die als Beispiele in dieser Dokumentation vorgeschlagenen Namen identifizieren d
 
 
 
+[[pool-and-drive-requirements-minimum-supported]]
 == Pool- und Festplattenanforderungen (mindestens unterstützt)
 
 Es werden acht SAS-Platten-Shelves empfohlen (vier Shelfs an jedem Standort), damit sich die Anschaffung von Festplatten pro Shelf zulässt.
@@ -144,6 +152,7 @@ MetroCluster-Konfigurationen unterstützen RAID-DP und RAID4.
 
 
 
+[[drive-location-considerations-for-partially-populated-shelves]]
 == Überlegungen zum Speicherort von Laufwerken für teilweise bestückte Shelfs
 
 Die Laufwerke sollten sich in den Steckplätzen 0-5 und 18-23 befinden, um Laufwerke bei Verwendung von Shelfs, die halb bestückt sind (12 Laufwerke in einem Shelf mit 24 Laufwerken), automatisch zuweisen.
@@ -152,6 +161,7 @@ Bei einer Konfiguration mit einem teilweise bestückten Shelf müssen die Laufwe
 
 
 
+[[bridge-naming-conventions]]
 == Namenskonventionen für Bridge
 
 Die Brücken verwenden das folgende Beispiel:

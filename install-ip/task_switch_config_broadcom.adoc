@@ -22,6 +22,7 @@ NOTE: Ihre Konfiguration erfordert zusätzliche Lizenzen (6 x 100-GB-Port-Lizenz
 
 
 
+[[resetting-the-broadcom-ip-switch-to-factory-defaults]]
 == Zurücksetzen des Broadcom IP-Switches auf die Werkseinstellungen
 
 Bevor Sie eine neue Switch-Softwareversion und RCFs installieren, müssen Sie die Broadcom-Switch-Einstellungen löschen und eine grundlegende Konfiguration durchführen.
@@ -294,6 +295,7 @@ Configuration Saved!
 
 
 
+[[downloading-and-installing-the-broadcom-switch-efos-software]]
 == Herunterladen und Installieren der Broadcom-Switch EFOS-Software
 
 Sie müssen die Betriebssystemdatei und die RCF-Datei auf jeden Switch in der MetroCluster IP-Konfiguration herunterladen.
@@ -415,6 +417,7 @@ Nicht FIPS-konform
 
 
 
+[[steps-to-upgrade-efos-with-downloading-the-software-image-to-the-backup-boot-partition]]
 === Schritte zum Aktualisieren von EFOS beim Herunterladen des Software-Images auf die Backup-Boot-Partition
 
 Die folgenden Schritte können nur ausgeführt werden, wenn beide EFOS-Versionen nicht FIPS-konform sind oder beide EFOS-Versionen FIPS-konform sind.
@@ -534,6 +537,7 @@ NOTE: In seltenen Fällen kann der Switch nicht booten. Folgen Sie den <<Schritt
 
 
 
+[[steps-to-upgrade-efos-using-the-onie-os-installation]]
 === Schritte zum Aktualisieren von EFOS mit der ONIE OS-Installation
 
 Sie können die folgenden Schritte durchführen, wenn eine EFOS-Version FIPS-konform ist und die andere EFOS-Version nicht FIPS-konform ist. Mit diesen Schritten kann das nicht-FIPS- oder FIPS-konforme EFOS 3.7.x.x-Image von ONIE installiert werden, wenn der Switch nicht startet.
@@ -682,6 +686,7 @@ Der Switch wird neu gestartet, ohne dass die Konfiguration angewendet wurde, und
 
 
 
+[[downloading-and-installing-the-broadcom-rcf-files]]
 == Herunterladen und Installieren der Broadcom RCF-Dateien
 
 Sie müssen die Switch-RCF-Datei für jeden Switch in der MetroCluster IP-Konfiguration generieren und installieren.
@@ -897,6 +902,7 @@ IP_switch_A_1# reload
 
 
 
+[[disable-unused-isl-ports-and-port-channels]]
 == Deaktivieren Sie nicht verwendete ISL-Ports und Port-Kanäle
 
 NetApp empfiehlt, nicht verwendete ISL-Ports und Port-Kanäle zu deaktivieren, um unnötige Integritätswarnungen zu vermeiden.

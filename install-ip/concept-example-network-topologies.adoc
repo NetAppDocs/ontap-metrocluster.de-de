@@ -20,6 +20,7 @@ NOTE: Wenn Sie eine ISL für nicht-MetroCluster Verkehr freigeben, müssen Sie s
 
 
 
+[[shared-network-configuration-with-direct-links]]
 == Konfiguration für gemeinsam genutztes Netzwerk mit direkten Links
 
 In dieser Topologie sind zwei unterschiedliche Standorte durch direkte Links verbunden. Diese Verbindungen können zwischen xWDM- und TDM-Geräten oder -Switches bestehen. Die Kapazität der ISLs ist nicht für den MetroCluster-Verkehr reserviert, wird aber für anderen nicht-MetroCluster Verkehr freigegeben.
@@ -28,6 +29,7 @@ image::../media/mcc_ip_networking_with_shared_isls.gif[Beispiel für MetroCluste
 
 
 
+[[shared-infrastructure-with-intermediate-networks]]
 == Gemeinsam genutzte Infrastruktur mit Zwischennetzen
 
 In dieser Topologie sind die MetroCluster-Standorte nicht direkt verbunden, sondern MetroCluster und der Host-Datenverkehr werden über ein Netzwerk geleitet.
@@ -37,6 +39,7 @@ image::../media/mcc_ip_networking_with_intermediate_private_networks.gif[Beispie
 
 
 
+[[multiple-metrocluster-configurations-sharing-an-intermediate-network]]
 == Mehrere MetroCluster-Konfigurationen nutzen ein Zwischennetzwerk
 
 In dieser Topologie teilen sich zwei separate MetroCluster-Konfigurationen dasselbe Zwischennetzwerk. Im Beispiel MetroCluster One Switch_A_1 und MetroCluster Two Switch_A_1 verbinden sich beide mit demselben Zwischenswitch.
@@ -48,6 +51,7 @@ image::../media/mcc_ip_two_mccs_sharing_the_same_shared_network_sx.gif[MetroClus
 
 
 
+[[combination-of-a-metrocluster-configuration-using-netapp-validated-switches-and-a-configuration-using-metrocluster-compliant-switches]]
 == Kombination einer MetroCluster Konfiguration mit validierten NetApp Switches und einer Konfiguration mit MetroCluster konformen Switches
 
 Zwei separate MetroCluster Konfigurationen nutzen denselben Intermediate Switch, bei dem ein MetroCluster mit validierten NetApp Switches in einer Shared Layer 2-Konfiguration (MetroCluster One) konfiguriert ist und der andere MetroCluster mithilfe von MetroCluster-konformen Switches konfiguriert wird, die direkt mit den Intermediate Switches verbinden (MetroCluster Two).

@@ -17,12 +17,14 @@ image::../media/workflow_high_level_node_and_cluster_configuration_software.gif[
 
 
 
+[[gathering-required-information]]
 == Sammeln der erforderlichen Informationen
 
 Sie müssen die erforderlichen IP-Adressen für die Controller-Module erfassen, bevor Sie mit dem Konfigurationsprozess beginnen.
 
 
 
+[[ip-network-information-worksheet-for-site-a]]
 === Arbeitsblatt für IP-Netzwerkinformationen für Standort A
 
 Vor dem Konfigurieren des Systems müssen Sie IP-Adressen und andere Netzwerkinformationen für den ersten MetroCluster-Standort (Standort A) vom Netzwerkadministrator beziehen.
@@ -322,6 +324,7 @@ Nicht erforderlich für MetroCluster Konfigurationen mit zwei Nodes (ein Node an
 |===
 
 
+[[ip-network-information-worksheet-for-site-b]]
 === Arbeitsblatt für IP-Netzwerkinformationen für Standort B
 
 Vor dem Konfigurieren des Systems müssen Sie IP-Adressen und andere Netzwerkinformationen für den zweiten MetroCluster-Standort (Standort B) vom Netzwerkadministrator beziehen.
@@ -619,6 +622,7 @@ Nicht erforderlich für MetroCluster Konfigurationen mit zwei Nodes (ein Node an
 |===
 
 
+[[similarities-and-differences-between-standard-cluster-and-metrocluster-configurations]]
 == Ähnlichkeiten und Unterschiede zwischen Standard-Cluster und MetroCluster Konfigurationen
 
 Die Konfiguration der Nodes in jedem Cluster in einer MetroCluster-Konfiguration ist ähnlich wie bei den Nodes in einem Standard-Cluster.
@@ -674,6 +678,7 @@ Erforderlich
 |===
 
 
+[[verifying-and-configuring-the-ha-state-of-components-in-maintenance-mode]]
 == Überprüfen und Konfigurieren des HA-Status von Komponenten im Wartungsmodus
 
 Wenn Sie ein Speichersystem in einer MetroCluster FC-Konfiguration konfigurieren, müssen Sie sicherstellen, dass der Hochverfügbarkeitsstatus (HA) des Controller-Moduls und der Gehäusekomponenten mcc oder mcc-2n ist, damit diese Komponenten ordnungsgemäß booten. Obwohl dieser Wert auf werkseitig empfangene Systeme vorkonfiguriert sein sollte, sollten Sie die Einstellung dennoch überprüfen, bevor Sie fortfahren.
@@ -790,6 +795,7 @@ MetroCluster IP-Konfiguration mit acht oder vier Nodes
 
 
 
+[[restoring-system-defaults-and-configuring-the-hba-type-on-a-controller-module]]
 == Wiederherstellung der Systemstandards und Konfiguration des HBA-Typs auf einem Controller-Modul
 
 .Über diese Aufgabe
@@ -927,6 +933,7 @@ Please choose one of the following:
 --
 
 
+[[configuring-fc-vi-ports-on-a-x1132a-r6-quad-port-card-on-fas8020-systems]]
 == Konfigurieren von FC-VI-Ports auf einer X1132A-R6 Quad-Port-Karte auf FAS8020 Systemen
 
 Wenn Sie die Quad-Port-Karte X1132A-R6 auf einem FAS8020 System verwenden, können Sie in den Wartungsmodus wechseln, um die 1a- und 1b-Ports für die FC-VI- und Initiatorverwendung zu konfigurieren. Dies ist für MetroCluster Systeme, die vom Werk empfangen werden, in denen die Ports für Ihre Konfiguration entsprechend eingestellt sind, nicht erforderlich.
@@ -1033,6 +1040,7 @@ controller_B_1
 
 
 
+[[verifying-disk-assignment-in-maintenance-mode-in-an-eight-node-or-a-four-node-configuration]]
 == Überprüfen der Festplattenzuweisung im Wartungsmodus in einer Konfiguration mit acht oder vier Nodes
 
 Vor dem vollständigen Booten des Systems zu ONTAP können Sie optional im Wartungsmodus booten und die Festplattenzuordnung auf den Nodes überprüfen. Die Laufwerke sollten einer vollständig symmetrischen aktiv/aktiv-Konfiguration zugewiesen werden, wobei jeder Pool eine gleiche Anzahl von Laufwerken zugewiesen hat.
@@ -1232,6 +1240,7 @@ Wenn Sie im Befehl Platzhalter verwenden, können Sie alle Festplatten in einem 
 
 
 
+[[assigning-disk-ownership-in-non-aff-systems]]
 === Zuweisung der Festplatteneigentümer in anderen Systemen außerhalb von All Flash FAS
 
 Wenn auf den MetroCluster Nodes die Festplatten nicht korrekt zugewiesen sind oder wenn Sie in Ihrer Konfiguration DS460C Platten-Shelfs verwenden, müssen Sie jedem der Nodes der MetroCluster Konfiguration Shelf-einzeln Festplatten zuweisen. Sie erstellen eine Konfiguration, in der jeder Knoten die gleiche Anzahl von Festplatten in seinen lokalen und Remote-Laufwerk-Pools hat.
@@ -1389,6 +1398,7 @@ Wenn der Storage Controller_B_2 vier Shelves hat, geben Sie die folgenden Befehl
 
 
 
+[[assigning-disk-ownership-in-aff-systems]]
 === Zuweisung der Festplatteneigentümer für AFF Systeme
 
 Wenn Sie in einer Konfiguration mit AFF Systemen und gespiegelten Aggregaten einsetzen und die Nodes die Festplatten (SSDs) nicht korrekt zugewiesen sind, sollten Sie den HA-Partner-Node jeweils halb so viele Festplatten an jedem Shelf einem lokalen Node und der anderen Hälfte der Festplatten zuweisen. Sie sollten eine Konfiguration erstellen, in der jeder Knoten die gleiche Anzahl von Festplatten in seinen lokalen und Remote-Laufwerk-Pools hat.
@@ -1505,6 +1515,7 @@ Wenn der Storage Controller Controller_B_2 vier Shelfs mit jeweils 8 SSDs aufwei
 
 
 
+[[verifying-disk-assignment-in-maintenance-mode-in-a-two-node-configuration]]
 == Überprüfen der Festplattenzuweisung im Wartungsmodus in einer Konfiguration mit zwei Nodes
 
 Vor dem vollständigen Booten des Systems zu ONTAP können Sie optional das System im Wartungsmodus booten und die Festplattenzuordnung auf den Nodes überprüfen. Die Festplatten sollten eine vollständig symmetrische Konfiguration erstellen, bei der beide Standorte ihre eigenen Platten-Shelves besitzen und Daten bereitstellen, wobei jedem Knoten und jedem Pool die gleiche Anzahl von gespiegelten Festplatten zugewiesen ist.
@@ -1622,6 +1633,7 @@ Wenn der Storage Controller Node_B_1 vier Shelfs hat, geben Sie die folgenden Be
 
 
 
+[[setting-up-ontap]]
 == Einrichtung von ONTAP
 
 Sie müssen ONTAP auf jedem Controller-Modul einrichten.
@@ -1635,6 +1647,8 @@ Wenn Sie die neuen Controller als Netzboot ausführen müssen, finden Sie unter 
 
 
 
+[[setting-up-ontap-in-a-two-node-metrocluster-configuration]]
+[[setup_ontap_2node_MCC]]
 === Einrichten von ONTAP in einer MetroCluster Konfiguration mit zwei Nodes
 
 In einer MetroCluster-Konfiguration mit zwei Nodes müssen Sie auf jedem Cluster den Node booten, den Setup-Assistenten für den Cluster beenden und den Cluster-Setup-Befehl verwenden, um den Node als Single Node Cluster zu konfigurieren.
@@ -1731,6 +1745,8 @@ Falls eine der Einstellungen geändert werden muss, die Sie für die Admin-SVM o
 
 
 
+[[setting-up-ontap-in-an-eight-node-or-four-node-metrocluster-configuration]]
+[[setup_ontap_8node_4node_MCC]]
 === Einrichten von ONTAP in einer MetroCluster Konfiguration mit acht oder vier Nodes
 
 Nachdem Sie jeden Node gebootet haben, werden Sie aufgefordert, das System Setup Tool auszuführen, um die grundlegende Node- und Cluster-Konfiguration durchzuführen. Nach dem Konfigurieren des Clusters kehren Sie zur ONTAP-CLI zurück, um Aggregate zu erstellen und die MetroCluster-Konfiguration zu erstellen.
@@ -1864,6 +1880,7 @@ Kehren Sie zur ONTAP-Befehlszeilenschnittstelle zurück und führen Sie die Metr
 
 
 
+[[configuring-the-clusters-into-a-metrocluster-configuration]]
 == Konfigurieren der Cluster in einer MetroCluster-Konfiguration
 
 Sie müssen die Cluster Peer, die Root-Aggregate spiegeln, ein gespiegeltes Datenaggregat erstellen und dann den Befehl zum Implementieren der MetroCluster Operationen ausgeben.
@@ -1873,12 +1890,14 @@ Bevor Sie ausführen `metrocluster configure`, HA-Modus und DR-Spiegelung sind n
 
 
 
+[[peering-the-clusters]]
 === Peering der Cluster
 
 Die Cluster in der MetroCluster Konfiguration müssen sich in einer Peer-Beziehung zueinander finden, damit sie kommunizieren und die für MetroCluster Disaster Recovery essentielle Datenspiegelung durchführen können.
 
 
 
+[[configuring-intercluster-lifs]]
 === Konfigurieren von Intercluster-LIFs
 
 Sie müssen Intercluster-LIFs an Ports erstellen, die für die Kommunikation zwischen den MetroCluster-Partner-Clustern verwendet werden. Sie können dedizierte Ports oder Ports verwenden, die auch Datenverkehr haben.
@@ -1890,6 +1909,7 @@ Sie müssen Intercluster-LIFs an Ports erstellen, die für die Kommunikation zwi
 
 
 
+[[config_LIFs_dedicated]]
 ==== Konfigurieren von Intercluster-LIFs auf dedizierten Ports
 
 Sie können Intercluster-LIFs auf dedizierten Ports konfigurieren. Dadurch wird typischerweise die verfügbare Bandbreite für den Replizierungsverkehr erhöht.
@@ -2106,6 +2126,7 @@ Wenn Sie bestimmen, ob die Verwendung eines dedizierten Ports für die Interclus
 
 
 
+[[config_LIFs_shared_data]]
 ==== Konfigurieren von Intercluster-LIFs auf gemeinsam genutzten Datenports
 
 Sie können Intercluster-LIFs an Ports konfigurieren, die gemeinsam mit dem Datennetzwerk verwendet werden. Auf diese Weise wird die Anzahl der Ports reduziert, die Sie für Intercluster-Netzwerke benötigen.
@@ -2246,6 +2267,7 @@ link:concept_prepare_for_the_mcc_installation.html["Überlegungen bei der Freiga
 
 
 
+[[creating-a-cluster-peer-relationship]]
 === Erstellen einer Cluster-Peer-Beziehung
 
 Sie müssen die Cluster-Peer-Beziehung zwischen den MetroCluster Clustern erstellen.
@@ -2463,6 +2485,7 @@ cluster01-02
 
 
 
+[[mirroring-the-root-aggregates]]
 === Spiegelung der Root-Aggregate
 
 Um Datensicherung zu ermöglichen, müssen Sie die Root-Aggregate spiegeln.
@@ -2501,6 +2524,7 @@ link:https://docs.netapp.com/us-en/ontap/volumes/index.html["Logisches Storage-M
 
 
 
+[[creating-a-mirrored-data-aggregate-on-each-node]]
 === Erstellung eines gespiegelten Datenaggregats auf jedem Node
 
 Sie müssen auf jedem Knoten in der DR-Gruppe ein gespiegeltes Datenaggregat erstellen.
@@ -2564,6 +2588,7 @@ cluster_A::> storage aggregate create aggr1_node_A_1 -diskcount 10 -node node_A_
 
 
 
+[[creating-unmirrored-data-aggregates]]
 === Erstellen von nicht gespiegelten Datenaggregaten
 
 Optional können Sie nicht gespiegelte Datenaggregate für Daten erstellen, für die keine redundante Spiegelung von MetroCluster-Konfigurationen erforderlich ist.
@@ -2637,6 +2662,7 @@ link:https://docs.netapp.com/us-en/ontap/disks-aggregates/index.html["Festplatte
 
 
 
+[[implementing-the-metrocluster-configuration]]
 === Implementieren der MetroCluster-Konfiguration
 
 Sie müssen den ausführen `metrocluster configure` Befehl zum Starten der Datensicherung in einer MetroCluster-Konfiguration.
@@ -2792,6 +2818,7 @@ Remote: cluster_A         Configuration state configured
 
 
 
+[[configuring-in-order-delivery-or-out-of-order-delivery-of-frames-on-ontap-software]]
 === Konfigurieren von in-Order-Lieferung oder Lieferung von Frames auf ONTAP Software außerhalb der Reihenfolge
 
 Sie müssen entweder in-Order-Lieferung (IOD) oder Out-of-Order-Lieferung (OOD) von Frames entsprechend der Fibre-Channel (FC) Switch-Konfiguration konfigurieren.
@@ -2901,6 +2928,8 @@ mcc4-b2      mlx4_0          IB      Up     false     192.0.2.10  	ib2b
 
 
 
+[[configuring-snmpv3-in-a-metrocluster-fc-configuration]]
+[[snmpv3-mcc-fc]]
 === Konfigurieren von SNMPv3 in einer MetroCluster FC-Konfiguration
 
 .Bevor Sie beginnen
@@ -3030,6 +3059,7 @@ NOTE: Sie sollten auch Passwörter für nicht verwendete Konten festlegen, um di
 
 
 
+[[configuring-metrocluster-components-for-health-monitoring]]
 === Konfigurieren von MetroCluster Komponenten für das Monitoring des Systemzustands
 
 Sie müssen einige spezielle Konfigurationsschritte durchführen, bevor Sie die Komponenten einer MetroCluster-Konfiguration überwachen.
@@ -3204,6 +3234,7 @@ ATTO_10.10.20.13  atto04        true          ok              Atto   FibreBridge
 
 
 
+[[checking-the-metrocluster-configuration]]
 === Überprüfen der MetroCluster-Konfiguration
 
 Sie können überprüfen, ob die Komponenten und Beziehungen in der MetroCluster Konfiguration ordnungsgemäß funktionieren.
@@ -3340,6 +3371,7 @@ link:https://docs.netapp.com/us-en/ontap/network-management/index.html["Netzwerk
 
 
 
+[[checking-for-metrocluster-configuration-errors-with-config-advisor]]
 == Überprüfen auf MetroCluster-Konfigurationsfehler mit Config Advisor
 
 Sie können die NetApp Support-Website besuchen und das Config Advisor-Tool herunterladen, um häufige Konfigurationsfehler zu überprüfen.
@@ -3360,6 +3392,7 @@ https://mysupport.netapp.com/site/tools/tool-eula/activeiq-configadvisor["NetApp
 
 
 
+[[verifying-local-ha-operation]]
 == Überprüfen des lokalen HA-Vorgangs
 
 Wenn Sie über eine MetroCluster Konfiguration mit vier Nodes verfügen, sollten Sie den Betrieb der lokalen HA-Paare in der MetroCluster Konfiguration überprüfen. Dies ist nicht für Konfigurationen mit zwei Nodes erforderlich.
@@ -3468,6 +3501,7 @@ link:https://docs.netapp.com/us-en/ontap/cloud/high-availability-concept.html["H
 
 
 
+[[verifying-switchover-healing-and-switchback]]
 == Überprüfung von Umschaltung, Reparatur und Wechsel zurück
 
 Sie sollten die Umschalttavorgänge, die Reparatur und den Wechsel der MetroCluster Konfiguration überprüfen.
@@ -3478,6 +3512,7 @@ Sie sollten die Umschalttavorgänge, die Reparatur und den Wechsel der MetroClus
 
 
 
+[[protecting-configuration-backup-files]]
 == Sichern von Backup-Dateien der Konfiguration
 
 Sie können einen zusätzlichen Schutz für die Backup-Dateien der Clusterkonfiguration bieten, indem Sie eine Remote-URL (entweder HTTP oder FTP) angeben, bei der die Backup-Dateien der Konfiguration zusätzlich zu den Standardstandorten im lokalen Cluster hochgeladen werden.

@@ -15,6 +15,7 @@ Mithilfe dieses geführten automatisierten MetroCluster-Switchover-Vorgangs läs
 
 
 
+[[supported-platform-combinations]]
 == Unterstützte Plattformkombinationen
 
 * Informationen zu den unterstützten Kombinationen aus Plattform-Upgrades finden Sie in der MetroCluster FC-Upgrade-Tabelle in  link:concept_choosing_controller_upgrade_mcc.html#supported-metrocluster-fc-controller-upgrades["Wählen Sie ein Controller-Upgrade-Verfahren"].
@@ -24,6 +25,7 @@ Weitere Verfahren finden Sie unterlink:concept_choosing_an_upgrade_method_mcc.ht
 
 
 
+[[about-this-task]]
 == Über diese Aufgabe
 
 * Sie können diese Vorgehensweise nur für Controller-Upgrades verwenden.
@@ -79,6 +81,7 @@ Folgende Beispielnamen werden in diesem Verfahren verwendet:
 
 
 
+[[enable-console-logging]]
 == Aktivieren Sie die Konsolenprotokollierung
 
 NetApp empfiehlt dringend, die Konsolenprotokollierung auf den von Ihnen verwendeten Geräten zu aktivieren und folgende Aktionen durchzuführen:
@@ -93,6 +96,8 @@ Siehe Knowledge Base-Artikel link:https://kb.netapp.com/Support_Bulletins/Custom
 
 
 
+[[prepare-for-the-upgrade]]
+[[fc_controller_replace_prepare]]
 == Bereiten Sie sich auf das Upgrade vor
 
 Zur Vorbereitung auf das Controller Upgrade müssen Sie die System-Vorabprüfungen durchführen und die Konfigurationsinformationen erfassen.
@@ -139,6 +144,7 @@ Node-A-1    Failed         MetroCluster check failed. Reason : MCC check showed 
 
 
 
+[[gather-information-before-the-upgrade]]
 === Sammeln Sie vor dem Upgrade Informationen
 
 Vor dem Upgrade, wenn das Root-Volume verschlüsselt ist, müssen Sie den Sicherungsschlüssel und andere Informationen sammeln, um die neuen Controller mit den alten verschlüsselten Root-Volumes zu booten.
@@ -327,6 +333,7 @@ cluster_B::*
 
 
 
+[[remove-the-existing-configuration-from-the-tiebreaker-or-other-monitoring-software]]
 === Entfernen Sie die vorhandene Konfiguration über den Tiebreaker oder eine andere Monitoring-Software
 
 Wenn die vorhandene Konfiguration mit der MetroCluster Tiebreaker Konfiguration oder anderen Applikationen von Drittanbietern (z. B. ClusterLion) überwacht wird, die eine Umschaltung initiieren können, müssen Sie die MetroCluster Konfiguration über den Tiebreaker oder eine andere Software entfernen, bevor der alte Controller ersetzt wird.
@@ -341,6 +348,7 @@ Informationen zur Anwendung finden Sie in der Dokumentation.
 
 
 
+[[replace-the-old-controllers-and-boot-up-the-new-controllers]]
 == Ersetzen Sie die alten Controller, und starten Sie die neuen Controller
 
 Nachdem Sie Informationen gesammelt und den Vorgang fortgesetzt haben, wird die Automatisierung mit dem Switchover fortgesetzt.
@@ -353,6 +361,7 @@ Vor dem Starten der Umschaltung hält der Automatisierungsvorgang pausiert, soda
 
 
 
+[[prepare-the-network-configuration-of-the-old-controllers]]
 === Vorbereiten der Netzwerkkonfiguration der alten Controller
 
 Um sicherzustellen, dass das Netzwerk auf den neuen Controllern ordnungsgemäß fortgesetzt wird, müssen Sie LIFs auf einen gemeinsamen Port verschieben und dann die Netzwerkkonfiguration der alten Controller entfernen.
@@ -454,6 +463,7 @@ Dieser Schritt muss auf beiden Knoten durchgeführt werden.
 
 
 
+[[set-up-the-new-controllers]]
 === Richten Sie die neuen Controller ein
 
 Sie müssen die neuen Controller im Rack unterbringen und verkabeln.
@@ -484,6 +494,7 @@ https://docs.netapp.com/platstor/index.jsp["Dokumentation zu ONTAP Hardwaresyste
 
 
 
+[[netboot-the-new-controllers]]
 === Booten Sie die neuen Controller ein
 
 Nachdem Sie die neuen Nodes installiert haben, müssen Sie als Netzboot fahren, damit die neuen Nodes dieselbe Version von ONTAP wie die ursprünglichen Nodes ausführen. Der Begriff Netzboot bedeutet, dass Sie über ein ONTAP Image, das auf einem Remote Server gespeichert ist, booten. Wenn Sie das Netzboot vorbereiten, müssen Sie eine Kopie des ONTAP 9 Boot Images auf einem Webserver ablegen, auf den das System zugreifen kann.
@@ -556,6 +567,7 @@ NOTE: Um die neu installierte Software nutzen zu können, müssen Sie den Knoten
 
 
 
+[[clear-the-configuration-on-a-controller-module]]
 === Löschen Sie die Konfiguration auf einem Controller-Modul
 
 Bevor Sie in der MetroCluster-Konfiguration ein neues Controller-Modul verwenden, müssen Sie die vorhandene Konfiguration löschen.
@@ -595,6 +607,7 @@ Antworten `yes` An die Bestätigungsaufforderung.
 
 
 
+[[restore-the-hba-configuration]]
 === Wiederherstellung der HBA-Konfiguration
 
 Je nach Vorhandensein und Konfiguration der HBA-Karten im Controller-Modul müssen Sie diese für die Verwendung Ihres Standorts richtig konfigurieren.
@@ -676,6 +689,7 @@ FC
 
 
 
+[[reassign-root-aggregate-disks]]
 === Neuzuweisung von Root-Aggregat-Festplatten
 
 Weisen Sie die Root-Aggregat-Festplatten dem neuen Controller-Modul mithilfe des neu zu `sysids` Früher gesammelt
@@ -791,6 +805,7 @@ aggr0_node_b_1-root        online      raid_dp, aggr    root, nosnap=on,
 
 
 
+[[boot-up-the-new-controllers]]
 === Booten der neuen Controller
 
 Sie müssen die Controller aus dem Boot-Menü neu booten, um das Controller-Flash-Image zu aktualisieren. Bei Konfiguration der Verschlüsselung sind weitere Schritte erforderlich.
@@ -1004,6 +1019,7 @@ Weitere Informationen finden Sie unter https://docs.netapp.com/ontap-9/topic/com
 
 
 
+[[complete-the-upgrade]]
 == Schließen Sie das Upgrade ab
 
 Der Automatisierungsvorgang führt Überprüfungen des Verifikationssystems durch und hält anschließend Pausen ein, um die Erreichbarkeit des Netzwerks zu überprüfen. Nach der Überprüfung wird die Rückgewinnungsphase für die Ressourcen eingeleitet und der Automatisierungsvorgang führt den Wechsel zurück an Standort A durch und hält die Prüfungen nach dem Upgrade an. Nachdem Sie den Automatisierungsvorgang fortgesetzt haben, führt er die Prüfungen nach dem Upgrade durch und markiert, wenn keine Fehler erkannt werden, das Upgrade als abgeschlossen.
@@ -1031,6 +1047,7 @@ Wenn bei den Prüfungen nach der Aktualisierung keine Fehler gemeldet wurden, is
 
 
 
+[[upgrade-the-nodes-on-clustera]]
 == Aktualisieren Sie die Nodes auf Cluster_A
 
 Sie müssen die Upgrade-Tasks wiederholen, um die Nodes auf „Cluster_A“ an Standort A zu aktualisieren
@@ -1044,6 +1061,7 @@ Wenn Sie den Vorgang wiederholen, werden alle Beispielverweise auf die Cluster u
 
 
 
+[[restoring-tiebreaker-monitoring]]
 === Wiederherstellen des Tiebreaker Monitoring
 
 Wenn die MetroCluster Konfiguration zuvor für das Monitoring über die Tiebreaker Software konfiguriert war, können Sie die Tiebreaker Verbindung wiederherstellen.

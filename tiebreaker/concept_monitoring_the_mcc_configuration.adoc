@@ -15,6 +15,7 @@ Die MetroCluster Tiebreaker Software automatisiert den Recovery-Prozess, da Kund
 
 
 
+[[configuring-autosupport]]
 == AutoSupport wird konfiguriert
 
 Standardmäßig werden AutoSupport-Meldungen eine Woche nach der Installation der Tiebreaker Software an NetApp gesendet. Ereignisse, die die AutoSupport-Benachrichtigung auslösen, sind eine Panik der Tiebreaker Software, die Erkennung von Ausfallszenarien für MetroCluster-Konfigurationen oder ein unbekannter MetroCluster-Konfigurationsstatus.
@@ -130,6 +131,7 @@ Autosupport configuration deleted successfully.
 
 
 
+[[snmp-events-and-traps]]
 === SNMP-Ereignisse und -Traps
 
 Die NetApp MetroCluster Tiebreaker Software verwendet SNMP-Traps, um Sie über wichtige Ereignisse zu informieren. Diese Fallen sind Teil der NetApp MIB Datei. Jeder Köder enthält die folgenden Informationen: Trap-Name, Schweregrad, Impact-Level, Zeitstempel und Nachricht.
@@ -187,6 +189,7 @@ Die SNMP-Konfiguration kann nun durch Ausführen des befehls snmp config Test ge
 |===
 
 
+[[displaying-the-status-of-monitoring-operations]]
 == Anzeigen des Status von Monitoring-Vorgängen
 
 Sie können den Gesamtstatus der Überwachungsvorgänge für eine MetroCluster-Konfiguration anzeigen.
@@ -286,6 +289,7 @@ MetroCluster: cluster_B
 
 
 
+[[displaying-metrocluster-configuration-information]]
 == Anzeigen von Informationen über die MetroCluster-Konfiguration
 
 Sie können den Monitornamen und die IP-Adresse aller Instanzen von MetroCluster-Konfigurationen in der Tiebreaker Software anzeigen.
@@ -309,6 +313,7 @@ MetroCluster: North America
 
 
 
+[[creating-dump-files]]
 == Erstellen von Dump-Dateien
 
 Sie speichern den Gesamtstatus der Tiebreaker Software in einer Dump-Datei für Debugging-Zwecke.
@@ -329,6 +334,7 @@ MetroCluster Tiebreaker status successfully dumped in file /var/log/netapp/mcctb
 
 
 
+[[disable-tiebreaker-observer-mode]]
 == Beobachtermodus für Tiebreaker deaktivieren
 
 Sie können den Beobachtermodus der Tiebreaker-Software deaktivieren, sodass diese nach Erkennung eines Standortausfalls automatisch eine Umschaltung einleitet.

@@ -103,6 +103,7 @@ Wenn Sie einem vorhandenen Cluster neue Nodes ohne standardmäßige Broadcast-Do
 
 
 
+[[enable-console-logging]]
 == Aktivieren Sie die Konsolenprotokollierung
 
 NetApp empfiehlt dringend, die Konsolenprotokollierung auf den von Ihnen verwendeten Geräten zu aktivieren und folgende Aktionen durchzuführen:
@@ -117,6 +118,7 @@ Siehe Knowledge Base-Artikel link:https://kb.netapp.com/Support_Bulletins/Custom
 
 
 
+[[example-naming-in-this-procedure]]
 == Beispiel für die Benennung in diesem Verfahren
 
 Bei diesem Verfahren werden durchgängig Beispielnamen verwendet, um die involvierten DR-Gruppen, Nodes und Switches zu identifizieren.
@@ -154,6 +156,7 @@ dr_Group_2-neu
 |===
 
 
+[[supported-platform-combinations-when-adding-a-second-dr-group]]
 == Unterstützte Plattformkombinationen beim Hinzufügen einer zweiten DR-Gruppe
 
 In der folgenden Tabelle sind die unterstützten Plattformkombinationen für MetroCluster IP-Konfigurationen mit acht Nodes aufgeführt.
@@ -169,6 +172,7 @@ In der folgenden Tabelle sind die unterstützten Plattformkombinationen für Met
 ====
 
 
+[[supported-aff-and-fas-metrocluster-ip-expansion-combinations]]
 === Unterstützte AFF- und FAS MetroCluster-IP-Erweiterungskombinationen
 
 Die folgenden Tabellen zeigen die unterstützten Plattformkombinationen für die Erweiterung eines AFF- oder FAS-Systems in einer MetroCluster IP-Konfiguration. Die Tabellen sind in zwei Gruppen aufgeteilt:
@@ -202,6 +206,7 @@ image:../media/expand-ip-group-2-updated.png["Erweiterungskombinationen für AFF
 ====
 
 
+[[supported-asa-metrocluster-ip-expansion-combinations]]
 === Unterstützte ASA MetroCluster IP-Erweiterungskombinationen
 
 In der folgenden Tabelle sind die unterstützten Plattformkombinationen für die Erweiterung eines ASA-Systems in einer MetroCluster IP-Konfiguration aufgeführt:
@@ -210,6 +215,7 @@ image::../media/8node_comb_ip_asa.png[Plattformkombinationen für 8 Node-Konfigu
 
 
 
+[[send-a-custom-autosupport-message-prior-to-maintenance]]
 == Senden Sie vor der Wartung eine individuelle AutoSupport Nachricht
 
 Bevor Sie die Wartung durchführen, sollten Sie eine AutoSupport Meldung ausgeben, um den technischen Support von NetApp über die laufende Wartung zu informieren. Die Mitteilung des technischen Supports über laufende Wartungsarbeiten verhindert, dass ein Fall eröffnet wird, wenn eine Störung aufgetreten ist.
@@ -240,6 +246,7 @@ Wenn die Wartung vor dem Vergehen der Zeit abgeschlossen ist, können Sie eine A
 
 
 
+[[considerations-for-vlans-when-adding-a-new-dr-group]]
 == Überlegungen für VLANs beim Hinzufügen einer neuen DR-Gruppe
 
 * Beim erweitern einer MetroCluster-IP-Konfiguration gelten die folgenden VLAN-Überlegungen:
@@ -305,6 +312,7 @@ Gültige VLAN-Bereiche:
 
 
 
+[[verify-the-health-of-the-metrocluster-configuration]]
 == Überprüfen Sie den Systemzustand der MetroCluster-Konfiguration
 
 Vor der Erweiterung müssen Sie den Zustand und die Konnektivität der MetroCluster-Konfiguration überprüfen.
@@ -442,6 +450,7 @@ cluster_A::>
 
 
 
+[[remove-the-configuration-from-monitoring-applications]]
 == Entfernen Sie die Konfiguration aus den Überwachungsanwendungen
 
 Wenn die vorhandene Konfiguration mit der MetroCluster Tiebreaker Software, dem ONTAP Mediator oder anderen Anwendungen von Drittanbietern (z. B. ClusterLion) überwacht wird, die eine Umschaltung initiieren können, müssen Sie die MetroCluster-Konfiguration vor dem Upgrade von der Monitoring-Software entfernen.
@@ -486,6 +495,7 @@ Informationen zur Anwendung finden Sie in der Dokumentation.
 
 
 
+[[prepare-the-new-controller-modules]]
 == Bereiten Sie die neuen Controller-Module vor
 
 Sie müssen die vier neuen MetroCluster-Knoten vorbereiten und die korrekte ONTAP-Version installieren.
@@ -535,6 +545,7 @@ Schließen Sie derzeit den Cluster-Assistenten oder den Node-Assistenten nicht a
 
 
 
+[[upgrade-rcf-files]]
 == RCF-Dateien aktualisieren
 
 Wenn Sie neue Switch-Firmware installieren, müssen Sie die Switch-Firmware installieren, bevor Sie die RCF-Datei aktualisieren.
@@ -621,6 +632,7 @@ NOTE: Wenn Sie über eine freigegebene L2- oder L3-Netzwerkkonfiguration verfüg
 
 
 
+[[join-the-new-nodes-to-the-clusters]]
 == Verbinden Sie die neuen Nodes mit den Clustern
 
 Sie müssen die vier neuen MetroCluster IP-Nodes der bestehenden MetroCluster-Konfiguration hinzufügen.
@@ -704,6 +716,7 @@ Do you want to use this configuration? {yes, no} [yes]: yes
 
 
 
+[[configure-intercluster-lifs-for-cluster-peering]]
 == Konfigurieren Sie Intercluster-LIFs für Cluster-Peering
 
 Sie müssen Intercluster-LIFs an Ports erstellen, die für die Kommunikation zwischen den MetroCluster-Partner-Clustern verwendet werden. Sie können dedizierte Ports oder Ports verwenden, die auch Datenverkehr haben.
@@ -979,6 +992,7 @@ cluster01
 ====
 
 
+[[create-the-metrocluster-interfaces-and-mirror-root-aggregates]]
 == Erstellen Sie die MetroCluster-Schnittstellen und spiegeln Sie die Root-Aggregate
 
 Sie müssen die MetroCluster-Schnittstellen auf den neuen MetroCluster-IP-Knoten erstellen und Root-Aggregate spiegeln.
@@ -1432,6 +1446,7 @@ aggr_data_a2
 
 
 
+[[finalize-the-addition-of-the-new-nodes]]
 == Schließen Sie das Hinzufügen der neuen Knoten ab
 
 Sie müssen die neue DR-Gruppe in die MetroCluster Konfiguration einbinden und gespiegelte Datenaggregate auf den neuen Nodes erstellen.

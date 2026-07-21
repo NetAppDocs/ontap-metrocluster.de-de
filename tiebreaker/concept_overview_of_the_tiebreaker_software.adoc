@@ -15,6 +15,7 @@ Es ist hilfreich zu verstehen, was die NetApp MetroCluster Tiebreaker Software i
 
 
 
+[[detecting-failures-with-netapp-metrocluster-tiebreaker-software]]
 == Erkennen von Ausfällen mit der NetApp MetroCluster Tiebreaker Software
 
 Sie benötigen die Tiebreaker Software nur, wenn zwei Cluster und der Konnektivitätsstatus zwischen ihnen von einem dritten Standort aus überwacht werden soll. Die Tiebreaker Software befindet sich auf einem Linux Host am dritten Standort, sodass jeder Partner in einem Cluster bei einem Standortausfall zwischen einem ISL-Ausfall und einem Standortausfall unterscheiden kann.
@@ -25,12 +26,14 @@ Die Tiebreaker Software überwacht bis zu 15 MetroCluster Konfigurationen gleich
 
 
 
+[[how-the-tiebreaker-software-detects-site-failures]]
 == Wie die Tiebreaker Software Standortausfällen erkennt
 
 Die NetApp MetroCluster Tiebreaker Software überprüft die Erreichbarkeit der Nodes in einer MetroCluster Konfiguration und des Clusters, um zu ermitteln, ob ein Standortausfall aufgetreten ist. Über die Tiebreaker Software wird auch unter bestimmten Bedingungen eine Warnmeldung ausgelöst.
 
 
 
+[[components-monitored-by-the-tiebreaker-software]]
 === Komponenten, die über die Tiebreaker Software überwacht werden
 
 Die Tiebreaker Software überwacht jeden Controller in der MetroCluster-Konfiguration, indem redundante Verbindungen über mehrere Pfade zu einer Node-Management-LIF und zur Cluster-Management-LIF erstellt werden, die beide im IP-Netzwerk gehostet werden.
@@ -49,6 +52,7 @@ NOTE: Alle Links werden getrennt, wenn das verbliebene Cluster nicht mehr über 
 
 
 
+[[failure-scenarios-during-which-tiebreaker-software-triggers-an-alert]]
 === Ausfallszenarien, während denen Tiebreaker Software eine Warnmeldung auslöst
 
 Die Tiebreaker Software löst eine Warnmeldung aus, wenn das Cluster (alle Nodes) an der Disaster-Site ausgefallen ist oder nicht erreichbar ist und das Cluster auf der überlebenden Site den Status „`AllLinksSevered`“ anzeigt.
@@ -68,12 +72,14 @@ link:concept_risks_and_limitation_of_using_mcc_tiebreaker_in_active_mode.html["R
 
 
 
+[[how-the-tiebreaker-software-detects-intersite-connectivity-failures]]
 == So erkennt die Tiebreaker Software Konnektivitätsausfälle zwischen Standorten
 
 Die MetroCluster Tiebreaker Software benachrichtigt Sie, wenn alle Verbindungen zwischen den Standorten verloren gehen.
 
 
 
+[[types-of-network-paths]]
 === Arten von Netzwerkpfaden
 
 Je nach Konfiguration gibt es drei Typen von Netzwerkpfaden zwischen den beiden Clustern in einer MetroCluster Konfiguration:
@@ -94,12 +100,14 @@ Dieser Netzwerktyp besteht aus zwei redundanten IP Switch-Netzwerken. Jedes Netz
 
 
 
+[[monitoring-intersite-connectivity]]
 === Monitoring der Konnektivität zwischen Standorten
 
 Die Tiebreaker Software ruft regelmäßig den Status der Konnektivität zwischen Standorten von den Nodes ab. Wenn die NV-Interconnect-Konnektivität verloren geht und das Intercluster-Peering nicht auf Pings reagiert, gehen die Cluster davon aus, dass die Sites isoliert sind und die Tiebreaker Software eine Warnung mit „`AllLinksSevered`“ auslöst. Wenn ein Cluster den Status „`AllLinksSevered`“ identifiziert und der andere Cluster nicht über das Netzwerk erreichbar ist, löst die Tiebreaker Software eine Warnung mit dem Namen „`disaster`“ aus.
 
 
 
+[[how-different-disaster-types-affect-tiebreaker-software-detection-time]]
 == Auswirkungen verschiedener Ausfalltypen auf die Tiebreaker Software-Erkennungszeit
 
 Für eine bessere Disaster Recovery-Planung benötigt die MetroCluster Tiebreaker Software einige Zeit, um einen Ausfall zu erkennen. Diese Zeit ist die "`disaster detection time`". Die MetroCluster Tiebreaker Software erkennt den Standortausfall innerhalb von 30 Sekunden nach dem Zwischenfall und löst den Disaster Recovery-Vorgang aus, sodass Sie über den Notfall benachrichtigt werden.
@@ -114,12 +122,14 @@ Die Erkennungszeit hängt auch von der Art des Ausfalls ab und kann in einigen S
 
 
 
+[[power-loss]]
 === Stromausfall
 
 Die Tiebreaker Software löst sofort eine Warnmeldung aus, wenn der Node nicht mehr ausgeführt wird. Bei einem Stromausfall halten alle Verbindungen und Updates, wie Intercluster Peering, NV Interconnect und Mailbox-Festplatte, an. Die Zeit, die zwischen dem Cluster nicht mehr erreichbar war, die Erkennung des Ausfalls und der Auslöser, einschließlich der standardmäßigen Silent Time von 5 Sekunden, sollten 30 Sekunden nicht überschreiten.
 
 
 
+[[panic]]
 === Panik
 
 In MetroCluster FC-Konfigurationen löst die Tiebreaker Software eine Warnmeldung aus, wenn die NV-Interconnect-Verbindung zwischen den Standorten ausfällt und der verbleibende Standort den Status „`AllLinksSevered`“ anzeigt. Dies geschieht nur, nachdem der Cordump-Prozess abgeschlossen ist. In diesem Szenario könnte die Zeit, die zwischen dem Cluster nicht mehr erreichbar wurde und der Erkennung eines Ausfalls mehr oder ungefähr der Zeit entsprechen, die für den Cordump-Prozess benötigt wurde. In vielen Fällen beträgt die Erkennungszeit mehr als 30 Sekunden.
@@ -128,18 +138,21 @@ Wenn ein Knoten nicht mehr funktioniert, aber keine Datei für den coredump-Proz
 
 
 
+[[halt-or-reboot]]
 === Anhalten oder Neustarten
 
 Die Tiebreaker Software löst eine Warnmeldung nur aus, wenn der Knoten nicht verfügbar ist und die überlebende Seite den Status „`AllLinksSevered`“ anzeigt. Die Zeit, die zwischen dem Cluster, das nicht mehr erreichbar ist, und dem Erkennen eines Ausfalls dauert, könnte länger als 30 Sekunden sein. In diesem Szenario hängt die für die Erkennung eines Notfall benötigte Zeit davon ab, wie lange es dauert, bis die Nodes am Disaster-Standort heruntergefahren werden.
 
 
 
+[[loss-of-fc-switches-at-the-disaster-site-fabric-attached-metrocluster-configuration]]
 === Verlust von FC Switches am Disaster-Standort (Fabric-Attached MetroCluster-Konfiguration)
 
 Die Tiebreaker Software löst eine Warnmeldung aus, wenn ein Node nicht mehr ausgeführt wird. Wenn FC-Switches verloren gehen, versucht der Node, den Pfad zu einer Festplatte für ca. 30 Sekunden wiederherzustellen. Während dieser Zeit reagiert der Node auf das Peering-Netzwerk. Wenn beide FC-Switches ausgefallen sind und der Pfad zu einer Festplatte nicht wiederhergestellt werden kann, verursacht der Node einen MultiDiskFailure-Fehler und stoppt. Die zwischen dem FC-Switch-Ausfall und der Anzahl der Male, die die Nodes MultiDiskFailure-Fehler produzierten, beträgt ca. 30 Sekunden länger. Diese zusätzlichen 30 Sekunden müssen zur Notfallerkennungszeit hinzugefügt werden.
 
 
 
+[[about-the-tiebreaker-cli-and-man-pages]]
 == Über die Tiebreaker CLI und die man-Pages
 
 Über die Tiebreaker CLI können Sie die Tiebreaker Software per Remote konfigurieren und die MetroCluster Konfigurationen überwachen.

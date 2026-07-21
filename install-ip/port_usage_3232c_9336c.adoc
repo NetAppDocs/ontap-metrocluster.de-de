@@ -41,6 +41,7 @@ NOTE: Die Version der RCF-Datei unterscheidet sich von der Version des RCFfilege
 
 
 
+[[choose-the-correct-cabling-table-for-your-configuration]]
 == Wählen Sie die richtige Verkabelungstabelle für Ihre Konfiguration aus
 
 Ermitteln Sie anhand der folgenden Tabelle, welche Verkabelungstabelle Sie befolgen sollten.
@@ -79,16 +80,19 @@ Die folgende Tabelle hängt davon ab, ob Sie eine 25G (Gruppe 3a) oder 100G (Gru
 
 | FAS70, AFF A70 AFF C80 FAS90, AFF A90 AFF A1K | <<table_8_cisco_3232c_9336c,Cisco 3232C- oder Cisco 9336C-FX2-Plattform-Port-Zuordnungen (Gruppe 8)>> 
 |===
+[[table_1_cisco_3232c_9336c]]
 .Cisco 3232C- oder Cisco 9336C-FX2-Plattform-Port-Zuordnungen (Gruppe 1)
 Prüfen der Plattform-Port-Zuordnungen zur Verkabelung von AFF A150, ASA A150, FAS2750, AFF A220, FAS500f, AFF C250, ASA C250, AFF A250 oder ASA A250 mit einem Cisco 3232C oder 9336C-FX2 Switch:
 
 image:../media/mcc-ip-cabling-a150-a220-a250-to-a-cisco-3232c-or-cisco-9336c-switch-9161.png["Zeigt die Zuweisung der Cisco 3232C- oder Cisco 9336C-FX2-Plattformschnittstelle"]
 
+[[table_2_cisco_3232c_9336c]]
 .Cisco 3232C- oder Cisco 9336C-FX2-Plattform-Port-Zuordnungen (Gruppe 2)
 Überprüfen Sie die Zuweisung der Plattformschnittstelle, um ein AFF A20-System mit einem Cisco 3232C- oder 9336C-FX2-Switch zu verkabeln:
 
 image:../media/mcc-ip-cabling-aff-a20-9161.png["Zeigt die Zuweisung der Cisco 3232C- oder Cisco 9336C-FX2-Plattformschnittstelle"]
 
+[[table_3a_cisco_3232c_9336c]]
 .Cisco 3232C oder Cisco 9336C-FX2 – Plattform-Port-Zuordnungen (Gruppe 3a)
 Überprüfen Sie die Zuordnungen der Plattformports, um ein AFF A30-, AFF C30-, AFF C60- oder FAS50-System über eine 25-Gbit-Ethernet-Karte mit vier Ports mit einem Cisco 3232C- oder 9336C-FX2-Switch zu verkabeln.
 
@@ -97,6 +101,7 @@ NOTE: Diese Konfiguration erfordert eine 25-Gbit-Ethernet-Karte mit vier Ports i
 
 image:../media/mccip-cabling-a30-c30-fas50-c60-25G.png["Zeigt die Zuweisung der Cisco 3232C- oder Cisco 9336C-FX2-Plattformschnittstelle"]
 
+[[table_3b_cisco_3232c_9336c]]
 .Cisco 3232C oder Cisco 9336C-FX2 – Plattform-Port-Zuordnungen (Gruppe 3b)
 Überprüfen Sie die Zuweisung der Plattform-Ports, um ein AFF A30-, AFF C30-, AFF C60- oder FAS50-System mit einem Cisco 3232C- oder 9336C-FX2-Switch über eine 100-GB-Ethernet-Karte mit zwei Ports zu verkabeln.
 
@@ -105,6 +110,7 @@ NOTE: Für diese Konfiguration ist eine 100-GB-Ethernet-Karte mit zwei Ports in 
 
 image:../media/mccip-cabling-a30-c30-fas50-c60-100G.png["Zeigt die Zuweisung der Cisco 3232C- oder Cisco 9336C-FX2-Plattformschnittstelle"]
 
+[[table_4_cisco_3232c_9336c]]
 .Cisco 3232C- oder Cisco 9336C-FX2-Plattform-Port-Zuordnungen (Gruppe 4)
 Überprüfen Sie die Zuordnungen der Plattformports, um ein FAS8200- oder AFF A300-System mit einem Cisco 3232C- oder 9336C-FX2-Switch zu verkabeln:
 
@@ -112,6 +118,7 @@ image::../media/mccip-cabling-fas8200-a300-updated.png[Zeigt die Zuweisung der C
 
 Wenn Sie ein Upgrade von älteren RCF-Dateien durchführen, verwendet die Verkabelungskonfiguration möglicherweise Ports in der Gruppe „MetroCluster 4“ (Ports 25/26 und 29/30).
 
+[[table_5_cisco_3232c_9336c]]
 .Cisco 3232C- oder Cisco 9336C-FX2-Plattform-Port-Zuordnungen (Gruppe 5)
 Prüfen der Port-Zuordnungen der Plattformen zur Verkabelung der AFF A320, FAS8300, AFF C400, ASA C400, FAS8700 AFF A400 oder ASA A400 System auf einen Cisco 3232C oder 9336C-FX2 Switch:
 
@@ -120,11 +127,13 @@ image::../media/mcc_ip_cabling_a320_a400_cisco_3232C_or_9336c_switch.png[Zeigt d
 
 NOTE: Für die Verwendung von Ports in der Gruppe „MetroCluster 4“ ist ONTAP 9.13.1 oder höher erforderlich.
 
+[[table_6_cisco_3232c_9336c]]
 .Cisco 3232C- oder Cisco 9336C-FX2-Plattform-Port-Zuordnungen (Gruppe 6)
 Überprüfen Sie die Zuweisung der Plattformschnittstelle, um ein AFF A50-System mit einem Cisco 3232C- oder 9336C-FX2-Switch zu verkabeln:
 
 image::../media/mcc-ip-cabling-aff-a50-cisco-3232c-9336c-9161.png[Zeigt die Zuweisung der Cisco 3232C- oder Cisco 9336C-FX2-Plattformschnittstelle]
 
+[[table_7_cisco_3232c_9336c]]
 .Cisco 3232C- oder Cisco 9336C-FX2-Plattform-Port-Zuordnungen (Gruppe 7)
 Plattform-Port-Zuordnungen zur Verkabelung von FAS9000, AFF A700, AFF C800, ASA C800, AFF A800 prüfen, ASA A800, FAS9500, AFF A900 oder ASA A900 System mit einem Cisco 3232C oder 9336C-FX2 Switch:
 
@@ -135,6 +144,7 @@ image::../media/mcc_ip_cabling_fas9000_a700_fas9500_a800_a900_cisco_3232C_or_933
 
 NOTE: Für die Verwendung von Ports in der Gruppe „MetroCluster 4“ ist ONTAP 9.13.1 oder höher erforderlich.
 
+[[table_8_cisco_3232c_9336c]]
 .Cisco 3232C- oder Cisco 9336C-FX2-Plattform-Port-Zuordnungen (Gruppe 8)
 Prüfen Sie die Zuordnungen der Plattform-Ports, um ein AFF A70-, FAS70-, AFF C80-, FAS90-, AFF A90- oder AFF A1K-System mit einem Cisco 3232C- oder 9336C-FX2 Switch zu verkabeln:
 

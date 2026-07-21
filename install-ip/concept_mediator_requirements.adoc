@@ -22,13 +22,13 @@ Die folgenden Anforderungen gelten für eine Disaster Recovery-Gruppe (DR-Gruppe
 Die Konnektivität zwischen dem ONTAP Mediator und jedem Standort muss aus zwei separaten Ausfall-Domains bestehen.
 
 * Die automatische ungeplante Umschaltung wird in ONTAP 9.7 und höher unterstützt.
-* Ab ONTAP 9.19.1 und ONTAP Mediator 1.12 können Sie einen ONTAP Mediator konfigurieren, der HTTPS anstelle von iSCSI für die Kommunikation verwendet. Wenn ONTAP Mediator mit HTTPS konfiguriert ist, kann nur eine MetroCluster IP-Konfiguration pro ONTAP Mediator Instanz überwacht werden. Weitere Informationen finden Sie unter <<Wählen Sie ein Kommunikationsprotokoll für ONTAP Mediator aus.>>.
-* Ab ONTAP 9.18.1 und ONTAP Mediator 1.11 kann eine einzelne, mit iSCSI konfigurierte ONTAP Mediator-Instanz bis zu zehn MetroCluster-Konfigurationen gleichzeitig verwalten. In ONTAP 9.17.1 und ONTAP Mediator 1.10 und früher kann ein mit iSCSI konfigurierter ONTAP Mediator bis zu fünf MetroCluster-Konfigurationen gleichzeitig unterstützen.
+* Ab ONTAP 9.19.1 und ONTAP Mediator 1.12 können Sie einen ONTAP Mediator konfigurieren, der HTTPS anstelle von iSCSI für die Kommunikation verwendet. Weitere Informationen finden sich unter <<Wählen Sie ein Kommunikationsprotokoll für ONTAP Mediator aus.>>.
 * Ab ONTAP 9.18.1 wird IPv6 für ONTAP Mediator 1.11 oder höher in einer MetroCluster IP-Konfiguration unterstützt.
 
 
 
 
+[[network-requirements-for-using-ontap-mediator-in-a-metrocluster-configuration]]
 == Netzwerkanforderungen für die Verwendung von ONTAP Mediator in einer MetroCluster-Konfiguration
 
 Um ONTAP Mediator in einer MetroCluster-Konfiguration zu installieren, müssen Sie sicherstellen, dass die Konfiguration mehrere Netzwerkanforderungen erfüllt.
@@ -60,6 +60,7 @@ Es ist eine unabhängige Verbindung zwischen jedem Standort und dem ONTAP Mediat
 
 
 
+[[host-requirements-for-ontap-mediator-in-a-metrocluster-configuration]]
 == Hostanforderungen für ONTAP Mediator in einer MetroCluster-Konfiguration
 
 Sie müssen sicherstellen, dass die Konfiguration mehrere Host-Anforderungen erfüllt.
@@ -75,26 +76,79 @@ Sie müssen sicherstellen, dass die Konfiguration mehrere Host-Anforderungen erf
 
 
 
+[[select-a-communication-protocol-for-ontap-mediator]]
 == Wählen Sie ein Kommunikationsprotokoll für ONTAP Mediator aus.
 
 Standardmäßig greifen MetroCluster IP-Knoten über iSCSI-Sitzungen auf ONTAP Mediator-Mailbox-LUNs zu. ONTAP Mediator verwendet das SCST-Paket für iSCSI. Die Authentifizierung der iSCSI-Sitzungen erfolgt mittels Challenge Handshake Authentication Protocol (CHAP) mit einem verschleierten, maschinell generierten Pre-Shared Key, jedoch ohne vollständige Verschlüsselung.
 
 Ab ONTAP 9.19.1 und ONTAP Mediator 1.12 können Sie eine ONTAP Mediator-Instanz konfigurieren, die HTTPS anstelle von iSCSI für die Kommunikation verwendet. HTTPS ist ein sicheres Kommunikationsprotokoll, das ganze Sitzungen mit SSL/TLS verschlüsselt und somit im Vergleich zu iSCSI eine höhere Sicherheit bietet.
 
+Sie können ONTAP Mediator mit Unterstützung für iSCSI und HTTPS oder nur für HTTPS installieren. Weitere Informationen finden sich unter link:https://docs.netapp.com/us-en/ontap/mediator/index.html#https-iscsi-installation["HTTPS- und iSCSI-Installationsoptionen für ONTAP Mediator"^].
+
+Sie können ONTAP Mediator entweder mit iSCSI oder mit HTTPS konfigurieren, nicht mit beiden. Die Verwendung einer Mischung von Protokollen in Ihrer Bereitstellung wird nicht unterstützt.
+
 Ein ONTAP Mediator, der HTTPS verwendet, kann nur über die Befehlszeilenschnittstelle (CLI) konfiguriert werden. System Manager wird nicht unterstützt.
 
-[CAUTION]
-====
-* Wenn Sie ONTAP Mediator mit HTTPS konfigurieren, kann eine einzelne ONTAP Mediator-Instanz nur eine MetroCluster IP-Konfiguration überwachen. Die Überwachung mehrerer MetroCluster IP-Konfigurationen gleichzeitig wird nicht unterstützt.
-* Wenn Sie ONTAP Mediator mit HTTPS zur Überwachung mehrerer MetroCluster IP-Konfigurationen benötigen, müssen Sie separate ONTAP Mediator-Instanzen für jede MetroCluster IP-Konfiguration einrichten. Sie müssen die Anforderungen Ihrer MetroCluster IP-Umgebung sorgfältig prüfen, bevor Sie sich entscheiden, ONTAP Mediator mit HTTPS für MetroCluster IP zu konfigurieren.
-* Wenn Sie mit einer einzigen ONTAP Mediator-Instanz mehr als eine MetroCluster IP-Konfiguration überwachen möchten, sollten Sie ONTAP Mediator mit iSCSI anstatt mit HTTPS konfigurieren.
-
-
-====
-Weitere Informationen finden Sie unter link:https://docs.netapp.com/us-en/ontap/mediator/index.html#https-iscsi-installation["HTTPS- und iSCSI-Installationsoptionen für ONTAP Mediator"^].
+Die Unterstützung für die Überwachung mehrerer MetroCluster IP-Konfigurationen hängt davon ab, ob ONTAP Mediator für iSCSI oder HTTPS konfiguriert wird. Weitere Informationen sind unter <<ONTAP Mediator zur Überwachung mehrerer MetroCluster IP Konfigurationen verwenden>> zu finden.
 
 
 
+[[use-ontap-mediator-to-monitor-multiple-metrocluster-ip-configurations]]
+[[mediator-multiple-mccip]]
+== ONTAP Mediator zur Überwachung mehrerer MetroCluster IP Konfigurationen verwenden
+
+ONTAP Mediator kann zur gleichzeitigen Überwachung mehrerer MetroCluster IP-Konfigurationen verwendet werden. Die Unterstützung hängt davon ab, ob ONTAP Mediator mit iSCSI oder HTTPS konfiguriert wird.
+
+
+
+[[ontap-mediator-configured-with-https]]
+=== ONTAP Mediator mit HTTPS konfiguriert
+
+Ab ONTAP 9.19.1 und ONTAP Mediator 1.12 kann eine ONTAP Mediator Instanz konfiguriert werden, die für die Kommunikation HTTPS anstelle von iSCSI verwendet. In diesem Abschnitt wird die Unterstützung für die Überwachung mehrerer Konfigurationen mit einer einzigen HTTPS ONTAP Mediator Instanz dargestellt.
+
+
+CAUTION: Das Hinzufügen mehrerer HTTPS ONTAP Mediator Instanzen über die in diesem Abschnitt beschriebenen Beschränkungen hinaus wird nicht unterstützt.
+
+.Überwachung mehrerer MetroCluster IP-Konfigurationen
+ONTAP Mediator, konfiguriert mit HTTPS, bietet folgende Unterstützung für die Überwachung mehrerer MetroCluster IP-Konfigurationen. Die Unterstützung hängt von der ONTAP Mediator Version, den Spezifikationen des Host-Betriebssystems und davon ab, ob die MetroCluster IP-Konfiguration eine Vier-Knoten- oder Acht-Knoten-Konfiguration ist.
+
+[cols="1,2,1,1"]
+|===
+| ONTAP Mediator Version | Anforderungen an das Host-Betriebssystem | Vier-Knoten MetroCluster IP-Konfigurationen | Acht-Knoten MetroCluster IP-Konfigurationen 
+
+
+| 1,12 | k. A. | 1 | 1 
+
+
+.2+| 1.12.1 und später | Hosts mit weniger als 8 CPU-Kernen und mindestens 8GB RAM | 1 | 1 
+
+
+| Hosts mit mindestens 8 CPU-Kernen und mindestens 16GB RAM | 10 | 5 
+|===
+.Überwachung von MetroCluster IP und SnapMirror Active Sync Konfigurationen
+Ab ONTAP 9.19.1 und ONTAP Mediator 1.12 kann dieselbe ONTAP Mediator Instanz verwendet werden, um eine vierknoten MetroCluster IP Konfiguration und eine SnapMirror Aktiv-Sync Cluster Peer-Beziehung gleichzeitig zu überwachen. Die Konfiguration muss die folgenden Anforderungen erfüllen:
+
+* ONTAP Mediator 1.12.1 oder höher ist auf einem Host-Betriebssystem mit einer 2-Kern-CPU installiert.
+* Die ONTAP Mediator Instanz ist mit dem HTTPS-Protokoll konfiguriert.
+
+
+
+NOTE: Es kann nur eine Vier-Knoten-MetroCluster-IP-Konfiguration und eine SnapMirror Active Sync Peer-Beziehung mit derselben ONTAP Mediator Instanz überwacht werden.
+
+link:https://docs.netapp.com/us-en/ontap/snapmirror-active-sync/index.html["Informationen zu ONTAP SnapMirror Active Sync"^].
+
+
+
+[[ontap-mediator-configured-with-iscsi]]
+=== ONTAP Mediator mit iSCSI konfiguriert
+
+* Ab ONTAP 9.18.1 und ONTAP Mediator 1.11 kann eine einzelne, mit iSCSI konfigurierte ONTAP Mediator-Instanz bis zu zehn MetroCluster-Konfigurationen gleichzeitig verwalten.
+* In ONTAP 9.17.1 und ONTAP Mediator 1.10 und früher kann ein mit iSCSI konfigurierter ONTAP Mediator bis zu fünf MetroCluster-Konfigurationen gleichzeitig unterstützen.
+
+
+
+
+[[guidelines-for-upgrading-ontap-mediator-in-a-metrocluster-configuration]]
 == Richtlinien zum Upgrade von ONTAP Mediator in einer MetroCluster-Konfiguration
 
 Wenn Sie ONTAP Mediator aktualisieren, müssen Sie die Linux-Versionsanforderungen erfüllen und die Richtlinien für die Aktualisierung befolgen.
@@ -107,6 +161,7 @@ link:https://docs.netapp.com/us-en/ontap/mediator/index.html["Installieren oder 
 
 
 
+[[after-the-upgrade]]
 == Nach dem Upgrade
 
 Nachdem die Aktualisierung von Mediator und Betriebssystem abgeschlossen ist, sollten Sie den ausgeben `storage iscsi-initiator show` Befehl, um zu bestätigen, dass die Mediator-Verbindungen aktiv sind.
