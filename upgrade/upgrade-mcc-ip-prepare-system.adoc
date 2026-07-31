@@ -752,6 +752,10 @@ dr-group-id cluster     node     node-systemid ha-partner-systemid dr-partner-sy
 Vor dem Aktualisieren der Plattformen müssen Sie die Überwachung entfernen, wenn die MetroCluster-Konfiguration mit dem Tiebreaker oder Mediator Utility überwacht wird.
 
 .Schritte
+. Ändern Sie die erweiterte Berechtigungsebene:
++
+`set -privilege advanced`
+
 . Sammeln Sie die Ausgabe für den folgenden Befehl:
 +
 `storage iscsi-initiator show`

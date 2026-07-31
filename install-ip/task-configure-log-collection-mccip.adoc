@@ -14,42 +14,30 @@ In einer MetroCluster-IP-Konfiguration können Sie die Protokollsammlung so konf
 
 CAUTION: Auf Broadcom- und Cisco-Switches ist für jeden Cluster mit Protokollsammlung ein neuer Benutzer erforderlich. Beispielsweise erfordern MetroCluster 1, MetroCluster 2, MetroCluster 3 und MetroCluster 4 die Konfiguration eines separaten Benutzers auf den Switches. Mehrere SSH-Schlüssel für denselben Benutzer werden nicht unterstützt.
 
-.Über diese Aufgabe
-Der Ethernet Switch Health Monitor (CSHM) ist dafür zuständig, den Betriebszustand der Netzwerk-Switches sicherzustellen und Switch-Protokolle zu Debugging-Zwecken zu sammeln. Diese Anleitung führt Sie durch die Einrichtung der Protokollerfassung, die Anforderung detaillierter *Support*-Protokolle und die Aktivierung der stündlichen Erfassung von *periodischen* Daten, die von AutoSupport erfasst werden.
-
-*HINWEIS:* Wenn Sie den FIPS-Modus aktivieren, müssen Sie Folgendes ausführen:
-
-[NOTE]
-====
-. Generieren Sie SSH-Schlüssel auf dem Switch mithilfe der Herstelleranweisungen neu.
-. Regenerieren Sie SSH-Schlüssel in ONTAP mit `debug system regenerate-systemshell-key-pair`
-. Führen Sie die Setup-Routine für die Protokollsammlung mit dem `system switch ethernet log setup-password` Befehl erneut aus
+.Bevor Sie beginnen
+* Wenn Sie den FIPS-Modus verwenden, sind vor dem Einrichten der Protokollerfassung die folgenden Schritte abzuschließen:
++
+.. Generieren Sie SSH-Schlüssel auf dem Switch mithilfe der Herstelleranweisungen neu.
+.. SSH-Schlüssel in ONTAP mit  `debug system regenerate-systemshell-key-pair` neu generieren.
+.. Die Einrichtung der Protokollerfassung wird mit dem  `system switch ethernet log setup-password` Befehl erneut durchgeführt.
 
 
-====
-
-
-[[before-you-begin]]
-== Bevor Sie beginnen
-
-* Der Benutzer muss Zugriff auf die Switch-Befehle haben `show` . Wenn diese nicht verfügbar sind, erstellen Sie einen neuen Benutzer und erteilen Sie dem Benutzer die erforderlichen Berechtigungen.
-* Die Switch-Statusüberwachung muss für den Switch aktiviert sein. Überprüfen Sie dies, indem Sie sicherstellen, dass  `Is Monitored:` Feld ist in der Ausgabe des  `system switch ethernet show` Befehl.
+* Sie benötigen Zugriff auf die Switch `show`-Befehle. Falls Sie keinen Zugriff haben, sollte ein neuer Switch-Benutzer erstellt und mit den erforderlichen Berechtigungen ausgestattet werden.
+* Die Zustandsüberwachung des Switches muss aktiviert sein. Dies lässt sich überprüfen, indem kontrolliert wird, dass das  `Is Monitored:` Feld in der Ausgabe von  `system switch ethernet show` auf *true* gesetzt ist.
 * Für die Protokollerfassung mit Broadcom- und Cisco-Switches:
 +
 ** Der lokale Benutzer muss über Netzwerkadministratorrechte verfügen.
-** Für jedes Cluster-Setup sollte auf dem Switch ein neuer Benutzer erstellt werden, bei dem die Protokollerfassung aktiviert ist. Diese Switches unterstützen nicht mehrere SSH-Schlüssel für denselben Benutzer. Bei jeder weiteren Einrichtung der Protokollerfassung werden alle bereits vorhandenen SSH-Schlüssel für den Benutzer überschrieben.
+** Für jeden Cluster mit aktivierter Protokollerfassung wird ein neuer Switch-Benutzer erstellt. Diese Switches unterstützen keine mehreren SSH-Schlüssel für denselben Benutzer, ein erneutes Ausführen des Setups überschreibt den vorhandenen SSH-Schlüssel.
 
 
-* Für die Unterstützung der Log-Erfassung mit NVIDIA-Switches muss der _user_ für die Log-Sammlung berechtigt sein `cl-support`, den Befehl auszuführen, ohne ein Passwort angeben zu müssen. Führen Sie den folgenden Befehl aus, um diese Verwendung zuzulassen:
+* Für die Protokollerfassung mit NVIDIA Switches muss der Protokollerfassungsbenutzer den  `cl-support` Befehl ohne Passwort ausführen können. Damit dies möglich ist, ist folgender Befehl auszuführen:
 +
 `echo '_<user>_ ALL = NOPASSWD: /usr/cumulus/bin/cl-support' | sudo EDITOR='tee -a' visudo -f /etc/sudoers.d/cumulus`
 
 
 
-
-
-[[steps]]
-== Schritte
+.Schritte
+Führen Sie die Schritte für Ihre Version von ONTAP aus, um die Protokollerfassung einzurichten, die periodische Datenerfassung zu aktivieren und optional Supportprotokolle auf Abruf anzufordern.
 
 [role="tabbed-block"]
 ====
