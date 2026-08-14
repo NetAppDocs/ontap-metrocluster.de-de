@@ -168,6 +168,59 @@ mcc1A::> metrocluster operation show
 
 
 
+[[verify-and-restore-lif-configuration]]
+== Überprüfung und Wiederherstellung der LIF-Konfiguration
+
+Es sollte überprüft werden, dass die LIFs auf den entsprechenden Nodes und Ports gehostet sind, bevor ein Switchback durchgeführt wird.
+
+.Schritte
+. Es sollte sichergestellt sein, dass die LIFs auf den entsprechenden Nodes und Ports gehostet sind, bevor ein Switchback durchgeführt wird.
++
+.. Ändern Sie die erweiterte Berechtigungsebene:
++
+`set -privilege advanced`
+
+.. Zeigen Sie die LIFs an und vergewissern Sie sich, dass jede Daten-LIF den richtigen Home Port verwendet:
++
+`network interface show`
+
+.. Ändern Sie alle LIFs, die nicht den korrekten Home Port verwenden:
++
+`network interface modify -vserver <svm-name> -lif <data-lif> -home-port <port-id>`
+
++
+Wenn der Befehl einen Fehler zurückgibt, können Sie die Portkonfiguration überschreiben:
+
++
+`vserver config override -command "network interface modify -vserver <svm-name> -home-port <active_port_after_upgrade> -lif <lif_name> -home-node <new_node_name>"`
+
++
+Wenn Sie den Befehl zur Änderung der Netzwerkschnittstelle in eingeben `vserver config override` Befehl, Sie können die Funktion Autovervollständigung auf der Registerkarte nicht verwenden. Sie können das Netzwerk erstellen `interface modify` Verwenden Sie Autocomplete und schließen Sie es dann in das ein `vserver config override` Befehl.
+
+.. Vergewissern Sie sich, dass alle Daten-LIFs nun am richtigen Home Port sind:
++
+`network interface show`
+
+.. Zurück zur Administratorberechtigungsebene:
++
+`set -privilege admin`
+
+
+
+. Zurücksetzen der Schnittstellen auf ihren Home-Node:
++
+`network interface revert * -vserver <svm-name>`
+
++
+Führen Sie diesen Schritt bei allen SVMs aus, falls erforderlich.
+
+
+
+
+CAUTION: Vor dem Switchback ist zu überprüfen, ob sich die Daten-LIFs auf den neuen Knoten an der korrekten Position befinden. Beim Switchback der Konfiguration versucht ONTAP, den Datenverkehr über den von den LIFs verwendeten Home-Port wieder aufzunehmen. Ein E/A-Fehler kann auftreten, wenn die Verbindung des Home-Ports zum Switch-Port und zum VLAN nicht korrekt ist. Treten Probleme bei der Platzierung der LIFs auf den richtigen Knoten oder Ports auf, sollte der Switchback nicht fortgesetzt werden und der NetApp Technical Support kontaktiert werden.
+
+
+
 [[verifying-that-your-system-is-ready-for-a-switchback]]
 == Überprüfen, ob das System für einen Wechsel bereit ist
 
@@ -451,8 +504,7 @@ vs1a           data    sync-source
 +
 `metrocluster operation show`
 
-
-
++
 |===
 
 
@@ -472,8 +524,58 @@ Dass der zurückwechseln Betrieb oder `switchback-continuation-agent` Der Vorgan
 Führen Sie den vorgeschlagenen Fix aus, der in der Ausgabe des angegeben ist `metrocluster operation show` Befehl.
 
 |===
-.Nachdem Sie fertig sind
-Sie müssen die vorherigen Abschnitte wiederholen, um den Umschalter in die entgegengesetzte Richtung auszuführen. Wenn Site_A die Umschaltung von Site_B durchgeführt hat, muss Site_B die Umschaltung von Site_A durchführen
+. Die folgenden Prüfungen bestätigen, dass die Umschaltung zwischen den beiden Clustern betriebsbereit ist:
++
+.. Vom DR-Cluster aus prüfen, ob ein Switchover vom überlebenden Cluster zum DR-Cluster möglich ist:
++
+`metrocluster switchover -simulate`
+
+.. Vom verbleibenden Cluster aus prüfen, ob ein Wechsel vom DR Cluster zum verbleibenden Cluster möglich ist:
++
+`metrocluster switchover -simulate`
+
+.. Vergewissern Sie sich, dass die MetroCluster-Komponenten ordnungsgemäß sind:
++
+`metrocluster check run`
+
++
+[listing]
+----
+cluster_A::*> metrocluster check run
+----
++
+Der Vorgang wird im Hintergrund ausgeführt.
+
+.. Nach dem `metrocluster check run` Vorgang abgeschlossen, Ausführen:
++
+`metrocluster check show`
+
++
+Nach etwa fünf Minuten werden die folgenden Ergebnisse angezeigt:
+
++
+[listing]
+----
+cluster_A:::*> metrocluster check show
+
+Component           Result
+------------------- ---------
+nodes               ok
+lifs                ok
+config-replication  ok
+aggregates          ok
+clusters            ok
+connections         ok
+volumes             ok
+7 entries were displayed.
+----
++
+
+NOTE: In einer MetroCluster FC-Umgebung sollte 'connections' in der Befehlsausgabe als "not-applicable" angezeigt werden.
+
+
+
+
 
 
 

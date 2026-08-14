@@ -87,6 +87,55 @@ Dass der Betrieb des zurückkehrenden oder zurückkehrenden Agenten teilweise er
 Führen Sie den vorgeschlagenen Fix aus, der in der Ausgabe des angegeben ist `metrocluster operation show` Befehl.
 
 |===
+. Die folgenden Prüfungen bestätigen, dass die Umschaltung zwischen den beiden Clustern betriebsbereit ist:
++
+.. Vom DR-Cluster aus prüfen, ob ein Switchover vom überlebenden Cluster zum DR-Cluster möglich ist:
++
+`metrocluster switchover -simulate`
+
+.. Vom verbleibenden Cluster aus prüfen, ob ein Wechsel vom DR Cluster zum verbleibenden Cluster möglich ist:
++
+`metrocluster switchover -simulate`
+
+.. Vergewissern Sie sich, dass die MetroCluster-Komponenten ordnungsgemäß sind:
++
+`metrocluster check run`
+
++
+[listing]
+----
+cluster_A::*> metrocluster check run
+----
++
+Der Vorgang wird im Hintergrund ausgeführt.
+
+.. Nach dem `metrocluster check run` Vorgang abgeschlossen, Ausführen:
++
+`metrocluster check show`
+
++
+Nach etwa fünf Minuten werden die folgenden Ergebnisse angezeigt:
+
++
+[listing]
+----
+cluster_A:::*> metrocluster check show
+
+Component           Result
+------------------- ---------
+nodes               ok
+lifs                ok
+config-replication  ok
+aggregates          ok
+clusters            ok
+connections         ok
+volumes             ok
+7 entries were displayed.
+----
++
+
+NOTE: In einer MetroCluster FC-Umgebung sollte 'connections' in der Befehlsausgabe als "not-applicable" angezeigt werden.
 
 
-Sie müssen die vorherigen Abschnitte wiederholen, um den Umschalter in die entgegengesetzte Richtung auszuführen. Wenn Site_A die Umschaltung von Site_B durchgeführt hat, muss Site_B die Umschaltung von Site_A durchführen
+
+
