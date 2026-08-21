@@ -52,9 +52,6 @@ Damit wird der Wettbewerb mit dem ausgehandelten Switchover- oder Switchback-Bet
 
 
 
-
-NOTE: SnapMirror und SnapVault Konfigurationen werden automatisch gelöscht.
-
 .Über diese Aufgabe
 Der `metrocluster switchover` Command Switches über die Nodes in allen DR-Gruppen in der MetroCluster Konfiguration. In einer MetroCluster Konfiguration mit acht Nodes wechselt sie beispielsweise über die Nodes in beiden DR-Gruppen.
 
@@ -89,9 +86,6 @@ mcc1A::> metrocluster operation show
 Wenn die Umschaltung vetoed ist, haben Sie die Möglichkeit, die neu zu stellen `metrocluster switchover-forced-on-disaster true` Befehl mit dem `--override-vetoes` Option. Wenn Sie diesen optionalen Parameter verwenden, überschreibt das System alle weichen Vetos, die die Umschaltung verhinderten.
 
 
-
-.Nachdem Sie fertig sind
-SnapMirror Beziehungen müssen nach der Umschaltung neu hergestellt werden.
 
 
 

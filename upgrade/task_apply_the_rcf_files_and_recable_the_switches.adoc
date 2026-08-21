@@ -11,25 +11,25 @@ summary: Sie müssen die RCF-Dateien anwenden, um das Zoning neu zu konfiguriere
 
 
 [role="lead"]
-Sie müssen die RCF-Dateien anwenden, um das Zoning neu zu konfigurieren, um die neuen Nodes aufzunehmen.
+Die Referenzkonfigurationsdateien (RCFs) sind anzuwenden, damit die Zonierung für die neuen Knoten angepasst wird.
 
-Wenn Sie die RCF-Dateien nicht zur Konfiguration der Switches verwenden können, müssen Sie die Switches manuell konfigurieren. Siehe:
+Falls die RCFs nicht zur Konfiguration der Switches verwendet werden können, müssen die Switches manuell konfiguriert werden. Weitere Informationen:
 
 * link:../install-fc/task_fcsw_brocade_configure_the_brocade_fc_switches_supertask.html["Konfigurieren Sie die Brocade FC-Switches manuell"]
 * link:../install-fc/task_fcsw_cisco_configure_a_cisco_switch_supertask.html["Konfigurieren Sie Cisco FC-Switches manuell"]
 
 
 .Schritte
-. Suchen Sie die RCF-Dateien für Ihre Konfiguration.
+. Die RCFs für Ihre Konfiguration finden sich hier.
 +
-Sie müssen die RCF-Dateien für eine Konfiguration mit acht Nodes verwenden, die Ihrem Switch-Modell entspricht.
+Sie müssen die RCFs für eine Acht-Knoten-Konfiguration verwenden, die zu Ihrem Switch-Modell passt.
 
-. Wenden Sie die RCF-Dateien an, indem Sie den Anweisungen auf der Download-Seite folgen und die ISL-Einstellungen nach Bedarf anpassen.
+. Die RCFs gemäß den Anweisungen auf der Downloadseite anwenden und die ISL Einstellungen bei Bedarf anpassen.
 . Stellen Sie sicher, dass die Switch-Konfiguration gespeichert ist.
 . Starten Sie die FC-Switches neu.
 . Verkabelung der vorhandenen und der neuen FC-to-SAS-Bridges zu den FC-Switches, wobei Sie das zuvor erstellte Verkabelungslayout verwenden.
 +
-Die Verwendung von FC-Switch-Ports muss mit der in beschriebenen Verwendung von acht MetroCluster-Nodes übereinstimmen link:../install-fc/index.html["Installation und Konfiguration von Fabric-Attached MetroCluster"] Damit die Referenzkonfigurationsdateien (RCfs) verwendet werden können.
+Die Nutzung der FC-Switch-Ports muss der in MetroCluster beschriebenen Nutzung mit acht Knoten entsprechen link:../install-fc/index.html["Installation und Konfiguration von Fabric-Attached MetroCluster"], damit die RCFs verwendet werden können.
 
 . Überprüfen Sie, ob die Ports online sind, indem Sie den korrekten Befehl für Ihren Switch verwenden.
 +
@@ -54,7 +54,7 @@ Schnittstellenübersicht anzeigen
 |===
 . Verwenden Sie das Verfahren unter link:../install-fc/index.html["Installation und Konfiguration von Fabric-Attached MetroCluster"] Um die FC-VI-Ports mithilfe des zuvor erstellten Verkabelungslayouts von den vorhandenen und neuen Controllern zu verkabeln.
 +
-Die Verwendung von FC-Switch-Ports muss mit der in beschriebenen Verwendung von acht MetroCluster-Nodes übereinstimmen link:../install-fc/index.html["Installation und Konfiguration von Fabric-Attached MetroCluster"] Damit die Referenzkonfigurationsdateien (RCfs) verwendet werden können.
+Die Nutzung der FC-Switch-Ports muss der in MetroCluster beschriebenen Nutzung mit acht Knoten entsprechen link:../install-fc/index.html["Installation und Konfiguration von Fabric-Attached MetroCluster"], damit die RCFs verwendet werden können.
 
 . Vergewissern Sie sich von den vorhandenen Nodes, dass die FC-VI-Ports online sind:
 +

@@ -21,7 +21,7 @@ Um die ISL-Konnektivität sicherzustellen, müssen Sie alle Schritte auf beiden 
 Im folgenden Verfahren wird vorausgesetzt, dass Sie eine 10-GB-ISL, die am Switch-Port eth1/24/1 angeschlossen ist, durch zwei 100-GB-ISLs ersetzen, die mit den Switch-Ports 17 und 18 verbunden sind.
 
 
-NOTE: Wenn Sie einen Cisco 9336C-FX2-Switch in einer gemeinsam genutzten Konfiguration verwenden, die NS224-Shelfs verbindet, erfordert das Ändern der ISLs möglicherweise eine neue RCF-Datei. Sie benötigen keine neue RCF-Datei, wenn Ihre aktuelle und neue ISL-Geschwindigkeit 40 Gbit/s und 100 Gbit/s beträgt. Für alle anderen Änderungen an der ISL-Geschwindigkeit ist eine neue RCF-Datei erforderlich. Wenn Sie beispielsweise die ISL-Geschwindigkeit von 40 Gbit/s auf 100 Gbit/s ändern, ist keine neue RCF-Datei erforderlich, aber wenn Sie die ISL-Geschwindigkeit von 10 Gbit/s auf 40 Gbit/s ändern, ist eine neue RCF-Datei erforderlich.
+NOTE: Wenn Sie einen Cisco 9336C-FX2 Switch in einer Shared-Konfiguration zur Verbindung von NS224 Shelves verwenden, kann eine Änderung der ISLs eine neue Referenz-Konfigurationsdatei (RCF) erfordern. Eine neue RCF ist nicht erforderlich, wenn Ihre aktuelle und neue ISL-Geschwindigkeit 40 Gbit/s und 100 Gbit/s beträgt. Alle anderen Änderungen der ISL-Geschwindigkeit erfordern eine neue RCF. Beispielsweise ist für eine Änderung der ISL-Geschwindigkeit von 40 Gbit/s auf 100 Gbit/s keine neue RCF erforderlich, für eine Änderung von 10 Gbit/s auf 40 Gbit/s hingegen schon.
 
 .Bevor Sie beginnen
 Weitere Informationen finden Sie im Abschnitt *Schalter* des link:https://hwu.netapp.com/["NetApp Hardware Universe"^] Überprüfen der unterstützten Transceiver.
@@ -59,7 +59,7 @@ switch_B_1#
 . Ändern Sie den ISL-Port nach Bedarf.
 +
 
-NOTE: Wenn Sie Cisco 9336C-FX2-Switches in einer gemeinsam genutzten Konfiguration verwenden, die NS224-Shelfs verbindet, und Sie die RCF-Datei aktualisieren und die neue Konfiguration für die neuen ISL-Ports anwenden müssen, befolgen Sie die Schritte unter link:task_upgrade_rcf_files_on_mcc_ip_switches.html["Aktualisieren Sie die RCF-Dateien auf MetroCluster IP-Switches."]
+NOTE: Wenn Sie Cisco 9336C-FX2 Switches in einer gemeinsam genutzten Konfiguration zur Verbindung von NS224 Shelves verwenden und das RCF aktualisieren sowie die neue Konfiguration für die neuen ISL-Ports anwenden müssen, sind die folgenden Schritte zu beachten: link:task_upgrade_rcf_files_on_mcc_ip_switches.html["Die RCFs auf MetroCluster IP-Switches aktualisieren."]
 
 +
 [cols="30,70"]

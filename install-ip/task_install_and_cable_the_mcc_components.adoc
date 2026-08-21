@@ -4,16 +4,44 @@ sidebar: sidebar
 keywords: ip, switch, configuring 
 summary: Sie müssen die IP-Switches konfigurieren, um eine Back-End-MetroCluster-IP-Konnektivität bereitzustellen. 
 ---
-= Wählen Sie das richtige Konfigurationsverfahren für den MetroCluster IP-Switch
+= Informationen zur Konfiguration der MetroCluster IP-Switches
 :allow-uri-read: 
 :icons: font
 :imagesdir: ../media/
 
 
 [role="lead"]
-Sie müssen die IP-Switches konfigurieren, um eine Back-End-MetroCluster-IP-Konnektivität bereitzustellen. Das von Ihnen zu befolgende Verfahren hängt von Ihrem Switch-Anbieter ab.
+Die IP-Switches müssen so konfiguriert werden, dass sie die Backend-MetroCluster IP-Konnektivität bereitstellen. Das Vorgehen hängt vom Switch-Hersteller ab und davon, ob die Switches im Rahmen einer Neuinstallation von MetroCluster IP oder im Rahmen eines anderen Verfahrens konfiguriert werden.
+
+
+
+[[fresh-metrocluster-ip-installation]]
+== Neuinstallation von MetroCluster IP
+
+Wenn eine neue MetroCluster IP-Installation durchgeführt wird, ist das Switch-Konfigurationsverfahren entsprechend dem Switch-Hersteller auszuwählen:
 
 * link:../install-ip/task_switch_config_broadcom.html["Konfigurieren Sie Broadcom IP-Switches"]
 * link:../install-ip/task_switch_config_cisco.html["Konfigurieren Sie Cisco IP-Switches"]
 * link:../install-ip/task_switch_config_nvidia.html["Konfigurieren Sie NVIDIA IP-Switches"]
+
+
+
+
+[[switch-replacement-and-rcf-or-firmware-updates]]
+== Schalteraustausch und RCF oder Firmware-Updates
+
+Im Rahmen anderer MetroCluster IP-Verfahren, wie zum Beispiel dem Austausch oder der Aufrüstung eines Switches, kann es erforderlich sein, die Switch-Firmware, die Referenz-Konfigurationsdatei (RCF) oder beides zu aktualisieren. In diesen Szenarien ist es notwendig, die Cluster-LIFs zu verschieben, bevor die IP-Switches konfiguriert werden. Die wichtigsten Schritte für diese Szenarien sind wie folgt:
+
+
+NOTE: Die Schalter sind in der folgenden Reihenfolge zu aktualisieren: Switch_A_1, Switch_B_1, Switch_A_2, Switch_B_2.
+
+. link:../install-ip/switch-move-cluster-lifs.html["Die Cluster-LIFs verschieben"]
+. Nach dem Verschieben der Cluster-LIFs auf den Partner-Switch lassen sich die Standardkonfigurationsverfahren gemäß Ihrem Switch-Hersteller anwenden:
++
+** link:../install-ip/task_switch_config_broadcom.html["Konfigurieren Sie Broadcom IP-Switches"]
+** link:../install-ip/task_switch_config_cisco.html["Konfigurieren Sie Cisco IP-Switches"]
+** link:../install-ip/task_switch_config_nvidia.html["Konfigurieren Sie NVIDIA IP-Switches"]
+
+
+. Nachdem Sie die Switches im ersten Fabric (Switch_A_1, Switch_B_1) konfiguriert haben, müssen Sie die Schritte im zweiten Fabric (Switch_A_2, Switch_B_2) wiederholen, beginnend mit link:../install-ip/switch-move-cluster-lifs.html["Die Cluster-LIFs verschieben"].
 

@@ -11,7 +11,7 @@ summary: Möglicherweise müssen Sie eine RCF-Datei auf einem Cisco IP-Switch ak
 
 
 [role="lead"]
-Möglicherweise müssen Sie eine RCF-Datei auf einem Cisco IP-Switch aktualisieren. Beispielsweise ist für ein ONTAP Upgrade oder ein Switch-Firmware-Upgrade eine neue RCF-Datei erforderlich.
+Möglicherweise muss eine Referenz-Konfigurationsdatei (RCF) auf einem Cisco IP Switch aktualisiert werden. Beispielsweise erfordern sowohl ein ONTAP Upgrade als auch ein Switch-Firmware-Upgrade eine neue RCF.
 
 .Über diese Aufgabe
 * Ab der Version 1.4a von RcfFileGenerator gibt es eine neue Option, die Switch-Konfiguration auf Cisco IP-Switches zu ändern (Upgrade, Downgrade oder Ersetzen), ohne dass eine 'Schreiblöschung' durchgeführt werden muss.
@@ -22,7 +22,7 @@ Möglicherweise müssen Sie eine RCF-Datei auf einem Cisco IP-Switch aktualisier
 +
 [cols="3*"]
 |===
-| Wenn Sie den folgenden Speicher verbinden... | Wählen Sie den Cisco 9336C-FX2-Speichertyp... | Beispiel für RCF-Dateibanner/MOTD 
+| Wenn Sie den folgenden Speicher verbinden... | Wählen Sie den Cisco 9336C-FX2-Speichertyp... | Beispiel RCF Banner/MOTD 
 
 
  a| 
@@ -56,13 +56,13 @@ NOTE: Es ist mindestens ein Ethernet-angeschlossenes NVMe-Shelf erforderlich
 Sie können diese Methode verwenden, wenn Ihre Konfiguration die folgenden Anforderungen erfüllt:
 
 * Es wird die Standard-RCF-Konfiguration angewendet.
-* Der https://mysupport.netapp.com/site/tools/tool-eula/rcffilegenerator["RCfFileGenerator"] Muss in der Lage sein, dieselbe RCF-Datei zu erstellen, die angewendet wird, und zwar mit derselben Version und Konfiguration (Plattformen, VLANs).
-* Die angewandte RCF-Datei wurde von NetApp nicht für eine spezielle Konfiguration zur Verfügung gestellt.
-* Die RCF-Datei wurde vor der Anwendung nicht geändert.
-* Die Schritte zum Zurücksetzen des Switches auf die Werkseinstellungen wurden vor dem Anwenden der aktuellen RCF-Datei befolgt.
+* Die  https://mysupport.netapp.com/site/tools/tool-eula/rcffilegenerator["RCfFileGenerator"]muss in der Lage sein, die gleiche RCF zu erstellen, die angewendet wird, mit derselben Version und Konfiguration (Plattformen, VLANs).
+* Der angewendete RCF wurde nicht von NetApp für eine spezielle Konfiguration bereitgestellt.
+* Der RCF wurde vor der Anwendung nicht verändert.
+* Die Schritte zum Zurücksetzen des Schalters auf die Werkseinstellungen wurden vor dem Anwenden des aktuellen RCF durchgeführt.
 * Nach der Anwendung des RCF wurden an der Switch(Port)-Konfiguration keine Änderungen vorgenommen.
 +
-Wenn Sie diese Anforderungen nicht erfüllen, können Sie die CleanUpFiles, die beim Erstellen der RCF-Dateien erstellt wurden, nicht verwenden. Sie können jedoch die Funktion nutzen, um generische CleanUpFiles zu erstellen -- die Bereinigung mit dieser Methode ist aus der Ausgabe von abgeleitet `show running-config` Und ist die Best Practice.
+Wenn Sie diese Anforderungen nicht erfüllen, können Sie die beim Generieren der RCFs erstellten CleanUpFiles nicht verwenden. Es besteht jedoch die Möglichkeit, die Funktion zu nutzen, um generische CleanUpFiles zu erstellen – die Bereinigung mit dieser Methode basiert auf der Ausgabe von  `show running-config` und gilt als Best Practice.
 
 +
 
@@ -71,7 +71,8 @@ NOTE: Sie müssen die Switches in folgender Reihenfolge aktualisieren: Switch_A_
 
 
 .Schritte
-. Legen Sie die aktuelle RCF-Dateiversion fest, welche Ports und VLANs verwendet werden: `IP_switch_A_1# show banner motd`
+. link:../install-ip/switch-move-cluster-lifs.html["Die Cluster-LIFs verschieben"] bevor Sie mit dem Upgrade beginnen.
+. Die aktuelle RCF-Version sowie die verwendeten Ports und VLANs lassen sich wie folgt feststellen: `IP_switch_A_1# show banner motd`
 +
 
 NOTE: Sie müssen diese Informationen von allen vier Switches erhalten und die folgende Informationstabelle ausfüllen.
@@ -114,7 +115,7 @@ In dieser Ausgabe müssen Sie die in den folgenden beiden Tabellen aufgeführten
 | Allgemeine Informationen | MetroCluster | Daten 
 
 
-| RCF-Dateiversion |  | 1.81 
+| RCF Version |  | 1.81 
 
 
 | Switch-Typ |  | NX9336 
@@ -159,31 +160,31 @@ In dieser Ausgabe müssen Sie die in den folgenden beiden Tabellen aufgeführten
 
 | 2 | 11, 12 | 259 | 259 
 |===
-. [[Create-RCF-files-and-CleanUpFiles-or-create-generic-CleanUp Files] Erstellen Sie die RCF-Dateien und CleanUpFiles oder erstellen Sie allgemeine CleanUpFiles für die aktuelle Konfiguration.
+. [[Create-RCF-files-and-CleanUpFiles-or-create-generic-CleanUpFiles]] Die RCFs und CleanUpFiles oder generische CleanUpFiles für die aktuelle Konfiguration werden erstellt.
 +
 Wenn Ihre Konfiguration die in den Voraussetzungen beschriebenen Anforderungen erfüllt, wählen Sie *Option 1*. Wenn Ihre Konfiguration die in den Voraussetzungen beschriebenen Anforderungen nicht erfüllt, wählen Sie *Option 2*.
 
 +
 [role="tabbed-block"]
 ====
-.Option 1: Erstellen Sie die RCF-Dateien und CleanUpFiles
+.Option 1: Die RCFs und CleanUpFiles erstellen
 --
 Gehen Sie folgendermaßen vor, wenn die Konfiguration den Anforderungen entspricht.
 
 .Schritte
-.. Verwenden Sie den RCfFileGenerator 1.4a (oder höher), um die RCF-Dateien mit den Informationen zu erstellen, die Sie in Schritt 1 abgerufen haben. Die neue Version des RcfFileGenerators erstellt einen zusätzlichen Satz von CleanUpFiles, mit denen Sie einige Konfigurationen zurücksetzen und den Switch vorbereiten können, um eine neue RCF-Konfiguration anzuwenden.
-.. Vergleichen Sie das Banner motd mit den derzeit verwendeten RCF-Dateien. Die Plattformtypen, der Switch-Typ, die Port- und die VLAN-Nutzung müssen identisch sein.
+.. Verwenden Sie den RcfFileGenerator 1.4a (oder höher), um die RCFs mit den in Schritt 1 abgerufenen Informationen zu erstellen. Die neue Version des RcfFileGenerator erstellt einen zusätzlichen Satz von CleanUpFiles, mit denen sich bestimmte Konfigurationen zurücksetzen und der Switch für die Anwendung einer neuen RCF Konfiguration vorbereiten lässt.
+.. Vergleichen Sie das Banner motd mit den aktuell angewendeten RCFs. Die Plattformtypen, der Switch-Typ, die Port- und VLAN-Nutzung müssen identisch sein.
 +
 
-NOTE: Sie müssen die CleanUpFiles aus derselben Version wie die RCF-Datei und für die exakt gleiche Konfiguration verwenden. Die Verwendung von CleanUpFile funktioniert nicht und erfordert möglicherweise ein vollständiges Zurücksetzen des Switches.
-
-+
-
-NOTE: Die ONTAP-Version, für die die RCF-Datei erstellt wurde, ist nicht relevant. Es ist nur die RCF-Dateiversion wichtig.
+NOTE: Sie müssen die CleanUpFiles aus derselben Version wie die RCF und für exakt dieselbe Konfiguration verwenden. Die Verwendung einer beliebigen CleanUpFile funktioniert nicht und kann einen vollständigen Reset des Switches erforderlich machen.
 
 +
 
-NOTE: Die RCF-Datei (auch die gleiche Version ist) könnte weniger oder mehr Plattformen auflisten. Stellen Sie sicher, dass Ihre Plattform aufgeführt ist.
+NOTE: Die ONTAP Version, für die die RCF erstellt wurde, ist irrelevant. Nur die RCF Version ist wichtig.
+
++
+
+NOTE: Die RCF (auch bei gleicher Version) kann weniger oder mehr Plattformen auflisten. Es sollte überprüft werden, ob die eigene Plattform aufgeführt ist.
 
 
 
@@ -206,25 +207,25 @@ Am Ende dieses Verfahrens sollten Sie vier Textdateien haben, eine für jeden Sw
 
 --
 ====
-. [[Create-the-New-RCF-files-for-the-New-Configuration]] Erstellen Sie die 'neuen' RCF-Dateien für die neue Konfiguration. Erstellen Sie diese Dateien auf die gleiche Weise, wie Sie die Dateien im vorherigen Schritt erstellt haben, außer wählen Sie die entsprechende ONTAP und RCF-Dateiversion.
+. [[Neue RCF-Dateien für die neue Konfiguration erstellen]] Die neuen RCFs für die neue Konfiguration erstellen. Diese Dateien werden auf die gleiche Weise wie im vorherigen Schritt erstellt, jedoch mit der jeweiligen ONTAP und RCF Version.
 +
-Nach Abschluss dieses Schritts sollten Sie zwei Sätze RCF-Dateien haben, die jeweils aus zwölf Dateien bestehen.
+Nach Abschluss dieses Schrittes sollten zwei Sätze von RCFs vorhanden sein, wobei jeder Satz aus zwölf Dateien besteht.
 
 . Laden Sie die Dateien auf den Bootflash herunter.
 +
-.. Laden Sie die CleanUpFiles herunter, die Sie in erstellt haben <<Create-RCF-files-and-CleanUpFiles-or-create-generic-CleanUpFiles,Erstellen Sie die RCF-Dateien und CleanUpFiles oder erstellen Sie allgemeine CleanUpFiles für die aktuelle Konfiguration>>
+.. Laden Sie die CleanUpFiles herunter, die Sie in <<Create-RCF-files-and-CleanUpFiles-or-create-generic-CleanUpFiles,Die RCFs und CleanUpFiles erstellen oder generische CleanUpFiles für die aktuelle Konfiguration erstellen>> erstellt haben
 +
 
-NOTE: Diese CleanUpFile ist für die aktuelle RCF-Datei, die angewendet wird und *NICHT* für die neue RCF, auf die Sie aktualisieren möchten.
+NOTE: Diese CleanUpFile gilt für die aktuell angewendete RCF und *NICHT* für die neue RCF, auf die Sie aktualisieren möchten.
 
 +
 Beispiel CleanUpFile für Switch-A1: `Cleanup_NX9336_v1.81_Switch-A1.txt`
 
-.. Laden Sie die neuen RCF-Dateien herunter, die Sie in erstellt haben <<Create-the-new-RCF-files-for-the-new-configuration,Erstellen Sie die 'neuen' RCF-Dateien für die neue Konfiguration.>>
+.. Laden Sie die von Ihnen in <<Create-the-new-RCF-files-for-the-new-configuration,Die „neuen“ RCFs für die neue Konfiguration erstellen.>> erstellten „neuen“ RCFs herunter.
 +
-Beispiel für RCF-Datei für Switch-A1: `NX9336_v1.90_Switch-A1.txt`
+Beispiel RCF für Switch-A1: `NX9336_v1.90_Switch-A1.txt`
 
-.. Laden Sie die CleanUpFiles herunter, die Sie in erstellt haben <<Create-the-new-RCF-files-for-the-new-configuration,Erstellen Sie die 'neuen' RCF-Dateien für die neue Konfiguration.>> Dieser Schritt ist optional -- Sie können die Datei in Zukunft verwenden, um die Switch-Konfiguration zu aktualisieren. Es stimmt mit der aktuell verwendeten Konfiguration überein.
+.. Laden Sie die CleanUpFiles herunter, die Sie in <<Create-the-new-RCF-files-for-the-new-configuration,Die „neuen“ RCFs für die neue Konfiguration erstellen.>> diesem Schritt erstellt haben. Dieser Schritt ist optional, die Datei kann zukünftig verwendet werden, um die Switch-Konfiguration zu aktualisieren. Sie entspricht der aktuell angewendeten Konfiguration.
 +
 Beispiel CleanUpFile für Switch-A1: `Cleanup_NX9336_v1.90_Switch-A1.txt`
 
@@ -294,13 +295,13 @@ Die aktuelle Konfiguration sollte Folgendes zeigen:
 ** Es werden keine Port-Profile konfiguriert
 ** Alle Ethernet-Schnittstellen (außer mgmt0 die keine Konfiguration zeigen sollten, und nur VLAN 1 sollte konfiguriert sein).
 +
-Wenn Sie feststellen, dass eines der oben genannten Elemente konfiguriert ist, können Sie möglicherweise keine neue RCF-Dateikonfiguration anwenden. Sie können jedoch auf die vorherige Konfiguration zurücksetzen, indem Sie den Switch *neu laden, ohne die laufende Konfiguration in die Startkonfiguration zu speichern. Der Switch verfügt über die vorherige Konfiguration.
+Sollten Sie feststellen, dass eines der oben genannten Elemente konfiguriert ist, ist es möglicherweise nicht möglich, eine neue RCF Konfiguration anzuwenden. Es besteht jedoch die Möglichkeit, zur vorherigen Konfiguration zurückzukehren, indem der Switch neu geladen wird, *ohne* die laufende Konfiguration in die Startup Konfiguration zu speichern. Der Switch wird dann mit der vorherigen Konfiguration gestartet.
 
 
 
-. Wenden Sie die RCF-Datei an und stellen Sie sicher, dass die Ports online sind.
+. Den RCF anwenden und überprüfen, ob die Ports online sind.
 +
-.. Wenden Sie die RCF-Dateien an.
+.. Der RCF wird angewendet.
 +
 [listing]
 ----
@@ -328,4 +329,67 @@ IP_switch_A_1# copy running-config startup-config
 
 IP_switch_A_1# reload
 ----
+. Alle Cluster-LIFs so anpassen, dass die automatische Rückkehr aktiviert ist:
++
+.. Automatische Rückkehr wieder aktivieren:
++
+`network interface modify -vserver Cluster -lif * -auto-revert true`
+
++
+[listing]
+----
+cluster_A::*> network interface modify -vserver Cluster -lif * -auto-revert true
+
+Warning: Changes to a cluster LIF can affect the health of the Cluster. Are you
+         sure you want to continue? {y|n}: y
+4 entries were modified.
+
+cluster_A::*>
+----
+.. Alle Cluster-LIFs, die sich derzeit nicht auf ihren Heimatports befinden, werden auf ihre Heimatports zurückgesetzt:
++
+`network interface revert -vserver Cluster -lif *`
+
++
+Einige Minuten warten, bis die LIFs zu ihrem Home-Port zurückkehren:
+
+.. Bestätigen Sie, dass sich alle LIFs auf ihren Home-Ports befinden:
++
+[listing]
+----
+cluster_A::*> network interface show -role cluster
+            Logical        Status     Network            Current       Current Is
+Vserver     Interface      Admin/Oper Address/Mask       Node          Port    Home
+----------- -------------- ---------- ------------------ ------------- ------- ----
+Cluster
+            node_A_1_clus1 up/up      192.168.204.88/18  node_A_1      e4a     true
+            node_A_1_clus2 up/up      192.168.204.93/18  node_A_1      e4b     true
+            node_A_2_clus1 up/up      192.168.204.96/18  node_A_2      e4a     true
+            node_A_2_clus2 up/up      192.168.204.97/18  node_A_2      e4b     true
+4 entries were displayed.
+----
+.. Den Zustand der MetroCluster Knoten überprüfen:
++
+`metrocluster node show`
+
++
+[listing]
+----
+cluster_A::*> metrocluster node show
+
+DR                               Configuration  DR
+Group Cluster Node               State          Mirroring Mode
+----- ------- ------------------ -------------- --------- --------------------
+1     cluster_A
+              node_A_1           configured     enabled   normal
+              node_A_2           configured     enabled   normal
+      cluster_B
+              node_B_1           configured     enabled   normal
+              node_B_2           configured     enabled   normal
+4 entries were displayed.
+
+cluster_A::*>
+----
+
+
 

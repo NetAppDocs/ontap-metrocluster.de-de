@@ -48,6 +48,7 @@ NOTE: Alle anderen Konfigurationsänderungen, die während der Anwendung der RCF
 * Sie müssen diese Schritte bei jedem der IP-Switches in der MetroCluster IP-Konfiguration wiederholen.
 * Sie müssen über eine serielle Konsolenverbindung mit dem Switch verbunden sein.
 * Mit dieser Aufgabe wird die Konfiguration des Managementnetzwerks zurückgesetzt.
+* Wenn diese Schritte im Rahmen eines anderen Verfahrens, wie etwa eines Switch-Austauschs oder einer Switch-Aufrüstung, verwendet werden, sollte geprüft werden, ob die Cluster-LIFs auf den Partner Switch verschoben werden müssen, um einen unterbrechungsfreien Clusterbetrieb zu ermöglichen. link:task_install_and_cable_the_mcc_components.html["Informationen zur Konfiguration der MetroCluster IP-Switches"].
 
 
 .Schritte
@@ -128,6 +129,7 @@ Verwenden Sie diese Schritte, wenn Sie den Schalter vollständig zurücksetzen m
 NOTE: Weitere Informationen zur Installation von Cumulus Linux finden Sie unter link:https://docs.netapp.com/us-en/ontap-systems-switches/switch-nvidia-sn2100/configure-overview-sn2100-cluster.html#initial-configuration-overview["Überblick über Installation und Konfiguration von NVIDIA SN2100-Switches"^]
 
 * Sie müssen das Root-Passwort für haben `sudo` Zugriff auf die Befehle.
+* Wenn diese Schritte im Rahmen eines anderen Verfahrens, wie etwa eines Switch-Austauschs oder einer Switch-Aufrüstung, verwendet werden, sollte geprüft werden, ob die Cluster-LIFs auf den Partner Switch verschoben werden müssen, um einen unterbrechungsfreien Clusterbetrieb zu ermöglichen. link:task_install_and_cable_the_mcc_components.html["Informationen zur Konfiguration der MetroCluster IP-Switches"].
 
 
 .Schritte
@@ -314,10 +316,14 @@ Sie müssen die Switch-RCF-Datei für jeden Switch in der MetroCluster IP-Konfig
 
 NOTE: Wenn Sie nach dem Zurücksetzen des Switches und vor dem Anwenden der RCF-Datei eine weitere Konfiguration durchführen, können Sie dieses Verfahren nicht verwenden.
 
+* Wenn diese Schritte im Rahmen eines anderen Verfahrens, wie etwa eines Switch-Austauschs oder einer Switch-Aufrüstung, verwendet werden, sollte geprüft werden, ob die Cluster-LIFs auf den Partner Switch verschoben werden müssen, um einen unterbrechungsfreien Clusterbetrieb zu ermöglichen. link:task_install_and_cable_the_mcc_components.html["Informationen zur Konfiguration der MetroCluster IP-Switches"].
 
 
 .Über diese Aufgabe
 Sie müssen diese Schritte bei jedem der IP-Schalter in der MetroCluster IP-Konfiguration (neue Installation) oder am Ersatzschalter (Switch-Austausch) wiederholen.
+
+
+NOTE: Sie müssen die Switches in folgender Reihenfolge aktualisieren: Switch_A_1, Switch_B_1, Switch_A_2, Switch_B_2. Falls Ihr Verfahren das Verschieben von Cluster-LIFs erfordert, müssen die Schritte zum Verschieben der Cluster-LIFs auf dem zweiten Fabric (Switch_A_2, Switch_B_2) nach der Konfiguration der Switches im ersten Fabric (Switch_A_1, Switch_B_1) wiederholt werden. Siehe link:task_install_and_cable_the_mcc_components.html["Informationen zur Konfiguration der MetroCluster IP-Switches"].
 
 Wenn Sie einen QSFP-zu-SFP+-Adapter verwenden, müssen Sie den ISL-Port möglicherweise im nativen Geschwindigkeitsmodus statt im Breakout-Speed-Modus konfigurieren. Informationen zur Bestimmung des ISL-Port-Geschwindigkeitsmodus finden Sie in der Dokumentation des Switch-Herstellers.
 
@@ -405,6 +411,81 @@ cumulus@IP_switch_A_1:mgmt:~$
 +
 
 NOTE: Wenn Sie die DAC-Option für mehrere Switch-Ports festlegen, müssen Sie den Switch nur einmal neu starten.
+
+. Es sollte überprüft werden, ob die automatische Rücksetzung für die Cluster-LIFs aktiviert ist:
++
+`network interface show -vserver Cluster -fields auto-revert`
+
++
+
+CAUTION: Es ist sicherzustellen, dass die automatische Rücksetzung für die Cluster-LIFs aktiviert ist.
+
+. Wenn die automatische Rücksetzung nicht aktiviert ist, sollten alle Cluster-LIFs so geändert werden, dass die automatische Rücksetzung aktiviert ist:
++
+
+NOTE: Wenn Sie diese Schritte im Rahmen eines anderen Vorgangs durchführen, wie etwa eines Switch-Austauschs oder Upgrades, haben Sie möglicherweise die automatische Wiederherstellung im Rahmen der Schritte zu link:switch-move-cluster-lifs.html["Die Cluster-LIFs verschieben"] deaktiviert.
+
++
+.. Automatische Rückkehr wieder aktivieren:
++
+`network interface modify -vserver Cluster -lif * -auto-revert true`
+
++
+[listing]
+----
+cluster_A::*> network interface modify -vserver Cluster -lif * -auto-revert true
+
+Warning: Changes to a cluster LIF can affect the health of the Cluster. Are you
+         sure you want to continue? {y|n}: y
+4 entries were modified.
+
+cluster_A::*>
+----
+.. Alle Cluster-LIFs, die sich derzeit nicht auf ihren Heimatports befinden, werden auf ihre Heimatports zurückgesetzt:
++
+`network interface revert -vserver Cluster -lif *`
+
++
+Einige Minuten warten, bis die LIFs zu ihrem Home-Port zurückkehren:
+
+.. Bestätigen Sie, dass sich alle LIFs auf ihren Home-Ports befinden:
++
+[listing]
+----
+cluster_A::*> network interface show -role cluster
+            Logical        Status     Network            Current       Current Is
+Vserver     Interface      Admin/Oper Address/Mask       Node          Port    Home
+----------- -------------- ---------- ------------------ ------------- ------- ----
+Cluster
+            node_A_1_clus1 up/up      192.168.204.88/18  node_A_1      e4a     true
+            node_A_1_clus2 up/up      192.168.204.93/18  node_A_1      e4b     true
+            node_A_2_clus1 up/up      192.168.204.96/18  node_A_2      e4a     true
+            node_A_2_clus2 up/up      192.168.204.97/18  node_A_2      e4b     true
+4 entries were displayed.
+----
+.. Den Zustand der MetroCluster Knoten überprüfen:
++
+`metrocluster node show`
+
++
+[listing]
+----
+cluster_A::*> metrocluster node show
+
+DR                               Configuration  DR
+Group Cluster Node               State          Mirroring Mode
+----- ------- ------------------ -------------- --------- --------------------
+1     cluster_A
+              node_A_1           configured     enabled   normal
+              node_A_2           configured     enabled   normal
+      cluster_B
+              node_B_1           configured     enabled   normal
+              node_B_2           configured     enabled   normal
+4 entries were displayed.
+
+cluster_A::*>
+----
+
 
 
 

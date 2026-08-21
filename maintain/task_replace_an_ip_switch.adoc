@@ -129,13 +129,19 @@ Wenn Sie vorhandene Switches erneut verwenden, fahren Sie mit fort <<existing_st
 NOTE: Wenn Sie die Switches aktualisieren oder verkleinern, müssen Sie alle Switches im Netzwerk konfigurieren.
 
 +
-Befolgen Sie die Schritte im Abschnitt _Konfigurieren der IP-Switches_ im link:https://docs.netapp.com/us-en/ontap-metrocluster/install-ip/using_rcf_generator.html["Installation und Konfiguration von MetroCluster IP"]
+Befolgen Sie die Schritte für Ihren Switch-Anbieter:
 
++
+** link:../install-ip/task_switch_config_broadcom.html["Konfigurieren Sie Broadcom IP-Switches"]
+** link:../install-ip/task_switch_config_cisco.html["Konfigurieren Sie Cisco IP-Switches"]
+** link:../install-ip/task_switch_config_nvidia.html["Konfigurieren Sie NVIDIA IP-Switches"]
 +
 Stellen Sie sicher, dass Sie die korrekte RCF-Datei für den Schalter _A_1, _A_2, _B_1 oder _B_2 anwenden. Wenn der neue Switch mit dem alten Switch identisch ist, müssen Sie dieselbe RCF-Datei anwenden.
 
 +
 Wenn Sie einen Switch aktualisieren oder herunterstufen, wenden Sie die neueste unterstützte RCF-Datei für den neuen Switch an.
+
+
 
 . Führen Sie den Befehl Port show aus, um Informationen zu den Netzwerkports anzuzeigen:
 +
@@ -148,6 +154,11 @@ Wenn Sie einen Switch aktualisieren oder herunterstufen, wenden Sie die neueste 
 ----
 network interface modify -vserver <vserver_name> -lif <lif_name> -auto-revert false
 ----
+.. link:../install-ip/switch-move-cluster-lifs.html["Die Cluster-LIFs verschieben"].
++
+
+NOTE: Die Switches sind in folgender Reihenfolge zu aktualisieren: Switch_A_1, Switch_B_1, Switch_A_2, Switch_B_2. Die Schritte zum Verschieben der Cluster-LIFs auf das zweite Fabric (Switch_A_2, Switch_B_2) sind nach der Konfiguration der Switches im ersten Fabric (Switch_A_1, Switch_B_1) zu wiederholen. Siehe link:../install-ip/task_install_and_cable_the_mcc_components.html["Informationen zur Konfiguration der MetroCluster IP-Switches"].
+
 
 
 . [[existing_step4]]Trennen Sie die Verbindungen vom alten Switch.
@@ -190,7 +201,7 @@ Führen Sie zum Konfigurieren der vorhandenen Switches die Schritte zum Installi
 
 . Verkabeln Sie die Schalter.
 +
-Sie können die Schritte im Abschnitt _verkabeln der IP-Switches_ in befolgen link:https://docs.netapp.com/us-en/ontap-metrocluster/install-ip/using_rcf_generator.html["Installation und Konfiguration von MetroCluster IP"].
+Sie können die Schritte in link:../install-ip/using_rcf_generator.html["MetroCluster IP-Switches verkabeln"] ausführen.
 
 +
 Verkabeln Sie die Schalter in der folgenden Reihenfolge (falls erforderlich):
@@ -225,15 +236,15 @@ Verkabeln Sie die Schalter in der folgenden Reihenfolge (falls erforderlich):
 
 . Schalten Sie den Schalter ein oder schalten Sie den Schalter ein.
 +
-Wenn der neue Schalter gleich ist, schalten Sie den neuen Schalter ein. Wenn Sie die Schalter aktualisieren oder verkleinern, schalten Sie beide Schalter ein. Die Konfiguration kann mit zwei verschiedenen Switches an jedem Standort betrieben werden, bis das zweite Netzwerk aktualisiert wird.
+Wenn der neue Switch identisch ist, kann der neue Switch eingeschaltet werden. Bei einem Upgrade oder Downgrade der Switches können beide Switches eingeschaltet werden. Die Konfiguration kann mit zwei verschiedenen Switches an jedem Standort betrieben werden, bis das zweite Fabric aktualisiert ist.
 
 . Wiederholen Sie die Schritte, um zu überprüfen, ob die MetroCluster-Konfiguration ordnungsgemäß ist <<all_step1,Schritt 1>>.
 +
-Wenn Sie die Switches im ersten Netzwerk aktualisieren oder verkleinern, werden möglicherweise einige Warnmeldungen im Zusammenhang mit dem lokalen Clustering angezeigt.
+Wenn die Switches im ersten Fabric aktualisiert oder herabgestuft werden, können einige Warnmeldungen im Zusammenhang mit dem lokalen Clustering auftreten.
 
 +
 
-NOTE: Wenn Sie die Netzwerke aktualisieren oder herunterstufen, dann wiederholen Sie alle Schritte für das zweite Netzwerk.
+NOTE: Wenn das Fabric aktualisiert oder herabgestuft wird, sind alle Schritte für das zweite Fabric zu wiederholen.
 
 . Ändern Sie alle Cluster-LIFs, um die automatische Zurücksetzung erneut zu aktivieren:
 +

@@ -969,7 +969,7 @@ Diese Aufgabe führen Sie an dem Standort mit den derzeit aktualisierten Control
 Bei einem Upgrade der Controller On Site_A werden die Switches von Site_A aktualisiert.
 
 .Schritte
-. Bereiten Sie die IP-Switches auf die Anwendung der neuen RCFs vor.
+. Die IP-Switches werden für die Anwendung der neuen Referenzkonfigurationsdateien (RCFs) vorbereitet.
 +
 Befolgen Sie die Schritte im Abschnitt für Ihren Switch-Anbieter:
 
@@ -1385,6 +1385,10 @@ Folgen Sie den Anweisungen, um die folgenden Eingaben bereitzustellen, um die Ko
 |===
 +
 Sie müssen den Wiederherstellungsvorgang durchführen, indem Sie die Option 10 oder Option 11 wählen, abhängig von der Einstellung des Schlüsselmanagers und Option 6 an der Eingabeaufforderung des Startmenüs. Um die Knoten vollständig zu booten, müssen Sie eventuell den Wiederherstellungsvorgang mit Option 1 (normaler Start) durchführen.
+
++
+
+NOTE: Wenn die Bootmenüoption  `6` ausgeführt wird, müssen die MetroCluster Bootarg-Werte möglicherweise zurückgesetzt werden. Siehe link:task_upgrade_A700_to_A900_in_a_four_node_mcc_ip_us_switchover_and_switchback.html#set-the-metrocluster-ip-bootarg-variables["Legen Sie die MetroCluster-IP-Bootarg-Variablen fest"].
 
 . Warten Sie, bis die neuen Knoten Node_B_1-A900 und Node_B_2-A900 gestartet werden.
 +

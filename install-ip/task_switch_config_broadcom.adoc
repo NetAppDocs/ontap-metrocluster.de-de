@@ -31,6 +31,7 @@ Bevor Sie eine neue Switch-Softwareversion und RCFs installieren, müssen Sie di
 * Sie müssen diese Schritte bei jedem der IP-Switches in der MetroCluster IP-Konfiguration wiederholen.
 * Sie müssen über die serielle Konsole mit dem Switch verbunden sein.
 * Mit dieser Aufgabe wird die Konfiguration des Managementnetzwerks zurückgesetzt.
+* Wenn diese Schritte im Rahmen eines anderen Verfahrens, wie etwa eines Switch-Austauschs oder einer Switch-Aufrüstung, verwendet werden, sollte geprüft werden, ob die Cluster-LIFs auf den Partner Switch verschoben werden müssen, um einen unterbrechungsfreien Clusterbetrieb zu ermöglichen. link:task_install_and_cable_the_mcc_components.html["Informationen zur Konfiguration der MetroCluster IP-Switches"].
 
 
 .Schritte
@@ -303,6 +304,8 @@ Sie müssen die Betriebssystemdatei und die RCF-Datei auf jeden Switch in der Me
 .Über diese Aufgabe
 Diese Aufgabe muss bei jedem Switch in der MetroCluster IP-Konfiguration wiederholt werden.
 
+Wenn diese Schritte im Rahmen eines anderen Verfahrens, wie etwa eines Switch-Austauschs oder einer Switch-Aufrüstung, verwendet werden, sollte geprüft werden, ob die Cluster-LIFs auf den Partner Switch verschoben werden müssen, um einen unterbrechungsfreien Clusterbetrieb zu ermöglichen. link:task_install_and_cable_the_mcc_components.html["Informationen zur Konfiguration der MetroCluster IP-Switches"].
+
 []
 ====
 *Beachten Sie Folgendes:*
@@ -533,6 +536,85 @@ NOTE: In seltenen Fällen kann der Switch nicht booten. Folgen Sie den <<Schritt
 
 
 . Wiederholen Sie diese Schritte für die verbleibenden drei IP-Switches in der MetroCluster IP-Konfiguration.
++
+
+NOTE: Sie müssen die Switches in folgender Reihenfolge aktualisieren: Switch_A_1, Switch_B_1, Switch_A_2, Switch_B_2. Falls Ihr Verfahren das Verschieben von Cluster-LIFs erfordert, müssen die Schritte zum Verschieben der Cluster-LIFs auf dem zweiten Fabric (Switch_A_2, Switch_B_2) nach der Konfiguration der Switches im ersten Fabric (Switch_A_1, Switch_B_1) wiederholt werden. Siehe link:task_install_and_cable_the_mcc_components.html["Informationen zur Konfiguration der MetroCluster IP-Switches"].
+
+. Es sollte überprüft werden, ob die automatische Rücksetzung für die Cluster-LIFs aktiviert ist:
++
+`network interface show -vserver Cluster -fields auto-revert`
+
++
+
+CAUTION: Es ist sicherzustellen, dass die automatische Rücksetzung für die Cluster-LIFs aktiviert ist.
+
+. Wenn die automatische Rücksetzung nicht aktiviert ist, sollten alle Cluster-LIFs so geändert werden, dass die automatische Rücksetzung aktiviert ist:
++
+
+NOTE: Wenn Sie diese Schritte im Rahmen eines anderen Vorgangs durchführen, wie etwa eines Switch-Austauschs oder Upgrades, haben Sie möglicherweise die automatische Wiederherstellung im Rahmen der Schritte zu link:switch-move-cluster-lifs.html["Die Cluster-LIFs verschieben"] deaktiviert.
+
++
+.. Automatische Rückkehr wieder aktivieren:
++
+`network interface modify -vserver Cluster -lif * -auto-revert true`
+
++
+[listing]
+----
+cluster_A::*> network interface modify -vserver Cluster -lif * -auto-revert true
+
+Warning: Changes to a cluster LIF can affect the health of the Cluster. Are you
+         sure you want to continue? {y|n}: y
+4 entries were modified.
+
+cluster_A::*>
+----
+.. Alle Cluster-LIFs, die sich derzeit nicht auf ihren Heimatports befinden, werden auf ihre Heimatports zurückgesetzt:
++
+`network interface revert -vserver Cluster -lif *`
+
++
+Einige Minuten warten, bis die LIFs zu ihrem Home-Port zurückkehren:
+
+.. Bestätigen Sie, dass sich alle LIFs auf ihren Home-Ports befinden:
++
+[listing]
+----
+cluster_A::*> network interface show -role cluster
+            Logical        Status     Network            Current       Current Is
+Vserver     Interface      Admin/Oper Address/Mask       Node          Port    Home
+----------- -------------- ---------- ------------------ ------------- ------- ----
+Cluster
+            node_A_1_clus1 up/up      192.168.204.88/18  node_A_1      e4a     true
+            node_A_1_clus2 up/up      192.168.204.93/18  node_A_1      e4b     true
+            node_A_2_clus1 up/up      192.168.204.96/18  node_A_2      e4a     true
+            node_A_2_clus2 up/up      192.168.204.97/18  node_A_2      e4b     true
+4 entries were displayed.
+----
+.. Den Zustand der MetroCluster Knoten überprüfen:
++
+`metrocluster node show`
+
++
+[listing]
+----
+cluster_A::*> metrocluster node show
+
+DR                               Configuration  DR
+Group Cluster Node               State          Mirroring Mode
+----- ------- ------------------ -------------- --------- --------------------
+1     cluster_A
+              node_A_1           configured     enabled   normal
+              node_A_2           configured     enabled   normal
+      cluster_B
+              node_B_1           configured     enabled   normal
+              node_B_2           configured     enabled   normal
+4 entries were displayed.
+
+cluster_A::*>
+----
+
+
 
 
 
@@ -696,6 +778,8 @@ Diese Aufgabe erfordert Dateiübertragungssoftware, wie FTP, TFTP, SFTP oder SCP
 
 .Über diese Aufgabe
 Diese Schritte müssen bei jedem der IP-Switches in der MetroCluster IP-Konfiguration wiederholt werden.
+
+Wenn diese Schritte im Rahmen eines anderen Verfahrens, wie etwa eines Switch-Austauschs oder einer Switch-Aufrüstung, verwendet werden, sollte geprüft werden, ob die Cluster-LIFs auf den Partner Switch verschoben werden müssen, um einen unterbrechungsfreien Clusterbetrieb zu ermöglichen. link:task_install_and_cable_the_mcc_components.html["Informationen zur Konfiguration der MetroCluster IP-Switches"].
 
 Es gibt vier RCF-Dateien, eine für jeden der vier Schalter in der MetroCluster IP-Konfiguration. Sie müssen die richtigen RCF-Dateien für das Switch-Modell verwenden, das Sie verwenden.
 
@@ -898,6 +982,85 @@ Are you sure you would like to reset the system? (y/n) y
 IP_switch_A_1# reload
 ----
 . Wiederholen Sie die vorherigen Schritte auf den anderen drei Switches in der MetroCluster IP-Konfiguration.
++
+
+NOTE: Sie müssen die Switches in folgender Reihenfolge aktualisieren: Switch_A_1, Switch_B_1, Switch_A_2, Switch_B_2. Falls Ihr Verfahren das Verschieben von Cluster-LIFs erfordert, müssen die Schritte zum Verschieben der Cluster-LIFs auf dem zweiten Fabric (Switch_A_2, Switch_B_2) nach der Konfiguration der Switches im ersten Fabric (Switch_A_1, Switch_B_1) wiederholt werden. Siehe link:task_install_and_cable_the_mcc_components.html["Informationen zur Konfiguration der MetroCluster IP-Switches"].
+
+. Es sollte überprüft werden, ob die automatische Rücksetzung für die Cluster-LIFs aktiviert ist:
++
+`network interface show -vserver Cluster -fields auto-revert`
+
++
+
+CAUTION: Es ist sicherzustellen, dass die automatische Rücksetzung für die Cluster-LIFs aktiviert ist.
+
+. Wenn die automatische Rücksetzung nicht aktiviert ist, sollten alle Cluster-LIFs so geändert werden, dass die automatische Rücksetzung aktiviert ist:
++
+
+NOTE: Wenn Sie diese Schritte im Rahmen eines anderen Vorgangs durchführen, wie etwa eines Switch-Austauschs oder Upgrades, haben Sie möglicherweise die automatische Wiederherstellung im Rahmen der Schritte zu link:switch-move-cluster-lifs.html["Die Cluster-LIFs verschieben"] deaktiviert.
+
++
+.. Automatische Rückkehr wieder aktivieren:
++
+`network interface modify -vserver Cluster -lif * -auto-revert true`
+
++
+[listing]
+----
+cluster_A::*> network interface modify -vserver Cluster -lif * -auto-revert true
+
+Warning: Changes to a cluster LIF can affect the health of the Cluster. Are you
+         sure you want to continue? {y|n}: y
+4 entries were modified.
+
+cluster_A::*>
+----
+.. Alle Cluster-LIFs, die sich derzeit nicht auf ihren Heimatports befinden, werden auf ihre Heimatports zurückgesetzt:
++
+`network interface revert -vserver Cluster -lif *`
+
++
+Einige Minuten warten, bis die LIFs zu ihrem Home-Port zurückkehren:
+
+.. Bestätigen Sie, dass sich alle LIFs auf ihren Home-Ports befinden:
++
+[listing]
+----
+cluster_A::*> network interface show -role cluster
+            Logical        Status     Network            Current       Current Is
+Vserver     Interface      Admin/Oper Address/Mask       Node          Port    Home
+----------- -------------- ---------- ------------------ ------------- ------- ----
+Cluster
+            node_A_1_clus1 up/up      192.168.204.88/18  node_A_1      e4a     true
+            node_A_1_clus2 up/up      192.168.204.93/18  node_A_1      e4b     true
+            node_A_2_clus1 up/up      192.168.204.96/18  node_A_2      e4a     true
+            node_A_2_clus2 up/up      192.168.204.97/18  node_A_2      e4b     true
+4 entries were displayed.
+----
+.. Den Zustand der MetroCluster Knoten überprüfen:
++
+`metrocluster node show`
+
++
+[listing]
+----
+cluster_A::*> metrocluster node show
+
+DR                               Configuration  DR
+Group Cluster Node               State          Mirroring Mode
+----- ------- ------------------ -------------- --------- --------------------
+1     cluster_A
+              node_A_1           configured     enabled   normal
+              node_A_2           configured     enabled   normal
+      cluster_B
+              node_B_1           configured     enabled   normal
+              node_B_2           configured     enabled   normal
+4 entries were displayed.
+
+cluster_A::*>
+----
+
+
 
 
 
