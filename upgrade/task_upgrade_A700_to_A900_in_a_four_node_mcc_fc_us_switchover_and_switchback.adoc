@@ -977,24 +977,50 @@ Sie müssen den HA-Status der Controller und des Chassis überprüfen. Bei Bedar
 `ha-config show`
 
 +
-der HA-Status für alle Komponenten sollte mcc sein.
+Der HA-Status für alle Komponenten sollte  `mcc` sein.
 
-. Wenn der angezeigte Systemzustand des Controllers oder Chassis nicht korrekt ist, setzen Sie den HA-Status ein:
+. Wenn der angezeigte Systemzustand des Controllers nicht richtig ist, setzen Sie den HA-Status für das Controller-Modul und das Chassis:
 +
 `ha-config modify controller mcc`
 
 +
 `ha-config modify chassis mcc`
 
-. Stoppen Sie den Knoten: `halt`Der Node sollte am anhalten `LOADER>` Eingabeaufforderung:
-. Überprüfen Sie auf jedem Node das Systemdatum, die Uhrzeit und die Zeitzone: `Show date`
-. Stellen Sie bei Bedarf das Datum in UTC oder Greenwich Mean Time (GMT) ein: `set date <mm/dd/yyyy>`
-. Überprüfen Sie die Zeit mit dem folgenden Befehl an der Eingabeaufforderung der Boot-Umgebung: `show time`
-. Stellen Sie bei Bedarf die Uhrzeit in UTC oder GMT ein: `set time <hh:mm:ss>`
-. Einstellungen speichern: `saveenv`
-. Umgebungsvariablen erfassen: `printenv`
-. Starten Sie den Node wieder in den Wartungsmodus, damit die Konfigurationsänderungen wirksam werden:
+. Stoppen Sie den Knoten:
++
+`halt`
+
++
+Der Node sollte am anhalten `LOADER>` Eingabeaufforderung:
+
+. Auf jedem Knoten das Systemdatum, die Systemzeit und die Zeitzone prüfen:
++
+`show date`
+
+. Gegebenenfalls das Datum in UTC oder Greenwich Mean Time (GMT) festlegen:
++
+`set date <mm/dd/yyyy>`
+
+. Die Uhrzeit kann mit folgendem Befehl an der Eingabeaufforderung der Bootumgebung überprüft werden:
++
+`show time`
+
+. Gegebenenfalls ist die Zeit in UTC oder GMT festzulegen:
++
+`set time <hh:mm:ss>`
+
+. Einstellungen speichern:
++
+`saveenv`
+
+. Umgebungsvariablen erfassen:
++
+`printenv`
+
+. Booten Sie den Node wieder im Wartungsmodus, um die Konfigurationsänderungen anzuwenden:
++
 `boot_ontap maint`
+
 . Überprüfen Sie, ob die Änderungen wirksam sind, und ucadmin zeigt FC Initiator-Ports online an.
 +
 |===
@@ -1016,9 +1042,13 @@ FC
 `fcadmin show`
 
 |===
-. Überprüfen Sie den HA-config-Modus: `ha-config show`
+. Der ha-config-Modus kann überprüft werden:
 +
-.. Stellen Sie sicher, dass Sie die folgende Ausgabe haben:
+`ha-config show`
+
++
+Die Ausgabe sollte dem folgenden Beispiel ähneln:
+
 +
 [listing]
 ----
@@ -1026,70 +1056,6 @@ FC
 Chassis HA configuration: mcc
 Controller HA configuration: mcc
 ----
-
-
-
-
-
-
-[[set-the-ha-state-on-the-new-controllers-and-chassis]]
-=== Legen Sie den HA-Status für die neuen Controller und das Chassis fest
-
-Sie müssen den HA-Status der Controller und des Chassis überprüfen. Bei Bedarf müssen Sie den Status entsprechend Ihrer Systemkonfiguration aktualisieren.
-
-.Schritte
-. Zeigen Sie im Wartungsmodus den HA-Status des Controller-Moduls und des Chassis an:
-+
-`ha-config show`
-
-+
-der HA-Status für alle Komponenten sollte mcc sein.
-
-+
-|===
-
-
-| Wenn die MetroCluster-Konfiguration... | Der HA-Status sollte... 
-
-
- a| 
-Zwei Nodes
- a| 
-mcc-2n
-
-
-
- a| 
-Vier oder acht Nodes
- a| 
-mcc
-
-|===
-. Wenn der angezeigte Systemzustand des Controllers nicht richtig ist, setzen Sie den HA-Status für das Controller-Modul und das Chassis:
-+
-|===
-
-
-| Wenn die MetroCluster-Konfiguration... | Geben Sie diese Befehle ein... 
-
-
- a| 
-*Zwei Knoten*
- a| 
-`ha-config modify controller mcc-2n`
-
-`ha-config modify chassis mcc-2n`
-
-
-
- a| 
-*Vier oder acht Knoten*
- a| 
-`ha-config modify controller mcc`
-
-`ha-config modify chassis mcc`
-
-|===
 
 
 

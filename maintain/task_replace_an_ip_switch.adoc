@@ -13,11 +13,21 @@ summary: 'Möglicherweise müssen Sie einen fehlgeschlagenen Switch ersetzen ode
 [role="lead"]
 Möglicherweise müssen Sie einen ausgefallenen Switch ersetzen, einen Switch aktualisieren oder herunterstufen oder die Verwendung vorhandener MetroCluster IP-Switches ändern.
 
+
+CAUTION: Wenn ein Schalteraustausch auf den Plattformen AFF A220, AFF A250 oder FAS2750 erforderlich ist, siehe link:https://kb.netapp.com/on-prem/ontap/mc/MC-KBs/Cluster_and_HA_communication_issues_during_back-end_switch_replacement["der Knowledge Base Artikel „Cluster- und HA-Kommunikationsprobleme beim Austausch von Backend-Switches“"^].
+
 .Über diese Aufgabe
 Dieses Verfahren gilt, wenn Sie NetApp Validated Switches verwenden. Wenn Sie MetroCluster-konforme Switches verwenden, wenden Sie sich an den Switch-Anbieter.
 
 link:enable-console-logging-before-maintenance.html["Aktivieren Sie die Konsolenprotokollierung"] Bevor Sie diese Aufgabe ausführen.
 
+[NOTE]
+====
+Gemischte Verbindungsgeschwindigkeiten werden auf Plattformen, die eine X60134A Netzwerkkarte verwenden, nicht unterstützt. Ob Ihre Plattform betroffen ist, kann der  https://hwu.netapp.com/["Hardware Universe"^] entnommen werden.
+
+Wenn ein Switch mit 25G-Ports durch einen neuen Switch mit 100G-Ports auf einer betroffenen Plattform ersetzt wird (zum Beispiel ein BES-53248 Switch durch einen Cisco 9336C Switch auf einer AFF A50 Plattform), siehe link:https://kb.netapp.com/on-prem/ontap/mc/MC-KBs/100G_link_not_coming_online_during_MetroCluster_back-end_switch_replacement?caseId=2010523490["der Knowledge Base Artikel „100G-Link kommt während des MetroCluster Back-End-Switch-Austauschs nicht online“"^].
+
+====
 Dieses Verfahren unterstützt die folgenden Konvertierungen:
 
 * Ändern des Switch-Anbieters, -Typs oder beider Typen. Der neue Switch kann mit dem alten Schalter identisch sein, wenn ein Switch ausgefallen ist, oder Sie können den Switch-Typ ändern (Upgrade oder Downgrade des Schalters).

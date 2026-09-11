@@ -5608,15 +5608,9 @@
   <block id="504d065328326a8677a260e4447bea63" category="paragraph">Das Controller-Modul wird neu gestartet, stoppt aber im Startmenü, da das Boot-Gerät neu formatiert wurde und die Konfigurationsdaten wiederhergestellt werden müssen.</block>
   <block id="f02a9a7436db38c9278de96d8940fedc" category="list-text">Wenn die folgende Meldung angezeigt wird, beantworten Sie die Antwort<block ref="a6105c0a611b41b08f1209506350279e" prefix=" " category="inline-code"></block>:<block ref="5efa575dbc5a2f338e2df652e950b3ff" prefix=" " category="inline-code"></block></block>
   <block id="e3dcb6e98d703b4041ac7a4b6d40412e" category="list-text">Wählen Sie die Option<block ref="e4da3b7fbbce2345d7772b0674a318d5" prefix=" " category="inline-code"></block> Wechseln Sie vom Boot-Menü zum Wartungsmodus. Antwort<block ref="a6105c0a611b41b08f1209506350279e" prefix=" " category="inline-code"></block> Zu den Aufforderungen, bis der Node im Wartungsmodus und mit der Eingabeaufforderung angehalten wird<block ref="2cf8a3bab83c4d2618c18eeeca9ebc98" prefix=" " category="inline-code"></block>.</block>
-  <block id="9c70e72e74a5beec346c7fba9e09ac77" category="list-text">Stoppen Sie den Knoten:<block ref="4a1bde0ea8bcda2a591f42646813c477" prefix=" " category="inline-code"></block>Der Node sollte am anhalten<block ref="b4e58ddfd75fec23180551a08c0e87c6" prefix=" " category="inline-code"></block> Eingabeaufforderung:</block>
-  <block id="a9c684b6388493b28c8bae9224fcb530" category="list-text">Überprüfen Sie auf jedem Node das Systemdatum, die Uhrzeit und die Zeitzone:<block ref="8b3eefb87c2c3f87f2074f49e91acf4b" prefix=" " category="inline-code"></block></block>
-  <block id="19940e0e663b8b77ef5ae9bed0adc639" category="list-text">Stellen Sie bei Bedarf das Datum in UTC oder Greenwich Mean Time (GMT) ein:<block ref="ce2b665b5815a9c7e13cdb6fc96a5a98" prefix=" " category="inline-code"></block></block>
-  <block id="17cd34e04880fa15bf7da7bdee12d187" category="list-text">Starten Sie den Node wieder in den Wartungsmodus, damit die Konfigurationsänderungen wirksam werden:<block ref="cce56b203b8705f3487342813b7117be" prefix=" " category="inline-code"></block></block>
   <block id="92864f4a1e3e8b31f329dde898c399e7" category="list-text">Überprüfen Sie, ob die Änderungen wirksam sind, und ucadmin zeigt FC Initiator-Ports online an.</block>
   <block id="9be73b3dd95d39ff15e33b30275709d3" category="cell">Wenn Sie diesen Typ von HBA… haben</block>
   <block id="8ad2992d6c032a4514706c63ee5d4d1b" category="cell">Verwenden Sie diesen Befehl…</block>
-  <block id="6f991264f748ca5e72084279b6293fcc" category="list-text">Überprüfen Sie den HA-config-Modus:<block ref="fb4e6c2e33b945c3ff4d042cb66d2ed4" prefix=" " category="inline-code"></block></block>
-  <block id="351a906b91969bd3f60ac4f7ef2b51fe" category="list-text">Stellen Sie sicher, dass Sie die folgende Ausgabe haben:</block>
   <block id="ee4c38ecc362bac1e7f1567f237e818c" category="list-text">Halten Sie das System an und starten Sie von der in den Wartungsmodus<block ref="82b8350d28f0a14e36de1958b3be9205" prefix=" " category="inline-code"></block> Eingabeaufforderung:</block>
   <block id="1ecb0dfe9a0842837109d6fe31c0a171" category="list-text">Zeigen Sie die Laufwerke von Node_B_1-A700 an:</block>
   <block id="241f0ee84bd4513482899f61a24c6961" category="paragraph">Die Beispielausgabe zeigt die System-ID des neuen Controller-Moduls (1574774970). Allerdings sind die Root-Aggregat-Festplatten immer noch im Besitz der alten System-ID (4068741254). In diesem Beispiel werden keine Laufwerke angezeigt, die sich im Besitz anderer Nodes in der MetroCluster-Konfiguration befinden.</block>
@@ -10811,7 +10805,6 @@
   <block id="16d9a40603d44eea561b00730eec3d91" category="paragraph">ONTAP 9.12.1 und höher</block>
   <block id="4951fe611f97b799b2abaf7474848aa1" category="inline-link-macro">OS Support Matrix</block>
   <block id="30177b72c8d5a1bab13142ff42dfc513" category="paragraph">Siehe <block ref="9f4435e7cf286b329f02bc934ba0dd4b" category="inline-link-macro-rx"></block> Entsprechende Details.</block>
-  <block id="e27eee16ff4c1ce2072fea31052ce7d5" category="paragraph">Keine. Die Abhängigkeiten werden mit der Installation gebündelt.</block>
   <block id="4a558332080902b1daf6c9eb900f075a" category="summary">Das Tiebreaker Installationsverfahren, das Sie durchführen, hängt von der Version von Tiebreaker ab, die Sie installieren.</block>
   <block id="686cbe9ae98dac9e3c34fe747bedda27" category="doc">Wählen Sie den Installationsvorgang aus</block>
   <block id="de537937e28d6ff9bfed73c24f238620" category="paragraph">Tiebreak 1.6</block>
@@ -14744,4 +14737,23 @@ Das folgende Beispiel zeigt, dass Sie die Datei mit SCP herunterladen<block ref=
   <block id="edb9b445f13c3e9e05b61cc6e0b3efdc" category="doc">NVIDIA IP SN2100 Switches für eine MetroCluster IP Konfiguration konfigurieren</block>
   <block id="20e757ff864b6acd14ec41e7165a63f9" category="doc">Das ONTAP Mediator-Mailbox-Zeitüberschreitung in einer MetroCluster IP Konfiguration erhöhen</block>
   <block id="f081a35160d006cd5323e0740d06220e" category="doc">Porttabellen für MetroCluster IP-Konfigurationen</block>
+  <block id="e0ff38f1490ce2495524f7429045ad81" category="inline-link-macro">der Knowledge Base Artikel „Cluster- und HA-Kommunikationsprobleme beim Austausch von Backend-Switches“</block>
+  <block id="93c539486532bcd2c15f294efff69106" category="admonition">Wenn ein Schalteraustausch auf den Plattformen AFF A220, AFF A250 oder FAS2750 erforderlich ist, siehe <block ref="3468e696d0ad9ec4d429e1b845c952a7" category="inline-link-macro-rx"></block>.</block>
+  <block id="fe4617c4a015a1feba78882255c11625" category="paragraph">Gemischte Verbindungsgeschwindigkeiten werden auf Plattformen, die eine X60134A Netzwerkkarte verwenden, nicht unterstützt. Ob Ihre Plattform betroffen ist, kann der <block ref="a9613e1dbacf145285c45df4264fe797" category="inline-link-rx"></block> entnommen werden.</block>
+  <block id="5f0a2538bca6fe75656437edc2b047c7" category="inline-link-macro">der Knowledge Base Artikel „100G-Link kommt während des MetroCluster Back-End-Switch-Austauschs nicht online“</block>
+  <block id="657f971f966b2ce2da53f2f9bf9abb4b" category="paragraph">Wenn ein Switch mit 25G-Ports durch einen neuen Switch mit 100G-Ports auf einer betroffenen Plattform ersetzt wird (zum Beispiel ein BES-53248 Switch durch einen Cisco 9336C Switch auf einer AFF A50 Plattform), siehe <block ref="6b31e2facf5f0ecbaec230ff30732341" category="inline-link-macro-rx"></block>.</block>
+  <block id="2c949cfd6a2e8390ab22577d8fcb8862" category="paragraph">Keine. OpenJDK 19.0.2 ist in der Installation enthalten.</block>
+  <block id="cbf667b7a6abb8a525741cdc92045f34" category="paragraph">Der HA-Status für alle Komponenten sollte <block ref="f46f944e351f8b92e40c3308318738a3" prefix=" " category="inline-code"></block> sein.</block>
+  <block id="de63ff438cd7316a835d354fccfe0c46" category="list-text">Auf jedem Knoten das Systemdatum, die Systemzeit und die Zeitzone prüfen:</block>
+  <block id="3e72511c09e554faf49052f79d627689" category="paragraph"><block ref="7e17e2b336dbdd66c2f45405573b53de" prefix="" category="inline-code"></block></block>
+  <block id="1bf5eb31de796d79cb8b6dfd332d4bb6" category="list-text">Gegebenenfalls das Datum in UTC oder Greenwich Mean Time (GMT) festlegen:</block>
+  <block id="833ce90830a0406f310191c0da1f76da" category="paragraph"><block ref="ce2b665b5815a9c7e13cdb6fc96a5a98" prefix="" category="inline-code"></block></block>
+  <block id="b6d433a7d610fd177455bd83030adfbf" category="list-text">Die Uhrzeit kann mit folgendem Befehl an der Eingabeaufforderung der Bootumgebung überprüft werden:</block>
+  <block id="667f3a6a11750e110d0c1442d2aa20e7" category="paragraph"><block ref="33f065aac47385ce7b7c4bc5d49f430b" prefix="" category="inline-code"></block></block>
+  <block id="3cc2598fed5ed84edf9cf18c5a8293c6" category="list-text">Gegebenenfalls ist die Zeit in UTC oder GMT festzulegen:</block>
+  <block id="25a249a3cdba620e6eba67639be13589" category="paragraph"><block ref="aa979bf34f52b205295408bd829f28b6" prefix="" category="inline-code"></block></block>
+  <block id="e02ed2f754f906507b04045b6d64c6a8" category="list-text">Einstellungen speichern:</block>
+  <block id="be169689a01b80888d8e5aa7db10c6e9" category="list-text">Umgebungsvariablen erfassen:</block>
+  <block id="c464415fe9040cd42442afd5413727d2" category="list-text">Der ha-config-Modus kann überprüft werden:</block>
+  <block id="bb903f8039d8d74f0348f46c24a33392" category="paragraph">Die Ausgabe sollte dem folgenden Beispiel ähneln:</block>
 </blocks>
