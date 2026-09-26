@@ -256,15 +256,23 @@ Wenn die Switches im ersten Fabric aktualisiert oder herabgestuft werden, könne
 
 NOTE: Wenn das Fabric aktualisiert oder herabgestuft wird, sind alle Schritte für das zweite Fabric zu wiederholen.
 
-. Ändern Sie alle Cluster-LIFs, um die automatische Zurücksetzung erneut zu aktivieren:
+. Alle Cluster-LIFs auf ihren Home Port zurücksetzen.
++
+
+CAUTION: Die Cluster LIFs dürfen erst dann auf ihre Home Ports zurückgesetzt werden, wenn die vorherigen Schritte für alle Switches abgeschlossen sind, die ein Update erfordern.
+
++
+.. Ändern Sie alle Cluster-LIFs, um die automatische Zurücksetzung erneut zu aktivieren:
 +
 [source, cli]
 ----
 network interface modify -vserver <vserver_name> -lif <lif_name> -auto-revert true
 ----
-. Alle Cluster-LIFs, die sich derzeit nicht auf ihren Heimatports befinden, werden auf ihre Heimatports zurückgesetzt:
+.. Alle Cluster-LIFs, die sich derzeit nicht auf ihren Home Ports befinden, manuell auf ihre Home Ports zurücksetzen:
 +
-`network interface revert -vserver * -lif *`
+`network interface revert -vserver Cluster -lif *`
+
+
 
 . Verschieben Sie optional die NS224-Shelfs.
 +

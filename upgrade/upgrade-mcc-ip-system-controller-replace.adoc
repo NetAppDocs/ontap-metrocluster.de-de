@@ -4,14 +4,14 @@ sidebar: sidebar
 keywords: metrocluster, upgrade, controllers, switchover, switchback, ip, configuration, net, boot, root, aggregate, system, commands, mcc 
 summary: Sie können diese geführte automatische MetroCluster-Umschaltung verwenden, um ein unterbrechungsfreies Controller-Upgrade für eine MetroCluster IP-Konfiguration mit vier Nodes durchzuführen. 
 ---
-= Workflow für das Upgrade von MetroCluster IP-Controllern mithilfe von Befehlen „System Controller Replace“ (ONTAP 9.13.1 oder höher)
+= Workflow zur Aktualisierung des MetroCluster IP Controllers mithilfe des Austauschs des System Controllers
 :allow-uri-read: 
 :icons: font
 :imagesdir: ../media/
 
 
 [role="lead"]
-Sie können diesen geführten automatischen MetroCluster-Switchover-Vorgang verwenden, um ein unterbrechungsfreies Controller-Upgrade auf einer MetroCluster IP-Konfiguration mit vier Nodes auszuführen, bei der ONTAP 9.13.1 später ausgeführt wird. Andere Komponenten (wie Storage Shelves oder Switches) können nicht im Rahmen dieses Verfahrens aktualisiert werden.
+Ab ONTAP 9.13.1 kann dieses geführte, automatisierte MetroCluster Switchover-Verfahren verwendet werden, um ein unterbrechungsfreies Controller-Upgrade in einer MetroCluster IP-Konfiguration mit vier Knoten mithilfe von  `system controller replace` Befehlen durchzuführen. Andere Komponenten (wie Storage Shelves oder Switches) können im Rahmen dieses Verfahrens nicht aktualisiert werden.
 
 .Informationen zu diesem Workflow
 Sie können diesen Workflow verwenden, um MetroCluster IP-Controller mit ONTAP 9.13.1 oder höher mithilfe von Switchover und Switchback mit Befehlen zu aktualisieren `system controller replace`.
