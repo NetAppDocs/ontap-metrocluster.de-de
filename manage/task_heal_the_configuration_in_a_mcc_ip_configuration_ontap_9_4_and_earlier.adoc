@@ -33,17 +33,10 @@ Dieses Verfahren unterscheidet sich von dem Heilverfahren für MetroCluster FC-K
 +
 Wenn vom System die LOADER-Eingabeaufforderung angezeigt wird, führen Sie den aus `boot_ontap` Befehl.
 
-. Durchführen der Heilungsphase des Root-Aggregats: `metrocluster heal root-aggregates`
+. Heilen der Datenaggregate:
 +
-[listing]
-----
-cluster_A::> metrocluster heal root-aggregates
-[Job 137] Job succeeded: Heal Root-Aggregates is successful
-----
-+
-Wenn das Heilen vetoed ist, haben Sie die Möglichkeit, den befehl MetroCluster-Root-Aggregate heilen mit dem Parameter --override-vetoes erneut auszuführen. Wenn Sie diesen optionalen Parameter verwenden, überschreibt das System alle weichen Vetos, die die Heilung verhindern.
+`metrocluster heal aggregates`
 
-. Synchronisieren Sie die Aggregate neu: `metrocluster heal aggregates`
 +
 [listing]
 ----
@@ -51,9 +44,22 @@ cluster_A::> metrocluster heal aggregates
 [Job 137] Job succeeded: Heal Aggregates is successful
 ----
 +
-Wenn das Heilen vetoed ist, haben Sie die Möglichkeit, den befehl MetroCluster Heal mit dem Parameter --override-vetoes erneut auszugeben. Wenn Sie diesen optionalen Parameter verwenden, überschreibt das System alle weichen Vetos, die die Heilung verhindern.
+Wenn die Heilung ein Vetorecht ist, haben Sie die Möglichkeit, das zurückzugeben `metrocluster heal` Befehl mit dem `--override-vetoes` Parameter. Wenn Sie diesen optionalen Parameter verwenden, überschreibt das System alle weichen Vetos, die die Heilung verhindern.
 
-. Bestätigen Sie den Abschluss des Heal-Vorgangs, indem Sie den Befehl „MetroCluster Operation show“ im gesunden Cluster ausführen:
+. Heilen Sie die Root-Aggregate:
++
+`metrocluster heal root-aggregates`
+
++
+[listing]
+----
+cluster_A::> metrocluster heal root-aggregates
+[Job 137] Job succeeded: Heal Root-Aggregates is successful
+----
++
+Falls das Healing per Veto blockiert wird, besteht die Möglichkeit, den `metrocluster heal root-aggregates`Befehl mit dem `--override-vetoes`Parameter erneut auszuführen. Bei Verwendung dieses optionalen Parameters setzt das System alle Soft Vetoes außer Kraft, die den Healing-Vorgang verhindern.
+
+. Bestätigen Sie, dass der Heilvorgang abgeschlossen ist, indem Sie den ausführen `metrocluster operation show` Befehl auf dem gesunden Cluster:
 +
 [listing]
 ----

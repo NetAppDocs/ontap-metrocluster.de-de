@@ -250,7 +250,16 @@ NOTE: Führen Sie diesen Schritt für alle Plexe aus, die über Remote-Festplatt
 
 
 
-. Die ISL-Switch-Ports werden je nach Switch-Typ permanent offline geschaltet.
+. ISL-Switch-Ports offline schalten. Das korrekte Verfahren für Ihren Switch-Typ auswählen.
++
+In den folgenden Verfahren wird beschrieben, wie ungenutzte ISL-Ports deaktiviert werden; dieselben Befehle können im Rahmen dieses Verfahrens auch zum Deaktivieren aller aktiven ISL-Ports verwendet werden.
+
++
+** link:../install-ip/task_switch_config_cisco.html#disable-unused-isl-ports-and-port-channels["ISL-Ports auf Cisco IP-Switches deaktivieren"]
+** link:../install-ip/task_switch_config_broadcom.html#disable-unused-isl-ports-and-port-channels["Deaktivieren von ISL-Ports auf Broadcom IP-Switches"]
+** link:../install-ip/task_switch_config_nvidia.html#disable-unused-isl-ports-and-port-channels["ISL-Ports auf NVIDIA IP-Switches deaktivieren"]
+
+
 . Beenden Sie die Nodes, indem Sie für jeden Node den folgenden Befehl ausführen:
 +
 `node halt -inhibit-takeover true -skip-lif-migration true -node <node-name>`

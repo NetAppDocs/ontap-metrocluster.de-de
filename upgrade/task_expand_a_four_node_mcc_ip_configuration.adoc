@@ -1583,10 +1583,10 @@ cluster_A::*>
 +
 .. Anzeigen der Volumes zur Identifizierung der MDV-Volumes:
 +
-Wenn Sie ein einzelnes gespiegeltes Datenaggregat pro Standort haben, dann verschieben Sie beide MDV-Volumen zu diesem einzigen Aggregat. Wenn Sie zwei oder mehr gespiegelte Datenaggregate haben, dann verschieben Sie jedes MDV-Volume zu einem anderen Aggregat.
+Wenn pro Standort ein einzelnes gespiegeltes Datenaggregat vorhanden ist, werden beide MDV Volumes in dieses einzelne Aggregat verschoben. Wenn zwei oder mehr gespiegelte Datenaggregate vorhanden sind, wird jedes MDV Volume in ein anderes Aggregat verschoben. Nach einer erfolgreichen Erweiterung (auf eine Konfiguration mit vier oder acht Knoten) enthält jeder MetroCluster IP Standort zwei MDV Volumes.
 
 +
-Wenn Sie eine MetroCluster-Konfiguration mit vier Knoten auf eine permanente Konfiguration mit acht Knoten erweitern, sollten Sie eines der MDV-Volumes in die neue DR-Gruppe verschieben.
+Wenn Sie eine MetroCluster Konfiguration mit vier Nodes zu einer permanenten Konfiguration mit acht Nodes erweitern, müssen Sie eines der MDV-Volumes in ein beliebiges gespiegeltes Aggregat in der neuen DR-Gruppe verschieben. Dabei spielt es keine Rolle, ob das verschobene MDV-Volume die Endung `_A` oder `_B` hat.
 
 +
 Das folgende Beispiel zeigt die MDV-Volumes im `volume show` Ausgabe:
@@ -1642,11 +1642,11 @@ Die folgende Ausgabe zeigt, dass das MDV-Volume erfolgreich verschoben wurde.
 +
 [listing]
 ----
-cluster_A::*> vol show MDV_CRS_d6b0b313ff5611e9837100a098544e51_B
+cluster_A::*> vol show MDV_CRS_d6b0b313ff5611e9837100a098544e51_A
 Vserver     Volume       Aggregate    State      Type       Size  Available Used%
 ---------   ------------ ------------ ---------- ---- ---------- ---------- -----
-cluster_A   MDV_CRS_d6b0b313ff5611e9837100a098544e51_B
-                       aggr_a2      online     RW         10GB     9.50GB    0%
+cluster_A   MDV_CRS_d6b0b313ff5611e9837100a098544e51_A
+                         data_a3      online      RW        10GB     9.50GB    0%
 ----
 
 
