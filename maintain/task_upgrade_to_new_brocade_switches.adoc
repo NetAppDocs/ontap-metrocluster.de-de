@@ -76,6 +76,10 @@ image::../media/brocade_upgr_to_g620_replaced_b_1.gif[Brocade -Upgrade auf G620 
 
 
 . Starten Sie die neuen Schalter, und lassen Sie sie hochfahren.
+. Überprüfen Sie die Switch-Firmware-Version, um zur Switch-Eingabeaufforderung zurückzukehren:
++
+`firmwareShow`
+
 . Konfigurieren Sie die Brocade FC-Switches mithilfe einer der folgenden Verfahren:
 +
 link:../install-fc/task_reset_the_brocade_fc_switch_to_factory_defaults.html["Konfigurieren Sie Brocade FC Switches mit RCF-Dateien"]
@@ -143,16 +147,6 @@ slot 0: FC Host Adapter 0g (QLogic 8324 rev. 2, N-port, <UP>)**<=== Initiator po
 		.
 		.
 ----
-. Überprüfen Sie die Switch-Firmware-Version, um zur Switch-Eingabeaufforderung zurückzukehren:
-+
-`firmwareShow`
-
-+
-Auf den Switches muss die zuletzt unterstützte Firmware ausgeführt werden.
-
-+
-https://mysupport.netapp.com/matrix["NetApp Interoperabilitäts-Matrix-Tool"]
-
 . Simulation eines Switchover-Vorgangs:
 +
 .. Ändern Sie in der Eingabeaufforderung eines beliebigen Nodes die erweiterte Berechtigungsebene: +

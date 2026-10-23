@@ -2,7 +2,7 @@
 permalink: disaster-recovery/task_recover_from_a_non_controller_failure_mcc_dr.html 
 sidebar: sidebar 
 keywords: equipment, disaster, site, undergone, require, maintenance, replacement, controller, replace, process, metrocluster, configuration, data, aggregate, switchback, operation, recover, non-controller, failure, heal, configuration, metrocluster, fc, data, aggregate, root, disaster, verify, system, switchback, verification, result, perform, successful, delete, deleting, stale, listing 
-summary: 'Nachdem die Systeme am Disaster-Standort Wartungsarbeiten oder Ersatz durchgeführt wurden, jedoch keine Controller ausgetauscht wurden, können Sie mit dem Prozess beginnen, die MetroCluster Konfiguration in einen vollständig redundanten Zustand zurückzusetzen. Dazu gehört auch die Reparatur der Konfiguration (zunächst die Daten-Aggregate und dann die Root-Aggregate) und das Durchführen des Switchback-Vorgangs.' 
+summary: Nach einem Ausfall, der nicht den Controller betrifft, sind die Wiederherstellung der MetroCluster Konfiguration und die Ausführung des Switchback Vorgangs erforderlich, um zum normalen, vollständig redundanten Betrieb zurückzukehren. 
 ---
 = Wiederherstellung nach einem Nicht-Controller-Ausfall in einer MetroCluster Konfiguration
 :allow-uri-read: 
@@ -45,10 +45,7 @@ In MetroCluster IP-Konfigurationen sollten die Heilungsvorgänge nach einer Umsc
 
 .Bevor Sie beginnen
 * Eine Umschaltung muss durchgeführt worden sein und der überlebende Standort muss Daten bereitstellen.
-* Nodes am Disaster-Standort müssen angehalten oder deaktiviert werden.
-+
-Sie dürfen während des Heilungsprozesses nicht vollständig gestartet werden.
-
+* In Fabric-attached und Stretch MetroCluster Konfigurationen müssen die Knoten am Disaster-Standort angehalten werden oder ausgeschaltet bleiben. Während des Healing-Prozesses dürfen sie nicht vollständig hochgefahren werden.
 * Storage am Disaster-Standort muss zugänglich sein (Shelfs werden hochgefahren, funktionieren und sind zugänglich).
 * In Fabric-Attached MetroCluster-Konfigurationen müssen Inter-Switch-Links (ISLs) in Betrieb sein.
 * In MetroCluster-Konfigurationen mit vier Nodes dürfen sich Nodes im verbleibenden Standort nicht im HA-Failover-Zustand befinden (alle Nodes müssen für jedes HA-Paar in Betrieb sein).
@@ -65,7 +62,7 @@ Die Reparatur muss zunächst auf den Datenaggregaten und anschließend auf den R
 Die Datenaggregate müssen nach der Reparatur und dem Austausch beliebiger Hardware am Disaster-Standort repariert und ausgetauscht werden. In diesem Prozess werden die Datenaggregate neu synchronisiert und der (jetzt reparierte) Disaster-Standort wird auf den normalen Betrieb vorbereitet. Die Datenaggregate müssen vor dem Healing der Root-Aggregate repariert werden.
 
 .Über diese Aufgabe
-Das folgende Beispiel zeigt eine erzwungene Umschaltung, um das Switchover-Aggregat online zu schalten. Alle Konfigurationsaktualisierungen im Remote-Cluster konnten erfolgreich auf das lokale Cluster repliziert werden. Im Rahmen dieses Verfahrens schalten Sie den Storage am Disaster Standort ein, jedoch nicht und dürfen die Controller-Module am DR-Standort nicht hochfahren.
+Das folgende Beispiel zeigt eine erzwungene Umschaltung, bei der das umgeschaltete Aggregat online geschaltet wird. Alle Konfigurationsaktualisierungen im Remote-Cluster werden erfolgreich in den lokalen Cluster repliziert. Im Rahmen dieses Verfahrens wird das Storage am Disaster-Standort eingeschaltet, die Controller-Module am Disaster-Standort werden jedoch in einer Fabric-Attached- oder Stretch MetroCluster Konfiguration nicht und dürfen auch nicht eingeschaltet werden.
 
 .Schritte
 . Überprüfen Sie, ob die Umschaltung abgeschlossen wurde:
@@ -93,7 +90,7 @@ controller_A_1::> metrocluster heal -phase aggregates
 [Job 130] Job succeeded: Heal Aggregates is successful.
 ----
 +
-Wenn die Heilung ein Vetorecht ist, haben Sie die Möglichkeit, das zurückzugeben `metrocluster heal` Befehl mit dem `--override-vetoes` Parameter. Wenn Sie diesen optionalen Parameter verwenden, überschreibt das System alle weichen Vetos, die die Heilung verhindern.
+Wenn das Healing per Veto blockiert wird, kann der  `metrocluster heal`Befehl mit dem  `--override-vetoes`Parameter erneut ausgegeben werden, um Soft-Vetos zu übergehen, die den Healing-Vorgang verhindern.
 
 . Vergewissern Sie sich, dass der Vorgang abgeschlossen ist:
 +
@@ -147,7 +144,7 @@ mcc1A::> metrocluster heal -phase root-aggregates
 [Job 137] Job succeeded: Heal Root Aggregates is successful
 ----
 +
-Wenn die Heilung ein Vetorecht ist, haben Sie die Möglichkeit, das zurückzugeben `metrocluster heal` Befehl mit dem `--override-vetoes` Parameter. Wenn Sie diesen optionalen Parameter verwenden, überschreibt das System alle weichen Vetos, die die Heilung verhindern.
+Wenn das Healing per Veto blockiert wird, kann der  `metrocluster heal`Befehl mit dem  `--override-vetoes`Parameter erneut ausgegeben werden, um Soft-Vetos zu übergehen, die den Healing-Vorgang verhindern.
 
 . Stellen Sie sicher, dass der Heal-Vorgang abgeschlossen ist, indem Sie den folgenden Befehl auf dem Ziel-Cluster ausführen:
 +
@@ -217,7 +214,7 @@ Führen Sie diesen Schritt bei allen SVMs aus, falls erforderlich.
 
 
 
-CAUTION: Vor dem Switchback ist zu überprüfen, ob sich die Daten-LIFs auf den neuen Knoten an der korrekten Position befinden. Beim Switchback der Konfiguration versucht ONTAP, den Datenverkehr über den von den LIFs verwendeten Home-Port wieder aufzunehmen. Ein E/A-Fehler kann auftreten, wenn die Verbindung des Home-Ports zum Switch-Port und zum VLAN nicht korrekt ist. Treten Probleme bei der Platzierung der LIFs auf den richtigen Knoten oder Ports auf, sollte der Switchback nicht fortgesetzt werden und der NetApp Technical Support kontaktiert werden.
+CAUTION: Vor einem Switchback müssen Sie überprüfen, ob sich die Daten-LIFs auf den neuen Nodes am richtigen Speicherort befinden. Wenn die Konfiguration zurückgeschaltet wird, versucht ONTAP, den Datenverkehr auf dem von den LIFs verwendeten Home-Port wieder aufzunehmen. Ein E/A-Fehler kann auftreten, wenn die Verbindung des Home-Ports mit dem Switch-Port und dem VLAN nicht korrekt ist. Wenn beim Platzieren der LIFs auf den richtigen Nodes oder Ports Probleme auftreten, darf das Switchback nicht fortgesetzt werden, und der technische Support von NetApp muss kontaktiert werden.
 
 
 
@@ -567,7 +564,7 @@ volumes             ok
 ----
 +
 
-NOTE: In einer MetroCluster FC-Umgebung sollte 'connections' in der Befehlsausgabe als "not-applicable" angezeigt werden.
+NOTE: In einer MetroCluster FC Umgebung sollte "connections" in der Befehlsausgabe als "not-applicable" angezeigt werden.
 
 
 

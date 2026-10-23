@@ -261,14 +261,11 @@ Einige der Konfigurationen werden zurückgesetzt und die Switchports gehen „of
 IP_switch_A_1# show running-config diff
 IP_switch_A_1#
 ----
-
-
-. Wenn Sie die Systemausgabe sehen, speichern Sie die laufende Konfiguration in die Startkonfiguration: `copy running-config startup-config`
+.. Wenn Sie die Systemausgabe sehen, speichern Sie die laufende Konfiguration in die Startkonfiguration: `copy running-config startup-config`
 +
 
 NOTE: Die Systemausgabe zeigt an, dass die Startkonfiguration und die laufende Konfiguration unterschiedlich und ausstehende Änderungen sind. Wenn Sie die ausstehenden Änderungen nicht speichern, können Sie den Switch nicht erneut laden.
 
-+
 .. Anwenden der CleanUpFile:
 +
 [listing]
@@ -329,6 +326,11 @@ IP_switch_A_1# copy running-config startup-config
 
 IP_switch_A_1# reload
 ----
+. Die vorherigen Schritte sind für jeden der Switches zu wiederholen.
++
+
+NOTE: Nachdem die Switches im ersten Fabric (Switch_A_1, Switch_B_1) konfiguriert wurden, sind die Schritte zum Verschieben der Cluster-LIFs im zweiten Fabric (Switch_A_2, Switch_B_2) zu wiederholen. Siehe link:../install-ip/task_install_and_cable_the_mcc_components.html["Informationen zur Konfiguration der MetroCluster IP-Switches"].
+
 . Alle Cluster-LIFs so anpassen, dass die automatische Rückkehr aktiviert ist:
 +
 .. Automatische Rückkehr wieder aktivieren:
