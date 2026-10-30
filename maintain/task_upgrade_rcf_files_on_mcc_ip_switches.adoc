@@ -74,6 +74,105 @@ volumes             ok
 
 
 
+. Wenn Ihre MetroCluster IP Konfiguration NVMe Shelves umfasst, die mit den MetroCluster IP Switches verbunden sind, dienen die folgenden Befehle zur Überprüfung des Status der Shelves.
++
+.. Anzeige des Shelf Status:
++
+`storage shelf show`
+
++
+.Beispiel anzeigen
+[%collapsible]
+====
+[listing]
+----
+cluster_A::> storage shelf show
+                                                        Module  Operational
+       Shelf Name Shelf ID Serial Number   Model        Type    Status
+----------------- -------- --------------- ------------ ------- -----------
+              1.0        0 952123456789    NS224NSM100  NSM100  Normal
+              1.2        0 952987654321    NS224NSM100  NSM100  Normal
+cluster_A::>
+----
+====
+.. Die Shelf-Konnektivität für die an den Switch angeschlossenen NVMe Shelves wird angezeigt:
++
+`storage shelf show -shelf <shelf_name> -connectivity`
+
++
+.Beispiel anzeigen
+[%collapsible]
+====
+[listing]
+----
+cluster_A::> storage shelf show -shelf 1.0 -connectivity
+            Shelf Name: 1.0
+             Stack ID: 1
+             Shelf ID: 0
+            Shelf UID: 00:00:00:00:00:00:00:00
+        Serial Number: 952123456789
+          Module Type: NSM100
+                Model: NS224NSM100
+         Shelf Vendor: NETAPP
+           Disk Count: 24
+      Connection Type: NVMe
+          Shelf State: Online
+               Status: Normal
+Paths:
+
+Controller         Initiator Initiator Side Switch Port Target Side Switch Port    Target Port        TPGN
+------------------ --------- -------------------------- -------------------------- ------------------ ------
+cluster_A-01       0x        -                          0x                         05000005abff0000   67
+cluster_A-02       0x        -                          0x                         030f0005abff0000   44
+
+cluster_A::>
+----
+====
+.. Falls erforderlich, die Namen der Remote-Geräte (MetroCluster Switches) erfassen:
++
+.Beispiel anzeigen
+[%collapsible]
+====
+[listing]
+----
+cluster_A::> storage shelf port show -fields remote-device
+
+shelf id remote-device
+----- -- -------------
+1.0   0  IP_switch_A_1
+1.0   1  IP_switch_B_1
+1.0   2  IP_switch_A_2
+1.0   3  IP_switch_B_2
+4 entries were displayed
+----
+====
+.. Anzeige der Shelf Port-Konnektivität für die an den Switch angeschlossenen NVMe Shelves:
++
+`storage shelf port show -remote-device <switch name>`
+
++
+.Beispiel anzeigen
+[%collapsible]
+====
+[listing]
+----
+cluster_A::> storage shelf port show -remote-device IP_switch_A_1
+
+Shelf ID Module State        Internal?
+----- -- ------ ------------ ---------
+1.0
+       1 A      connected    false
+       3 B      connected    false
+1.2
+       1 A      connected    false
+       3 B      connected    false
+4 entries were displayed.
+
+cluster_A::>
+----
+====
+
+
 . link:../install-ip/switch-move-cluster-lifs.html["Die Cluster-LIFs verschieben"] bevor Sie mit dem Upgrade beginnen.
 . Bereiten Sie die IP-Switches auf die Anwendung der neuen RCFs vor.
 +

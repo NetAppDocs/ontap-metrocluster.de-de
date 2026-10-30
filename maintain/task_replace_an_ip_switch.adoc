@@ -130,9 +130,108 @@ To check if the nodes are ready to do a switchover or switchback operation, run 
 .. Vergewissern Sie sich, dass es keine Systemzustandsmeldungen gibt: `*system health alert show*`
 
 
+. Wenn Ihre MetroCluster IP Konfiguration NVMe Shelves umfasst, die mit den MetroCluster IP Switches verbunden sind, dienen die folgenden Befehle zur Überprüfung des Status der Shelves.
++
+.. Anzeige des Shelf Status:
++
+`storage shelf show`
+
++
+.Beispiel anzeigen
+[%collapsible]
+====
+[listing]
+----
+cluster_A::> storage shelf show
+                                                        Module  Operational
+       Shelf Name Shelf ID Serial Number   Model        Type    Status
+----------------- -------- --------------- ------------ ------- -----------
+              1.0        0 952123456789    NS224NSM100  NSM100  Normal
+              1.2        0 952987654321    NS224NSM100  NSM100  Normal
+cluster_A::>
+----
+====
+.. Die Shelf-Konnektivität für die an den Switch angeschlossenen NVMe Shelves wird angezeigt:
++
+`storage shelf show -shelf <shelf_name> -connectivity`
+
++
+.Beispiel anzeigen
+[%collapsible]
+====
+[listing]
+----
+cluster_A::> storage shelf show -shelf 1.0 -connectivity
+            Shelf Name: 1.0
+             Stack ID: 1
+             Shelf ID: 0
+            Shelf UID: 00:00:00:00:00:00:00:00
+        Serial Number: 952123456789
+          Module Type: NSM100
+                Model: NS224NSM100
+         Shelf Vendor: NETAPP
+           Disk Count: 24
+      Connection Type: NVMe
+          Shelf State: Online
+               Status: Normal
+Paths:
+
+Controller         Initiator Initiator Side Switch Port Target Side Switch Port    Target Port        TPGN
+------------------ --------- -------------------------- -------------------------- ------------------ ------
+cluster_A-01       0x        -                          0x                         05000005abff0000   67
+cluster_A-02       0x        -                          0x                         030f0005abff0000   44
+
+cluster_A::>
+----
+====
+.. Falls erforderlich, die Namen der Remote-Geräte (MetroCluster Switches) erfassen:
++
+.Beispiel anzeigen
+[%collapsible]
+====
+[listing]
+----
+cluster_A::> storage shelf port show -fields remote-device
+
+shelf id remote-device
+----- -- -------------
+1.0   0  IP_switch_A_1
+1.0   1  IP_switch_B_1
+1.0   2  IP_switch_A_2
+1.0   3  IP_switch_B_2
+4 entries were displayed
+----
+====
+.. Anzeige der Shelf Port-Konnektivität für die an den Switch angeschlossenen NVMe Shelves:
++
+`storage shelf port show -remote-device <switch name>`
+
++
+.Beispiel anzeigen
+[%collapsible]
+====
+[listing]
+----
+cluster_A::> storage shelf port show -remote-device IP_switch_A_1
+
+Shelf ID Module State        Internal?
+----- -- ------ ------------ ---------
+1.0
+       1 A      connected    false
+       3 B      connected    false
+1.2
+       1 A      connected    false
+       3 B      connected    false
+4 entries were displayed.
+
+cluster_A::>
+----
+====
+
+
 . Konfigurieren Sie den neuen Switch vor der Installation.
 +
-Wenn Sie vorhandene Switches erneut verwenden, fahren Sie mit fort <<existing_step4,Schritt 4>>.
+Bei der Wiederverwendung vorhandener Switches geht es weiter mit <<existing_disconnect,der Schritt, um die Verbindungen vom alten Switch zu trennen>>.
 
 +
 
@@ -142,36 +241,23 @@ NOTE: Wenn Sie die Switches aktualisieren oder verkleinern, müssen Sie alle Swi
 Befolgen Sie die Schritte für Ihren Switch-Anbieter:
 
 +
-** link:../install-ip/task_switch_config_broadcom.html["Konfigurieren Sie Broadcom IP-Switches"]
-** link:../install-ip/task_switch_config_cisco.html["Konfigurieren Sie Cisco IP-Switches"]
-** link:../install-ip/task_switch_config_nvidia.html["Konfigurieren Sie NVIDIA IP-Switches"]
-+
 Stellen Sie sicher, dass Sie die korrekte RCF-Datei für den Schalter _A_1, _A_2, _B_1 oder _B_2 anwenden. Wenn der neue Switch mit dem alten Switch identisch ist, müssen Sie dieselbe RCF-Datei anwenden.
 
 +
 Wenn Sie einen Switch aktualisieren oder herunterstufen, wenden Sie die neueste unterstützte RCF-Datei für den neuen Switch an.
 
++
+** link:../install-ip/task_switch_config_broadcom.html["Konfigurieren Sie Broadcom IP-Switches"]
+** link:../install-ip/task_switch_config_cisco.html["Konfigurieren Sie Cisco IP-Switches"]
+** link:../install-ip/task_switch_config_nvidia.html["Konfigurieren Sie NVIDIA IP-Switches"]
 
 
-. Führen Sie den Befehl Port show aus, um Informationen zu den Netzwerkports anzuzeigen:
-+
-`*network port show*`
-
-+
-.. Ändern Sie alle Cluster-LIFs, um die automatische Zurücksetzung zu deaktivieren:
-+
-[source, cli]
-----
-network interface modify -vserver <vserver_name> -lif <lif_name> -auto-revert false
-----
-.. link:../install-ip/switch-move-cluster-lifs.html["Die Cluster-LIFs verschieben"].
+. link:../install-ip/switch-move-cluster-lifs.html["Die Cluster-LIFs verschieben"].
 +
 
 NOTE: Die Switches sind in folgender Reihenfolge zu aktualisieren: Switch_A_1, Switch_B_1, Switch_A_2, Switch_B_2. Die Schritte zum Verschieben der Cluster-LIFs auf das zweite Fabric (Switch_A_2, Switch_B_2) sind nach der Konfiguration der Switches im ersten Fabric (Switch_A_1, Switch_B_1) zu wiederholen. Siehe link:../install-ip/task_install_and_cable_the_mcc_components.html["Informationen zur Konfiguration der MetroCluster IP-Switches"].
 
-
-
-. [[existing_step4]]Trennen Sie die Verbindungen vom alten Switch.
+. [[existing_disconnect]]Die Verbindungen vom alten Switch werden getrennt.
 +
 
 NOTE: Sie trennen nur Verbindungen, die nicht denselben Port in der alten und neuen Konfiguration verwenden. Wenn Sie neue Switches verwenden, müssen Sie alle Verbindungen trennen.
@@ -191,13 +277,13 @@ Im Beispiel <<port_usage_worksheet>>Die Schalter ändern sich nicht. Die MetroCl
 
 . Wenn Sie neue Schalter verwenden, schalten Sie den alten Schalter aus, entfernen Sie die Kabel, und entfernen Sie den alten Schalter.
 +
-Wenn Sie vorhandene Switches erneut verwenden, fahren Sie mit fort <<existing_step6,Schritt 6>>.
+Bei Wiederverwendung vorhandener Switches geht es weiter mit <<existing_configure,der Schritt zur Konfiguration der vorhandenen Switches>>.
 
 +
 
 NOTE: Verkabeln Sie die neuen Switches mit Ausnahme der Verwaltungsschnittstelle (falls verwendet) nicht.
 
-. [[existing_step6]]Konfigurieren Sie die vorhandenen Switches.
+. [[existing_configure]]Konfiguration der vorhandenen Switches.
 +
 Wenn Sie die Switches bereits vorkonfiguriert haben, können Sie diesen Schritt überspringen.
 
@@ -224,11 +310,19 @@ Verkabeln Sie die Schalter in der folgenden Reihenfolge (falls erforderlich):
 [NOTE]
 ====
 *** Die verwendeten Ports können von denen auf dem alten Switch abweichen, wenn der Switch-Typ anders ist. Wenn Sie die Switches aktualisieren oder verkleinern, müssen Sie die lokalen ISLs nicht * verkabeln. Verkabeln Sie die lokalen ISLs nur, wenn Sie die Switches im zweiten Netzwerk aktualisieren oder herunterstufen und beide Switches an einem Standort den gleichen Typ und die gleiche Verkabelung aufweisen.
-*** Wenn Sie Switch-A1 und Switch-B1 aktualisieren, müssen Sie die Schritte 1 bis 6 für Schalter A2 und Switch-B2 ausführen.
 
 
 ====
 
+
+. Schalten Sie den Schalter ein oder schalten Sie den Schalter ein.
++
+Wenn der neue Switch identisch ist, kann der neue Switch eingeschaltet werden. Bei einem Upgrade oder Downgrade der Switches können beide Switches eingeschaltet werden.
+
+. Die vorherigen Schritte werden für den zweiten Fabric (Switch_A_2 und Switch_B_2) wiederholt, nachdem der erste Fabric (Switch_A_1 und Switch_B_1) aktualisiert wurde.
++
+
+NOTE: Wenn Sie einen defekten Switch durch einen Switch desselben Typs ersetzen, müssen Sie nur den defekten Switch aktualisieren und die Schritte für den zweiten Fabric nicht wiederholen.
 
 . Schließen Sie die lokale Clusterverkabelung ab.
 +
@@ -244,18 +338,7 @@ Verkabeln Sie die Schalter in der folgenden Reihenfolge (falls erforderlich):
 
 
 
-. Schalten Sie den Schalter ein oder schalten Sie den Schalter ein.
-+
-Wenn der neue Switch identisch ist, kann der neue Switch eingeschaltet werden. Bei einem Upgrade oder Downgrade der Switches können beide Switches eingeschaltet werden. Die Konfiguration kann mit zwei verschiedenen Switches an jedem Standort betrieben werden, bis das zweite Fabric aktualisiert ist.
-
 . Wiederholen Sie die Schritte, um zu überprüfen, ob die MetroCluster-Konfiguration ordnungsgemäß ist <<all_step1,Schritt 1>>.
-+
-Wenn die Switches im ersten Fabric aktualisiert oder herabgestuft werden, können einige Warnmeldungen im Zusammenhang mit dem lokalen Clustering auftreten.
-
-+
-
-NOTE: Wenn das Fabric aktualisiert oder herabgestuft wird, sind alle Schritte für das zweite Fabric zu wiederholen.
-
 . Alle Cluster-LIFs auf ihren Home Port zurücksetzen.
 +
 
@@ -285,3 +368,6 @@ Wenn Sie eine MetroCluster IP-Konfiguration neu konfigurieren, bei der keine NS2
 
 
 
+
+.Nachdem Sie fertig sind
+link:../install-ip/task-configure-log-collection-mccip.html["Konfigurieren der Protokollsammlung auf einem MetroCluster-IP-Switch"]

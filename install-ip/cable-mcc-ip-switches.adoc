@@ -1,0 +1,38 @@
+---
+permalink: install-ip/cable-mcc-ip-switches.html 
+sidebar: sidebar 
+keywords: cabling, cable, component, link, site, management, network, hardware, component, switch, cluster, connection, management, data, configuring, configure, rcf, file, generator, RcfFileGenerator 
+summary: Sie müssen verstehen, wie die Informationen in den Porttabellen verwendet werden, um Ihre RCF-Dateien korrekt zu generieren. 
+---
+= Verkabelung Ihrer MetroCluster IP-Switches mit dem RCFfilegenerator Tool und dem Hardware Universe
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen wissen, wie Sie das Tool RCFfilegenerator und die Informationen in NetApp Hardware Universe verwenden, um Ihre Switches korrekt zu verkabeln.
+
+.Bevor Sie beginnen
+Vor der Durchführung dieser Aufgabe sollten die Informationen in link:using_rcf_generator.html["Informationen zur Verkabelung der MetroCluster IP-Switches"] geprüft werden.
+
+.Schritte
+. Der Download und die Installation des  https://mysupport.netapp.com/site/tools/tool-eula/rcffilegenerator["RCfFileGenerator für MetroCluster-IP"^]Tools erfolgen über die NetApp Support Site.
+. Die Felder für Ihre Konfiguration können anhand der Anweisungen in link:https://kb.netapp.com/on-prem/ontap/mc/MC-KBs/How_to_use_the_RCF_Generator_for_MetroCluster_IP["Verwendung des RCF Generator für MetroCluster IP"^] ausgefüllt werden.
++
+Das Tool generiert eine Übersicht der Verkabelung pro Port für jeden Switch.
+
++
+
+NOTE: Der RcfFileGenerator zeigt nur geeignete Plattformen an, wenn die erste Plattform ausgewählt ist.
+
+. Zu der link:https://hwu.netapp.com/DetailViews/Home.aspx["Hardware Universe"^]
+. Auf der Registerkarte *Products* werden Ihr Plattformtyp, anschließend Ihre spezifische Plattform sowie die Angabe ausgewählt, ob eine Vier-Node- oder Acht-Node-MetroCluster IP Konfiguration verkabelt wird.
+. Im Anzeigefenster die ONTAP-Version auswählen und anschließend *Ergebnisse anzeigen* wählen.
+. Die Auswahl erfolgt für *Unterstützte Verbindungen* und die Registerkarte für *Speicherverbindung*
+. Die Controller-Port-Informationen für Ihre Konfiguration werden benötigt.
++
+
+NOTE: Die Informationen zum Controller-Port sind nicht in der vom RcfFileGenerator Tool generierten Verkabelungsübersicht enthalten. Daher erfolgt die Erfassung dieser Informationen über Hardware Universe.
+
+
