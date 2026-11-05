@@ -1,0 +1,171 @@
+= Aktivierung der Staukontrolle
+:allow-uri-read: 
+
+
+Ab ONTAP 9.20.1 können Sie die WAN Inter-Switch Link (ISL)-Überlastungssteuerung in MetroCluster IP Konfigurationen aktivieren, sodass ISLs, die mit geringeren oder gemischten Bandbreiten wie 10 Gbit/s, 25 Gbit/s oder 40 Gbit/s betrieben werden, mit Plattformen verwendet werden können, die eine MetroCluster IP Backend-Portgeschwindigkeit von 100 Gbit/s haben.
+
+Der vom 100-Gbit/s-Adapter erzeugte Replikationsverkehr kann ISLs mit geringerer Verbindungsgeschwindigkeit überlasten und dadurch zu Switch-Pufferdruck, PAUSE-Backpressure, Paketverlusten und potenzieller Replikationsinstabilität führen. Die WAN ISL Staukontrolle begegnet diesem Problem, indem sie anhand der ISL-Bandbreite und der Knotenanzahl eine Obergrenze für den ausgehenden Durchsatz berechnet. Diese Obergrenze dient als Schwellenwert für den ausgehenden Durchsatz, der den Interconnect-Übertragungsverkehr begrenzt. Wenn der gemessene ausgehende Durchsatz über der berechneten Obergrenze liegt, wird die Übertragung abgelehnt, sodass der Schwellenwert für den ausgehenden Durchsatz im Interconnect-Netzwerk durchgesetzt wird.
+
+
+CAUTION: Die Konfiguration der WAN ISL-Staukontrolle garantiert *nicht*, dass mögliche Performanceprobleme bei der Verwendung von ISLs mit geringerer Bandbreite ausbleiben. NetApp empfiehlt dringend den Umstieg auf eine 100-Gbit/s-ISL-Konnektivität für eine optimale Performance.
+
+.Über diese Aufgabe
+* Für die MetroCluster IP Konfiguration ist ONTAP 9.20.1 oder höher erforderlich.
+* Die WAN ISL Überlastungssteuerung ist standardmäßig deaktiviert und muss ausdrücklich aktiviert werden.
+* In den folgenden Szenarien müssen Sie sich an NetApp Support wenden, um diese Funktion zu konfigurieren:
++
+** Wenn die ISL-Informationen beim Aktivieren oder Aktualisieren der Funktion nicht automatisch abgerufen werden können
+** Wenn Sie zwei MetroCluster IP Konfigurationen mit jeweils vier Knoten haben, die mit denselben Switches verbunden sind
+** Falls Sie den berechneten Höchstwert nach der Aktivierung der Funktion ändern müssen
+
+
+* Die Konfiguration der Staukontrolle muss aktualisiert werden, um die neue Obergrenze zu berechnen, wenn sich die Topologie ändert, nachdem die Staukontrolle aktiviert wurde. Dies ist beispielsweise der Fall, wenn sich die Anzahl oder Geschwindigkeit der ISLs ändert oder wenn ein neuer Knoten zur MetroCluster IP-Konfiguration hinzugefügt wird.
+* Jeder Standort berechnet seine Obergrenze unabhängig. Wenn Sie den `metrocluster interconnect congestion-control enable` Befehl am lokalen Standort ausführen, führt dies zu den folgenden Aktionen:
++
+** Der lokale Standort bereitet seine Obergrenze vor und berechnet sie.
+** Der Partnerstandort bereitet die Obergrenze ebenfalls vor und berechnet sie getrennt vom lokalen Standort, auf dem der Befehl ausgeführt wird. Auch wenn dies technisch unwahrscheinlich ist, könnten für den lokalen Standort und den Partnerstandort unterschiedliche Obergrenzen berechnet werden. Dies ist das erwartete Verhalten und deutet nicht auf einen Fehler oder eine Fehlkonfiguration hin.
+** Jeder Standort schreibt seinen berechneten Wert als Sollzustand, und der Kernel wendet ihn dann an.
+
+
+* Die WAN ISL Staukontrolle arbeitet nach der Aktivierung automatisch.
+
+
+
+
+[[enable-congestion-control]]
+== Aktivierung der Staukontrolle
+
+Die Aktivierung der WAN-ISL-Staukontrolle erfolgt auf dem lokalen Cluster in den folgenden Schritten.
+
+
+CAUTION: Wenn Sie zwei vierknotige MetroCluster IP Konfigurationen haben, die mit denselben Switches verbunden sind, erfolgt die Aktivierung dieser Funktion über den NetApp Support.
+
+.Schritte
+. Aktivierung der WAN ISL Überlastungssteuerung auf cluster_A:
++
+[source, cli]
+----
+metrocluster interconnect congestion-control enable
+----
++
+Wenn der Befehl mit dem  `MCC_CC_ISL_INFO_UNAVAILABLE` Fehler fehlschlägt, können ISL-Informationen nicht automatisch abgerufen werden, und Sie müssen sich an NetApp Support wenden, um diese Funktion zu aktivieren.
+
+. Es ist zu prüfen, ob die WAN ISL Staukontrolle aktiviert ist:
++
+[source, cli]
+----
+metrocluster interconnect congestion-control show
+----
++
+[listing]
+----
+cluster_A::> metrocluster interconnect congestion-control show
+
+Node            Enabled Ceiling (MiB/s)
+--------------- ------- ---------------
+cluster_A-01    true    1250
+cluster_A-02    true    1250
+2 entries were displayed.
+----
+
+
+
+NOTE: Falls Sie den berechneten Höchstwert nach Aktivierung dieser Funktion ändern müssen, wenden Sie sich an den NetApp Support.
+
+
+
+[[refresh-congestion-control]]
+== Aktualisierung der Überlaststeuerung
+
+Zum Aktualisieren der WAN ISL-Stauvermeidungskonfiguration erfolgen diese Schritte auf dem lokalen Cluster. Die Stauvermeidungskonfiguration muss immer dann aktualisiert werden, wenn sich die Topologie ändert, z. B. wenn sich die Anzahl oder Geschwindigkeit der ISLs ändert oder wenn ein neuer Knoten zur MetroCluster IP-Konfiguration hinzugefügt wird.
+
+.Schritte
+. Aktualisierung der WAN ISL Konfiguration für die Staukontrolle auf cluster_A:
++
+[source, cli]
+----
+metrocluster interconnect congestion-control refresh
+----
++
+ONTAP berechnet eine neue Obergrenze auf Basis der aktuellen Netzwerkbedingungen und wendet diese automatisch an.
+
++
+Falls der Befehl mit dem  `MCC_CC_ISL_INFO_UNAVAILABLE` Fehler fehlschlägt, können ISL-Informationen nicht automatisch abgerufen werden, und Sie müssen sich an den NetApp Support wenden, um Ihre Konfiguration zu aktualisieren.
+
+
+
+
+
+[[monitor-wan-isl-congestion-control-activity]]
+== Überwachung der Aktivität der WAN ISL Staukontrolle
+
+Mit dem folgenden Befehl können Sie überprüfen, ob die Staukontrolle wie erwartet funktioniert:
+
+[source, cli]
+----
+metrocluster interconnect congestion-control show
+----
+Wenn diese Option aktiviert ist, sollte die Ausgabe in etwa dem folgenden Beispiel ähneln:
+
+[listing]
+----
+cluster_A::> metrocluster interconnect congestion-control show
+
+Node            Enabled Ceiling (MiB/s)
+--------------- ------- ---------------
+cluster_A-01    true    1250
+cluster_A-02    true    1250
+2 entries were displayed.
+----
+Sie können auch detailliertere Informationen zu jedem Knoten mithilfe des  `-instance` Parameters anzeigen:
+
+[source, cli]
+----
+metrocluster interconnect congestion-control show -instance
+----
+[listing]
+----
+cluster_A::> metrocluster interconnect congestion-control show -instance
+
+                        Node Name: cluster_A-01
+       Congestion Control Enabled: true
+       Throughput Ceiling (MiB/s): 1250
+
+                        Node Name: cluster_A-02
+       Congestion Control Enabled: true
+       Throughput Ceiling (MiB/s): 1250
+2 entries were displayed.
+----
+
+
+[[disable-congestion-control]]
+== Deaktivierung der Staukontrolle
+
+.Schritte
+. Deaktivierung der WAN ISL Überlastungssteuerung auf cluster_A:
++
+[source, cli]
+----
+metrocluster interconnect congestion-control disable
+----
+. Zu prüfen ist, ob die Funktion deaktiviert ist:
++
+[source, cli]
+----
+metrocluster interconnect congestion-control show
+----
++
+Die Ausgabe sollte dem folgenden Beispiel ähneln:
+
++
+[listing]
+----
+cluster_A::> metrocluster interconnect congestion-control show
+
+Node            Enabled Ceiling (MiB/s)
+--------------- ------- ---------------
+cluster_A-01    false   -
+cluster_A-02    false   -
+2 entries were displayed.
+----
+

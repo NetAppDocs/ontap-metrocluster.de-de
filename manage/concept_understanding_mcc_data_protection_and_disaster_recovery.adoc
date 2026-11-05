@@ -491,6 +491,22 @@ Sie können ein Volume sowohl für synchrone als auch für synchrone SVMs versch
  a| 
 Sie können eine SnapMirror Beziehung zwischen einem Quell- und Zielendpunkt einer Datensicherungsspiegelung unterbrechen.
 
+
+
+ a| 
+`vserver modify -storage-limit`
+ a| 
+Ab ONTAP 9.20.1 können Speichergrenzen für SVMs konfiguriert werden, die Teil einer MetroCluster IP Konfiguration sind.
+
+Für das Aktivieren oder Deaktivieren von Storage-Grenzwerten während eines MetroCluster Switchovers gelten folgende Einschränkungen:
+
+* Auf der SVM mit Synchronisierungsziel kann der  `vserver modify -storage-limit`Befehl zum Aktivieren oder Deaktivieren des Storage-Limits nicht verwendet werden. Das bedeutet, dass der Wert nicht von 0 auf einen Wert ungleich null oder von einem Wert ungleich null auf 0 geändert werden kann. Der Befehl schlägt mit folgendem Fehler fehl:
++
+`This operation is not permitted on a Vserver that is configured as the destination of a MetroCluster Vserver relationship`
+
+* Sie können das Storage-Limit weiterhin von einem Wert ungleich null auf einen anderen ändern (z. B. von 100TB auf 200TB). Dieser neue Wert bleibt auch nach einem Switchback erhalten.
+
+
 |===
 
 

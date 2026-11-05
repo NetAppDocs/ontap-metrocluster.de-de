@@ -16,6 +16,9 @@ Nachdem Sie Informationen gesammelt und den Vorgang fortgesetzt haben, wird die 
 .Bevor Sie beginnen
 Vor dem Starten der Umschaltung hält der Automatisierungsvorgang pausiert, sodass Sie manuell überprüfen können, ob alle LIFs „`up`“ an Standort B. sind Ggf. Beliebige LIFs mit „`deigenen`“ bis „`up`“ bereitstellen und den Automatisierungsvorgang mit dem fortsetzen `system controller replace resume` Befehl.
 
+
+NOTE: Vor der Durchführung eines Switchover empfiehlt sich eine Überprüfung der link:../manage/switchover-limitations.html["Einschränkungen, wenn die MetroCluster-Konfiguration umgeschaltet wird"].
+
 Der Automatisierungsvorgang initiiert die Umschaltvorgänge. Nach Abschluss dieser Vorgänge wird der Vorgang bei *pausiert für Benutzereingriff* angehalten, sodass Sie die Controller racken und installieren können, die Partner-Controller starten und die Root-Aggregat-Festplatten dem neuen Controller-Modul aus Flash-Backup mit dem zuvor gesammelten zuweisen können `sysids`.
 
 .Über diese Aufgabe
