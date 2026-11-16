@@ -219,10 +219,6 @@ Ja. Die Festplatten befinden sich Remote auf Cluster A
  a| 
 Node_B_1_aggr1/plex0
 
-Node_B_1_aggr0/plex0
-
-Node_B_2_aggr0/plex0
-
 Node_B_2_aggr1/plex0
 
 
@@ -242,11 +238,11 @@ Nein Festplatten sind lokal für Cluster A
 +
 [listing]
 ----
-storage aggregate plex offline -aggregate Node_B_1_aggr0 -plex plex0
+storage aggregate plex offline -aggregate Node_B_1_aggr1 -plex plex0
 ----
 +
 
-NOTE: Führen Sie diesen Schritt für alle Plexe aus, die über Remote-Festplatten für Cluster_A verfügen
+NOTE: Die Plexe der Root-Aggregate (aggr0) von Cluster_B dürfen nicht offline geschaltet werden.
 
 
 
